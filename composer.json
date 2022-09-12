@@ -1,0 +1,51 @@
+{
+  "name": "qsoft/new-project",
+  "description": "new project",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "QSoft Team",
+      "email": "support@qsoft.ru"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@gitlab.crt:ready-made-solutions/qsoft-application.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@gitlab.crt:ready-made-solutions/qsoft_database.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@gitlab.crt:ready-made-solutions/qsoft-foundation.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@gitlab.crt:ready-made-solutions/qsoft_migration.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@gitlab.crt:ready-made-solutions/qsoft-queue.git"
+    }
+  ],
+  "require": {
+    "php": "~7.4.16",
+    "qsoft/foundation": "~5.0",
+    "qsoft/migration": "~6.1.0",
+    "qsoft/database": "~5.0.1",
+    "qsoft/queue": "~5.7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "QSoft\\": ["app/core/local/src"],
+      "QSoft\\Commands\\": ["app/commands"]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "kylekatarnls/update-helper": false
+    }
+  }
+}
