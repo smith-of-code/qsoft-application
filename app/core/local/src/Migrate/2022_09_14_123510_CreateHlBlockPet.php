@@ -15,6 +15,7 @@ class CreateHlBlockPet extends BaseCreateHighloadMigration
     ];
 
     protected array $fields = [
+        // TODO: Пока оставляем так
         [
             'FIELD_NAME' => 'UF_USER_ID',
             'USER_TYPE_ID' => 'integer',

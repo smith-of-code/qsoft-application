@@ -15,7 +15,7 @@ class CreateHlBlockLegalEntity extends BaseCreateHighloadMigration
     ];
 
     protected array $fields = [
-        // TODO: Поменять тип на привязку к блоку юзеров
+        // TODO: Пока оставляем так, потом надо будет, вероятно, сделать привязку
         [
             'FIELD_NAME' => 'UF_USER_ID',
             'USER_TYPE_ID' => 'integer',
