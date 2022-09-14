@@ -4,17 +4,17 @@ use QSoft\Migrate\BaseCreateHighloadMigration;
 
 class CreateHlBlockPet extends BaseCreateHighloadMigration
 {
-    protected array $HLBLOCK = [
+    protected array $blockInfo = [
         'NAME'       => 'HlPets',
         'TABLE_NAME' => 'pet',
     ];
 
-    protected array $HLBLOCK_LANG = [
+    protected array $blockLang = [
         'LID' => 'ru',
         'NAME' => 'HL-блок питомцев',
     ];
 
-    protected array $FIELDS = [
+    protected array $fields = [
         [
             'FIELD_NAME' => 'UF_USER_ID',
             'USER_TYPE_ID' => 'integer',
@@ -75,7 +75,7 @@ class CreateHlBlockPet extends BaseCreateHighloadMigration
         ],
     ];
 
-    protected array $ENUM_VALUES = [
+    protected array $enumValues = [
         'UF_KIND' => [
             'n1' => [
                 'XML_ID' => 'KIND_DOG',
