@@ -30,9 +30,7 @@ class BaseCreateHighloadMigration extends Migration
             $this->beforeUp();
         }
 
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Не удалось загрузить модуль highloadblock');
-        }
+        $this->includeHighloadModule();
 
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
@@ -81,9 +79,7 @@ class BaseCreateHighloadMigration extends Migration
             $this->beforeDown();
         }
 
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Не удалось загрузить модуль highloadblock');
-        }
+        $this->includeHighloadModule();
 
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
@@ -115,6 +111,13 @@ class BaseCreateHighloadMigration extends Migration
 
         if (method_exists($this, 'afterDown')) {
             $this->afterDown();
+        }
+    }
+
+    protected function includeHighloadModule()
+    {
+        if (!Loader::includeModule('highloadblock')) {
+            throw new \RuntimeException('Не удалось загрузить модуль highloadblock');
         }
     }
 }
