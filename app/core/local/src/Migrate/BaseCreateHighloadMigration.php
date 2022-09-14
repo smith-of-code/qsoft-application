@@ -10,19 +10,19 @@ use QSoft\Migration\Migration;
 
 class BaseCreateHighloadMigration extends Migration
 {
-    protected array $blockInfo = array(
+    protected array $blockInfo = [
         'NAME'       => '',
         'TABLE_NAME' => '',
-    );
+    ];
 
-    protected array $blockLang = array(
+    protected array $blockLang = [
         'LID' => 'ru',
         'NAME' => '',
-    );
+    ];
 
-    protected array $fields = array();
+    protected array $fields = [];
 
-    protected array $enumValues = array();
+    protected array $enumValues = [];
 
     public function up()
     {
@@ -44,7 +44,7 @@ class BaseCreateHighloadMigration extends Migration
 
         $hlBlockId = $result->getId();
 
-        $result = HighloadBlockLangTable::add(array('ID' => $hlBlockId) + $this->blockLang);
+        $result = HighloadBlockLangTable::add(['ID' => $hlBlockId] + $this->blockLang);
         if (!$result->isSuccess()) {
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
         }
@@ -53,7 +53,7 @@ class BaseCreateHighloadMigration extends Migration
         $enumManager = new \CUserFieldEnum();
 
         foreach ($this->fields as $field) {
-            $fieldId = $entityManager->Add(array('ENTITY_ID' => "HLBLOCK_{$hlBlockId}") + $field);
+            $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
             if (!$fieldId) {
                 throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], $this->blockInfo['NAME']));
             }
@@ -88,12 +88,12 @@ class BaseCreateHighloadMigration extends Migration
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
 
-        $hlBlock = HighloadBlockTable::getRow(array('filter' => array('=NAME' => $this->blockInfo['NAME'])));
+        $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $this->blockInfo['NAME']]]);
         if (!$hlBlock) {
             throw new \RuntimeException(sprintf('Не найден hl-блок %s', $this->blockInfo['NAME']));
         }
 
-        $result = \CUserTypeEntity::GetList(array(), array('ENTITY_ID' => "HLBLOCK_{$hlBlock['ID']}"));
+        $result = \CUserTypeEntity::GetList([], ['ENTITY_ID' => "HLBLOCK_{$hlBlock['ID']}"]);
         if (!$result) {
             throw new \RuntimeException(sprintf('Не удалось получить список полей hl-блока %s', $this->blockInfo['NAME']));
         }
