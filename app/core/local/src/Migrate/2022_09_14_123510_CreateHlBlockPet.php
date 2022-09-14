@@ -1,23 +1,20 @@
 <?php
 
-use Bitrix\Main\Application;
-use Bitrix\Main\Loader;
-use Bitrix\Highloadblock\HighloadBlockTable;
-use Bitrix\Highloadblock\HighloadBlockLangTable;
-use QSoft\Migration\Migration;
+use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockPet extends Migration {
-    const HLBLOCK = [
+class CreateHlBlockPet extends BaseCreateHighloadMigration
+{
+    protected array $HLBLOCK = [
         'NAME'       => 'HlPets',
         'TABLE_NAME' => 'pet',
     ];
 
-    const HLBLOCK_LANG = [
+    protected array $HLBLOCK_LANG = [
         'LID' => 'ru',
         'NAME' => 'HL-блок питомцев',
     ];
 
-    const FIELDS = [
+    protected array $FIELDS = [
         [
             'FIELD_NAME' => 'UF_USER_ID',
             'USER_TYPE_ID' => 'integer',
@@ -78,7 +75,7 @@ class CreateHlBlockPet extends Migration {
         ],
     ];
 
-    const ENUM_VALUES = [
+    protected array $ENUM_VALUES = [
         'UF_KIND' => [
             'n1' => [
                 'XML_ID' => 'KIND_DOG',
@@ -117,83 +114,4 @@ class CreateHlBlockPet extends Migration {
             ],
         ],
     ];
-
-    public function up()
-    {
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Не удалось загрузить модуль highloadblock');
-        }
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
-
-        $result = HighloadBlockTable::add(self::HLBLOCK);
-        if (!$result->isSuccess()) {
-            throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
-        }
-
-        $hlBlockId = $result->getId();
-
-        $result = HighloadBlockLangTable::add(['ID' => $hlBlockId] + self::HLBLOCK_LANG);
-        if (!$result->isSuccess()) {
-            throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
-        }
-
-        $entityManager = new \CUserTypeEntity();
-        $enumManager = new \CUserFieldEnum();
-
-        foreach (self::FIELDS as $field) {
-            $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
-            if (!$fieldId) {
-                throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], self::HLBLOCK['NAME']));
-            }
-
-            switch ($field['USER_TYPE_ID']) {
-                case 'string':
-                    $tableName = self::HLBLOCK['TABLE_NAME'];
-                    $connection->query("ALTER TABLE $tableName MODIFY {$field['FIELD_NAME']} varchar(255) NOT NULL DEFAULT ''");
-                    break;
-                case 'enumeration':
-                    $enumManager->SetEnumValues($fieldId, self::ENUM_VALUES[$field['FIELD_NAME']]);
-                    break;
-            }
-        }
-
-        $connection->commitTransaction();
-    }
-
-    public function down()
-    {
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Не удалось загрузить модуль highloadblock');
-        }
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
-
-        $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => self::HLBLOCK['NAME']]]);
-        if (!$hlBlock) {
-            throw new \RuntimeException(sprintf('Не найден hl-блок %s', self::HLBLOCK['NAME']));
-        }
-
-        $result = \CUserTypeEntity::GetList([], ['ENTITY_ID' => "HLBLOCK_{$hlBlock['ID']}"]);
-        if (!$result) {
-            throw new \RuntimeException(sprintf('Не удалось получить список полей hl-блока %s', self::HLBLOCK['NAME']));
-        }
-
-        $enumManager = new \CUserFieldEnum();
-
-        while ($field = $result->Fetch()) {
-            if ($field['USER_TYPE_ID'] === 'enumeration') {
-                $enumManager->DeleteFieldEnum($field['ID']);
-            }
-        }
-
-        $result = HighloadBlockTable::delete($hlBlock['ID']);
-        if (!$result->isSuccess()) {
-            throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
-        }
-
-        $connection->commitTransaction();
-    }
 }
