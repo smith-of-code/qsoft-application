@@ -79,7 +79,7 @@ class CreateHlBlockPet extends Migration {
     ];
 
     const ENUM_VALUES = [
-        'KIND' => [
+        'UF_KIND' => [
             'n1' => [
                 'XML_ID' => 'KIND_DOG',
                 'VALUE' => 'собака',
@@ -93,7 +93,7 @@ class CreateHlBlockPet extends Migration {
                 'SORT' => 20,
             ],
         ],
-        'GENDER' => [
+        'UF_GENDER' => [
             'n1' => [
                 'XML_ID' => 'GENDER_MALE',
                 'VALUE' => 'мальчик',
@@ -108,7 +108,7 @@ class CreateHlBlockPet extends Migration {
             ],
         ],
         // TODO: Добавить все породы в рамках этой миграции или следующей
-        'BREED' => [
+        'UF_BREED' => [
             'n1' => [
                 'XML_ID' => 'BREED_DOG_DACHSHUND',
                 'VALUE' => 'Датская',
@@ -145,8 +145,6 @@ class CreateHlBlockPet extends Migration {
         foreach (self::FIELDS as $field) {
             $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
             if (!$fieldId) {
-                global $APPLICATION;
-                var_dump($APPLICATION->GetException());
                 throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], self::HLBLOCK['NAME']));
             }
 
