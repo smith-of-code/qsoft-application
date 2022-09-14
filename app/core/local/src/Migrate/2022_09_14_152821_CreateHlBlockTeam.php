@@ -14,7 +14,6 @@ class CreateHlBlockLegalEntity extends BaseCreateHighloadMigration
         'NAME' => 'HL-блок групп пользователей',
     ];
 
-    // TODO: Поменять тип на привязку к блоку юзеров
     protected array $fields = [
         [
             'FIELD_NAME' => 'UF_MENTOR_ID',
