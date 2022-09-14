@@ -44,3 +44,4 @@ exclude
 !composer.json
 !package.json
 !package-lock.json
+/tools
