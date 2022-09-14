@@ -43,6 +43,7 @@ class CreateHlBlockPet extends BaseCreateHighloadMigration
             'LIST_COLUMN_LABEL' => ['ru' => 'Тип питомца'],
             'LIST_FILTER_LABEL' => ['ru' => 'Тип питомца'],
         ],
+        // TODO: Пока оставляем общим списком, потом вынесем в отдельный блок
         [
             'FIELD_NAME' => 'UF_BREED',
             'USER_TYPE_ID' => 'enumeration',
