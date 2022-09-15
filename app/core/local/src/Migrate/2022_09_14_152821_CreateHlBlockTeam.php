@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\TeamSeeder;
 
 final class CreateHlBlockTeam extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = TeamSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlTeams',
         'TABLE_NAME' => 'team',
