@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\WishlistSeeder;
 
 final class CreateHlBlockWishlist extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = WishlistSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlWishlist',
         'TABLE_NAME' => 'wishlist',
