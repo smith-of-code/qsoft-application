@@ -144,10 +144,12 @@ module.exports = (env) => {
             new SpriteLoaderPlugin({
                 plainSprite: true
             }),
-            new CopyWebpackPlugin([
+            new CopyWebpackPlugin({
+		    patterns: [
                 {from:'assets/images', to: 'images'},
                 {from: 'assets/fonts', to: 'fonts'}
-            ]),
+		    ],
+	    }),
         ]
     }
 };
