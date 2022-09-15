@@ -47,13 +47,13 @@ class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
 
     protected array $enumValues = [
         'UF_TYPE' => [
-            [
+            'n1' => [
                 'XML_ID' => 'BANNER',
                 'VALUE' => 'Баннер',
                 'DEF' => 'N',
                 'SORT' => 10,
             ],
-            [
+            'n2' => [
                 'XML_ID' => 'PRODUCT',
                 'VALUE' => 'Товар',
                 'DEF' => 'N',
