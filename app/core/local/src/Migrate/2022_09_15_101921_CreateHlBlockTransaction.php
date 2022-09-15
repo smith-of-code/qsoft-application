@@ -26,7 +26,7 @@ class CreateHlBlockTransaction extends BaseCreateHighloadMigration
         ],
         [
             'FIELD_NAME' => 'UF_CREATED_AT',
-            'USER_TYPE_ID' => 'DATETIME',
+            'USER_TYPE_ID' => 'datetime',
             'XML_ID' => 'UF_CREATED_AT',
             'SORT' => 100,
             'EDIT_FORM_LABEL' => ['ru' => 'Дата создания'],
