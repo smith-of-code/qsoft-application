@@ -3,11 +3,9 @@
 namespace QSoft\Seeder;
 
 use Bitrix\Main\Loader;
-use Bitrix\Main\Type\DateTime;
 use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
-use DateInterval;
 use CUserTypeEntity;
 use QSoft\Factory\PetFactory;
 use RuntimeException;
