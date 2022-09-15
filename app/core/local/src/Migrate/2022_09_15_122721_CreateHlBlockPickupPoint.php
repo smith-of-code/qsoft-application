@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\PickupPointSeeder;
 
 final class CreateHlBlockPickupPoint extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = PickupPointSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlPickupPoint',
         'TABLE_NAME' => 'pickup_point',
