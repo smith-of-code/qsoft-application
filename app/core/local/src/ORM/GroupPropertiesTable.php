@@ -11,7 +11,7 @@ class GroupPropertiesTable extends Entity\DataManager
 {
     public static function getTableName(): string
     {
-        return 'team';
+        return 'group_properties';
     }
 
     public static function getMap(): array
