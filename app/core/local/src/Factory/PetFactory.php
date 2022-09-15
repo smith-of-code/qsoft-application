@@ -4,14 +4,12 @@ namespace QSoft\Factory;
 
 use Bitrix\Main\Security\Random;
 use Bitrix\Main\Type\DateTime;
-use DateInterval;
 
 final class PetFactory extends Factorable
 {
     protected function makeOne(): array
     {
-        $now = new DateTime();
-        $intervalString = '-' . Random::getInt(1, 365 * 10) . ' days';
+        $intervalString = sprintf('-%d days', Random::getInt(100, 365 * 12));
 
         return [
             'UF_NAME' => Random::getString(rand(10, 20)),
@@ -20,7 +18,7 @@ final class PetFactory extends Factorable
             'UF_KIND' => $this->additionalInfo['kinds'][array_rand($this->additionalInfo['kinds'])],
             'UF_GENDER' => $this->additionalInfo['genders'][array_rand($this->additionalInfo['genders'])],
             'UF_BREED' => $this->additionalInfo['breeds'][array_rand($this->additionalInfo['breeds'])],
-            'UF_BIRTHDATE' => $now->add(DateInterval::createFromDateString($intervalString))->format('d.m.Y'),
+            'UF_BIRTHDATE' => DateTime::createFromTimestamp(strtotime($intervalString)),
         ];
     }
 }
