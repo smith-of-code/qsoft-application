@@ -1,0 +1,97 @@
+
+// Colors
+
+/*
+    Название переменной конкретного цвета генерируется через сервис: http://chir.ag/projects/name-that-color/.
+    Значение цвета всегда указывается в HEX-формате в нижнем регистре (кроме исключительных случаев).
+*/
+
+$tuna: #3a3a43;
+$saltBox: #69676d;
+$alto: #d0d0d0;
+$athensGray: #f4f3f6;
+$white: #ffffff;
+$brickRed: #d82f49;
+$seaGreen: #2d8859;
+$pastelPink: #ffd2d9;
+
+
+$tara: #daf5e9;
+$piper: #d26925;
+$dairyCream: #f9dbc0;
+$bostonBlue: #3887b5;
+$onahau: #d0edfe;
+$wisteria: #945dab;
+$snuff: #ddcfe3;
+$buddhaGold: #c99308;
+$eggWhite: #fff5bf;
+$hibiscus: #c73c5e;
+$azalea: #fad0d3;
+$lochinvar: #2c877f;
+$mintTulip: #c5f2f2;
+
+
+$color-text: $tuna;
+
+
+// Fonts
+
+$font-path: "/local/templates/.default/fonts/";
+
+
+$font-family-default: "Arial", "Helvetica", sans-serif;
+$font-family-custom: "Montserrat";
+
+$font-family: $font-family-custom, $font-family-default;
+
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-medium: 500;
+
+
+$font-size-base: 16px;
+
+
+// Breakpoints
+
+$screen-desktop: "(min-width: 1440px)";
+
+
+// Gaps
+
+$gap-normal: 16px;
+
+// Sizes
+
+$width-container: 1170px;
+
+$gap-container: $gap-normal;
+
+$height-header-mobile: 80px;
+$height-header-desktop: 148px;
+
+
+// Z-indexes
+
+$z-index-html: 1;
+$z-index-header-default: 130;
+
+
+// Transitions and Animations
+
+$transition-duration: 300ms;
+$transition-duration-fast: 100ms;
+$transition-duration-slow: 800ms;
+$transition-function: ease-in-out;
+
+
+// border
+
+
+// Radius
+
+
+// Box-shadows
+
+
