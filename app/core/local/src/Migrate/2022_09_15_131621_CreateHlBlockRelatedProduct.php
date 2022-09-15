@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\RelatedProductSeeder;
 
 final class CreateHlBlockRelatedProduct extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = RelatedProductSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlRelatedProduct',
         'TABLE_NAME' => 'related_product',
