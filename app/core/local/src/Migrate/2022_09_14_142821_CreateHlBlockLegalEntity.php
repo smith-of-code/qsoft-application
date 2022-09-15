@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\LegalEntitySeeder;
 
 final class CreateHlBlockLegalEntity extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = LegalEntitySeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlLegalEntities',
         'TABLE_NAME' => 'legal_entity',
