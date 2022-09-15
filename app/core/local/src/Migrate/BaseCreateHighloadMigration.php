@@ -7,6 +7,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Highloadblock\HighloadBlockLangTable;
 use QSoft\Migration\Migration;
+use QSoft\Seeder\Seederable;
 
 class BaseCreateHighloadMigration extends Migration
 {
@@ -23,6 +24,8 @@ class BaseCreateHighloadMigration extends Migration
     protected array $fields = [];
 
     protected array $enumValues = [];
+
+    protected ?Seederable $seeder = null;
 
     public function up()
     {
@@ -81,6 +84,10 @@ class BaseCreateHighloadMigration extends Migration
         }
 
         $connection->commitTransaction();
+
+        if ($this->seeder instanceof Seederable) {
+            $this->seeder::seed($this->blockInfo['NAME']);
+        }
 
         if (method_exists($this, 'afterUp')) {
             $this->afterUp();
