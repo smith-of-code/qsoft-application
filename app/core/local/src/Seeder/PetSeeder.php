@@ -9,6 +9,7 @@ use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
 use DateInterval;
 use CUserTypeEntity;
+use QSoft\Factory\PetFactory;
 use RuntimeException;
 
 class PetSeeder implements Seederable
@@ -49,17 +50,14 @@ class PetSeeder implements Seederable
         }
 
         $entityManager = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
-        $counts = rand(1, 10);
-        for ($i = 0; $i < $counts; $i++) {
-            $entityManager::add([
-                'UF_USER_ID' => 1,
-                'UF_NAME' => 'Питомец ' . $i,
-                'UF_KIND' => $kindEnumIds[array_rand($kindEnumIds)],
-                'UF_GENDER' => $genderEnumIds[array_rand($genderEnumIds)],
-                'UF_BREED' => $breedEnumIds[array_rand($breedEnumIds)],
-                'UF_BIRTHDATE' => (new DateTime())->add(DateInterval::createFromDateString('-' . rand(1, 10) . ' years'))->format('d.m.Y'),
-            ]);
-        }
+        $pets = PetFactory::create()->setCount(rand(5, 15))->setAdditionalInfo([
+            'genders' => $genderEnumIds,
+            'kinds' => $kindEnumIds,
+            'breeds' => $breedEnumIds,
+        ])->make();
+        array_walk($pets, static function ($pet) use ($entityManager) {
+            $entityManager::add($pet);
+        });
 
         $connection->commitTransaction();
     }
