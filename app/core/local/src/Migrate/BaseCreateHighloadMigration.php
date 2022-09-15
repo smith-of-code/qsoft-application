@@ -25,7 +25,7 @@ class BaseCreateHighloadMigration extends Migration
 
     protected array $enumValues = [];
 
-    protected ?Seederable $seeder = null;
+    protected ?string $seeder = null;
 
     public function up()
     {
@@ -85,8 +85,16 @@ class BaseCreateHighloadMigration extends Migration
 
         $connection->commitTransaction();
 
-        if ($this->seeder instanceof Seederable) {
-            $this->seeder::seed($this->blockInfo['NAME']);
+        if ($this->seeder) {
+            $class = $this->seeder;
+            try {
+                $seeder = new $class();
+                if ($seeder instanceof Seederable) {
+                    $seeder::seed($this->blockInfo['NAME']);
+                }
+            } catch (\Throwable $e) {
+                throw new \RuntimeException(sprintf('Не удалось запустить сидер %s', $class));
+            }
         }
 
         if (method_exists($this, 'afterUp')) {
