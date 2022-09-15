@@ -85,13 +85,13 @@ class CreateHlBlockPickupPoint extends BaseCreateHighloadMigration
         'UF_CITY' => [
             'n1' => [
                 'VALUE' => 'Москва',
-                'XML_ID' => 'moscow',
+                'XML_ID' => 'PICKUP_POINT_CITY_MOSCOW',
                 'DEF' => 'N',
                 'SORT' => 10,
             ],
             'n2' => [
                 'VALUE' => 'Санкт-Петербург',
-                'XML_ID' => 'saint_petersburg',
+                'XML_ID' => 'PICKUP_POINT_CITY_SPB',
                 'DEF' => 'N',
                 'SORT' => 20,
             ],
