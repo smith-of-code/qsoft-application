@@ -9,6 +9,7 @@ use Bitrix\Main\Application;
 use CUserTypeEntity;
 use QSoft\Factory\PetFactory;
 use RuntimeException;
+use CUser;
 
 class PetSeeder implements Seederable
 {
@@ -47,11 +48,18 @@ class PetSeeder implements Seederable
             }
         }
 
+        $userIds = [];
+        $users = CUser::GetList();
+        while ($user = $users->Fetch()) {
+            $userIds[] = $user['ID'];
+        }
+
         $entityManager = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
-        $pets = PetFactory::create()->setCount(rand(5, 15))->setAdditionalInfo([
+        $pets = PetFactory::create()->setCount(rand(2, 5) * count($userIds))->setAdditionalInfo([
             'genders' => $genderEnumIds,
             'kinds' => $kindEnumIds,
             'breeds' => $breedEnumIds,
+            'users' => $userIds,
         ])->make();
         array_walk($pets, static function ($pet) use ($entityManager) {
             $entityManager::add($pet);
