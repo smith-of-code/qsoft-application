@@ -11,19 +11,10 @@ class CreateHlBlockPickupPoint extends BaseCreateHighloadMigration
 
     protected array $blockLang = [
         'LID' => 'ru',
-        'NAME' => 'HL-блок избранных товаров',
+        'NAME' => 'HL-блок пунктов выдачи',
     ];
 
     protected array $fields = [
-        [
-            'FIELD_NAME' => 'UF_USER_ID',
-            'USER_TYPE_ID' => 'integer',
-            'XML_ID' => 'UF_USER_ID',
-            'SORT' => 100,
-            'EDIT_FORM_LABEL' => ['ru' => 'Идентификатор пользователя'],
-            'LIST_COLUMN_LABEL' => ['ru' => 'Идентификатор пользователя'],
-            'LIST_FILTER_LABEL' => ['ru' => 'Идентификатор пользователя'],
-        ],
         [
             'FIELD_NAME' => 'UF_NAME',
             'USER_TYPE_ID' => 'string',
