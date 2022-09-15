@@ -67,6 +67,15 @@ class CreateHlBlockTransaction extends BaseCreateHighloadMigration
             'LIST_COLUMN_LABEL' => ['ru' => 'Мера значения суммы транзакции'],
             'LIST_FILTER_LABEL' => ['ru' => 'Мера значения суммы транзакции'],
         ],
+        [
+            'FIELD_NAME' => 'UF_AMOUNT',
+            'USER_TYPE_ID' => 'double',
+            'XML_ID' => 'UF_AMOUNT',
+            'SORT' => 100,
+            'EDIT_FORM_LABEL' => ['ru' => 'Сумма транзакции'],
+            'LIST_COLUMN_LABEL' => ['ru' => 'Сумма транзакции'],
+            'LIST_FILTER_LABEL' => ['ru' => 'Сумма транзакции'],
+        ],
     ];
 
     protected array $enumValues = [
