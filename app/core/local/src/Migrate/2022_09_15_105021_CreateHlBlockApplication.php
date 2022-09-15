@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockApplication extends BaseCreateHighloadMigration
+final class CreateHlBlockApplication extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlApplication',

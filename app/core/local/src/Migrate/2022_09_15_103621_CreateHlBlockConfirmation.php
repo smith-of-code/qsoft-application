@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockConfirmation extends BaseCreateHighloadMigration
+final class CreateHlBlockConfirmation extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlConfirmation',

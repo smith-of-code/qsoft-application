@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\PetSeeder;
 
-class CreateHlBlockPet extends BaseCreateHighloadMigration
+final class CreateHlBlockPet extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = PetSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlPets',
         'TABLE_NAME' => 'pet',

@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockTeam extends BaseCreateHighloadMigration
+final class CreateHlBlockTeam extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlTeams',

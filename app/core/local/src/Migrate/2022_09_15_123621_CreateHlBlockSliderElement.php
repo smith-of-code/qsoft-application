@@ -3,7 +3,7 @@
 use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
+final class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlSliderElement',

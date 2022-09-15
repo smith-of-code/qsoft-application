@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockSlider extends BaseCreateHighloadMigration
+final class CreateHlBlockSlider extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlSlider',

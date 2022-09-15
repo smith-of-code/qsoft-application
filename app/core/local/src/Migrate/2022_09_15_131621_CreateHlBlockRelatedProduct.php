@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockRelatedProduct extends BaseCreateHighloadMigration
+final class CreateHlBlockRelatedProduct extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlRelatedProduct',

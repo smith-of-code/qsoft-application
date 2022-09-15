@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockTransaction extends BaseCreateHighloadMigration
+final class CreateHlBlockTransaction extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlTransaction',

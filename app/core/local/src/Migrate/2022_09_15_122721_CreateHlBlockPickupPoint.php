@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockPickupPoint extends BaseCreateHighloadMigration
+final class CreateHlBlockPickupPoint extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlPickupPoint',

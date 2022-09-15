@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlBlockWishlist extends BaseCreateHighloadMigration
+final class CreateHlBlockWishlist extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlWishlist',
