@@ -6,7 +6,7 @@ class CreateHlBlockNotification extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlNotification',
-        'TABLE_NAME' => 'Notification',
+        'TABLE_NAME' => 'notification',
     ];
 
     protected array $blockLang = [
