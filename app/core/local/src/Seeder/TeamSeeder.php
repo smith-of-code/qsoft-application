@@ -3,11 +3,8 @@
 namespace QSoft\Seeder;
 
 use Bitrix\Main\Loader;
-use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
-use CUserTypeEntity;
-use QSoft\Factory\PetFactory;
 use QSoft\Factory\TeamFactory;
 use RuntimeException;
 use CUser;
