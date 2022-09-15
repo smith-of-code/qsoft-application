@@ -42,10 +42,10 @@ abstract class Factorable
 
     /**
      * @param  string|array  $key
-     * @param  mixed $value
+     * @param  mixed|null $value
      * @return Factorable
      */
-    public function setAdditionalInfo($key, $value): self
+    public function setAdditionalInfo($key, $value = null): self
     {
         if (is_array($key)) {
             $this->additionalInfo = array_merge($this->additionalInfo, $key);
