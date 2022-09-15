@@ -2,9 +2,12 @@
 
 use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\SliderElementSeeder;
 
 final class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = SliderElementSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlSliderElement',
         'TABLE_NAME' => 'slider_element',
