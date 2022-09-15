@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
 class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
@@ -60,4 +61,32 @@ class CreateHlBlockSliderElement extends BaseCreateHighloadMigration
             ],
         ],
     ];
+
+    protected function beforeUp(): void
+    {
+        $this->includeHighloadModule();
+
+        $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => 'HlSlider']]);
+        if (!$hlBlock) {
+            throw new \RuntimeException(sprintf('Не найден hl-блок %s', $this->blockInfo['NAME']));
+        }
+
+        $fields = \CUserTypeEntity::GetList([], ['ENTITY_ID' => "HLBLOCK_{$hlBlock['ID']}"]);
+
+        $foundField = false;
+        while(($field = $fields->Fetch()) && !$foundField) {
+            if ($field['FIELD_NAME'] === 'ID') {
+                $foundField = true;
+
+                $this->fields[0]['SETTINGS'] = [
+                    'HLBLOCK_ID' => $hlBlock['ID'],
+                    'HLFIELD_ID' => $field['ID'],
+                ];
+            }
+        }
+
+        if (!$foundField) {
+            throw new \RuntimeException(sprintf('Не найдено поле ID в hl-блоке %s', $this->blockInfo['NAME']));
+        }
+    }
 }
