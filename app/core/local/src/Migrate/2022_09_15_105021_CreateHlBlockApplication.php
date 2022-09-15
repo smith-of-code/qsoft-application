@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\ApplicationSeeder;
 
 final class CreateHlBlockApplication extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = ApplicationSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlApplication',
         'TABLE_NAME' => 'application',
