@@ -55,18 +55,31 @@ $font-size-base: 16px;
 
 // Breakpoints
 
+$screen-desktop: "(min-width: 1440px)";
+
 
 // Gaps
 
+$gap-normal: 16px;
 
 // Sizes
 
+$width-container: 1170px;
+
+$gap-container: $gap-normal;
+
+$height-header-mobile: 80px;
+$height-header-desktop: 148px;
+
 
 // Z-indexes
+
 $z-index-html: 1;
+$z-index-header-default: 130;
 
 
 // Transitions and Animations
+
 $transition-duration: 300ms;
 $transition-duration-fast: 100ms;
 $transition-duration-slow: 800ms;
