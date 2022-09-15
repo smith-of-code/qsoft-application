@@ -12,8 +12,8 @@
     <body class="page page--banner">
 
         <!--header-->
-        <header class="page__header header">
-
+        <header class="page__header header" style="background-color: cadetblue">
+            Хедер
         </header>
         <!--/header-->
 
@@ -44,8 +44,8 @@
         <!--content-->
 
         <!--Футер-->
-        <footer class="page__footer footer">
-
+        <footer class="page__footer footer" style="background-color: cadetblue">
+            Футер
         </footer>
         <!--/Футер-->
     </body>
