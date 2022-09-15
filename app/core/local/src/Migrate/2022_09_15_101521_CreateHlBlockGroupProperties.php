@@ -2,7 +2,7 @@
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
 
-class CreateHlGroupProperties extends BaseCreateHighloadMigration
+class CreateHlBlockGroupProperties extends BaseCreateHighloadMigration
 {
     protected array $blockInfo = [
         'NAME'       => 'HlGroupProperties',
