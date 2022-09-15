@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\NotificationSeeder;
 
 final class CreateHlBlockNotification extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = NotificationSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlNotification',
         'TABLE_NAME' => 'notification',
