@@ -1,0 +1,4 @@
+<?php
+
+$MESS['SLIDER_ENTITY_ID_FIELD'] = 'ID';
+$MESS['SLIDER_ENTITY_UF_TITLE_FIELD'] = 'Заголовок';
