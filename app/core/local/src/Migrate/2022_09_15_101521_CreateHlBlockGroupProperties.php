@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\GroupPropertySeeder;
 
 final class CreateHlBlockGroupProperties extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = GroupPropertySeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlGroupProperties',
         'TABLE_NAME' => 'group_properties',
