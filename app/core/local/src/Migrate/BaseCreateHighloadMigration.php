@@ -51,18 +51,31 @@ class BaseCreateHighloadMigration extends Migration
         $enumManager = new \CUserFieldEnum();
 
         foreach ($this->fields as $field) {
+            $isText = false;
+            if (strtolower($field['USER_TYPE_ID']) === 'text') {
+                $isText = true;
+                $field['USER_TYPE_ID'] = 'string';
+            }
+
             $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
             if (!$fieldId) {
                 throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], $this->blockInfo['NAME']));
             }
 
-            switch ($field['USER_TYPE_ID']) {
+            if ($isText) {
+                $field['USER_TYPE_ID'] = 'text';
+            }
+
+            switch (strtolower($field['USER_TYPE_ID'])) {
                 case 'string':
                     $maxLength = $field['SETTINGS']['MAX_LENGTH'] ?? 255;
                     $connection->query("ALTER TABLE {$this->blockInfo['TABLE_NAME']} MODIFY {$field['FIELD_NAME']} varchar($maxLength) NOT NULL DEFAULT ''");
                     break;
                 case 'enumeration':
                     $enumManager->SetEnumValues($fieldId, $this->enumValues[$field['FIELD_NAME']]);
+                    break;
+                case 'text':
+                    $connection->query("ALTER TABLE {$this->blockInfo['TABLE_NAME']} MODIFY {$field['FIELD_NAME']} text NOT NULL DEFAULT ''");
                     break;
             }
         }
