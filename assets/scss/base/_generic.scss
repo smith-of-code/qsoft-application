@@ -21,5 +21,150 @@ html {
 
 
 .body {
-    background-color: red;
+    @include text-medium;
+
+    text-rendering: optimizeLegibility;
+}
+
+
+h1 {
+    @include title-1;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-bottom: rem($gap-normal);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+h2 {
+    @include title-2;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-bottom: rem($gap-normal);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+h3 {
+    @include title-3;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-top: rem($gap-medium);
+        margin-bottom: rem($gap-medium);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+h4 {
+    @include title-4;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-top: rem($gap-small);
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+h5 {
+    @include title-5;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-top: rem($gap-small);
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+h6 {
+    @include title-6;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-top: rem($gap-small);
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:not([class]) {
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}
+
+
+ul {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include list-reset;
+
+    &:not([class]) {
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+
+        ul,
+        ol {
+            margin-top: rem($gap-small);
+            margin-bottom: rem($gap-small);
+        }
+
+        & > li {
+            $size-dot: 6px;
+
+            position: relative;
+
+            margin-bottom: rem($gap-small);
+            padding-left: rem(14px);
+
+            @include resetting-vertical-indentation-of-last;
+
+            &::before {
+                position: absolute;
+                top: em(8px); // magic num
+                left: 0;
+
+                display: block;
+
+                width: rem($size-dot);
+                height: rem($size-dot);
+
+                content: "";
+
+                color: $brickRed;
+                border-radius: 50%;
+                background-color: currentColor;
+            }
+        }
+    }
 }

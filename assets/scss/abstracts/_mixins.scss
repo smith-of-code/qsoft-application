@@ -102,3 +102,198 @@
 }
 
 // Text
+
+@mixin title-1 ($font-weight: $font-weight-bold) {
+    $font-size: $font-size-middle;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-middle / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-huge;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-huge / $font-size);
+    }
+}
+
+@mixin title-2 ($font-weight: $font-weight-bold) {
+    $font-size: $font-size-average;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-normal / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-large;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-large / $font-size);
+    }
+}
+
+@mixin title-3 ($font-weight: $font-weight-bold) {
+    $font-size: $font-size-medium;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-medium / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-middle;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-middle / $font-size);
+    }
+}
+
+@mixin title-4 ($font-weight: $font-weight-bold) {
+    $font-size: $font-size-normal;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-normal / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-average;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-average / $font-size);
+    }
+}
+
+@mixin title-5 ($font-weight: $font-weight-semibold) {
+    $font-size: $font-size-small;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-small / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-normal;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-normal / $font-size);
+    }
+}
+
+
+@mixin title-6 ($font-weight: $font-weight-semibold) {
+    $font-size: $font-size-mini;
+
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+    line-height: ($line-height-mini / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-small;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-small / $font-size);
+    }
+}
+
+
+@mixin text-average ($font-weight: null) {
+    $font-size: $font-size-small;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-small / $font-size);
+
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-average;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-average / $font-size);
+    }
+}
+
+@mixin text-medium ($font-weight: null) {
+    $font-size: $font-size-small;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-small / $font-size);
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-normal;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-normal / $font-size);
+    }
+}
+
+
+@mixin text-normal ($font-weight: null) {
+    $font-size: $font-size-mini;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-small / $font-size);
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-normal;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-normal / $font-size);
+    }
+}
+
+
+@mixin text-small ($font-weight: null) {
+    $font-size: $font-size-miniature;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-small / $font-size);
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-small;
+
+        font-size: rem($font-size);
+        line-height: ($line-height-small / $font-size);
+    }
+}
+
+
+@mixin text-miniature ($font-weight: null) {
+    $font-size: $font-size-miniature;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-miniature / $font-size);
+}
+
+
+@mixin text-tiny ($font-weight: null) {
+    $font-size: $font-size-tiny;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-miniature / $font-size);
+
+    @media #{$screen-desktop} {
+        line-height: ($line-height-miniature / $font-size);
+    }
+}
