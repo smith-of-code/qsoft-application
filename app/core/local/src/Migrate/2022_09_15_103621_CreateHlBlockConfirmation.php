@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\ConfirmationSeeder;
 
 final class CreateHlBlockConfirmation extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = ConfirmationSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlConfirmation',
         'TABLE_NAME' => 'confirmation',
