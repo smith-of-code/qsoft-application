@@ -1,0 +1,104 @@
+@mixin object-fit($fit: fill, $position: null) {
+    -o-object-fit: $fit;
+    object-fit: $fit;
+
+    @if $position {
+        font-family: "object-fit: #{$fit}; object-position: #{$position}";
+
+        -o-object-position: $position;
+        object-position: $position;
+    } @else {
+        font-family: "object-fit: #{$fit}";
+    }
+}
+
+@mixin resetting-vertical-indentation-of-first {
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+@mixin resetting-vertical-indentation-of-last {
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@mixin object-fit($fit: fill, $position: null) {
+    -o-object-fit: $fit;
+    object-fit: $fit;
+
+    @if $position {
+        -o-object-position: $position;
+        object-position: $position;
+
+        font-family: "object-fit: #{$fit}; object-position: #{$position}";
+    } @else {
+        font-family: "object-fit: #{$fit}";
+    }
+}
+
+@mixin position-stretching($position: absolute, $z-index: null) {
+    position: $position;
+    @if $z-index {
+        z-index: $z-index;
+    }
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+@mixin text-ellips {
+    display: block;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin text-truncate-by-row($row: 2) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: $row;
+    -webkit-box-orient: vertical;
+}
+
+@mixin elements-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin hidden-element {
+    position: absolute;
+
+    clip: rect(0 0 0 0);
+
+    width: rem(1px);
+    height: rem(1px);
+    margin: rem(-1px);
+}
+
+// Resets
+@mixin list-reset {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+
+    list-style: none;
+}
+
+@mixin resetting-vertical-indentation-of-first {
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+@mixin resetting-vertical-indentation-of-last {
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Text

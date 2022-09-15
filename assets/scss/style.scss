@@ -1,0 +1,28 @@
+/**
+* Vendors
+*/
+// Пример подключения плагинов
+// @import "~plugin-name";
+
+
+@import "~normalize.css";
+
+
+/**
+* Abstracts
+*/
+@import "abstracts/functions";
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+
+/**
+* Base
+*/
+@import "base/fonts";
+@import "base/generic";
+
+
+/*
+* Components
+*/
