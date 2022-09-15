@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\SliderSeeder;
 
 final class CreateHlBlockSlider extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = SliderSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlSlider',
         'TABLE_NAME' => 'slider',
