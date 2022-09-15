@@ -58,7 +58,8 @@ class BaseCreateHighloadMigration extends Migration
 
             switch ($field['USER_TYPE_ID']) {
                 case 'string':
-                    $connection->query("ALTER TABLE {$this->blockInfo['TABLE_NAME']} MODIFY {$field['FIELD_NAME']} varchar(255) NOT NULL DEFAULT ''");
+                    $maxLength = $field['SETTINGS']['MAX_LENGTH'] ?? 255;
+                    $connection->query("ALTER TABLE {$this->blockInfo['TABLE_NAME']} MODIFY {$field['FIELD_NAME']} varchar($maxLength) NOT NULL DEFAULT ''");
                     break;
                 case 'enumeration':
                     $enumManager->SetEnumValues($fieldId, $this->enumValues[$field['FIELD_NAME']]);
