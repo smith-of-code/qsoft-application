@@ -1,9 +1,12 @@
 <?php
 
 use QSoft\Migrate\BaseCreateHighloadMigration;
+use QSoft\Seeder\TransactionSeeder;
 
 final class CreateHlBlockTransaction extends BaseCreateHighloadMigration
 {
+    protected ?string $seeder = TransactionSeeder::class;
+
     protected array $blockInfo = [
         'NAME'       => 'HlTransaction',
         'TABLE_NAME' => 'transaction',
