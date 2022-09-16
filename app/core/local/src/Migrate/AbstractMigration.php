@@ -3,6 +3,7 @@
 namespace QSoft\Migrate;
 
 use Bitrix\Main\Application;
+use Bitrix\Main\DB\Connection;
 use QSoft\Migration\Migration;
 
 abstract class AbstractMigration extends Migration
@@ -17,7 +18,7 @@ abstract class AbstractMigration extends Migration
         $connection->startTransaction();
 
         try {
-            $this->onUp();
+            $this->onUp($connection);
         } catch (\Throwable $e) {
             $connection->rollbackTransaction();
             throw $e;
@@ -40,7 +41,7 @@ abstract class AbstractMigration extends Migration
         $connection->startTransaction();
 
         try {
-            $this->onDown();
+            $this->onDown($connection);
         } catch (\Throwable $e) {
             $connection->rollbackTransaction();
             throw $e;
@@ -53,7 +54,7 @@ abstract class AbstractMigration extends Migration
         }
     }
 
-    abstract protected function onUp(): void;
+    abstract protected function onUp(Connection $connection): void;
 
-    abstract protected function onDown(): void;
+    abstract protected function onDown(Connection $connection): void;
 }
