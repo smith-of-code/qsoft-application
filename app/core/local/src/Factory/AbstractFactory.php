@@ -2,7 +2,7 @@
 
 namespace QSoft\Factory;
 
-abstract class Factorable
+abstract class AbstractFactory
 {
     protected int $count;
     protected array $additionalInfo;
@@ -23,7 +23,7 @@ abstract class Factorable
 
     /**
      * @param  int  $count
-     * @return Factorable
+     * @return AbstractFactory
      */
     public function setCount(int $count): self
     {
@@ -43,7 +43,7 @@ abstract class Factorable
     /**
      * @param  string|array  $key
      * @param  mixed|null $value
-     * @return Factorable
+     * @return AbstractFactory
      */
     public function setAdditionalInfo($key, $value = null): self
     {

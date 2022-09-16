@@ -2,7 +2,7 @@
 
 namespace QSoft\Factory;
 
-final class LegalEntityFactory extends Factorable
+final class LegalEntityFactory extends AbstractFactory
 {
     protected function makeOne(): array
     {

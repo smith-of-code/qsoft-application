@@ -2,7 +2,7 @@
 
 namespace QSoft\Factory;
 
-final class WishlistFactory extends Factorable
+final class WishlistFactory extends AbstractFactory
 {
     protected function makeOne(): array
     {

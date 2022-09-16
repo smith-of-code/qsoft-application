@@ -4,7 +4,7 @@ namespace QSoft\Factory;
 
 use Bitrix\Main\Security\Random;
 
-final class NotificationFactory extends Factorable
+final class NotificationFactory extends AbstractFactory
 {
     protected function makeOne(): array
     {

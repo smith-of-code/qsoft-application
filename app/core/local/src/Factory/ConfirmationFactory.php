@@ -5,7 +5,7 @@ namespace QSoft\Factory;
 use Bitrix\Main\Security\Random;
 use Bitrix\Main\Type\DateTime;
 
-final class ConfirmationFactory extends Factorable
+final class ConfirmationFactory extends AbstractFactory
 {
     protected function makeOne(): array
     {

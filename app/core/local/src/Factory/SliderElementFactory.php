@@ -2,7 +2,7 @@
 
 namespace QSoft\Factory;
 
-final class SliderElementFactory extends Factorable
+final class SliderElementFactory extends AbstractFactory
 {
     protected function makeOne(): array
     {
