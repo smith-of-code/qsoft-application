@@ -3,13 +3,14 @@
 namespace QSoft\Migrate;
 
 use Bitrix\Main\Application;
+use Bitrix\Main\DB\Connection;
 use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Highloadblock\HighloadBlockLangTable;
 use QSoft\Migration\Migration;
 use QSoft\Seeder\Seederable;
 
-class BaseCreateHighloadMigration extends Migration
+class BaseCreateHighloadMigration extends AbstractMigration
 {
     protected array $blockInfo = [
         'NAME'       => '',
@@ -27,20 +28,12 @@ class BaseCreateHighloadMigration extends Migration
 
     protected ?string $seeder = null;
 
-    public function up()
+    protected function onUp(Connection $connection): void
     {
-        if (method_exists($this, 'beforeUp')) {
-            $this->beforeUp();
-        }
-
         $this->includeHighloadModule();
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
 
         $result = HighloadBlockTable::add($this->blockInfo);
         if (!$result->isSuccess()) {
-            $connection->rollbackTransaction();
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
         }
 
@@ -48,7 +41,6 @@ class BaseCreateHighloadMigration extends Migration
 
         $result = HighloadBlockLangTable::add(['ID' => $hlBlockId] + $this->blockLang);
         if (!$result->isSuccess()) {
-            $connection->rollbackTransaction();
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
         }
 
@@ -64,7 +56,6 @@ class BaseCreateHighloadMigration extends Migration
 
             $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
             if (!$fieldId) {
-                $connection->rollbackTransaction();
                 throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], $this->blockInfo['NAME']));
             }
 
@@ -94,28 +85,14 @@ class BaseCreateHighloadMigration extends Migration
                     $seeder::seed($this->blockInfo['NAME']);
                 }
             } catch (\Throwable $e) {
-                $connection->rollbackTransaction();
                 throw new \RuntimeException(sprintf('Не удалось запустить сидер %s', $class));
             }
         }
-
-        $connection->commitTransaction();
-
-        if (method_exists($this, 'afterUp')) {
-            $this->afterUp();
-        }
     }
 
-    public function down()
+    protected function onDown(Connection $connection): void
     {
-        if (method_exists($this, 'beforeDown')) {
-            $this->beforeDown();
-        }
-
         $this->includeHighloadModule();
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $this->blockInfo['NAME']]]);
         if (!$hlBlock) {
@@ -138,12 +115,6 @@ class BaseCreateHighloadMigration extends Migration
         $result = HighloadBlockTable::delete($hlBlock['ID']);
         if (!$result->isSuccess()) {
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
-        }
-
-        $connection->commitTransaction();
-
-        if (method_exists($this, 'afterDown')) {
-            $this->afterDown();
         }
     }
 
