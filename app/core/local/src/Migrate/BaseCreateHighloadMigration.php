@@ -40,6 +40,7 @@ class BaseCreateHighloadMigration extends Migration
 
         $result = HighloadBlockTable::add($this->blockInfo);
         if (!$result->isSuccess()) {
+            $connection->rollbackTransaction();
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
         }
 
@@ -47,6 +48,7 @@ class BaseCreateHighloadMigration extends Migration
 
         $result = HighloadBlockLangTable::add(['ID' => $hlBlockId] + $this->blockLang);
         if (!$result->isSuccess()) {
+            $connection->rollbackTransaction();
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
         }
 
@@ -62,6 +64,7 @@ class BaseCreateHighloadMigration extends Migration
 
             $fieldId = $entityManager->Add(['ENTITY_ID' => "HLBLOCK_{$hlBlockId}"] + $field);
             if (!$fieldId) {
+                $connection->rollbackTransaction();
                 throw new \RuntimeException(sprintf('Не удалось добавить поле %s в hl-блок %s', $field['FIELD_NAME'], $this->blockInfo['NAME']));
             }
 
@@ -83,8 +86,6 @@ class BaseCreateHighloadMigration extends Migration
             }
         }
 
-        $connection->commitTransaction();
-
         if ($this->seeder) {
             $class = $this->seeder;
             try {
@@ -93,9 +94,12 @@ class BaseCreateHighloadMigration extends Migration
                     $seeder::seed($this->blockInfo['NAME']);
                 }
             } catch (\Throwable $e) {
+                $connection->rollbackTransaction();
                 throw new \RuntimeException(sprintf('Не удалось запустить сидер %s', $class));
             }
         }
+
+        $connection->commitTransaction();
 
         if (method_exists($this, 'afterUp')) {
             $this->afterUp();
