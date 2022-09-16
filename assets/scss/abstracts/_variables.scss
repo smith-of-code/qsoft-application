@@ -52,6 +52,28 @@ $font-weight-medium: 500;
 
 $font-size-base: 16px;
 
+$font-size-huge: 32px;
+$font-size-large: 30px;
+$font-size-middle: 24px;
+$font-size-average: 20px;
+$font-size-medium: 18px;
+$font-size-normal: 16px;
+$font-size-small: 14px;
+$font-size-mini: 13px;
+$font-size-miniature: 12px;
+$font-size-tiny: 11px;
+
+
+$line-height-huge: 48px;
+$line-height-large: 36px;
+$line-height-middle: 32px;
+$line-height-average: 28px;
+$line-height-medium: 26px;
+$line-height-normal: 24px;
+$line-height-small: 20px;
+$line-height-mini: 18px;
+$line-height-miniature: 16px;
+
 
 // Breakpoints
 
@@ -60,7 +82,10 @@ $screen-desktop: "(min-width: 1440px)";
 
 // Gaps
 
-$gap-normal: 16px;
+$gap-normal: 24px;
+$gap-middle: 22px;
+$gap-medium: 16px;
+$gap-small: 8px;
 
 // Sizes
 
