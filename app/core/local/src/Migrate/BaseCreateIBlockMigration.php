@@ -4,7 +4,7 @@ namespace QSoft\Migrate;
 
 use Bitrix\Main\DB\Connection;
 
-class BaseCreateIBlockTypeMigration extends AbstractMigration
+class BaseCreateIBlockMigration extends AbstractMigration
 {
     protected array $iBlockInfo = [
         'LID' => 's1',
