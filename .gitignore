@@ -7,6 +7,7 @@ node_modules
 /.env
 /html
 auth_d.php
+app/site/auth_d.php
 .DS_Store
 *.log
 *.tar.gz
@@ -43,3 +44,4 @@ exclude
 !composer.json
 !package.json
 !package-lock.json
+/tools

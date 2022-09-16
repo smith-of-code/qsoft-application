@@ -1,0 +1,5 @@
+<?php
+
+$MESS['RELATED_PRODUCT_ENTITY_ID_FIELD'] = 'ID';
+$MESS['RELATED_PRODUCT_ENTITY_UF_MAIN_PRODUCT_ID_FIELD'] = 'Заголовок основного товара';
+$MESS['RELATED_PRODUCT_ENTITY_UF_RELATED_PRODUCT_ID_FIELD'] = 'Заголовок сопутствующего товара';
