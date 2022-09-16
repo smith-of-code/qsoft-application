@@ -19,13 +19,11 @@ html {
     background: $white;
 }
 
-
-.body {
+body {
     @include text-medium;
 
     text-rendering: optimizeLegibility;
 }
-
 
 h1 {
     @include title-1;
@@ -109,7 +107,6 @@ h6 {
     }
 }
 
-
 p {
     margin-top: 0;
     margin-bottom: 0;
@@ -121,6 +118,50 @@ p {
     }
 }
 
+ol {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include list-reset;
+
+    counter-reset: ordered-list;
+
+    &:not([class]) {
+        margin-bottom: rem($gap-small);
+
+        @include resetting-vertical-indentation-of-last;
+
+        ul,
+        ol {
+            margin-top: rem($gap-small);
+            margin-bottom: rem($gap-small);
+        }
+
+        & > li {
+            position: relative;
+
+            padding-left: rem($gap-middle);
+            margin-bottom: rem($gap-small);
+
+            @include resetting-vertical-indentation-of-last;
+
+            &::before {
+                font-weight: $font-weight-semibold;
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                display: block;
+
+                content: counters(ordered-list, "") ".";
+                counter-increment: ordered-list;
+
+                color: $brickRed;
+            }
+        }
+    }
+}
 
 ul {
     margin-top: 0;
@@ -145,7 +186,7 @@ ul {
             position: relative;
 
             margin-bottom: rem($gap-small);
-            padding-left: rem(14px);
+            padding-left: rem(20px);
 
             @include resetting-vertical-indentation-of-last;
 
@@ -168,3 +209,66 @@ ul {
         }
     }
 }
+
+a {
+    &:hover,
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+
+    &:not([class]) {
+        color: $color-text;
+
+        transition: color $transition-duration $transition-function;
+
+        &:hover,
+        &:focus {
+            color: $brickRed;
+        }
+    }
+}
+
+img {
+    display: block;
+
+    max-width: 100%;
+}
+
+button {
+    border: 0;
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+table {
+    width: 100%;
+
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+input {
+    &[type="number"] {
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            margin: 0;
+
+            -webkit-appearance: none;
+        }
+    }
+
+    &::-ms-clear {
+        display: none;
+    }
+}
+

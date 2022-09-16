@@ -220,7 +220,7 @@
 }
 
 @mixin text-medium ($font-weight: null) {
-    $font-size: $font-size-small;
+    $font-size: $font-size-mini;
 
     font-size: rem($font-size);
     @if $font-weight {
