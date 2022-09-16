@@ -90,10 +90,57 @@
 /*!*******************************!*\
   !*** ./assets/icons/icons.js ***!
   \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _svg_notification_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./svg/notification.svg */ "./assets/icons/svg/notification.svg");
+/* harmony import */ var _svg_check_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./svg/check.svg */ "./assets/icons/svg/check.svg");
+// Пример подключения иконки
+// import './svg/my-icon.svg';
 
 
+
+/***/ }),
+
+/***/ "./assets/icons/svg/check.svg":
+/*!************************************!*\
+  !*** ./assets/icons/svg/check.svg ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-check-usage",
+      viewBox: "0 0 16 16",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-check",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
+/***/ "./assets/icons/svg/notification.svg":
+/*!*******************************************!*\
+  !*** ./assets/icons/svg/notification.svg ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-notification-usage",
+      viewBox: "0 0 25 24",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-notification",
+      toString: function () {
+        return this.url;
+      }
+    });
 
 /***/ }),
 

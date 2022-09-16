@@ -85,6 +85,126 @@
                     </div>
                     <!--/Ненумерованные списки-->
 
+                    <!--Иконки-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Иконки</h2>
+
+                        <div class="icons">
+                            <ul class="icons__list">
+                                <li class="icons__item" title="Icon: notification">
+                                    <svg class="icon icon--notification gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: check">
+                                    <svg class="icon icon--check gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Иконки-->
+
+                    <!--Чекбоксы-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Чекбоксы</h2>
+
+                        <form class="form">
+                            <div class="checkboxes">
+                                <ul class="checkboxes__list">
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check">
+
+                                            <label for="check" class="checkbox__label">
+                                                <span class="checkbox__icon">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Чекбокс</span>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="check1" checked>
+
+                                            <label for="check1" class="checkbox__label">
+                                                <span class="checkbox__icon">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Активный чекбокс</span>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="check2">
+
+                                            <label for="check2" class="checkbox__label">
+                                                <span class="checkbox__icon">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Нажимая кнопку "Отправить", я предоставляю персональные данные и соглашаюсь с обработкой моих персональных данных компанией в соответствии с Политикой обработки персональных данных</span>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" name="check[]" value="s3" id="check3" disabled>
+
+                                            <label for="check3" class="checkbox__label">
+                                                <span class="checkbox__icon">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Недоступный чекбокс</span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    <!--/Чекбоксы-->
+
+                    <!--Свитчер-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Свитчеры</h2>
+
+                        <form class="form">
+                            <div class="switchers">
+                                <ul class="switchers__list">
+                                    <li class="switchers__item">
+                                        <div class="switcher" name="switcher1">
+                                            <input type="checkbox" class="switcher__input" name="switch1" id="switch1">
+                                            <label for="switch1" class="switcher__label">
+                                                <span class="switcher__icon"></span>
+                                                <span class="switcher__text">Свитчер</span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    <!--Свитчер-->
+
                 </main>
             </div>
         </div>
@@ -108,5 +228,10 @@
         margin-bottom: 30px;
 
         color: #c73c5e;
+    }
+
+    .gui__icon {
+        width: 30px;
+        height: 30px;
     }
 </style>
