@@ -33,8 +33,6 @@ class BaseCreateIBlockMigration extends AbstractMigration
         ],
     ];
 
-    protected ?int $iBlockId = null;
-
     protected function onUp(Connection $connection): void
     {
         $this->includeIBlockModule();
@@ -45,9 +43,8 @@ class BaseCreateIBlockMigration extends AbstractMigration
             throw new \RuntimeException($iBlock->LAST_ERROR);
         }
 
-        $this->iBlockId = $result;
-
-        array_walk($this->iBlockPropertyInfo, static function ($item) {
+        array_walk($this->iBlockPropertyInfo, static function ($item) use ($result) {
+            $item['IBLOCK_ID'] = $result;
             $iBlockProperty = new \CIBlockProperty();
             $result = $iBlockProperty->Add($item);
 
