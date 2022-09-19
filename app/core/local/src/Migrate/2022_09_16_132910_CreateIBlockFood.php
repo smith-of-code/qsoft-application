@@ -55,30 +55,10 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
 
     protected array $iBlockPropertyInfo = [
         [
-            'NAME' => 'Вес упаковки',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'weight',
-        ],
-        [
-            'NAME' => 'Видео',
-            'PROPERTY_TYPE' => 'S:video',
-            'CODE' => 'video',
-        ],
-        [
-            'NAME' => 'Вид животного',
-            'PROPERTY_TYPE' => 'S:directory',
-            'CODE' => 'pet_type',
-            'MULTIPLE' => 'Y',
-        ],
-        [
-            'NAME' => 'Предназначение',
-            'PROPERTY_TYPE' => 'S',
-            'CODE' => 'purpose',
-        ],
-        [
             'NAME' => 'Состав',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'composition',
+            'ROW_COUNT' => 10,
         ],
         [
             'NAME' => 'Рекомендации по кормлению',
@@ -90,6 +70,7 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'is_treat',
             'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Да',
@@ -100,15 +81,91 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
             ],
         ],
         [
-            'NAME' => 'Возраст',
+            'NAME' => 'Видео',
             'PROPERTY_TYPE' => 'S',
+            'USER_TYPE' => 'video',
+            'CODE' => 'video',
+        ],
+        [
+            'NAME' => 'Вид животного',
+            'PROPERTY_TYPE' => 'L',
+            'CODE' => 'pet_type',
+            'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Собака',
+                    'XML_ID' => 'DOG',
+                ],
+                [
+                    'VALUE' => 'Кошка',
+                    'XML_ID' => 'CAT',
+                ],
+            ],
+        ],
+        [
+            'NAME' => 'Комплектность',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'completeness',
+        ],
+        [
+            'NAME' => 'Материал',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'material',
+        ],
+        [
+            'NAME' => 'Предназначение',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'purpose',
+        ],
+        [
+            'NAME' => 'Возраст',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'age',
+            'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Для взрослых',
+                    'XML_ID' => 'ADULT',
+                ],
+                [
+                    'VALUE' => 'Для молодых',
+                    'XML_ID' => 'ADULT',
+                ],
+                [
+                    'VALUE' => 'Для всех возрастов',
+                    'XML_ID' => 'ALL',
+                ],
+            ],
         ],
         [
             'NAME' => 'Порода',
-            'PROPERTY_TYPE' => 'S:directory',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'breed',
             'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Для мелких пород',
+                    'XML_ID' => 'SMALL',
+                ],
+                [
+                    'VALUE' => 'Для средних пород',
+                    'XML_ID' => 'MEDIUM',
+                ],
+                [
+                    'VALUE' => 'Для больших пород',
+                    'XML_ID' => 'BIG',
+                ],
+                [
+                    'VALUE' => 'Для всех пород',
+                    'XML_ID' => 'ALL',
+                ],
+            ],
         ],
         [
             'NAME' => 'Назначение',
@@ -117,8 +174,10 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
         ],
         [
             'NAME' => 'Линейка',
-            'PROPERTY_TYPE' => 'S:directory',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'line',
+            'SMART_FILTER' => 'Y',
+            'LIST_TYPE' => 'L',
         ],
     ];
 
@@ -128,9 +187,16 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
         $this->includeCatalogModule();
 
         $catalog = new CCatalog();
-
         if (!$catalog->Add(['IBLOCK_ID' => $this->iBlockId])) {
             throw new \RuntimeException('Ошибка при создании каталога');
+        }
+
+        $properties = CIBlockProperty::GetList([], ['IBLOCK_ID' => $this->iBlockId]);
+        while ($property = $properties->Fetch()) {
+            CIBlockSectionPropertyLink::Add(0, $property['ID'], [
+                'IBLOCK_ID' => $this->iBlockId,
+                'SMART_FILTER' => 'Y',
+            ]);
         }
     }
 
