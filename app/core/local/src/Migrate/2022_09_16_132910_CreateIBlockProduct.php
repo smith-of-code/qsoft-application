@@ -105,11 +105,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                     'VALUE' => 'Да',
                     'DEF' => 'N',
                     'SORT' => 500,
-                ],
-                [
-                    'VALUE' => 'Нет',
-                    'DEF' => 'Y',
-                    'SORT' => 1000,
+                    'XML_ID' => 'yes',
                 ],
             ],
         ],
