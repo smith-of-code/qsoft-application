@@ -56,14 +56,27 @@ final class CreateIBlockAccessory extends BaseCreateIBlockMigration
     protected array $iBlockPropertyInfo = [
         [
             'NAME' => 'Видео',
-            'PROPERTY_TYPE' => 'S:video',
+            'PROPERTY_TYPE' => 'S',
+            'USER_TYPE' => 'video',
             'CODE' => 'video',
         ],
         [
             'NAME' => 'Вид животного',
-            'PROPERTY_TYPE' => 'S:directory',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'pet_type',
             'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Собака',
+                    'XML_ID' => 'DOG',
+                ],
+                [
+                    'VALUE' => 'Кошка',
+                    'XML_ID' => 'CAT',
+                ],
+            ],
         ],
         [
             'NAME' => 'Комплектность',
@@ -82,14 +95,51 @@ final class CreateIBlockAccessory extends BaseCreateIBlockMigration
         ],
         [
             'NAME' => 'Возраст',
-            'PROPERTY_TYPE' => 'S',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'age',
+            'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Для взрослых',
+                    'XML_ID' => 'ADULT',
+                ],
+                [
+                    'VALUE' => 'Для молодых',
+                    'XML_ID' => 'ADULT',
+                ],
+                [
+                    'VALUE' => 'Для всех возрастов',
+                    'XML_ID' => 'ALL',
+                ],
+            ],
         ],
         [
             'NAME' => 'Порода',
-            'PROPERTY_TYPE' => 'S:directory',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'breed',
             'MULTIPLE' => 'Y',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Для мелких пород',
+                    'XML_ID' => 'SMALL',
+                ],
+                [
+                    'VALUE' => 'Для средних пород',
+                    'XML_ID' => 'MEDIUM',
+                ],
+                [
+                    'VALUE' => 'Для больших пород',
+                    'XML_ID' => 'BIG',
+                ],
+                [
+                    'VALUE' => 'Для всех пород',
+                    'XML_ID' => 'ALL',
+                ],
+            ],
         ],
         [
             'NAME' => 'Назначение',
@@ -98,8 +148,10 @@ final class CreateIBlockAccessory extends BaseCreateIBlockMigration
         ],
         [
             'NAME' => 'Линейка',
-            'PROPERTY_TYPE' => 'S:directory',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'line',
+            'SMART_FILTER' => 'Y',
+            'LIST_TYPE' => 'L',
         ],
     ];
 
