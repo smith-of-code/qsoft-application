@@ -34,11 +34,6 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
 
     protected array $iBlockPropertyInfo = [
         [
-            'NAME' => 'Товар',
-            'PROPERTY_TYPE' => 'E',
-            'CODE' => 'product',
-        ],
-        [
             'NAME' => 'Артикул',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'article',
@@ -77,11 +72,6 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
                     'DEF' => 'N',
                     'SORT' => 500,
                 ],
-                [
-                    'VALUE' => 'Нет',
-                    'DEF' => 'Y',
-                    'SORT' => 1000,
-                ],
             ],
         ],
         [
@@ -95,22 +85,19 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
                     'DEF' => 'N',
                     'SORT' => 500,
                 ],
-                [
-                    'VALUE' => 'Нет',
-                    'DEF' => 'Y',
-                    'SORT' => 1000,
-                ],
             ],
         ],
         [
             'NAME' => 'Размер',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'size',
+            'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Фасовка',
-            'PROPERTY_TYPE' => 'S',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'packaging',
+            'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Изображения',
@@ -129,12 +116,54 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
                     'DEF' => 'N',
                     'SORT' => 500,
                 ],
-                [
-                    'VALUE' => 'Нет',
-                    'DEF' => 'Y',
-                    'SORT' => 1000,
-                ],
             ],
         ],
     ];
+
+    protected function afterUp(): void
+    {
+        $this->includeCatalogModule();
+
+        $productIblockId = (new CIBlock())->GetList([], ['CODE' => 'products'])->Fetch()['ID'];
+        if (!$productIblockId) {
+            throw new RuntimeException('Не найден инфоблок "Товары"');
+        }
+
+        $skuId = CIBlockPropertyTools::createProperty(
+            $this->iBlockId,
+            CIBlockPropertyTools::CODE_SKU_LINK,
+            ['LINK_IBLOCK_ID' => $productIblockId]
+        );
+
+        $fields = [
+            'IBLOCK_ID' => $this->iBlockId,
+            'PRODUCT_IBLOCK_ID' => $productIblockId,
+            'SKU_PROPERTY_ID' => $skuId,
+        ];
+
+        $catalog = new CCatalog();
+        if (!$catalog->Add($fields)) {
+            global $APPLICATION;
+            throw new \RuntimeException(sprintf('Не удалось добавить каталог: %s', $APPLICATION->GetException()->GetString()));
+        }
+    }
+
+    protected function beforeDown(): void
+    {
+        $this->includeCatalogModule();
+
+        $productIblockId = (new CIBlock())->GetList([], ['CODE' => 'products'])->Fetch()['ID'];
+        if (!$productIblockId) {
+            throw new RuntimeException('Не найден инфоблок "Товары"');
+        }
+
+        CCatalog::UnLinkSKUIBlock($productIblockId);
+    }
+
+    private function includeCatalogModule(): void
+    {
+        if (!CModule::IncludeModule('catalog')) {
+            throw new \RuntimeException('Не удалось подключить модуль catalog');
+        }
+    }
 }
