@@ -96,9 +96,21 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         ],
         [
             'NAME' => 'Лакомство',
-            'PROPERTY_TYPE' => 'S',
+            'PROPERTY_TYPE' => 'L',
             'CODE' => 'is_treat',
-            'DEFAULT_VALUE' => 'N',
+            'LIST_TYPE' => 'C',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Да',
+                    'DEF' => 'N',
+                    'SORT' => 500,
+                ],
+                [
+                    'VALUE' => 'Нет',
+                    'DEF' => 'Y',
+                    'SORT' => 1000,
+                ],
+            ],
         ],
         [
             'NAME' => 'Возраст',
