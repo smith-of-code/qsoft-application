@@ -187,9 +187,16 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
         $this->includeCatalogModule();
 
         $catalog = new CCatalog();
-
         if (!$catalog->Add(['IBLOCK_ID' => $this->iBlockId])) {
             throw new \RuntimeException('Ошибка при создании каталога');
+        }
+
+        $properties = CIBlockProperty::GetList([], ['IBLOCK_ID' => $this->iBlockId]);
+        while ($property = $properties->Fetch()) {
+            CIBlockSectionPropertyLink::Add(0, $property['ID'], [
+                'IBLOCK_ID' => $this->iBlockId,
+                'SMART_FILTER' => 'Y',
+            ]);
         }
     }
 
