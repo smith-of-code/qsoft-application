@@ -131,4 +131,23 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'CODE' => 'line',
         ],
     ];
+
+
+    protected function afterUp(): void
+    {
+        $this->includeCatalogModule();
+
+        $catalog = new CCatalog();
+
+        if (!$catalog->Add(['IBLOCK_ID' => $this->iBlockId])) {
+            throw new \RuntimeException('Ошибка при создании каталога');
+        }
+    }
+
+    private function includeCatalogModule(): void
+    {
+        if (!CModule::IncludeModule('catalog')) {
+            throw new \RuntimeException('Не удалось подключить модуль catalog');
+        }
+    }
 }
