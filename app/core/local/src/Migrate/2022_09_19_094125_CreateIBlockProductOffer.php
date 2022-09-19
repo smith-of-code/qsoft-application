@@ -29,9 +29,6 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
                 'IS_REQUIRED' => 'Y',
                 'DEFAULT_VALUE' => 'Y',
             ],
-            'DETAIL_PICTURE' => [
-                'IS_REQUIRED' => 'Y',
-            ],
         ],
     ];
 
