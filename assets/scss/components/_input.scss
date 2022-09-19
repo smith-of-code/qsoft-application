@@ -1,0 +1,100 @@
+.input {
+    $height-input: 48px;
+    $height-input-medium: 44px;
+
+    position: relative;
+
+    &--full {
+        width: 100%;
+    }
+
+    &--textarea & {
+        &__control {
+            height: auto;
+            max-height: rem(108px);
+            padding-top: rem(14px);
+            padding-bottom: rem(14px);
+
+            resize: none;
+
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                width: 0;
+                background: transparent;
+            }
+        }
+    }
+
+    &--iconed & {
+        &__control {
+            padding-right: rem(48px);
+        }
+    }
+
+    &__control {
+        font-size: rem($font-size-small);
+        line-height: rem(22px);
+        display: block;
+
+        width: 100%;
+        height: rem($height-input);
+        padding-right: rem($gap-medium);
+        padding-left: rem($gap-medium);
+
+        transition: color $transition-duration $transition-function,
+                    border-color $transition-duration $transition-function,
+                    background-color $transition-duration $transition-function;
+
+        color: $tuna;
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-middle);
+        background-color: $white;
+        box-shadow: none;
+
+        &:focus {
+            border-color: currentColor;
+            outline: none;
+        }
+
+        &--error {
+            border-color: $brickRed;
+
+            &:focus {
+                border-color: $brickRed;
+            }
+        }
+
+        &-error {
+            font-size: rem($font-size-tiny);
+            line-height: rem(14px);
+
+            color: $brickRed;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        top: 50%;
+        right: rem(12px);
+
+        width: rem(24px);
+        height: rem(24px);
+
+        transform: translateY(-50%);
+
+        &--small {
+            width: rem(20px);
+            height: rem(20px);
+        }
+
+        &-password {
+            background-image: url('../icons/svg/check.svg');
+
+            &--view {
+                background-image: url('../icons/svg/check-off.svg');
+            }
+        }
+    }
+}

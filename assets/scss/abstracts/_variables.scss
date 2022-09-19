@@ -29,6 +29,11 @@ $hibiscus: #c73c5e;
 $azalea: #fad0d3;
 $lochinvar: #2c877f;
 $mintTulip: #c5f2f2;
+$viridian: #43946a;
+$aquaForest: #62a683;
+$mandy: #dc445c;
+$mandy2: #df586d;
+$black: #000000;
 
 
 $color-text: $tuna;
@@ -113,11 +118,14 @@ $transition-function: ease-in-out;
 
 // border
 $border-radius-mini: 2px;
+$border-radius-small: 4px;
+$border-radius-middle: 8px;
 $border-radius: 12px;
 
 // Radius
 
 
 // Box-shadows
+$box-shadow: 0 rem(4px) rem(8px) rgba($black, .12);
 
 

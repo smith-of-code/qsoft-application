@@ -15,8 +15,18 @@
             background-color: $brickRed;
 
             &::before {
-                transform: translateX(100%);
+                transform: translateX(116%);
             }
+        }
+    }
+
+    &__input:disabled + &__label & {
+        &__text {
+            cursor: default;
+        }
+
+        &__icon {
+            cursor: default;
         }
     }
 
@@ -26,9 +36,15 @@
     }
 
     &__text {
-        margin-left: rem(10px);
+        $margin: 10px;
+
+        margin-left: rem($margin);
 
         cursor: pointer;
+
+        &--left {
+            margin-right: rem($margin);
+        }
     }
 
     &__icon {
