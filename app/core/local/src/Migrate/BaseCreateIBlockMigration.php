@@ -47,6 +47,7 @@ class BaseCreateIBlockMigration extends AbstractMigration
         if (!$result) {
             throw new \RuntimeException($iBlock->LAST_ERROR);
         }
+        $this->iBlockId = $result;
 
         array_walk($this->iBlockPropertyInfo, static function ($item) use ($result) {
             $item['IBLOCK_ID'] = $result;
@@ -56,8 +57,6 @@ class BaseCreateIBlockMigration extends AbstractMigration
             if (!$result) {
                 throw new \RuntimeException($iBlockProperty->LAST_ERROR);
             }
-
-            $this->iBlockId = $result;
         });
 
         if ($this->seeder) {
