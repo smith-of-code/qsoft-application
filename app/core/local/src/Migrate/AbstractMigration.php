@@ -10,48 +10,48 @@ abstract class AbstractMigration extends Migration
 {
     public function up()
     {
-        if (method_exists($this, 'beforeUp')) {
-            $this->beforeUp();
-        }
-
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
 
         try {
+            if (method_exists($this, 'beforeUp')) {
+                $this->beforeUp();
+            }
+
             $this->onUp($connection);
+
+            if (method_exists($this, 'afterUp')) {
+                $this->afterUp();
+            }
         } catch (\Throwable $e) {
             $connection->rollbackTransaction();
             throw $e;
         }
 
         $connection->commitTransaction();
-
-        if (method_exists($this, 'afterUp')) {
-            $this->afterUp();
-        }
     }
 
     public function down()
     {
-        if (method_exists($this, 'beforeDown')) {
-            $this->beforeDown();
-        }
-
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
 
         try {
+            if (method_exists($this, 'beforeDown')) {
+                $this->beforeDown();
+            }
+
             $this->onDown($connection);
+
+            if (method_exists($this, 'afterDown')) {
+                $this->afterDown();
+            }
         } catch (\Throwable $e) {
             $connection->rollbackTransaction();
             throw $e;
         }
 
         $connection->commitTransaction();
-
-        if (method_exists($this, 'afterDown')) {
-            $this->afterDown();
-        }
     }
 
     abstract protected function onUp(Connection $connection): void;
