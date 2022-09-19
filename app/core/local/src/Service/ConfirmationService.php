@@ -2,6 +2,7 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\Mail\Event;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\UserTable;
 use QSoft\Client\SmsClient;
@@ -20,7 +21,7 @@ class ConfirmationService
         $this->smsClient = new SmsClient;
     }
 
-    public function sendSmsConfirmation(int $userId, string $type = ConfirmationTable::TYPES['confirm_phone'])
+    public function sendSmsConfirmation(int $userId, string $type = ConfirmationTable::TYPES['confirm_phone']): void
     {
         $user = UserTable::getById($userId)->fetch();
         $code = $this->generateCode();
@@ -41,9 +42,39 @@ class ConfirmationService
         );
     }
 
+    public function sendEmailConfirmation(int $userId)
+    {
+        $user = UserTable::getById($userId)->fetch();
+        $code = $this->generateCode();
+
+        ConfirmationTable::add([
+            'UF_USER_ID' => $userId,
+            'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
+            'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
+            'UF_CODE' => $code,
+        ]);
+
+        return Event::send([
+            'EVENT_NAME' => 'NEW_USER_CONFIRM',
+            'LID' => SITE_ID,
+            'C_FIELDS' => [
+                'EMAIL' => $user['EMAIL'],
+                'USER_ID' => $userId,
+                'CONFIRM_CODE' => $code,
+            ],
+        ])->getErrorMessages();
+    }
+
     public function verifySmsCode(int $userId, string $code): bool
     {
         $actualCode = ConfirmationTable::getActiveSmsCode($userId);
+
+        return $actualCode && $actualCode === $code;
+    }
+
+    public function verifyEmailCode(int $userId, string $code): bool
+    {
+        $actualCode = ConfirmationTable::getActiveEmailCode($userId);
 
         return $actualCode && $actualCode === $code;
     }
