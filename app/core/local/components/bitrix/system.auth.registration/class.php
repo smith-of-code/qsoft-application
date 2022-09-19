@@ -8,13 +8,19 @@
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Controller\PhoneAuth;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Type\Date;
+use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\UserTable;
+use QSoft\ORM\PetTable;
 
-class CSystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
+class SystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
 {
+    private const SESSION_KEY = 'registrationData';
+
     private const REGISTRATION_TYPES = [
         'user' => [
             'name' => 'user',
@@ -54,10 +60,9 @@ class CSystemAuthRegistrationComponent extends CBitrixComponent implements Contr
 
     public function executeComponent()
     {
-        $session = Application::getInstance()->getSession();
-        if ($session->has('registrationData')) {
-            $this->arResult = Application::getInstance()->getSession()->get('registrationData');
-        } else {
+        $this->arResult = $this->getRegisterData();
+
+        if (!$this->arResult) {
             $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
             $registrationType = self::REGISTRATION_TYPES[$queryType] ?? array_first(self::REGISTRATION_TYPES);
 
@@ -80,7 +85,7 @@ class CSystemAuthRegistrationComponent extends CBitrixComponent implements Contr
             'sendPhoneCode' => [
                 'prefilters' => [],
             ],
-            'checkPhoneCode' => [
+            'verifyPhoneCode' => [
                 'prefilters' => [],
             ],
             'register' => [
@@ -96,10 +101,7 @@ class CSystemAuthRegistrationComponent extends CBitrixComponent implements Contr
      */
     public function saveStepAction(string $direction, array $data): array
     {
-        $registrationData = [];
-        if (Application::getInstance()->getSession()->has('registrationData')) {
-            $registrationData = Application::getInstance()->getSession()->get('registrationData');
-        }
+        $registrationData = $this->getRegisterData();
 
         $registrationType = self::REGISTRATION_TYPES[$data['type']];
         $currentStepIndex = array_search($data['currentStep'], $registrationType['steps']);
@@ -109,10 +111,13 @@ class CSystemAuthRegistrationComponent extends CBitrixComponent implements Contr
             $data['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
         }
 
+        if ($direction === 'previous') {
+            return $registrationData;
+        }
+
         foreach ($data as $field => $value) {
             if (($field === 'contact_id' || $field === 'mentor_id')) {
                 try {
-                    // TODO: Построить какую-нибуть вменяемую ORM с префильтрами по активности и тд
                     UserTable::getById($field);
                 } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
                     throw new InvalidArgumentException('User not found');
@@ -129,19 +134,99 @@ class CSystemAuthRegistrationComponent extends CBitrixComponent implements Contr
         return $registrationData;
     }
 
-    public function sendPhoneCodeAction(string $phone): array
+    public function sendPhoneCodeAction(string $phoneNumber): array
     {
-        return ['status' => 'success'];
+        $password = uniqid();
+        $result = (new CUser)->Register(
+            $phoneNumber,
+            '',
+            '',
+            $password,
+            $password,
+            '',
+            SITE_ID,
+            '',
+            0,
+            false,
+            $phoneNumber,
+        );
+
+        $this->setRegisterData(array_merge($this->getRegisterData(), [
+            'password' => $password,
+            'user_id' => $result['ID'],
+        ]));
+
+        return [
+            'status' => $result['TYPE'] === 'OK' ? 'success' : 'error',
+            'message' => $result['MESSAGE'],
+            'singed_data' => $result['SIGNED_DATA'],
+        ];
     }
 
-    public function checkPhoneCodeAction(string $code): array
+    public function verifyPhoneCodeAction(string $singedData, int $code): array
     {
-        return ['status' => 'success'];
+        $params = PhoneAuth::extractData($singedData);
+        $userId = CUser::VerifyPhoneCode($params['phoneNumber'], $code);
+
+        return ['status' => $userId ? 'success' : 'error'];
     }
 
     public function registerAction(array $data): array
     {
-        return ['status' => 'success'];
+        $registrationData = $this->getRegisterData();
+
+        // TODO "Я согласен на обработку персональных данных", "Я согласен с условиями пользования сайтом"
+        // TODO "Я согласен с правилами компании", "Я согласен на получение информации о продуктах, спецпредложениях и акциях"
+        // TODO PHOTO, MENTOR_ID, legal entity
+        $userUpdateResult = (new CUser)->Update($registrationData['user_id'], [
+            'NAME' => $data['first_name'],
+            'LAST_NAME' => $data['last_name'],
+            'SECOND_NAME' => $data['second_name'],
+            'EMAIL' => $data['email'],
+            'PERSONAL_BIRTHDAY' => new DateTime($data['birthday']),
+            'PERSONAL_GENDER' => $data['gender'],
+            'PERSONAL_CITY' => $data['city'],
+        ]);
+
+        $passwordChangeResult = (new CUser)->ChangePassword(
+            $registrationData['user_id'],
+            '',
+            $data['password'],
+            $data['confirm_password'],
+            SITE_ID,
+            '',
+            0,
+            true,
+            '',
+            $registrationData['password'],
+        );
+
+        foreach ($data['pets'] as $pet) {
+            PetTable::add([
+                'UF_USER_ID' => $registrationData['user_id'],
+                'UF_NAME' => $pet['name'],
+                'UF_KIND' => $pet['kind'],
+                'UF_BREED' => $pet['breed'],
+                'UF_GENDER' => $pet['gender'],
+                'UF_BIRTHDATE' => new Date($pet['birthday']),
+            ]);
+        }
+
+        return ['status' => 'success', 'passwordChangeResult' => $passwordChangeResult, 'userUpdateResult' => $userUpdateResult];
+    }
+
+    public function getRegisterData(): array
+    {
+        if (Application::getInstance()->getSession()->has(self::SESSION_KEY)) {
+            return Application::getInstance()->getSession()->get(self::SESSION_KEY);
+        }
+        return [];
+    }
+
+    private function setRegisterData(array $data): array
+    {
+        Application::getInstance()->getSession()->set(self::SESSION_KEY, $data);
+        return $data;
     }
 }
 

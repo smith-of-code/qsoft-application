@@ -17,3 +17,6 @@ Pets data step
 
 
 <button type="button" class="change-step" data-direction="previous">Previous step</button>
+<button type="button" class="send-code">Send phone code</button>
+<button type="button" class="verify-code">Verify phone code (from $(.input2))</button>
+<button type="button" class="register">Register</button>
