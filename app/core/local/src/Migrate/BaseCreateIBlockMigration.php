@@ -3,9 +3,12 @@
 namespace QSoft\Migrate;
 
 use Bitrix\Main\DB\Connection;
+use QSoft\Seeder\Seederable;
 
 class BaseCreateIBlockMigration extends AbstractMigration
 {
+    protected ?string $seeder = null;
+
     protected array $iBlockInfo = [
         'LID' => 's1',
         'IBLOCK_TYPE_ID' => '',
@@ -52,6 +55,18 @@ class BaseCreateIBlockMigration extends AbstractMigration
                 throw new \RuntimeException($iBlockProperty->LAST_ERROR);
             }
         });
+
+        if ($this->seeder) {
+            $class = $this->seeder;
+            try {
+                $seeder = new $class();
+                if ($seeder instanceof Seederable) {
+                    $seeder::seed($iBlock['CODE']);
+                }
+            } catch (\Throwable $e) {
+                throw new \RuntimeException(sprintf('Не удалось запустить сидер %s', $class));
+            }
+        }
     }
 
     protected function onDown(Connection $connection): void
