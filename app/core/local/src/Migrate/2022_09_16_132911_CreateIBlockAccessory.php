@@ -2,14 +2,14 @@
 
 use QSoft\Migrate\BaseCreateIBlockMigration;
 
-final class CreateIBlockProduct extends BaseCreateIBlockMigration
+final class CreateIBlockAccessory extends BaseCreateIBlockMigration
 {
     protected array $iBlockInfo = [
         'LID' => 's1',
         'IBLOCK_TYPE_ID' => 'catalog',
-        'CODE' => 'products',
-        'XML_ID' => 'products',
-        'NAME' => 'Товары',
+        'CODE' => 'accessory',
+        'XML_ID' => 'accessory',
+        'NAME' => 'Аксессуары',
         'ACTIVE' => 'Y',
         'SORT' => 500,
         'VERSION' => 2,
@@ -55,11 +55,6 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
 
     protected array $iBlockPropertyInfo = [
         [
-            'NAME' => 'Вес упаковки',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'weight',
-        ],
-        [
             'NAME' => 'Видео',
             'PROPERTY_TYPE' => 'S:video',
             'CODE' => 'video',
@@ -84,30 +79,6 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Предназначение',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'purpose',
-        ],
-        [
-            'NAME' => 'Состав',
-            'PROPERTY_TYPE' => 'S',
-            'CODE' => 'composition',
-        ],
-        [
-            'NAME' => 'Рекомендации по кормлению',
-            'PROPERTY_TYPE' => 'S',
-            'CODE' => 'feeding_recommendations',
-        ],
-        [
-            'NAME' => 'Лакомство',
-            'PROPERTY_TYPE' => 'L',
-            'CODE' => 'is_treat',
-            'LIST_TYPE' => 'C',
-            'VALUES' => [
-                [
-                    'VALUE' => 'Да',
-                    'DEF' => 'N',
-                    'SORT' => 500,
-                    'XML_ID' => 'yes',
-                ],
-            ],
         ],
         [
             'NAME' => 'Возраст',

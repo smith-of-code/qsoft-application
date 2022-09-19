@@ -2,14 +2,14 @@
 
 use QSoft\Migrate\BaseCreateIBlockMigration;
 
-final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
+final class CreateIBlockFoodOffer extends BaseCreateIBlockMigration
 {
     protected array $iBlockInfo = [
         'LID' => 's1',
-        'IBLOCK_TYPE_ID' => 'catalog',
-        'CODE' => 'product_offers',
-        'XML_ID' => 'product_offers',
-        'NAME' => 'Торговые предложения',
+        'IBLOCK_TYPE_ID' => 'offers',
+        'CODE' => 'food_offer',
+        'XML_ID' => 'food_offer',
+        'NAME' => 'Торговые предложения (корма)',
         'ACTIVE' => 'Y',
         'SORT' => 500,
         'VERSION' => 2,
@@ -124,20 +124,20 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
     {
         $this->includeCatalogModule();
 
-        $productIblockId = (new CIBlock())->GetList([], ['CODE' => 'products'])->Fetch()['ID'];
-        if (!$productIblockId) {
-            throw new RuntimeException('Не найден инфоблок "Товары"');
+        $foodIblockId = (new CIBlock())->GetList([], ['CODE' => 'food'])->Fetch()['ID'];
+        if (!$foodIblockId) {
+            throw new RuntimeException('Не найден инфоблок "Корма"');
         }
 
         $skuId = CIBlockPropertyTools::createProperty(
             $this->iBlockId,
             CIBlockPropertyTools::CODE_SKU_LINK,
-            ['LINK_IBLOCK_ID' => $productIblockId]
+            ['LINK_IBLOCK_ID' => $foodIblockId]
         );
 
         $fields = [
             'IBLOCK_ID' => $this->iBlockId,
-            'PRODUCT_IBLOCK_ID' => $productIblockId,
+            'PRODUCT_IBLOCK_ID' => $foodIblockId,
             'SKU_PROPERTY_ID' => $skuId,
         ];
 
@@ -152,12 +152,12 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
     {
         $this->includeCatalogModule();
 
-        $productIblockId = (new CIBlock())->GetList([], ['CODE' => 'products'])->Fetch()['ID'];
-        if (!$productIblockId) {
-            throw new RuntimeException('Не найден инфоблок "Товары"');
+        $foodIblockId = (new CIBlock())->GetList([], ['CODE' => 'food'])->Fetch()['ID'];
+        if (!$foodIblockId) {
+            throw new RuntimeException('Не найден инфоблок "Корма"');
         }
 
-        CCatalog::UnLinkSKUIBlock($productIblockId);
+        CCatalog::UnLinkSKUIBlock($foodIblockId);
     }
 
     private function includeCatalogModule(): void
