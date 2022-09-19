@@ -35,7 +35,9 @@
     "qsoft/foundation": "~5.0",
     "qsoft/migration": "~6.1.0",
     "qsoft/database": "~5.0.1",
-    "qsoft/queue": "~5.7.2"
+    "qsoft/queue": "~5.7.2",
+    "guzzlehttp/guzzle": "^7.5",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
