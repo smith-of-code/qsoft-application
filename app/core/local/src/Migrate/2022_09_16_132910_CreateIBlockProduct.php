@@ -68,6 +68,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Вид животного',
             'PROPERTY_TYPE' => 'S:directory',
             'CODE' => 'pet_type',
+            'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Комплектность',
@@ -121,6 +122,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Порода',
             'PROPERTY_TYPE' => 'S:directory',
             'CODE' => 'breed',
+            'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Назначение',
