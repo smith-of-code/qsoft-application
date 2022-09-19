@@ -36,6 +36,8 @@ class BaseCreateIBlockMigration extends AbstractMigration
         ],
     ];
 
+    protected ?int $iBlockId = null;
+
     protected function onUp(Connection $connection): void
     {
         $this->includeIBlockModule();
@@ -54,6 +56,8 @@ class BaseCreateIBlockMigration extends AbstractMigration
             if (!$result) {
                 throw new \RuntimeException($iBlockProperty->LAST_ERROR);
             }
+
+            $this->iBlockId = $result;
         });
 
         if ($this->seeder) {
