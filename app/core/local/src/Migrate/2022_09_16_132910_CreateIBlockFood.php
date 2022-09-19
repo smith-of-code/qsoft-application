@@ -58,6 +58,7 @@ final class CreateIBlockFood extends BaseCreateIBlockMigration
             'NAME' => 'Состав',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'composition',
+            'ROW_COUNT' => 10,
         ],
         [
             'NAME' => 'Рекомендации по кормлению',
