@@ -108,9 +108,12 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         ],
         [
             'NAME' => 'Цвет',
-            'PROPERTY_TYPE' => 'L',
+            'PROPERTY_TYPE' => 'S',
             'CODE' => 'color',
-            'LIST_TYPE' => 'C',
+            'USER_TYPE' => 'directory',
+            'USER_TYPE_SETTINGS' => [
+                'TABLE_NAME' => 'eshop_color_reference',
+            ],
         ],
         [
             'NAME' => 'Размер',
