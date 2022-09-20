@@ -50,6 +50,7 @@ final class CreateIBlockNews extends BaseCreateIBlockMigration
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'MARKER',
             'LIST_TYPE' => 'L',
+            'IS_REQUIRED' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Кошки',
