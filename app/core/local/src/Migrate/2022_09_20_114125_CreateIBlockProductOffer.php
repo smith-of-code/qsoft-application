@@ -62,28 +62,22 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'CODE' => 'points',
         ],
         [
-            'NAME' => 'Ограниченное предложение',
+            'NAME' => 'Акционное предложение',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'limited_offer',
-            'LIST_TYPE' => 'C',
+            'CODE' => 'special_offer',
+            'LIST_TYPE' => 'L',
             'VALUES' => [
                 [
-                    'VALUE' => 'Да',
+                    'VALUE' => 'Сезонное предложение',
                     'DEF' => 'N',
+                    'XML_ID' => 'seasonal_offer',
                     'SORT' => 500,
                 ],
-            ],
-        ],
-        [
-            'NAME' => 'Сезонное предложение',
-            'PROPERTY_TYPE' => 'L',
-            'CODE' => 'seasonal_offer',
-            'LIST_TYPE' => 'C',
-            'VALUES' => [
                 [
-                    'VALUE' => 'Да',
+                    'VALUE' => 'Ограниченное предложение',
                     'DEF' => 'N',
-                    'SORT' => 500,
+                    'XML_ID' => 'limited_offer',
+                    'SORT' => 1000,
                 ],
             ],
         ],
