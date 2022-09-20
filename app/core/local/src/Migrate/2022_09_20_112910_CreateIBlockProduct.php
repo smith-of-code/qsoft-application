@@ -2,14 +2,14 @@
 
 use QSoft\Migrate\BaseCreateIBlockMigration;
 
-final class CreateIBlockAccessory extends BaseCreateIBlockMigration
+final class CreateIBlockProduct extends BaseCreateIBlockMigration
 {
     protected array $iBlockInfo = [
         'LID' => 's1',
         'IBLOCK_TYPE_ID' => 'catalog',
-        'CODE' => 'accessory',
-        'XML_ID' => 'accessory',
-        'NAME' => 'Аксессуары',
+        'CODE' => 'product',
+        'XML_ID' => 'product',
+        'NAME' => 'Товары',
         'ACTIVE' => 'Y',
         'SORT' => 500,
         'VERSION' => 2,
@@ -54,6 +54,32 @@ final class CreateIBlockAccessory extends BaseCreateIBlockMigration
     ];
 
     protected array $iBlockPropertyInfo = [
+        [
+            'NAME' => 'Состав',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'composition',
+            'ROW_COUNT' => 10,
+        ],
+        [
+            'NAME' => 'Рекомендации по кормлению',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'feeding_recommendations',
+        ],
+        [
+            'NAME' => 'Лакомство',
+            'PROPERTY_TYPE' => 'L',
+            'CODE' => 'is_treat',
+            'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Да',
+                    'DEF' => 'N',
+                    'SORT' => 500,
+                    'XML_ID' => 'yes',
+                ],
+            ],
+        ],
         [
             'NAME' => 'Видео',
             'PROPERTY_TYPE' => 'S',
