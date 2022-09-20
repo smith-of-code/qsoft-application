@@ -59,12 +59,14 @@ final class CreateIBlockEvent extends BaseCreateIBlockMigration
             'IS_REQUIRED' => 'Y',
             'VALUES' => [
                 [
-                    'VALUE' => 'online',
+                    'VALUE' => 'Онлайн',
+                    'XML_ID' => 'online',
                     'DEF' => 'N',
                     'SORT' => 500,
                 ],
                 [
-                    'VALUE' => 'offline',
+                    'VALUE' => 'Оффлайн',
+                    'XML_ID' => 'offline',
                     'DEF' => 'N',
                     'SORT' => 500,
                 ],
