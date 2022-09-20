@@ -36,38 +36,45 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Артикул',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'ARTICLE',
+            'CODE' => 'article',
             'IS_REQUIRED' => 'Y',
         ],
         [
-            'NAME' => 'Подпись акционного товара',
+            'NAME' => 'Лейбл акционного товара',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'DISCOUNT_LABEL',
-            'LIST_TYPE' => 'C',
+            'CODE' => 'discount_label',
+            'LIST_TYPE' => 'L',
             'VALUES' => [
                 [
-                    'VALUE' => 'Да',
+                    'VALUE' => 'Сезонное предложение',
                     'DEF' => 'N',
+                    'XML_ID' => 'seasonal_offer',
                     'SORT' => 500,
+                ],
+                [
+                    'VALUE' => 'Ограниченное предложение',
+                    'DEF' => 'N',
+                    'XML_ID' => 'limited_offer',
+                    'SORT' => 1000,
                 ],
             ],
         ],
         [
             'NAME' => 'Фасовка',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'PACKAGING',
+            'CODE' => 'packaging',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Изображения',
             'PROPERTY_TYPE' => 'F',
-            'CODE' => 'IMAGES',
+            'CODE' => 'images',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Хит продаж',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'IS_BEST_SELLER',
+            'CODE' => 'is_best_seller',
             'LIST_TYPE' => 'C',
             'VALUES' => [
                 [
@@ -80,13 +87,13 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Цвет',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'COLOR',
+            'CODE' => 'color',
             'LIST_TYPE' => 'C',
         ],
         [
             'NAME' => 'Размер',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'SIZE',
+            'CODE' => 'size',
             'LIST_TYPE' => 'C',
         ],
     ];
