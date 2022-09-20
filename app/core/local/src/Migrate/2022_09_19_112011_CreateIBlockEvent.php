@@ -40,15 +40,17 @@ final class CreateIBlockEvent extends BaseCreateIBlockMigration
     protected array $iBlockPropertyInfo = [
         [
             'NAME' => 'Дата публикации',
-            'PROPERTY_TYPE' => 'S:DateTime',
+            'PROPERTY_TYPE' => 'S',
             'CODE' => 'published_at',
             'IS_REQUIRED' => 'Y',
+            'USER_TYPE' => 'DateTime',
         ],
         [
             'NAME' => 'Дата проведения',
-            'PROPERTY_TYPE' => 'S:DateTime',
+            'PROPERTY_TYPE' => 'S',
             'CODE' => 'event_date',
             'IS_REQUIRED' => 'Y',
+            'USER_TYPE' => 'DateTime',
         ],
         [
             'NAME' => 'Тип',
