@@ -52,8 +52,29 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         'procuration',
     ];
 
+    public function onPrepareComponentParams($arParams)
+    {
+        $arParams += array_flip(array_map(static fn($item) => strtoupper($item), array_flip($_GET)));
+        return parent::onPrepareComponentParams($arParams);
+    }
+
     public function executeComponent()
     {
+        if (isset($this->arParams['USER_ID']) && isset($this->arParams['CONFIRM_CODE'])) {
+            $confirmResult = (new ConfirmationService)->verifyEmailCode(
+                $this->arParams['USER_ID'],
+                $this->arParams['CONFIRM_CODE'],
+            );
+
+            if ($confirmResult) {
+                $user = new CUser;
+                $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
+                $user->Authorize($this->arParams['USER_ID']);
+            }
+
+            LocalRedirect($this->getCurrentUrl());
+        }
+
         $this->arResult = $this->getRegisterData();
 
         if (!$this->arResult) {
@@ -68,6 +89,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         }
 
         $this->IncludeComponentTemplate();
+    }
+
+    public function getCurrentUrl(): string
+    {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
     }
 
     public function configureActions(): array
@@ -183,7 +209,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         // TODO "Я согласен на обработку персональных данных", "Я согласен с условиями пользования сайтом"
         // TODO "Я согласен с правилами компании", "Я согласен на получение информации о продуктах, спецпредложениях и акциях"
         // TODO PHOTO, MENTOR_ID, legal entity
-        $userUpdateResult = $user->Update($registrationData['user_id'], [
+        $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
@@ -193,8 +219,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'PERSONAL_CITY' => $data['city'],
         ]);
 
-        $passwordChangeResult = $user->ChangePassword(
-            $registrationData['user_id'],
+        $user->ChangePassword(
+            UserTable::getRowById($registrationData['user_id'])['LOGIN'],
             '',
             $data['password'],
             $data['confirm_password'],
@@ -217,7 +243,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ]);
         }
 
-        return ['status' => 'success', 'passwordChangeResult' => $passwordChangeResult, 'userUpdateResult' => $userUpdateResult];
+        (new ConfirmationService)->sendEmailConfirmation($registrationData['user_id']);
+
+        return ['status' => 'success'];
     }
 
     public function getRegisterData(): array
@@ -234,5 +262,3 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         return $data;
     }
 }
-
-
