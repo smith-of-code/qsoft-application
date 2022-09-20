@@ -1,8 +1,7 @@
 <?
-define("HIDE_SIDEBAR", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
-<?$APPLICATION->IncludeComponent("bitrix:catalog", "bootstrap_v4", array(
+<?$APPLICATION->IncludeComponent("zolo:catalog", "", array(
 	"IBLOCK_TYPE" => "catalog",
 	"IBLOCK_ID" => "2",
 	"TEMPLATE_THEME" => "site",
@@ -166,9 +165,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	"DETAIL_BRAND_USE" => "Y",
 	"DETAIL_BRAND_PROP_CODE" => "BRAND_REF",
 	"COMPATIBLE_MODE" => "N",
-	"SIDEBAR_SECTION_SHOW" => "Y",
-	"SIDEBAR_DETAIL_SHOW" => "Y",
-	"SIDEBAR_PATH" => "/catalog/sidebar.php",
 	"SEF_URL_TEMPLATES" => array(
 		"sections" => "",
 		"section" => "#SECTION_CODE#/",

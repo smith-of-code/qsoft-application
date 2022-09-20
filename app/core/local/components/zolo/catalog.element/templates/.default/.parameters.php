@@ -30,30 +30,16 @@ if ($boolCatalog && $iblockExists)
 	$boolSKU = !empty($arSKU) && is_array($arSKU);
 }
 
-$arThemes = array();
-if (ModuleManager::isModuleInstalled('bitrix.eshop'))
-{
-	$arThemes['site'] = GetMessage('CP_BCE_TPL_THEME_SITE');
-}
-
-$arThemesList = array(
+$arThemes = array(
 	'blue' => GetMessage('CP_BCE_TPL_THEME_BLUE'),
 	'green' => GetMessage('CP_BCE_TPL_THEME_GREEN'),
 	'red' => GetMessage('CP_BCE_TPL_THEME_RED'),
-	'wood' => GetMessage('CP_BCE_TPL_THEME_WOOD'),
-	'yellow' => GetMessage('CP_BCE_TPL_THEME_YELLOW'),
-	'black' => GetMessage('CP_BCE_TPL_THEME_BLACK')
+	'yellow' => GetMessage('CP_BCE_TPL_THEME_YELLOW')
 );
-$dir = trim(preg_replace("'[\\\\/]+'", "/", dirname(__FILE__).'/themes/'));
-if (is_dir($dir))
-{
-	foreach ($arThemesList as $themeID => $themeName)
-	{
-		if (!is_file($dir.$themeID.'/style.css'))
-			continue;
 
-		$arThemes[$themeID] = $themeName;
-	}
+if (ModuleManager::isModuleInstalled('bitrix.eshop'))
+{
+	$arThemes['site'] = GetMessage('CP_BCE_TPL_THEME_SITE');
 }
 
 $documentRoot = Loader::getDocumentRoot();
@@ -245,7 +231,6 @@ if ($iblockExists)
 				$showedProperties = $arCurrentValues['OFFERS_PROPERTY_CODE'];
 			}
 		}
-
 		if (!empty($showedProperties))
 		{
 			$selected = array();
@@ -267,7 +252,6 @@ if ($iblockExists)
 				'VALUES' => $selected
 			);
 		}
-		unset($showedProperties);
 	}
 
 	$arTemplateParameters['ADD_PICT_PROP'] = array(

@@ -9,24 +9,6 @@ if (isset($arParams["USE_FILTER"]) && $arParams["USE_FILTER"]=="Y")
 else
 	$arParams["FILTER_NAME"] = "";
 
-//default gifts
-if(empty($arParams['USE_GIFTS_SECTION']))
-{
-	$arParams['USE_GIFTS_SECTION'] = 'Y';
-}
-if(empty($arParams['GIFTS_SECTION_LIST_PAGE_ELEMENT_COUNT']))
-{
-	$arParams['GIFTS_SECTION_LIST_PAGE_ELEMENT_COUNT'] = 3;
-}
-if(empty($arParams['GIFTS_MAIN_PRODUCT_DETAIL_PAGE_ELEMENT_COUNT']))
-{
-	$arParams['GIFTS_MAIN_PRODUCT_DETAIL_PAGE_ELEMENT_COUNT'] = 4;
-}
-if(empty($arParams['GIFTS_DETAIL_PAGE_ELEMENT_COUNT']))
-{
-	$arParams['GIFTS_DETAIL_PAGE_ELEMENT_COUNT'] = 4;
-}
-
 $arParams['ACTION_VARIABLE'] = (isset($arParams['ACTION_VARIABLE']) ? trim($arParams['ACTION_VARIABLE']) : 'action');
 if ($arParams["ACTION_VARIABLE"] == '' || !preg_match("/^[A-Za-z_][A-Za-z01-9_]*$/", $arParams["ACTION_VARIABLE"]))
 	$arParams["ACTION_VARIABLE"] = "action";

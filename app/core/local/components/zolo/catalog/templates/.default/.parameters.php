@@ -1000,13 +1000,7 @@ $arTemplateParameters['MESS_BTN_LAZY_LOAD'] = array(
 	'NAME' => GetMessage('CP_BC_TPL_MESS_BTN_LAZY_LOAD'),
 	'TYPE' => 'TEXT',
 	'DEFAULT' => GetMessage('CP_BC_TPL_MESS_BTN_LAZY_LOAD_DEFAULT'),
-	'HIDDEN' => (
-		(isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y')
-		|| (isset($arCurrentValues['DISPLAY_TOP_PAGER']) && $arCurrentValues['DISPLAY_TOP_PAGER'] === 'Y')
-		|| (!isset($arCurrentValues['DISPLAY_BOTTOM_PAGER']) || $arCurrentValues['DISPLAY_BOTTOM_PAGER'] !== 'N')
-		? 'N'
-		: 'Y'
-	)
+	'HIDDEN' => (isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y' ? 'N' : 'Y')
 );
 
 $arTemplateParameters['LOAD_ON_SCROLL'] = array(
@@ -1014,7 +1008,13 @@ $arTemplateParameters['LOAD_ON_SCROLL'] = array(
 	'NAME' => GetMessage('CP_BC_TPL_LOAD_ON_SCROLL'),
 	'TYPE' => 'CHECKBOX',
 	'DEFAULT' => 'N',
-	'HIDDEN' => (isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y' ? 'N' : 'Y')
+	'HIDDEN' => (
+		(isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y')
+		|| (isset($arCurrentValues['DISPLAY_TOP_PAGER']) && $arCurrentValues['DISPLAY_TOP_PAGER'] === 'Y')
+		|| (!isset($arCurrentValues['DISPLAY_BOTTOM_PAGER']) || $arCurrentValues['DISPLAY_BOTTOM_PAGER'] !== 'N')
+		? 'N'
+		: 'Y'
+	)
 );
 
 $arTemplateParameters['MESS_BTN_BUY'] = array(
@@ -1265,27 +1265,6 @@ if (isset($arCurrentValues['USE_COMPARE']) && $arCurrentValues['USE_COMPARE'] ==
 	}
 }
 
-$arTemplateParameters['SIDEBAR_SECTION_SHOW'] = array(
-	'PARENT' => 'VISUAL',
-	'NAME' => GetMessage('CPT_SIDEBAR_SECTION_SHOW'),
-	'TYPE' => 'CHECKBOX',
-	'DEFAULT' => 'Y',
-	'SORT' => 800
-);
-$arTemplateParameters['SIDEBAR_DETAIL_SHOW'] = array(
-	'PARENT' => 'VISUAL',
-	'NAME' => GetMessage('CPT_SIDEBAR_DETAIL_SHOW'),
-	'TYPE' => 'CHECKBOX',
-	'DEFAULT' => 'N',
-	'SORT' => 800
-);
-$arTemplateParameters['SIDEBAR_PATH'] = array(
-	'PARENT' => 'VISUAL',
-	'NAME' => GetMessage('CPT_SIDEBAR_PATH'),
-	'TYPE' => 'STRING',
-	'SORT' => 800
-);
-
 $arTemplateParameters['USE_ENHANCED_ECOMMERCE'] = array(
 	'PARENT' => 'ANALYTICS_SETTINGS',
 	'NAME' => GetMessage('CP_BC_TPL_USE_ENHANCED_ECOMMERCE'),
@@ -1315,12 +1294,6 @@ if (isset($arCurrentValues['USE_ENHANCED_ECOMMERCE']) && $arCurrentValues['USE_E
 $arTemplateParameters['DETAIL_SHOW_POPULAR'] = array(
 	'PARENT' => 'DETAIL_SETTINGS',
 	'NAME' => GetMessage('CP_BC_TPL_DETAIL_SHOW_POPULAR'),
-	'TYPE' => 'CHECKBOX',
-	'DEFAULT' => 'Y'
-);
-$arTemplateParameters['DETAIL_SHOW_VIEWED'] = array(
-	'PARENT' => 'DETAIL_SETTINGS',
-	'NAME' => GetMessage('CP_BC_TPL_DETAIL_SHOW_VIEWED'),
 	'TYPE' => 'CHECKBOX',
 	'DEFAULT' => 'Y'
 );

@@ -21,9 +21,9 @@ if (!empty($arResult['RECOMMENDED_IDS']))
 	if (empty($arParams['HIDE_BLOCK_TITLE']) || $arParams['HIDE_BLOCK_TITLE'] !== 'Y')
 	{
 		?>
-		<div class="bx_item_list_title">
+		<h4 class="bx_item_list_title">
 			<?=($arParams['BLOCK_TITLE'] ? htmlspecialcharsbx($arParams['BLOCK_TITLE']) : GetMessage('CATALOG_RECOMMENDED_PRODUCTS_HREF_TITLE'))?>
-		</div>
+		</h4>
 		<?
 	}
 
@@ -39,10 +39,10 @@ if (!empty($arResult['RECOMMENDED_IDS']))
 	$arSku = CCatalogSku::GetInfoByProductIBlock($iblockId);
 	$offerIblockId = !empty($arSku) ? $arSku['IBLOCK_ID'] : 0;
 
-	CBitrixComponent::includeComponentClass('bitrix:catalog.section');
+	CBitrixComponent::includeComponentClass('zolo:catalog.section');
 	$APPLICATION->IncludeComponent(
-		'bitrix:catalog.section',
-		'.default',
+		'zolo:catalog.section',
+		'',
 		array(
 
 			'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],

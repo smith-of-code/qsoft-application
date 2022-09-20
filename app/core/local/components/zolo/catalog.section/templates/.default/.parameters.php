@@ -37,29 +37,19 @@ if ($boolCatalog && (isset($arCurrentValues['IBLOCK_ID']) && 0 < intval($arCurre
 	}
 }
 
-$arThemes = array();
-if (ModuleManager::isModuleInstalled('bitrix.eshop'))
-{
-	$arThemes['site'] = GetMessage('CP_BCS_TPL_THEME_SITE');
-}
 
-$arThemesList = array(
+$arThemes = array(
 	'blue' => GetMessage('CP_BCS_TPL_THEME_BLUE'),
 	'green' => GetMessage('CP_BCS_TPL_THEME_GREEN'),
 	'red' => GetMessage('CP_BCS_TPL_THEME_RED'),
 	'yellow' => GetMessage('CP_BCS_TPL_THEME_YELLOW')
 );
-$dir = trim(preg_replace("'[\\\\/]+'", '/', dirname(__FILE__).'/themes/'));
-if (is_dir($dir))
-{
-	foreach ($arThemesList as $themeID => $themeName)
-	{
-		if (!is_file($dir.$themeID.'/style.css'))
-			continue;
 
-		$arThemes[$themeID] = $themeName;
-	}
+if (ModuleManager::isModuleInstalled('bitrix.eshop'))
+{
+	$arThemes['site'] = GetMessage('CP_BCS_TPL_THEME_SITE');
 }
+
 
 $arTemplateParameters['TEMPLATE_THEME'] = array(
 	'PARENT' => 'VISUAL',
@@ -510,7 +500,7 @@ $arTemplateParameters['MESS_BTN_LAZY_LOAD'] = array(
 	'NAME' => GetMessage('CP_BCS_TPL_MESS_BTN_LAZY_LOAD'),
 	'TYPE' => 'TEXT',
 	'DEFAULT' => GetMessage('CP_BCS_TPL_MESS_BTN_LAZY_LOAD_DEFAULT'),
-	'HIDDEN' => (isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y' ? 'N' : 'Y')
+	"HIDDEN" => (isset($arCurrentValues['LAZY_LOAD']) && $arCurrentValues['LAZY_LOAD'] === 'Y' ? 'N' : 'Y')
 );
 
 $arTemplateParameters['LOAD_ON_SCROLL'] = array(

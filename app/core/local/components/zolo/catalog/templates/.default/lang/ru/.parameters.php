@@ -176,7 +176,6 @@ $MESS["CP_BC_TPL_RCM_SIMILAR"] = "Похожие товары";
 $MESS["CP_BC_TPL_RCM_SIMILAR_ANY"] = "Продаваемые/Просматриваемые/Похожие товары";
 $MESS["CP_BC_TPL_RCM_PERSONAL_WBEST"] = "Самые продаваемые/Персональные";
 $MESS["CP_BC_TPL_RCM_RAND"] = "Любая рекомендация";
-
 $MESS["TEMPLATE_THEME_TIP"] = "Цветовая тема для отображения. По умолчанию берется синяя тема.";
 $MESS["TOP_VIEW_MODE_TIP"] = "Настройка определяет, как будет выглядеть top элементов на странице";
 $MESS["LABEL_PROP_TIP"] = "Свойство меток товара";
@@ -204,9 +203,13 @@ $MESS["TOP_ROTATE_TIMER_TIP"] = "Время показа одного слайд
 $MESS["USE_COMMON_SETTINGS_BASKET_POPUP_TIP"] = "Если эта опция выбрана, на всех страницах показ кнопок добавления в корзину или покупки будет задаваться единым списком настроек. Если снята - можно задать индивидуальное поведение для списка товаров, детальной страницы и top'а товаров";
 $MESS["COMMON_SHOW_CLOSE_POPUP_TIP"] = "Если опция отмечена, во всплывающих окнах будет показана кнопка \"Продолжить покупки\"";
 $MESS["USE_BIG_DATA_TIP"] = "Показывать персональные рекомендации на страницах каталога";
-$MESS["CPT_SIDEBAR_PATH"] = "Путь к включаемой области для вывода информации в правом блоке";
-$MESS["CPT_SIDEBAR_SECTION_SHOW"] = "Показывать правый блок в списке товаров";
-$MESS["CPT_SIDEBAR_DETAIL_SHOW"] = "Показывать правый блок на детальной странице";
+$MESS["CPT_SIDEBAR_PATH"] = "Путь к включаемой области для вывода информации в боковой панели";
+$MESS["CPT_SIDEBAR_SECTION_SHOW1"] = "Показывать боковую панель в списке товаров";
+$MESS["CPT_SIDEBAR_SECTION_POSITION"] = "Расположение боковой панели в списке товаров";
+$MESS["CPT_SIDEBAR_DETAIL_SHOW1"] = "Показывать боковую панель на детальной странице";
+$MESS["CPT_SIDEBAR_DETAIL_POSITION"] = "Расположение боковой панели на детальной странице";
+$MESS["CPT_SIDEBAR_POSITION_RIGHT"] = "справа";
+$MESS["CPT_SIDEBAR_POSITION_LEFT"] = "слева";
 $MESS["CP_BC_TPL_USE_ENHANCED_ECOMMERCE"] = "Включить отправку данных в электронную торговлю";
 $MESS["USE_ENHANCED_ECOMMERCE_TIP"] = "Требуется дополнительная настройка в Google Analytics Enhanced 
 Ecommerce и/или Яндекс.Метрике";

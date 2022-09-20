@@ -8,7 +8,7 @@
 	{
 		BasketButton.superclass.constructor.apply(this, arguments);
 		this.buttonNode = BX.create('SPAN', {
-			props: {className: 'btn btn-default btn-buy btn-sm', id: this.id},
+			props: {className: 'btn btn-primary btn-buy btn-sm', id: this.id},
 			style: typeof params.style === 'object' ? params.style : {},
 			text: params.text,
 			events: this.contextEvents
@@ -2667,6 +2667,7 @@
 			}
 			BX.adjust(this.obDescription, {html: currentDescription});
 		},
+
 		drawImages: function(images)
 		{
 			if (!this.node.imageContainer)
@@ -3105,7 +3106,7 @@
 							style: {marginRight: '10px'}
 						}),
 						new BasketButton({
-							text: BX.message('BTN_MESSAGE_DETAIL_CLOSE_POPUP'),
+							text: BX.message('BTN_MESSAGE_CLOSE_POPUP'),
 							events: {
 								click: BX.delegate(this.obPopupWin.close, this.obPopupWin)
 							}
