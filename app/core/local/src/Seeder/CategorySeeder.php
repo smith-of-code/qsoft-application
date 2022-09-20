@@ -92,15 +92,13 @@ class CategorySeeder implements Seederable
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
 
-        $foodIblockId = \CIBlock::GetList([], ['CODE' => 'food'])->Fetch()['ID'];
-        $accessoryIblockId = \CIBlock::GetList([], ['CODE' => 'accessory'])->Fetch()['ID'];
+        $productIblockId = \CIBlock::GetList([], ['CODE' => 'product'])->Fetch()['ID'];
 
         if (!Loader::includeModule('fileman')) {
             throw new RuntimeException('Не удалось загрузить модуль fileman');
         }
 
-        self::createCategory($foodIblockId, $finalArray);
-        self::createCategory($accessoryIblockId, $finalArray);
+        self::createCategory($productIblockId, $finalArray);
 
         $connection->commitTransaction();
     }
