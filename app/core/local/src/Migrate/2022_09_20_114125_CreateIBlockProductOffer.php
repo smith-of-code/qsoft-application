@@ -40,31 +40,9 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'IS_REQUIRED' => 'Y',
         ],
         [
-            'NAME' => 'Цена',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'price',
-            'IS_REQUIRED' => 'Y',
-        ],
-        [
-            'NAME' => 'Акционная цена',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'discounted_price',
-        ],
-        [
-            'NAME' => 'Количество на складе',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'quantity',
-            'IS_REQUIRED' => 'Y',
-        ],
-        [
-            'NAME' => 'Баллы за заказ',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'points',
-        ],
-        [
-            'NAME' => 'Акционное предложение',
+            'NAME' => 'Лейбл акционного товара',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'special_offer',
+            'CODE' => 'discount_label',
             'LIST_TYPE' => 'L',
             'VALUES' => [
                 [
@@ -96,7 +74,7 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Хит продаж',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'hit',
+            'CODE' => 'is_best_seller',
             'LIST_TYPE' => 'C',
             'VALUES' => [
                 [
