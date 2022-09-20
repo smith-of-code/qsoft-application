@@ -40,9 +40,10 @@ final class CreateIBlockNews extends BaseCreateIBlockMigration
     protected array $iBlockPropertyInfo = [
         [
             'NAME' => 'Дата публикации',
-            'PROPERTY_TYPE' => 'S:DateTime',
+            'PROPERTY_TYPE' => 'S',
             'CODE' => 'published_at',
             'IS_REQUIRED' => 'Y',
+            'USER_TYPE' => 'DateTime',
         ],
     ];
 }
