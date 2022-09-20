@@ -36,48 +36,13 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Артикул',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'article',
+            'CODE' => 'ARTICLE',
             'IS_REQUIRED' => 'Y',
         ],
         [
-            'NAME' => 'Цена',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'price',
-            'IS_REQUIRED' => 'Y',
-        ],
-        [
-            'NAME' => 'Акционная цена',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'discounted_price',
-        ],
-        [
-            'NAME' => 'Количество на складе',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'quantity',
-            'IS_REQUIRED' => 'Y',
-        ],
-        [
-            'NAME' => 'Баллы за заказ',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'points',
-        ],
-        [
-            'NAME' => 'Ограниченное предложение',
+            'NAME' => 'Подпись акционного товара',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'limited_offer',
-            'LIST_TYPE' => 'C',
-            'VALUES' => [
-                [
-                    'VALUE' => 'Да',
-                    'DEF' => 'N',
-                    'SORT' => 500,
-                ],
-            ],
-        ],
-        [
-            'NAME' => 'Сезонное предложение',
-            'PROPERTY_TYPE' => 'L',
-            'CODE' => 'seasonal_offer',
+            'CODE' => 'DISCOUNT_LABEL',
             'LIST_TYPE' => 'C',
             'VALUES' => [
                 [
@@ -90,19 +55,19 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Фасовка',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'packaging',
+            'CODE' => 'PACKAGING',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Изображения',
             'PROPERTY_TYPE' => 'F',
-            'CODE' => 'images',
+            'CODE' => 'IMAGES',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Хит продаж',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'hit',
+            'CODE' => 'IS_BEST_SELLER',
             'LIST_TYPE' => 'C',
             'VALUES' => [
                 [
@@ -115,13 +80,13 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Цвет',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'color',
+            'CODE' => 'COLOR',
             'LIST_TYPE' => 'C',
         ],
         [
             'NAME' => 'Размер',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'size',
+            'CODE' => 'SIZE',
             'LIST_TYPE' => 'C',
         ],
     ];
