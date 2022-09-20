@@ -92,6 +92,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
      * @param string $direction - "next"|"previous"
      * @param array $data
      * @return array
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function saveStepAction(string $direction, array $data): array
     {
@@ -102,17 +105,18 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         if ($direction === 'next') {
             $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1];
         } else {
-            $data['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
-        }
+            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
 
-        if ($direction === 'previous') {
-            return $registrationData;
+            return $this->setRegisterData($registrationData);
         }
 
         foreach ($data as $field => $value) {
-            if (($field === 'contact_id' || $field === 'mentor_id')) {
+            if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
+                throw new InvalidArgumentException('User with this email already exist');
+            }
+            if ($field === 'contact_id' || $field === 'mentor_id') {
                 try {
-                    UserTable::getById($field);
+                    UserTable::getById($value);
                 } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
                     throw new InvalidArgumentException('User not found');
                 }
@@ -122,10 +126,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             }
         }
 
-        $registrationData = array_merge($registrationData, $data);
-        Application::getInstance()->getSession()->set('registrationData', $registrationData);
-
-        return $registrationData;
+        return $this->setRegisterData(array_merge($registrationData, $data));
     }
 
     public function sendPhoneCodeAction(string $phoneNumber): array
@@ -180,8 +181,6 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
-        // TODO "Я согласен на обработку персональных данных", "Я согласен с условиями пользования сайтом"
-        // TODO "Я согласен с правилами компании", "Я согласен на получение информации о продуктах, спецпредложениях и акциях"
         // TODO PHOTO, MENTOR_ID, legal entity
         $userUpdateResult = $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
