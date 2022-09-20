@@ -51,5 +51,37 @@ final class CreateIBlockExpertAdvice extends BaseCreateIBlockMigration
             'CODE' => 'TARGET_AUDIENCE',
             'IS_REQUIRED' => 'Y',
         ],
+        [
+            'NAME' => 'Маркер',
+            'PROPERTY_TYPE' => 'L',
+            'CODE' => 'MARKER',
+            'LIST_TYPE' => 'L',
+            'VALUES' => [
+                [
+                    'VALUE' => 'Кошки',
+                    'DEF' => 'N',
+                    'XML_ID' => 'CATS',
+                    'SORT' => 500,
+                ],
+                [
+                    'VALUE' => 'Собаки',
+                    'DEF' => 'N',
+                    'XML_ID' => 'DOGS',
+                    'SORT' => 1000,
+                ],
+                [
+                    'VALUE' => 'Интересное',
+                    'DEF' => 'N',
+                    'XML_ID' => 'INTERESTING',
+                    'SORT' => 1500,
+                ],
+                [
+                    'VALUE' => 'AmeБизнес',
+                    'DEF' => 'N',
+                    'XML_ID' => 'AMEBUSINESS',
+                    'SORT' => 2000,
+                ],
+            ],
+        ],
     ];
 }
