@@ -36,25 +36,25 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Артикул',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'article',
+            'CODE' => 'ARTICLE',
             'IS_REQUIRED' => 'Y',
         ],
         [
             'NAME' => 'Лейбл акционного товара',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'discount_label',
+            'CODE' => 'DISCOUNT_LABEL',
             'LIST_TYPE' => 'L',
             'VALUES' => [
                 [
                     'VALUE' => 'Сезонное предложение',
                     'DEF' => 'N',
-                    'XML_ID' => 'seasonal_offer',
+                    'XML_ID' => 'SEASONAL_OFFER',
                     'SORT' => 500,
                 ],
                 [
                     'VALUE' => 'Ограниченное предложение',
                     'DEF' => 'N',
-                    'XML_ID' => 'limited_offer',
+                    'XML_ID' => 'LIMITED_OFFER',
                     'SORT' => 1000,
                 ],
             ],
@@ -62,19 +62,19 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Фасовка',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'packaging',
+            'CODE' => 'PACKAGING',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Изображения',
             'PROPERTY_TYPE' => 'F',
-            'CODE' => 'images',
+            'CODE' => 'IMAGES',
             'MULTIPLE' => 'Y',
         ],
         [
             'NAME' => 'Хит продаж',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'is_best_seller',
+            'CODE' => 'IS_BESTSELLER',
             'LIST_TYPE' => 'C',
             'VALUES' => [
                 [
@@ -87,7 +87,7 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Цвет',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'color',
+            'CODE' => 'COLOR',
             'USER_TYPE' => 'directory',
             'USER_TYPE_SETTINGS' => [
                 'TABLE_NAME' => 'eshop_color_reference',
@@ -96,7 +96,7 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
         [
             'NAME' => 'Размер',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'size',
+            'CODE' => 'SIZE',
             'LIST_TYPE' => 'C',
         ],
     ];

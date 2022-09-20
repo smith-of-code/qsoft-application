@@ -41,7 +41,7 @@ final class CreateIBlockNews extends BaseCreateIBlockMigration
         [
             'NAME' => 'Дата публикации',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'published_at',
+            'CODE' => 'PUBLISHED_AT',
             'IS_REQUIRED' => 'Y',
             'USER_TYPE' => 'DateTime',
         ],

@@ -41,21 +41,21 @@ final class CreateIBlockEvent extends BaseCreateIBlockMigration
         [
             'NAME' => 'Дата публикации',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'published_at',
+            'CODE' => 'PUBLISHED_AT',
             'IS_REQUIRED' => 'Y',
             'USER_TYPE' => 'DateTime',
         ],
         [
             'NAME' => 'Дата проведения',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'event_date',
+            'CODE' => 'EVENT_DATE',
             'IS_REQUIRED' => 'Y',
             'USER_TYPE' => 'DateTime',
         ],
         [
             'NAME' => 'Тип',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'event_type',
+            'CODE' => 'EVENT_TYPE',
             'IS_REQUIRED' => 'Y',
             'VALUES' => [
                 [

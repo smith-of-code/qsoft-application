@@ -57,18 +57,18 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         [
             'NAME' => 'Состав',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'composition',
+            'CODE' => 'COMPOSITION',
             'ROW_COUNT' => 10,
         ],
         [
             'NAME' => 'Рекомендации по кормлению',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'feeding_recommendations',
+            'CODE' => 'FEEDING_RECOMMENDATIONS',
         ],
         [
             'NAME' => 'Лакомство',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'is_treat',
+            'CODE' => 'TREAT',
             'LIST_TYPE' => 'C',
             'SMART_FILTER' => 'Y',
             'VALUES' => [
@@ -84,12 +84,12 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Видео',
             'PROPERTY_TYPE' => 'S',
             'USER_TYPE' => 'video',
-            'CODE' => 'video',
+            'CODE' => 'VIDEO',
         ],
         [
             'NAME' => 'Вид животного',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'pet_type',
+            'CODE' => 'PET_TYPE',
             'MULTIPLE' => 'Y',
             'LIST_TYPE' => 'C',
             'SMART_FILTER' => 'Y',
@@ -107,22 +107,22 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         [
             'NAME' => 'Комплектность',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'completeness',
+            'CODE' => 'COMPLETENESS',
         ],
         [
             'NAME' => 'Материал',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'material',
+            'CODE' => 'MATERIAL',
         ],
         [
             'NAME' => 'Предназначение',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'purpose',
+            'CODE' => 'PURPOSE',
         ],
         [
             'NAME' => 'Возраст',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'age',
+            'CODE' => 'AGE',
             'MULTIPLE' => 'Y',
             'LIST_TYPE' => 'C',
             'SMART_FILTER' => 'Y',
@@ -144,7 +144,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         [
             'NAME' => 'Порода',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'breed',
+            'CODE' => 'BREED',
             'MULTIPLE' => 'Y',
             'LIST_TYPE' => 'C',
             'SMART_FILTER' => 'Y',
@@ -170,12 +170,12 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         [
             'NAME' => 'Назначение',
             'PROPERTY_TYPE' => 'S',
-            'CODE' => 'appointment',
+            'CODE' => 'APPOINTMENT',
         ],
         [
             'NAME' => 'Линейка',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'line',
+            'CODE' => 'LINE',
             'SMART_FILTER' => 'Y',
             'LIST_TYPE' => 'L',
         ],
