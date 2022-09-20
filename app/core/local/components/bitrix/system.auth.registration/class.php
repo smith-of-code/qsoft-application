@@ -1,21 +1,15 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die;
 
-/**
- * Bitrix vars
- * @global CUser $USER
- * @global CMain $APPLICATION
- */
-
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
-use Bitrix\Main\Controller\PhoneAuth;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
-use Bitrix\Main\Type\DateTime;
+use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
 use QSoft\ORM\PetTable;
+use QSoft\Service\ConfirmationService;
 
 class SystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
 {
@@ -136,59 +130,70 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function sendPhoneCodeAction(string $phoneNumber): array
     {
+        if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
+            throw new InvalidArgumentException('Invalid phone number');
+        }
+
         $password = uniqid();
-        $result = (new CUser)->Register(
+        $user = new CUser;
+        $result = $user->Register(
             $phoneNumber,
             '',
             '',
             $password,
             $password,
             '',
-            SITE_ID,
-            '',
-            0,
-            false,
-            $phoneNumber,
         );
+
+        if ($result['TYPE'] === 'ERROR') {
+            return [
+                'status' => 'error',
+                'message' => $result['MESSAGE'],
+            ];
+        }
+
+        $user->Update($result['ID'], ['ACTIVE' => 'N']);
+        $user->Logout();
 
         $this->setRegisterData(array_merge($this->getRegisterData(), [
             'password' => $password,
             'user_id' => $result['ID'],
         ]));
 
+        (new ConfirmationService)->sendSmsConfirmation($result['ID']);
+
         return [
             'status' => $result['TYPE'] === 'OK' ? 'success' : 'error',
             'message' => $result['MESSAGE'],
-            'singed_data' => $result['SIGNED_DATA'],
         ];
     }
 
-    public function verifyPhoneCodeAction(string $singedData, int $code): array
+    public function verifyPhoneCodeAction(string $code): array
     {
-        $params = PhoneAuth::extractData($singedData);
-        $userId = CUser::VerifyPhoneCode($params['phoneNumber'], $code);
+        $verifyResult = (new ConfirmationService)->verifySmsCode($this->getRegisterData()['user_id'], $code);
 
-        return ['status' => $userId ? 'success' : 'error'];
+        return ['status' => $verifyResult ? 'success' : 'error'];
     }
 
     public function registerAction(array $data): array
     {
+        $user = new CUser;
         $registrationData = $this->getRegisterData();
 
         // TODO "Я согласен на обработку персональных данных", "Я согласен с условиями пользования сайтом"
         // TODO "Я согласен с правилами компании", "Я согласен на получение информации о продуктах, спецпредложениях и акциях"
         // TODO PHOTO, MENTOR_ID, legal entity
-        $userUpdateResult = (new CUser)->Update($registrationData['user_id'], [
+        $userUpdateResult = $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
-            'PERSONAL_BIRTHDAY' => new DateTime($data['birthday']),
+            'PERSONAL_BIRTHDAY' => new Date($data['birthday']),
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['city'],
         ]);
 
-        $passwordChangeResult = (new CUser)->ChangePassword(
+        $passwordChangeResult = $user->ChangePassword(
             $registrationData['user_id'],
             '',
             $data['password'],

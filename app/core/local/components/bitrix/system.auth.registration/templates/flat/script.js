@@ -15,7 +15,7 @@ class CSystemAuthRegistrationComponent {
       const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'sendPhoneCode', {
           mode: 'class',
           data: {
-              phoneNumber: '+79999999999',
+              phoneNumber: '+79999999988',
           },
       });
       console.log(response);
@@ -24,7 +24,6 @@ class CSystemAuthRegistrationComponent {
           ...registrationData,
           user_id: response.data.user_id,
           password: response.data.password,
-          singed_data: response.data.singed_data,
       };
   }
 
@@ -32,7 +31,6 @@ class CSystemAuthRegistrationComponent {
       const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'verifyPhoneCode', {
           mode: 'class',
           data: {
-              singed_data: registrationData.singed_data,
               code: $('.input2').val(),
           },
       });
