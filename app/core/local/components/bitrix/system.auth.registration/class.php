@@ -6,6 +6,7 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
+use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
 use QSoft\ORM\PetTable;
 use QSoft\Service\ConfirmationService;
@@ -129,6 +130,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function sendPhoneCodeAction(string $phoneNumber): array
     {
+        if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
+            throw new InvalidArgumentException('Invalid phone number');
+        }
+
         $password = uniqid();
         $user = new CUser;
         $result = $user->Register(

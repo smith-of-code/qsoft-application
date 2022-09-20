@@ -7,15 +7,19 @@ use GuzzleHttp\ClientInterface;
 
 class SmsClient
 {
-    private const BRAND_NAME = 'Zolo';
+    private string $brandName = 'Zolo';
 
     private ClientInterface $httpClient;
 
     private string $apiKey;
     private string $requestUrl;
 
-    public function __construct()
+    public function __construct(string $brandName = null)
     {
+        if ($brandName) {
+            $this->brandName = $brandName;
+        }
+
         $this->httpClient = new Client;
         $this->apiKey = getenv('SMS_SERVICE_API_KEY');
         $this->requestUrl = getenv('SMS_SERVICE_REQUEST_URL');
@@ -28,7 +32,7 @@ class SmsClient
                 'method' => 'push_msg',
                 'format' => 'json',
                 'key' => $this->apiKey,
-                'sender_name' => self::BRAND_NAME,
+                'sender_name' => $this->brandName,
                 'text' => $message,
                 'phone' => $phoneNumber,
             ],

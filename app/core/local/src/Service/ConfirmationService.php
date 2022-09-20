@@ -4,6 +4,7 @@ namespace QSoft\Service;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\UserTable;
+use InvalidArgumentException;
 use QSoft\Client\SmsClient;
 use QSoft\ORM\ConfirmationTable;
 
@@ -22,7 +23,12 @@ class ConfirmationService
 
     public function sendSmsConfirmation(int $userId, string $type = ConfirmationTable::TYPES['confirm_phone'])
     {
-        $user = UserTable::getById($userId)->fetch();
+        $user = UserTable::getById($userId);
+
+        if (!$user || !$user = $user->fetch()) {
+            throw new InvalidArgumentException('User not found');
+        }
+
         $code = $this->generateCode();
 
         ConfirmationTable::add([
