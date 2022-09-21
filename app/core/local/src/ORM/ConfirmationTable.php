@@ -5,6 +5,7 @@ namespace QSoft\ORM;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
 use Bitrix\Main\Type\DateTime;
+use RuntimeException;
 
 Loc::loadMessages(__FILE__);
 
@@ -82,13 +83,18 @@ class ConfirmationTable extends Entity\DataManager
         return $result ? $result['UF_CODE'] : null;
     }
 
-    public static function getActiveEmailCode(int $userId)
+    public static function getActiveEmailCode(int $userId, string $type)
     {
+        if ($type !== self::TYPES['confirm_email'] && $type !== self::TYPES['reset_password']) {
+            throw new RuntimeException('Incorrect email message type');
+        }
+
         $result = self::getRow([
             'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=UF_USER_ID' => $userId,
                 '=UF_CHANNEL' => self::CHANNELS['email'],
+                '=UF_TYPE' => $type,
             ],
             'select' => ['UF_CODE'],
         ]);
