@@ -20,6 +20,7 @@
  import range from './modules/range';
  import inputPlaceholder from './modules/inputPlaceholder';
  import tabs from './modules/tabs';
+ import scrollbar from './modules/scrollbar';
 
 
  const app = {
@@ -33,6 +34,7 @@
         range();
         inputPlaceholder();
         tabs();
+        scrollbar();
     },
 
     load() {
