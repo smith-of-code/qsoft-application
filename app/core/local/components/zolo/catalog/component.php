@@ -54,6 +54,13 @@ if($arParams["SEF_MODE"] == "Y")
 		$arVariables
 	);
 
+    // Задаем параметры при открытии /catalog/ - открываем корневой раздел
+	if (! isset($arVariables['SECTION_CODE'])) {
+        $arVariables['SECTION_CODE'] = '';
+        $arVariables['SECTION_ID'] = 0;
+        $componentPage = "section";
+    }
+
 	if ($componentPage === "smart_filter")
 		$componentPage = "section";
 
@@ -112,19 +119,7 @@ else
 
 	$componentPage = "";
 
-	$arCompareCommands = array(
-		"COMPARE",
-		"DELETE_FEATURE",
-		"ADD_FEATURE",
-		"DELETE_FROM_COMPARE_RESULT",
-		"ADD_TO_COMPARE_RESULT",
-		"COMPARE_BUY",
-		"COMPARE_ADD2BASKET"
-	);
-
-	if(isset($arVariables["action"]) && in_array($arVariables["action"], $arCompareCommands))
-		$componentPage = "compare";
-	elseif(isset($arVariables["ELEMENT_ID"]) && intval($arVariables["ELEMENT_ID"]) > 0)
+	if(isset($arVariables["ELEMENT_ID"]) && intval($arVariables["ELEMENT_ID"]) > 0)
 		$componentPage = "element";
 	elseif(isset($arVariables["ELEMENT_CODE"]) && $arVariables["ELEMENT_CODE"] <> '')
 		$componentPage = "element";
@@ -135,7 +130,7 @@ else
 	elseif(isset($_REQUEST["q"]))
 		$componentPage = "search";
 	else
-		$componentPage = "sections";
+		$componentPage = "section";
 
 	$currentPage = htmlspecialcharsbx($APPLICATION->GetCurPage())."?";
 	$arResult = array(
