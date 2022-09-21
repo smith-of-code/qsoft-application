@@ -19,6 +19,7 @@
  import symbolCounter from './modules/symbolCounter';
  import range from './modules/range';
  import inputPlaceholder from './modules/inputPlaceholder';
+ import tabs from './modules/tabs';
 
 
  const app = {
@@ -31,6 +32,7 @@
         symbolCounter();
         range();
         inputPlaceholder();
+        tabs();
     },
 
     load() {

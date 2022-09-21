@@ -286,8 +286,8 @@
 
                         <div class="buttons">
 
-                            <div style="margin-top: 50px;">
-                                <h3 style="margin-top: 50px;">Квадратные</h3>
+                            <div class="gui__block">
+                                <h3>Квадратные</h3>
 
                                 <h4 style="margin-top: 50px;">Залитые</h4>
 
@@ -339,9 +339,9 @@
 
                             </div>
 
-                            <div style="margin-top: 50px;">
+                            <div class="gui__block">
 
-                                <h3 style="margin-top: 50px;">Cкругленные</h3>
+                                <h3>Cкругленные</h3>
 
                                 <h4 style="margin-top: 50px;">Залитые</h4>
 
@@ -394,9 +394,9 @@
 
                             </div>
 
-                            <div style="margin-top: 50px;">
+                            <div class="gui__block">
 
-                                <h3 style="margin-top: 50px;">Сильно скругленные</h3>
+                                <h3>Сильно скругленные</h3>
 
                                 <h4 style="margin-top: 50px;">Залитые</h4>
 
@@ -449,9 +449,9 @@
 
                             </div>
 
-                            <div style="margin-top: 50px;">
+                            <div class="gui__block">
 
-                                <h3 style="margin-top: 50px;">С иконками</h3>
+                                <h3>С иконками</h3>
 
                                 <h4 style="margin-top: 50px;">Залитые</h4>
 
@@ -503,9 +503,9 @@
 
                             </div>
 
-                            <div>
+                            <div class="gui__block">
 
-                                <h3 style="margin-top: 50px;">Иконочные</h3>
+                                <h3>Иконочные</h3>
 
                                 <ul class="buttons__list" style="background-color: #D0D0D0;">
                                     <li class="buttons__item">
@@ -581,9 +581,9 @@
 
                             </div>
 
-                            <div>
+                            <div class="gui__block">
 
-                                <h3 style="margin-top: 50px;">Простые</h3>
+                                <h3>Простые</h3>
 
                                 <ul class="buttons__list">
                                     <li class="buttons__item">
@@ -971,6 +971,348 @@
                     </div>
 
                     <!--/Ползунок-->
+
+                    <!--Табы-->
+
+                    <div class="gui__block">
+                        <h2 class="gui__title">Табы</h2>
+
+                        <div class="gui__block">
+                            <h3>Простые красные</h3>
+
+                            <div class="tabs tabs--red" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tabs tabs--small tabs--red" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tabs tabs--small tabs--circle tabs--red" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gui__block">
+                            <h3>С серым фоном</h3>
+
+                            <div class="tabs tabs--covered tabs--red" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tabs tabs--small tabs--covered tabs--red" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+    
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+    
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+    
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+    
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+    
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+    
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+    
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gui__block">
+                            <h3>Черные</h3>
+
+                            <div class="tabs tabs--black tabs--rounded" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tabs tabs--small tabs--black tabs--rounded" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Описание
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Состав
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Рекомендации по кормлению
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block4">
+                                            Документы
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="gui__block">
+                            <h3>Перестраивающиеся</h3>
+
+                            <div class="tabs tabs--red tabs--separated tabs--small" data-tabs>
+                                <nav class="tabs__items">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                            Уровень К1
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block2">
+                                            Уровень К2
+                                        </li>
+
+                                        <li class="tabs__item" data-tab="block3">
+                                            Уровень К3
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                        Описание
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block2">
+                                        Состав
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block3">
+                                        Рекомендации по кормлению
+                                    </div>
+
+                                    <div class="tabs__block" data-tab-section="block4">
+                                        Документы
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--/Табы-->
 
                 </main>
             </div>

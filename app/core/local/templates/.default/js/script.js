@@ -415,6 +415,36 @@ function symbolCounter() {
 
 /***/ }),
 
+/***/ "./assets/js/modules/tabs.js":
+/*!***********************************!*\
+  !*** ./assets/js/modules/tabs.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  tabs: '[data-tabs]',
+  tab: '[data-tab]',
+  section: 'data-tab-section'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('click', ELEMENTS_SELECTOR.tab, function (event) {
+    event.preventDefault();
+    var id = $(this).data('tab');
+    var container = $(this).closest(ELEMENTS_SELECTOR.tabs);
+    container.find(ELEMENTS_SELECTOR.tab).removeClass('tabs__item--active');
+    container.find("[".concat(ELEMENTS_SELECTOR.section, "]")).removeClass('tabs__block--active');
+    $(this).addClass('tabs__item--active');
+    container.find("[".concat(ELEMENTS_SELECTOR.section, "=\"").concat(id, "\"]")).addClass('tabs__block--active');
+    truncate();
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/script.js":
 /*!*****************************!*\
   !*** ./assets/js/script.js ***!
@@ -432,6 +462,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_symbolCounter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/symbolCounter */ "./assets/js/modules/symbolCounter.js");
 /* harmony import */ var _modules_range__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/range */ "./assets/js/modules/range.js");
 /* harmony import */ var _modules_inputPlaceholder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/inputPlaceholder */ "./assets/js/modules/inputPlaceholder.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tabs */ "./assets/js/modules/tabs.js");
 /**
  * Vendors
  */
@@ -450,6 +481,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
 
 
 
+
 var app = {
   ready: function ready() {
     // Пример вызова импортированнывх функций
@@ -459,6 +491,7 @@ var app = {
     Object(_modules_symbolCounter__WEBPACK_IMPORTED_MODULE_3__["default"])();
     Object(_modules_range__WEBPACK_IMPORTED_MODULE_4__["default"])();
     Object(_modules_inputPlaceholder__WEBPACK_IMPORTED_MODULE_5__["default"])();
+    Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_6__["default"])();
   },
   load: function load() {},
   resize: function resize() {},
