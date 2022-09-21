@@ -1,0 +1,25 @@
+.heading {
+    &--huge {
+        @include title-1;
+    }
+
+    &--large {
+        @include title-2;
+    }
+
+    &--middle {
+        @include title-3;
+    }
+
+    &--average {
+        @include title-4;
+    }
+
+    &--small {
+        @include title-5;
+    }
+
+    &--tiny {
+        @include title-6;
+    }
+}

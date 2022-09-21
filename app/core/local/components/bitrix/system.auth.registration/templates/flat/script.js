@@ -15,7 +15,7 @@ class CSystemAuthRegistrationComponent {
       const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'sendPhoneCode', {
           mode: 'class',
           data: {
-              phoneNumber: '+79185996677',
+              phoneNumber: '+79999999985',
           },
       });
       console.log(response);
@@ -45,7 +45,7 @@ class CSystemAuthRegistrationComponent {
                   first_name: 'First name',
                   last_name: 'Last name',
                   second_name: 'Second name',
-                  email: 'example@example.example',
+                  email: 'ramenskiy.nikita@gmail.com',
                   birthday: '11.11.1111',
                   gender: 'M',
                   city: 'Москва',

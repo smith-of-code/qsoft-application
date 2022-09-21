@@ -1,0 +1,30 @@
+.buttons {
+	$horizontal-gutter: 20px;
+	$vertical-gutter: 10px;
+
+	&--separated & {
+		&__list {
+			justify-content: space-between;
+		}
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+
+		margin-top: rem(-$vertical-gutter);
+		margin-right: rem(-$horizontal-gutter / 2);
+		margin-left: rem(-$horizontal-gutter / 2);
+
+		&--notop {
+			margin-top: 0;
+		}
+	}
+
+	&__item {
+		margin-top: rem($vertical-gutter);
+		margin-right: rem($horizontal-gutter / 2);
+		margin-left: rem($horizontal-gutter / 2);
+	}
+}

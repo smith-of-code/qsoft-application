@@ -70,10 +70,25 @@ class ConfirmationTable extends Entity\DataManager
     public static function getActiveSmsCode(int $userId)
     {
         $result = self::getRow([
+            'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=UF_USER_ID' => $userId,
                 '=UF_CHANNEL' => self::CHANNELS['sms'],
                 '>UF_CREATED_AT' => (new DateTime)->add('-' . self::ACTIVE_TIME . ' seconds'),
+            ],
+            'select' => ['UF_CODE'],
+        ]);
+
+        return $result ? $result['UF_CODE'] : null;
+    }
+
+    public static function getActiveEmailCode(int $userId)
+    {
+        $result = self::getRow([
+            'order' => ['ID' => 'DESC'],
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_CHANNEL' => self::CHANNELS['email'],
             ],
             'select' => ['UF_CODE'],
         ]);
