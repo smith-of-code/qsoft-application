@@ -47,7 +47,7 @@ if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1)
 {
 	$showTopPager = $arParams['DISPLAY_TOP_PAGER'];
 	$showBottomPager = $arParams['DISPLAY_BOTTOM_PAGER'];
-	$showLazyLoad = $arParams['LAZY_LOAD'] === 'Y' && $navParams['NavPageNomer'] != $navParams['NavPageCount'];
+	$showLazyLoad = $navParams['NavPageNomer'] != $navParams['NavPageCount'];
 }
 
 $templateLibrary = array('popup', 'ajax', 'fx');
@@ -153,41 +153,9 @@ $generalParams = array(
 
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
-
-$themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_THEME'] : '';
-
 ?>
-<div class="row<?=$themeClass?>"> <? // wrapper ?>
+<div class="row">
 	<div class="col">
-	<?
-	//region Pagination
-	if ($showTopPager)
-	{
-		?>
-		<div class="row mb-4">
-			<div class="col text-center" data-pagination-num="<?=$navParams['NavNum']?>">
-				<!-- pagination-container -->
-				<?=$arResult['NAV_STRING']?>
-				<!-- pagination-container -->
-			</div>
-		</div>
-		<?
-	}
-	//endregion
-
-	//region Description
-	if (($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y') && !empty($arResult['DESCRIPTION']))
-	{
-		?>
-		<div class="row mb-4">
-			<div class="col catalog-section-description">
-				<p><?=$arResult['DESCRIPTION']?></p>
-			</div>
-		</div>
-		<?
-	}
-	//endregion
-	?>
 		<div class="mb-4 catalog-section" data-entity="<?=$containerName?>">
 			<!-- items-container -->
 			<?
@@ -258,39 +226,16 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 			?>
 			<!-- items-container -->
 		</div>
-		<?
-
-		//region LazyLoad Button
-		if ($showLazyLoad)
-		{
-			?>
-			<div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
-				<button type="button"
-						class="btn btn-primary btn-md"
-						style="margin: 15px;"
-						data-use="show-more-<?=$navParams['NavNum']?>">
-							<?=$arParams['MESS_BTN_LAZY_LOAD']?>
-				</button>
-			</div>
-			<?
-		}
-		//endregion
-
-		//region Pagination
-		if ($showBottomPager)
-		{
-			?>
-			<div class="row mb-4">
-				<div class="col text-center" data-pagination-num="<?=$navParams['NavNum']?>">
-					<!-- pagination-container -->
-					<?=$arResult['NAV_STRING']?>
-					<!-- pagination-container -->
-				</div>
-			</div>
-			<?
-		}
-		//endregion
-
+		<? /* ÊÍÎÏÊÀ "ÏÎÊÀÇÀÒÜ ÅÙ¨" */?>
+        <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
+            <button type="button"
+                    class="btn btn-primary btn-md"
+                    style="margin: 15px;"
+                    data-use="show-more-<?=$navParams['NavNum']?>">
+                <?=$arParams['MESS_BTN_LAZY_LOAD']?>
+            </button>
+        </div>
+        <?
 		$signer = new \Bitrix\Main\Security\Sign\Signer;
 		$signedTemplate = $signer->sign($templateName, 'catalog.section');
 		$signedParams = $signer->sign(base64_encode(serialize($arResult['ORIGINAL_PARAMETERS'])), 'catalog.section');
@@ -333,8 +278,6 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				container: '<?=$containerName?>'
 			});
 		</script>
-
-
 	</div>
-</div> <? //end wrapper?>
+</div>
 <!-- component-end -->
