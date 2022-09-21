@@ -122,5 +122,33 @@ class AddFieldsForUsers extends Migration
                 'en' => 'Agree to receive information about products, special offers and promotions',
             ],
         ],
+        [
+            'ENTITY_ID' => 'USER',
+            'FIELD_NAME' => 'UF_MENTOR_ID',
+            'USER_TYPE_ID' => 'integer',
+            'XML_ID' => '',
+            'SORT' => '500',
+            'MULTIPLE' => 'N',
+            'MANDATORY' => 'N',
+            'SHOW_FILTER' => 'N',
+            'SHOW_IN_LIST' => 'Y',
+            'EDIT_IN_LIST' => '',
+            'IS_SEARCHABLE' => 'N',
+            'SETTINGS' => [
+                'DEFAULT_VALUE' => 0,
+            ],
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'ID наставника',
+                'en' => 'Mentor ID',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'ID наставника',
+                'en' => 'Mentor ID',
+            ],
+            'LIST_FILTER_LABEL' => [
+                'ru' => 'ID наставника',
+                'en' => 'Mentor ID',
+            ],
+        ],
     ];
 }

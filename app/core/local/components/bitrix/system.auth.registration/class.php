@@ -3,6 +3,7 @@
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\GroupTable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
@@ -16,8 +17,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     private const SESSION_KEY = 'registrationData';
 
     private const REGISTRATION_TYPES = [
-        'user' => [
-            'name' => 'user',
+        'buyer' => [
+            'name' => 'buyer',
             'steps' => [
                 'personal_data',
                 'pets_data',
@@ -114,7 +115,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
                 throw new InvalidArgumentException('User with this email already exist');
             }
-            if ($field === 'contact_id' || $field === 'mentor_id') {
+            if ($field === 'mentor_id') {
                 try {
                     UserTable::getById($value);
                 } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
@@ -163,10 +164,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         (new ConfirmationService)->sendSmsConfirmation($result['ID']);
 
-        return [
-            'status' => $result['TYPE'] === 'OK' ? 'success' : 'error',
-            'message' => $result['MESSAGE'],
-        ];
+        return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
@@ -181,8 +179,15 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
-        // TODO PHOTO, MENTOR_ID, legal entity
-        $userUpdateResult = $user->Update($registrationData['user_id'], [
+        $userGroupId = GroupTable::getRow([
+            'filter' => [
+                '=STRING_ID' => $registrationData['type'],
+            ],
+            'select' => ['ID'],
+        ])['ID'];
+
+        // TODO PHOTO, legal entity
+        $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
@@ -190,9 +195,15 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'PERSONAL_BIRTHDAY' => new Date($data['birthday']),
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['city'],
+            'GROUP_ID' => [$userGroupId],
+            'UF_MENTOR_ID' => $data['mentor_id'],
+            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],
+            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'],
+            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'],
+            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'],
         ]);
 
-        $passwordChangeResult = $user->ChangePassword(
+        $user->ChangePassword(
             $registrationData['user_id'],
             '',
             $data['password'],
@@ -216,7 +227,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ]);
         }
 
-        return ['status' => 'success', 'passwordChangeResult' => $passwordChangeResult, 'userUpdateResult' => $userUpdateResult];
+        return ['status' => 'success'];
     }
 
     public function getRegisterData(): array

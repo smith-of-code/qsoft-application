@@ -21,7 +21,7 @@ class ConfirmationService
         $this->smsClient = new SmsClient;
     }
 
-    public function sendSmsConfirmation(int $userId, string $type = ConfirmationTable::TYPES['confirm_phone'])
+    public function sendSmsConfirmation(int $userId, string $type = ConfirmationTable::TYPES['confirm_phone']): void
     {
         $user = UserTable::getById($userId);
 
