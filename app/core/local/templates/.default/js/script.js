@@ -276,6 +276,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/inputPlaceholder.js":
+/*!***********************************************!*\
+  !*** ./assets/js/modules/inputPlaceholder.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  class: '.input--placeholder .input__control'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('input', ELEMENTS_SELECTOR.class, function () {
+    var value = $(this).val();
+    $(this).attr('value', value);
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/password.js":
 /*!***************************************!*\
   !*** ./assets/js/modules/password.js ***!
@@ -286,18 +308,107 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return showPassword; });
+var ELEMENTS_SELECTOR = {
+  icon: '[data-password-toggle]',
+  block: '[data-password-block]',
+  input: '[data-password-input]'
+};
 function showPassword() {
-  $(document).on('click', '[data-password-icon]', function () {
-    var $parent = $(this).closest('[data-password-block]');
-    var $input = $parent.find('[data-password-input]');
+  $(document).on('click', ELEMENTS_SELECTOR.icon, function () {
+    var $parent = $(this).closest(ELEMENTS_SELECTOR.block);
+    var $input = $parent.find(ELEMENTS_SELECTOR.input);
 
-    if ($input.attr('type' == 'password')) {
-      $(this).addClass('input__icon-password--view');
+    if ($input.attr('type') == 'password') {
+      $(this).addClass('input__icon-password--show');
       $input.attr('type', 'text');
     } else {
-      $(this).removeClass('input__icon-password--view');
+      $(this).removeClass('input__icon-password--show');
       $input.attr('type', 'password');
     }
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./assets/js/modules/range.js":
+/*!************************************!*\
+  !*** ./assets/js/modules/range.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var jquery_ui_ui_widgets_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery-ui/ui/widgets/slider */ "./node_modules/jquery-ui/ui/widgets/slider.js");
+/* harmony import */ var jquery_ui_ui_widgets_slider__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery_ui_ui_widgets_slider__WEBPACK_IMPORTED_MODULE_0__);
+
+var ELEMENTS_SELECTOR = {
+  ranges: '[data-range]',
+  rangeSlider: '[data-range-slider]',
+  rangeMin: '[data-range-min]',
+  rangeMax: '[data-range-max]'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(ELEMENTS_SELECTOR.ranges).each(function () {
+    var slider = $(this).find(ELEMENTS_SELECTOR.rangeSlider),
+        min = slider.data('min'),
+        max = slider.data('max'),
+        step = slider.data('step'),
+        minVal = +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() : min,
+        maxVal = +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() : max; // Init
+
+    slider.slider({
+      range: true,
+      min: min,
+      max: max,
+      step: step,
+      values: [minVal, maxVal],
+      slide: function slide(event, ui) {
+        var $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges);
+        $parent.find(ELEMENTS_SELECTOR.rangeMin).val(ui.values[0]);
+        $parent.find(ELEMENTS_SELECTOR.rangeMax).val(ui.values[1]);
+      },
+      create: function create(event, ui) {
+        var $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges);
+        $parent.find(ELEMENTS_SELECTOR.rangeMin).on('keyup', function () {
+          minVal = +$(this).val().trim();
+          slider.slider('option', 'values', [minVal, maxVal]);
+        });
+        $parent.find(ELEMENTS_SELECTOR.rangeMax).on('keyup', function () {
+          maxVal = +$(this).val().trim();
+          slider.slider('option', 'values', [minVal, maxVal]);
+        });
+      }
+    });
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./assets/js/modules/symbolCounter.js":
+/*!********************************************!*\
+  !*** ./assets/js/modules/symbolCounter.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return symbolCounter; });
+var ELEMENTS_SELECTOR = {
+  input: '[data-textarea-input]',
+  current: '[data-textarea-current]',
+  total: '[data-textarea-total]'
+};
+function symbolCounter() {
+  var max = $(ELEMENTS_SELECTOR.input).attr('maxlength');
+  $(ELEMENTS_SELECTOR.total).text(max);
+  $(ELEMENTS_SELECTOR.current).text(0);
+  $(document).on('input', ELEMENTS_SELECTOR.input, function () {
+    var currentNumber = $(this).val().length;
+    $(ELEMENTS_SELECTOR.current).text(currentNumber);
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
@@ -317,16 +428,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var svg4everybody__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg4everybody */ "./node_modules/svg4everybody/dist/svg4everybody.js");
 /* harmony import */ var svg4everybody__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg4everybody__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var picturefill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! picturefill */ "./node_modules/picturefill/dist/picturefill.js");
-/* harmony import */ var picturefill__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(picturefill__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _modules_password__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/password */ "./assets/js/modules/password.js");
+/* harmony import */ var _modules_password__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/password */ "./assets/js/modules/password.js");
+/* harmony import */ var _modules_symbolCounter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/symbolCounter */ "./assets/js/modules/symbolCounter.js");
+/* harmony import */ var _modules_range__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/range */ "./assets/js/modules/range.js");
+/* harmony import */ var _modules_inputPlaceholder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/inputPlaceholder */ "./assets/js/modules/inputPlaceholder.js");
 /**
  * Vendors
  */
 
 window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример подключения плагина
 // import pluginName from 'plugin-name';
-
 
 
 /**
@@ -336,13 +447,18 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
 //import module from './modules/module';
 
 
+
+
+
 var app = {
   ready: function ready() {
     // Пример вызова импортированнывх функций
     // pluginName();
     svg4everybody__WEBPACK_IMPORTED_MODULE_1___default()();
-    picturefill__WEBPACK_IMPORTED_MODULE_2___default()();
-    Object(_modules_password__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    Object(_modules_password__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    Object(_modules_symbolCounter__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    Object(_modules_range__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    Object(_modules_inputPlaceholder__WEBPACK_IMPORTED_MODULE_5__["default"])();
   },
   load: function load() {},
   resize: function resize() {},
@@ -363,6 +479,1901 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/ie.js":
+/*!*****************************************!*\
+  !*** ./node_modules/jquery-ui/ui/ie.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! ./version */ "./node_modules/jquery-ui/ui/version.js") ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+// This file is deprecated
+return $.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
+} );
+
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/keycode.js":
+/*!**********************************************!*\
+  !*** ./node_modules/jquery-ui/ui/keycode.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * jQuery UI Keycode 1.13.2
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+//>>label: Keycode
+//>>group: Core
+//>>description: Provide keycodes as keynames
+//>>docs: http://api.jqueryui.com/jQuery.ui.keyCode/
+
+( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! ./version */ "./node_modules/jquery-ui/ui/version.js") ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+return $.ui.keyCode = {
+	BACKSPACE: 8,
+	COMMA: 188,
+	DELETE: 46,
+	DOWN: 40,
+	END: 35,
+	ENTER: 13,
+	ESCAPE: 27,
+	HOME: 36,
+	LEFT: 37,
+	PAGE_DOWN: 34,
+	PAGE_UP: 33,
+	PERIOD: 190,
+	RIGHT: 39,
+	SPACE: 32,
+	TAB: 9,
+	UP: 38
+};
+
+} );
+
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/version.js":
+/*!**********************************************!*\
+  !*** ./node_modules/jquery-ui/ui/version.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js") ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+$.ui = $.ui || {};
+
+return $.ui.version = "1.13.2";
+
+} );
+
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/widget.js":
+/*!*********************************************!*\
+  !*** ./node_modules/jquery-ui/ui/widget.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * jQuery UI Widget 1.13.2
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+//>>label: Widget
+//>>group: Core
+//>>description: Provides a factory for creating stateful widgets with a common API.
+//>>docs: http://api.jqueryui.com/jQuery.widget/
+//>>demos: http://jqueryui.com/widget/
+
+( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! ./version */ "./node_modules/jquery-ui/ui/version.js") ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+var widgetUuid = 0;
+var widgetHasOwnProperty = Array.prototype.hasOwnProperty;
+var widgetSlice = Array.prototype.slice;
+
+$.cleanData = ( function( orig ) {
+	return function( elems ) {
+		var events, elem, i;
+		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
+
+			// Only trigger remove when necessary to save time
+			events = $._data( elem, "events" );
+			if ( events && events.remove ) {
+				$( elem ).triggerHandler( "remove" );
+			}
+		}
+		orig( elems );
+	};
+} )( $.cleanData );
+
+$.widget = function( name, base, prototype ) {
+	var existingConstructor, constructor, basePrototype;
+
+	// ProxiedPrototype allows the provided prototype to remain unmodified
+	// so that it can be used as a mixin for multiple widgets (#8876)
+	var proxiedPrototype = {};
+
+	var namespace = name.split( "." )[ 0 ];
+	name = name.split( "." )[ 1 ];
+	var fullName = namespace + "-" + name;
+
+	if ( !prototype ) {
+		prototype = base;
+		base = $.Widget;
+	}
+
+	if ( Array.isArray( prototype ) ) {
+		prototype = $.extend.apply( null, [ {} ].concat( prototype ) );
+	}
+
+	// Create selector for plugin
+	$.expr.pseudos[ fullName.toLowerCase() ] = function( elem ) {
+		return !!$.data( elem, fullName );
+	};
+
+	$[ namespace ] = $[ namespace ] || {};
+	existingConstructor = $[ namespace ][ name ];
+	constructor = $[ namespace ][ name ] = function( options, element ) {
+
+		// Allow instantiation without "new" keyword
+		if ( !this || !this._createWidget ) {
+			return new constructor( options, element );
+		}
+
+		// Allow instantiation without initializing for simple inheritance
+		// must use "new" keyword (the code above always passes args)
+		if ( arguments.length ) {
+			this._createWidget( options, element );
+		}
+	};
+
+	// Extend with the existing constructor to carry over any static properties
+	$.extend( constructor, existingConstructor, {
+		version: prototype.version,
+
+		// Copy the object used to create the prototype in case we need to
+		// redefine the widget later
+		_proto: $.extend( {}, prototype ),
+
+		// Track widgets that inherit from this widget in case this widget is
+		// redefined after a widget inherits from it
+		_childConstructors: []
+	} );
+
+	basePrototype = new base();
+
+	// We need to make the options hash a property directly on the new instance
+	// otherwise we'll modify the options hash on the prototype that we're
+	// inheriting from
+	basePrototype.options = $.widget.extend( {}, basePrototype.options );
+	$.each( prototype, function( prop, value ) {
+		if ( typeof value !== "function" ) {
+			proxiedPrototype[ prop ] = value;
+			return;
+		}
+		proxiedPrototype[ prop ] = ( function() {
+			function _super() {
+				return base.prototype[ prop ].apply( this, arguments );
+			}
+
+			function _superApply( args ) {
+				return base.prototype[ prop ].apply( this, args );
+			}
+
+			return function() {
+				var __super = this._super;
+				var __superApply = this._superApply;
+				var returnValue;
+
+				this._super = _super;
+				this._superApply = _superApply;
+
+				returnValue = value.apply( this, arguments );
+
+				this._super = __super;
+				this._superApply = __superApply;
+
+				return returnValue;
+			};
+		} )();
+	} );
+	constructor.prototype = $.widget.extend( basePrototype, {
+
+		// TODO: remove support for widgetEventPrefix
+		// always use the name + a colon as the prefix, e.g., draggable:start
+		// don't prefix for widgets that aren't DOM-based
+		widgetEventPrefix: existingConstructor ? ( basePrototype.widgetEventPrefix || name ) : name
+	}, proxiedPrototype, {
+		constructor: constructor,
+		namespace: namespace,
+		widgetName: name,
+		widgetFullName: fullName
+	} );
+
+	// If this widget is being redefined then we need to find all widgets that
+	// are inheriting from it and redefine all of them so that they inherit from
+	// the new version of this widget. We're essentially trying to replace one
+	// level in the prototype chain.
+	if ( existingConstructor ) {
+		$.each( existingConstructor._childConstructors, function( i, child ) {
+			var childPrototype = child.prototype;
+
+			// Redefine the child widget using the same prototype that was
+			// originally used, but inherit from the new version of the base
+			$.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor,
+				child._proto );
+		} );
+
+		// Remove the list of existing child constructors from the old constructor
+		// so the old child constructors can be garbage collected
+		delete existingConstructor._childConstructors;
+	} else {
+		base._childConstructors.push( constructor );
+	}
+
+	$.widget.bridge( name, constructor );
+
+	return constructor;
+};
+
+$.widget.extend = function( target ) {
+	var input = widgetSlice.call( arguments, 1 );
+	var inputIndex = 0;
+	var inputLength = input.length;
+	var key;
+	var value;
+
+	for ( ; inputIndex < inputLength; inputIndex++ ) {
+		for ( key in input[ inputIndex ] ) {
+			value = input[ inputIndex ][ key ];
+			if ( widgetHasOwnProperty.call( input[ inputIndex ], key ) && value !== undefined ) {
+
+				// Clone objects
+				if ( $.isPlainObject( value ) ) {
+					target[ key ] = $.isPlainObject( target[ key ] ) ?
+						$.widget.extend( {}, target[ key ], value ) :
+
+						// Don't extend strings, arrays, etc. with objects
+						$.widget.extend( {}, value );
+
+				// Copy everything else by reference
+				} else {
+					target[ key ] = value;
+				}
+			}
+		}
+	}
+	return target;
+};
+
+$.widget.bridge = function( name, object ) {
+	var fullName = object.prototype.widgetFullName || name;
+	$.fn[ name ] = function( options ) {
+		var isMethodCall = typeof options === "string";
+		var args = widgetSlice.call( arguments, 1 );
+		var returnValue = this;
+
+		if ( isMethodCall ) {
+
+			// If this is an empty collection, we need to have the instance method
+			// return undefined instead of the jQuery instance
+			if ( !this.length && options === "instance" ) {
+				returnValue = undefined;
+			} else {
+				this.each( function() {
+					var methodValue;
+					var instance = $.data( this, fullName );
+
+					if ( options === "instance" ) {
+						returnValue = instance;
+						return false;
+					}
+
+					if ( !instance ) {
+						return $.error( "cannot call methods on " + name +
+							" prior to initialization; " +
+							"attempted to call method '" + options + "'" );
+					}
+
+					if ( typeof instance[ options ] !== "function" ||
+						options.charAt( 0 ) === "_" ) {
+						return $.error( "no such method '" + options + "' for " + name +
+							" widget instance" );
+					}
+
+					methodValue = instance[ options ].apply( instance, args );
+
+					if ( methodValue !== instance && methodValue !== undefined ) {
+						returnValue = methodValue && methodValue.jquery ?
+							returnValue.pushStack( methodValue.get() ) :
+							methodValue;
+						return false;
+					}
+				} );
+			}
+		} else {
+
+			// Allow multiple hashes to be passed on init
+			if ( args.length ) {
+				options = $.widget.extend.apply( null, [ options ].concat( args ) );
+			}
+
+			this.each( function() {
+				var instance = $.data( this, fullName );
+				if ( instance ) {
+					instance.option( options || {} );
+					if ( instance._init ) {
+						instance._init();
+					}
+				} else {
+					$.data( this, fullName, new object( options, this ) );
+				}
+			} );
+		}
+
+		return returnValue;
+	};
+};
+
+$.Widget = function( /* options, element */ ) {};
+$.Widget._childConstructors = [];
+
+$.Widget.prototype = {
+	widgetName: "widget",
+	widgetEventPrefix: "",
+	defaultElement: "<div>",
+
+	options: {
+		classes: {},
+		disabled: false,
+
+		// Callbacks
+		create: null
+	},
+
+	_createWidget: function( options, element ) {
+		element = $( element || this.defaultElement || this )[ 0 ];
+		this.element = $( element );
+		this.uuid = widgetUuid++;
+		this.eventNamespace = "." + this.widgetName + this.uuid;
+
+		this.bindings = $();
+		this.hoverable = $();
+		this.focusable = $();
+		this.classesElementLookup = {};
+
+		if ( element !== this ) {
+			$.data( element, this.widgetFullName, this );
+			this._on( true, this.element, {
+				remove: function( event ) {
+					if ( event.target === element ) {
+						this.destroy();
+					}
+				}
+			} );
+			this.document = $( element.style ?
+
+				// Element within the document
+				element.ownerDocument :
+
+				// Element is window or document
+				element.document || element );
+			this.window = $( this.document[ 0 ].defaultView || this.document[ 0 ].parentWindow );
+		}
+
+		this.options = $.widget.extend( {},
+			this.options,
+			this._getCreateOptions(),
+			options );
+
+		this._create();
+
+		if ( this.options.disabled ) {
+			this._setOptionDisabled( this.options.disabled );
+		}
+
+		this._trigger( "create", null, this._getCreateEventData() );
+		this._init();
+	},
+
+	_getCreateOptions: function() {
+		return {};
+	},
+
+	_getCreateEventData: $.noop,
+
+	_create: $.noop,
+
+	_init: $.noop,
+
+	destroy: function() {
+		var that = this;
+
+		this._destroy();
+		$.each( this.classesElementLookup, function( key, value ) {
+			that._removeClass( value, key );
+		} );
+
+		// We can probably remove the unbind calls in 2.0
+		// all event bindings should go through this._on()
+		this.element
+			.off( this.eventNamespace )
+			.removeData( this.widgetFullName );
+		this.widget()
+			.off( this.eventNamespace )
+			.removeAttr( "aria-disabled" );
+
+		// Clean up events and states
+		this.bindings.off( this.eventNamespace );
+	},
+
+	_destroy: $.noop,
+
+	widget: function() {
+		return this.element;
+	},
+
+	option: function( key, value ) {
+		var options = key;
+		var parts;
+		var curOption;
+		var i;
+
+		if ( arguments.length === 0 ) {
+
+			// Don't return a reference to the internal hash
+			return $.widget.extend( {}, this.options );
+		}
+
+		if ( typeof key === "string" ) {
+
+			// Handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
+			options = {};
+			parts = key.split( "." );
+			key = parts.shift();
+			if ( parts.length ) {
+				curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
+				for ( i = 0; i < parts.length - 1; i++ ) {
+					curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
+					curOption = curOption[ parts[ i ] ];
+				}
+				key = parts.pop();
+				if ( arguments.length === 1 ) {
+					return curOption[ key ] === undefined ? null : curOption[ key ];
+				}
+				curOption[ key ] = value;
+			} else {
+				if ( arguments.length === 1 ) {
+					return this.options[ key ] === undefined ? null : this.options[ key ];
+				}
+				options[ key ] = value;
+			}
+		}
+
+		this._setOptions( options );
+
+		return this;
+	},
+
+	_setOptions: function( options ) {
+		var key;
+
+		for ( key in options ) {
+			this._setOption( key, options[ key ] );
+		}
+
+		return this;
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "classes" ) {
+			this._setOptionClasses( value );
+		}
+
+		this.options[ key ] = value;
+
+		if ( key === "disabled" ) {
+			this._setOptionDisabled( value );
+		}
+
+		return this;
+	},
+
+	_setOptionClasses: function( value ) {
+		var classKey, elements, currentElements;
+
+		for ( classKey in value ) {
+			currentElements = this.classesElementLookup[ classKey ];
+			if ( value[ classKey ] === this.options.classes[ classKey ] ||
+					!currentElements ||
+					!currentElements.length ) {
+				continue;
+			}
+
+			// We are doing this to create a new jQuery object because the _removeClass() call
+			// on the next line is going to destroy the reference to the current elements being
+			// tracked. We need to save a copy of this collection so that we can add the new classes
+			// below.
+			elements = $( currentElements.get() );
+			this._removeClass( currentElements, classKey );
+
+			// We don't use _addClass() here, because that uses this.options.classes
+			// for generating the string of classes. We want to use the value passed in from
+			// _setOption(), this is the new value of the classes option which was passed to
+			// _setOption(). We pass this value directly to _classes().
+			elements.addClass( this._classes( {
+				element: elements,
+				keys: classKey,
+				classes: value,
+				add: true
+			} ) );
+		}
+	},
+
+	_setOptionDisabled: function( value ) {
+		this._toggleClass( this.widget(), this.widgetFullName + "-disabled", null, !!value );
+
+		// If the widget is becoming disabled, then nothing is interactive
+		if ( value ) {
+			this._removeClass( this.hoverable, null, "ui-state-hover" );
+			this._removeClass( this.focusable, null, "ui-state-focus" );
+		}
+	},
+
+	enable: function() {
+		return this._setOptions( { disabled: false } );
+	},
+
+	disable: function() {
+		return this._setOptions( { disabled: true } );
+	},
+
+	_classes: function( options ) {
+		var full = [];
+		var that = this;
+
+		options = $.extend( {
+			element: this.element,
+			classes: this.options.classes || {}
+		}, options );
+
+		function bindRemoveEvent() {
+			var nodesToBind = [];
+
+			options.element.each( function( _, element ) {
+				var isTracked = $.map( that.classesElementLookup, function( elements ) {
+					return elements;
+				} )
+					.some( function( elements ) {
+						return elements.is( element );
+					} );
+
+				if ( !isTracked ) {
+					nodesToBind.push( element );
+				}
+			} );
+
+			that._on( $( nodesToBind ), {
+				remove: "_untrackClassesElement"
+			} );
+		}
+
+		function processClassString( classes, checkOption ) {
+			var current, i;
+			for ( i = 0; i < classes.length; i++ ) {
+				current = that.classesElementLookup[ classes[ i ] ] || $();
+				if ( options.add ) {
+					bindRemoveEvent();
+					current = $( $.uniqueSort( current.get().concat( options.element.get() ) ) );
+				} else {
+					current = $( current.not( options.element ).get() );
+				}
+				that.classesElementLookup[ classes[ i ] ] = current;
+				full.push( classes[ i ] );
+				if ( checkOption && options.classes[ classes[ i ] ] ) {
+					full.push( options.classes[ classes[ i ] ] );
+				}
+			}
+		}
+
+		if ( options.keys ) {
+			processClassString( options.keys.match( /\S+/g ) || [], true );
+		}
+		if ( options.extra ) {
+			processClassString( options.extra.match( /\S+/g ) || [] );
+		}
+
+		return full.join( " " );
+	},
+
+	_untrackClassesElement: function( event ) {
+		var that = this;
+		$.each( that.classesElementLookup, function( key, value ) {
+			if ( $.inArray( event.target, value ) !== -1 ) {
+				that.classesElementLookup[ key ] = $( value.not( event.target ).get() );
+			}
+		} );
+
+		this._off( $( event.target ) );
+	},
+
+	_removeClass: function( element, keys, extra ) {
+		return this._toggleClass( element, keys, extra, false );
+	},
+
+	_addClass: function( element, keys, extra ) {
+		return this._toggleClass( element, keys, extra, true );
+	},
+
+	_toggleClass: function( element, keys, extra, add ) {
+		add = ( typeof add === "boolean" ) ? add : extra;
+		var shift = ( typeof element === "string" || element === null ),
+			options = {
+				extra: shift ? keys : extra,
+				keys: shift ? element : keys,
+				element: shift ? this.element : element,
+				add: add
+			};
+		options.element.toggleClass( this._classes( options ), add );
+		return this;
+	},
+
+	_on: function( suppressDisabledCheck, element, handlers ) {
+		var delegateElement;
+		var instance = this;
+
+		// No suppressDisabledCheck flag, shuffle arguments
+		if ( typeof suppressDisabledCheck !== "boolean" ) {
+			handlers = element;
+			element = suppressDisabledCheck;
+			suppressDisabledCheck = false;
+		}
+
+		// No element argument, shuffle and use this.element
+		if ( !handlers ) {
+			handlers = element;
+			element = this.element;
+			delegateElement = this.widget();
+		} else {
+			element = delegateElement = $( element );
+			this.bindings = this.bindings.add( element );
+		}
+
+		$.each( handlers, function( event, handler ) {
+			function handlerProxy() {
+
+				// Allow widgets to customize the disabled handling
+				// - disabled as an array instead of boolean
+				// - disabled class as method for disabling individual parts
+				if ( !suppressDisabledCheck &&
+						( instance.options.disabled === true ||
+						$( this ).hasClass( "ui-state-disabled" ) ) ) {
+					return;
+				}
+				return ( typeof handler === "string" ? instance[ handler ] : handler )
+					.apply( instance, arguments );
+			}
+
+			// Copy the guid so direct unbinding works
+			if ( typeof handler !== "string" ) {
+				handlerProxy.guid = handler.guid =
+					handler.guid || handlerProxy.guid || $.guid++;
+			}
+
+			var match = event.match( /^([\w:-]*)\s*(.*)$/ );
+			var eventName = match[ 1 ] + instance.eventNamespace;
+			var selector = match[ 2 ];
+
+			if ( selector ) {
+				delegateElement.on( eventName, selector, handlerProxy );
+			} else {
+				element.on( eventName, handlerProxy );
+			}
+		} );
+	},
+
+	_off: function( element, eventName ) {
+		eventName = ( eventName || "" ).split( " " ).join( this.eventNamespace + " " ) +
+			this.eventNamespace;
+		element.off( eventName );
+
+		// Clear the stack to avoid memory leaks (#10056)
+		this.bindings = $( this.bindings.not( element ).get() );
+		this.focusable = $( this.focusable.not( element ).get() );
+		this.hoverable = $( this.hoverable.not( element ).get() );
+	},
+
+	_delay: function( handler, delay ) {
+		function handlerProxy() {
+			return ( typeof handler === "string" ? instance[ handler ] : handler )
+				.apply( instance, arguments );
+		}
+		var instance = this;
+		return setTimeout( handlerProxy, delay || 0 );
+	},
+
+	_hoverable: function( element ) {
+		this.hoverable = this.hoverable.add( element );
+		this._on( element, {
+			mouseenter: function( event ) {
+				this._addClass( $( event.currentTarget ), null, "ui-state-hover" );
+			},
+			mouseleave: function( event ) {
+				this._removeClass( $( event.currentTarget ), null, "ui-state-hover" );
+			}
+		} );
+	},
+
+	_focusable: function( element ) {
+		this.focusable = this.focusable.add( element );
+		this._on( element, {
+			focusin: function( event ) {
+				this._addClass( $( event.currentTarget ), null, "ui-state-focus" );
+			},
+			focusout: function( event ) {
+				this._removeClass( $( event.currentTarget ), null, "ui-state-focus" );
+			}
+		} );
+	},
+
+	_trigger: function( type, event, data ) {
+		var prop, orig;
+		var callback = this.options[ type ];
+
+		data = data || {};
+		event = $.Event( event );
+		event.type = ( type === this.widgetEventPrefix ?
+			type :
+			this.widgetEventPrefix + type ).toLowerCase();
+
+		// The original event may come from any element
+		// so we need to reset the target on the new event
+		event.target = this.element[ 0 ];
+
+		// Copy original event properties over to the new event
+		orig = event.originalEvent;
+		if ( orig ) {
+			for ( prop in orig ) {
+				if ( !( prop in event ) ) {
+					event[ prop ] = orig[ prop ];
+				}
+			}
+		}
+
+		this.element.trigger( event, data );
+		return !( typeof callback === "function" &&
+			callback.apply( this.element[ 0 ], [ event ].concat( data ) ) === false ||
+			event.isDefaultPrevented() );
+	}
+};
+
+$.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
+	$.Widget.prototype[ "_" + method ] = function( element, options, callback ) {
+		if ( typeof options === "string" ) {
+			options = { effect: options };
+		}
+
+		var hasOptions;
+		var effectName = !options ?
+			method :
+			options === true || typeof options === "number" ?
+				defaultEffect :
+				options.effect || defaultEffect;
+
+		options = options || {};
+		if ( typeof options === "number" ) {
+			options = { duration: options };
+		} else if ( options === true ) {
+			options = {};
+		}
+
+		hasOptions = !$.isEmptyObject( options );
+		options.complete = callback;
+
+		if ( options.delay ) {
+			element.delay( options.delay );
+		}
+
+		if ( hasOptions && $.effects && $.effects.effect[ effectName ] ) {
+			element[ method ]( options );
+		} else if ( effectName !== method && element[ effectName ] ) {
+			element[ effectName ]( options.duration, options.easing, callback );
+		} else {
+			element.queue( function( next ) {
+				$( this )[ method ]();
+				if ( callback ) {
+					callback.call( element[ 0 ] );
+				}
+				next();
+			} );
+		}
+	};
+} );
+
+return $.widget;
+
+} );
+
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/widgets/mouse.js":
+/*!****************************************************!*\
+  !*** ./node_modules/jquery-ui/ui/widgets/mouse.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * jQuery UI Mouse 1.13.2
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+//>>label: Mouse
+//>>group: Widgets
+//>>description: Abstracts mouse-based interactions to assist in creating certain widgets.
+//>>docs: http://api.jqueryui.com/mouse/
+
+( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+			__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
+			__webpack_require__(/*! ../ie */ "./node_modules/jquery-ui/ui/ie.js"),
+			__webpack_require__(/*! ../version */ "./node_modules/jquery-ui/ui/version.js"),
+			__webpack_require__(/*! ../widget */ "./node_modules/jquery-ui/ui/widget.js")
+		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+var mouseHandled = false;
+$( document ).on( "mouseup", function() {
+	mouseHandled = false;
+} );
+
+return $.widget( "ui.mouse", {
+	version: "1.13.2",
+	options: {
+		cancel: "input, textarea, button, select, option",
+		distance: 1,
+		delay: 0
+	},
+	_mouseInit: function() {
+		var that = this;
+
+		this.element
+			.on( "mousedown." + this.widgetName, function( event ) {
+				return that._mouseDown( event );
+			} )
+			.on( "click." + this.widgetName, function( event ) {
+				if ( true === $.data( event.target, that.widgetName + ".preventClickEvent" ) ) {
+					$.removeData( event.target, that.widgetName + ".preventClickEvent" );
+					event.stopImmediatePropagation();
+					return false;
+				}
+			} );
+
+		this.started = false;
+	},
+
+	// TODO: make sure destroying one instance of mouse doesn't mess with
+	// other instances of mouse
+	_mouseDestroy: function() {
+		this.element.off( "." + this.widgetName );
+		if ( this._mouseMoveDelegate ) {
+			this.document
+				.off( "mousemove." + this.widgetName, this._mouseMoveDelegate )
+				.off( "mouseup." + this.widgetName, this._mouseUpDelegate );
+		}
+	},
+
+	_mouseDown: function( event ) {
+
+		// don't let more than one widget handle mouseStart
+		if ( mouseHandled ) {
+			return;
+		}
+
+		this._mouseMoved = false;
+
+		// We may have missed mouseup (out of window)
+		if ( this._mouseStarted ) {
+			this._mouseUp( event );
+		}
+
+		this._mouseDownEvent = event;
+
+		var that = this,
+			btnIsLeft = ( event.which === 1 ),
+
+			// event.target.nodeName works around a bug in IE 8 with
+			// disabled inputs (#7620)
+			elIsCancel = ( typeof this.options.cancel === "string" && event.target.nodeName ?
+				$( event.target ).closest( this.options.cancel ).length : false );
+		if ( !btnIsLeft || elIsCancel || !this._mouseCapture( event ) ) {
+			return true;
+		}
+
+		this.mouseDelayMet = !this.options.delay;
+		if ( !this.mouseDelayMet ) {
+			this._mouseDelayTimer = setTimeout( function() {
+				that.mouseDelayMet = true;
+			}, this.options.delay );
+		}
+
+		if ( this._mouseDistanceMet( event ) && this._mouseDelayMet( event ) ) {
+			this._mouseStarted = ( this._mouseStart( event ) !== false );
+			if ( !this._mouseStarted ) {
+				event.preventDefault();
+				return true;
+			}
+		}
+
+		// Click event may never have fired (Gecko & Opera)
+		if ( true === $.data( event.target, this.widgetName + ".preventClickEvent" ) ) {
+			$.removeData( event.target, this.widgetName + ".preventClickEvent" );
+		}
+
+		// These delegates are required to keep context
+		this._mouseMoveDelegate = function( event ) {
+			return that._mouseMove( event );
+		};
+		this._mouseUpDelegate = function( event ) {
+			return that._mouseUp( event );
+		};
+
+		this.document
+			.on( "mousemove." + this.widgetName, this._mouseMoveDelegate )
+			.on( "mouseup." + this.widgetName, this._mouseUpDelegate );
+
+		event.preventDefault();
+
+		mouseHandled = true;
+		return true;
+	},
+
+	_mouseMove: function( event ) {
+
+		// Only check for mouseups outside the document if you've moved inside the document
+		// at least once. This prevents the firing of mouseup in the case of IE<9, which will
+		// fire a mousemove event if content is placed under the cursor. See #7778
+		// Support: IE <9
+		if ( this._mouseMoved ) {
+
+			// IE mouseup check - mouseup happened when mouse was out of window
+			if ( $.ui.ie && ( !document.documentMode || document.documentMode < 9 ) &&
+					!event.button ) {
+				return this._mouseUp( event );
+
+			// Iframe mouseup check - mouseup occurred in another document
+			} else if ( !event.which ) {
+
+				// Support: Safari <=8 - 9
+				// Safari sets which to 0 if you press any of the following keys
+				// during a drag (#14461)
+				if ( event.originalEvent.altKey || event.originalEvent.ctrlKey ||
+						event.originalEvent.metaKey || event.originalEvent.shiftKey ) {
+					this.ignoreMissingWhich = true;
+				} else if ( !this.ignoreMissingWhich ) {
+					return this._mouseUp( event );
+				}
+			}
+		}
+
+		if ( event.which || event.button ) {
+			this._mouseMoved = true;
+		}
+
+		if ( this._mouseStarted ) {
+			this._mouseDrag( event );
+			return event.preventDefault();
+		}
+
+		if ( this._mouseDistanceMet( event ) && this._mouseDelayMet( event ) ) {
+			this._mouseStarted =
+				( this._mouseStart( this._mouseDownEvent, event ) !== false );
+			if ( this._mouseStarted ) {
+				this._mouseDrag( event );
+			} else {
+				this._mouseUp( event );
+			}
+		}
+
+		return !this._mouseStarted;
+	},
+
+	_mouseUp: function( event ) {
+		this.document
+			.off( "mousemove." + this.widgetName, this._mouseMoveDelegate )
+			.off( "mouseup." + this.widgetName, this._mouseUpDelegate );
+
+		if ( this._mouseStarted ) {
+			this._mouseStarted = false;
+
+			if ( event.target === this._mouseDownEvent.target ) {
+				$.data( event.target, this.widgetName + ".preventClickEvent", true );
+			}
+
+			this._mouseStop( event );
+		}
+
+		if ( this._mouseDelayTimer ) {
+			clearTimeout( this._mouseDelayTimer );
+			delete this._mouseDelayTimer;
+		}
+
+		this.ignoreMissingWhich = false;
+		mouseHandled = false;
+		event.preventDefault();
+	},
+
+	_mouseDistanceMet: function( event ) {
+		return ( Math.max(
+				Math.abs( this._mouseDownEvent.pageX - event.pageX ),
+				Math.abs( this._mouseDownEvent.pageY - event.pageY )
+			) >= this.options.distance
+		);
+	},
+
+	_mouseDelayMet: function( /* event */ ) {
+		return this.mouseDelayMet;
+	},
+
+	// These are placeholder methods, to be overriden by extending plugin
+	_mouseStart: function( /* event */ ) {},
+	_mouseDrag: function( /* event */ ) {},
+	_mouseStop: function( /* event */ ) {},
+	_mouseCapture: function( /* event */ ) {
+		return true;
+	}
+} );
+
+} );
+
+
+/***/ }),
+
+/***/ "./node_modules/jquery-ui/ui/widgets/slider.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/jquery-ui/ui/widgets/slider.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * jQuery UI Slider 1.13.2
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+//>>label: Slider
+//>>group: Widgets
+//>>description: Displays a flexible slider with ranges and accessibility via keyboard.
+//>>docs: http://api.jqueryui.com/slider/
+//>>demos: http://jqueryui.com/slider/
+//>>css.structure: ../../themes/base/core.css
+//>>css.structure: ../../themes/base/slider.css
+//>>css.theme: ../../themes/base/theme.css
+
+( function( factory ) {
+	"use strict";
+
+	if ( true ) {
+
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+			__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
+			__webpack_require__(/*! ./mouse */ "./node_modules/jquery-ui/ui/widgets/mouse.js"),
+			__webpack_require__(/*! ../keycode */ "./node_modules/jquery-ui/ui/keycode.js"),
+			__webpack_require__(/*! ../version */ "./node_modules/jquery-ui/ui/version.js"),
+			__webpack_require__(/*! ../widget */ "./node_modules/jquery-ui/ui/widget.js")
+		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+} )( function( $ ) {
+"use strict";
+
+return $.widget( "ui.slider", $.ui.mouse, {
+	version: "1.13.2",
+	widgetEventPrefix: "slide",
+
+	options: {
+		animate: false,
+		classes: {
+			"ui-slider": "ui-corner-all",
+			"ui-slider-handle": "ui-corner-all",
+
+			// Note: ui-widget-header isn't the most fittingly semantic framework class for this
+			// element, but worked best visually with a variety of themes
+			"ui-slider-range": "ui-corner-all ui-widget-header"
+		},
+		distance: 0,
+		max: 100,
+		min: 0,
+		orientation: "horizontal",
+		range: false,
+		step: 1,
+		value: 0,
+		values: null,
+
+		// Callbacks
+		change: null,
+		slide: null,
+		start: null,
+		stop: null
+	},
+
+	// Number of pages in a slider
+	// (how many times can you page up/down to go through the whole range)
+	numPages: 5,
+
+	_create: function() {
+		this._keySliding = false;
+		this._mouseSliding = false;
+		this._animateOff = true;
+		this._handleIndex = null;
+		this._detectOrientation();
+		this._mouseInit();
+		this._calculateNewMax();
+
+		this._addClass( "ui-slider ui-slider-" + this.orientation,
+			"ui-widget ui-widget-content" );
+
+		this._refresh();
+
+		this._animateOff = false;
+	},
+
+	_refresh: function() {
+		this._createRange();
+		this._createHandles();
+		this._setupEvents();
+		this._refreshValue();
+	},
+
+	_createHandles: function() {
+		var i, handleCount,
+			options = this.options,
+			existingHandles = this.element.find( ".ui-slider-handle" ),
+			handle = "<span tabindex='0'></span>",
+			handles = [];
+
+		handleCount = ( options.values && options.values.length ) || 1;
+
+		if ( existingHandles.length > handleCount ) {
+			existingHandles.slice( handleCount ).remove();
+			existingHandles = existingHandles.slice( 0, handleCount );
+		}
+
+		for ( i = existingHandles.length; i < handleCount; i++ ) {
+			handles.push( handle );
+		}
+
+		this.handles = existingHandles.add( $( handles.join( "" ) ).appendTo( this.element ) );
+
+		this._addClass( this.handles, "ui-slider-handle", "ui-state-default" );
+
+		this.handle = this.handles.eq( 0 );
+
+		this.handles.each( function( i ) {
+			$( this )
+				.data( "ui-slider-handle-index", i )
+				.attr( "tabIndex", 0 );
+		} );
+	},
+
+	_createRange: function() {
+		var options = this.options;
+
+		if ( options.range ) {
+			if ( options.range === true ) {
+				if ( !options.values ) {
+					options.values = [ this._valueMin(), this._valueMin() ];
+				} else if ( options.values.length && options.values.length !== 2 ) {
+					options.values = [ options.values[ 0 ], options.values[ 0 ] ];
+				} else if ( Array.isArray( options.values ) ) {
+					options.values = options.values.slice( 0 );
+				}
+			}
+
+			if ( !this.range || !this.range.length ) {
+				this.range = $( "<div>" )
+					.appendTo( this.element );
+
+				this._addClass( this.range, "ui-slider-range" );
+			} else {
+				this._removeClass( this.range, "ui-slider-range-min ui-slider-range-max" );
+
+				// Handle range switching from true to min/max
+				this.range.css( {
+					"left": "",
+					"bottom": ""
+				} );
+			}
+			if ( options.range === "min" || options.range === "max" ) {
+				this._addClass( this.range, "ui-slider-range-" + options.range );
+			}
+		} else {
+			if ( this.range ) {
+				this.range.remove();
+			}
+			this.range = null;
+		}
+	},
+
+	_setupEvents: function() {
+		this._off( this.handles );
+		this._on( this.handles, this._handleEvents );
+		this._hoverable( this.handles );
+		this._focusable( this.handles );
+	},
+
+	_destroy: function() {
+		this.handles.remove();
+		if ( this.range ) {
+			this.range.remove();
+		}
+
+		this._mouseDestroy();
+	},
+
+	_mouseCapture: function( event ) {
+		var position, normValue, distance, closestHandle, index, allowed, offset, mouseOverHandle,
+			that = this,
+			o = this.options;
+
+		if ( o.disabled ) {
+			return false;
+		}
+
+		this.elementSize = {
+			width: this.element.outerWidth(),
+			height: this.element.outerHeight()
+		};
+		this.elementOffset = this.element.offset();
+
+		position = { x: event.pageX, y: event.pageY };
+		normValue = this._normValueFromMouse( position );
+		distance = this._valueMax() - this._valueMin() + 1;
+		this.handles.each( function( i ) {
+			var thisDistance = Math.abs( normValue - that.values( i ) );
+			if ( ( distance > thisDistance ) ||
+				( distance === thisDistance &&
+					( i === that._lastChangedValue || that.values( i ) === o.min ) ) ) {
+				distance = thisDistance;
+				closestHandle = $( this );
+				index = i;
+			}
+		} );
+
+		allowed = this._start( event, index );
+		if ( allowed === false ) {
+			return false;
+		}
+		this._mouseSliding = true;
+
+		this._handleIndex = index;
+
+		this._addClass( closestHandle, null, "ui-state-active" );
+		closestHandle.trigger( "focus" );
+
+		offset = closestHandle.offset();
+		mouseOverHandle = !$( event.target ).parents().addBack().is( ".ui-slider-handle" );
+		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } : {
+			left: event.pageX - offset.left - ( closestHandle.width() / 2 ),
+			top: event.pageY - offset.top -
+				( closestHandle.height() / 2 ) -
+				( parseInt( closestHandle.css( "borderTopWidth" ), 10 ) || 0 ) -
+				( parseInt( closestHandle.css( "borderBottomWidth" ), 10 ) || 0 ) +
+				( parseInt( closestHandle.css( "marginTop" ), 10 ) || 0 )
+		};
+
+		if ( !this.handles.hasClass( "ui-state-hover" ) ) {
+			this._slide( event, index, normValue );
+		}
+		this._animateOff = true;
+		return true;
+	},
+
+	_mouseStart: function() {
+		return true;
+	},
+
+	_mouseDrag: function( event ) {
+		var position = { x: event.pageX, y: event.pageY },
+			normValue = this._normValueFromMouse( position );
+
+		this._slide( event, this._handleIndex, normValue );
+
+		return false;
+	},
+
+	_mouseStop: function( event ) {
+		this._removeClass( this.handles, null, "ui-state-active" );
+		this._mouseSliding = false;
+
+		this._stop( event, this._handleIndex );
+		this._change( event, this._handleIndex );
+
+		this._handleIndex = null;
+		this._clickOffset = null;
+		this._animateOff = false;
+
+		return false;
+	},
+
+	_detectOrientation: function() {
+		this.orientation = ( this.options.orientation === "vertical" ) ? "vertical" : "horizontal";
+	},
+
+	_normValueFromMouse: function( position ) {
+		var pixelTotal,
+			pixelMouse,
+			percentMouse,
+			valueTotal,
+			valueMouse;
+
+		if ( this.orientation === "horizontal" ) {
+			pixelTotal = this.elementSize.width;
+			pixelMouse = position.x - this.elementOffset.left -
+				( this._clickOffset ? this._clickOffset.left : 0 );
+		} else {
+			pixelTotal = this.elementSize.height;
+			pixelMouse = position.y - this.elementOffset.top -
+				( this._clickOffset ? this._clickOffset.top : 0 );
+		}
+
+		percentMouse = ( pixelMouse / pixelTotal );
+		if ( percentMouse > 1 ) {
+			percentMouse = 1;
+		}
+		if ( percentMouse < 0 ) {
+			percentMouse = 0;
+		}
+		if ( this.orientation === "vertical" ) {
+			percentMouse = 1 - percentMouse;
+		}
+
+		valueTotal = this._valueMax() - this._valueMin();
+		valueMouse = this._valueMin() + percentMouse * valueTotal;
+
+		return this._trimAlignValue( valueMouse );
+	},
+
+	_uiHash: function( index, value, values ) {
+		var uiHash = {
+			handle: this.handles[ index ],
+			handleIndex: index,
+			value: value !== undefined ? value : this.value()
+		};
+
+		if ( this._hasMultipleValues() ) {
+			uiHash.value = value !== undefined ? value : this.values( index );
+			uiHash.values = values || this.values();
+		}
+
+		return uiHash;
+	},
+
+	_hasMultipleValues: function() {
+		return this.options.values && this.options.values.length;
+	},
+
+	_start: function( event, index ) {
+		return this._trigger( "start", event, this._uiHash( index ) );
+	},
+
+	_slide: function( event, index, newVal ) {
+		var allowed, otherVal,
+			currentValue = this.value(),
+			newValues = this.values();
+
+		if ( this._hasMultipleValues() ) {
+			otherVal = this.values( index ? 0 : 1 );
+			currentValue = this.values( index );
+
+			if ( this.options.values.length === 2 && this.options.range === true ) {
+				newVal =  index === 0 ? Math.min( otherVal, newVal ) : Math.max( otherVal, newVal );
+			}
+
+			newValues[ index ] = newVal;
+		}
+
+		if ( newVal === currentValue ) {
+			return;
+		}
+
+		allowed = this._trigger( "slide", event, this._uiHash( index, newVal, newValues ) );
+
+		// A slide can be canceled by returning false from the slide callback
+		if ( allowed === false ) {
+			return;
+		}
+
+		if ( this._hasMultipleValues() ) {
+			this.values( index, newVal );
+		} else {
+			this.value( newVal );
+		}
+	},
+
+	_stop: function( event, index ) {
+		this._trigger( "stop", event, this._uiHash( index ) );
+	},
+
+	_change: function( event, index ) {
+		if ( !this._keySliding && !this._mouseSliding ) {
+
+			//store the last changed value index for reference when handles overlap
+			this._lastChangedValue = index;
+			this._trigger( "change", event, this._uiHash( index ) );
+		}
+	},
+
+	value: function( newValue ) {
+		if ( arguments.length ) {
+			this.options.value = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, 0 );
+			return;
+		}
+
+		return this._value();
+	},
+
+	values: function( index, newValue ) {
+		var vals,
+			newValues,
+			i;
+
+		if ( arguments.length > 1 ) {
+			this.options.values[ index ] = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, index );
+			return;
+		}
+
+		if ( arguments.length ) {
+			if ( Array.isArray( arguments[ 0 ] ) ) {
+				vals = this.options.values;
+				newValues = arguments[ 0 ];
+				for ( i = 0; i < vals.length; i += 1 ) {
+					vals[ i ] = this._trimAlignValue( newValues[ i ] );
+					this._change( null, i );
+				}
+				this._refreshValue();
+			} else {
+				if ( this._hasMultipleValues() ) {
+					return this._values( index );
+				} else {
+					return this.value();
+				}
+			}
+		} else {
+			return this._values();
+		}
+	},
+
+	_setOption: function( key, value ) {
+		var i,
+			valsLength = 0;
+
+		if ( key === "range" && this.options.range === true ) {
+			if ( value === "min" ) {
+				this.options.value = this._values( 0 );
+				this.options.values = null;
+			} else if ( value === "max" ) {
+				this.options.value = this._values( this.options.values.length - 1 );
+				this.options.values = null;
+			}
+		}
+
+		if ( Array.isArray( this.options.values ) ) {
+			valsLength = this.options.values.length;
+		}
+
+		this._super( key, value );
+
+		switch ( key ) {
+			case "orientation":
+				this._detectOrientation();
+				this._removeClass( "ui-slider-horizontal ui-slider-vertical" )
+					._addClass( "ui-slider-" + this.orientation );
+				this._refreshValue();
+				if ( this.options.range ) {
+					this._refreshRange( value );
+				}
+
+				// Reset positioning from previous orientation
+				this.handles.css( value === "horizontal" ? "bottom" : "left", "" );
+				break;
+			case "value":
+				this._animateOff = true;
+				this._refreshValue();
+				this._change( null, 0 );
+				this._animateOff = false;
+				break;
+			case "values":
+				this._animateOff = true;
+				this._refreshValue();
+
+				// Start from the last handle to prevent unreachable handles (#9046)
+				for ( i = valsLength - 1; i >= 0; i-- ) {
+					this._change( null, i );
+				}
+				this._animateOff = false;
+				break;
+			case "step":
+			case "min":
+			case "max":
+				this._animateOff = true;
+				this._calculateNewMax();
+				this._refreshValue();
+				this._animateOff = false;
+				break;
+			case "range":
+				this._animateOff = true;
+				this._refresh();
+				this._animateOff = false;
+				break;
+		}
+	},
+
+	_setOptionDisabled: function( value ) {
+		this._super( value );
+
+		this._toggleClass( null, "ui-state-disabled", !!value );
+	},
+
+	//internal value getter
+	// _value() returns value trimmed by min and max, aligned by step
+	_value: function() {
+		var val = this.options.value;
+		val = this._trimAlignValue( val );
+
+		return val;
+	},
+
+	//internal values getter
+	// _values() returns array of values trimmed by min and max, aligned by step
+	// _values( index ) returns single value trimmed by min and max, aligned by step
+	_values: function( index ) {
+		var val,
+			vals,
+			i;
+
+		if ( arguments.length ) {
+			val = this.options.values[ index ];
+			val = this._trimAlignValue( val );
+
+			return val;
+		} else if ( this._hasMultipleValues() ) {
+
+			// .slice() creates a copy of the array
+			// this copy gets trimmed by min and max and then returned
+			vals = this.options.values.slice();
+			for ( i = 0; i < vals.length; i += 1 ) {
+				vals[ i ] = this._trimAlignValue( vals[ i ] );
+			}
+
+			return vals;
+		} else {
+			return [];
+		}
+	},
+
+	// Returns the step-aligned value that val is closest to, between (inclusive) min and max
+	_trimAlignValue: function( val ) {
+		if ( val <= this._valueMin() ) {
+			return this._valueMin();
+		}
+		if ( val >= this._valueMax() ) {
+			return this._valueMax();
+		}
+		var step = ( this.options.step > 0 ) ? this.options.step : 1,
+			valModStep = ( val - this._valueMin() ) % step,
+			alignValue = val - valModStep;
+
+		if ( Math.abs( valModStep ) * 2 >= step ) {
+			alignValue += ( valModStep > 0 ) ? step : ( -step );
+		}
+
+		// Since JavaScript has problems with large floats, round
+		// the final value to 5 digits after the decimal point (see #4124)
+		return parseFloat( alignValue.toFixed( 5 ) );
+	},
+
+	_calculateNewMax: function() {
+		var max = this.options.max,
+			min = this._valueMin(),
+			step = this.options.step,
+			aboveMin = Math.round( ( max - min ) / step ) * step;
+		max = aboveMin + min;
+		if ( max > this.options.max ) {
+
+			//If max is not divisible by step, rounding off may increase its value
+			max -= step;
+		}
+		this.max = parseFloat( max.toFixed( this._precision() ) );
+	},
+
+	_precision: function() {
+		var precision = this._precisionOf( this.options.step );
+		if ( this.options.min !== null ) {
+			precision = Math.max( precision, this._precisionOf( this.options.min ) );
+		}
+		return precision;
+	},
+
+	_precisionOf: function( num ) {
+		var str = num.toString(),
+			decimal = str.indexOf( "." );
+		return decimal === -1 ? 0 : str.length - decimal - 1;
+	},
+
+	_valueMin: function() {
+		return this.options.min;
+	},
+
+	_valueMax: function() {
+		return this.max;
+	},
+
+	_refreshRange: function( orientation ) {
+		if ( orientation === "vertical" ) {
+			this.range.css( { "width": "", "left": "" } );
+		}
+		if ( orientation === "horizontal" ) {
+			this.range.css( { "height": "", "bottom": "" } );
+		}
+	},
+
+	_refreshValue: function() {
+		var lastValPercent, valPercent, value, valueMin, valueMax,
+			oRange = this.options.range,
+			o = this.options,
+			that = this,
+			animate = ( !this._animateOff ) ? o.animate : false,
+			_set = {};
+
+		if ( this._hasMultipleValues() ) {
+			this.handles.each( function( i ) {
+				valPercent = ( that.values( i ) - that._valueMin() ) / ( that._valueMax() -
+					that._valueMin() ) * 100;
+				_set[ that.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+				$( this ).stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+				if ( that.options.range === true ) {
+					if ( that.orientation === "horizontal" ) {
+						if ( i === 0 ) {
+							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+								left: valPercent + "%"
+							}, o.animate );
+						}
+						if ( i === 1 ) {
+							that.range[ animate ? "animate" : "css" ]( {
+								width: ( valPercent - lastValPercent ) + "%"
+							}, {
+								queue: false,
+								duration: o.animate
+							} );
+						}
+					} else {
+						if ( i === 0 ) {
+							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+								bottom: ( valPercent ) + "%"
+							}, o.animate );
+						}
+						if ( i === 1 ) {
+							that.range[ animate ? "animate" : "css" ]( {
+								height: ( valPercent - lastValPercent ) + "%"
+							}, {
+								queue: false,
+								duration: o.animate
+							} );
+						}
+					}
+				}
+				lastValPercent = valPercent;
+			} );
+		} else {
+			value = this.value();
+			valueMin = this._valueMin();
+			valueMax = this._valueMax();
+			valPercent = ( valueMax !== valueMin ) ?
+					( value - valueMin ) / ( valueMax - valueMin ) * 100 :
+					0;
+			_set[ this.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+			this.handle.stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+
+			if ( oRange === "min" && this.orientation === "horizontal" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+					width: valPercent + "%"
+				}, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "horizontal" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+					width: ( 100 - valPercent ) + "%"
+				}, o.animate );
+			}
+			if ( oRange === "min" && this.orientation === "vertical" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+					height: valPercent + "%"
+				}, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "vertical" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( {
+					height: ( 100 - valPercent ) + "%"
+				}, o.animate );
+			}
+		}
+	},
+
+	_handleEvents: {
+		keydown: function( event ) {
+			var allowed, curVal, newVal, step,
+				index = $( event.target ).data( "ui-slider-handle-index" );
+
+			switch ( event.keyCode ) {
+				case $.ui.keyCode.HOME:
+				case $.ui.keyCode.END:
+				case $.ui.keyCode.PAGE_UP:
+				case $.ui.keyCode.PAGE_DOWN:
+				case $.ui.keyCode.UP:
+				case $.ui.keyCode.RIGHT:
+				case $.ui.keyCode.DOWN:
+				case $.ui.keyCode.LEFT:
+					event.preventDefault();
+					if ( !this._keySliding ) {
+						this._keySliding = true;
+						this._addClass( $( event.target ), null, "ui-state-active" );
+						allowed = this._start( event, index );
+						if ( allowed === false ) {
+							return;
+						}
+					}
+					break;
+			}
+
+			step = this.options.step;
+			if ( this._hasMultipleValues() ) {
+				curVal = newVal = this.values( index );
+			} else {
+				curVal = newVal = this.value();
+			}
+
+			switch ( event.keyCode ) {
+				case $.ui.keyCode.HOME:
+					newVal = this._valueMin();
+					break;
+				case $.ui.keyCode.END:
+					newVal = this._valueMax();
+					break;
+				case $.ui.keyCode.PAGE_UP:
+					newVal = this._trimAlignValue(
+						curVal + ( ( this._valueMax() - this._valueMin() ) / this.numPages )
+					);
+					break;
+				case $.ui.keyCode.PAGE_DOWN:
+					newVal = this._trimAlignValue(
+						curVal - ( ( this._valueMax() - this._valueMin() ) / this.numPages ) );
+					break;
+				case $.ui.keyCode.UP:
+				case $.ui.keyCode.RIGHT:
+					if ( curVal === this._valueMax() ) {
+						return;
+					}
+					newVal = this._trimAlignValue( curVal + step );
+					break;
+				case $.ui.keyCode.DOWN:
+				case $.ui.keyCode.LEFT:
+					if ( curVal === this._valueMin() ) {
+						return;
+					}
+					newVal = this._trimAlignValue( curVal - step );
+					break;
+			}
+
+			this._slide( event, index, newVal );
+		},
+		keyup: function( event ) {
+			var index = $( event.target ).data( "ui-slider-handle-index" );
+
+			if ( this._keySliding ) {
+				this._keySliding = false;
+				this._stop( event, index );
+				this._change( event, index );
+				this._removeClass( $( event.target ), null, "ui-state-active" );
+			}
+		}
+	}
+} );
+
+} );
+
 
 /***/ }),
 
@@ -11283,1562 +13294,6 @@ if ( typeof noGlobal === "undefined" ) {
 
 return jQuery;
 } );
-
-
-/***/ }),
-
-/***/ "./node_modules/picturefill/dist/picturefill.js":
-/*!******************************************************!*\
-  !*** ./node_modules/picturefill/dist/picturefill.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
- * https://scottjehl.github.io/picturefill/
- * Copyright (c) 2016 https://github.com/scottjehl/picturefill/blob/master/Authors.txt; Licensed MIT
- */
-/*! Gecko-Picture - v1.0
- * https://github.com/scottjehl/picturefill/tree/3.0/src/plugins/gecko-picture
- * Firefox's early picture implementation (prior to FF41) is static and does
- * not react to viewport changes. This tiny module fixes this.
- */
-(function(window) {
-	/*jshint eqnull:true */
-	var ua = navigator.userAgent;
-
-	if ( window.HTMLPictureElement && ((/ecko/).test(ua) && ua.match(/rv\:(\d+)/) && RegExp.$1 < 45) ) {
-		addEventListener("resize", (function() {
-			var timer;
-
-			var dummySrc = document.createElement("source");
-
-			var fixRespimg = function(img) {
-				var source, sizes;
-				var picture = img.parentNode;
-
-				if (picture.nodeName.toUpperCase() === "PICTURE") {
-					source = dummySrc.cloneNode();
-
-					picture.insertBefore(source, picture.firstElementChild);
-					setTimeout(function() {
-						picture.removeChild(source);
-					});
-				} else if (!img._pfLastSize || img.offsetWidth > img._pfLastSize) {
-					img._pfLastSize = img.offsetWidth;
-					sizes = img.sizes;
-					img.sizes += ",100vw";
-					setTimeout(function() {
-						img.sizes = sizes;
-					});
-				}
-			};
-
-			var findPictureImgs = function() {
-				var i;
-				var imgs = document.querySelectorAll("picture > img, img[srcset][sizes]");
-				for (i = 0; i < imgs.length; i++) {
-					fixRespimg(imgs[i]);
-				}
-			};
-			var onResize = function() {
-				clearTimeout(timer);
-				timer = setTimeout(findPictureImgs, 99);
-			};
-			var mq = window.matchMedia && matchMedia("(orientation: landscape)");
-			var init = function() {
-				onResize();
-
-				if (mq && mq.addListener) {
-					mq.addListener(onResize);
-				}
-			};
-
-			dummySrc.srcset = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-
-			if (/^[c|i]|d$/.test(document.readyState || "")) {
-				init();
-			} else {
-				document.addEventListener("DOMContentLoaded", init);
-			}
-
-			return onResize;
-		})());
-	}
-})(window);
-
-/*! Picturefill - v3.0.2
- * http://scottjehl.github.io/picturefill
- * Copyright (c) 2015 https://github.com/scottjehl/picturefill/blob/master/Authors.txt;
- *  License: MIT
- */
-
-(function( window, document, undefined ) {
-	// Enable strict mode
-	"use strict";
-
-	// HTML shim|v it for old IE (IE9 will still need the HTML video tag workaround)
-	document.createElement( "picture" );
-
-	var warn, eminpx, alwaysCheckWDescriptor, evalId;
-	// local object for method references and testing exposure
-	var pf = {};
-	var isSupportTestReady = false;
-	var noop = function() {};
-	var image = document.createElement( "img" );
-	var getImgAttr = image.getAttribute;
-	var setImgAttr = image.setAttribute;
-	var removeImgAttr = image.removeAttribute;
-	var docElem = document.documentElement;
-	var types = {};
-	var cfg = {
-		//resource selection:
-		algorithm: ""
-	};
-	var srcAttr = "data-pfsrc";
-	var srcsetAttr = srcAttr + "set";
-	// ua sniffing is done for undetectable img loading features,
-	// to do some non crucial perf optimizations
-	var ua = navigator.userAgent;
-	var supportAbort = (/rident/).test(ua) || ((/ecko/).test(ua) && ua.match(/rv\:(\d+)/) && RegExp.$1 > 35 );
-	var curSrcProp = "currentSrc";
-	var regWDesc = /\s+\+?\d+(e\d+)?w/;
-	var regSize = /(\([^)]+\))?\s*(.+)/;
-	var setOptions = window.picturefillCFG;
-	/**
-	 * Shortcut property for https://w3c.github.io/webappsec/specs/mixedcontent/#restricts-mixed-content ( for easy overriding in tests )
-	 */
-	// baseStyle also used by getEmValue (i.e.: width: 1em is important)
-	var baseStyle = "position:absolute;left:0;visibility:hidden;display:block;padding:0;border:none;font-size:1em;width:1em;overflow:hidden;clip:rect(0px, 0px, 0px, 0px)";
-	var fsCss = "font-size:100%!important;";
-	var isVwDirty = true;
-
-	var cssCache = {};
-	var sizeLengthCache = {};
-	var DPR = window.devicePixelRatio;
-	var units = {
-		px: 1,
-		"in": 96
-	};
-	var anchor = document.createElement( "a" );
-	/**
-	 * alreadyRun flag used for setOptions. is it true setOptions will reevaluate
-	 * @type {boolean}
-	 */
-	var alreadyRun = false;
-
-	// Reusable, non-"g" Regexes
-
-	// (Don't use \s, to avoid matching non-breaking space.)
-	var regexLeadingSpaces = /^[ \t\n\r\u000c]+/,
-	    regexLeadingCommasOrSpaces = /^[, \t\n\r\u000c]+/,
-	    regexLeadingNotSpaces = /^[^ \t\n\r\u000c]+/,
-	    regexTrailingCommas = /[,]+$/,
-	    regexNonNegativeInteger = /^\d+$/,
-
-	    // ( Positive or negative or unsigned integers or decimals, without or without exponents.
-	    // Must include at least one digit.
-	    // According to spec tests any decimal point must be followed by a digit.
-	    // No leading plus sign is allowed.)
-	    // https://html.spec.whatwg.org/multipage/infrastructure.html#valid-floating-point-number
-	    regexFloatingPoint = /^-?(?:[0-9]+|[0-9]*\.[0-9]+)(?:[eE][+-]?[0-9]+)?$/;
-
-	var on = function(obj, evt, fn, capture) {
-		if ( obj.addEventListener ) {
-			obj.addEventListener(evt, fn, capture || false);
-		} else if ( obj.attachEvent ) {
-			obj.attachEvent( "on" + evt, fn);
-		}
-	};
-
-	/**
-	 * simple memoize function:
-	 */
-
-	var memoize = function(fn) {
-		var cache = {};
-		return function(input) {
-			if ( !(input in cache) ) {
-				cache[ input ] = fn(input);
-			}
-			return cache[ input ];
-		};
-	};
-
-	// UTILITY FUNCTIONS
-
-	// Manual is faster than RegEx
-	// http://jsperf.com/whitespace-character/5
-	function isSpace(c) {
-		return (c === "\u0020" || // space
-		        c === "\u0009" || // horizontal tab
-		        c === "\u000A" || // new line
-		        c === "\u000C" || // form feed
-		        c === "\u000D");  // carriage return
-	}
-
-	/**
-	 * gets a mediaquery and returns a boolean or gets a css length and returns a number
-	 * @param css mediaqueries or css length
-	 * @returns {boolean|number}
-	 *
-	 * based on: https://gist.github.com/jonathantneal/db4f77009b155f083738
-	 */
-	var evalCSS = (function() {
-
-		var regLength = /^([\d\.]+)(em|vw|px)$/;
-		var replace = function() {
-			var args = arguments, index = 0, string = args[0];
-			while (++index in args) {
-				string = string.replace(args[index], args[++index]);
-			}
-			return string;
-		};
-
-		var buildStr = memoize(function(css) {
-
-			return "return " + replace((css || "").toLowerCase(),
-				// interpret `and`
-				/\band\b/g, "&&",
-
-				// interpret `,`
-				/,/g, "||",
-
-				// interpret `min-` as >=
-				/min-([a-z-\s]+):/g, "e.$1>=",
-
-				// interpret `max-` as <=
-				/max-([a-z-\s]+):/g, "e.$1<=",
-
-				//calc value
-				/calc([^)]+)/g, "($1)",
-
-				// interpret css values
-				/(\d+[\.]*[\d]*)([a-z]+)/g, "($1 * e.$2)",
-				//make eval less evil
-				/^(?!(e.[a-z]|[0-9\.&=|><\+\-\*\(\)\/])).*/ig, ""
-			) + ";";
-		});
-
-		return function(css, length) {
-			var parsedLength;
-			if (!(css in cssCache)) {
-				cssCache[css] = false;
-				if (length && (parsedLength = css.match( regLength ))) {
-					cssCache[css] = parsedLength[ 1 ] * units[parsedLength[ 2 ]];
-				} else {
-					/*jshint evil:true */
-					try{
-						cssCache[css] = new Function("e", buildStr(css))(units);
-					} catch(e) {}
-					/*jshint evil:false */
-				}
-			}
-			return cssCache[css];
-		};
-	})();
-
-	var setResolution = function( candidate, sizesattr ) {
-		if ( candidate.w ) { // h = means height: || descriptor.type === 'h' do not handle yet...
-			candidate.cWidth = pf.calcListLength( sizesattr || "100vw" );
-			candidate.res = candidate.w / candidate.cWidth ;
-		} else {
-			candidate.res = candidate.d;
-		}
-		return candidate;
-	};
-
-	/**
-	 *
-	 * @param opt
-	 */
-	var picturefill = function( opt ) {
-
-		if (!isSupportTestReady) {return;}
-
-		var elements, i, plen;
-
-		var options = opt || {};
-
-		if ( options.elements && options.elements.nodeType === 1 ) {
-			if ( options.elements.nodeName.toUpperCase() === "IMG" ) {
-				options.elements =  [ options.elements ];
-			} else {
-				options.context = options.elements;
-				options.elements =  null;
-			}
-		}
-
-		elements = options.elements || pf.qsa( (options.context || document), ( options.reevaluate || options.reselect ) ? pf.sel : pf.selShort );
-
-		if ( (plen = elements.length) ) {
-
-			pf.setupRun( options );
-			alreadyRun = true;
-
-			// Loop through all elements
-			for ( i = 0; i < plen; i++ ) {
-				pf.fillImg(elements[ i ], options);
-			}
-
-			pf.teardownRun( options );
-		}
-	};
-
-	/**
-	 * outputs a warning for the developer
-	 * @param {message}
-	 * @type {Function}
-	 */
-	warn = ( window.console && console.warn ) ?
-		function( message ) {
-			console.warn( message );
-		} :
-		noop
-	;
-
-	if ( !(curSrcProp in image) ) {
-		curSrcProp = "src";
-	}
-
-	// Add support for standard mime types.
-	types[ "image/jpeg" ] = true;
-	types[ "image/gif" ] = true;
-	types[ "image/png" ] = true;
-
-	function detectTypeSupport( type, typeUri ) {
-		// based on Modernizr's lossless img-webp test
-		// note: asynchronous
-		var image = new window.Image();
-		image.onerror = function() {
-			types[ type ] = false;
-			picturefill();
-		};
-		image.onload = function() {
-			types[ type ] = image.width === 1;
-			picturefill();
-		};
-		image.src = typeUri;
-		return "pending";
-	}
-
-	// test svg support
-	types[ "image/svg+xml" ] = document.implementation.hasFeature( "http://www.w3.org/TR/SVG11/feature#Image", "1.1" );
-
-	/**
-	 * updates the internal vW property with the current viewport width in px
-	 */
-	function updateMetrics() {
-
-		isVwDirty = false;
-		DPR = window.devicePixelRatio;
-		cssCache = {};
-		sizeLengthCache = {};
-
-		pf.DPR = DPR || 1;
-
-		units.width = Math.max(window.innerWidth || 0, docElem.clientWidth);
-		units.height = Math.max(window.innerHeight || 0, docElem.clientHeight);
-
-		units.vw = units.width / 100;
-		units.vh = units.height / 100;
-
-		evalId = [ units.height, units.width, DPR ].join("-");
-
-		units.em = pf.getEmValue();
-		units.rem = units.em;
-	}
-
-	function chooseLowRes( lowerValue, higherValue, dprValue, isCached ) {
-		var bonusFactor, tooMuch, bonus, meanDensity;
-
-		//experimental
-		if (cfg.algorithm === "saveData" ){
-			if ( lowerValue > 2.7 ) {
-				meanDensity = dprValue + 1;
-			} else {
-				tooMuch = higherValue - dprValue;
-				bonusFactor = Math.pow(lowerValue - 0.6, 1.5);
-
-				bonus = tooMuch * bonusFactor;
-
-				if (isCached) {
-					bonus += 0.1 * bonusFactor;
-				}
-
-				meanDensity = lowerValue + bonus;
-			}
-		} else {
-			meanDensity = (dprValue > 1) ?
-				Math.sqrt(lowerValue * higherValue) :
-				lowerValue;
-		}
-
-		return meanDensity > dprValue;
-	}
-
-	function applyBestCandidate( img ) {
-		var srcSetCandidates;
-		var matchingSet = pf.getSet( img );
-		var evaluated = false;
-		if ( matchingSet !== "pending" ) {
-			evaluated = evalId;
-			if ( matchingSet ) {
-				srcSetCandidates = pf.setRes( matchingSet );
-				pf.applySetCandidate( srcSetCandidates, img );
-			}
-		}
-		img[ pf.ns ].evaled = evaluated;
-	}
-
-	function ascendingSort( a, b ) {
-		return a.res - b.res;
-	}
-
-	function setSrcToCur( img, src, set ) {
-		var candidate;
-		if ( !set && src ) {
-			set = img[ pf.ns ].sets;
-			set = set && set[set.length - 1];
-		}
-
-		candidate = getCandidateForSrc(src, set);
-
-		if ( candidate ) {
-			src = pf.makeUrl(src);
-			img[ pf.ns ].curSrc = src;
-			img[ pf.ns ].curCan = candidate;
-
-			if ( !candidate.res ) {
-				setResolution( candidate, candidate.set.sizes );
-			}
-		}
-		return candidate;
-	}
-
-	function getCandidateForSrc( src, set ) {
-		var i, candidate, candidates;
-		if ( src && set ) {
-			candidates = pf.parseSet( set );
-			src = pf.makeUrl(src);
-			for ( i = 0; i < candidates.length; i++ ) {
-				if ( src === pf.makeUrl(candidates[ i ].url) ) {
-					candidate = candidates[ i ];
-					break;
-				}
-			}
-		}
-		return candidate;
-	}
-
-	function getAllSourceElements( picture, candidates ) {
-		var i, len, source, srcset;
-
-		// SPEC mismatch intended for size and perf:
-		// actually only source elements preceding the img should be used
-		// also note: don't use qsa here, because IE8 sometimes doesn't like source as the key part in a selector
-		var sources = picture.getElementsByTagName( "source" );
-
-		for ( i = 0, len = sources.length; i < len; i++ ) {
-			source = sources[ i ];
-			source[ pf.ns ] = true;
-			srcset = source.getAttribute( "srcset" );
-
-			// if source does not have a srcset attribute, skip
-			if ( srcset ) {
-				candidates.push( {
-					srcset: srcset,
-					media: source.getAttribute( "media" ),
-					type: source.getAttribute( "type" ),
-					sizes: source.getAttribute( "sizes" )
-				} );
-			}
-		}
-	}
-
-	/**
-	 * Srcset Parser
-	 * By Alex Bell |  MIT License
-	 *
-	 * @returns Array [{url: _, d: _, w: _, h:_, set:_(????)}, ...]
-	 *
-	 * Based super duper closely on the reference algorithm at:
-	 * https://html.spec.whatwg.org/multipage/embedded-content.html#parse-a-srcset-attribute
-	 */
-
-	// 1. Let input be the value passed to this algorithm.
-	// (TO-DO : Explain what "set" argument is here. Maybe choose a more
-	// descriptive & more searchable name.  Since passing the "set" in really has
-	// nothing to do with parsing proper, I would prefer this assignment eventually
-	// go in an external fn.)
-	function parseSrcset(input, set) {
-
-		function collectCharacters(regEx) {
-			var chars,
-			    match = regEx.exec(input.substring(pos));
-			if (match) {
-				chars = match[ 0 ];
-				pos += chars.length;
-				return chars;
-			}
-		}
-
-		var inputLength = input.length,
-		    url,
-		    descriptors,
-		    currentDescriptor,
-		    state,
-		    c,
-
-		    // 2. Let position be a pointer into input, initially pointing at the start
-		    //    of the string.
-		    pos = 0,
-
-		    // 3. Let candidates be an initially empty source set.
-		    candidates = [];
-
-		/**
-		* Adds descriptor properties to a candidate, pushes to the candidates array
-		* @return undefined
-		*/
-		// (Declared outside of the while loop so that it's only created once.
-		// (This fn is defined before it is used, in order to pass JSHINT.
-		// Unfortunately this breaks the sequencing of the spec comments. :/ )
-		function parseDescriptors() {
-
-			// 9. Descriptor parser: Let error be no.
-			var pError = false,
-
-			// 10. Let width be absent.
-			// 11. Let density be absent.
-			// 12. Let future-compat-h be absent. (We're implementing it now as h)
-			    w, d, h, i,
-			    candidate = {},
-			    desc, lastChar, value, intVal, floatVal;
-
-			// 13. For each descriptor in descriptors, run the appropriate set of steps
-			// from the following list:
-			for (i = 0 ; i < descriptors.length; i++) {
-				desc = descriptors[ i ];
-
-				lastChar = desc[ desc.length - 1 ];
-				value = desc.substring(0, desc.length - 1);
-				intVal = parseInt(value, 10);
-				floatVal = parseFloat(value);
-
-				// If the descriptor consists of a valid non-negative integer followed by
-				// a U+0077 LATIN SMALL LETTER W character
-				if (regexNonNegativeInteger.test(value) && (lastChar === "w")) {
-
-					// If width and density are not both absent, then let error be yes.
-					if (w || d) {pError = true;}
-
-					// Apply the rules for parsing non-negative integers to the descriptor.
-					// If the result is zero, let error be yes.
-					// Otherwise, let width be the result.
-					if (intVal === 0) {pError = true;} else {w = intVal;}
-
-				// If the descriptor consists of a valid floating-point number followed by
-				// a U+0078 LATIN SMALL LETTER X character
-				} else if (regexFloatingPoint.test(value) && (lastChar === "x")) {
-
-					// If width, density and future-compat-h are not all absent, then let error
-					// be yes.
-					if (w || d || h) {pError = true;}
-
-					// Apply the rules for parsing floating-point number values to the descriptor.
-					// If the result is less than zero, let error be yes. Otherwise, let density
-					// be the result.
-					if (floatVal < 0) {pError = true;} else {d = floatVal;}
-
-				// If the descriptor consists of a valid non-negative integer followed by
-				// a U+0068 LATIN SMALL LETTER H character
-				} else if (regexNonNegativeInteger.test(value) && (lastChar === "h")) {
-
-					// If height and density are not both absent, then let error be yes.
-					if (h || d) {pError = true;}
-
-					// Apply the rules for parsing non-negative integers to the descriptor.
-					// If the result is zero, let error be yes. Otherwise, let future-compat-h
-					// be the result.
-					if (intVal === 0) {pError = true;} else {h = intVal;}
-
-				// Anything else, Let error be yes.
-				} else {pError = true;}
-			} // (close step 13 for loop)
-
-			// 15. If error is still no, then append a new image source to candidates whose
-			// URL is url, associated with a width width if not absent and a pixel
-			// density density if not absent. Otherwise, there is a parse error.
-			if (!pError) {
-				candidate.url = url;
-
-				if (w) { candidate.w = w;}
-				if (d) { candidate.d = d;}
-				if (h) { candidate.h = h;}
-				if (!h && !d && !w) {candidate.d = 1;}
-				if (candidate.d === 1) {set.has1x = true;}
-				candidate.set = set;
-
-				candidates.push(candidate);
-			}
-		} // (close parseDescriptors fn)
-
-		/**
-		* Tokenizes descriptor properties prior to parsing
-		* Returns undefined.
-		* (Again, this fn is defined before it is used, in order to pass JSHINT.
-		* Unfortunately this breaks the logical sequencing of the spec comments. :/ )
-		*/
-		function tokenize() {
-
-			// 8.1. Descriptor tokeniser: Skip whitespace
-			collectCharacters(regexLeadingSpaces);
-
-			// 8.2. Let current descriptor be the empty string.
-			currentDescriptor = "";
-
-			// 8.3. Let state be in descriptor.
-			state = "in descriptor";
-
-			while (true) {
-
-				// 8.4. Let c be the character at position.
-				c = input.charAt(pos);
-
-				//  Do the following depending on the value of state.
-				//  For the purpose of this step, "EOF" is a special character representing
-				//  that position is past the end of input.
-
-				// In descriptor
-				if (state === "in descriptor") {
-					// Do the following, depending on the value of c:
-
-				  // Space character
-				  // If current descriptor is not empty, append current descriptor to
-				  // descriptors and let current descriptor be the empty string.
-				  // Set state to after descriptor.
-					if (isSpace(c)) {
-						if (currentDescriptor) {
-							descriptors.push(currentDescriptor);
-							currentDescriptor = "";
-							state = "after descriptor";
-						}
-
-					// U+002C COMMA (,)
-					// Advance position to the next character in input. If current descriptor
-					// is not empty, append current descriptor to descriptors. Jump to the step
-					// labeled descriptor parser.
-					} else if (c === ",") {
-						pos += 1;
-						if (currentDescriptor) {
-							descriptors.push(currentDescriptor);
-						}
-						parseDescriptors();
-						return;
-
-					// U+0028 LEFT PARENTHESIS (()
-					// Append c to current descriptor. Set state to in parens.
-					} else if (c === "\u0028") {
-						currentDescriptor = currentDescriptor + c;
-						state = "in parens";
-
-					// EOF
-					// If current descriptor is not empty, append current descriptor to
-					// descriptors. Jump to the step labeled descriptor parser.
-					} else if (c === "") {
-						if (currentDescriptor) {
-							descriptors.push(currentDescriptor);
-						}
-						parseDescriptors();
-						return;
-
-					// Anything else
-					// Append c to current descriptor.
-					} else {
-						currentDescriptor = currentDescriptor + c;
-					}
-				// (end "in descriptor"
-
-				// In parens
-				} else if (state === "in parens") {
-
-					// U+0029 RIGHT PARENTHESIS ())
-					// Append c to current descriptor. Set state to in descriptor.
-					if (c === ")") {
-						currentDescriptor = currentDescriptor + c;
-						state = "in descriptor";
-
-					// EOF
-					// Append current descriptor to descriptors. Jump to the step labeled
-					// descriptor parser.
-					} else if (c === "") {
-						descriptors.push(currentDescriptor);
-						parseDescriptors();
-						return;
-
-					// Anything else
-					// Append c to current descriptor.
-					} else {
-						currentDescriptor = currentDescriptor + c;
-					}
-
-				// After descriptor
-				} else if (state === "after descriptor") {
-
-					// Do the following, depending on the value of c:
-					// Space character: Stay in this state.
-					if (isSpace(c)) {
-
-					// EOF: Jump to the step labeled descriptor parser.
-					} else if (c === "") {
-						parseDescriptors();
-						return;
-
-					// Anything else
-					// Set state to in descriptor. Set position to the previous character in input.
-					} else {
-						state = "in descriptor";
-						pos -= 1;
-
-					}
-				}
-
-				// Advance position to the next character in input.
-				pos += 1;
-
-			// Repeat this step.
-			} // (close while true loop)
-		}
-
-		// 4. Splitting loop: Collect a sequence of characters that are space
-		//    characters or U+002C COMMA characters. If any U+002C COMMA characters
-		//    were collected, that is a parse error.
-		while (true) {
-			collectCharacters(regexLeadingCommasOrSpaces);
-
-			// 5. If position is past the end of input, return candidates and abort these steps.
-			if (pos >= inputLength) {
-				return candidates; // (we're done, this is the sole return path)
-			}
-
-			// 6. Collect a sequence of characters that are not space characters,
-			//    and let that be url.
-			url = collectCharacters(regexLeadingNotSpaces);
-
-			// 7. Let descriptors be a new empty list.
-			descriptors = [];
-
-			// 8. If url ends with a U+002C COMMA character (,), follow these substeps:
-			//		(1). Remove all trailing U+002C COMMA characters from url. If this removed
-			//         more than one character, that is a parse error.
-			if (url.slice(-1) === ",") {
-				url = url.replace(regexTrailingCommas, "");
-				// (Jump ahead to step 9 to skip tokenization and just push the candidate).
-				parseDescriptors();
-
-			//	Otherwise, follow these substeps:
-			} else {
-				tokenize();
-			} // (close else of step 8)
-
-		// 16. Return to the step labeled splitting loop.
-		} // (Close of big while loop.)
-	}
-
-	/*
-	 * Sizes Parser
-	 *
-	 * By Alex Bell |  MIT License
-	 *
-	 * Non-strict but accurate and lightweight JS Parser for the string value <img sizes="here">
-	 *
-	 * Reference algorithm at:
-	 * https://html.spec.whatwg.org/multipage/embedded-content.html#parse-a-sizes-attribute
-	 *
-	 * Most comments are copied in directly from the spec
-	 * (except for comments in parens).
-	 *
-	 * Grammar is:
-	 * <source-size-list> = <source-size># [ , <source-size-value> ]? | <source-size-value>
-	 * <source-size> = <media-condition> <source-size-value>
-	 * <source-size-value> = <length>
-	 * http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#attr-img-sizes
-	 *
-	 * E.g. "(max-width: 30em) 100vw, (max-width: 50em) 70vw, 100vw"
-	 * or "(min-width: 30em), calc(30vw - 15px)" or just "30vw"
-	 *
-	 * Returns the first valid <css-length> with a media condition that evaluates to true,
-	 * or "100vw" if all valid media conditions evaluate to false.
-	 *
-	 */
-
-	function parseSizes(strValue) {
-
-		// (Percentage CSS lengths are not allowed in this case, to avoid confusion:
-		// https://html.spec.whatwg.org/multipage/embedded-content.html#valid-source-size-list
-		// CSS allows a single optional plus or minus sign:
-		// http://www.w3.org/TR/CSS2/syndata.html#numbers
-		// CSS is ASCII case-insensitive:
-		// http://www.w3.org/TR/CSS2/syndata.html#characters )
-		// Spec allows exponential notation for <number> type:
-		// http://dev.w3.org/csswg/css-values/#numbers
-		var regexCssLengthWithUnits = /^(?:[+-]?[0-9]+|[0-9]*\.[0-9]+)(?:[eE][+-]?[0-9]+)?(?:ch|cm|em|ex|in|mm|pc|pt|px|rem|vh|vmin|vmax|vw)$/i;
-
-		// (This is a quick and lenient test. Because of optional unlimited-depth internal
-		// grouping parens and strict spacing rules, this could get very complicated.)
-		var regexCssCalc = /^calc\((?:[0-9a-z \.\+\-\*\/\(\)]+)\)$/i;
-
-		var i;
-		var unparsedSizesList;
-		var unparsedSizesListLength;
-		var unparsedSize;
-		var lastComponentValue;
-		var size;
-
-		// UTILITY FUNCTIONS
-
-		//  (Toy CSS parser. The goals here are:
-		//  1) expansive test coverage without the weight of a full CSS parser.
-		//  2) Avoiding regex wherever convenient.
-		//  Quick tests: http://jsfiddle.net/gtntL4gr/3/
-		//  Returns an array of arrays.)
-		function parseComponentValues(str) {
-			var chrctr;
-			var component = "";
-			var componentArray = [];
-			var listArray = [];
-			var parenDepth = 0;
-			var pos = 0;
-			var inComment = false;
-
-			function pushComponent() {
-				if (component) {
-					componentArray.push(component);
-					component = "";
-				}
-			}
-
-			function pushComponentArray() {
-				if (componentArray[0]) {
-					listArray.push(componentArray);
-					componentArray = [];
-				}
-			}
-
-			// (Loop forwards from the beginning of the string.)
-			while (true) {
-				chrctr = str.charAt(pos);
-
-				if (chrctr === "") { // ( End of string reached.)
-					pushComponent();
-					pushComponentArray();
-					return listArray;
-				} else if (inComment) {
-					if ((chrctr === "*") && (str[pos + 1] === "/")) { // (At end of a comment.)
-						inComment = false;
-						pos += 2;
-						pushComponent();
-						continue;
-					} else {
-						pos += 1; // (Skip all characters inside comments.)
-						continue;
-					}
-				} else if (isSpace(chrctr)) {
-					// (If previous character in loop was also a space, or if
-					// at the beginning of the string, do not add space char to
-					// component.)
-					if ( (str.charAt(pos - 1) && isSpace( str.charAt(pos - 1) ) ) || !component ) {
-						pos += 1;
-						continue;
-					} else if (parenDepth === 0) {
-						pushComponent();
-						pos +=1;
-						continue;
-					} else {
-						// (Replace any space character with a plain space for legibility.)
-						chrctr = " ";
-					}
-				} else if (chrctr === "(") {
-					parenDepth += 1;
-				} else if (chrctr === ")") {
-					parenDepth -= 1;
-				} else if (chrctr === ",") {
-					pushComponent();
-					pushComponentArray();
-					pos += 1;
-					continue;
-				} else if ( (chrctr === "/") && (str.charAt(pos + 1) === "*") ) {
-					inComment = true;
-					pos += 2;
-					continue;
-				}
-
-				component = component + chrctr;
-				pos += 1;
-			}
-		}
-
-		function isValidNonNegativeSourceSizeValue(s) {
-			if (regexCssLengthWithUnits.test(s) && (parseFloat(s) >= 0)) {return true;}
-			if (regexCssCalc.test(s)) {return true;}
-			// ( http://www.w3.org/TR/CSS2/syndata.html#numbers says:
-			// "-0 is equivalent to 0 and is not a negative number." which means that
-			// unitless zero and unitless negative zero must be accepted as special cases.)
-			if ((s === "0") || (s === "-0") || (s === "+0")) {return true;}
-			return false;
-		}
-
-		// When asked to parse a sizes attribute from an element, parse a
-		// comma-separated list of component values from the value of the element's
-		// sizes attribute (or the empty string, if the attribute is absent), and let
-		// unparsed sizes list be the result.
-		// http://dev.w3.org/csswg/css-syntax/#parse-comma-separated-list-of-component-values
-
-		unparsedSizesList = parseComponentValues(strValue);
-		unparsedSizesListLength = unparsedSizesList.length;
-
-		// For each unparsed size in unparsed sizes list:
-		for (i = 0; i < unparsedSizesListLength; i++) {
-			unparsedSize = unparsedSizesList[i];
-
-			// 1. Remove all consecutive <whitespace-token>s from the end of unparsed size.
-			// ( parseComponentValues() already omits spaces outside of parens. )
-
-			// If unparsed size is now empty, that is a parse error; continue to the next
-			// iteration of this algorithm.
-			// ( parseComponentValues() won't push an empty array. )
-
-			// 2. If the last component value in unparsed size is a valid non-negative
-			// <source-size-value>, let size be its value and remove the component value
-			// from unparsed size. Any CSS function other than the calc() function is
-			// invalid. Otherwise, there is a parse error; continue to the next iteration
-			// of this algorithm.
-			// http://dev.w3.org/csswg/css-syntax/#parse-component-value
-			lastComponentValue = unparsedSize[unparsedSize.length - 1];
-
-			if (isValidNonNegativeSourceSizeValue(lastComponentValue)) {
-				size = lastComponentValue;
-				unparsedSize.pop();
-			} else {
-				continue;
-			}
-
-			// 3. Remove all consecutive <whitespace-token>s from the end of unparsed
-			// size. If unparsed size is now empty, return size and exit this algorithm.
-			// If this was not the last item in unparsed sizes list, that is a parse error.
-			if (unparsedSize.length === 0) {
-				return size;
-			}
-
-			// 4. Parse the remaining component values in unparsed size as a
-			// <media-condition>. If it does not parse correctly, or it does parse
-			// correctly but the <media-condition> evaluates to false, continue to the
-			// next iteration of this algorithm.
-			// (Parsing all possible compound media conditions in JS is heavy, complicated,
-			// and the payoff is unclear. Is there ever an situation where the
-			// media condition parses incorrectly but still somehow evaluates to true?
-			// Can we just rely on the browser/polyfill to do it?)
-			unparsedSize = unparsedSize.join(" ");
-			if (!(pf.matchesMedia( unparsedSize ) ) ) {
-				continue;
-			}
-
-			// 5. Return size and exit this algorithm.
-			return size;
-		}
-
-		// If the above algorithm exhausts unparsed sizes list without returning a
-		// size value, return 100vw.
-		return "100vw";
-	}
-
-	// namespace
-	pf.ns = ("pf" + new Date().getTime()).substr(0, 9);
-
-	// srcset support test
-	pf.supSrcset = "srcset" in image;
-	pf.supSizes = "sizes" in image;
-	pf.supPicture = !!window.HTMLPictureElement;
-
-	// UC browser does claim to support srcset and picture, but not sizes,
-	// this extended test reveals the browser does support nothing
-	if (pf.supSrcset && pf.supPicture && !pf.supSizes) {
-		(function(image2) {
-			image.srcset = "data:,a";
-			image2.src = "data:,a";
-			pf.supSrcset = image.complete === image2.complete;
-			pf.supPicture = pf.supSrcset && pf.supPicture;
-		})(document.createElement("img"));
-	}
-
-	// Safari9 has basic support for sizes, but does't expose the `sizes` idl attribute
-	if (pf.supSrcset && !pf.supSizes) {
-
-		(function() {
-			var width2 = "data:image/gif;base64,R0lGODlhAgABAPAAAP///wAAACH5BAAAAAAALAAAAAACAAEAAAICBAoAOw==";
-			var width1 = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-			var img = document.createElement("img");
-			var test = function() {
-				var width = img.width;
-
-				if (width === 2) {
-					pf.supSizes = true;
-				}
-
-				alwaysCheckWDescriptor = pf.supSrcset && !pf.supSizes;
-
-				isSupportTestReady = true;
-				// force async
-				setTimeout(picturefill);
-			};
-
-			img.onload = test;
-			img.onerror = test;
-			img.setAttribute("sizes", "9px");
-
-			img.srcset = width1 + " 1w," + width2 + " 9w";
-			img.src = width1;
-		})();
-
-	} else {
-		isSupportTestReady = true;
-	}
-
-	// using pf.qsa instead of dom traversing does scale much better,
-	// especially on sites mixing responsive and non-responsive images
-	pf.selShort = "picture>img,img[srcset]";
-	pf.sel = pf.selShort;
-	pf.cfg = cfg;
-
-	/**
-	 * Shortcut property for `devicePixelRatio` ( for easy overriding in tests )
-	 */
-	pf.DPR = (DPR  || 1 );
-	pf.u = units;
-
-	// container of supported mime types that one might need to qualify before using
-	pf.types =  types;
-
-	pf.setSize = noop;
-
-	/**
-	 * Gets a string and returns the absolute URL
-	 * @param src
-	 * @returns {String} absolute URL
-	 */
-
-	pf.makeUrl = memoize(function(src) {
-		anchor.href = src;
-		return anchor.href;
-	});
-
-	/**
-	 * Gets a DOM element or document and a selctor and returns the found matches
-	 * Can be extended with jQuery/Sizzle for IE7 support
-	 * @param context
-	 * @param sel
-	 * @returns {NodeList|Array}
-	 */
-	pf.qsa = function(context, sel) {
-		return ( "querySelector" in context ) ? context.querySelectorAll(sel) : [];
-	};
-
-	/**
-	 * Shortcut method for matchMedia ( for easy overriding in tests )
-	 * wether native or pf.mMQ is used will be decided lazy on first call
-	 * @returns {boolean}
-	 */
-	pf.matchesMedia = function() {
-		if ( window.matchMedia && (matchMedia( "(min-width: 0.1em)" ) || {}).matches ) {
-			pf.matchesMedia = function( media ) {
-				return !media || ( matchMedia( media ).matches );
-			};
-		} else {
-			pf.matchesMedia = pf.mMQ;
-		}
-
-		return pf.matchesMedia.apply( this, arguments );
-	};
-
-	/**
-	 * A simplified matchMedia implementation for IE8 and IE9
-	 * handles only min-width/max-width with px or em values
-	 * @param media
-	 * @returns {boolean}
-	 */
-	pf.mMQ = function( media ) {
-		return media ? evalCSS(media) : true;
-	};
-
-	/**
-	 * Returns the calculated length in css pixel from the given sourceSizeValue
-	 * http://dev.w3.org/csswg/css-values-3/#length-value
-	 * intended Spec mismatches:
-	 * * Does not check for invalid use of CSS functions
-	 * * Does handle a computed length of 0 the same as a negative and therefore invalid value
-	 * @param sourceSizeValue
-	 * @returns {Number}
-	 */
-	pf.calcLength = function( sourceSizeValue ) {
-
-		var value = evalCSS(sourceSizeValue, true) || false;
-		if (value < 0) {
-			value = false;
-		}
-
-		return value;
-	};
-
-	/**
-	 * Takes a type string and checks if its supported
-	 */
-
-	pf.supportsType = function( type ) {
-		return ( type ) ? types[ type ] : true;
-	};
-
-	/**
-	 * Parses a sourceSize into mediaCondition (media) and sourceSizeValue (length)
-	 * @param sourceSizeStr
-	 * @returns {*}
-	 */
-	pf.parseSize = memoize(function( sourceSizeStr ) {
-		var match = ( sourceSizeStr || "" ).match(regSize);
-		return {
-			media: match && match[1],
-			length: match && match[2]
-		};
-	});
-
-	pf.parseSet = function( set ) {
-		if ( !set.cands ) {
-			set.cands = parseSrcset(set.srcset, set);
-		}
-		return set.cands;
-	};
-
-	/**
-	 * returns 1em in css px for html/body default size
-	 * function taken from respondjs
-	 * @returns {*|number}
-	 */
-	pf.getEmValue = function() {
-		var body;
-		if ( !eminpx && (body = document.body) ) {
-			var div = document.createElement( "div" ),
-				originalHTMLCSS = docElem.style.cssText,
-				originalBodyCSS = body.style.cssText;
-
-			div.style.cssText = baseStyle;
-
-			// 1em in a media query is the value of the default font size of the browser
-			// reset docElem and body to ensure the correct value is returned
-			docElem.style.cssText = fsCss;
-			body.style.cssText = fsCss;
-
-			body.appendChild( div );
-			eminpx = div.offsetWidth;
-			body.removeChild( div );
-
-			//also update eminpx before returning
-			eminpx = parseFloat( eminpx, 10 );
-
-			// restore the original values
-			docElem.style.cssText = originalHTMLCSS;
-			body.style.cssText = originalBodyCSS;
-
-		}
-		return eminpx || 16;
-	};
-
-	/**
-	 * Takes a string of sizes and returns the width in pixels as a number
-	 */
-	pf.calcListLength = function( sourceSizeListStr ) {
-		// Split up source size list, ie ( max-width: 30em ) 100%, ( max-width: 50em ) 50%, 33%
-		//
-		//                           or (min-width:30em) calc(30% - 15px)
-		if ( !(sourceSizeListStr in sizeLengthCache) || cfg.uT ) {
-			var winningLength = pf.calcLength( parseSizes( sourceSizeListStr ) );
-
-			sizeLengthCache[ sourceSizeListStr ] = !winningLength ? units.width : winningLength;
-		}
-
-		return sizeLengthCache[ sourceSizeListStr ];
-	};
-
-	/**
-	 * Takes a candidate object with a srcset property in the form of url/
-	 * ex. "images/pic-medium.png 1x, images/pic-medium-2x.png 2x" or
-	 *     "images/pic-medium.png 400w, images/pic-medium-2x.png 800w" or
-	 *     "images/pic-small.png"
-	 * Get an array of image candidates in the form of
-	 *      {url: "/foo/bar.png", resolution: 1}
-	 * where resolution is http://dev.w3.org/csswg/css-values-3/#resolution-value
-	 * If sizes is specified, res is calculated
-	 */
-	pf.setRes = function( set ) {
-		var candidates;
-		if ( set ) {
-
-			candidates = pf.parseSet( set );
-
-			for ( var i = 0, len = candidates.length; i < len; i++ ) {
-				setResolution( candidates[ i ], set.sizes );
-			}
-		}
-		return candidates;
-	};
-
-	pf.setRes.res = setResolution;
-
-	pf.applySetCandidate = function( candidates, img ) {
-		if ( !candidates.length ) {return;}
-		var candidate,
-			i,
-			j,
-			length,
-			bestCandidate,
-			curSrc,
-			curCan,
-			candidateSrc,
-			abortCurSrc;
-
-		var imageData = img[ pf.ns ];
-		var dpr = pf.DPR;
-
-		curSrc = imageData.curSrc || img[curSrcProp];
-
-		curCan = imageData.curCan || setSrcToCur(img, curSrc, candidates[0].set);
-
-		// if we have a current source, we might either become lazy or give this source some advantage
-		if ( curCan && curCan.set === candidates[ 0 ].set ) {
-
-			// if browser can abort image request and the image has a higher pixel density than needed
-			// and this image isn't downloaded yet, we skip next part and try to save bandwidth
-			abortCurSrc = (supportAbort && !img.complete && curCan.res - 0.1 > dpr);
-
-			if ( !abortCurSrc ) {
-				curCan.cached = true;
-
-				// if current candidate is "best", "better" or "okay",
-				// set it to bestCandidate
-				if ( curCan.res >= dpr ) {
-					bestCandidate = curCan;
-				}
-			}
-		}
-
-		if ( !bestCandidate ) {
-
-			candidates.sort( ascendingSort );
-
-			length = candidates.length;
-			bestCandidate = candidates[ length - 1 ];
-
-			for ( i = 0; i < length; i++ ) {
-				candidate = candidates[ i ];
-				if ( candidate.res >= dpr ) {
-					j = i - 1;
-
-					// we have found the perfect candidate,
-					// but let's improve this a little bit with some assumptions ;-)
-					if (candidates[ j ] &&
-						(abortCurSrc || curSrc !== pf.makeUrl( candidate.url )) &&
-						chooseLowRes(candidates[ j ].res, candidate.res, dpr, candidates[ j ].cached)) {
-
-						bestCandidate = candidates[ j ];
-
-					} else {
-						bestCandidate = candidate;
-					}
-					break;
-				}
-			}
-		}
-
-		if ( bestCandidate ) {
-
-			candidateSrc = pf.makeUrl( bestCandidate.url );
-
-			imageData.curSrc = candidateSrc;
-			imageData.curCan = bestCandidate;
-
-			if ( candidateSrc !== curSrc ) {
-				pf.setSrc( img, bestCandidate );
-			}
-			pf.setSize( img );
-		}
-	};
-
-	pf.setSrc = function( img, bestCandidate ) {
-		var origWidth;
-		img.src = bestCandidate.url;
-
-		// although this is a specific Safari issue, we don't want to take too much different code paths
-		if ( bestCandidate.set.type === "image/svg+xml" ) {
-			origWidth = img.style.width;
-			img.style.width = (img.offsetWidth + 1) + "px";
-
-			// next line only should trigger a repaint
-			// if... is only done to trick dead code removal
-			if ( img.offsetWidth + 1 ) {
-				img.style.width = origWidth;
-			}
-		}
-	};
-
-	pf.getSet = function( img ) {
-		var i, set, supportsType;
-		var match = false;
-		var sets = img [ pf.ns ].sets;
-
-		for ( i = 0; i < sets.length && !match; i++ ) {
-			set = sets[i];
-
-			if ( !set.srcset || !pf.matchesMedia( set.media ) || !(supportsType = pf.supportsType( set.type )) ) {
-				continue;
-			}
-
-			if ( supportsType === "pending" ) {
-				set = supportsType;
-			}
-
-			match = set;
-			break;
-		}
-
-		return match;
-	};
-
-	pf.parseSets = function( element, parent, options ) {
-		var srcsetAttribute, imageSet, isWDescripor, srcsetParsed;
-
-		var hasPicture = parent && parent.nodeName.toUpperCase() === "PICTURE";
-		var imageData = element[ pf.ns ];
-
-		if ( imageData.src === undefined || options.src ) {
-			imageData.src = getImgAttr.call( element, "src" );
-			if ( imageData.src ) {
-				setImgAttr.call( element, srcAttr, imageData.src );
-			} else {
-				removeImgAttr.call( element, srcAttr );
-			}
-		}
-
-		if ( imageData.srcset === undefined || options.srcset || !pf.supSrcset || element.srcset ) {
-			srcsetAttribute = getImgAttr.call( element, "srcset" );
-			imageData.srcset = srcsetAttribute;
-			srcsetParsed = true;
-		}
-
-		imageData.sets = [];
-
-		if ( hasPicture ) {
-			imageData.pic = true;
-			getAllSourceElements( parent, imageData.sets );
-		}
-
-		if ( imageData.srcset ) {
-			imageSet = {
-				srcset: imageData.srcset,
-				sizes: getImgAttr.call( element, "sizes" )
-			};
-
-			imageData.sets.push( imageSet );
-
-			isWDescripor = (alwaysCheckWDescriptor || imageData.src) && regWDesc.test(imageData.srcset || "");
-
-			// add normal src as candidate, if source has no w descriptor
-			if ( !isWDescripor && imageData.src && !getCandidateForSrc(imageData.src, imageSet) && !imageSet.has1x ) {
-				imageSet.srcset += ", " + imageData.src;
-				imageSet.cands.push({
-					url: imageData.src,
-					d: 1,
-					set: imageSet
-				});
-			}
-
-		} else if ( imageData.src ) {
-			imageData.sets.push( {
-				srcset: imageData.src,
-				sizes: null
-			} );
-		}
-
-		imageData.curCan = null;
-		imageData.curSrc = undefined;
-
-		// if img has picture or the srcset was removed or has a srcset and does not support srcset at all
-		// or has a w descriptor (and does not support sizes) set support to false to evaluate
-		imageData.supported = !( hasPicture || ( imageSet && !pf.supSrcset ) || (isWDescripor && !pf.supSizes) );
-
-		if ( srcsetParsed && pf.supSrcset && !imageData.supported ) {
-			if ( srcsetAttribute ) {
-				setImgAttr.call( element, srcsetAttr, srcsetAttribute );
-				element.srcset = "";
-			} else {
-				removeImgAttr.call( element, srcsetAttr );
-			}
-		}
-
-		if (imageData.supported && !imageData.srcset && ((!imageData.src && element.src) ||  element.src !== pf.makeUrl(imageData.src))) {
-			if (imageData.src === null) {
-				element.removeAttribute("src");
-			} else {
-				element.src = imageData.src;
-			}
-		}
-
-		imageData.parsed = true;
-	};
-
-	pf.fillImg = function(element, options) {
-		var imageData;
-		var extreme = options.reselect || options.reevaluate;
-
-		// expando for caching data on the img
-		if ( !element[ pf.ns ] ) {
-			element[ pf.ns ] = {};
-		}
-
-		imageData = element[ pf.ns ];
-
-		// if the element has already been evaluated, skip it
-		// unless `options.reevaluate` is set to true ( this, for example,
-		// is set to true when running `picturefill` on `resize` ).
-		if ( !extreme && imageData.evaled === evalId ) {
-			return;
-		}
-
-		if ( !imageData.parsed || options.reevaluate ) {
-			pf.parseSets( element, element.parentNode, options );
-		}
-
-		if ( !imageData.supported ) {
-			applyBestCandidate( element );
-		} else {
-			imageData.evaled = evalId;
-		}
-	};
-
-	pf.setupRun = function() {
-		if ( !alreadyRun || isVwDirty || (DPR !== window.devicePixelRatio) ) {
-			updateMetrics();
-		}
-	};
-
-	// If picture is supported, well, that's awesome.
-	if ( pf.supPicture ) {
-		picturefill = noop;
-		pf.fillImg = noop;
-	} else {
-
-		 // Set up picture polyfill by polling the document
-		(function() {
-			var isDomReady;
-			var regReady = window.attachEvent ? /d$|^c/ : /d$|^c|^i/;
-
-			var run = function() {
-				var readyState = document.readyState || "";
-
-				timerId = setTimeout(run, readyState === "loading" ? 200 :  999);
-				if ( document.body ) {
-					pf.fillImgs();
-					isDomReady = isDomReady || regReady.test(readyState);
-					if ( isDomReady ) {
-						clearTimeout( timerId );
-					}
-
-				}
-			};
-
-			var timerId = setTimeout(run, document.body ? 9 : 99);
-
-			// Also attach picturefill on resize and readystatechange
-			// http://modernjavascript.blogspot.com/2013/08/building-better-debounce.html
-			var debounce = function(func, wait) {
-				var timeout, timestamp;
-				var later = function() {
-					var last = (new Date()) - timestamp;
-
-					if (last < wait) {
-						timeout = setTimeout(later, wait - last);
-					} else {
-						timeout = null;
-						func();
-					}
-				};
-
-				return function() {
-					timestamp = new Date();
-
-					if (!timeout) {
-						timeout = setTimeout(later, wait);
-					}
-				};
-			};
-			var lastClientWidth = docElem.clientHeight;
-			var onResize = function() {
-				isVwDirty = Math.max(window.innerWidth || 0, docElem.clientWidth) !== units.width || docElem.clientHeight !== lastClientWidth;
-				lastClientWidth = docElem.clientHeight;
-				if ( isVwDirty ) {
-					pf.fillImgs();
-				}
-			};
-
-			on( window, "resize", debounce(onResize, 99 ) );
-			on( document, "readystatechange", run );
-		})();
-	}
-
-	pf.picturefill = picturefill;
-	//use this internally for easy monkey patching/performance testing
-	pf.fillImgs = picturefill;
-	pf.teardownRun = noop;
-
-	/* expose methods for testing */
-	picturefill._ = pf;
-
-	window.picturefillCFG = {
-		pf: pf,
-		push: function(args) {
-			var name = args.shift();
-			if (typeof pf[name] === "function") {
-				pf[name].apply(pf, args);
-			} else {
-				cfg[name] = args[0];
-				if (alreadyRun) {
-					pf.fillImgs( { reselect: true } );
-				}
-			}
-		}
-	};
-
-	while (setOptions && setOptions.length) {
-		window.picturefillCFG.push(setOptions.shift());
-	}
-
-	/* expose picturefill */
-	window.picturefill = picturefill;
-
-	/* expose picturefill */
-	if (  true && typeof module.exports === "object" ) {
-		// CommonJS, just export
-		module.exports = picturefill;
-	} else if ( true ) {
-		// AMD support
-		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() { return picturefill; }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	}
-
-	// IE8 evals this sync, so it must be the last thing we do
-	if ( !pf.supPicture ) {
-		types[ "image/webp" ] = detectTypeSupport("image/webp", "data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAABBxAR/Q9ERP8DAABWUDggGAAAADABAJ0BKgEAAQADADQlpAADcAD++/1QAA==" );
-	}
-
-} )( window, document );
 
 
 /***/ }),

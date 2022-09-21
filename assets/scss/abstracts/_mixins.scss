@@ -292,8 +292,4 @@
         font-weight: $font-weight;
     }
     line-height: ($line-height-miniature / $font-size);
-
-    @media #{$screen-desktop} {
-        line-height: ($line-height-miniature / $font-size);
-    }
 }

@@ -1,11 +1,36 @@
 .input {
     $height-input: 48px;
     $height-input-medium: 44px;
+    $height-input-small: 36px;
 
     position: relative;
 
     &--full {
         width: 100%;
+    }
+
+    &--small & {
+        &__control {
+            @include text-tiny;
+
+            height: rem($height-input-medium);
+            padding-right: rem($gap-average);
+            padding-left: rem($gap-average);
+        }
+    }
+
+    &--mini & {
+        &__control {
+            height: rem($height-input-small);
+            padding-right: rem($gap-average);
+            padding-left: rem($gap-average);
+        }
+    }
+
+    &--placeholder & {
+        &__control {
+            padding-top: rem(16px);
+        }
     }
 
     &--textarea & {
@@ -33,6 +58,12 @@
         }
     }
 
+    &--prefix & {
+        &__control {
+            padding-left: rem(36px);
+        }
+    }
+
     &__control {
         font-size: rem($font-size-small);
         line-height: rem(22px);
@@ -54,7 +85,7 @@
         box-shadow: none;
 
         &:focus {
-            border-color: currentColor;
+            border-color: $alto;
             outline: none;
         }
 
@@ -74,6 +105,36 @@
         }
     }
 
+    %placeholder {
+        transform: translateY(-10px);
+
+        transition: transform $transition-duration $transition-function;
+    }
+
+    &__control:focus + &__placeholder {
+        @extend %placeholder;
+    }
+
+    &__placeholder {
+        @include text-tiny;
+
+        transform: translateY(-10px);
+
+        transition: transform $transition-duration $transition-function;
+
+        position: absolute;
+        top: rem(14px);
+        left: rem($gap-average);
+
+        pointer-events: none;
+
+        color: rgba($saltBox, .85);
+    }
+
+    &__control[value=""] + &__placeholder {
+        transform: translateY(0);
+    }
+
     &__icon {
         position: absolute;
         top: 50%;
@@ -82,6 +143,7 @@
         width: rem(24px);
         height: rem(24px);
 
+        cursor: pointer;
         transform: translateY(-50%);
 
         &--small {
@@ -90,11 +152,43 @@
         }
 
         &-password {
-            background-image: url('../icons/svg/check.svg');
+            &-icon {
+                &--show {
+                    display: none;
+                }
+            }
 
-            &--view {
-                background-image: url('../icons/svg/check-off.svg');
+            &--show & {
+                &-icon {
+                    &--hidden {
+                        display: none;
+                    }
+
+                    &--show {
+                        display: block;
+                    }
+                }
             }
         }
+    }
+
+    &__button {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &__counter {
+        @include text-tiny;
+
+        margin-top: rem(6px);
+        margin-right: rem($gap-medium);
+
+        text-align: right;
+
+        color: $saltBox;
     }
 }

@@ -1,4 +1,5 @@
 .button {
+    $size-big: 44px;
     $size-normal: 40px;
     $size-medium: 36px;
     $size-middle: 32px;
@@ -26,7 +27,7 @@
     text-decoration: none;
 
     color: $white;
-    border: rem(.5px) solid;
+    border: rem(1px) solid;
 
     &--bold {
         font-weight: $font-weight-semibold;
@@ -52,6 +53,10 @@
         @media #{$screen-desktop} {
             height: rem($size-normal);
         }
+    }
+
+    &--big {
+        height: rem($size-big);
     }
 
     &--square {
@@ -108,6 +113,21 @@
         }
     }
 
+    &--covered#{&}--full-green {
+        border-color: $seaGreen;
+        background-color: $seaGreen;
+
+        &:hover {
+            border-color: $viridian;
+            background-color: $viridian;
+        }
+
+        &:focus {
+            border-color: $aquaForest;
+            background-color: $aquaForest;
+        }
+    }
+
     &--covered#{&}--red {
         border-color: $alto;
         background-color: $brickRed;
@@ -119,6 +139,21 @@
 
         &:focus {
             border-color: $alto;
+            background-color: $mandy2;
+        }
+    }
+
+    &--covered#{&}--full-red {
+        border-color: $brickRed;
+        background-color: $brickRed;
+
+        &:hover {
+            border-color: $mandy;
+            background-color: $mandy;
+        }
+
+        &:focus {
+            border-color: $mandy2;
             background-color: $mandy2;
         }
     }
@@ -326,12 +361,27 @@
         }
     }
 
+    &--underlined {
+        text-decoration: underline;
+    }
+
+    &--over {
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
     &--iconed {
         padding: 0;
     }
 
     &--iconed#{&}--small {
         width: rem(64px);
+    }
+
+    &--iconed#{&}--big {
+        width: rem($size-big);
     }
 
     &--shadow {

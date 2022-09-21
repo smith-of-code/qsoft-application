@@ -457,7 +457,7 @@
 
                                 <ul class="buttons__list">
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--rounded button--covered button--red">
+                                        <button type="button" class="button button--medium button--rounded button--covered button--red">
                                             <span class="button__icon">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -468,7 +468,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--rounded button--covered button--green">
+                                        <button type="button" class="button button--medium button--rounded button--covered button--green">
                                             <span class="button__icon button__icon--right">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -479,7 +479,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--rounded button--outlined button--green">
+                                        <button type="button" class="button button--medium button--rounded button--outlined button--green">
                                             <span class="button__icon button__icon--medium">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -490,7 +490,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--rounded button--outlined button--green button--disabled" disabled>
+                                        <button type="button" class="button button--medium button--rounded button--outlined button--green button--disabled" disabled>
                                             <span class="button__icon button__icon--medium">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -557,6 +557,26 @@
                                             </span>
                                         </button>
                                     </li>
+
+                                    <li class="buttons__item">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-green">
+                                            <span class="button__icon button__icon--small">
+                                                <svg class="icon icon--plus">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </li>
+
+                                    <li class="buttons__item">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-red">
+                                            <span class="button__icon button__icon--small">
+                                                <svg class="icon icon--plus">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -570,6 +590,18 @@
                                         <button type="button" class="button button--simple button--red">
                                             Простая кнопка
                                         </button>
+                                    </li>
+
+                                    <li class="buttons__item">
+                                        <a href="#" type="button" class="button button--simple button--red button--underlined">
+                                            Простая ссылка
+                                        </a>
+                                    </li>
+
+                                    <li class="buttons__item">
+                                        <a href="#" type="button" class="button button--simple button--red button--over">
+                                            Простая ссылка
+                                        </a>
                                     </li>
 
                                     <li class="buttons__item">
@@ -653,19 +685,49 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text" class="form__label">
+                                            <label for="text1" class="form__label">
                                                 <span class="form__label-text">Поле ввода</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--iconed">
-                                                <input type="text" class="input__control" name="text" id="text" placeholder="Поле ввода с лэйблом">
+                                                <input type="text" class="input__control" name="text" id="text1" placeholder="Поле ввода с лэйблом">
                                                 <span class="input__icon">
                                                     <svg class="icon icon--check">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check"></use>
                                                     </svg>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="min">
+                                                от
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" class="input__control" name="min" id="text11" placeholder="Поле ввода чисел">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="max">
+                                                до
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" class="input__control" name="max" id="text12" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -712,14 +774,14 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text" class="form__label form__label--required">
+                                            <label for="text2" class="form__label form__label--required">
                                                 <span class="form__label-text">Поле ввода c ошибкой</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--iconed">
-                                                <input type="text" class="input__control input__control--error" name="text" id="text" placeholder="Поле ввода с лэйблом">
+                                                <input type="text" class="input__control input__control--error" name="text" id="text2" placeholder="Поле ввода с лэйблом">
 
                                                 <span class="input__control-error">Указан некорректный адрес электронной почты</span>
                                             </div>
@@ -738,9 +800,105 @@
                                         </div>
 
                                         <div class="form__field-block form__field-block--input" data-password-block>
-                                            <div class="input">
-                                                <input type="password" class="input__control" name="password" id="text" placeholder="Введите пароль" data-password-input>
-                                                <span class="input__icon input__icon-password" data-password-icon></span>
+                                            <div class="input input--iconed">
+                                                <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
+                                                <span class="input__icon input__icon-password" data-password-toggle>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
+                                                    </svg>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--small input--buttoned input--placeholder">
+                                                <input type="text" class="input__control" name="text" id="text3" value="">
+                                                <span class="input__placeholder">Сколько баллов списать</span>
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-green">
+                                                    <span class="button__icon button__icon--small">
+                                                        <svg class="icon icon--plus">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--small input--buttoned input--placeholder">
+                                                <input type="text" class="input__control" name="text" id="text4" value="">
+                                                <span class="input__placeholder">Сколько баллов списать</span>
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                    <span class="button__icon button__icon--small">
+                                                        <svg class="icon icon--plus">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--small input--buttoned">
+                                                <input type="text" class="input__control" name="text" id="text5" placeholder="Сколько баллов списать">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                    <span class="button__icon button__icon--small">
+                                                        <svg class="icon icon--plus">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="min">
+                                                от
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" class="input__control" name="min" id="text11" placeholder="Поле ввода чисел">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="max">
+                                                до
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" class="input__control" name="max" id="text12" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -757,7 +915,12 @@
                                         </div>
                                         <div class="form__field-block form__field-block--input">
                                             <label class="input input--textarea">
-                                                <textarea type="text" class="input__control" name="textarea" id="textarea" placeholder="Многострочное поле ввода"></textarea>
+                                                <textarea type="text" class="input__control" name="textarea" id="textarea" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
+                                                <div class="input__counter">
+                                                    <span class="input__counter-current" data-textarea-current></span>
+                                                        /
+                                                    <span class="input__counter-total" data-textarea-total></span>
+                                                </div>
                                             </label>
                                         </div>
                                     </div>
@@ -766,6 +929,48 @@
                         </form>
                     </div>
                     <!--/Текстовые поля ввода-->
+
+                    <!--Ползунок-->
+
+                    <div class="gui__block">
+                        <h2 class="gui__title">Ползунок</h2>
+
+                        <form class="form">
+                            <div class="range" data-range>
+                                <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                            </div>
+
+                            <div class="range" data-range>
+                                <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                                <div class="range__group">
+                                    <div class="range__group-field form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="min">
+                                                от
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="range__group-field form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <label class="form__field-label" for="max">
+                                                до
+                                            </label>
+                                            <div class="input input--mini input--prefix">
+                                                <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <!--/Ползунок-->
 
                 </main>
             </div>
@@ -777,6 +982,8 @@
             Футер
         </footer>
         <!--/Футер-->
+
+        <script src="/local/templates/.default/js/script.js"></script>
     </body>
 
 </html>

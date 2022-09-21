@@ -38,6 +38,23 @@
                 position: relative;
             }
         }
+
+        &-label {
+            font-size: rem($font-size-small);
+            line-height: rem(22px);
+
+            position: absolute;
+            z-index: $z-index-input;
+            top: 0;
+            bottom: 0;
+            left: rem($gap-average);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: $saltBox;
+        }
     }
 
     &__label {
@@ -64,8 +81,4 @@
         }
 
     }
-
-    // &__input:focus ~ &__label {
-
-    // }
 }
