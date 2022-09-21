@@ -1,0 +1,90 @@
+.switcher {
+    &__input {
+        position: absolute;
+
+        clip: rect(0 0 0 0);
+
+        width: rem(1px);
+        height: rem(1px);
+        margin: rem(-1px);
+    }
+
+    &__input:checked + &__label & {
+        &__icon {
+            border-color: $brickRed;
+            background-color: $brickRed;
+
+            &::before {
+                transform: translateX(116%);
+            }
+        }
+    }
+
+    &__input:disabled + &__label & {
+        &__text {
+            cursor: default;
+        }
+
+        &__icon {
+            cursor: default;
+        }
+    }
+
+    &__label {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__text {
+        $margin: 10px;
+
+        margin-left: rem($margin);
+
+        cursor: pointer;
+
+        &--left {
+            margin-right: rem($margin);
+        }
+    }
+
+    &__icon {
+        flex: 0 0 auto;
+        position: relative;
+
+        display: block;
+
+        width: rem(48px);
+        height: rem(24px);
+
+        cursor: pointer;
+        transition: border-color $transition-duration $transition-function,
+        background-color $transition-duration $transition-function,
+        box-shadow $transition-duration $transition-function;
+
+        border: rem(2px) solid $alto;
+        border-radius: rem($border-radius);
+        background-color: $alto;
+
+        &::before {
+            $icon-size: 20px;
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            display: block;
+
+            width: rem($icon-size);
+            height: rem($icon-size);
+            margin-top: auto;
+            margin-bottom: auto;
+
+            content: '';
+            transition: transform $transition-duration $transition-function;
+
+            border-radius: 50%;
+            background-color: $white;
+        }
+    }
+}

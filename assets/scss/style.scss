@@ -6,6 +6,7 @@
 
 
 @import "~normalize.css";
+@import '~jquery-ui-slider/jquery-ui.min.css';
 
 
 /**
@@ -30,3 +31,21 @@
 @import "components/container";
 @import "components/page";
 @import "components/heading";
+
+@import "components/icon";
+@import "components/icons";
+
+@import "components/form";
+
+@import "components/checkbox";
+@import "components/checkboxes";
+
+@import "components/switcher";
+@import "components/switchers";
+
+@import "components/button";
+@import "components/buttons";
+
+@import "components/input";
+
+@import "components/range";

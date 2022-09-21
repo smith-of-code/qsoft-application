@@ -20,6 +20,8 @@
         "dotdotdot-js": "^4.1.0",
         "inputmask": "^5.0.7",
         "jquery": "^3.5.1",
+        "jquery-ui": "^1.12.1",
+        "jquery-ui-slider": "^1.12.1",
         "jquery-validation": "^1.19.3",
         "jquery.dotdotdot": "^3.2.3",
         "jquery.nicescroll": "^3.7.6",
