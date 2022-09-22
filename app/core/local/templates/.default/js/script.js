@@ -298,6 +298,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/dropdown.js":
+/*!***************************************!*\
+  !*** ./assets/js/modules/dropdown.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  button: '[data-dropdown-button]',
+  dropdownBlock: '[data-dropdown-block]',
+  dropdown: '[data-dropdown]'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('click', ELEMENTS_SELECTOR.button, function () {
+    $(this).closest(ELEMENTS_SELECTOR.dropdown).toggleClass('dropdown--active');
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/inputPlaceholder.js":
 /*!***********************************************!*\
   !*** ./assets/js/modules/inputPlaceholder.js ***!
@@ -658,6 +681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/tooltip */ "./assets/js/modules/tooltip.js");
 /* harmony import */ var _modules_toggle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/toggle */ "./assets/js/modules/toggle.js");
 /* harmony import */ var _modules_truncate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/truncate */ "./assets/js/modules/truncate.js");
+/* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/dropdown */ "./assets/js/modules/dropdown.js");
 /**
  * Vendors
  */
@@ -671,6 +695,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -695,6 +720,7 @@ var app = {
     Object(_modules_tooltip__WEBPACK_IMPORTED_MODULE_8__["default"])();
     Object(_modules_toggle__WEBPACK_IMPORTED_MODULE_9__["default"])();
     Object(_modules_truncate__WEBPACK_IMPORTED_MODULE_10__["default"])();
+    Object(_modules_dropdown__WEBPACK_IMPORTED_MODULE_11__["default"])();
   },
   load: function load() {},
   resize: function resize() {},

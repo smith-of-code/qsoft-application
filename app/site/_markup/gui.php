@@ -1397,6 +1397,87 @@
                     </div>
                     <!--/Показать еще-->
 
+                    <!--Дропдаун-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Дропдаун</h2>
+
+                        <h3>Дропдаун маленький</h3>
+
+                        <div class="dropdown dropdown--small" data-dropdown>
+                            <button type="button" class="button button--simple button--gray button--small" data-dropdown-button>
+                                <span class="button__icon button__icon--mini button__icon--right">
+                                    <svg class="icon icon--arrow-up">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text">Показать детализацию</span>
+                            </button>
+
+                            <div class="dropdown__box box" data-dropdown-block data-scrollbar>
+                                <ul class="dropdown__list">
+                                    <li class="dropdown__item">
+                                        По уровню консультанта
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом “Оплачен”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Дропдаун средний</h3>
+
+                        <div class="dropdown dropdown--medium" data-dropdown>
+                            <button type="button" class="button button--square button--covered button--green" data-dropdown-button>Залитая зеленая</button>
+
+                            <div class="dropdown__box box" data-dropdown-block data-scrollbar style="top: 50px;">
+                                <ul class="dropdown__list">
+                                    <li class="dropdown__item">
+                                        По уровню консультанта
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом “Оплачен”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Дропдаун-->
+
                     <!--Обрезка текста-->
                     <div class="gui__block">
                         <h2 class="gui__title">Обрезка текста</h2>
