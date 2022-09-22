@@ -3,16 +3,15 @@
 namespace QSoft\Seeder;
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Security\Random;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
-use QSoft\Factory\GroupPropertyFactory;
-use QSoft\Factory\TeamFactory;
+use QSoft\Factory\SizeFactory;
 use RuntimeException;
-use CGroup;
 
-class GroupPropertySeeder implements Seederable
+class SizeSeeder implements Seederable
 {
-    public static function seed(?string $blockName = null): void
+    public static function seed(string $blockName): void
     {
         if (!Loader::includeModule('highloadblock')) {
             throw new RuntimeException('Не удалось загрузить модуль highloadblock');
@@ -26,19 +25,13 @@ class GroupPropertySeeder implements Seederable
             throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
         }
 
-        $groupIds = [];
-        $groups = CGroup::GetList();
-        while ($group = $groups->Fetch()) {
-            $groupIds[] = $group['ID'];
-        }
-
         $entityManager = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
-        $groups = GroupPropertyFactory::create()
-            ->setCount(ceil(0.5 * count($groupIds)))
-            ->setAdditionalInfo('groups', $groupIds)
+        $sizes = SizeFactory::create()
+            ->setCount(Random::getInt(5, 15))
             ->make();
-        array_walk($groups, static function ($group) use ($entityManager) {
-            $entityManager::add($group);
+
+        array_walk($sizes, static function ($item) use ($entityManager) {
+            $entityManager::add($item);
         });
 
         $connection->commitTransaction();
