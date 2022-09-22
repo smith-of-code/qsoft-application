@@ -72,12 +72,6 @@ $arComponentParameters = [
             'NAME' => Loc::getMessage('PARAMETER_SECTION_CODE_NAME'),
             'TYPE' => 'STRING',
         ],
-        'COMPATIBLE_MODE' => [
-            'PARENT' => 'BASE',
-            'NAME' => Loc::getMessage('PARAMETER_COMPATIBLE_MODE_NAME'),
-            'TYPE' => 'CHECKBOX',
-            'DEFAULT' => 'Y',
-        ],
         'CACHE_TIME' => ['DEFAULT' => 36000000],
     ],
 ];
