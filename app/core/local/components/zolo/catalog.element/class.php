@@ -1,16 +1,19 @@
-<?
-use Bitrix\Main,
-	Bitrix\Main\Loader,
-	Bitrix\Iblock\Component\Element,
-	Bitrix\Main\Localization\Loc,
-	Bitrix\Catalog,
-	Bitrix\Sale\Internals\FacebookConversion;
+<?php
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+use Bitrix\Main;
+use	Bitrix\Main\Loader;
+use	Bitrix\Iblock\Component\Element;
+use	Bitrix\Main\Localization\Loc;
+use	Bitrix\Catalog;
+use Bitrix\Iblock\Component\Tools;
+
+if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
+    die();
+}
 
 Loc::loadMessages(__FILE__);
 
-if (!\Bitrix\Main\Loader::includeModule('iblock'))
+if (!Loader::includeModule('iblock'))
 {
 	ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
 	return;
@@ -35,22 +38,36 @@ class CatalogElementComponent extends Element
 		$params = parent::onPrepareComponentParams($params);
 
 		$params['COMPATIBLE_MODE'] = (isset($params['COMPATIBLE_MODE']) && $params['COMPATIBLE_MODE'] === 'N' ? 'N' : 'Y');
-		if ($params['COMPATIBLE_MODE'] === 'N')
-		{
-			$params['SET_VIEWED_IN_COMPONENT'] = 'N';
-			$params['DISABLE_INIT_JS_IN_COMPONENT'] = 'Y';
-			$params['OFFERS_LIMIT'] = 0;
-		}
 
 		$this->setCompatibleMode($params['COMPATIBLE_MODE'] === 'Y');
 
-		$params['SET_VIEWED_IN_COMPONENT'] = isset($params['SET_VIEWED_IN_COMPONENT']) && $params['SET_VIEWED_IN_COMPONENT'] === 'Y' ? 'Y' : 'N';
+        $params['IBLOCK_TYPE'] = trim($params['IBLOCK_TYPE'] ?? '');
+        if (!$params['IBLOCK_TYPE']) {
+            Tools::process404(Loc::getMessage('IBLOCK_TYPE_NOT_SET'), false, false);
+            $params['.ERROR'] = true;
 
-		$params['DISABLE_INIT_JS_IN_COMPONENT'] = isset($params['DISABLE_INIT_JS_IN_COMPONENT']) && $params['DISABLE_INIT_JS_IN_COMPONENT'] === 'Y' ? 'Y' : 'N';
-		if ($params['DISABLE_INIT_JS_IN_COMPONENT'] !== 'Y')
-		{
-			\CJSCore::Init(array('popup'));
-		}
+            return $params;
+        }
+
+        $params['IBLOCK_ID'] = (int)(trim($params['IBLOCK_ID']) ?? 0);
+        if (!$params['IBLOCK_ID']) {
+            Tools::process404(Loc::getMessage('IBLOCK_ID_NOT_SET'), false, false);
+            $params['.ERROR'] = true;
+
+            return $params;
+        }
+
+        $params['ELEMENT_ID'] = (int)(trim($params['ELEMENT_ID']) ?? 0);
+        $params['ELEMENT_CODE'] = trim($params['ELEMENT_CODE'] ?? '');
+        if (!$params['ELEMENT_ID'] && !$params['ELEMENT_CODE']) {
+            Tools::process404(Loc::getMessage('ELEMENT_DATA_NOT_SET'), false, false);
+            $params['.ERROR'] = true;
+
+            return $params;
+        }
+
+        $params['SECTION_ID'] = (int)(trim($params['SECTION_ID']) ?? 0);
+        $params['SECTION_CODE'] = trim($params['SECTION_CODE'] ?? '');
 
 		return $params;
 	}
@@ -201,86 +218,6 @@ class CatalogElementComponent extends Element
 				unset($viewedProduct);
 			}
 			unset($element);
-		}
-	}
-
-	/**
-	 * Save compatible viewed product in catalog.element only.
-	 *
-	 * @return void
-	 */
-	protected function saveViewedProduct()
-	{
-		if ($this->isEnableCompatible())
-		{
-			if ((string)Main\Config\Option::get('sale', 'product_viewed_save') === 'Y')
-			{
-				if (
-					!isset($_SESSION['VIEWED_ENABLE'])
-					&& isset($_SESSION['VIEWED_PRODUCT'])
-					&& $_SESSION['VIEWED_PRODUCT'] != $this->arResult['ID']
-					&& Loader::includeModule('sale')
-				)
-				{
-					$_SESSION['VIEWED_ENABLE'] = 'Y';
-					$fields = array(
-						'PRODUCT_ID' => (int)$_SESSION['VIEWED_PRODUCT'],
-						'MODULE' => 'catalog',
-						'LID' => $this->getSiteId()
-					);
-					/** @noinspection PhpDeprecationInspection */
-					\CSaleViewedProduct::Add($fields);
-				}
-
-				if (
-					isset($_SESSION['VIEWED_ENABLE'])
-					&& $_SESSION['VIEWED_ENABLE'] === 'Y'
-					&& $_SESSION['VIEWED_PRODUCT'] != $this->arResult['ID']
-					&& Loader::includeModule('sale')
-				)
-				{
-					$fields = array(
-						'PRODUCT_ID' => $this->arResult['ID'],
-						'MODULE' => 'catalog',
-						'LID' => $this->getSiteId(),
-						'IBLOCK_ID' => $this->arResult['IBLOCK_ID']
-					);
-					/** @noinspection PhpDeprecationInspection */
-					\CSaleViewedProduct::Add($fields);
-				}
-
-				$_SESSION['VIEWED_PRODUCT'] = $this->arResult['ID'];
-			}
-
-			if ($this->arParams['SET_VIEWED_IN_COMPONENT'] === 'Y' && !empty($this->arResult['VIEWED_PRODUCT']))
-			{
-				if (Loader::includeModule('catalog') && Loader::includeModule('sale'))
-				{
-					if ((string)Main\Config\Option::get('catalog', 'enable_viewed_products') !== 'N')
-					{
-						Catalog\CatalogViewedProductTable::refresh(
-							$this->arResult['VIEWED_PRODUCT']['OFFER_ID'],
-							\CSaleBasket::GetBasketUserID(),
-							$this->getSiteId(),
-							$this->arResult['VIEWED_PRODUCT']['PRODUCT_ID']
-						);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Save bigdata analytics for catalog.element only.
-	 *
-	 * @return void
-	 */
-	protected function sendCounters()
-	{
-		parent::sendCounters();
-		if (isset($this->arResult['counterData']) && Main\Analytics\Catalog::isOn())
-		{
-			Main\Analytics\Counter::sendData('ct', $this->arResult['counterData']);
 		}
 	}
 }
