@@ -9,6 +9,7 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\PetTable;
 use QSoft\Service\ConfirmationService;
 
@@ -62,18 +63,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     public function executeComponent()
     {
         if (isset($this->arParams['USER_ID']) && isset($this->arParams['CONFIRM_CODE'])) {
-            $confirmResult = (new ConfirmationService)->verifyEmailCode(
-                $this->arParams['USER_ID'],
-                $this->arParams['CONFIRM_CODE'],
-            );
-
-            if ($confirmResult) {
-                $user = new CUser;
-                $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
-                $user->Authorize($this->arParams['USER_ID']);
-            }
-
-            LocalRedirect($this->getCurrentUrl());
+            $this->confirmEmail();
         }
 
         $this->arResult = $this->getRegisterData();
@@ -92,9 +82,21 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $this->IncludeComponentTemplate();
     }
 
-    public function getCurrentUrl(): string
+    private function confirmEmail()
     {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+        $confirmResult = (new ConfirmationService)->verifyEmailCode(
+            $this->arParams['USER_ID'],
+            $this->arParams['CONFIRM_CODE'],
+            ConfirmationTable::TYPES['confirm_email'],
+        );
+
+        if ($confirmResult) {
+            $user = new CUser;
+            $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
+            $user->Authorize($this->arParams['USER_ID']);
+        }
+
+        LocalRedirect('/');
     }
 
     public function configureActions(): array
