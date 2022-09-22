@@ -12,6 +12,7 @@ use Bitrix\Main\UserTable;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\PetTable;
 use QSoft\Service\ConfirmationService;
+use QSoft\Service\UserService;
 
 class SystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
 {
@@ -91,9 +92,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         );
 
         if ($confirmResult) {
-            $user = new CUser;
-            $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
-            $user->Authorize($this->arParams['USER_ID']);
+            (new UserService)->activate($this->arParams['USER_ID']);
         }
 
         LocalRedirect('/');
