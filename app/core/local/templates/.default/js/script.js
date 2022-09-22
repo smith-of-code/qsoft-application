@@ -103,6 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_rotate_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./svg/rotate.svg */ "./assets/icons/svg/rotate.svg");
 /* harmony import */ var _svg_plus_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./svg/plus.svg */ "./assets/icons/svg/plus.svg");
 /* harmony import */ var _svg_minus_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./svg/minus.svg */ "./assets/icons/svg/minus.svg");
+/* harmony import */ var _svg_arrow_up_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./svg/arrow-up.svg */ "./assets/icons/svg/arrow-up.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
 
@@ -113,6 +114,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+/***/ }),
+
+/***/ "./assets/icons/svg/arrow-up.svg":
+/*!***************************************!*\
+  !*** ./assets/icons/svg/arrow-up.svg ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-arrow-up-usage",
+      viewBox: "0 0 12 12",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-arrow-up",
+      toString: function () {
+        return this.url;
+      }
+    });
 
 /***/ }),
 
@@ -524,6 +546,42 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/toggle.js":
+/*!*************************************!*\
+  !*** ./assets/js/modules/toggle.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return toggle; });
+function toggle() {
+  if ($('[data-toggle-visibility-action]').length) {
+    $(document).off('click', '[data-toggle-visibility-action]').on('click', '[data-toggle-visibility-action]', function () {
+      var text = $(this).find('[data-toggle-visibility-action-text]');
+      var textVal = text.data('toggle-visibility-action-text');
+      var textState = $(this).data('toggle-visibility-action');
+      var container = $(this).closest('[data-toggle-visibility-container]');
+      var blocks = container.find('[data-toggle-visibility-block]');
+      blocks.each(function (index, element) {
+        $(element).toggle();
+      });
+
+      if (text.length) {
+        text.text(textVal[textState]);
+      }
+
+      textState = textState == 'hide' ? 'show' : 'hide';
+      $(this).data('toggle-visibility-action', textState);
+      $(this).toggleClass('button--hide');
+    });
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/tooltip.js":
 /*!**************************************!*\
   !*** ./assets/js/modules/tooltip.js ***!
@@ -566,6 +624,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tabs */ "./assets/js/modules/tabs.js");
 /* harmony import */ var _modules_scrollbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/scrollbar */ "./assets/js/modules/scrollbar.js");
 /* harmony import */ var _modules_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/tooltip */ "./assets/js/modules/tooltip.js");
+/* harmony import */ var _modules_toggle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/toggle */ "./assets/js/modules/toggle.js");
 /**
  * Vendors
  */
@@ -587,6 +646,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
 
 
 
+
 var app = {
   ready: function ready() {
     // Пример вызова импортированнывх функций
@@ -598,7 +658,7 @@ var app = {
     Object(_modules_inputPlaceholder__WEBPACK_IMPORTED_MODULE_5__["default"])();
     Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_6__["default"])();
     Object(_modules_scrollbar__WEBPACK_IMPORTED_MODULE_7__["default"])();
-    Object(_modules_tooltip__WEBPACK_IMPORTED_MODULE_8__["default"])();
+    Object(_modules_toggle__WEBPACK_IMPORTED_MODULE_9__["default"])();
   },
   load: function load() {},
   resize: function resize() {},

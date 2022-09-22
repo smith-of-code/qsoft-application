@@ -138,6 +138,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: arrow-up">
+                                    <svg class="icon icon--arrow-up gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -1314,7 +1320,7 @@
 
                     <!--Стилизованный скроллбар-->
                     <div class="gui__block">
-                        <h2>Стилизованный скроллбар</h2>
+                        <h2 class="gui__title">Стилизованный скроллбар</h2>
 
                         <h3 style="margin-top: 50px;">Вертикальный скроллбар</h3>
 
@@ -1357,7 +1363,7 @@
 
                     <!--Тултип-->
                     <div class="gui__block">
-                        <h2>Тултип</h2>
+                        <h2 class="gui__title">Тултип</h2>
 
                         <svg class="tooltip icon icon--plus gui__icon" data-tippy-content="нет в наличии">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -1365,6 +1371,33 @@
 
                     </div>
                     <!--/Тултип-->
+
+                    <!--Показать еще-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Показать еще</h2>
+
+                        <div data-toggle-visibility-container>
+                            <p>Табличку можно определить как физически прочный, надёжный носитель письменной информации, относительно удобным способом передачи информации
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци</p>
+
+                            <p data-toggle-visibility-block style="display: none;">Табличку можно определить как физически прочный, надёжный носитель письменной информации, относительно удобным способом передачи информации
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци</p>
+
+                            <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                <span class="button__icon button__icon--mini button__icon--right">
+                                    <svg class="icon icon--arrow-up">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!--/Показать еще-->
 
                 </main>
             </div>

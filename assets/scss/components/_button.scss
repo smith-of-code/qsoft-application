@@ -340,6 +340,10 @@
         background-color: transparent;
     }
 
+    &--simple#{&}--small {
+        @include text-miniature;
+    }
+
     &--simple#{&}--red {
         color: $tuna;
 
@@ -349,6 +353,18 @@
 
         &:focus {
             color: $mandy2;
+        }
+    }
+
+    &--simple#{&}--gray {
+        color: $saltBox;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $saltBox;
         }
     }
 
@@ -369,6 +385,14 @@
         &:hover,
         &:focus {
             text-decoration: underline;
+        }
+    }
+
+    &--hide & {
+        &__icon {
+            transform: rotate(180deg);
+
+            color: $brickRed;
         }
     }
 
@@ -426,6 +450,13 @@
 
             margin-right: 0;
             margin-left: rem($icon-margin);
+        }
+
+        &--mini {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
         }
 
         &--small {

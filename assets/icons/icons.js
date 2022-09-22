@@ -11,3 +11,4 @@ import './svg/basket.svg';
 import './svg/rotate.svg';
 import './svg/plus.svg';
 import './svg/minus.svg';
+import './svg/arrow-up.svg';
