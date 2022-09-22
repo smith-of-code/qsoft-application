@@ -1,0 +1,7 @@
+.truncate {
+    overflow: hidden;
+
+    &--mixin {
+        @include text-truncate-by-row(2);
+    }
+}
