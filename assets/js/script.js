@@ -22,6 +22,7 @@
  import tabs from './modules/tabs';
  import scrollbar from './modules/scrollbar';
  import tooltip from "./modules/tooltip";
+ import toggle from "./modules/toggle";
 
 
  const app = {
@@ -36,7 +37,7 @@
         inputPlaceholder();
         tabs();
         scrollbar();
-        tooltip();
+        toggle();
     },
 
     load() {
