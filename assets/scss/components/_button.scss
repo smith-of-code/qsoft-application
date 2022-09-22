@@ -29,6 +29,10 @@
     color: $white;
     border: rem(1px) solid;
 
+    &--full {
+        width: 100%;
+    }
+
     &--bold {
         font-weight: $font-weight-semibold;
     }
@@ -401,7 +405,13 @@
     }
 
     &--iconed#{&}--small {
-        width: rem(64px);
+        width: rem(24px);
+        height: rem(24px);
+
+        @media #{$screen-tablet} {
+            width: rem(64px);
+            height: rem(28px);
+        }
     }
 
     &--iconed#{&}--big {
@@ -430,8 +440,8 @@
     }
 
     &__icon {
-        $size: 24px;
-        $icon-margin: 8px;
+        $size: 20px;
+        $icon-margin: 4px;
 
         flex-shrink: 0;
 
@@ -440,6 +450,16 @@
         margin-right: rem($icon-margin);
 
         transition: transform .3s ease-in-out;
+
+        @media #{$screen-desktop} {
+            $size: 24px;
+            $icon-margin: 8px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+        }
 
         &:last-child {
             margin-right: 0;
@@ -452,18 +472,18 @@
             margin-left: rem($icon-margin);
         }
 
-        &--mini {
+        &--small {
             $size: 12px;
 
             width: rem($size);
             height: rem($size);
-        }
 
-        &--small {
-            $size: 16px;
+            @media #{$screen-tablet} {
+                $size: 16px;
 
-            width: rem($size);
-            height: rem($size);
+                width: rem($size);
+                height: rem($size);
+            }
         }
 
         &--medium {

@@ -25,6 +25,7 @@
  import toggle from "./modules/toggle";
  import truncate from './modules/truncate';
  import dropdown from './modules/dropdown';
+ import quantity from './modules/quantity';
 
 
  const app = {
@@ -43,6 +44,7 @@
         toggle();
         truncate();
         dropdown();
+        quantity();
     },
 
     load() {

@@ -682,6 +682,56 @@
                     </div>
                     <!--/Кнопки-->
 
+                    <!--Изменение количества-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Изменение количества</h2>
+
+                        <div class="quantity" style="width: 230px" data-quantity>
+                            <div class="quantity__button" data-quantity-button>
+                                <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                    <span class="button__icon">
+                                        <svg class="icon icon--basket">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="button__text">В корзину</span>
+                                </button>
+                            </div>
+
+                            <div class="quantity__actions" data-quantity-actions>
+                                <div class="quantity__decrease">
+                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                        <span class="button__icon button__icon--small">
+                                            <svg class="icon icon--minus">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="quantity__total">
+                                    <span class="quantity__total-icon">
+                                        <svg class="icon icon--basket">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="quantity__total-sum" data-quantity-sum>12</span>
+                                </div>
+
+                                <div class="quantity__increase">
+                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                        <span class="button__icon button__icon--small">
+                                            <svg class="icon icon--plus">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Изменение количества-->
+
                     <!--Текстовые поля ввода-->
                     <div class="gui__block">
                         <h2 class="gui__title">Текстовые поля ввода</h2>
