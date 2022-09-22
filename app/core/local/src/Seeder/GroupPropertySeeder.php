@@ -12,7 +12,7 @@ use CGroup;
 
 class GroupPropertySeeder implements Seederable
 {
-    public static function seed(string $blockName): void
+    public static function seed(?string $blockName = null): void
     {
         if (!Loader::includeModule('highloadblock')) {
             throw new RuntimeException('Не удалось загрузить модуль highloadblock');
