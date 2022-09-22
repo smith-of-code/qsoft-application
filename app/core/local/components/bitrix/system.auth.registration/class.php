@@ -3,11 +3,13 @@
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\GroupTable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\PetTable;
 use QSoft\Service\ConfirmationService;
 
@@ -16,8 +18,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     private const SESSION_KEY = 'registrationData';
 
     private const REGISTRATION_TYPES = [
-        'user' => [
-            'name' => 'user',
+        'buyer' => [
+            'name' => 'buyer',
             'steps' => [
                 'personal_data',
                 'pets_data',
@@ -61,18 +63,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     public function executeComponent()
     {
         if (isset($this->arParams['USER_ID']) && isset($this->arParams['CONFIRM_CODE'])) {
-            $confirmResult = (new ConfirmationService)->verifyEmailCode(
-                $this->arParams['USER_ID'],
-                $this->arParams['CONFIRM_CODE'],
-            );
-
-            if ($confirmResult) {
-                $user = new CUser;
-                $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
-                $user->Authorize($this->arParams['USER_ID']);
-            }
-
-            LocalRedirect($this->getCurrentUrl());
+            $this->confirmEmail();
         }
 
         $this->arResult = $this->getRegisterData();
@@ -91,9 +82,21 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $this->IncludeComponentTemplate();
     }
 
-    public function getCurrentUrl(): string
+    private function confirmEmail()
     {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+        $confirmResult = (new ConfirmationService)->verifyEmailCode(
+            $this->arParams['USER_ID'],
+            $this->arParams['CONFIRM_CODE'],
+            ConfirmationTable::TYPES['confirm_email'],
+        );
+
+        if ($confirmResult) {
+            $user = new CUser;
+            $user->Update($this->arParams['USER_ID'], ['ACTIVE' => 'Y']);
+            $user->Authorize($this->arParams['USER_ID']);
+        }
+
+        LocalRedirect('/');
     }
 
     public function configureActions(): array
@@ -118,6 +121,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
      * @param string $direction - "next"|"previous"
      * @param array $data
      * @return array
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function saveStepAction(string $direction, array $data): array
     {
@@ -128,17 +134,18 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         if ($direction === 'next') {
             $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1];
         } else {
-            $data['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
-        }
+            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
 
-        if ($direction === 'previous') {
-            return $registrationData;
+            return $this->setRegisterData($registrationData);
         }
 
         foreach ($data as $field => $value) {
-            if (($field === 'contact_id' || $field === 'mentor_id')) {
+            if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
+                throw new InvalidArgumentException('User with this email already exist');
+            }
+            if ($field === 'mentor_id') {
                 try {
-                    UserTable::getById($field);
+                    UserTable::getById($value);
                 } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
                     throw new InvalidArgumentException('User not found');
                 }
@@ -148,10 +155,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             }
         }
 
-        $registrationData = array_merge($registrationData, $data);
-        Application::getInstance()->getSession()->set('registrationData', $registrationData);
-
-        return $registrationData;
+        return $this->setRegisterData(array_merge($registrationData, $data));
     }
 
     public function sendPhoneCodeAction(string $phoneNumber): array
@@ -188,10 +192,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         (new ConfirmationService)->sendSmsConfirmation($result['ID']);
 
-        return [
-            'status' => $result['TYPE'] === 'OK' ? 'success' : 'error',
-            'message' => $result['MESSAGE'],
-        ];
+        return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
@@ -206,9 +207,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
-        // TODO "Я согласен на обработку персональных данных", "Я согласен с условиями пользования сайтом"
-        // TODO "Я согласен с правилами компании", "Я согласен на получение информации о продуктах, спецпредложениях и акциях"
-        // TODO PHOTO, MENTOR_ID, legal entity
+        $userGroupId = GroupTable::getRow([
+            'filter' => [
+                '=STRING_ID' => $registrationData['type'],
+            ],
+            'select' => ['ID'],
+        ])['ID'];
+
+        // TODO PHOTO, legal entity
         $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
@@ -217,6 +223,12 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'PERSONAL_BIRTHDAY' => new Date($data['birthday']),
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['city'],
+            'GROUP_ID' => [$userGroupId],
+            'UF_MENTOR_ID' => $data['mentor_id'],
+            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],
+            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'],
+            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'],
+            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'],
         ]);
 
         $user->ChangePassword(

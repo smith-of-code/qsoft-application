@@ -52,6 +52,11 @@ class CSystemAuthRegistrationComponent {
                   password: '123123',
                   confirm_password: '123123',
                   pets: [],
+                  mentor_id: 1,
+                  agree_with_personal_data_processing: true,
+                  agree_with_terms_of_use: true,
+                  agree_with_company_rules: true,
+                  agree_to_receive_information__about_promotions: true,
               },
           },
       });
