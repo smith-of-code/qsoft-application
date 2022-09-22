@@ -883,7 +883,7 @@
                                                 от
                                             </label>
                                             <div class="input input--mini input--prefix">
-                                                <input type="number" class="input__control" name="min" id="text11" placeholder="Поле ввода чисел">
+                                                <input type="number" class="input__control" name="min" id="text13" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -898,7 +898,7 @@
                                                 до
                                             </label>
                                             <div class="input input--mini input--prefix">
-                                                <input type="number" class="input__control" name="max" id="text12" placeholder="Поле ввода чисел">
+                                                <input type="number" class="input__control" name="max" id="text14" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -1354,6 +1354,17 @@
                         </div>
                     </div>
                     <!--/Стилизованный скроллбар-->
+
+                    <!--Тултип-->
+                    <div class="gui__block">
+                        <h2>Тултип</h2>
+
+                        <svg class="tooltip icon icon--plus gui__icon" data-tippy-content="нет в наличии">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                        </svg>
+
+                    </div>
+                    <!--/Тултип-->
 
                 </main>
             </div>

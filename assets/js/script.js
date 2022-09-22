@@ -21,6 +21,7 @@
  import inputPlaceholder from './modules/inputPlaceholder';
  import tabs from './modules/tabs';
  import scrollbar from './modules/scrollbar';
+ import tooltip from "./modules/tooltip";
 
 
  const app = {
@@ -35,6 +36,7 @@
         inputPlaceholder();
         tabs();
         scrollbar();
+        tooltip();
     },
 
     load() {

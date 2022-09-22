@@ -8,6 +8,8 @@
 @import "~normalize.css";
 @import '~jquery-ui-slider/jquery-ui.min.css';
 @import '~overlayscrollbars/css/OverlayScrollbars.css';
+@import '~tippy.js/dist/tippy.css';
+@import '~tippy.js/themes/light.css';
 
 
 /**
@@ -54,3 +56,5 @@
 @import "components/tabs";
 
 @import "components/scrollbar";
+
+@import "components/tooltip";
