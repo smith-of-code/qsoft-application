@@ -24,6 +24,7 @@
  import tooltip from "./modules/tooltip";
  import toggle from "./modules/toggle";
  import truncate from './modules/truncate';
+ import dropdown from './modules/dropdown';
 
 
  const app = {
@@ -41,6 +42,7 @@
         tooltip();
         toggle();
         truncate();
+        dropdown();
     },
 
     load() {

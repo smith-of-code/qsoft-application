@@ -1,0 +1,9 @@
+.box {
+    transition: $transition-duration $transition-function;
+
+    border-radius: rem($border-radius);
+    background-color: $white;
+    box-shadow: $box-shadow;
+
+    overflow: hidden;
+}
