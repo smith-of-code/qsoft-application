@@ -4,6 +4,7 @@ use Bitrix\Main;
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
+use Bitrix\Highloadblock\HighloadBlockTable;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -13,20 +14,20 @@ Loc::loadMessages(__FILE__);
 
 if (!Loader::includeModule('iblock'))
 {
-	ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
-	return;
+    ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+    return;
 }
 
 class CatalogElementComponent extends CBitrixComponent
 {
     private bool $isError = false;
-	/**
-	 * @param array $arParams
-	 * @return array
-	 */
-	public function onPrepareComponentParams($arParams): array
-	{
-		$arParams = parent::onPrepareComponentParams($arParams);
+    /**
+     * @param array $arParams
+     * @return array
+     */
+    public function onPrepareComponentParams($arParams): array
+    {
+        $arParams = parent::onPrepareComponentParams($arParams);
 
         $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE'] ?? '');
         if (!$arParams['IBLOCK_TYPE']) {
@@ -56,8 +57,8 @@ class CatalogElementComponent extends CBitrixComponent
         $arParams['SECTION_ID'] = (int)(trim($arParams['SECTION_ID']) ?? 0);
         $arParams['SECTION_CODE'] = trim($arParams['SECTION_CODE'] ?? '');
 
-		return $arParams;
-	}
+        return $arParams;
+    }
 
     public function executeComponent()
     {
@@ -66,7 +67,11 @@ class CatalogElementComponent extends CBitrixComponent
                 return;
             }
 
-            if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
+            if (
+                !Loader::includeModule('iblock')
+                || !Loader::includeModule('catalog')
+                || !Loader::includeModule('highloadblock')
+            ) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
@@ -119,29 +124,11 @@ class CatalogElementComponent extends CBitrixComponent
                 }
 
                 $this->arResult['PRODUCT'] = $product;
-
                 $fileIds = $this->getFilesByItem($product);
 
-                $offersResult = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
-                $offers = [];
-                if (!empty($offersResult) && !empty(current($offersResult))) {
-                    $arSelect = $baseSelect;
-                    $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
-                    foreach ($offersIblockIds as $item) {
-                        $properties = [];
-                        CIBlockElement::GetPropertyValuesArray($properties, $item, []);
+                $this->arResult['RELATED_PRODUCTS'] = $this->getRelatedProducts($product['ID'], $arSelect, $fileIds);
 
-                        $keys = $this->getPropertyKeys($properties);
-                        $arSelect = array_merge($arSelect, $keys);
-
-                        $currentOffers = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], $arSelect);
-                        $offers = array_merge($offers, current($currentOffers));
-
-                        foreach (current($currentOffers) as $offer) {
-                            $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
-                        }
-                    }
-                }
+                $this->arResult['OFFERS'] = $this->getOffers($product['ID'], $baseSelect, $fileIds);
 
                 $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
                 $fileIterator = CFile::GetList([], $itemFilter);
@@ -149,8 +136,6 @@ class CatalogElementComponent extends CBitrixComponent
                     $file['SRC'] = CFile::GetFileSRC($file);
                     $this->arResult['FILES'][$file['ID']] = $file;
                 }
-
-                $this->arResult['OFFERS'] = $offers;
 
                 $buttons = CIBlock::GetPanelButtons(
                     $this->arParams['IBLOCK_ID'],
@@ -184,6 +169,74 @@ class CatalogElementComponent extends CBitrixComponent
         } catch (Throwable $e) {
             ShowError($e->getMessage());
         }
+    }
+
+    private function getRelatedProducts(int $productId, array $select, array &$fileIds): array
+    {
+        $hlBlock = HighloadBlockTable::getList([
+            'filter' => ['=TABLE_NAME' => 'related_product'],
+        ])->fetch();
+        if (!$hlBlock) {
+            throw new RuntimeException(Loc::getMessage('HL_BLOCK_NOT_FOUND'));
+        }
+        $relatedProductTable = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
+        $relatedProducts = $relatedProductTable::getList([
+            'select' => ['UF_RELATED_PRODUCT_ID', 'UF_MAIN_PRODUCT_ID'],
+            'filter' => [
+                'LOGIC' => 'OR',
+                ['UF_MAIN_PRODUCT_ID' => $productId],
+                ['UF_RELATED_PRODUCT_ID' => $productId],
+            ],
+        ])->fetchAll();
+        $relatedProductIds = array_filter(array_unique(array_merge(
+            array_column($relatedProducts, 'UF_RELATED_PRODUCT_ID'),
+            array_column($relatedProducts, 'UF_MAIN_PRODUCT_ID')
+        )), static function ($item) use ($productId) {
+            return $item !== $productId;
+        });
+
+        $relatedProductDetails = [];
+        if (!empty($relatedProductIds)) {
+            $relatedProductIterator = CIBlockElement::GetList([], [
+                'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
+                'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+                'ACTIVE' => 'Y',
+                '@ID' => implode(',', $relatedProductIds),
+            ], false, false, $select);
+
+            while ($relatedProduct = $relatedProductIterator->Fetch()) {
+                $fileIds = array_merge($fileIds, $this->getFilesByItem($relatedProduct));
+
+                $relatedProductDetails[] = $relatedProduct;
+            }
+        }
+
+        return $relatedProductDetails;
+    }
+
+    private function getOffers(int $productId, array $arSelect, array &$fileIds): array
+    {
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+        $offers = [];
+        if (!empty($offersResult) && !empty(current($offersResult))) {
+            $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
+            foreach ($offersIblockIds as $item) {
+                $properties = [];
+                CIBlockElement::GetPropertyValuesArray($properties, $item, []);
+
+                $keys = $this->getPropertyKeys($properties);
+                $arSelect = array_merge($arSelect, $keys);
+
+                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], $arSelect);
+                $offers = array_merge($offers, current($currentOffers));
+
+                foreach (current($currentOffers) as $offer) {
+                    $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
+                }
+            }
+        }
+
+        return $offers;
     }
 
     private function getPropertyKeys(array $properties): array
