@@ -118,7 +118,18 @@ class CatalogElementComponent extends CBitrixComponent
                     return;
                 }
 
+                $fileIds = [];
                 $this->arResult['PRODUCT'] = $product;
+
+                if ($product['PREVIEW_PICTURE']) {
+                    $fileIds[] = $product['PREVIEW_PICTURE'];
+                }
+                if ($product['DETAIL_PICTURE']) {
+                    $fileIds[] = $product['DETAIL_PICTURE'];
+                }
+                if ($product['PROPERTY_MORE_PHOTO_VALUE']) {
+                    $fileIds[] = $product['PROPERTY_MORE_PHOTO_VALUE'];
+                }
 
                 $offersResult = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
                 $offers = [];
@@ -134,7 +145,26 @@ class CatalogElementComponent extends CBitrixComponent
 
                         $currentOffers = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], $arSelect);
                         $offers = array_merge($offers, current($currentOffers));
+
+                        foreach (current($currentOffers) as $offer) {
+                            if ($offer['PREVIEW_PICTURE']) {
+                                $fileIds[] = $offer['PREVIEW_PICTURE'];
+                            }
+                            if ($offer['DETAIL_PICTURE']) {
+                                $fileIds[] = $offer['DETAIL_PICTURE'];
+                            }
+                            if ($offer['PROPERTY_MORE_PHOTO_VALUE']) {
+                                $fileIds[] = $offer['PROPERTY_MORE_PHOTO_VALUE'];
+                            }
+                        }
                     }
+                }
+
+                $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
+                $fileIterator = CFile::GetList([], $itemFilter);
+                while ($file = $fileIterator->Fetch()) {
+                    $file['SRC'] = CFile::GetFileSRC($file);
+                    $this->arResult['FILES'][$file['ID']] = $file;
                 }
 
                 $this->arResult['OFFERS'] = $offers;
