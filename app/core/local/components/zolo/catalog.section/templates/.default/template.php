@@ -16,7 +16,6 @@ use \Bitrix\Main\Localization\Loc;
  * |	The following comments are for system use
  * |	and are required for the component to work correctly in ajax mode:
  * |	<!-- items-container -->
- * |	<!-- pagination-container -->
  * |	<!-- component-end -->
  */
 
@@ -39,14 +38,10 @@ else
 	);
 }
 
-$showTopPager = false;
-$showBottomPager = false;
 $showLazyLoad = false;
 
 if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1)
 {
-	$showTopPager = $arParams['DISPLAY_TOP_PAGER'];
-	$showBottomPager = $arParams['DISPLAY_BOTTOM_PAGER'];
 	$showLazyLoad = $navParams['NavPageNomer'] != $navParams['NavPageCount'];
 }
 
@@ -68,33 +63,6 @@ unset($currencyList, $templateLibrary);
 $elementEdit = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_EDIT');
 $elementDelete = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_DELETE');
 $elementDeleteParams = array('CONFIRM' => GetMessage('CT_BCS_TPL_ELEMENT_DELETE_CONFIRM'));
-
-$positionClassMap = array(
-	'left' => 'product-item-label-left',
-	'center' => 'product-item-label-center',
-	'right' => 'product-item-label-right',
-	'bottom' => 'product-item-label-bottom',
-	'middle' => 'product-item-label-middle',
-	'top' => 'product-item-label-top'
-);
-
-$discountPositionClass = '';
-if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PERCENT_POSITION']))
-{
-	foreach (explode('-', $arParams['DISCOUNT_PERCENT_POSITION']) as $pos)
-	{
-		$discountPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
-
-$labelPositionClass = '';
-if (!empty($arParams['LABEL_PROP_POSITION']))
-{
-	foreach (explode('-', $arParams['LABEL_PROP_POSITION']) as $pos)
-	{
-		$labelPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
 
 $arParams['~MESS_BTN_BUY'] = $arParams['~MESS_BTN_BUY'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_BUY');
 $arParams['~MESS_BTN_DETAIL'] = $arParams['~MESS_BTN_DETAIL'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_DETAIL');
@@ -130,8 +98,6 @@ $generalParams = array(
 	'COMPARE_NAME' => $arParams['COMPARE_NAME'],
 	'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
 	'PRODUCT_BLOCKS_ORDER' => $arParams['PRODUCT_BLOCKS_ORDER'],
-	'LABEL_POSITION_CLASS' => $labelPositionClass,
-	'DISCOUNT_POSITION_CLASS' => $discountPositionClass,
 	'SLIDER_INTERVAL' => $arParams['SLIDER_INTERVAL'],
 	'SLIDER_PROGRESS' => $arParams['SLIDER_PROGRESS'],
 	'~BASKET_URL' => $arParams['~BASKET_URL'],
@@ -157,12 +123,13 @@ $containerName = 'container-'.$navParams['NavNum'];
 <div class="row">
 	<div class="col">
 		<div class="mb-4 catalog-section" data-entity="<?=$containerName?>">
-			<!-- items-container -->
+            <!-- items-container -->
 			<?
 			if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
 			{
 				$areaIds = array();
 
+				// Эрмитаж
 				foreach ($arResult['ITEMS'] as $item)
 				{
 					$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
@@ -171,9 +138,11 @@ $containerName = 'container-'.$navParams['NavNum'];
 					$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
 				}
 
+				// Вывод карточек товаров
 				foreach ($arResult['ITEM_ROWS'] as $rowData)
 				{
-					$rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
+					// Вырезает по N элементов из общей кучи и выводит в строке
+				    $rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
 					?>
 					<div class="row <?=$rowData['CLASS']?>" data-entity="items-row">
 						<?
@@ -210,21 +179,9 @@ $containerName = 'container-'.$navParams['NavNum'];
 					<?
 				}
 				unset($generalParams, $rowItems);
-
-			}
-			else
-			{
-				// load css for bigData/deferred load
-				$APPLICATION->IncludeComponent(
-					'zolo:catalog.item',
-					'',
-					array(),
-					$component,
-					array('HIDE_ICONS' => 'Y')
-				);
 			}
 			?>
-			<!-- items-container -->
+            <!-- items-container -->
 		</div>
 		<? /* КНОПКА "ПОКАЗАТЬ ЕЩЁ" */?>
         <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
