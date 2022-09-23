@@ -142,6 +142,21 @@ class CatalogElementComponent extends CBitrixComponent
                 $this->setResultCacheKeys([]);
             }
 
+            $basketFilter = [
+                'FUSER_ID' => CSaleBasket::GetBasketUserID(),
+                'LID' => SITE_ID,
+            ];
+            $basketIterator = CSaleBasket::GetList([], $basketFilter, false, false, ['*']);
+
+            $basketInfo = [];
+            $productIdsString = array_column($this->arResult['OFFERS'], 'ID');
+            while($basket = $basketIterator->Fetch()) {
+                if (in_array($basket['PRODUCT_ID'], $productIdsString)) {
+                    $basketInfo[$basket['PRODUCT_ID']] = $basket;
+                }
+            }
+            $this->arResult['BASKET'] = $basketInfo;
+
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
             ShowError($e->getMessage());
