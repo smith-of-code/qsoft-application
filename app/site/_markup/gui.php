@@ -144,6 +144,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: arrow-down">
+                                    <svg class="icon icon--arrow-down gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -985,6 +991,97 @@
                         </form>
                     </div>
                     <!--/Текстовые поля ввода-->
+
+                    <!--Ползунок-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Селекты</h2>
+
+                        <form class="form">
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select" data-select>
+                                                    <select class="select__control" name="select" id="select" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект маленький</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate" data-select>
+                                                    <select class="select__control" name="select2" id="select2" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект ограниченный</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate select--small" data-select>
+                                                    <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <!--Ползунок-->
                     <div class="gui__block">
