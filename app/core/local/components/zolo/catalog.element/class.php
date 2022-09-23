@@ -3,7 +3,6 @@
 use Bitrix\Main;
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
-use	Bitrix\Catalog;
 use Bitrix\Iblock\Component\Tools;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
@@ -20,6 +19,7 @@ if (!Loader::includeModule('iblock'))
 
 class CatalogElementComponent extends CBitrixComponent
 {
+    private bool $isError = false;
 	/**
 	 * @param array $arParams
 	 * @return array
@@ -31,7 +31,7 @@ class CatalogElementComponent extends CBitrixComponent
         $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE'] ?? '');
         if (!$arParams['IBLOCK_TYPE']) {
             Tools::process404(Loc::getMessage('IBLOCK_TYPE_NOT_SET'), false, false);
-            $arParams['.ERROR'] = true;
+            $this->isError = true;
 
             return $arParams;
         }
@@ -39,7 +39,7 @@ class CatalogElementComponent extends CBitrixComponent
         $arParams['IBLOCK_ID'] = (int)(trim($arParams['IBLOCK_ID']) ?? 0);
         if (!$arParams['IBLOCK_ID']) {
             Tools::process404(Loc::getMessage('IBLOCK_ID_NOT_SET'), false, false);
-            $arParams['.ERROR'] = true;
+            $this->isError = true;
 
             return $arParams;
         }
@@ -48,7 +48,7 @@ class CatalogElementComponent extends CBitrixComponent
         $arParams['ELEMENT_CODE'] = trim($arParams['ELEMENT_CODE'] ?? '');
         if (!$arParams['ELEMENT_ID'] && !$arParams['ELEMENT_CODE']) {
             Tools::process404(Loc::getMessage('ELEMENT_DATA_NOT_SET'), false, false);
-            $arParams['.ERROR'] = true;
+            $this->isError = true;
 
             return $arParams;
         }
@@ -58,4 +58,100 @@ class CatalogElementComponent extends CBitrixComponent
 
 		return $arParams;
 	}
+
+    public function executeComponent()
+    {
+        try {
+            if ($this->isError) {
+                return;
+            }
+
+            if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
+                throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+            }
+
+            if ($this->startResultCache()) {
+                if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
+                    throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
+                }
+
+                if (CIBlock::GetList([], ['=ID' => $this->arParams['IBLOCK_ID']])->SelectedRowsCount() <= 0) {
+                    throw new Main\LoaderException(Loc::getMessage('IBLOCK_ID_NOT_SET'));
+                }
+
+                $baseSelect = [
+                    'ID',
+                    'NAME',
+                    'CODE',
+                    'DETAIL_PAGE_URL',
+                    'PREVIEW_PICTURE',
+                    'DETAIL_PICTURE',
+                    'DETAIL_TEXT',
+                    'DETAIL_TEXT_TYPE',
+                    'PREVIEW_TEXT',
+                    'PREVIEW_TEXT_TYPE',
+                ];
+
+                $arFilter = [
+                    'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
+                    'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+                    'ACTIVE' => 'Y',
+                    'SECTION_ID' => $this->arParams['SECTION_ID'],
+                    'SECTION_CODE' => $this->arParams['SECTION_CODE'],
+                ];
+
+                if ($this->arParams['ELEMENT_ID']) {
+                    $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
+                } else {
+                    $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
+                }
+
+                $arSelect = $baseSelect;
+                CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
+                if (!empty($properties)) {
+                    $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
+                }
+
+                $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
+                if (!$product) {
+                    Tools::process404(Loc::getMessage('ELEMENT_NOT_FOUND'));
+                    return;
+                }
+
+                $this->arResult['PRODUCT'] = $product;
+
+                $offersResult = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+                $offers = [];
+                if (!empty($offersResult) && !empty(current($offersResult))) {
+                    $arSelect = $baseSelect;
+                    $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
+                    foreach ($offersIblockIds as $item) {
+                        $properties = [];
+                        CIBlockElement::GetPropertyValuesArray($properties, $item, []);
+
+                        $keys = $this->getPropertyKeys($properties);
+                        $arSelect = array_merge($arSelect, $keys);
+
+                        $currentOffers = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], $arSelect);
+                        $offers = array_merge($offers, current($currentOffers));
+                    }
+                }
+
+                $this->arResult['OFFERS'] = $offers;
+
+                $this->setResultCacheKeys([]);
+            }
+
+            $this->includeComponentTemplate();
+        } catch (Throwable $e) {
+            ShowError($e->getMessage());
+        }
+    }
+
+    private function getPropertyKeys(array $properties): array
+    {
+        return array_map(static function ($item) {
+            return "PROPERTY_{$item}";
+        }, array_keys(current($properties)));
+    }
 }
