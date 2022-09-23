@@ -698,7 +698,7 @@
                                 </button>
                             </div>
 
-                            <div class="quantity__actions" data-quantity-actions>
+                            <div class="quantity__actions">
                                 <div class="quantity__decrease">
                                     <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
                                         <span class="button__icon button__icon--small">
@@ -715,7 +715,7 @@
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
                                         </svg>
                                     </span>
-                                    <span class="quantity__total-sum" data-quantity-sum>12</span>
+                                    <span class="quantity__total-sum" data-quantity-sum></span>
                                 </div>
 
                                 <div class="quantity__increase">
