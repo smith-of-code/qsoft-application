@@ -4,16 +4,13 @@ namespace QSoft\ORM;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class PickupPointTable extends Entity\DataManager
 {
-    // TODO
-    const CITIES = [
-        'PICKUP_POINT_CITY_MOSCOW',
-        'PICKUP_POINT_CITY_SPB',
-    ];
+    use HasHighloadEnums;
 
     public static function getTableName(): string
     {
@@ -22,6 +19,8 @@ class PickupPointTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_CITY']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -38,7 +37,7 @@ class PickupPointTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_CITY', [
                 'required' => true,
-                'values' => self::CITIES,
+                'values' => $data['UF_CITY'],
                 'title' => Loc::getMessage('PICKUP_POINT_ENTITY_UF_CITY_FIELD'),
             ]),
             new Entity\StringField('UF_WORKING_HOURS_START', [

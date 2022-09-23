@@ -2,15 +2,16 @@
 
 namespace QSoft\ORM;
 
-use Bitrix\Highloadblock\HighloadBlockTable;
-use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class ApplicationTable extends Entity\DataManager
 {
+    use HasHighloadEnums;
+
     public static function getTableName(): string
     {
         return 'application';
@@ -23,30 +24,7 @@ class ApplicationTable extends Entity\DataManager
      */
     public static function getMap(): array
     {
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Module highloadblock not found');
-        }
-
-        $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => self::getTableName()]]);
-        if (!$hlBlock) {
-            throw new \RuntimeException(sprintf('Не найден hl-блок %s', self::getTableName()));
-        }
-
-        $fields = \CUserTypeEntity::GetList([], ['ENTITY_ID' => 'HLBLOCK_' . $hlBlock['ID']]);
-
-        $typeIds = [];
-        $statusIds = [];
-        while ($field = $fields->Fetch()) {
-            if ($field['FIELD_NAME'] === 'UF_TYPE') {
-                $enums = \CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
-
-                $typeIds = array_column($enums, 'ID');
-            } else if ($field['FIELD_NAME'] === 'UF_STATUS') {
-                $enums = \CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
-
-                $statusIds = array_column($enums, 'ID');
-            }
-        }
+        $data = self::getEnumValues(self::getTableName(), ['UF_STATUS', 'UF_TYPE']);
 
         return [
             new Entity\IntegerField('ID', [
@@ -60,12 +38,12 @@ class ApplicationTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => $typeIds,
+                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_TYPE_FIELD'),
             ]),
             new Entity\EnumField('UF_STATUS', [
                 'required' => true,
-                'values' => $statusIds,
+                'values' => $data['UF_STATUS'],
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_STATUS_FIELD'),
             ]),
             new Entity\StringField('UF_COMMENT', [

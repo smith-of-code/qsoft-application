@@ -6,11 +6,14 @@ use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class LegalEntityTable extends Entity\DataManager
 {
+    use HasHighloadEnums;
+
     public static function getTableName(): string
     {
         return 'legal_entity';
@@ -18,25 +21,7 @@ class LegalEntityTable extends Entity\DataManager
 
     public static function getMap(): array
     {
-        if (!Loader::includeModule('highloadblock')) {
-            throw new \RuntimeException('Module highloadblock not found');
-        }
-
-        $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => self::getTableName()]]);
-        if (!$hlBlock) {
-            throw new \RuntimeException(sprintf('Не найден hl-блок %s', self::getTableName()));
-        }
-
-        $fields = \CUserTypeEntity::GetList([], ['ENTITY_ID' => 'HLBLOCK_' . $hlBlock['ID']]);
-
-        $statusIds = [];
-        while ($field = $fields->Fetch()) {
-            if ($field['FIELD_NAME'] === 'UF_STATUS') {
-                $enums = \CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
-
-                $statusIds = array_column($enums, 'ID');
-            }
-        }
+        $data = self::getEnumValues(self::getTableName(), ['UF_STATUS']);
 
         return [
             new Entity\IntegerField('ID', [
@@ -50,7 +35,7 @@ class LegalEntityTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_STATUS', [
                 'required' => true,
-                'values' => $statusIds,
+                'values' => $data['UF_STATUS'],
                 'title' => Loc::getMessage('LEGAL_ENTITY_UF_STATUS_FIELD'),
             ]),
         ];
