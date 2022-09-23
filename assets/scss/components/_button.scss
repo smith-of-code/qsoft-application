@@ -103,21 +103,6 @@
     }
 
     &--covered#{&}--green {
-        border-color: $alto;
-        background-color: $seaGreen;
-
-        &:hover {
-            border-color: $alto;
-            background-color: $viridian;
-        }
-
-        &:focus {
-            border-color: $alto;
-            background-color: $aquaForest;
-        }
-    }
-
-    &--covered#{&}--full-green {
         border-color: $seaGreen;
         background-color: $seaGreen;
 
@@ -133,16 +118,16 @@
     }
 
     &--covered#{&}--red {
-        border-color: $alto;
+        border-color: $brickRed;
         background-color: $brickRed;
 
         &:hover {
-            border-color: $alto;
+            border-color: $mandy;
             background-color: $mandy;
         }
 
         &:focus {
-            border-color: $alto;
+            border-color: $mandy2;
             background-color: $mandy2;
         }
     }
@@ -230,15 +215,15 @@
     }
 
     &--covered#{&}--disabled {
-        color: $white;
-        border-color: $saltBox;
-        background-color: $saltBox;
+        color: $alto;
+        border-color: $athensGray;
+        background-color: $athensGray;
 
         &:hover,
         &:focus {
-            color: $white;
-            border-color: $saltBox;
-            background-color: $saltBox;
+            color: $alto;
+            border-color: $athensGray;
+            background-color: $athensGray;
         }
     }
 
@@ -282,13 +267,13 @@
     }
 
     &--outlined#{&}--disabled {
-        color: $saltBox;
-        border-color: $saltBox;
+        color: $alto;
+        border-color: $alto;
 
         &:hover,
         &:focus {
-            color: $saltBox;
-            border-color: $saltBox;
+            color: $alto;
+            border-color: $alto;
         }
     }
 
@@ -324,14 +309,14 @@
     }
 
     &--mixed#{&}--disabled {
-        color: $saltBox;
-        border-color: $saltBox;
+        color: $alto;
+        border-color: $alto;
         background-color: $white;
 
         &:hover,
         &:focus {
-            color: $saltBox;
-            border-color: $saltBox;
+            color: $alto;
+            border-color: $alto;
             background-color: $white;
         }
     }
