@@ -571,7 +571,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-green">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--green">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -581,7 +581,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-red">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--red">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -885,7 +885,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text3" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-green">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--green">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -905,7 +905,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text4" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -924,7 +924,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--small input--buttoned">
                                                 <input type="text" class="input__control" name="text" id="text5" placeholder="Сколько баллов списать">
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
