@@ -118,18 +118,9 @@ class CatalogElementComponent extends CBitrixComponent
                     return;
                 }
 
-                $fileIds = [];
                 $this->arResult['PRODUCT'] = $product;
 
-                if ($product['PREVIEW_PICTURE']) {
-                    $fileIds[] = $product['PREVIEW_PICTURE'];
-                }
-                if ($product['DETAIL_PICTURE']) {
-                    $fileIds[] = $product['DETAIL_PICTURE'];
-                }
-                if ($product['PROPERTY_MORE_PHOTO_VALUE']) {
-                    $fileIds[] = $product['PROPERTY_MORE_PHOTO_VALUE'];
-                }
+                $fileIds = $this->getFilesByItem($product);
 
                 $offersResult = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
                 $offers = [];
@@ -147,15 +138,7 @@ class CatalogElementComponent extends CBitrixComponent
                         $offers = array_merge($offers, current($currentOffers));
 
                         foreach (current($currentOffers) as $offer) {
-                            if ($offer['PREVIEW_PICTURE']) {
-                                $fileIds[] = $offer['PREVIEW_PICTURE'];
-                            }
-                            if ($offer['DETAIL_PICTURE']) {
-                                $fileIds[] = $offer['DETAIL_PICTURE'];
-                            }
-                            if ($offer['PROPERTY_MORE_PHOTO_VALUE']) {
-                                $fileIds[] = $offer['PROPERTY_MORE_PHOTO_VALUE'];
-                            }
+                            $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
                         }
                     }
                 }
@@ -198,5 +181,21 @@ class CatalogElementComponent extends CBitrixComponent
         return array_map(static function ($item) {
             return "PROPERTY_{$item}";
         }, array_keys(current($properties)));
+    }
+
+    private function getFilesByItem(array $item): array
+    {
+        $result = [];
+        if (isset($item['PREVIEW_PICTURE']) && $item['PREVIEW_PICTURE']) {
+            $result[] = $item['PREVIEW_PICTURE'];
+        }
+        if (isset($item['DETAIL_PICTURE']) && $item['DETAIL_PICTURE']) {
+            $result[] = $item['DETAIL_PICTURE'];
+        }
+        if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
+            $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
+        }
+
+        return $result;
     }
 }
