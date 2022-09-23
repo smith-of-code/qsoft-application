@@ -5,12 +5,15 @@ namespace QSoft\ORM;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
 use Bitrix\Main\Type\DateTime;
+use QSoft\ORM\Traits\HasHighloadEnums;
 use RuntimeException;
 
 Loc::loadMessages(__FILE__);
 
 class ConfirmationTable extends Entity\DataManager
 {
+    use HasHighloadEnums;
+
     public const ACTIVE_TIME = 30; // Seconds
 
     public const CHANNELS = [
@@ -31,6 +34,8 @@ class ConfirmationTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_CHANNEL', 'UF_TYPE']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -43,12 +48,12 @@ class ConfirmationTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_CHANNEL', [
                 'required' => true,
-                'values' => self::CHANNELS,
+                'values' => $data['UF_CHANNEL'],
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_CHANNEL_FIELD'),
             ]),
             new Entity\EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => self::TYPES,
+                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_TYPE_FIELD'),
             ]),
             new Entity\StringField('UF_CODE', [
