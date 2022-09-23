@@ -13,20 +13,20 @@ Loc::loadMessages(__FILE__);
 
 if (!Loader::includeModule('iblock'))
 {
-	ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
-	return;
+    ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+    return;
 }
 
 class CatalogElementComponent extends CBitrixComponent
 {
     private bool $isError = false;
-	/**
-	 * @param array $arParams
-	 * @return array
-	 */
-	public function onPrepareComponentParams($arParams): array
-	{
-		$arParams = parent::onPrepareComponentParams($arParams);
+    /**
+     * @param array $arParams
+     * @return array
+     */
+    public function onPrepareComponentParams($arParams): array
+    {
+        $arParams = parent::onPrepareComponentParams($arParams);
 
         $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE'] ?? '');
         if (!$arParams['IBLOCK_TYPE']) {
@@ -56,8 +56,8 @@ class CatalogElementComponent extends CBitrixComponent
         $arParams['SECTION_ID'] = (int)(trim($arParams['SECTION_ID']) ?? 0);
         $arParams['SECTION_CODE'] = trim($arParams['SECTION_CODE'] ?? '');
 
-		return $arParams;
-	}
+        return $arParams;
+    }
 
     public function executeComponent()
     {
