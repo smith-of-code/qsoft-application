@@ -22,4 +22,4 @@ $basketInfo = [];
 while($basket = $basketIterator->Fetch()) {
     $basketInfo[] = $basket;
 }
-$this->arResult['BASKET'] = $basketInfo;
+$arResult['BASKET'] = $basketInfo;
