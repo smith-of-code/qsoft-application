@@ -19,6 +19,13 @@
         cursor: default;
     }
 
+    &__input:disabled + &__label & {
+        &__icon {
+            border-color: $athensGray;
+            background-color: $athensGray;
+        }
+    }
+
     &__label {
         display: inline-flex;
         align-items: flex-start;
@@ -54,7 +61,6 @@
             $size: 16px;
 
             position: relative;
-            left: em(1px);
 
             width: rem($size);
         }
