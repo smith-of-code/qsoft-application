@@ -1643,6 +1643,36 @@
                     </div>
                     <!--/Обрезка текста-->
 
+                    <!--Загрузчик-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Загрузчик</h2>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+                    
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/markup/gui.html"}'>
+                                <div class="dropzone__previews dz-previews" data-uploader-previews></div>
+                    
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-button dz-button link needsclick">
+                                        <svg class="dropzone__message-button-icon icon icon--paperclip">
+                                            <use xlink:href="/public/images/icons/sprite.svg#icon-paperclip"></use>
+                                        </svg>
+                    
+                                        <div class="dropzone__message-button-text needsclick">
+                                            Добавить файл
+                                        </div>
+                                    </div>
+                    
+                                    <div class="dropzone__message-caption needsclick">
+                                        jpg, png, doc, xls, pdf, неограниченное количество
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Загрузчик-->
+
                 </main>
             </div>
         </div>

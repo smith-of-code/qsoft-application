@@ -18,6 +18,7 @@
         "@babel/runtime": "^7.17.8",
         "@fancyapps/fancybox": "^3.5.7",
         "dotdotdot-js": "^4.1.0",
+        "dropzone": "^5.7.0",
         "inputmask": "^5.0.7",
         "jquery": "^3.5.1",
         "jquery-dotdotdot": "^1.8.2",
