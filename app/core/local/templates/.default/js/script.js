@@ -376,6 +376,56 @@ function showPassword() {
 
 /***/ }),
 
+/***/ "./assets/js/modules/quantity.js":
+/*!***************************************!*\
+  !*** ./assets/js/modules/quantity.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return changeTotal; });
+var ELEMENTS_SELECTOR = {
+  quantity: '[data-quantity]',
+  button: '[data-quantity-button]',
+  decrease: '[data-quantity-decrease]',
+  increase: '[data-quantity-increase]',
+  sum: '[data-quantity-sum]'
+};
+function changeTotal() {
+  var sum = 0;
+  $(ELEMENTS_SELECTOR.sum).text(sum);
+  $(document).on('click', ELEMENTS_SELECTOR.button, function () {
+    sum++;
+    $(ELEMENTS_SELECTOR.sum).text(sum);
+    $(ELEMENTS_SELECTOR.quantity).addClass('quantity--active');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.increase, function () {
+    sum++;
+    $(ELEMENTS_SELECTOR.sum).text(sum);
+
+    if (sum == 10) {
+      $(this).prop('disabled', true);
+      $(this).addClass('button--disabled');
+    }
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.decrease, function () {
+    sum--;
+    $(ELEMENTS_SELECTOR.sum).text(sum);
+
+    if (sum == 0) {
+      $(ELEMENTS_SELECTOR.quantity).removeClass('quantity--active');
+    }
+
+    $(ELEMENTS_SELECTOR.increase).prop('disabled', false);
+    $(ELEMENTS_SELECTOR.increase).removeClass('button--disabled');
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/range.js":
 /*!************************************!*\
   !*** ./assets/js/modules/range.js ***!
@@ -682,6 +732,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_toggle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/toggle */ "./assets/js/modules/toggle.js");
 /* harmony import */ var _modules_truncate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/truncate */ "./assets/js/modules/truncate.js");
 /* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/dropdown */ "./assets/js/modules/dropdown.js");
+/* harmony import */ var _modules_quantity__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/quantity */ "./assets/js/modules/quantity.js");
 /**
  * Vendors
  */
@@ -695,6 +746,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -721,6 +773,7 @@ var app = {
     Object(_modules_toggle__WEBPACK_IMPORTED_MODULE_9__["default"])();
     Object(_modules_truncate__WEBPACK_IMPORTED_MODULE_10__["default"])();
     Object(_modules_dropdown__WEBPACK_IMPORTED_MODULE_11__["default"])();
+    Object(_modules_quantity__WEBPACK_IMPORTED_MODULE_12__["default"])();
   },
   load: function load() {},
   resize: function resize() {},
