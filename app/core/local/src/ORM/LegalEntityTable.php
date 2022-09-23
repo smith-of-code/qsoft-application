@@ -11,12 +11,6 @@ Loc::loadMessages(__FILE__);
 
 class LegalEntityTable extends Entity\DataManager
 {
-    const STATUSES = [
-        'STATUS_IP',
-        'STATUS_JURIDICAL',
-        'STATUS_SELF_EMPLOYED',
-    ];
-
     public static function getTableName(): string
     {
         return 'legal_entity';
