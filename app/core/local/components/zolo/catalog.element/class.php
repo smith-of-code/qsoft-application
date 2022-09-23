@@ -152,6 +152,16 @@ class CatalogElementComponent extends CBitrixComponent
 
                 $this->arResult['OFFERS'] = $offers;
 
+                $buttons = CIBlock::GetPanelButtons(
+                    $this->arParams['IBLOCK_ID'],
+                    $product['ID'],
+                    0,
+                    ['SECTION_BUTTONS' => true, 'SESSID' => false]
+                );
+
+                $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
+                $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
+
                 $this->setResultCacheKeys([]);
             }
 
