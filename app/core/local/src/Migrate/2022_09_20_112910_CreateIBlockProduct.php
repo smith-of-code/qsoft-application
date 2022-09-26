@@ -90,8 +90,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Вид животного',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'PET_TYPE',
-            'MULTIPLE' => 'Y',
-            'LIST_TYPE' => 'C',
+            'LIST_TYPE' => 'L',
             'SMART_FILTER' => 'Y',
             'VALUES' => [
                 [
@@ -123,8 +122,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Возраст',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'AGE',
-            'MULTIPLE' => 'Y',
-            'LIST_TYPE' => 'C',
+            'LIST_TYPE' => 'L',
             'SMART_FILTER' => 'Y',
             'VALUES' => [
                 [
@@ -145,8 +143,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Порода',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'BREED',
-            'MULTIPLE' => 'Y',
-            'LIST_TYPE' => 'C',
+            'LIST_TYPE' => 'L',
             'SMART_FILTER' => 'Y',
             'VALUES' => [
                 [
