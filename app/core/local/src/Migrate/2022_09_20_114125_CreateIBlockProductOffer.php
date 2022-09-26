@@ -76,6 +76,9 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'IS_BESTSELLER',
             'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Да',
