@@ -1,0 +1,2 @@
+<?php
+$MESS['CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'] = 'Zolo code: %s';

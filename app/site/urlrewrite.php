@@ -64,11 +64,11 @@ $arUrlRewrite=array (
     'PATH' => '/personal/index.php',
     'SORT' => 100,
   ),
-  8 => 
+  12 => 
   array (
     'CONDITION' => '#^/catalog/#',
     'RULE' => '',
-    'ID' => 'bitrix:catalog',
+    'ID' => 'zolo:catalog',
     'PATH' => '/catalog/index.php',
     'SORT' => 100,
   ),

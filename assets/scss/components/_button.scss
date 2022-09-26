@@ -1,0 +1,481 @@
+.button {
+    $size-big: 44px;
+    $size-normal: 40px;
+    $size-medium: 36px;
+    $size-middle: 32px;
+    $size-small: 28px;
+    $size-mini: 24px;
+
+    font-size: rem($font-size-small);
+    line-height: ($line-height-small / $font-size-small);
+    font-weight: $font-weight-medium;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    height: rem($size-normal);
+    padding: 0 rem(24px);
+
+    cursor: pointer;
+    transition: color $transition-duration $transition-function,
+                border-color $transition-duration $transition-function,
+                background-color $transition-duration $transition-function;
+    text-decoration: none;
+
+    color: $white;
+    border: rem(1px) solid;
+
+    &--full {
+        width: 100%;
+    }
+
+    &--bold {
+        font-weight: $font-weight-semibold;
+    }
+
+    &--mini {
+        height: rem($size-mini);
+    }
+
+    &--small {
+        height: rem($size-small);
+    }
+
+    &--middle {
+        height: rem($size-middle);
+    }
+
+    &--medium {
+        @include text-small;
+
+        height: rem($size-medium);
+
+        @media #{$screen-desktop} {
+            height: rem($size-normal);
+        }
+    }
+
+    &--big {
+        height: rem($size-big);
+    }
+
+    &--square {
+        border-radius: rem($border-radius-small);
+    }
+
+    &--square#{&}--middle {
+        width: rem($size-middle);
+    }
+
+    &--rounded {
+        border-radius: rem($border-radius-middle);
+    }
+
+    &--rounded-big {
+        border-radius: rem($border-radius);
+    }
+
+    &--circular {
+        padding: 0;
+
+        border-radius: 50%;
+    }
+
+    &--circular#{&}--mini {
+        width: rem($size-mini);
+    }
+
+    &--circular#{&}--small {
+        width: rem($size-small);
+    }
+
+    &--circular & {
+        &__icon {
+            $size: 16px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+
+    &--covered#{&}--green {
+        border-color: $seaGreen;
+        background-color: $seaGreen;
+
+        &:hover {
+            border-color: $viridian;
+            background-color: $viridian;
+        }
+
+        &:focus {
+            border-color: $aquaForest;
+            background-color: $aquaForest;
+        }
+    }
+
+    &--covered#{&}--red {
+        border-color: $brickRed;
+        background-color: $brickRed;
+
+        &:hover {
+            border-color: $mandy;
+            background-color: $mandy;
+        }
+
+        &:focus {
+            border-color: $mandy2;
+            background-color: $mandy2;
+        }
+    }
+
+    &--covered#{&}--full-red {
+        border-color: $brickRed;
+        background-color: $brickRed;
+
+        &:hover {
+            border-color: $mandy;
+            background-color: $mandy;
+        }
+
+        &:focus {
+            border-color: $mandy2;
+            background-color: $mandy2;
+        }
+    }
+
+    &--covered#{&}--white-green {
+        color: $tuna;
+        border-color: $alto;
+        background-color: $white;
+
+        &:hover {
+            color: $white;
+            border-color: $seaGreen;
+            background-color: $seaGreen;
+        }
+
+        &:focus {
+            color: $white;
+            border-color: $aquaForest;
+            background-color: $aquaForest;
+        }
+    }
+
+    &--covered#{&}--black-red {
+        color: $white;
+        border-color: $tuna;
+        background-color: $tuna;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            border-color: $brickRed;
+            background-color: $brickRed;
+        }
+    }
+
+    &--covered#{&}--gray-red {
+        color: $tuna;
+        border-color: $athensGray;
+        background-color: $athensGray;
+
+        &:hover {
+            color: $white;
+            border-color: $brickRed;
+            background-color: $brickRed;
+        }
+
+        &:focus {
+            color: $white;
+            border-color: $mandy2;
+            background-color: $mandy2;
+        }
+    }
+
+    &--covered#{&}--gray-green {
+        color: $tuna;
+        border-color: $athensGray;
+        background-color: $athensGray;
+
+        &:hover {
+            color: $white;
+            border-color: $seaGreen;
+            background-color: $seaGreen;
+        }
+
+        &:focus {
+            color: $white;
+            border-color: $aquaForest;
+            background-color: $aquaForest;
+        }
+    }
+
+    &--covered#{&}--disabled {
+        color: $alto;
+        border-color: $athensGray;
+        background-color: $athensGray;
+
+        &:hover,
+        &:focus {
+            color: $alto;
+            border-color: $athensGray;
+            background-color: $athensGray;
+        }
+    }
+
+    &--outlined {
+        background-color: transparent;
+        background-clip: padding-box;
+    }
+
+    &--outlined#{&}--green {
+        color: $saltBox;
+        border-color: $alto;
+
+        &:hover {
+            color: $seaGreen;
+            border-color: $seaGreen;
+            background-color: $white;
+        }
+
+        &:focus {
+            color: $aquaForest;
+            border-color: $aquaForest;
+            background-color: $white;
+        }
+    }
+
+    &--outlined#{&}--red {
+        color: $tuna;
+        border-color: $alto;
+
+        &:hover {
+            color: $brickRed;
+            border-color: $brickRed;
+            background-color: $white;
+        }
+
+        &:focus {
+            color: $mandy2;
+            border-color: $mandy2;
+            background-color: $white;
+        }
+    }
+
+    &--outlined#{&}--disabled {
+        color: $alto;
+        border-color: $alto;
+
+        &:hover,
+        &:focus {
+            color: $alto;
+            border-color: $alto;
+        }
+    }
+
+    &--mixed#{&}--red {
+        color: $tuna;
+        border-color: $alto;
+        background-color: $athensGray;
+
+        &:hover {
+            color: $brickRed;
+            border-color: $brickRed;
+            background-color: $white;
+        }
+
+        &:focus {
+            color: $mandy2;
+            border-color: $mandy2;
+            background-color: $white;
+        }
+    }
+
+    &--mixed#{&}--gray-red {
+        color: $tuna;
+        border-color: $athensGray;
+        background-color: $athensGray;
+
+        &:hover,
+        &:focus {
+            color: $brickRed;
+            border-color: $white;
+            background-color: $white;
+        }
+    }
+
+    &--mixed#{&}--disabled {
+        color: $alto;
+        border-color: $alto;
+        background-color: $white;
+
+        &:hover,
+        &:focus {
+            color: $alto;
+            border-color: $alto;
+            background-color: $white;
+        }
+    }
+
+    &--simple {
+        height: auto;
+        padding: 0;
+
+        border: 0;
+        background-color: transparent;
+    }
+
+    &--simple#{&}--small {
+        @include text-miniature;
+    }
+
+    &--simple#{&}--red {
+        color: $tuna;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $mandy2;
+        }
+    }
+
+    &--simple#{&}--gray {
+        color: $saltBox;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $saltBox;
+        }
+    }
+
+    &--simple#{&}--disabled {
+        color: $saltBox;
+
+        &:hover,
+        &:focus {
+            color: $saltBox;
+        }
+    }
+
+    &--underlined {
+        text-decoration: underline;
+    }
+
+    &--over {
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    &--hide & {
+        &__icon {
+            transform: rotate(180deg);
+
+            color: $brickRed;
+        }
+    }
+
+    &--iconed {
+        padding: 0;
+    }
+
+    &--iconed#{&}--small {
+        width: rem(24px);
+        height: rem(24px);
+
+        @media #{$screen-tablet} {
+            width: rem(64px);
+            height: rem(28px);
+        }
+    }
+
+    &--iconed#{&}--big {
+        width: rem($size-big);
+    }
+
+    &--shadow {
+        box-shadow: $box-shadow;
+
+        &:hover,
+        &:focus {
+            background-color: $white;
+        }
+    }
+
+    &--disabled {
+        cursor: default;
+    }
+
+    &__text {
+        font-weight: $font-weight-medium;
+
+        display: block;
+
+        @include text-ellips;
+    }
+
+    &__icon {
+        $size: 20px;
+        $icon-margin: 4px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+        margin-right: rem($icon-margin);
+
+        transition: transform .3s ease-in-out;
+
+        @media #{$screen-desktop} {
+            $size: 24px;
+            $icon-margin: 8px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &--right {
+            order: 1;
+
+            margin-right: 0;
+            margin-left: rem($icon-margin);
+        }
+
+        &--small {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-tablet} {
+                $size: 16px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+
+        &--medium {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+}

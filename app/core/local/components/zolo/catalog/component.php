@@ -57,7 +57,6 @@ if($arParams["SEF_MODE"] == "Y")
     // Задаем параметры при открытии /catalog/ - открываем корневой раздел
 	if (! isset($arVariables['SECTION_CODE'])) {
         $arVariables['SECTION_CODE'] = '';
-        $arVariables['SECTION_ID'] = 0;
         $componentPage = "section";
     }
 
@@ -103,6 +102,7 @@ if($arParams["SEF_MODE"] == "Y")
 	}
 
 	CComponentEngine::initComponentVariables($componentPage, $arComponentVariables, $arVariableAliases, $arVariables);
+
 	$arResult = array(
 		"FOLDER" => $arParams["SEF_FOLDER"],
 		"URL_TEMPLATES" => $arUrlTemplates,

@@ -1,0 +1,60 @@
+.range {
+    height: rem(82px);
+
+    .ui-widget{
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-small);
+        background-color: $alto;
+    }
+
+    .ui-slider-horizontal {
+        height: rem(8px);
+
+        .ui-slider-range {
+            top: rem(1px);
+            height: rem(4px);
+        }
+    }
+
+    .ui-slider {
+        .ui-slider-range {
+            border: rem(1px) solid $brickRed;
+            background-color: $brickRed;
+        }
+
+        .ui-slider-handle {
+            $size: 24px;
+
+            top: calc(50% - 24px / 2);
+
+            width: rem($size);
+            height: rem($size);
+
+            cursor: pointer;
+
+            border: rem(8px) solid $brickRed;
+            border-radius: 50%;
+            outline: 0 none;
+            background-color: $white;
+            box-shadow: $box-shadow-gray;
+        }
+    }
+
+    &__group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-top: rem(16px);
+
+        &-input {
+            position: relative;
+        }
+
+        &-field {
+            &:not(:first-child) {
+                margin-left: rem($gap-medium);
+            }
+        }
+    }
+}
