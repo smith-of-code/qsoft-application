@@ -62,15 +62,5 @@ final class AddDocumentFieldInCategoriesAndProduct extends AbstractMigration
         if (!CIBlockProperty::Delete($documentsProperty['ID'])) {
             throw new RuntimeException('Ошибка при удалении свойства "Документы"');
         }
-
-        $sectionEntity = CUserTypeEntity::GetList([], ['ENTITY_ID' => 'IBLOCK_' . $iBlockId . '_SECTION', 'XML_ID' => 'UF_DOCUMENTS'])->Fetch();
-        if (!$sectionEntity) {
-            throw new RuntimeException('Не найдено свойство "Документы" в секциях');
-        }
-
-        $entityManager = new CUserTypeEntity();
-        if (!$entityManager->Delete($sectionEntity['ID'])) {
-            throw new RuntimeException('Ошибка при удалении свойства "Документы" в секциях');
-        }
     }
 }
