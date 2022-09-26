@@ -21,6 +21,12 @@
  import inputPlaceholder from './modules/inputPlaceholder';
  import tabs from './modules/tabs';
  import scrollbar from './modules/scrollbar';
+ import tooltip from "./modules/tooltip";
+ import toggle from "./modules/toggle";
+ import truncate from './modules/truncate';
+ import dropdown from './modules/dropdown';
+ import quantity from './modules/quantity';
+ import select from './modules/select';
 
 
  const app = {
@@ -35,6 +41,12 @@
         inputPlaceholder();
         tabs();
         scrollbar();
+        tooltip();
+        toggle();
+        truncate();
+        dropdown();
+        quantity();
+        select();
     },
 
     load() {

@@ -1,0 +1,17 @@
+.tooltip {
+    cursor: pointer;
+}
+
+.tippy {
+    &-box {
+        @include text-miniature;
+
+        color: $tuna;
+        border-radius: rem($border-radius-small);
+        box-shadow: 0 rem(4px) rem(16px) rgba($black, .24);
+    }
+
+    &-content {
+        padding: rem($gap-small) rem($gap-average);
+    }
+}

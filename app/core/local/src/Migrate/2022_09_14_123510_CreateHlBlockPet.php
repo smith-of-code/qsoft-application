@@ -109,13 +109,30 @@ final class CreateHlBlockPet extends BaseCreateHighloadMigration
                 'SORT' => 20,
             ],
         ],
-        // TODO: Добавить все породы в рамках этой миграции или следующей
         'UF_BREED' => [
             'n1' => [
-                'XML_ID' => 'BREED_DOG_DACHSHUND',
-                'VALUE' => 'Датская',
+                'XML_ID' => 'BREED_SMALL',
+                'VALUE' => 'Для мелких пород',
                 'DEF' => 'N',
                 'SORT' => 10,
+            ],
+            'n2' => [
+                'XML_ID' => 'BREED_MIDDLE',
+                'VALUE' => 'Для средних пород',
+                'DEF' => 'N',
+                'SORT' => 20,
+            ],
+            'n3' => [
+                'XML_ID' => 'BREED_LARGE',
+                'VALUE' => 'Для крупных пород',
+                'DEF' => 'N',
+                'SORT' => 30,
+            ],
+            'n4' => [
+                'XML_ID' => 'BREED_ALL',
+                'VALUE' => 'Для всех пород',
+                'DEF' => 'N',
+                'SORT' => 40,
             ],
         ],
     ];

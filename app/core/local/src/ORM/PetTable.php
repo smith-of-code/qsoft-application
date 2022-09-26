@@ -4,25 +4,13 @@ namespace QSoft\ORM;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class PetTable extends Entity\DataManager
 {
-    // TODO: Добавить поля
-    const BREEDS = [
-        'BREED_DOG_DACHSHUND',
-    ];
-
-    const KINDS = [
-        'KIND_DOG',
-        'KIND_CAT',
-    ];
-
-    const GENDERS = [
-        'GENDER_MALE',
-        'GENDER_FEMALE',
-    ];
+    use HasHighloadEnums;
 
     public static function getTableName(): string
     {
@@ -31,6 +19,8 @@ class PetTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_KIND', 'UF_BREED', 'UF_GENDER']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -47,12 +37,12 @@ class PetTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_KIND', [
                 'required' => true,
-                'values' => self::KINDS,
+                'values' => $data['UF_KIND'],
                 'title' => Loc::getMessage('PET_ENTITY_UF_KIND_FIELD'),
             ]),
             new Entity\EnumField('UF_BREED', [
                 'required' => true,
-                'values' => self::BREEDS,
+                'values' => $data['UF_BREED'],
                 'title' => Loc::getMessage('PET_ENTITY_UF_BREED_FIELD'),
             ]),
             new Entity\DateField('UF_BIRTHDATE', [
@@ -61,7 +51,7 @@ class PetTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_GENDER', [
                 'required' => true,
-                'values' => self::GENDERS,
+                'values' => $data['UF_GENDER'],
                 'title' => Loc::getMessage('PET_ENTITY_UF_GENDER_FIELD'),
             ]),
         ];

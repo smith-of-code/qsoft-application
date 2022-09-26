@@ -1,0 +1,54 @@
+.quantity {
+    &--active & {
+        &__actions {
+            display: flex;
+        }
+
+        &__button {
+            display: none;
+        }
+    }
+
+    &__actions {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: rem(6px);
+
+        outline: rem(.5px) solid $alto;
+        border-radius: rem($border-radius-middle);
+        background-color: $white;
+    }
+
+    &__total {
+        display: flex;
+        align-items: center;
+
+        &-icon {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-mini);
+
+            @media #{$screen-tablet} {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+                margin-right: rem($gap-small);
+            }
+        }
+
+        &-sum {
+            font-size: rem($font-size-miniature);
+            line-height: rem($line-height-miniature);
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-small);
+                line-height: rem($line-height-small);
+            }
+        }
+    }
+}

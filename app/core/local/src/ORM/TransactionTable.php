@@ -5,27 +5,13 @@ namespace QSoft\ORM;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
 use Bitrix\Main\Type\DateTime;
-use CUserFieldEnum;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class TransactionTable extends Entity\DataManager
 {
-    const TYPES = [
-        'purchase' => 'TRANSACTION_TYPE_PURCHASE',
-        'invite' => 'TRANSACTION_TYPE_INVITE',
-        'referral' => 'TRANSACTION_TYPE_REFERRAL',
-    ];
-
-    const SOURCES = [
-        'personal' => 'TRANSACTION_SOURCE_PERSONAL',
-        'group' => 'TRANSACTION_SOURCE_GROUP',
-    ];
-
-    const MEASURES = [
-        'money' => 'TRANSACTION_MEASURE_MONEY',
-        'points' => 'TRANSACTION_MEASURE_POINTS',
-    ];
+    use HasHighloadEnums;
 
     public static function getTableName(): string
     {
@@ -34,6 +20,8 @@ class TransactionTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_TYPE', 'UF_SOURCE', 'UF_MEASURE']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -50,17 +38,17 @@ class TransactionTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => array_values(self::TYPES),
+                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_TYPE_FIELD'),
             ]),
             new Entity\EnumField('UF_SOURCE', [
                 'required' => true,
-                'values' => array_values(self::SOURCES),
+                'values' => $data['UF_SOURCE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_SOURCE_FIELD'),
             ]),
             new Entity\EnumField('UF_MEASURE', [
                 'required' => true,
-                'values' => array_values(self::MEASURES),
+                'values' => $data['UF_MEASURE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_MEASURE_FIELD'),
             ]),
             new Entity\FloatField('UF_AMOUNT', [
@@ -78,38 +66,7 @@ class TransactionTable extends Entity\DataManager
     public static function addMulti($rows, $ignoreEvents = false)
     {
         return parent::addMulti(array_map(static function ($row) {
-            return array_merge(self::prepareFields($row), ['UF_CREATED_AT' => new DateTime]);
+            return array_merge($row, ['UF_CREATED_AT' => new DateTime]);
         }, $rows), $ignoreEvents);
-    }
-
-    public static function update($primary, array $data)
-    {
-        return parent::update($primary, self::prepareFields($data));
-    }
-
-    public static function updateMulti($primaries, $data, $ignoreEvents = false)
-    {
-        return parent::updateMulti($primaries, array_map(static function ($item) {
-            return self::prepareFields($item);
-        }, $data), $ignoreEvents);
-    }
-
-    private static function prepareFields(array $fields): array
-    {
-        if ($fields['UF_TYPE']) {
-            $fields['UF_TYPE'] = self::getEnumFieldId($fields['UF_TYPE']);
-        }
-        if ($fields['UF_SOURCE']) {
-            $fields['UF_SOURCE'] = self::getEnumFieldId($fields['UF_SOURCE']);
-        }
-        if ($fields['UF_MEASURE']) {
-            $fields['UF_MEASURE'] = self::getEnumFieldId($fields['UF_MEASURE']);
-        }
-        return $fields;
-    }
-
-    private static function getEnumFieldId(string $xmlId): int
-    {
-        return CUserFieldEnum::GetList([], ['XML_ID' => $xmlId])->Fetch()['ID'];
     }
 }

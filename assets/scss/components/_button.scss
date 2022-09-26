@@ -29,6 +29,10 @@
     color: $white;
     border: rem(1px) solid;
 
+    &--full {
+        width: 100%;
+    }
+
     &--bold {
         font-weight: $font-weight-semibold;
     }
@@ -99,21 +103,6 @@
     }
 
     &--covered#{&}--green {
-        border-color: $alto;
-        background-color: $seaGreen;
-
-        &:hover {
-            border-color: $alto;
-            background-color: $viridian;
-        }
-
-        &:focus {
-            border-color: $alto;
-            background-color: $aquaForest;
-        }
-    }
-
-    &--covered#{&}--full-green {
         border-color: $seaGreen;
         background-color: $seaGreen;
 
@@ -129,16 +118,16 @@
     }
 
     &--covered#{&}--red {
-        border-color: $alto;
+        border-color: $brickRed;
         background-color: $brickRed;
 
         &:hover {
-            border-color: $alto;
+            border-color: $mandy;
             background-color: $mandy;
         }
 
         &:focus {
-            border-color: $alto;
+            border-color: $mandy2;
             background-color: $mandy2;
         }
     }
@@ -226,15 +215,15 @@
     }
 
     &--covered#{&}--disabled {
-        color: $white;
-        border-color: $saltBox;
-        background-color: $saltBox;
+        color: $alto;
+        border-color: $athensGray;
+        background-color: $athensGray;
 
         &:hover,
         &:focus {
-            color: $white;
-            border-color: $saltBox;
-            background-color: $saltBox;
+            color: $alto;
+            border-color: $athensGray;
+            background-color: $athensGray;
         }
     }
 
@@ -278,13 +267,13 @@
     }
 
     &--outlined#{&}--disabled {
-        color: $saltBox;
-        border-color: $saltBox;
+        color: $alto;
+        border-color: $alto;
 
         &:hover,
         &:focus {
-            color: $saltBox;
-            border-color: $saltBox;
+            color: $alto;
+            border-color: $alto;
         }
     }
 
@@ -320,14 +309,14 @@
     }
 
     &--mixed#{&}--disabled {
-        color: $saltBox;
-        border-color: $saltBox;
+        color: $alto;
+        border-color: $alto;
         background-color: $white;
 
         &:hover,
         &:focus {
-            color: $saltBox;
-            border-color: $saltBox;
+            color: $alto;
+            border-color: $alto;
             background-color: $white;
         }
     }
@@ -340,6 +329,10 @@
         background-color: transparent;
     }
 
+    &--simple#{&}--small {
+        @include text-miniature;
+    }
+
     &--simple#{&}--red {
         color: $tuna;
 
@@ -349,6 +342,18 @@
 
         &:focus {
             color: $mandy2;
+        }
+    }
+
+    &--simple#{&}--gray {
+        color: $saltBox;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $saltBox;
         }
     }
 
@@ -372,12 +377,26 @@
         }
     }
 
+    &--hide & {
+        &__icon {
+            transform: rotate(180deg);
+
+            color: $brickRed;
+        }
+    }
+
     &--iconed {
         padding: 0;
     }
 
     &--iconed#{&}--small {
-        width: rem(64px);
+        width: rem(24px);
+        height: rem(24px);
+
+        @media #{$screen-tablet} {
+            width: rem(64px);
+            height: rem(28px);
+        }
     }
 
     &--iconed#{&}--big {
@@ -406,8 +425,8 @@
     }
 
     &__icon {
-        $size: 24px;
-        $icon-margin: 8px;
+        $size: 20px;
+        $icon-margin: 4px;
 
         flex-shrink: 0;
 
@@ -416,6 +435,16 @@
         margin-right: rem($icon-margin);
 
         transition: transform .3s ease-in-out;
+
+        @media #{$screen-desktop} {
+            $size: 24px;
+            $icon-margin: 8px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+        }
 
         &:last-child {
             margin-right: 0;
@@ -429,10 +458,17 @@
         }
 
         &--small {
-            $size: 16px;
+            $size: 12px;
 
             width: rem($size);
             height: rem($size);
+
+            @media #{$screen-tablet} {
+                $size: 16px;
+
+                width: rem($size);
+                height: rem($size);
+            }
         }
 
         &--medium {

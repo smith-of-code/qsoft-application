@@ -83,6 +83,7 @@ $line-height-miniature: 16px;
 // Breakpoints
 
 $screen-desktop: "(min-width: 1440px)";
+$screen-tablet: "(min-width: 768px)";
 
 
 // Gaps
@@ -92,6 +93,7 @@ $gap-middle: 22px;
 $gap-medium: 16px;
 $gap-average: 12px;
 $gap-small: 8px;
+$gap-mini: 4px;
 
 // Sizes
 
@@ -108,6 +110,7 @@ $height-header-desktop: 148px;
 
 $z-index-html: 1;
 $z-index-input: 2;
+$z-index-menu: 100;
 $z-index-header-default: 130;
 
 
@@ -132,6 +135,7 @@ $border-radius-big: 24px;
 
 // Box-shadows
 $box-shadow: 0 rem(4px) rem(8px) rgba($black, .12);
+$box-shadow-medium: 0 rem(6px) rem(18px) rgba($black, .12);
 $box-shadow-gray: 0 rem(2px) rem(8px) rgba($saltBox, .64);
 
 

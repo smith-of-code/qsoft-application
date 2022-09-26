@@ -138,6 +138,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: arrow-up">
+                                    <svg class="icon icon--arrow-up gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: arrow-down">
+                                    <svg class="icon icon--arrow-down gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -559,7 +571,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-green">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--green">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -569,7 +581,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-red">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--red">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -675,6 +687,56 @@
 
                     </div>
                     <!--/Кнопки-->
+
+                    <!--Изменение количества-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Изменение количества</h2>
+
+                        <div class="quantity" style="width: 230px" data-quantity>
+                            <div class="quantity__button" data-quantity-button>
+                                <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                    <span class="button__icon">
+                                        <svg class="icon icon--basket">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="button__text">В корзину</span>
+                                </button>
+                            </div>
+
+                            <div class="quantity__actions">
+                                <div class="quantity__decrease">
+                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                        <span class="button__icon button__icon--small">
+                                            <svg class="icon icon--minus">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="quantity__total">
+                                    <span class="quantity__total-icon">
+                                        <svg class="icon icon--basket">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="quantity__total-sum" data-quantity-sum></span>
+                                </div>
+
+                                <div class="quantity__increase">
+                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                        <span class="button__icon button__icon--small">
+                                            <svg class="icon icon--plus">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Изменение количества-->
 
                     <!--Текстовые поля ввода-->
                     <div class="gui__block">
@@ -823,7 +885,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text3" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-green">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--green">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -843,7 +905,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text4" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -862,7 +924,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--small input--buttoned">
                                                 <input type="text" class="input__control" name="text" id="text5" placeholder="Сколько баллов списать">
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -883,7 +945,7 @@
                                                 от
                                             </label>
                                             <div class="input input--mini input--prefix">
-                                                <input type="number" class="input__control" name="min" id="text11" placeholder="Поле ввода чисел">
+                                                <input type="number" class="input__control" name="min" id="text13" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -898,7 +960,7 @@
                                                 до
                                             </label>
                                             <div class="input input--mini input--prefix">
-                                                <input type="number" class="input__control" name="max" id="text12" placeholder="Поле ввода чисел">
+                                                <input type="number" class="input__control" name="max" id="text14" placeholder="Поле ввода чисел">
                                             </div>
                                         </div>
                                     </div>
@@ -931,7 +993,97 @@
                     <!--/Текстовые поля ввода-->
 
                     <!--Ползунок-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Селекты</h2>
 
+                        <form class="form">
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select" data-select>
+                                                    <select class="select__control" name="select" id="select" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект маленький</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate" data-select>
+                                                    <select class="select__control" name="select2" id="select2" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект ограниченный</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate select--small" data-select>
+                                                    <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Ползунок-->
                     <div class="gui__block">
                         <h2 class="gui__title">Ползунок</h2>
 
@@ -969,7 +1121,6 @@
                         </form>
 
                     </div>
-
                     <!--/Ползунок-->
 
                     <!--Табы-->
@@ -1314,7 +1465,7 @@
 
                     <!--Стилизованный скроллбар-->
                     <div class="gui__block">
-                        <h2>Стилизованный скроллбар</h2>
+                        <h2 class="gui__title">Стилизованный скроллбар</h2>
 
                         <h3 style="margin-top: 50px;">Вертикальный скроллбар</h3>
 
@@ -1354,6 +1505,143 @@
                         </div>
                     </div>
                     <!--/Стилизованный скроллбар-->
+
+                    <!--Тултип-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Тултип</h2>
+
+                        <svg class="tooltip icon icon--plus gui__icon" data-tippy-content="нет в наличии">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                        </svg>
+
+                    </div>
+                    <!--/Тултип-->
+
+                    <!--Показать еще-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Показать еще</h2>
+
+                        <div data-toggle-visibility-container>
+                            <p>Табличку можно определить как физически прочный, надёжный носитель письменной информации, относительно удобным способом передачи информации
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци</p>
+
+                            <p data-toggle-visibility-block style="display: none;">Табличку можно определить как физически прочный, надёжный носитель письменной информации, относительно удобным способом передачи информации
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци
+                                ный носитель письменной информации, относительно удобным способом передачи информаци</p>
+
+                            <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                <span class="button__icon button__icon--mini button__icon--right">
+                                    <svg class="icon icon--arrow-up">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!--/Показать еще-->
+
+                    <!--Дропдаун-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Дропдаун</h2>
+
+                        <h3>Дропдаун маленький</h3>
+
+                        <div class="dropdown dropdown--small" data-dropdown>
+                            <button type="button" class="button button--simple button--gray button--small" data-dropdown-button>
+                                <span class="button__icon button__icon--mini button__icon--right">
+                                    <svg class="icon icon--arrow-up">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text">Показать детализацию</span>
+                            </button>
+
+                            <div class="dropdown__box box" data-dropdown-block data-scrollbar>
+                                <ul class="dropdown__list">
+                                    <li class="dropdown__item">
+                                        По уровню консультанта
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом “Оплачен”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Дропдаун средний</h3>
+
+                        <div class="dropdown dropdown--medium" data-dropdown>
+                            <button type="button" class="button button--square button--covered button--green" data-dropdown-button>Залитая зеленая</button>
+
+                            <div class="dropdown__box box" data-dropdown-block data-scrollbar style="top: 50px;">
+                                <ul class="dropdown__list">
+                                    <li class="dropdown__item">
+                                        По уровню консультанта
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом “Оплачен”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По количеству личных заказов со статусом  “Возврат”
+                                    </li>
+
+                                    <li class="dropdown__item">
+                                        По дате регистрации
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Дропдаун-->
+
+                    <!--Обрезка текста-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Обрезка текста</h2>
+
+                        <h3 style="margin-top: 50px;">Обрезка миксином</h3>
+
+                        <div class="truncate truncate--mixin">
+                            Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксиномОбрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксиномОбрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксиномОбрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксиномОбрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксиномОбрезка текста миксином Обрезка текста миксином Обрезка текста миксином Обрезка текста миксином
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Обрезка плагином</h3>
+
+                        <div class="truncate" style="max-height: 50px;" data-truncate>
+                            Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагиномОбрезка текста плагином Обрезка текста плагином Обрезка текста плагином Обрезка текста плагином
+                        </div>
+                    </div>
+                    <!--/Обрезка текста-->
 
                 </main>
             </div>
