@@ -131,7 +131,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                 ],
                 [
                     'VALUE' => 'Для молодых',
-                    'XML_ID' => 'ADULT',
+                    'XML_ID' => 'SMALL',
                 ],
                 [
                     'VALUE' => 'Для всех возрастов',
