@@ -1,13 +1,13 @@
 <?php
 
-namespace QSoft\Events;
+namespace QSoft\Events\User;
 
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\UserGroupsService;
 use QSoft\Service\UserService;
 use RuntimeException;
 
-class MainModuleEvents
+class UserEventsListener
 {
     private static UserService $userService;
     private static UserGroupsService $userGroupService;
@@ -20,7 +20,7 @@ class MainModuleEvents
         self::$loyaltyService = new LoyaltyService;
     }
 
-    public static function OnBeforeUserUpdate(array $fields)
+    public static function OnBeforeUserUpdate(array $fields): void
     {
         self::initDependencies();
 
