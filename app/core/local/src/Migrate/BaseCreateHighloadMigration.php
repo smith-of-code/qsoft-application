@@ -3,13 +3,14 @@
 namespace QSoft\Migrate;
 
 use Bitrix\Main\Application;
+use Bitrix\Main\DB\Connection;
 use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Highloadblock\HighloadBlockLangTable;
 use QSoft\Migration\Migration;
 use QSoft\Seeder\Seederable;
 
-class BaseCreateHighloadMigration extends Migration
+class BaseCreateHighloadMigration extends AbstractMigration
 {
     protected array $blockInfo = [
         'NAME'       => '',
@@ -27,16 +28,9 @@ class BaseCreateHighloadMigration extends Migration
 
     protected ?string $seeder = null;
 
-    public function up()
+    protected function onUp(Connection $connection): void
     {
-        if (method_exists($this, 'beforeUp')) {
-            $this->beforeUp();
-        }
-
         $this->includeHighloadModule();
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
 
         $result = HighloadBlockTable::add($this->blockInfo);
         if (!$result->isSuccess()) {
@@ -83,8 +77,6 @@ class BaseCreateHighloadMigration extends Migration
             }
         }
 
-        $connection->commitTransaction();
-
         if ($this->seeder) {
             $class = $this->seeder;
             try {
@@ -96,22 +88,11 @@ class BaseCreateHighloadMigration extends Migration
                 throw new \RuntimeException(sprintf('Не удалось запустить сидер %s', $class));
             }
         }
-
-        if (method_exists($this, 'afterUp')) {
-            $this->afterUp();
-        }
     }
 
-    public function down()
+    protected function onDown(Connection $connection): void
     {
-        if (method_exists($this, 'beforeDown')) {
-            $this->beforeDown();
-        }
-
         $this->includeHighloadModule();
-
-        $connection = Application::getInstance()->getConnection();
-        $connection->startTransaction();
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $this->blockInfo['NAME']]]);
         if (!$hlBlock) {
@@ -134,12 +115,6 @@ class BaseCreateHighloadMigration extends Migration
         $result = HighloadBlockTable::delete($hlBlock['ID']);
         if (!$result->isSuccess()) {
             throw new \RuntimeException(implode(PHP_EOL, $result->getErrorMessages()));
-        }
-
-        $connection->commitTransaction();
-
-        if (method_exists($this, 'afterDown')) {
-            $this->afterDown();
         }
     }
 

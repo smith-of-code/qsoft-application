@@ -1,0 +1,14 @@
+.switchers {
+    $vertical-gutter: 16px;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: rem(-$vertical-gutter);
+    }
+
+    &__item {
+        margin-top: rem($vertical-gutter);
+    }
+}

@@ -6,6 +6,11 @@
 
 
 @import "~normalize.css";
+@import '~jquery-ui-slider/jquery-ui.min.css';
+@import '~overlayscrollbars/css/OverlayScrollbars.css';
+@import '~tippy.js/dist/tippy.css';
+@import '~tippy.js/themes/light.css';
+@import '~select2/dist/css/select2.css';
 
 
 /**
@@ -30,3 +35,38 @@
 @import "components/container";
 @import "components/page";
 @import "components/heading";
+
+@import "components/icon";
+@import "components/icons";
+
+@import "components/form";
+
+@import "components/checkbox";
+@import "components/checkboxes";
+
+@import "components/switcher";
+@import "components/switchers";
+
+@import "components/button";
+@import "components/buttons";
+
+@import "components/input";
+
+@import "components/range";
+
+@import "components/box";
+
+@import "components/tabs";
+
+@import "components/scrollbar";
+
+@import "components/tooltip";
+
+@import "components/truncate";
+
+@import "components/dropdown";
+
+@import "components/quantity";
+
+@import "components/select";
+

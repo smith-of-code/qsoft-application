@@ -1,0 +1,81 @@
+.os {
+    $size-scroll: 10px;
+    $size-track: 6px;
+    $size-handle: 4px;
+
+    &-scrollbar {
+        &--hide-scroll & {
+            &-vertical,
+            &-horizontal {
+                visibility: hidden;
+
+                opacity: 0;
+            }
+        }
+        &--hide-scroll:hover & {
+            &-vertical,
+            &-horizontal {
+                visibility: initial;
+
+                opacity: 1;
+            }
+        }
+
+        &-vertical & {
+            &-handle {
+                &:before {
+                    right: rem(-4px) !important;
+                }
+            }
+        }
+        &-vertical {
+            width: rem($size-scroll) !important;
+        }
+        &-vertical &-track {
+            width: rem($size-track) !important;
+        }
+        &-vertical &-track &-handle {
+            left: rem(1px);
+
+            width: rem($size-handle) !important;
+        }
+
+        &-horizontal {
+            height: rem($size-scroll) !important;
+        }
+        &-horizontal &-track {
+            height: rem($size-track) !important;
+        }
+        &-horizontal &-track &-handle {
+            top: rem(1px);
+
+            height: rem($size-handle) !important;
+        }
+
+        &-track {
+            border-radius: rem($border-radius-small) !important;
+            background: transparent !important;
+        }
+
+        &-handle {
+            border-radius: rem($border-radius-small) !important;
+            background: $saltBox !important;
+        }
+
+        &-unusable {
+            visibility: hidden !important;
+
+            opacity: 0 !important;
+        }
+    }
+
+    &-host {
+        &-overflow-x {
+            padding-bottom: rem($size-scroll);
+        }
+
+        &-overflow-y {
+            padding-right: rem($size-scroll * 2);
+        }
+    }
+}

@@ -4,5 +4,5 @@ namespace QSoft\Seeder;
 
 interface Seederable
 {
-    public static function seed(string $blockName): void;
+    public static function seed(?string $blockName = null): void;
 }

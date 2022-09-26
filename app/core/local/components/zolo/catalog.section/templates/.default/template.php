@@ -16,7 +16,6 @@ use \Bitrix\Main\Localization\Loc;
  * |	The following comments are for system use
  * |	and are required for the component to work correctly in ajax mode:
  * |	<!-- items-container -->
- * |	<!-- pagination-container -->
  * |	<!-- component-end -->
  */
 
@@ -39,15 +38,11 @@ else
 	);
 }
 
-$showTopPager = false;
-$showBottomPager = false;
 $showLazyLoad = false;
 
 if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1)
 {
-	$showTopPager = $arParams['DISPLAY_TOP_PAGER'];
-	$showBottomPager = $arParams['DISPLAY_BOTTOM_PAGER'];
-	$showLazyLoad = $arParams['LAZY_LOAD'] === 'Y' && $navParams['NavPageNomer'] != $navParams['NavPageCount'];
+	$showLazyLoad = $navParams['NavPageNomer'] != $navParams['NavPageCount'];
 }
 
 $templateLibrary = array('popup', 'ajax', 'fx');
@@ -68,33 +63,6 @@ unset($currencyList, $templateLibrary);
 $elementEdit = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_EDIT');
 $elementDelete = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_DELETE');
 $elementDeleteParams = array('CONFIRM' => GetMessage('CT_BCS_TPL_ELEMENT_DELETE_CONFIRM'));
-
-$positionClassMap = array(
-	'left' => 'product-item-label-left',
-	'center' => 'product-item-label-center',
-	'right' => 'product-item-label-right',
-	'bottom' => 'product-item-label-bottom',
-	'middle' => 'product-item-label-middle',
-	'top' => 'product-item-label-top'
-);
-
-$discountPositionClass = '';
-if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PERCENT_POSITION']))
-{
-	foreach (explode('-', $arParams['DISCOUNT_PERCENT_POSITION']) as $pos)
-	{
-		$discountPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
-
-$labelPositionClass = '';
-if (!empty($arParams['LABEL_PROP_POSITION']))
-{
-	foreach (explode('-', $arParams['LABEL_PROP_POSITION']) as $pos)
-	{
-		$labelPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
 
 $arParams['~MESS_BTN_BUY'] = $arParams['~MESS_BTN_BUY'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_BUY');
 $arParams['~MESS_BTN_DETAIL'] = $arParams['~MESS_BTN_DETAIL'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_DETAIL');
@@ -130,8 +98,6 @@ $generalParams = array(
 	'COMPARE_NAME' => $arParams['COMPARE_NAME'],
 	'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
 	'PRODUCT_BLOCKS_ORDER' => $arParams['PRODUCT_BLOCKS_ORDER'],
-	'LABEL_POSITION_CLASS' => $labelPositionClass,
-	'DISCOUNT_POSITION_CLASS' => $discountPositionClass,
 	'SLIDER_INTERVAL' => $arParams['SLIDER_INTERVAL'],
 	'SLIDER_PROGRESS' => $arParams['SLIDER_PROGRESS'],
 	'~BASKET_URL' => $arParams['~BASKET_URL'],
@@ -153,48 +119,17 @@ $generalParams = array(
 
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
-
-$themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_THEME'] : '';
-
 ?>
-<div class="row<?=$themeClass?>"> <? // wrapper ?>
+<div class="row">
 	<div class="col">
-	<?
-	//region Pagination
-	if ($showTopPager)
-	{
-		?>
-		<div class="row mb-4">
-			<div class="col text-center" data-pagination-num="<?=$navParams['NavNum']?>">
-				<!-- pagination-container -->
-				<?=$arResult['NAV_STRING']?>
-				<!-- pagination-container -->
-			</div>
-		</div>
-		<?
-	}
-	//endregion
-
-	//region Description
-	if (($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y') && !empty($arResult['DESCRIPTION']))
-	{
-		?>
-		<div class="row mb-4">
-			<div class="col catalog-section-description">
-				<p><?=$arResult['DESCRIPTION']?></p>
-			</div>
-		</div>
-		<?
-	}
-	//endregion
-	?>
 		<div class="mb-4 catalog-section" data-entity="<?=$containerName?>">
-			<!-- items-container -->
+            <!-- items-container -->
 			<?
 			if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
 			{
 				$areaIds = array();
 
+				// Эрмитаж
 				foreach ($arResult['ITEMS'] as $item)
 				{
 					$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
@@ -203,9 +138,11 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 					$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
 				}
 
+				// Вывод карточек товаров
 				foreach ($arResult['ITEM_ROWS'] as $rowData)
 				{
-					$rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
+					// Вырезает по N элементов из общей кучи и выводит в строке
+				    $rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
 					?>
 					<div class="row <?=$rowData['CLASS']?>" data-entity="items-row">
 						<?
@@ -242,55 +179,20 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 					<?
 				}
 				unset($generalParams, $rowItems);
-
-			}
-			else
-			{
-				// load css for bigData/deferred load
-				$APPLICATION->IncludeComponent(
-					'zolo:catalog.item',
-					'',
-					array(),
-					$component,
-					array('HIDE_ICONS' => 'Y')
-				);
 			}
 			?>
-			<!-- items-container -->
+            <!-- items-container -->
 		</div>
-		<?
-
-		//region LazyLoad Button
-		if ($showLazyLoad)
-		{
-			?>
-			<div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
-				<button type="button"
-						class="btn btn-primary btn-md"
-						style="margin: 15px;"
-						data-use="show-more-<?=$navParams['NavNum']?>">
-							<?=$arParams['MESS_BTN_LAZY_LOAD']?>
-				</button>
-			</div>
-			<?
-		}
-		//endregion
-
-		//region Pagination
-		if ($showBottomPager)
-		{
-			?>
-			<div class="row mb-4">
-				<div class="col text-center" data-pagination-num="<?=$navParams['NavNum']?>">
-					<!-- pagination-container -->
-					<?=$arResult['NAV_STRING']?>
-					<!-- pagination-container -->
-				</div>
-			</div>
-			<?
-		}
-		//endregion
-
+		<? /* КНОПКА "ПОКАЗАТЬ ЕЩЁ" */?>
+        <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
+            <button type="button"
+                    class="btn btn-primary btn-md"
+                    style="margin: 15px;"
+                    data-use="show-more-<?=$navParams['NavNum']?>">
+                <?=$arParams['MESS_BTN_LAZY_LOAD']?>
+            </button>
+        </div>
+        <?
 		$signer = new \Bitrix\Main\Security\Sign\Signer;
 		$signedTemplate = $signer->sign($templateName, 'catalog.section');
 		$signedParams = $signer->sign(base64_encode(serialize($arResult['ORIGINAL_PARAMETERS'])), 'catalog.section');
@@ -333,8 +235,6 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				container: '<?=$containerName?>'
 			});
 		</script>
-
-
 	</div>
-</div> <? //end wrapper?>
+</div>
 <!-- component-end -->
