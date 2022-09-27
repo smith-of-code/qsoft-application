@@ -663,25 +663,43 @@ __webpack_require__.r(__webpack_exports__);
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('click', ELEMENTS_SELECTOR.buttonNext, function () {
+    nextStep();
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.buttonPrev, function () {
+    prevStep();
+  });
+
+  function nextStep() {
     var currentItem = $('.steps-counter__item--current');
     var currentCircle = $('.steps-counter__circle--current');
     var next = currentItem.next(ELEMENTS_SELECTOR.item);
     var nextIndicator = next.find(ELEMENTS_SELECTOR.indicator);
+
+    if (next.length == 0) {
+      return;
+    }
+
     currentItem.removeClass('steps-counter__item--current').addClass('steps-counter__item--passed');
     currentCircle.removeClass('steps-counter__circle--current').addClass('steps-counter__circle--passed');
     next.addClass('steps-counter__item--current');
     nextIndicator.addClass('steps-counter__circle--current');
-  });
-  $(document).on('click', ELEMENTS_SELECTOR.buttonPrev, function () {
+  }
+
+  function prevStep() {
     var currentItem = $('.steps-counter__item--current');
     var currentCircle = $('.steps-counter__circle--current');
     var prev = currentItem.prev(ELEMENTS_SELECTOR.item);
     var prevIndicator = prev.find(ELEMENTS_SELECTOR.indicator);
+
+    if (prev.length == 0) {
+      return;
+    }
+
     currentItem.removeClass('steps-counter__item--current');
     currentCircle.removeClass('steps-counter__circle--current');
     prev.removeClass('steps-counter__item--passed').addClass('steps-counter__item--current');
     prevIndicator.removeClass('steps-counter__circle--passed').addClass('steps-counter__circle--current');
-  });
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
