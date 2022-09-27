@@ -2,6 +2,7 @@
 
 namespace QSoft\Migrate\Traits;
 
+use CUserFieldEnum;
 use CUserTypeEntity;
 use Exception;
 use RuntimeException;
@@ -21,14 +22,16 @@ trait AddUserFieldsTrait
 
         $dbUserProps = $this->getDbUserProperties();
 
-        foreach ($this->userFields as $prop) {
-            if (!$this->isPropertyExists($prop['FIELD_NAME'], $dbUserProps)) {
-                $dbUserProps[] = $prop;
-                $userTypeEntity = new CUserTypeEntity();
-                $res = $userTypeEntity->Add($prop);
-                if (!$res) {
+        foreach ($this->userFields as $property) {
+            if (!$this->isPropertyExists($property['FIELD_NAME'], $dbUserProps)) {
+                $dbUserProps[] = $property;
+                if (!$propertyId = (new CUserTypeEntity)->Add($property)) {
                     $DB->Rollback();
-                    throw new RuntimeException("\"$prop[FIELD_NAME]\" add error!");
+                    throw new RuntimeException("\"$property[FIELD_NAME]\" add error!");
+                }
+
+                if ($property['USER_TYPE_ID'] === 'enumeration') {
+                    (new CUserFieldEnum)->SetEnumValues($propertyId, $property['VALUES']);
                 }
             }
         }

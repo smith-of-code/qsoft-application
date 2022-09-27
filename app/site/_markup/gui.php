@@ -1748,6 +1748,59 @@
                     </div>
                     <!--/Загрузчик-->
 
+                    <!--Шаги-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Шаги</h2>
+
+                        <ul class="steps-counter">
+                            <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
+                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Персональные данные</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item steps-counter__item--current" data-steps-item>
+                                <div class="steps-counter__circle steps-counter__circle--current" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Данные о питомцах</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Выбор наставника</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Юридические данные</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Установка пароля</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="buttons__list gui__example">
+                            <li class="buttons__item">
+                                <button type="button" class="button button--square button--covered button--red" data-button-prev>Назад</button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" class="button button--square button--covered button--green" data-button-next>Далее</button>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!--/Шаги-->
                 </main>
             </div>
         </div>
@@ -1779,4 +1832,9 @@
         width: 30px;
         height: 30px;
     }
+
+    .gui__example {
+        margin-top: 50px;
+    }
+
 </style>
