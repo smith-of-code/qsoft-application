@@ -1113,7 +1113,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 				if ($i == 0)
 				{
                     if ($smartElement === "with_discount")
-                        $result[strtoupper($smartElement)] = "Y";
+                        $result["arrFilter_WITH_DISCOUNT_1"] = "Y";
 					if (preg_match("/^price-(.+)$/", $smartElement, $match))
 						$itemId = $this->searchPrice($this->arResult["ITEMS"], $match[1]);
 					else
@@ -1184,7 +1184,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 					|| $arItem["DISPLAY_TYPE"] == "U"
 				)
 				{
-                    if ($arItem["CODE"] == "WITH_DISCOUNT")
+                    if ($arItem["CODE"] == "WITH_DISCOUNT" && $arItem["VALUES"][1]["CHECKED"])
                         $smartPart[1] = 'true';
 					if ($arItem["VALUES"]["MIN"]["HTML_VALUE"] <> '')
 						$smartPart["from"] = $arItem["VALUES"]["MIN"]["HTML_VALUE"];
