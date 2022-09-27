@@ -27,6 +27,7 @@
  import dropdown from './modules/dropdown';
  import quantity from './modules/quantity';
  import select from './modules/select';
+ import steps from './modules/steps';
 
 
  const app = {
@@ -47,6 +48,7 @@
         dropdown();
         quantity();
         select();
+        steps();
     },
 
     load() {
