@@ -136,6 +136,8 @@ class CatalogElementComponent extends CBitrixComponent
             }
             $this->arResult['BASKET'] = $basketInfo;
 
+            dd($this->transformData($this->arResult));
+
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
             ShowError($e->getMessage());
@@ -235,6 +237,52 @@ class CatalogElementComponent extends CBitrixComponent
         }
         if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
             $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
+        }
+        if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
+            $result[] = $item['PROPERTY_VIDEO_VALUE'];
+        }
+
+        return $result;
+    }
+
+    private function transformData(array $data): array
+    {
+        $result = [
+            'TITLE' => $data['PRODUCT']['NAME'],
+            'PRICES' => [],
+            'DISCOUNT_LABELS' => [],
+            'COLORS' => [],
+            'SIZES' => [],
+            'ARTICLES' => [],
+            'BESTSELLERS' => [],
+            'PACKAGINGS' => [],
+            'PHOTOS' => [],
+            'PRODUCT_IMAGE' => [$data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']]['SRC']],
+            'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
+            'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
+            'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
+            'AGE' => $data['PRODUCT']['PROPERTY_AGE_VALUE'],
+            'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
+            'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
+            'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
+            'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'BASKET_COUNT' => [],
+        ];
+
+        foreach ($data['OFFERS'] as $offer) {
+            $result['PRICES'][$offer['ID']] = $offer['PRICE'];
+            $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
+            $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+            $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
+            $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
+            $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
+            $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
+            if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
+                foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
+                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item]['SRC'];
+                }
+            }
+            $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
         }
 
         return $result;
