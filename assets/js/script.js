@@ -26,6 +26,8 @@
  import truncate from './modules/truncate';
  import dropdown from './modules/dropdown';
  import quantity from './modules/quantity';
+ import select from './modules/select';
+ import steps from './modules/steps';
 
 
  const app = {
@@ -45,6 +47,8 @@
         truncate();
         dropdown();
         quantity();
+        select();
+        steps();
     },
 
     load() {

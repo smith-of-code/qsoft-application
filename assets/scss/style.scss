@@ -10,6 +10,7 @@
 @import '~overlayscrollbars/css/OverlayScrollbars.css';
 @import '~tippy.js/dist/tippy.css';
 @import '~tippy.js/themes/light.css';
+@import '~select2/dist/css/select2.css';
 
 
 /**
@@ -66,4 +67,8 @@
 @import "components/dropdown";
 
 @import "components/quantity";
+
+@import "components/select";
+
+@import "components/steps-counter";
 

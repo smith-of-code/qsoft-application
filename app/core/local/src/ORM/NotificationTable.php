@@ -4,11 +4,14 @@ namespace QSoft\ORM;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class NotificationTable extends Entity\DataManager
 {
+    use HasHighloadEnums;
+
     const TYPES = [
         'NOTIFICATION_TYPE_APPLICATION_STATUS_CHANGE',
         'NOTIFICATION_TYPE_ORDER_CREATED',
@@ -29,6 +32,8 @@ class NotificationTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_TYPE', 'UF_STATUS']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -41,12 +46,12 @@ class NotificationTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => self::TYPES,
+                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_TYPE_FIELD'),
             ]),
             new Entity\EnumField('UF_STATUS', [
                 'required' => true,
-                'values' => self::STATUSES,
+                'values' => $data['UF_STATUS'],
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_SOURCE_FIELD'),
             ]),
             new Entity\StringField('UF_MESSAGE', [

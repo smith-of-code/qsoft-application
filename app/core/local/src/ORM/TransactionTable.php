@@ -4,26 +4,14 @@ namespace QSoft\ORM;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use Bitrix\Main\Type\DateTime;
+use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
 
 class TransactionTable extends Entity\DataManager
 {
-    const TYPES = [
-        'TRANSACTION_TYPE_PURCHASE',
-        'TRANSACTION_TYPE_INVITE',
-        'TRANSACTION_TYPE_REFERRAL',
-    ];
-
-    const SOURCES = [
-        'TRANSACTION_SOURCE_PERSONAL',
-        'TRANSACTION_SOURCE_GROUP',
-    ];
-
-    const MEASURES = [
-        'TRANSACTION_MEASURE_MONEY',
-        'TRANSACTION_MEASURE_POINTS',
-    ];
+    use HasHighloadEnums;
 
     public static function getTableName(): string
     {
@@ -32,6 +20,8 @@ class TransactionTable extends Entity\DataManager
 
     public static function getMap(): array
     {
+        $data = self::getEnumValues(self::getTableName(), ['UF_TYPE', 'UF_SOURCE', 'UF_MEASURE']);
+
         return [
             new Entity\IntegerField('ID', [
                 'primary' => true,
@@ -48,17 +38,17 @@ class TransactionTable extends Entity\DataManager
             ]),
             new Entity\EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => self::TYPES,
+                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_TYPE_FIELD'),
             ]),
             new Entity\EnumField('UF_SOURCE', [
                 'required' => true,
-                'values' => self::SOURCES,
+                'values' => $data['UF_SOURCE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_SOURCE_FIELD'),
             ]),
             new Entity\EnumField('UF_MEASURE', [
                 'required' => true,
-                'values' => self::MEASURES,
+                'values' => $data['UF_MEASURE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_MEASURE_FIELD'),
             ]),
             new Entity\FloatField('UF_AMOUNT', [
@@ -66,5 +56,17 @@ class TransactionTable extends Entity\DataManager
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_AMOUNT_FIELD'),
             ]),
         ];
+    }
+
+    public static function add(array $data)
+    {
+        return parent::add(array_merge($data, ['UF_CREATED_AT' => new DateTime]));
+    }
+
+    public static function addMulti($rows, $ignoreEvents = false)
+    {
+        return parent::addMulti(array_map(static function ($row) {
+            return array_merge($row, ['UF_CREATED_AT' => new DateTime]);
+        }, $rows), $ignoreEvents);
     }
 }

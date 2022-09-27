@@ -144,6 +144,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: arrow-down">
+                                    <svg class="icon icon--arrow-down gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -565,7 +571,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-green">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--green">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -575,7 +581,7 @@
                                     </li>
 
                                     <li class="buttons__item">
-                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--full-red">
+                                        <button type="button" class="button button--iconed button--covered button--rounded button--big button--red">
                                             <span class="button__icon button__icon--small">
                                                 <svg class="icon icon--plus">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -879,7 +885,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text3" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-green">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--green">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -899,7 +905,7 @@
                                             <div class="input input--small input--buttoned input--placeholder">
                                                 <input type="text" class="input__control" name="text" id="text4" value="">
                                                 <span class="input__placeholder">Сколько баллов списать</span>
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -918,7 +924,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--small input--buttoned">
                                                 <input type="text" class="input__control" name="text" id="text5" placeholder="Сколько баллов списать">
-                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--full-red">
+                                                <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--red">
                                                     <span class="button__icon button__icon--small">
                                                         <svg class="icon icon--plus">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -985,6 +991,97 @@
                         </form>
                     </div>
                     <!--/Текстовые поля ввода-->
+
+                    <!--Ползунок-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Селекты</h2>
+
+                        <form class="form">
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select" data-select>
+                                                    <select class="select__control" name="select" id="select" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект маленький</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate" data-select>
+                                                    <select class="select__control" name="select2" id="select2" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="select" class="form__label">
+                                                <span class="form__label-text">Селект ограниченный</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mitigate select--small" data-select>
+                                                    <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <!--Ползунок-->
                     <div class="gui__block">
@@ -1546,6 +1643,60 @@
                     </div>
                     <!--/Обрезка текста-->
 
+                    <!--Шаги-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Шаги</h2>
+
+                        <ul class="steps-counter">
+                            <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
+                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Персональные данные</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item steps-counter__item--current" data-steps-item>
+                                <div class="steps-counter__circle steps-counter__circle--current" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Данные о питомцах</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Выбор наставника</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Юридические данные</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                    <span class="steps-counter__circle-text">Установка пароля</span>
+                                </div>
+                            </li>
+
+                            <li class="steps-counter__item" data-steps-item>
+                                <div class="steps-counter__circle" data-steps-indicator>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="buttons__list gui__example">
+                            <li class="buttons__item">
+                                <button type="button" class="button button--square button--covered button--red" data-button-prev>Назад</button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" class="button button--square button--covered button--green" data-button-next>Далее</button>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!--/Шаги-->
+
                 </main>
             </div>
         </div>
@@ -1577,4 +1728,9 @@
         width: 30px;
         height: 30px;
     }
+
+    .gui__example {
+        margin-top: 50px;
+    }
+
 </style>

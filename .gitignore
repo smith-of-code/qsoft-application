@@ -1,6 +1,7 @@
 vendor
 composer
 /app/core/bitrix
+/app/site/test
 /app/site/upload
 /app/site/c_sitemaps
 node_modules
