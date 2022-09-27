@@ -4,6 +4,7 @@ use Bitrix\Main;
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
+use Bitrix\Catalog\PriceTable;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -92,56 +93,13 @@ class CatalogElementComponent extends CBitrixComponent
                     'PREVIEW_TEXT_TYPE',
                 ];
 
-                $arFilter = [
-                    'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
-                    'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
-                    'ACTIVE' => 'Y',
-                    'SECTION_ID' => $this->arParams['SECTION_ID'],
-                    'SECTION_CODE' => $this->arParams['SECTION_CODE'],
-                ];
-
-                if ($this->arParams['ELEMENT_ID']) {
-                    $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
-                } else {
-                    $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
-                }
-
-                $arSelect = $baseSelect;
-                CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
-                if (!empty($properties)) {
-                    $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
-                }
-
-                $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
-                if (!$product) {
-                    Tools::process404(Loc::getMessage('ELEMENT_NOT_FOUND'));
-                    return;
-                }
-
+                $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
 
                 $fileIds = $this->getFilesByItem($product);
 
-                $offersResult = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
-                $offers = [];
-                if (!empty($offersResult) && !empty(current($offersResult))) {
-                    $arSelect = $baseSelect;
-                    $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
-                    foreach ($offersIblockIds as $item) {
-                        $properties = [];
-                        CIBlockElement::GetPropertyValuesArray($properties, $item, []);
-
-                        $keys = $this->getPropertyKeys($properties);
-                        $arSelect = array_merge($arSelect, $keys);
-
-                        $currentOffers = CCatalogSKU::getOffersList($product['ID'], $this->arParams['IBLOCK_ID'], [], $arSelect);
-                        $offers = array_merge($offers, current($currentOffers));
-
-                        foreach (current($currentOffers) as $offer) {
-                            $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
-                        }
-                    }
-                }
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
+                $this->arResult['OFFERS'] = $offers;
 
                 $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
                 $fileIterator = CFile::GetList([], $itemFilter);
@@ -149,8 +107,6 @@ class CatalogElementComponent extends CBitrixComponent
                     $file['SRC'] = CFile::GetFileSRC($file);
                     $this->arResult['FILES'][$file['ID']] = $file;
                 }
-
-                $this->arResult['OFFERS'] = $offers;
 
                 $buttons = CIBlock::GetPanelButtons(
                     $this->arParams['IBLOCK_ID'],
@@ -184,6 +140,81 @@ class CatalogElementComponent extends CBitrixComponent
         } catch (Throwable $e) {
             ShowError($e->getMessage());
         }
+    }
+
+    private function getProduct(array $arSelect): array
+    {
+        $arFilter = [
+            'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
+            'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+            'ACTIVE' => 'Y',
+            'SECTION_ID' => $this->arParams['SECTION_ID'],
+            'SECTION_CODE' => $this->arParams['SECTION_CODE'],
+        ];
+
+        if ($this->arParams['ELEMENT_ID']) {
+            $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
+        } else {
+            $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
+        }
+
+        CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
+        if (!empty($properties)) {
+            $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
+        }
+
+        $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
+        if (!$product) {
+            throw new RuntimeException(Loc::getMessage('ELEMENT_NOT_FOUND'));
+        }
+
+        $productPrice = PriceTable::getList([
+            'filter' => ['PRODUCT_ID' => $product['ID']],
+        ])->fetch();
+        if ($productPrice) {
+            $product['PRICE'] = $productPrice;
+        }
+
+        return $product;
+    }
+
+    private function getOffers(int $productId, array $arSelect, array &$fileIds): array
+    {
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+        $offers = [];
+        if (!empty($offersResult) && !empty(current($offersResult))) {
+            $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
+            foreach ($offersIblockIds as $item) {
+                $properties = [];
+                CIBlockElement::GetPropertyValuesArray($properties, $item, []);
+
+                $keys = $this->getPropertyKeys($properties);
+                $arSelect = array_merge($arSelect, $keys);
+
+                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], $arSelect);
+                $offers = array_merge($offers, current($currentOffers));
+
+                foreach (current($currentOffers) as $offer) {
+                    $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
+                }
+            }
+        }
+
+        $ids = array_column($offers, 'ID');
+        $prices = PriceTable::getList([
+            'filter' => ['@PRODUCT_ID' => $ids],
+        ])->fetchAll();
+        foreach ($offers as &$offer) {
+            $price = current(array_filter($prices, function ($item) use ($offer) {
+                return (int) $item['PRODUCT_ID'] === $offer['ID'];
+            }));
+
+            if ($price) {
+                $offer['PRICE'] = $price;
+            }
+        }
+
+        return $offers;
     }
 
     private function getPropertyKeys(array $properties): array
