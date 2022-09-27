@@ -609,6 +609,10 @@ foreach($arResult["ITEMS"] as $PID => $arItem)
 		}
 		unset($setValue);
 	}
+    elseif($arItem["CODE"] == "WITH_DISCOUNT")
+    {
+        ${$FILTER_NAME}["WITH_DISCOUNT"] = $_CHECK["arrFilter_WITH_DISCOUNT_1"] ?? $_CHECK["WITH_DISCOUNT"];
+    }
 	elseif($arItem["PROPERTY_TYPE"] == "N")
 	{
 		$existMinValue = ($arItem["VALUES"]["MIN"]["HTML_VALUE"] <> '');

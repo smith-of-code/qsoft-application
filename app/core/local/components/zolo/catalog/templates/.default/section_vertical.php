@@ -24,7 +24,7 @@ $contentBlockClass = "col";
 <div class="row mb-4">
     <div class="col-lg-3 col-md-4 col-sm-5<?=(isset($arParams['FILTER_HIDE_ON_MOBILE']) && $arParams['FILTER_HIDE_ON_MOBILE'] === 'Y' ? ' d-none d-sm-block' : '')?>">
         <?
-        /* ÑÏÈÑÎÊ ÐÀÇÄÅËÎÂ ÊÀÒÀËÎÃÀ */
+        /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         $sectionListParams = array(
             "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
             "IBLOCK_ID" => $arParams["IBLOCK_ID"],
@@ -53,7 +53,7 @@ $contentBlockClass = "col";
         unset($sectionListParams);
         ?>
 
-        <?/* ÔÈËÜÒÐ */?>
+        <?/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */?>
         <div class="bx-sidebar-block">
             <?
             $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", array(
@@ -75,7 +75,7 @@ $contentBlockClass = "col";
                 'CURRENCY_ID' => $arParams['CURRENCY_ID'],
                 "SEF_MODE" => $arParams["SEF_MODE"],
                 "SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
-                "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
+                "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SECTION_CODE_PATH"],
                 "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
                 "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
             ),

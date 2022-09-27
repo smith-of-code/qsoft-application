@@ -2,11 +2,13 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
 <?$APPLICATION->IncludeComponent(
-	"zolo:catalog", 
+	"zolo:catalog",
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "130",
+		"IBLOCK_ID" => \Bitrix\Iblock\IblockTable::getRow(['filter' => [
+			'CODE' => 'product'
+		]])['ID'],
 		"TEMPLATE_THEME" => "",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"BASKET_URL" => "/personal/cart/",

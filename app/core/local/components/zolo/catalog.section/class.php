@@ -1,4 +1,6 @@
 <?
+
+use Bitrix\Catalog\ProductTable;
 use \Bitrix\Main;
 use \Bitrix\Main\Loader;
 use \Bitrix\Main\Error;
@@ -708,4 +710,157 @@ class CatalogSectionComponent extends ElementList
 			$element['SECTION']['PATH'] = array();
 		}
 	}
+
+    protected function calculateItemPrices(array &$items)
+    {
+        if (empty($items))
+            return;
+
+        $enableCompatible = $this->isEnableCompatible();
+
+        if ($enableCompatible)
+            $this->initCompatibleFields($items);
+
+        foreach (array_keys($items) as $index)
+        {
+            $id = $items[$index]['ID'];
+            if (!isset($this->calculatePrices[$id]))
+                continue;
+            if (empty($this->prices[$id]))
+                continue;
+            $productPrices = $this->prices[$id];
+            $result = array(
+                'ITEM_PRICE_MODE' => null,
+                'ITEM_PRICES' => array(),
+                'ITEM_PRICES_CAN_BUY' => false
+            );
+            if ($this->arParams['FILL_ITEM_ALL_PRICES'])
+                $result['ITEM_ALL_PRICES'] = array();
+            $priceBlockIndex = 0;
+            if (!empty($productPrices['QUANTITY']))
+            {
+                $result['ITEM_PRICE_MODE'] = ProductTable::PRICE_MODE_QUANTITY;
+                $ratio = current($this->ratios[$id]);
+                foreach ($this->quantityRanges[$id] as $range)
+                {
+                    $priceBlock = $this->calculatePriceBlock(
+                        $items[$index],
+                        $productPrices['QUANTITY'][$range['HASH']],
+                        $ratio['RATIO'],
+                        $this->arParams['USE_PRICE_COUNT'] || $this->checkQuantityRange($range)
+                    );
+                    if ($this->globalFilter['WITH_DISCOUNT'] == 'Y' && !$priceBlock['DISCOUNT'])
+                    {
+                        unset($this->elements[$id]);
+                        unset($items[$index]);
+                        continue;
+                    }
+                    if (!empty($priceBlock))
+                    {
+                        $minimalPrice = ($this->arParams['FILL_ITEM_ALL_PRICES']
+                            ? $priceBlock['MINIMAL_PRICE']
+                            : $priceBlock
+                        );
+                        if ($minimalPrice['QUANTITY_FROM'] === null)
+                        {
+                            $minimalPrice['MIN_QUANTITY'] = $ratio['RATIO'];
+                        }
+                        else
+                        {
+                            $minimalPrice['MIN_QUANTITY'] = $ratio['RATIO'] * ((int)($minimalPrice['QUANTITY_FROM']/$ratio['RATIO']));
+                            if ($minimalPrice['MIN_QUANTITY'] < $minimalPrice['QUANTITY_FROM'])
+                                $minimalPrice['MIN_QUANTITY'] += $ratio['RATIO'];
+                        }
+                        $result['ITEM_PRICES'][$priceBlockIndex] = $minimalPrice;
+                        if (isset($this->storage['PRICES_CAN_BUY'][$minimalPrice['PRICE_TYPE_ID']]))
+                            $result['ITEM_PRICES_CAN_BUY'] = true;
+                        if ($this->arParams['FILL_ITEM_ALL_PRICES'])
+                        {
+                            $priceBlock['ALL_PRICES']['MIN_QUANTITY'] = $minimalPrice['MIN_QUANTITY'];
+                            $result['ITEM_ALL_PRICES'][$priceBlockIndex] = $priceBlock['ALL_PRICES'];
+                        }
+                        unset($minimalPrice);
+                        $priceBlockIndex++;
+                    }
+                    unset($priceBlock);
+                }
+                unset($range);
+                unset($ratio);
+            }
+            if (!empty($productPrices['SIMPLE']))
+            {
+                $result['ITEM_PRICE_MODE'] = ProductTable::PRICE_MODE_SIMPLE;
+                $ratio = current($this->ratios[$id]);
+                $priceBlock = $this->calculatePriceBlock(
+                    $items[$index],
+                    $productPrices['SIMPLE'],
+                    $ratio['RATIO'],
+                    true
+                );
+                if ($this->globalFilter['WITH_DISCOUNT'] == 'Y' && !$priceBlock['DISCOUNT'])
+                {
+                    unset($this->elementLinks[$id - 2]);
+                    $this->elements = array_filter($this->elements, function ($element) use ($id) {
+                        return $element['ID'] !== $id - 2;
+                    });
+                    unset($items[$index]);
+                    continue;
+                }
+                if (!empty($priceBlock))
+                {
+                    $minimalPrice = ($this->arParams['FILL_ITEM_ALL_PRICES']
+                        ? $priceBlock['MINIMAL_PRICE']
+                        : $priceBlock
+                    );
+                    $minimalPrice['MIN_QUANTITY'] = $ratio['RATIO'];
+                    $result['ITEM_PRICES'][$priceBlockIndex] = $minimalPrice;
+                    if (isset($this->storage['PRICES_CAN_BUY'][$minimalPrice['PRICE_TYPE_ID']]))
+                        $result['ITEM_PRICES_CAN_BUY'] = true;
+                    if ($this->arParams['FILL_ITEM_ALL_PRICES'])
+                    {
+                        $priceBlock['ALL_PRICES']['MIN_QUANTITY'] = $minimalPrice['MIN_QUANTITY'];
+                        $result['ITEM_ALL_PRICES'][$priceBlockIndex] = $priceBlock['ALL_PRICES'];
+                    }
+                    unset($minimalPrice);
+                    $priceBlockIndex++;
+                }
+                unset($priceBlock);
+                unset($ratio);
+            }
+            $this->prices[$id] = $result;
+
+            if (isset($items[$index]['ACTIVE']) && $items[$index]['ACTIVE'] === 'N')
+            {
+                $items[$index]['CAN_BUY'] = false;
+            }
+            else
+            {
+                $items[$index]['CAN_BUY'] = $result['ITEM_PRICES_CAN_BUY'] && $items[$index]['PRODUCT']['AVAILABLE'] === 'Y';
+            }
+
+            unset($priceBlockIndex, $result);
+            unset($productPrices);
+
+            if ($enableCompatible)
+                $this->resortOldPrices($id);
+        }
+        unset($index);
+    }
+
+    private function resortOldPrices($id)
+    {
+        if (empty($this->oldData[$id]['PRICES']) || count($this->oldData[$id]['PRICES']) < 2)
+            return;
+        foreach (array_keys($this->oldData[$id]['PRICES']) as $priceCode)
+            $this->oldData[$id]['PRICES'][$priceCode]['_SORT'] = $this->storage['PRICES'][$priceCode]['SORT'];
+        unset($priceCode);
+        Main\Type\Collection::sortByColumn(
+            $this->oldData[$id]['PRICES'],
+            array('_SORT' => SORT_ASC, 'PRICE_ID' => SORT_ASC),
+            '', null, true
+        );
+        foreach (array_keys($this->oldData[$id]['PRICES']) as $priceCode)
+            unset($this->oldData[$id]['PRICES'][$priceCode]['_SORT']);
+        unset($priceCode);
+    }
 }

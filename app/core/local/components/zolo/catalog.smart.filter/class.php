@@ -275,6 +275,28 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
+        $items['WITH_DISCOUNT'] = [
+            'CODE' => 'WITH_DISCOUNT',
+            'NAME' => 'Со скидкой',
+            'PROPERTY_TYPE' => 'N',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
+            'VALUES' => [
+                '1' => [
+                    'CONTROL_ID' => 'arrFilter_WITH_DISCOUNT_1',
+                    'CONTROL_NAME' => 'arrFilter_WITH_DISCOUNT_1',
+                    'CONTROL_NAME_ALT' => 'arrFilter_WITH_DISCOUNT',
+                    'HTML_VALUE_ALT' => 1,
+                    'HTML_VALUE' => 'Y',
+                    'VALUE' => 'Да',
+                    'SORT' => 500,
+                    'UPPER' => 'ДА',
+                    'FLAG' => true,
+                    'URL_ID' => uniqid(),
+                ]
+            ],
+        ];
+
 		return $items;
 	}
 
@@ -1090,6 +1112,8 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			{
 				if ($i == 0)
 				{
+                    if ($smartElement === "with_discount")
+                        $result[strtoupper($smartElement)] = "Y";
 					if (preg_match("/^price-(.+)$/", $smartElement, $match))
 						$itemId = $this->searchPrice($this->arResult["ITEMS"], $match[1]);
 					else
@@ -1160,6 +1184,8 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 					|| $arItem["DISPLAY_TYPE"] == "U"
 				)
 				{
+                    if ($arItem["CODE"] == "WITH_DISCOUNT")
+                        $smartPart[1] = 'true';
 					if ($arItem["VALUES"]["MIN"]["HTML_VALUE"] <> '')
 						$smartPart["from"] = $arItem["VALUES"]["MIN"]["HTML_VALUE"];
 					if ($arItem["VALUES"]["MAX"]["HTML_VALUE"] <> '')
