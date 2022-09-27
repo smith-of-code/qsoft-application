@@ -135,8 +135,7 @@ class CatalogElementComponent extends CBitrixComponent
                 }
             }
             $this->arResult['BASKET'] = $basketInfo;
-
-            dd($this->transformData($this->arResult));
+            $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
