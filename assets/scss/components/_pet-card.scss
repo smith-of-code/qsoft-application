@@ -1,0 +1,44 @@
+.pet-card {
+    &__main {
+        display: flex;
+        align-items: center;
+    }
+
+    &__avatar {
+        $size: 40px;
+        $size-big: 56px;
+
+        width: rem($size);
+        height: rem($size);
+
+        @media #{$screen-tablet} {
+            width: rem($size-big);
+            height: rem($size-big);
+        }
+    }
+
+    &__name {
+        @include title-6;
+    }
+
+    &__breed {
+        @include text-small;
+    }
+
+    &__gender {
+        $size: 20px;
+        $size-big: 24px;
+
+        width: rem($size);
+        height: rem($size);
+
+        @media #{$screen-tablet} {
+            width: rem($size-big);
+            height: rem($size-big);
+        }
+    }
+
+    &__date {
+        @include text-small;
+    }
+}

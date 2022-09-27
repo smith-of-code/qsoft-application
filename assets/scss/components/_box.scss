@@ -3,7 +3,27 @@
 
     border-radius: rem($border-radius);
     background-color: $white;
-    box-shadow: $box-shadow;
 
     overflow: hidden;
+
+    &--shadow {
+        box-shadow: $box-shadow;
+    }
+
+    &--gray {
+        padding: rem($gap-average) rem($gap-medium);
+        background-color: $athensGray;
+
+        @media #{$screen-tablet} {
+            padding: rem($gap-medium)
+        }
+    }
+
+    &--rounded {
+        border-radius: rem($border-radius);
+
+        @media #{$screen-tablet} {
+            border-radius: rem($border-radius-average);
+        }
+    }
 }

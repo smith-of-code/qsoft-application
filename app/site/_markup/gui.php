@@ -90,7 +90,7 @@
                         <h2 class="gui__title">Иконки</h2>
 
                         <div class="icons">
-                            <ul class="icons__list">
+                            <ul class="icons__list gui__block">
                                 <li class="icons__item" title="Icon: notification">
                                     <svg class="icon icon--notification gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
@@ -148,6 +148,38 @@
                                 <li class="icons__item" title="Icon: arrow-down">
                                     <svg class="icon icon--arrow-down gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: edit">
+                                    <svg class="icon icon--edit gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list">
+                                <li class="icons__item" title="Icon: cat">
+                                    <svg class="icon icon--cat gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: dog">
+                                    <svg class="icon icon--dog gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: man">
+                                    <svg class="icon icon--man gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: woman">
+                                    <svg class="icon icon--woman gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -1594,7 +1626,7 @@
                         <div class="dropdown dropdown--medium" data-dropdown>
                             <button type="button" class="button button--square button--covered button--green" data-dropdown-button>Залитая зеленая</button>
 
-                            <div class="dropdown__box box" data-dropdown-block data-scrollbar style="top: 50px;">
+                            <div class="dropdown__box box box--shadow" data-dropdown-block data-scrollbar style="top: 50px;">
                                 <ul class="dropdown__list">
                                     <li class="dropdown__item">
                                         По уровню консультанта
@@ -1696,6 +1728,68 @@
 
                     </div>
                     <!--/Шаги-->
+
+                    <!--Данные о питомцах-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Данные о питомцах</h2>
+
+                        <div class="box box--gray box--rounded">
+                            <h4 class="box__heading heading heading--average">
+                                Данные о питомцах
+                            </h4>
+
+                            <div class="pet-card">
+                                <div class="pet-card__main">
+                                    <div class="pet-card__avatar">
+                                        <svg class="icon icon--dog">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="pet-card__name">
+                                        Мухтар Бесстрашный
+                                    </div>
+
+                                    <div class="pet-card__breed">
+                                        Австралийская овчарка
+                                    </div>
+
+                                    <div class="pet-card__gender">
+                                        <svg class="icon icon--man">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="pet-card__date">
+                                        09.10.2017
+                                    </div>
+
+                                    <div class="pet-card__modify">
+                                        <button type="button" class="button button--iconed button--simple button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--edit">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="pet-card__delete">
+                                        <button type="button" class="button button--iconed button--simple button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--basket">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="pet-card__edit"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Данные о питомцах-->
 
                 </main>
             </div>
