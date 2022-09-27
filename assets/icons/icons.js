@@ -15,3 +15,4 @@ import './svg/arrow-up.svg';
 import './svg/import.svg';
 import './svg/delete.svg';
 import './svg/gallery.svg';
+import './svg/camera.svg';

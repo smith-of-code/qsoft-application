@@ -162,6 +162,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-gallery"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: camera">
+                                    <svg class="icon icon--camera gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -1670,6 +1676,8 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Загрузчик</h2>
 
+                        <h3 style="margin-top: 50px;">Загрузчик файлов</h3>
+
                         <div class="dropzone" data-uploader>
                             <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
 
@@ -1692,6 +1700,45 @@
                                         </span>
                                         <span class="button__text">Загрузить файл</span>
                                     </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Загрузчик фото</h3>
+
+                        <div class="dropzone dropzone--image" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
+                                        <svg class="dropzone__message-button-icon icon icon--camera">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="dropzone__message-block">
+                                        <div class="dropzone__message-caption needsclick">
+                                            <h6 class="dropzone__message-title">Требования к фото</h6>
+                                            <ul class="dropzone__message-list">
+                                                <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
+                                                <li class="dropzone__message-item">размер 240 Х 320 px</li>
+                                                <li class="dropzone__message-item">вес не более 1МБ</li>
+                                            </ul>
+                                        </div>
+
+                                        <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--import">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Загрузить фото</span>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div class="dropzone__previews dz-previews" data-uploader-previews>

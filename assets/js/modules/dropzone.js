@@ -92,19 +92,15 @@ function uploadFiles(el) {
 
     let config,
         _acceptedFiles = initParams.acceptedFiles,
-        _maxFiles = initParams.maxFiles,
-        _maxFileSize = initParams.maxFileSize,
         _paramName = initParams.paramName,
         acceptedFiles,
+        previewTemplate,
         maxFiles,
-        maxFileSize,
         paramName;
 
     acceptedFiles = (_acceptedFiles && _acceptedFiles.length) ? _acceptedFiles : baseConfig.acceptedFiles;
     paramName = (_paramName && _paramName.length) ? _paramName : baseConfig.paramName;
-    maxFiles = parseInt(_maxFiles) ? _maxFiles : baseConfig.maxFiles;
-
-    maxFileSize = parseInt(_maxFileSize) ? _maxFileSize : baseConfig.maxFileSize;
+    maxFiles = initParams.single ? 1 : baseConfig.maxFiles;
 
     let newUrl = (initParams.url !== null) ? initParams.url : targetUrl;
 
@@ -125,14 +121,32 @@ function uploadFiles(el) {
         return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
     }
 
+    if (initParams.images === true) {
+        previewTemplate = `
+            <div class="dropzone__previews-picture dz-preview" data-uploader-preview title="Заменить обложку">
+                <div class="dropzone__previews-picture-box">
+                    <div class="dropzone__previews-picture-image">
+                        <img src="" alt="" class="dropzone__previews-picture-image-pic" data-dz-thumbnail />
+                    </div>
+                    <div class="dropzone__previews-item-remove" data-dz-remove>
+                        <svg class="dropzone__previews-item-remove-icon icon icon--cross"><use xlink:href="/public/images/icons/sprite.svg#icon-cross"></use></svg>
+                    </div>
+                </div>
+                <div class="dropzone__previews-item-error" data-dz-errormessage></div>
+            </div>
+        `;
+    } else {
+        previewTemplate = baseConfig.previewTemplate;
+    }
+
     config = $.extend({}, baseConfig, {
         paramName: paramName,
         url: newUrl,
         acceptedFiles: acceptedFiles,
         maxFiles: maxFiles,
-        maxFileSize: maxFileSize,
+        maxFileSize: baseConfig.maxFileSize,
         previewsContainer: $previewsContainer,
-        previewTemplate: baseConfig.previewTemplate,
+        previewTemplate: previewTemplate,
         init: function () {
             const self = this;
 

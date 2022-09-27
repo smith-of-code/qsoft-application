@@ -107,8 +107,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_import_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./svg/import.svg */ "./assets/icons/svg/import.svg");
 /* harmony import */ var _svg_delete_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./svg/delete.svg */ "./assets/icons/svg/delete.svg");
 /* harmony import */ var _svg_gallery_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./svg/gallery.svg */ "./assets/icons/svg/gallery.svg");
+/* harmony import */ var _svg_camera_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./svg/camera.svg */ "./assets/icons/svg/camera.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
+
 
 
 
@@ -157,6 +159,26 @@ __webpack_require__.r(__webpack_exports__);
       id: "icon-basket-usage",
       viewBox: "0 0 24 24",
       url: __webpack_require__.p + "./images/icons/sprite.svg#icon-basket",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
+/***/ "./assets/icons/svg/camera.svg":
+/*!*************************************!*\
+  !*** ./assets/icons/svg/camera.svg ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-camera-usage",
+      viewBox: "0 0 72 72",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-camera",
       toString: function () {
         return this.url;
       }
@@ -454,17 +476,14 @@ function uploadFiles(el) {
   var initParams = $uploader.data(DATA_ATTRIBUTES.params);
   var config,
       _acceptedFiles = initParams.acceptedFiles,
-      _maxFiles = initParams.maxFiles,
-      _maxFileSize = initParams.maxFileSize,
       _paramName = initParams.paramName,
       acceptedFiles,
+      previewTemplate,
       maxFiles,
-      maxFileSize,
       paramName;
   acceptedFiles = _acceptedFiles && _acceptedFiles.length ? _acceptedFiles : baseConfig.acceptedFiles;
   paramName = _paramName && _paramName.length ? _paramName : baseConfig.paramName;
-  maxFiles = parseInt(_maxFiles) ? _maxFiles : baseConfig.maxFiles;
-  maxFileSize = parseInt(_maxFileSize) ? _maxFileSize : baseConfig.maxFileSize;
+  maxFiles = initParams.single ? 1 : baseConfig.maxFiles;
   var newUrl = initParams.url !== null ? initParams.url : targetUrl;
 
   function fileNameCut(line) {
@@ -485,14 +504,20 @@ function uploadFiles(el) {
     return "".concat(parseFloat((bytes / Math.pow(k, i)).toFixed(dm)), " ").concat(sizes[i]);
   }
 
+  if (initParams.images === true) {
+    previewTemplate = "\n            <div class=\"dropzone__previews-picture dz-preview\" data-uploader-preview title=\"\u0417\u0430\u043C\u0435\u043D\u0438\u0442\u044C \u043E\u0431\u043B\u043E\u0436\u043A\u0443\">\n                <div class=\"dropzone__previews-picture-box\">\n                    <div class=\"dropzone__previews-picture-image\">\n                        <img src=\"\" alt=\"\" class=\"dropzone__previews-picture-image-pic\" data-dz-thumbnail />\n                    </div>\n                    <div class=\"dropzone__previews-item-remove\" data-dz-remove>\n                        <svg class=\"dropzone__previews-item-remove-icon icon icon--cross\"><use xlink:href=\"/public/images/icons/sprite.svg#icon-cross\"></use></svg>\n                    </div>\n                </div>\n                <div class=\"dropzone__previews-item-error\" data-dz-errormessage></div>\n            </div>\n        ";
+  } else {
+    previewTemplate = baseConfig.previewTemplate;
+  }
+
   config = $.extend({}, baseConfig, {
     paramName: paramName,
     url: newUrl,
     acceptedFiles: acceptedFiles,
     maxFiles: maxFiles,
-    maxFileSize: maxFileSize,
+    maxFileSize: baseConfig.maxFileSize,
     previewsContainer: $previewsContainer,
-    previewTemplate: baseConfig.previewTemplate,
+    previewTemplate: previewTemplate,
     init: function init() {
       var self = this;
       self.on('addedfile', function (file) {
