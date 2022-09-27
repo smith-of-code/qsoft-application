@@ -7,7 +7,7 @@
         "start": "webpack --mode=development --progress --watch",
         "build": "webpack --env.mode=production"
     },
-    "author": "",
+    "author": "Manerova Olga",
     "license": "ISC",
     "browserslist": [
         "ie >= 10"

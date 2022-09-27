@@ -145,9 +145,21 @@
                                     </svg>
                                 </li>
 
-                                <li class="icons__item" title="Icon: arrow-down">
-                                    <svg class="icon icon--arrow-down gui__icon">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                <li class="icons__item" title="Icon: import">
+                                    <svg class="icon icon--import gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: delete">
+                                    <svg class="icon icon--delete gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: gallery">
+                                    <svg class="icon icon--gallery gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-gallery"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -589,6 +601,16 @@
                                             </span>
                                         </button>
                                     </li>
+
+                                    <li class="buttons__item">
+                                        <button type="button" class="button button--iconed button--simple button--big button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--basket">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -992,7 +1014,7 @@
                     </div>
                     <!--/Текстовые поля ввода-->
 
-                    <!--Ползунок-->
+                    <!--Селекты-->
                     <div class="gui__block">
                         <h2 class="gui__title">Селекты</h2>
 
@@ -1082,6 +1104,7 @@
                             </div>
                         </form>
                     </div>
+                    <!--/Селекты-->
 
                     <!--Ползунок-->
                     <div class="gui__block">
@@ -1649,24 +1672,29 @@
 
                         <div class="dropzone" data-uploader>
                             <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-                    
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/markup/gui.html"}'>
-                                <div class="dropzone__previews dz-previews" data-uploader-previews></div>
-                    
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
                                 <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-button dz-button link needsclick">
-                                        <svg class="dropzone__message-button-icon icon icon--paperclip">
-                                            <use xlink:href="/public/images/icons/sprite.svg#icon-paperclip"></use>
-                                        </svg>
-                    
-                                        <div class="dropzone__message-button-text needsclick">
-                                            Добавить файл
-                                        </div>
-                                    </div>
-                    
                                     <div class="dropzone__message-caption needsclick">
-                                        jpg, png, doc, xls, pdf, неограниченное количество
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
                                     </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
                                 </div>
                             </div>
                         </div>
