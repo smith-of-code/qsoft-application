@@ -1,6 +1,6 @@
 <?php
 
-use QSoft\Events\User\UserEventsListener;
+use QSoft\Events\UserEventsListener;
 
 /**
 * Main module events
