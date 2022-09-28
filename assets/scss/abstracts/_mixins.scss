@@ -185,7 +185,7 @@
 
 
 @mixin title-6 ($font-weight: $font-weight-semibold) {
-    $font-size: $font-size-mini;
+    $font-size: $font-size-miniature;
 
     font-size: rem($font-size);
     font-weight: $font-weight;

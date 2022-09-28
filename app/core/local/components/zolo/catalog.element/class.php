@@ -4,7 +4,7 @@ use Bitrix\Main;
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
-use Bitrix\Highloadblock\HighloadBlockTable;
+use Bitrix\Catalog\PriceTable;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -67,11 +67,7 @@ class CatalogElementComponent extends CBitrixComponent
                 return;
             }
 
-            if (
-                !Loader::includeModule('iblock')
-                || !Loader::includeModule('catalog')
-                || !Loader::includeModule('highloadblock')
-            ) {
+            if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
@@ -97,38 +93,13 @@ class CatalogElementComponent extends CBitrixComponent
                     'PREVIEW_TEXT_TYPE',
                 ];
 
-                $arFilter = [
-                    'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
-                    'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
-                    'ACTIVE' => 'Y',
-                    'SECTION_ID' => $this->arParams['SECTION_ID'],
-                    'SECTION_CODE' => $this->arParams['SECTION_CODE'],
-                ];
-
-                if ($this->arParams['ELEMENT_ID']) {
-                    $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
-                } else {
-                    $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
-                }
-
-                $arSelect = $baseSelect;
-                CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
-                if (!empty($properties)) {
-                    $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
-                }
-
-                $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
-                if (!$product) {
-                    Tools::process404(Loc::getMessage('ELEMENT_NOT_FOUND'));
-                    return;
-                }
-
+                $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
+
                 $fileIds = $this->getFilesByItem($product);
 
-                $this->arResult['RELATED_PRODUCTS'] = $this->getRelatedProducts($product['ID'], $arSelect, $fileIds);
-
-                $this->arResult['OFFERS'] = $this->getOffers($product['ID'], $baseSelect, $fileIds);
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
+                $this->arResult['OFFERS'] = $offers;
 
                 $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
                 $fileIterator = CFile::GetList([], $itemFilter);
@@ -164,6 +135,7 @@ class CatalogElementComponent extends CBitrixComponent
                 }
             }
             $this->arResult['BASKET'] = $basketInfo;
+            $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -171,47 +143,40 @@ class CatalogElementComponent extends CBitrixComponent
         }
     }
 
-    private function getRelatedProducts(int $productId, array $select, array &$fileIds): array
+    private function getProduct(array $arSelect): array
     {
-        $hlBlock = HighloadBlockTable::getList([
-            'filter' => ['=TABLE_NAME' => 'related_product'],
+        $arFilter = [
+            'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
+            'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+            'ACTIVE' => 'Y',
+            'SECTION_ID' => $this->arParams['SECTION_ID'],
+            'SECTION_CODE' => $this->arParams['SECTION_CODE'],
+        ];
+
+        if ($this->arParams['ELEMENT_ID']) {
+            $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
+        } else {
+            $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
+        }
+
+        CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
+        if (!empty($properties)) {
+            $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
+        }
+
+        $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
+        if (!$product) {
+            throw new RuntimeException(Loc::getMessage('ELEMENT_NOT_FOUND'));
+        }
+
+        $productPrice = PriceTable::getList([
+            'filter' => ['PRODUCT_ID' => $product['ID']],
         ])->fetch();
-        if (!$hlBlock) {
-            throw new RuntimeException(Loc::getMessage('HL_BLOCK_NOT_FOUND'));
-        }
-        $relatedProductTable = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
-        $relatedProducts = $relatedProductTable::getList([
-            'select' => ['UF_RELATED_PRODUCT_ID', 'UF_MAIN_PRODUCT_ID'],
-            'filter' => [
-                'LOGIC' => 'OR',
-                ['UF_MAIN_PRODUCT_ID' => $productId],
-                ['UF_RELATED_PRODUCT_ID' => $productId],
-            ],
-        ])->fetchAll();
-        $relatedProductIds = array_filter(array_unique(array_merge(
-            array_column($relatedProducts, 'UF_RELATED_PRODUCT_ID'),
-            array_column($relatedProducts, 'UF_MAIN_PRODUCT_ID')
-        )), static function ($item) use ($productId) {
-            return $item !== $productId;
-        });
-
-        $relatedProductDetails = [];
-        if (!empty($relatedProductIds)) {
-            $relatedProductIterator = CIBlockElement::GetList([], [
-                'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
-                'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
-                'ACTIVE' => 'Y',
-                '@ID' => implode(',', $relatedProductIds),
-            ], false, false, $select);
-
-            while ($relatedProduct = $relatedProductIterator->Fetch()) {
-                $fileIds = array_merge($fileIds, $this->getFilesByItem($relatedProduct));
-
-                $relatedProductDetails[] = $relatedProduct;
-            }
+        if ($productPrice) {
+            $product['PRICE'] = $productPrice;
         }
 
-        return $relatedProductDetails;
+        return $product;
     }
 
     private function getOffers(int $productId, array $arSelect, array &$fileIds): array
@@ -236,6 +201,20 @@ class CatalogElementComponent extends CBitrixComponent
             }
         }
 
+        $ids = array_column($offers, 'ID');
+        $prices = PriceTable::getList([
+            'filter' => ['@PRODUCT_ID' => $ids],
+        ])->fetchAll();
+        foreach ($offers as &$offer) {
+            $price = current(array_filter($prices, function ($item) use ($offer) {
+                return (int) $item['PRODUCT_ID'] === $offer['ID'];
+            }));
+
+            if ($price) {
+                $offer['PRICE'] = $price;
+            }
+        }
+
         return $offers;
     }
 
@@ -257,6 +236,53 @@ class CatalogElementComponent extends CBitrixComponent
         }
         if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
             $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
+        }
+        if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
+            $result[] = $item['PROPERTY_VIDEO_VALUE'];
+        }
+
+        return $result;
+    }
+
+    private function transformData(array $data): array
+    {
+        $result = [
+            'TITLE' => $data['PRODUCT']['NAME'],
+            'PRICES' => [],
+            'DISCOUNT_LABELS' => [],
+            'COLORS' => [],
+            'SIZES' => [],
+            'ARTICLES' => [],
+            'BESTSELLERS' => [],
+            'PACKAGINGS' => [],
+            'PHOTOS' => [],
+            'PRODUCT_IMAGE' => [$data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']]['SRC']],
+            'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
+            'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
+            'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
+            'AGE' => $data['PRODUCT']['PROPERTY_AGE_VALUE'],
+            'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
+            'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
+            'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
+            'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
+            'BASKET_COUNT' => [],
+        ];
+
+        foreach ($data['OFFERS'] as $offer) {
+            $result['PRICES'][$offer['ID']] = $offer['PRICE'];
+            $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
+            $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+            $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
+            $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
+            $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
+            $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
+            if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
+                foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
+                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item]['SRC'];
+                }
+            }
+            $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
         }
 
         return $result;
