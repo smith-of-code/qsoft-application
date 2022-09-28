@@ -23,6 +23,7 @@ import './svg/add-circle.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';
+import './svg/pet.svg';
 import './svg/man.svg';
 import './svg/woman.svg';
 

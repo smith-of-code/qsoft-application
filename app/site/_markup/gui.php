@@ -207,6 +207,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: pet">
+                                    <svg class="icon icon--pet gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pet"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: man">
                                     <svg class="icon icon--man gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
@@ -1920,11 +1926,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="pet-card__edit box box--rounded-sm" style="margin-top: 30px;" data-pets-edit>
+                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
                                                 <form class="form">
                                                     <div class="pet-card__row form__row">
                                                         <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
-                                                            <div class="form__field dropdown dropdown--full" data-dropdown>
+                                                            <!-- <div class="form__field dropdown dropdown--full" data-dropdown>
                                                                 <div class="form__field-block form__field-block--label">
                                                                     <label for="text1" class="form__label">
                                                                         <span class="form__label-text">Тип питомца</span>
@@ -1951,6 +1957,26 @@
                                                                                 Девочка
                                                                             </li>
                                                                         </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate select--iconed" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select1" data-select-control data-placeholder="Выбрать">
+                                                                                <option data-option-icon="cat"><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" data-option-icon="cat">Кошка</option>
+                                                                                <option value="2" data-option-icon="dog">Собака</option>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
