@@ -29,6 +29,7 @@
  import select from './modules/select';
  import dropzone from './modules/dropzone';
  import steps from './modules/steps';
+ import inputmask from './modules/inputmask';
 
 
  const app = {
@@ -51,6 +52,7 @@
         select();
         dropzone();
         steps();
+        inputmask();
     },
 
     load() {

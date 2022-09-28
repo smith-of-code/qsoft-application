@@ -18,6 +18,7 @@ import './svg/import.svg';
 import './svg/delete.svg';
 import './svg/gallery.svg';
 import './svg/camera.svg';
+import './svg/calendar.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';

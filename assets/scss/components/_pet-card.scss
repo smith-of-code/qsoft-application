@@ -1,12 +1,32 @@
 .pet-card {
     &__main {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+
+        @media #{$screen-tablet} {
+            align-items: center;
+            flex-direction: row;
+
+            padding: rem($gap-small) rem($gap-medium);
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-grow: 1;
+
+        padding: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            padding: 0;
+        }
     }
 
     &__avatar {
         $size: 40px;
         $size-big: 56px;
+
+        flex-shrink: 0;
 
         width: rem($size);
         height: rem($size);
@@ -17,17 +37,69 @@
         }
     }
 
+    &__info {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        margin-top: rem(10px);
+        margin-left: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            align-items: center;
+            flex-direction: row;
+
+            margin-top: 0;
+        }
+
+        &-record {
+            display: flex;
+            align-items: center;
+
+            margin-top: rem(8px);
+
+            @media #{$screen-tablet} {
+                margin-top: 0;
+                margin-left: auto;
+            }
+        }
+    }
+
     &__name {
         @include title-6;
+
+        @media #{$screen-tablet} {
+            width: rem(170px);
+            margin-right: rem($gap-medium);
+        }
+
+        @media #{$screen-desktop} {
+            width: rem(220px);
+        }
     }
 
     &__breed {
         @include text-small;
+
+        margin-top: rem(10px);
+
+        @media #{$screen-tablet} {
+            width: rem(170px);
+            margin-top: 0;
+            margin-right: rem($gap-medium);
+            margin-left: auto;
+        }
+
+        @media #{$screen-desktop} {
+            width: rem(240px);
+        }
     }
 
     &__gender {
         $size: 20px;
         $size-big: 24px;
+
+        flex-shrink: 0;
 
         width: rem($size);
         height: rem($size);
@@ -40,5 +112,134 @@
 
     &__date {
         @include text-small;
+
+        width: rem(80px);
+        margin-left: rem($gap-big);
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        margin-top: rem($gap-medium);
+
+        border-top: rem(1px) solid $alto;
+
+        @media #{$screen-tablet} {
+            justify-content: flex-start;
+
+            margin-top: 0;
+            margin-left: rem(18px);
+
+            border-top: none;
+        }
+
+        &-button {
+            width: 100%;
+            padding: rem($gap-average) 0;
+
+            @media #{$screen-tablet} {
+                width: auto;
+                padding: 0;
+            }
+        }
+    }
+
+    &__modify {
+        width: 50%;
+
+        @media #{$screen-tablet} {
+            width: auto;
+        }
+    }
+
+    &__delete {
+        width: 50%;
+
+        border-left: rem(1px) solid $alto;
+
+        @media #{$screen-tablet} {
+            width: auto;
+            margin-left: rem($gap-medium);
+
+            border-left: none;
+        }
+    }
+
+    &__edit {
+        padding: rem($gap-medium) rem($gap-average);
+
+        @media #{$screen-tablet} {
+            padding: rem($gap-medium);
+        }
+    }
+
+    &__row {
+        flex-wrap: wrap;
+
+        margin-top: rem(-$gap-normal / 2);
+        margin-bottom: rem(-$gap-normal / 2);
+    }
+
+    &__col {
+        margin-top: rem($gap-normal / 2);
+        margin-bottom: rem($gap-normal / 2);
+
+        &--1-2 {
+            @media #{$screen-tablet} {
+                width: calc(100% / 2);
+            }
+        }
+
+        &--1-3 {
+            @media #{$screen-tablet} {
+                width: calc(100% / 3);
+            }
+        }
+
+        &--1 {
+            order: -1;
+        }
+
+        &--2 {
+            order: -2;
+        }
+
+        &--3 {
+            order: -3;
+        }
+
+        &--1,
+        &--2,
+        &--3 {
+            @media #{$screen-tablet} {
+                order: initial;
+            }
+        }
+    }
+
+    &__buttons {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+    }
+
+    &__button {
+        @media #{$screen-tablet} {
+            width: 50%;
+        }
+
+        & + & {
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-top: 0;
+                margin-right: rem($gap-medium);
+            }
+        }
     }
 }

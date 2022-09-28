@@ -1,0 +1,11 @@
+.pet-cards {
+    &__item {
+        & + & {
+            margin-top: rem($gap-average);
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-medium);
+            }
+        }
+    }
+}

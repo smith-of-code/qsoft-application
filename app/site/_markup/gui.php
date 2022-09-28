@@ -145,6 +145,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: arrow-down">
+                                    <svg class="icon icon--arrow-up gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: import">
                                     <svg class="icon icon--import gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -172,6 +178,12 @@
                                 <li class="icons__item" title="Icon: edit">
                                     <svg class="icon icon--edit gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: calendar">
+                                    <svg class="icon icon--calendar gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -1621,7 +1633,7 @@
                                 <span class="button__text">Показать детализацию</span>
                             </button>
 
-                            <div class="dropdown__box box" data-dropdown-block data-scrollbar>
+                            <div class="dropdown__box box box--shadow" data-dropdown-block data-scrollbar>
                                 <ul class="dropdown__list">
                                     <li class="dropdown__item">
                                         По уровню консультанта
@@ -1843,55 +1855,337 @@
                                 Данные о питомцах
                             </h4>
 
-                            <div class="pet-card">
-                                <div class="pet-card__main">
-                                    <div class="pet-card__avatar">
-                                        <svg class="icon icon--dog">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
-                                        </svg>
-                                    </div>
+                            <div class="pet-cards">
+                                <ul class="pet-cards__list">
+                                    <li class="pet-cards__item">
+                                        <!--Карточка питомца-->
+                                        <article class="pet-card">
+                                            <div class="pet-card__main box box--circle">
+                                                <div class="pet-card__content">
+                                                    <div class="pet-card__avatar">
+                                                        <svg class="icon icon--dog">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                                        </svg>
+                                                    </div>
+            
+                                                    <div class="pet-card__info">
+                                                        <div class="pet-card__name">
+                                                            Мухтар Бесстрашный
+                                                        </div>
+            
+                                                        <div class="pet-card__breed">
+                                                            Австралийская овчарка
+                                                        </div>
+            
+                                                        <div class="pet-card__info-record">
+                                                            <div class="pet-card__gender">
+                                                                <svg class="icon icon--man">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                                                </svg>
+                                                            </div>
+            
+                                                            <div class="pet-card__date">
+                                                                09.10.2017
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="pet-card__actions">
+                                                    <div class="pet-card__modify">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--edit">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+            
+                                                    <div class="pet-card__delete">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--basket">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <div class="pet-card__name">
-                                        Мухтар Бесстрашный
-                                    </div>
+                                            <div class="pet-card__edit box box--rounded-sm" style="margin-top: 30px;">
+                                                <form class="form">
+                                                    <div class="pet-card__row form__row">
+                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                                            <div class="form__field dropdown dropdown--full" data-dropdown>
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text1" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input type="text" class="input__control" name="text" id="text1" placeholder="Выбрать" data-dropdown-button>
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--arrow-down">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
 
-                                    <div class="pet-card__breed">
-                                        Австралийская овчарка
-                                    </div>
+                                                                    <div class="dropdown__box box box--shadow" data-dropdown-block data-scrollbar>
+                                                                        <ul class="dropdown__list">
+                                                                            <li class="dropdown__item">
+                                                                                Мальчик
+                                                                            </li>
 
-                                    <div class="pet-card__gender">
-                                        <svg class="icon icon--man">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
-                                        </svg>
-                                    </div>
+                                                                            <li class="dropdown__item">
+                                                                                Девочка
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                    <div class="pet-card__date">
-                                        09.10.2017
-                                    </div>
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select" class="form__label">
+                                                                        <span class="form__label-text">Пол</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select" data-select-control data-placeholder="Выбрать">
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Мальчик</option>
+                                                                                <option value="2">Девочка</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                    <div class="pet-card__modify">
-                                        <button type="button" class="button button--iconed button--simple button--red">
-                                            <span class="button__icon">
-                                                <svg class="icon icon--edit">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="birthdate" class="form__label">
+                                                                        <span class="form__label-text">Дата рождения</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input inputmode="numeric"
+                                                                            class="input__control"
+                                                                            name="text"
+                                                                            id="birthdate"
+                                                                            placeholder="ДД.ММ.ГГГГ"
+                                                                            data-mask-date 
+                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                                        >
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--calendar">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                    <div class="pet-card__delete">
-                                        <button type="button" class="button button--iconed button--simple button--red">
-                                            <span class="button__icon">
-                                                <svg class="icon icon--basket">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select2" class="form__label">
+                                                                        <span class="form__label-text">Порода</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select2" data-select-control data-placeholder="Выбрать">
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Лабрадор</option>
+                                                                                <option value="2">Пудель</option>
+                                                                                <option value="3">Болонка</option>
+                                                                                <option value="4">Мопс</option>
+                                                                                <option value="5">Китайская хохлатая</option>
+                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
+                                                                                <option value="7">Дог</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                <div class="pet-card__edit"></div>
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text1" class="form__label">
+                                                                        <span class="form__label-text">Кличка</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input">
+                                                                        <input type="text" class="input__control" name="text" id="text1" placeholder="Выбрать">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pet-card__buttons">
+                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full">
+                                                            Сохранить изменения
+                                                        </button>
+
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full">
+                                                            Отменить изменения
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </article>
+                                        <!--/Карточка питомца-->
+                                    </li>
+
+                                    <li class="pet-cards__item">
+                                        <!--Карточка питомца-->
+                                        <article class="pet-card">
+                                            <div class="pet-card__main box box--circle">
+                                                <div class="pet-card__content">
+                                                    <div class="pet-card__avatar">
+                                                        <svg class="icon icon--cat">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div class="pet-card__info">
+                                                        <div class="pet-card__name">
+                                                            Веснушка
+                                                        </div>
+
+                                                        <div class="pet-card__breed">
+                                                            Абиссинская кошка
+                                                        </div>
+
+                                                        <div class="pet-card__info-record">
+                                                            <div class="pet-card__gender">
+                                                                <svg class="icon icon--woman">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="pet-card__date">
+                                                                20.12.2019
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pet-card__actions">
+                                                    <div class="pet-card__modify">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--edit">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="pet-card__delete">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--basket">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pet-card__edit"></div>
+                                        </article>
+                                        <!--/Карточка питомца-->
+                                    </li>
+
+                                    <li class="pet-cards__item">
+                                        <!--Карточка питомца-->
+                                        <article class="pet-card">
+                                            <div class="pet-card__main box box--circle">
+                                                <div class="pet-card__content">
+                                                    <div class="pet-card__avatar">
+                                                        <svg class="icon icon--cat">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div class="pet-card__info">
+                                                        <div class="pet-card__name">
+                                                            Барон Корф VI
+                                                        </div>
+
+                                                        <div class="pet-card__breed">
+                                                            Американская короткошерстная кошка
+                                                        </div>
+
+                                                        <div class="pet-card__info-record">
+                                                            <div class="pet-card__gender">
+                                                                <svg class="icon icon--man">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="pet-card__date">
+                                                                20.12.2019
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pet-card__actions">
+                                                    <div class="pet-card__modify">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--edit">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="pet-card__delete">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--basket">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pet-card__edit"></div>
+                                        </article>
+                                        <!--/Карточка питомца-->
+                                    </li>
+                                </ul>
                             </div>
+
                         </div>
                     </div>
                     <!--/Данные о питомцах-->

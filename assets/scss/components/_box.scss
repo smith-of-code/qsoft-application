@@ -4,8 +4,6 @@
     border-radius: rem($border-radius);
     background-color: $white;
 
-    overflow: hidden;
-
     &--shadow {
         box-shadow: $box-shadow;
     }
@@ -24,6 +22,22 @@
 
         @media #{$screen-tablet} {
             border-radius: rem($border-radius-average);
+        }
+    }
+
+    &--rounded-sm {
+        border-radius: rem($border-radius);
+    }
+
+    &--circle {
+        border-radius: rem($border-radius-average);
+    }
+
+    &__heading {
+        margin-bottom: rem(20px);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-normal);
         }
     }
 }
