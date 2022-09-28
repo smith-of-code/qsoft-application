@@ -129,7 +129,6 @@ $containerName = 'container-'.$navParams['NavNum'];
 			{
 				$areaIds = array();
 
-				// �������
 				foreach ($arResult['ITEMS'] as $item)
 				{
 					$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
@@ -138,10 +137,8 @@ $containerName = 'container-'.$navParams['NavNum'];
 					$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
 				}
 
-				// ����� �������� �������
 				foreach ($arResult['ITEM_ROWS'] as $rowData)
 				{
-					// �������� �� N ��������� �� ����� ���� � ������� � ������
 				    $rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
 					?>
 					<div class="row <?=$rowData['CLASS']?>" data-entity="items-row">
@@ -183,7 +180,6 @@ $containerName = 'container-'.$navParams['NavNum'];
 			?>
             <!-- items-container -->
 		</div>
-		<? /* ������ "�������� �٨" */?>
         <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
             <button type="button"
                     class="btn btn-primary btn-md"

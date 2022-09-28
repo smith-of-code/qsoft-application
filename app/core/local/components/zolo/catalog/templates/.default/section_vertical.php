@@ -24,7 +24,6 @@ $contentBlockClass = "col";
 <div class="row mb-4">
     <div class="col-lg-3 col-md-4 col-sm-5<?=(isset($arParams['FILTER_HIDE_ON_MOBILE']) && $arParams['FILTER_HIDE_ON_MOBILE'] === 'Y' ? ' d-none d-sm-block' : '')?>">
         <?
-        /* ������ �������� �������� */
         $sectionListParams = array(
             "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
             "IBLOCK_ID" => $arParams["IBLOCK_ID"],
@@ -53,7 +52,6 @@ $contentBlockClass = "col";
         unset($sectionListParams);
         ?>
 
-        <?/* ������ */?>
         <div class="bx-sidebar-block">
             <?
             $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", array(
