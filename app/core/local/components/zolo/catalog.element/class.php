@@ -265,6 +265,7 @@ class CatalogElementComponent extends CBitrixComponent
             'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
             'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
             'BASKET_COUNT' => [],
         ];
 

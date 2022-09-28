@@ -13,6 +13,14 @@ global $APPLICATION;
 if ($arParams['SET_TITLE'] === 'Y') {
     $APPLICATION->SetTitle($arResult['NAME']);
 }
+
+if ($arParams['SET_META_KEYWORDS'] === 'Y') {
+    $APPLICATION->SetPageProperty('keywords', $arResult['META_KEYWORDS']);
+}
+
+if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
+    $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
+}
 ?>
 
 <div>
@@ -38,6 +46,44 @@ if ($arParams['SET_TITLE'] === 'Y') {
         <?php if ($color): ?>
             <span><?="$color ($key)"?></span>
     <?php endif; endforeach; ?>
+
+    <p>Размер породы</p>
+    <span><?=$arResult['BREED']?></span>
+
+    <p>Возраст</p>
+    <span><?=$arResult['AGE']?></span>
+
+    <p>Количество в корзине</p>
+    <?php foreach ($arResult['BASKET_COUNT'] as $key => $count): ?>
+        <?php if ($count): ?>
+            <span><?="$count ($key)"?></span>
+    <?php endif; endforeach; ?>
+
+    <p>Детальная картинка</p>
+    <img src="<?=current($arResult['PRODUCT_IMAGE'])?>">
+
+    <p>Состав</p>
+    <span><?=$arResult['COMPOSITION']?></span>
+
+    <p>Фото</p>
+    <?php foreach ($arResult['PHOTOS'] as $key => $photos): ?>
+        <?php if ($photos): ?>
+            <span><?=$key?></span>
+        <?php foreach ($photos as $photo): ?>
+                <img src="<?=$photo?>">
+        <?php endforeach; ?>
+    <?php endif; endforeach; ?>
+
+    <p>Материал</p>
+    <span><?=$arResult['MATERIAL']?></span>
+
+    <p>Рекомендации по кормлению</p>
+    <span><?=$arResult['FEEDING_RECOMMENDATIONS']?></span>
+
+    <p>Цены</p>
+    <?php foreach ($arResult['PRICES'] as $key => $price): ?>
+        <span><?="{$price['PRICE']} ($key)"?></span>
+    <?php endforeach; ?>
 </div>
 
 <?php
