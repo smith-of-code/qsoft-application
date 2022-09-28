@@ -186,6 +186,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: add-circle">
+                                    <svg class="icon icon--add-circle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -1859,41 +1865,41 @@
                                 <ul class="pet-cards__list">
                                     <li class="pet-cards__item">
                                         <!--Карточка питомца-->
-                                        <article class="pet-card">
-                                            <div class="pet-card__main box box--circle">
+                                        <article class="pet-card" data-pets-card>
+                                            <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
                                                     <div class="pet-card__avatar">
                                                         <svg class="icon icon--dog">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
                                                         </svg>
                                                     </div>
-            
+
                                                     <div class="pet-card__info">
                                                         <div class="pet-card__name">
                                                             Мухтар Бесстрашный
                                                         </div>
-            
+
                                                         <div class="pet-card__breed">
                                                             Австралийская овчарка
                                                         </div>
-            
+
                                                         <div class="pet-card__info-record">
                                                             <div class="pet-card__gender">
                                                                 <svg class="icon icon--man">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
                                                                 </svg>
                                                             </div>
-            
+
                                                             <div class="pet-card__date">
                                                                 09.10.2017
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-            
+
                                                 <div class="pet-card__actions">
                                                     <div class="pet-card__modify">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--edit">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -1901,9 +1907,9 @@
                                                             </span>
                                                         </button>
                                                     </div>
-            
+
                                                     <div class="pet-card__delete">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--basket">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -1914,7 +1920,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="pet-card__edit box box--rounded-sm" style="margin-top: 30px;">
+                                            <div class="pet-card__edit box box--rounded-sm" style="margin-top: 30px;" data-pets-edit>
                                                 <form class="form">
                                                     <div class="pet-card__row form__row">
                                                         <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
@@ -1979,7 +1985,7 @@
                                                                         <span class="form__label-text">Дата рождения</span>
                                                                     </label>
                                                                 </div>
-                        
+
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input input--iconed">
                                                                         <input inputmode="numeric"
@@ -2062,8 +2068,8 @@
 
                                     <li class="pet-cards__item">
                                         <!--Карточка питомца-->
-                                        <article class="pet-card">
-                                            <div class="pet-card__main box box--circle">
+                                        <article class="pet-card" data-pets-card>
+                                            <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
                                                     <div class="pet-card__avatar">
                                                         <svg class="icon icon--cat">
@@ -2096,7 +2102,7 @@
 
                                                 <div class="pet-card__actions">
                                                     <div class="pet-card__modify">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--edit">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -2106,7 +2112,7 @@
                                                     </div>
 
                                                     <div class="pet-card__delete">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--basket">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -2116,16 +2122,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="pet-card__edit"></div>
                                         </article>
                                         <!--/Карточка питомца-->
                                     </li>
 
                                     <li class="pet-cards__item">
                                         <!--Карточка питомца-->
-                                        <article class="pet-card">
-                                            <div class="pet-card__main box box--circle">
+                                        <article class="pet-card" data-pets-card>
+                                            <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
                                                     <div class="pet-card__avatar">
                                                         <svg class="icon icon--cat">
@@ -2158,7 +2162,7 @@
 
                                                 <div class="pet-card__actions">
                                                     <div class="pet-card__modify">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--edit">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -2168,7 +2172,7 @@
                                                     </div>
 
                                                     <div class="pet-card__delete">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
                                                                 <svg class="icon icon--basket">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
@@ -2178,12 +2182,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="pet-card__edit"></div>
                                         </article>
                                         <!--/Карточка питомца-->
                                     </li>
                                 </ul>
+
+                                <div class="pet-cards__adding">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
+                                        <span class="button__icon button__icon--medium">
+                                            <svg class="icon icon--add-circle">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Добавить питомца</span>
+                                    </button>
+                                </div>
                             </div>
 
                         </div>

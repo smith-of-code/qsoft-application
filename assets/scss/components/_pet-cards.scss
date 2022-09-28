@@ -8,4 +8,12 @@
             }
         }
     }
+
+    &__adding {
+        margin-top: rem(20px);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-medium);
+        }
+    }
 }
