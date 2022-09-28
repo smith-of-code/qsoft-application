@@ -1,6 +1,7 @@
 <?
 use Bitrix\Main\Loader;
 use Bitrix\Main\Text\Encoding;
+use QSoft\Service\UserGroupsService;
 use QSoft\Service\UserService;
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
@@ -249,6 +250,26 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 }
             }
         }
+        if ((new UserGroupsService)->currentUserIsConsultant()) {
+            $currentUser = (new UserService)->getCurrent();
+            $items['BONUSES'] = [
+                'ID' => 'BONUSES',
+                'CODE' => 'BONUSES',
+                'NAME' => 'Баллы',
+                'PRICE' => true,
+                'VALUES' => [
+                    'MIN' => [
+                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
+                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
+                    ],
+                    "MAX" => array(
+                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
+                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
+                    ),
+                ],
+            ];
+        }
+
         return $items;
     }
 

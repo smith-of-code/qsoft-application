@@ -2,16 +2,17 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Entity;
-use QSoft\ORM\Traits\HasHighloadEnums;
+use Bitrix\Main\SystemException;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\Entity\EnumField;
 
 Loc::loadMessages(__FILE__);
 
-class NotificationTable extends Entity\DataManager
+final class NotificationTable extends BaseTable
 {
-    use HasHighloadEnums;
-
     const TYPES = [
         'NOTIFICATION_TYPE_APPLICATION_STATUS_CHANGE',
         'NOTIFICATION_TYPE_ORDER_CREATED',
@@ -25,40 +26,44 @@ class NotificationTable extends Entity\DataManager
         'NOTIFICATION_STATUS_READ',
     ];
 
+    protected static array $decorators = [
+        'UF_TYPE' => EnumDecorator::class,
+        'UF_STATUS' => EnumDecorator::class,
+    ];
+
     public static function getTableName(): string
     {
         return 'transaction';
     }
 
+    /**
+     * @throws SystemException
+     */
     public static function getMap(): array
     {
-        $data = self::getEnumValues(self::getTableName(), ['UF_TYPE', 'UF_STATUS']);
-
         return [
-            new Entity\IntegerField('ID', [
+            new IntegerField('ID', [
                 'primary' => true,
                 'autocomplete' => true,
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_ID_FIELD'),
             ]),
-            new Entity\IntegerField('UF_USER_ID', [
+            new IntegerField('UF_USER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_USER_ID_FIELD'),
             ]),
-            new Entity\EnumField('UF_TYPE', [
+            new EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_TYPE_FIELD'),
-            ]),
-            new Entity\EnumField('UF_STATUS', [
+            ], self::getTableName()),
+            new EnumField('UF_STATUS', [
                 'required' => true,
-                'values' => $data['UF_STATUS'],
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_SOURCE_FIELD'),
-            ]),
-            new Entity\StringField('UF_MESSAGE', [
+            ], self::getTableName()),
+            new StringField('UF_MESSAGE', [
                 'required' => true,
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_MESSAGE_FIELD'),
             ]),
-            new Entity\StringField('UF_LINK', [
+            new StringField('UF_LINK', [
                 'required' => true,
                 'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_LINK_FIELD'),
             ]),
