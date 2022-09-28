@@ -4,6 +4,7 @@ namespace QSoft\ORM;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Entity;
+use Bitrix\Main\Type\DateTime;
 use QSoft\ORM\Traits\HasHighloadEnums;
 
 Loc::loadMessages(__FILE__);
@@ -55,5 +56,17 @@ class TransactionTable extends Entity\DataManager
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_AMOUNT_FIELD'),
             ]),
         ];
+    }
+
+    public static function add(array $data)
+    {
+        return parent::add(array_merge($data, ['UF_CREATED_AT' => new DateTime]));
+    }
+
+    public static function addMulti($rows, $ignoreEvents = false)
+    {
+        return parent::addMulti(array_map(static function ($row) {
+            return array_merge($row, ['UF_CREATED_AT' => new DateTime]);
+        }, $rows), $ignoreEvents);
     }
 }
