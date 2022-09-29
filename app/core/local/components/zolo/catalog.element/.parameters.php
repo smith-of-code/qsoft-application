@@ -15,24 +15,6 @@ if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
 
 /** @var array $arCurrentValues */
 
-$iblockTypes = CIBlockParameters::GetIBlockTypes(['-' => ' ']);
-
-$iblockFilters = [
-    'ACTIVE' => 'Y',
-    'SITE_ID' => $_REQUEST['site'],
-];
-
-if (isset($arCurrentValues['IBLOCK_TYPE']) && $arCurrentValues['IBLOCK_TYPE'] !== '-') {
-    $iblockFilters['TYPE'] = $arCurrentValues['IBLOCK_TYPE'];
-}
-
-$iblocksIterator = CIBlock::GetList(['SORT' => 'ASC'], $iblockFilters);
-
-$iblockNames = [];
-while ($iblock = $iblocksIterator->Fetch()) {
-    $iblockNames[$iblock['ID']] = "[{$iblock['ID']}] {$iblock['NAME']}";
-}
-
 $arProperty = [];
 $properties = \Bitrix\Iblock\PropertyTable::getList([
     'filter' => ['=IBLOCK_ID' => $arCurrentValues['IBLOCK_ID'], '=ACTIVE' => 'Y'],
@@ -48,22 +30,6 @@ foreach ($properties as $property) {
 $arComponentParameters = [
     'GROUPS' => [],
     'PARAMETERS' => [
-        'IBLOCK_TYPE' => [
-            'PARENT' => 'DATA_SOURCE',
-            'NAME' => Loc::getMessage('PARAMETER_IBLOCK_TYPE_NAME'),
-            'TYPE' => 'LIST',
-            'VALUES' => $iblockTypes,
-            'DEFAULT' => 'catalog',
-            'REFRESH' => 'Y',
-        ],
-        'IBLOCK_ID' => [
-            'PARENT' => 'DATA_SOURCE',
-            'NAME' => Loc::getMessage('PARAMETER_IBLOCK_ID_NAME'),
-            'TYPE' => 'LIST',
-            'VALUES' => $iblockNames,
-            'DEFAULT' => '107',
-            'REFRESH' => 'Y',
-        ],
         'ELEMENT_ID' => [
             'PARENT' => 'DATA_SOURCE',
             'NAME' => Loc::getMessage('PARAMETER_ELEMENT_ID_NAME'),

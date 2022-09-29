@@ -6,3 +6,4 @@ $MESS['IBLOCK_ID_NOT_SET'] = 'Information block ID is not set';
 $MESS['ELEMENT_DATA_NOT_SET'] = 'Element data is not set';
 $MESS['ELEMENT_NOT_FOUND'] = 'Element not found';
 $MESS['HL_BLOCK_NOT_FOUND'] = 'Highload block not found';
+$MESS['IBLOCK_CONSTANT_NOT_SET'] = 'IBlock constant is not set';
