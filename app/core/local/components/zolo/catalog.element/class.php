@@ -98,6 +98,9 @@ class CatalogElementComponent extends CBitrixComponent
 
                 $fileIds = $this->getFilesByItem($product);
 
+                $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
+                $this->arResult['DOCUMENTS'] = array_merge($sectionDocuments, $product['PROPERTY_DOCUMENTS_VALUE'] ?? []);
+
                 $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
                 $this->arResult['OFFERS'] = $offers;
 
@@ -240,8 +243,36 @@ class CatalogElementComponent extends CBitrixComponent
         if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
             $result[] = $item['PROPERTY_VIDEO_VALUE'];
         }
+        if (isset($item['PROPERTY_DOCUMENTS_VALUE']) && $item['PROPERTY_DOCUMENTS_VALUE']) {
+            $result = array_merge($item['PROPERTY_DOCUMENTS_VALUE'], $result);
+        }
 
         return $result;
+    }
+
+    private function getSectionFiles($sectionId, &$fileIds, $finalDocuments = []): array
+    {
+        if (!$sectionId) {
+            return $finalDocuments;
+        }
+
+        global $USER_FIELD_MANAGER;
+        $documents = $USER_FIELD_MANAGER->GetUserFieldValue(
+            'IBLOCK_' . $this->arParams['IBLOCK_ID'] . '_SECTION',
+            'UF_DOCUMENTS',
+            $sectionId,
+            LANGUAGE_ID
+        );
+
+        $section = CIBlockSection::GetByID($sectionId)->Fetch();
+        $sectionId = $section['IBLOCK_SECTION_ID'];
+
+        if ($documents) {
+            $fileIds = array_merge($fileIds, $documents);
+            $finalDocuments = array_merge($finalDocuments, $documents);
+        }
+
+        return $this->getSectionFiles($sectionId, $fileIds, $finalDocuments);
     }
 
     private function transformData(array $data): array
