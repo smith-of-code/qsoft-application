@@ -105,20 +105,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_minus_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./svg/minus.svg */ "./assets/icons/svg/minus.svg");
 /* harmony import */ var _svg_arrow_up_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./svg/arrow-up.svg */ "./assets/icons/svg/arrow-up.svg");
 /* harmony import */ var _svg_arrow_down_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./svg/arrow-down.svg */ "./assets/icons/svg/arrow-down.svg");
-/* harmony import */ var _svg_edit_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./svg/edit.svg */ "./assets/icons/svg/edit.svg");
-/* harmony import */ var _svg_import_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./svg/import.svg */ "./assets/icons/svg/import.svg");
-/* harmony import */ var _svg_delete_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./svg/delete.svg */ "./assets/icons/svg/delete.svg");
-/* harmony import */ var _svg_gallery_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./svg/gallery.svg */ "./assets/icons/svg/gallery.svg");
-/* harmony import */ var _svg_camera_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./svg/camera.svg */ "./assets/icons/svg/camera.svg");
-/* harmony import */ var _svg_calendar_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./svg/calendar.svg */ "./assets/icons/svg/calendar.svg");
-/* harmony import */ var _svg_add_circle_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./svg/add-circle.svg */ "./assets/icons/svg/add-circle.svg");
-/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
-/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
-/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
-/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
-/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
+/* harmony import */ var _svg_arrow_right_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./svg/arrow-right.svg */ "./assets/icons/svg/arrow-right.svg");
+/* harmony import */ var _svg_edit_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./svg/edit.svg */ "./assets/icons/svg/edit.svg");
+/* harmony import */ var _svg_import_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./svg/import.svg */ "./assets/icons/svg/import.svg");
+/* harmony import */ var _svg_delete_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./svg/delete.svg */ "./assets/icons/svg/delete.svg");
+/* harmony import */ var _svg_gallery_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./svg/gallery.svg */ "./assets/icons/svg/gallery.svg");
+/* harmony import */ var _svg_camera_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./svg/camera.svg */ "./assets/icons/svg/camera.svg");
+/* harmony import */ var _svg_calendar_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./svg/calendar.svg */ "./assets/icons/svg/calendar.svg");
+/* harmony import */ var _svg_add_circle_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./svg/add-circle.svg */ "./assets/icons/svg/add-circle.svg");
+/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
+/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
+/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
+/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
+/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
+
 
 
 
@@ -177,6 +179,26 @@ __webpack_require__.r(__webpack_exports__);
       id: "icon-arrow-down-usage",
       viewBox: "0 0 20 20",
       url: __webpack_require__.p + "./images/icons/sprite.svg#icon-arrow-down",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
+/***/ "./assets/icons/svg/arrow-right.svg":
+/*!******************************************!*\
+  !*** ./assets/icons/svg/arrow-right.svg ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-arrow-right-usage",
+      viewBox: "0 0 12 12",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-arrow-right",
       toString: function () {
         return this.url;
       }

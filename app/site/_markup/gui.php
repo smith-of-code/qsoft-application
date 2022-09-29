@@ -146,8 +146,14 @@
                                 </li>
 
                                 <li class="icons__item" title="Icon: arrow-down">
-                                    <svg class="icon icon--arrow-up gui__icon">
+                                    <svg class="icon icon--arrow-down gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: arrow-right">
+                                    <svg class="icon icon--right gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right"></use>
                                     </svg>
                                 </li>
 
@@ -1728,6 +1734,32 @@
                     </div>
                     <!--/Обрезка текста-->
 
+                    <!--Хлебные крошки-->
+                    <div class="gui__block">
+                        <h2>Хлебные крошки</h2>
+
+                        <div class="breadcrumbs">
+                            <ul class="breadcrumbs__list">
+                                <li class="breadcrumbs__item">
+                                    <a href="#" class="breadcrumbs__link">Главная</a>
+                                </li>
+                                <li class="breadcrumbs__item">
+                                    <a href="#" class="breadcrumbs__link">Каталог</a>
+                                </li>
+                                <li class="breadcrumbs__item">
+                                    <a href="#" class="breadcrumbs__link">Товары для собак</a>
+                                </li>
+                                <li class="breadcrumbs__item">
+                                    <a href="#" class="breadcrumbs__link">Сухие корма для собак</a>
+                                </li>
+                                <li class="breadcrumbs__item breadcrumbs__item--active">
+                                    <a class="breadcrumbs__link">AmeAppetite для мелких пород собак со вкусом сочного кролика</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Хлебные крошки-->
+
                     <!--Загрузчик-->
                     <div class="gui__block">
                         <h2 class="gui__title">Загрузчик</h2>
@@ -1930,37 +1962,6 @@
                                                 <form class="form">
                                                     <div class="pet-card__row form__row">
                                                         <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
-                                                            <!-- <div class="form__field dropdown dropdown--full" data-dropdown>
-                                                                <div class="form__field-block form__field-block--label">
-                                                                    <label for="text1" class="form__label">
-                                                                        <span class="form__label-text">Тип питомца</span>
-                                                                    </label>
-                                                                </div>
-                        
-                                                                <div class="form__field-block form__field-block--input">
-                                                                    <div class="input input--iconed">
-                                                                        <input type="text" class="input__control" name="text" id="text1" placeholder="Выбрать" data-dropdown-button>
-                                                                        <span class="input__icon">
-                                                                            <svg class="icon icon--arrow-down">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                                                            </svg>
-                                                                        </span>
-                                                                    </div>
-
-                                                                    <div class="dropdown__box box box--shadow" data-dropdown-block data-scrollbar>
-                                                                        <ul class="dropdown__list">
-                                                                            <li class="dropdown__item">
-                                                                                Мальчик
-                                                                            </li>
-
-                                                                            <li class="dropdown__item">
-                                                                                Девочка
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
-
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
                                                                     <label for="pet-card-select" class="form__label">
