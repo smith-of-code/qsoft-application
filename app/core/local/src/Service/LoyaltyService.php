@@ -3,8 +3,15 @@
 namespace QSoft\Service;
 
 use Bitrix\Catalog\Model\Price;
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Loader;
+use Bitrix\Main\LoaderException;
+use Bitrix\Main\ObjectNotFoundException;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\DateTime;
 use CCatalogGroup;
+use Exception;
 use QSoft\ORM\TransactionTable;
 use RuntimeException;
 
@@ -63,6 +70,9 @@ class LoyaltyService
         $this->userGroupsService = new UserGroupsService;
     }
 
+    /**
+     * @throws Exception
+     */
     public function addReferralBonuses(int $userId): bool
     {
         $user = $this->userService->getActive($userId);
@@ -89,8 +99,17 @@ class LoyaltyService
         ]);
     }
 
-    public function setOfferBonusesPrices(int $offerId, array $priceFields): void
+    /**
+     * @throws LoaderException
+     * @throws ArgumentException
+     * @throws ObjectNotFoundException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function setOfferBonusesPrices(int $offerId, float $priceValue): void
     {
+        Loader::includeModule('sale');
+
         $prices = Price::getList([
             'filter' => [
                 '=PRODUCT_ID' => $offerId,
@@ -106,7 +125,7 @@ class LoyaltyService
         $priceTypes = CCatalogGroup::GetList([], ['=NAME' => array_keys(self::LOYALTY_LEVELS)]);
         while ($priceType = $priceTypes->Fetch()) {
             $params = self::LOYALTY_LEVELS[$priceType['NAME']]['personal_bonuses_by_price'];
-            $bonuses = (float) intdiv($priceFields['PRICE'], $params['step']) * $params['size'];
+            $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
 
             if ($existingPrices[$priceType['ID']]) {
                 Price::update($existingPrices[$priceType['ID']]['ID'], [
@@ -118,7 +137,6 @@ class LoyaltyService
                     'PRODUCT_ID' => $offerId,
                     'CATALOG_GROUP_ID' => $priceType['ID'],
                     'PRICE' => $bonuses,
-                    'CURRENCY' => 'RUB', //TODO cut hardcode
                     'PRICE_SCALE' => $bonuses,
                 ]);
             }

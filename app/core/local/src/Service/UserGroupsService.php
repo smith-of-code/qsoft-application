@@ -29,6 +29,6 @@ class UserGroupsService
     public function currentUserIsConsultant(): bool
     {
         global $USER;
-        return $this->isConsultant($USER->GetID());
+        return $USER->GetID() && $this->isConsultant($USER->GetID());
     }
 }

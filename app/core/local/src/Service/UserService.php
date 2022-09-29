@@ -38,7 +38,7 @@ class UserService
     public function getCurrent(): ?array
     {
         global $USER;
-        return $this->get($USER->GetID());
+        return $USER->GetID() ? $this->get($USER->GetID()) : null;
     }
 
     public function getActive(int $userId): ?array

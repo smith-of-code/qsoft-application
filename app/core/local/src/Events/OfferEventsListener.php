@@ -2,30 +2,24 @@
 
 namespace QSoft\Events;
 
-use QSoft\Service\LoyaltyService;
+use CCatalogGroup;
+use QSoft\Queue\Jobs\BonusesPriceJob;
 
 class OfferEventsListener
 {
-    private static LoyaltyService $loyaltyService;
-
-    private static function initDependencies(): void
-    {
-        self::$loyaltyService = new LoyaltyService;
-    }
-
     public static function OnPriceAdd(int $priceId, array $fields): void
     {
-//        if ($fields['CATALOG_GROUP_ID'] === 1) {
-//            self::initDependencies();
-//            self::$loyaltyService->setOfferBonusesPrices($fields['PRODUCT_ID'], $fields);
-//        }
+        $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'])->Fetch();
+        if ($fields['CATALOG_GROUP_ID'] === (int) $basePrice['ID']) {
+            BonusesPriceJob::pushJob(['offerId' => $fields['PRODUCT_ID'], 'priceValue' => $fields['PRICE']]);
+        }
     }
 
     public static function OnPriceUpdate(int $priceId, array $fields): void
     {
-        if ($fields['CATALOG_GROUP_ID'] === 1) {
-            self::initDependencies();
-            self::$loyaltyService->setOfferBonusesPrices($fields['PRODUCT_ID'], $fields);
+        $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'])->Fetch();
+        if ($fields['CATALOG_GROUP_ID'] === (int) $basePrice['ID']) {
+            BonusesPriceJob::pushJob(['offerId' => $fields['PRODUCT_ID'], 'priceValue' => $fields['PRICE']]);
         }
     }
 }

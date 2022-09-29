@@ -273,67 +273,6 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
         return $items;
     }
 
-//	public function getPriceItems()
-//	{
-//
-//        if (!$this->arParams['PRICE_CODE']) {
-//            return [];
-//        }
-//
-//        if (!self::$catalogIncluded) {
-//            self::$catalogIncluded = Loader::includeModule('catalog');
-//        }
-//
-//        $currentUser = (new UserService)->getCurrent();
-//
-//        return [
-//            $this->arParams['PRICE_CODE'][0] => $this->getPrice($this->arParams['PRICE_CODE'][0]),
-//            $currentUser['UF_LOYALTY_LEVEL'] => $this->getPrice($currentUser['UF_LOYALTY_LEVEL']),
-//        ];
-//	}
-//
-//    private function getPrice(string $priceName): ?array
-//    {
-//        $price = CCatalogGroup::GetList(
-//            [],
-//            ['=NAME' => $priceName],
-//            false,
-//            false,
-//            ['ID', 'NAME', 'NAME_LANG', 'CAN_ACCESS', 'CAN_BUY'],
-//        )->Fetch();
-//
-//        if ($price['CAN_ACCESS'] !== 'Y' && $price['CAN_BUY'] !== 'Y') {
-//            return null;
-//        }
-//
-//        if (!$price['NAME_LANG']) {
-//            $price['NAME_LANG'] = $price['NAME'];
-//        }
-//
-//        $minId = "{$this->SAFE_FILTER_NAME}_P$price[ID]_MIN";
-//        $maxId = "{$this->SAFE_FILTER_NAME}_P$price[ID]_MAX";
-//        $utfId = Encoding::convertEncoding(strtolower($price['NAME']), LANG_CHARSET, 'utf-8');
-//
-//        return [
-//            'ID' => $price['ID'],
-//            'CODE' => $price['NAME'],
-//            'URL_ID' => rawurlencode(str_replace('/', '-', $utfId)),
-//            '~NAME' => $price['NAME_LANG'],
-//            'NAME' => htmlspecialcharsbx($price['NAME_LANG']),
-//            'PRICE' => true,
-//            'VALUES' => [
-//                'MIN' => [
-//                    'CONTROL_ID' => $minId,
-//                    'CONTROL_NAME' => $minId,
-//                ],
-//                'MAX' => [
-//                    'CONTROL_ID' => $maxId,
-//                    'CONTROL_NAME' => $maxId,
-//                ],
-//            ],
-//        ];
-//    }
-
 	public function getResultItems()
 	{
 		$items = $this->getIBlockItems($this->IBLOCK_ID);

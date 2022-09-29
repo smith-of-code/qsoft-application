@@ -38,6 +38,7 @@ app/site/auth_d.php
 *.dat
 *.json
 .git
+.const
 .sync.sh
 rsync.sh
 sync_from_bitrix.sh
