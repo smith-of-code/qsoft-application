@@ -436,7 +436,7 @@
 
         transition: transform .3s ease-in-out;
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             $size: 24px;
             $icon-margin: 8px;
 
@@ -444,6 +444,7 @@
 
             width: rem($size);
             height: rem($size);
+            margin-right: rem($icon-margin);
         }
 
         &:last-child {

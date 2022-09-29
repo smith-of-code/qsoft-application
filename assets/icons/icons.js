@@ -12,7 +12,19 @@ import './svg/rotate.svg';
 import './svg/plus.svg';
 import './svg/minus.svg';
 import './svg/arrow-up.svg';
+import './svg/arrow-down.svg';
+import './svg/edit.svg';
 import './svg/import.svg';
 import './svg/delete.svg';
 import './svg/gallery.svg';
 import './svg/camera.svg';
+import './svg/calendar.svg';
+import './svg/add-circle.svg';
+
+import './svg/cat.svg';
+import './svg/dog.svg';
+import './svg/pet.svg';
+import './svg/man.svg';
+import './svg/woman.svg';
+
+
