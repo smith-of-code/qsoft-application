@@ -31,36 +31,38 @@ if ($isFilter)
 	elseif ('' != $arResult["VARIABLES"]["SECTION_CODE"])
 		$arFilter["=CODE"] = $arResult["VARIABLES"]["SECTION_CODE"];
 
-	$obCache = new CPHPCache();
-	if ($obCache->InitCache(36000, serialize($arFilter), "/iblock/catalog"))
-	{
-		$arCurSection = $obCache->GetVars();
-	}
-	elseif ($obCache->StartDataCache())
-	{
-		$arCurSection = array();
-		if (Loader::includeModule("iblock"))
-		{
-			$dbRes = CIBlockSection::GetList(array(), $arFilter, false, array("ID"));
+    if (!empty($arFilter["ID"]) || !empty($arFilter["=CODE"])) {
+        $obCache = new CPHPCache();
+        if ($obCache->InitCache(36000, serialize($arFilter), "/iblock/catalog"))
+        {
+            $arCurSection = $obCache->GetVars();
+        }
+        elseif ($obCache->StartDataCache())
+        {
+            $arCurSection = array();
+            if (Loader::includeModule("iblock"))
+            {
+                $dbRes = CIBlockSection::GetList(array(), $arFilter, false, array("ID"));
 
-			if(defined("BX_COMP_MANAGED_CACHE"))
-			{
-				global $CACHE_MANAGER;
-				$CACHE_MANAGER->StartTagCache("/iblock/catalog");
+                if(defined("BX_COMP_MANAGED_CACHE"))
+                {
+                    global $CACHE_MANAGER;
+                    $CACHE_MANAGER->StartTagCache("/iblock/catalog");
 
-				if ($arCurSection = $dbRes->Fetch())
-					$CACHE_MANAGER->RegisterTag("iblock_id_".$arParams["IBLOCK_ID"]);
+                    if ($arCurSection = $dbRes->Fetch())
+                        $CACHE_MANAGER->RegisterTag("iblock_id_".$arParams["IBLOCK_ID"]);
 
-				$CACHE_MANAGER->EndTagCache();
-			}
-			else
-			{
-				if(!$arCurSection = $dbRes->Fetch())
-					$arCurSection = array();
-			}
-		}
-		$obCache->EndDataCache($arCurSection);
-	}
+                    $CACHE_MANAGER->EndTagCache();
+                }
+                else
+                {
+                    if(!$arCurSection = $dbRes->Fetch())
+                        $arCurSection = array();
+                }
+            }
+            $obCache->EndDataCache($arCurSection);
+        }
+    }
 	if (!isset($arCurSection))
 		$arCurSection = array();
 }
