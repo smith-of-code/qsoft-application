@@ -17,6 +17,39 @@
         }
     }
 
+    &--iconed {
+        .select2-container--default {
+            .select2-selection--single {
+                .select2-selection__placeholder {
+                    padding-left: rem(28px);
+
+                    &::after {
+                        $size: 20px;
+
+                        position: absolute;
+                        top: 0;
+                        left: rem($gap-average);
+                        bottom: 0;
+
+                        display: block;
+
+                        width: rem($size);
+                        height: rem($size);
+                        margin-top: auto;
+                        margin-bottom: auto;
+
+                        content: '';
+
+                        background-image: url('/local/templates/.default/images/icons/pet.svg');
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                        background-size: cover;
+                    }
+                }
+            }
+        }
+    }
+
     .select2-container {
         .select2-selection {
             &::after {
@@ -35,7 +68,7 @@
                 content: '';
                 transition: transform $transition-duration $transition-function;
 
-                background-image: url('/assets/icons/svg/arrow-down.svg');
+                background-image: url('/local/templates/.default/images/icons/arrow-down.svg');
                 background-repeat: no-repeat;
                 background-position: 50% 50%;
                 background-size: cover;
@@ -133,7 +166,6 @@
         background-color: $saltBox !important;
     }
 
-
     &__control {
         width: 100%;
         height: rem(36px);
@@ -172,6 +204,28 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+            }
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+
+        &-icon {
+            $size: 20px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-small);
+
+            @media #{$screen-tablet} {
+                $size: 26px;
+
+                width: rem($size);
+                height: rem($size);
             }
         }
     }

@@ -10,8 +10,30 @@ const ELEMENTS_SELECTOR = {
 export default function () {
     function initSelect() {
         const baseOptions = {
-
+            templateResult: formatState,
+            templateSelection: formatState,
         };
+
+        function formatState (state) {
+            let icon = $(state.element).data('option-icon');
+            let result;
+
+            if (icon) {
+                result = $(`
+                    <span class="select__item">
+                        <svg class="select__item-icon icon icon--cat">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>
+                        </svg>
+
+                        ${state.text}
+                    </span>
+                `);
+            } else {
+                result = state.text;
+            }
+
+            return result;
+          };
 
         const scrollOptions = {
             autohidemode: "leave",
