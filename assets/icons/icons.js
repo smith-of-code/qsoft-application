@@ -13,6 +13,7 @@ import './svg/plus.svg';
 import './svg/minus.svg';
 import './svg/arrow-up.svg';
 import './svg/arrow-down.svg';
+import './svg/arrow-right.svg';
 import './svg/edit.svg';
 import './svg/import.svg';
 import './svg/delete.svg';
