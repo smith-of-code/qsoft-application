@@ -30,21 +30,16 @@ class CatalogElementComponent extends CBitrixComponent
     {
         $arParams = parent::onPrepareComponentParams($arParams);
 
-        $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE'] ?? '');
-        if (!$arParams['IBLOCK_TYPE']) {
-            Tools::process404(Loc::getMessage('IBLOCK_TYPE_NOT_SET'), false, false);
+        $arParams['IBLOCK_TYPE'] = 'catalog';
+
+        if (!defined('IBLOCK_PRODUCT')) {
+            Tools::process404(Loc::getMessage('IBLOCK_CONSTANT_NOT_SET'), false, false);
             $this->isError = true;
 
             return $arParams;
         }
 
-        $arParams['IBLOCK_ID'] = (int)(trim($arParams['IBLOCK_ID']) ?? 0);
-        if (!$arParams['IBLOCK_ID']) {
-            Tools::process404(Loc::getMessage('IBLOCK_ID_NOT_SET'), false, false);
-            $this->isError = true;
-
-            return $arParams;
-        }
+        $arParams['IBLOCK_ID'] = IBLOCK_PRODUCT;
 
         $arParams['ELEMENT_ID'] = (int)(trim($arParams['ELEMENT_ID']) ?? 0);
         $arParams['ELEMENT_CODE'] = trim($arParams['ELEMENT_CODE'] ?? '');
@@ -54,9 +49,6 @@ class CatalogElementComponent extends CBitrixComponent
 
             return $arParams;
         }
-
-        $arParams['SECTION_ID'] = (int)(trim($arParams['SECTION_ID']) ?? 0);
-        $arParams['SECTION_CODE'] = trim($arParams['SECTION_CODE'] ?? '');
 
         return $arParams;
     }
