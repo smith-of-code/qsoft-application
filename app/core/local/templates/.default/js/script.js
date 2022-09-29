@@ -620,7 +620,19 @@ __webpack_require__.r(__webpack_exports__);
   main: '[data-pets-main]',
   edit: '[data-pets-edit]',
   modifyButton: '[data-pets-modify]',
-  deleteButton: '[data-pets-delete]'
+  deleteButton: '[data-pets-delete]',
+  type: '[data-pets-type]',
+  gender: '[data-pets-gender]',
+  date: '[data-pets-date]',
+  breed: '[data-pets-breed]',
+  name: '[data-pets-name]',
+  dateInput: '[data-pets-date-input]',
+  breedInput: '[data-pets-breed-input]',
+  nameInput: '[data-pets-name-input]',
+  genderInput: '[data-pets-gender-input]',
+  typeInput: '[data-pets-type-input]',
+  buttonSave: '[data-pets-save]',
+  buttonCancel: '[data-pets-cancel]'
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('click', ELEMENTS_SELECTOR.deleteButton, function () {
@@ -628,6 +640,30 @@ __webpack_require__.r(__webpack_exports__);
   });
   $(document).on('click', ELEMENTS_SELECTOR.modifyButton, function () {
     $(this).closest(ELEMENTS_SELECTOR.card).addClass('pet-card--editing');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.buttonSave, function () {
+    var element = $(this).closest(ELEMENTS_SELECTOR.card); //имя
+
+    var nameInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(ELEMENTS_SELECTOR.nameInput).val();
+    element.find(ELEMENTS_SELECTOR.name).text(nameInput); //дата рождения
+
+    var dateInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(ELEMENTS_SELECTOR.dateInput).val();
+    element.find(ELEMENTS_SELECTOR.date).text(dateInput); //порода
+
+    var breedInput = $(this).closest(ELEMENTS_SELECTOR.edit).find("".concat(ELEMENTS_SELECTOR.breedInput, " option:selected")).text();
+    element.find(ELEMENTS_SELECTOR.breed).text(breedInput); //пол
+
+    var genderInput = $(this).closest(ELEMENTS_SELECTOR.edit).find("".concat(ELEMENTS_SELECTOR.genderInput, " option:selected")).text();
+    var gender = typeInput == 'Девочка' ? 'woman' : 'man';
+    element.find(ELEMENTS_SELECTOR.gender).html("<svg class=\"icon icon--man\">\n            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-".concat(gender, "\"></use>\n        </svg>'")); //тип
+
+    var typeInput = $(this).closest(ELEMENTS_SELECTOR.edit).find("".concat(ELEMENTS_SELECTOR.typeInput, " option:selected")).data('option-icon');
+    var icon = typeInput == 'dog' ? 'dog' : 'cat';
+    element.find(ELEMENTS_SELECTOR.type).html("<svg class=\"icon icon--".concat(icon, "\">\n            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-").concat(icon, "\"></use>\n        </svg>"));
+    element.removeClass('pet-card--editing');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.buttonCancel, function () {
+    $(this).closest(ELEMENTS_SELECTOR.card).removeClass('pet-card--editing');
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))

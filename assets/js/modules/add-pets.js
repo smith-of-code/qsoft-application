@@ -2,8 +2,24 @@ const ELEMENTS_SELECTOR = {
     card: '[data-pets-card]',
     main: '[data-pets-main]',
     edit: '[data-pets-edit]',
+
     modifyButton: '[data-pets-modify]',
     deleteButton: '[data-pets-delete]',
+
+    type: '[data-pets-type]',
+    gender: '[data-pets-gender]',
+    date: '[data-pets-date]',
+    breed: '[data-pets-breed]',
+    name: '[data-pets-name]',
+
+    dateInput: '[data-pets-date-input]',
+    breedInput: '[data-pets-breed-input]',
+    nameInput: '[data-pets-name-input]',
+    genderInput: '[data-pets-gender-input]',
+    typeInput: '[data-pets-type-input]',
+
+    buttonSave: '[data-pets-save]',
+    buttonCancel: '[data-pets-cancel]',
 };
 
 export default function () {
@@ -13,5 +29,44 @@ export default function () {
 
     $(document).on('click', ELEMENTS_SELECTOR.modifyButton, function() {
         $(this).closest(ELEMENTS_SELECTOR.card).addClass('pet-card--editing');
+    });
+
+    $(document).on('click', ELEMENTS_SELECTOR.buttonSave, function() {
+        let element = $(this).closest(ELEMENTS_SELECTOR.card);
+
+        //имя
+        let nameInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(ELEMENTS_SELECTOR.nameInput).val();
+        element.find(ELEMENTS_SELECTOR.name).text(nameInput);
+
+        //дата рождения
+        let dateInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(ELEMENTS_SELECTOR.dateInput).val();
+        element.find(ELEMENTS_SELECTOR.date).text(dateInput);
+
+        //порода
+        let breedInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(`${ELEMENTS_SELECTOR.breedInput} option:selected`).text();
+        element.find(ELEMENTS_SELECTOR.breed).text(breedInput);
+
+        //пол
+        let genderInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(`${ELEMENTS_SELECTOR.genderInput} option:selected`).text();
+        let gender = (typeInput == 'Девочка') ? 'woman' : 'man';
+
+        element.find(ELEMENTS_SELECTOR.gender).html(`<svg class="icon icon--man">
+            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${gender}"></use>
+        </svg>'`);
+
+        //тип
+        let typeInput = $(this).closest(ELEMENTS_SELECTOR.edit).find(`${ELEMENTS_SELECTOR.typeInput} option:selected`).data('option-icon');
+        let icon = (typeInput == 'dog') ? 'dog' : 'cat';
+
+        element.find(ELEMENTS_SELECTOR.type).html(`<svg class="icon icon--${icon}">
+            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>
+        </svg>`);
+
+        element.removeClass('pet-card--editing');
+    });
+
+
+    $(document).on('click', ELEMENTS_SELECTOR.buttonCancel, function() {
+        $(this).closest(ELEMENTS_SELECTOR.card).removeClass('pet-card--editing');
     });
 }

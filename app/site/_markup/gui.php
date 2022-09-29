@@ -837,14 +837,14 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text1" class="form__label">
+                                            <label for="text16" class="form__label">
                                                 <span class="form__label-text">Поле ввода</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--iconed">
-                                                <input type="text" class="input__control" name="text" id="text1" placeholder="Поле ввода с лэйблом">
+                                                <input type="text" class="input__control" name="text" id="text16" placeholder="Поле ввода с лэйблом">
                                                 <span class="input__icon">
                                                     <svg class="icon icon--check">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check"></use>
@@ -1906,29 +1906,29 @@
                                         <article class="pet-card" data-pets-card>
                                             <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
+                                                    <div class="pet-card__avatar" data-pets-type>
                                                         <svg class="icon icon--dog">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
                                                         </svg>
                                                     </div>
 
                                                     <div class="pet-card__info">
-                                                        <div class="pet-card__name">
+                                                        <div class="pet-card__name" data-pets-name>
                                                             Мухтар Бесстрашный
                                                         </div>
 
-                                                        <div class="pet-card__breed">
+                                                        <div class="pet-card__breed" data-pets-breed>
                                                             Австралийская овчарка
                                                         </div>
 
                                                         <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
+                                                            <div class="pet-card__gender" data-pets-gender>
                                                                 <svg class="icon icon--man">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
                                                                 </svg>
                                                             </div>
 
-                                                            <div class="pet-card__date">
+                                                            <div class="pet-card__date" data-pets-date>
                                                                 09.10.2017
                                                             </div>
                                                         </div>
@@ -1972,8 +1972,8 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate select--iconed" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select1" data-select-control data-placeholder="Выбрать">
-                                                                                <option data-option-icon="cat"><!-- пустой option для placeholder --></option>
+                                                                            <select class="select__control" name="select" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input>
+                                                                                <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1" data-option-icon="cat">Кошка</option>
                                                                                 <option value="2" data-option-icon="dog">Собака</option>
                                                                             </select>
@@ -1994,7 +1994,7 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select" data-select-control data-placeholder="Выбрать">
+                                                                            <select class="select__control" name="select" id="pet-card-select" data-select-control data-placeholder="Выбрать" data-pets-gender-input>
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">Мальчик</option>
                                                                                 <option value="2">Девочка</option>
@@ -2023,6 +2023,7 @@
                                                                             data-mask-date 
                                                                             data-inputmask-alias="datetime"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
                                                                         >
                                                                         <span class="input__icon">
                                                                             <svg class="icon icon--calendar">
@@ -2045,7 +2046,7 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select2" data-select-control data-placeholder="Выбрать">
+                                                                            <select class="select__control" name="select" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-breed-input>
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">Лабрадор</option>
                                                                                 <option value="2">Пудель</option>
@@ -2064,14 +2065,14 @@
                                                         <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="text1" class="form__label">
+                                                                    <label for="text19" class="form__label">
                                                                         <span class="form__label-text">Кличка</span>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" name="text" id="text1" placeholder="Выбрать">
+                                                                        <input type="text" class="input__control" name="text" id="text19" placeholder="Выбрать" data-pets-name-input>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2079,11 +2080,11 @@
                                                     </div>
 
                                                     <div class="pet-card__buttons">
-                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full">
+                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
                                                             Сохранить изменения
                                                         </button>
 
-                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full">
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
                                                             Отменить изменения
                                                         </button>
                                                     </div>
@@ -2098,29 +2099,29 @@
                                         <article class="pet-card" data-pets-card>
                                             <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
+                                                    <div class="pet-card__avatar" data-pets-type>
                                                         <svg class="icon icon--cat">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
                                                         </svg>
                                                     </div>
 
                                                     <div class="pet-card__info">
-                                                        <div class="pet-card__name">
+                                                        <div class="pet-card__name" data-pets-name>
                                                             Веснушка
                                                         </div>
 
-                                                        <div class="pet-card__breed">
+                                                        <div class="pet-card__breed" data-pets-breed>
                                                             Абиссинская кошка
                                                         </div>
 
                                                         <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
+                                                            <div class="pet-card__gender" data-pets-gender>
                                                                 <svg class="icon icon--woman">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
                                                                 </svg>
                                                             </div>
 
-                                                            <div class="pet-card__date">
+                                                            <div class="pet-card__date" data-pets-date>
                                                                 20.12.2019
                                                             </div>
                                                         </div>
@@ -2149,6 +2150,139 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
+                                                <form class="form">
+                                                    <div class="pet-card__row form__row">
+                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select11" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate select--iconed" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select11" data-select-control data-placeholder="Выбрать" data-pets-type-input>
+                                                                                <option data-option-icon="cat"><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" data-option-icon="cat">Кошка</option>
+                                                                                <option value="2" data-option-icon="dog">Собака</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select22" class="form__label">
+                                                                        <span class="form__label-text">Пол</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select22" data-select-control data-placeholder="Выбрать" data-pets-gender-input>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Мальчик</option>
+                                                                                <option value="2">Девочка</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="birthdate1" class="form__label">
+                                                                        <span class="form__label-text">Дата рождения</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input inputmode="numeric"
+                                                                            class="input__control"
+                                                                            name="text"
+                                                                            id="birthdate1"
+                                                                            placeholder="ДД.ММ.ГГГГ"
+                                                                            data-mask-date 
+                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
+                                                                        >
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--calendar">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select33" class="form__label">
+                                                                        <span class="form__label-text">Порода</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select33" data-select-control data-placeholder="Выбрать" data-pets-breed-input>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Лабрадор</option>
+                                                                                <option value="2">Пудель</option>
+                                                                                <option value="3">Болонка</option>
+                                                                                <option value="4">Мопс</option>
+                                                                                <option value="5">Китайская хохлатая</option>
+                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
+                                                                                <option value="7">Дог</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text18" class="form__label">
+                                                                        <span class="form__label-text">Кличка</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input">
+                                                                        <input type="text" class="input__control" name="text" id="text18" placeholder="Выбрать">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pet-card__buttons">
+                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
+                                                            Сохранить изменения
+                                                        </button>
+
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
+                                                            Отменить изменения
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </article>
                                         <!--/Карточка питомца-->
                                     </li>
@@ -2158,29 +2292,29 @@
                                         <article class="pet-card" data-pets-card>
                                             <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
+                                                    <div class="pet-card__avatar" data-pets-type>
                                                         <svg class="icon icon--cat">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
                                                         </svg>
                                                     </div>
 
                                                     <div class="pet-card__info">
-                                                        <div class="pet-card__name">
+                                                        <div class="pet-card__name" data-pets-name>
                                                             Барон Корф VI
                                                         </div>
 
-                                                        <div class="pet-card__breed">
+                                                        <div class="pet-card__breed" data-pets-breed>
                                                             Американская короткошерстная кошка
                                                         </div>
 
                                                         <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
+                                                            <div class="pet-card__gender" data-pets-gender>
                                                                 <svg class="icon icon--man">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
                                                                 </svg>
                                                             </div>
 
-                                                            <div class="pet-card__date">
+                                                            <div class="pet-card__date" data-pets-date>
                                                                 20.12.2019
                                                             </div>
                                                         </div>
@@ -2208,6 +2342,139 @@
                                                         </button>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
+                                                <form class="form">
+                                                    <div class="pet-card__row form__row">
+                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select44" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate select--iconed" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select44" data-select-control data-placeholder="Выбрать" data-pets-type-input>
+                                                                                <option data-option-icon="cat"><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" data-option-icon="cat">Кошка</option>
+                                                                                <option value="2" data-option-icon="dog">Собака</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select55" class="form__label">
+                                                                        <span class="form__label-text">Пол</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select55" data-select-control data-placeholder="Выбрать" data-pets-gender-input>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Мальчик</option>
+                                                                                <option value="2">Девочка</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="birthdate2" class="form__label">
+                                                                        <span class="form__label-text">Дата рождения</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input inputmode="numeric"
+                                                                            class="input__control"
+                                                                            name="text"
+                                                                            id="birthdate2"
+                                                                            placeholder="ДД.ММ.ГГГГ"
+                                                                            data-mask-date 
+                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
+                                                                        >
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--calendar">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select66" class="form__label">
+                                                                        <span class="form__label-text">Порода</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="select" id="pet-card-select66" data-select-control data-placeholder="Выбрать" data-pets-breed-input>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Лабрадор</option>
+                                                                                <option value="2">Пудель</option>
+                                                                                <option value="3">Болонка</option>
+                                                                                <option value="4">Мопс</option>
+                                                                                <option value="5">Китайская хохлатая</option>
+                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
+                                                                                <option value="7">Дог</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text17" class="form__label">
+                                                                        <span class="form__label-text">Кличка</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input">
+                                                                        <input type="text" class="input__control" name="text" id="text17" placeholder="Выбрать">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pet-card__buttons">
+                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
+                                                            Сохранить изменения
+                                                        </button>
+
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
+                                                            Отменить изменения
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </article>
                                         <!--/Карточка питомца-->
