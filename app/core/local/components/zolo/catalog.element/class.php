@@ -298,6 +298,7 @@ class CatalogElementComponent extends CBitrixComponent
             'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
             'BASKET_COUNT' => [],
+            'DOCUMENTS' => [],
         ];
 
         foreach ($data['OFFERS'] as $offer) {
@@ -314,6 +315,10 @@ class CatalogElementComponent extends CBitrixComponent
                 }
             }
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
+        }
+
+        foreach ($data['DOCUMENTS'] as $documentId) {
+            $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
         }
 
         return $result;
