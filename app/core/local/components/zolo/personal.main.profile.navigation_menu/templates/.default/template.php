@@ -41,7 +41,7 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <li>
             <a href="<?=$arParams['NOTIFICATIONS_URL']?>">
                 Уведомления
-                <?=$arResult['NOTIFICATION_COUNT']?>
+                <b>(<?=$arResult['NOTIFICATION_COUNT']?>)</b>
                 <?=($arParams['NOTIFICATIONS_URL'] === $currentUrl) ? ' (текущая ссылка)' : ''?>
             </a>
         </li>
