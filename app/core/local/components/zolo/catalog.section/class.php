@@ -711,6 +711,29 @@ class CatalogSectionComponent extends ElementList
 		}
 	}
 
+    protected function getIblockElements($elementIterator)
+    {
+        $iblockElements = array();
+
+        if (!empty($elementIterator))
+        {
+            if (!empty($elementIterator->arSectionContext))
+            {
+                for ($i = 0; $i < count($elementIterator->arResult); $i++)
+                {
+                    $elementIterator->arSectionContext["ID"] = $elementIterator->arResult[$i]["IBLOCK_SECTION_ID"];
+                    $element = $elementIterator->GetNext();
+                    if (empty($element))
+                        break;
+                    $this->processElement($element);
+                    $iblockElements[$element['ID']] = $element;
+                }
+            }
+        }
+
+        return $iblockElements;
+    }
+
     protected function calculateItemPrices(array &$items)
     {
         if (empty($items))
