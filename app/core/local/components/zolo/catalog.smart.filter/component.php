@@ -354,7 +354,12 @@ foreach($arResult["ITEMS"] as $PID => $arItem)
 			)
 		)
 		{
-			if($arItem["PROPERTY_TYPE"] == "N")
+            if($arItem["CODE"] == "WITH_DISCOUNT")
+            {
+                $arResult["ITEMS"][$PID]["VALUES"][$key]["CHECKED"] = true;
+                $allCHECKED[$PID][$ar["VALUE"]] = true;
+            }
+			elseif($arItem["PROPERTY_TYPE"] == "N")
 			{
 				$arResult["ITEMS"][$PID]["VALUES"][$key]["HTML_VALUE"] = htmlspecialcharsbx($_CHECK[$ar["CONTROL_NAME"]]);
 				$arResult["ITEMS"][$PID]["DISPLAY_EXPANDED"] = "Y";
@@ -609,6 +614,10 @@ foreach($arResult["ITEMS"] as $PID => $arItem)
 		}
 		unset($setValue);
 	}
+    elseif($arItem["CODE"] == "WITH_DISCOUNT")
+    {
+        ${$FILTER_NAME}["WITH_DISCOUNT"] = $_CHECK["arrFilter_WITH_DISCOUNT_1"];
+    }
 	elseif($arItem["PROPERTY_TYPE"] == "N")
 	{
 		$existMinValue = ($arItem["VALUES"]["MIN"]["HTML_VALUE"] <> '');

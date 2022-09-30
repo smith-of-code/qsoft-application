@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Iblock\PropertyIndex\Manager;
 use QSoft\Migrate\BaseCreateIBlockMigration;
 
 final class CreateIBlockProduct extends BaseCreateIBlockMigration
@@ -124,6 +125,8 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'CODE' => 'AGE',
             'LIST_TYPE' => 'L',
             'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Для взрослых',
@@ -145,6 +148,8 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'CODE' => 'BREED',
             'LIST_TYPE' => 'L',
             'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Для мелких пород',
@@ -195,6 +200,11 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                 'SMART_FILTER' => 'Y',
             ]);
         }
+
+        $index = Manager::createIndexer($this->iBlockId);
+        $index->startIndex();
+        $index->continueIndex();
+        $index->endIndex();
     }
 
     private function includeCatalogModule(): void

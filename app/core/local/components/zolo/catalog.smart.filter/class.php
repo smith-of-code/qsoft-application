@@ -1,5 +1,8 @@
 <?
 use Bitrix\Main\Loader;
+use Bitrix\Main\Text\Encoding;
+use QSoft\Service\UserGroupsService;
+use QSoft\Service\UserService;
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
@@ -49,6 +52,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
+        $arParams["PRICE_CODE"][] = (new UserService)->getCurrent()['UF_LOYALTY_LEVEL'];
 		$arParams["PRICE_CODE"] = is_array($arParams["PRICE_CODE"])? $arParams["PRICE_CODE"]: array();
 		foreach ($arParams["PRICE_CODE"] as $k=>$v)
 		{
@@ -197,57 +201,77 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 		return $items;
 	}
 
-	public function getPriceItems()
-	{
-		$items = array();
-		if (!empty($this->arParams["PRICE_CODE"]))
-		{
-			if (self::$catalogIncluded === null)
-				self::$catalogIncluded = Loader::includeModule('catalog');
-			if (self::$catalogIncluded)
-			{
-				$rsPrice = CCatalogGroup::GetList(
-					array('SORT' => 'ASC', 'ID' => 'ASC'),
-					array('=NAME' => $this->arParams["PRICE_CODE"]),
-					false,
-					false,
-					array('ID', 'NAME', 'NAME_LANG', 'CAN_ACCESS', 'CAN_BUY')
-				);
-				while($arPrice = $rsPrice->Fetch())
-				{
-					if($arPrice["CAN_ACCESS"] == "Y" || $arPrice["CAN_BUY"] == "Y")
-					{
-						$arPrice["NAME_LANG"] = (string)$arPrice["NAME_LANG"];
-						if ($arPrice["NAME_LANG"] === '')
-							$arPrice["NAME_LANG"] = $arPrice["NAME"];
-						$minID = $this->SAFE_FILTER_NAME.'_P'.$arPrice['ID'].'_MIN';
-						$maxID = $this->SAFE_FILTER_NAME.'_P'.$arPrice['ID'].'_MAX';
-						$error = "";
-						$utf_id = \Bitrix\Main\Text\Encoding::convertEncoding(toLower($arPrice["NAME"]), LANG_CHARSET, "utf-8", $error);
-						$items[$arPrice["NAME"]] = array(
-							"ID" => $arPrice["ID"],
-							"CODE" => $arPrice["NAME"],
-							"URL_ID" => rawurlencode(str_replace("/", "-", $utf_id)),
-							"~NAME" => $arPrice["NAME_LANG"],
-							"NAME" => htmlspecialcharsbx($arPrice["NAME_LANG"]),
-							"PRICE" => true,
-							"VALUES" => array(
-								"MIN" => array(
-									"CONTROL_ID" => $minID,
-									"CONTROL_NAME" => $minID,
-								),
-								"MAX" => array(
-									"CONTROL_ID" => $maxID,
-									"CONTROL_NAME" => $maxID,
-								),
-							),
-						);
-					}
-				}
-			}
-		}
-		return $items;
-	}
+    public function getPriceItems()
+    {
+        $items = array();
+        if (!empty($this->arParams["PRICE_CODE"]))
+        {
+            if (self::$catalogIncluded === null)
+                self::$catalogIncluded = Loader::includeModule('catalog');
+            if (self::$catalogIncluded)
+            {
+                $rsPrice = CCatalogGroup::GetList(
+                    array('SORT' => 'ASC', 'ID' => 'ASC'),
+                    array('=NAME' => $this->arParams["PRICE_CODE"]),
+                    false,
+                    false,
+                    array('ID', 'NAME', 'NAME_LANG', 'CAN_ACCESS', 'CAN_BUY')
+                );
+                while($arPrice = $rsPrice->Fetch())
+                {
+                    if($arPrice["CAN_ACCESS"] == "Y" || $arPrice["CAN_BUY"] == "Y")
+                    {
+                        $arPrice["NAME_LANG"] = (string)$arPrice["NAME_LANG"];
+                        if ($arPrice["NAME_LANG"] === '')
+                            $arPrice["NAME_LANG"] = $arPrice["NAME"];
+                        $minID = $this->SAFE_FILTER_NAME.'_P'.$arPrice['ID'].'_MIN';
+                        $maxID = $this->SAFE_FILTER_NAME.'_P'.$arPrice['ID'].'_MAX';
+                        $error = "";
+                        $utf_id = \Bitrix\Main\Text\Encoding::convertEncoding(toLower($arPrice["NAME"]), LANG_CHARSET, "utf-8", $error);
+                        $items[$arPrice["NAME"]] = array(
+                            "ID" => $arPrice["ID"],
+                            "CODE" => $arPrice["NAME"],
+                            "URL_ID" => rawurlencode(str_replace("/", "-", $utf_id)),
+                            "~NAME" => $arPrice["NAME_LANG"],
+                            "NAME" => htmlspecialcharsbx($arPrice["NAME_LANG"]),
+                            "PRICE" => true,
+                            "VALUES" => array(
+                                "MIN" => array(
+                                    "CONTROL_ID" => $minID,
+                                    "CONTROL_NAME" => $minID,
+                                ),
+                                "MAX" => array(
+                                    "CONTROL_ID" => $maxID,
+                                    "CONTROL_NAME" => $maxID,
+                                ),
+                            ),
+                        );
+                    }
+                }
+            }
+        }
+        if ((new UserGroupsService)->currentUserIsConsultant()) {
+            $currentUser = (new UserService)->getCurrent();
+            $items['BONUSES'] = [
+                'ID' => 'BONUSES',
+                'CODE' => 'BONUSES',
+                'NAME' => 'Баллы',
+                'PRICE' => true,
+                'VALUES' => [
+                    'MIN' => [
+                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
+                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
+                    ],
+                    "MAX" => array(
+                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
+                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
+                    ),
+                ],
+            ];
+        }
+
+        return $items;
+    }
 
 	public function getResultItems()
 	{
@@ -274,6 +298,28 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 				$items[$PID] = $arItem;
 			}
 		}
+
+        $items['WITH_DISCOUNT'] = [
+            'CODE' => 'WITH_DISCOUNT',
+            'NAME' => 'Со скидкой',
+            'PROPERTY_TYPE' => 'N',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
+            'VALUES' => [
+                '1' => [
+                    'CONTROL_ID' => 'arrFilter_WITH_DISCOUNT_1',
+                    'CONTROL_NAME' => 'arrFilter_WITH_DISCOUNT_1',
+                    'CONTROL_NAME_ALT' => 'arrFilter_WITH_DISCOUNT',
+                    'HTML_VALUE_ALT' => 1,
+                    'HTML_VALUE' => 'Y',
+                    'VALUE' => 'Да',
+                    'SORT' => 500,
+                    'UPPER' => 'ДА',
+                    'FLAG' => true,
+                    'URL_ID' => uniqid(),
+                ]
+            ],
+        ];
 
 		return $items;
 	}
@@ -795,7 +841,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 		if($url_id <> '')
 		{
 			$error = "";
-			$utf_id = \Bitrix\Main\Text\Encoding::convertEncoding($url_id, LANG_CHARSET, "utf-8", $error);
+			$utf_id = Encoding::convertEncoding($url_id, LANG_CHARSET, "utf-8", $error);
 			$resultItem["VALUES"][$htmlKey]['URL_ID'] = rawurlencode(str_replace("/", "-", $utf_id));
 		}
 
@@ -1029,7 +1075,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 	public function searchPrice($items, $lookupValue)
 	{
 		$error = "";
-		$searchValue = \Bitrix\Main\Text\Encoding::convertEncoding($lookupValue, LANG_CHARSET, "utf-8", $error);
+		$searchValue = Encoding::convertEncoding($lookupValue, LANG_CHARSET, "utf-8", $error);
 		if (!$error)
 		{
 			$encodedValue = rawurlencode($searchValue);
@@ -1065,7 +1111,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 	public function searchValue($item, $lookupValue)
 	{
 		$error = "";
-		$searchValue = \Bitrix\Main\Text\Encoding::convertEncoding($lookupValue, LANG_CHARSET, "utf-8", $error);
+		$searchValue = Encoding::convertEncoding($lookupValue, LANG_CHARSET, "utf-8", $error);
 		if (!$error)
 		{
 			$encodedValue = rawurlencode($searchValue);
@@ -1090,6 +1136,8 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			{
 				if ($i == 0)
 				{
+                    if ($smartElement === "with_discount")
+                        $result["arrFilter_WITH_DISCOUNT_1"] = "Y";
 					if (preg_match("/^price-(.+)$/", $smartElement, $match))
 						$itemId = $this->searchPrice($this->arResult["ITEMS"], $match[1]);
 					else
@@ -1160,6 +1208,8 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 					|| $arItem["DISPLAY_TYPE"] == "U"
 				)
 				{
+                    if ($arItem["CODE"] == "WITH_DISCOUNT" && $arItem["VALUES"][1]["CHECKED"])
+                        $smartPart[1] = 'true';
 					if ($arItem["VALUES"]["MIN"]["HTML_VALUE"] <> '')
 						$smartPart["from"] = $arItem["VALUES"]["MIN"]["HTML_VALUE"];
 					if ($arItem["VALUES"]["MAX"]["HTML_VALUE"] <> '')

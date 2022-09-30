@@ -19,7 +19,6 @@ if (isset($templateData['TEMPLATE_THEME']))
 {
 	$this->addExternalCss($templateData['TEMPLATE_THEME']);
 }
-
 ?>
 <div class="smart-filter mb-4 <?=$templateData["TEMPLATE_CLASS"]?>">
 	<div class="smart-filter-section">
