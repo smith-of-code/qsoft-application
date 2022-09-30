@@ -73,7 +73,7 @@ $contentBlockClass = "col";
                 'CURRENCY_ID' => $arParams['CURRENCY_ID'],
                 "SEF_MODE" => $arParams["SEF_MODE"],
                 "SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
-                "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SECTION_CODE_PATH"],
+                "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
                 "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
                 "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
             ),

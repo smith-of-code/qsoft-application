@@ -105,6 +105,21 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
                 'TABLE_NAME' => 'size',
             ],
         ],
+        [
+            'NAME' => 'Бонусы для уровня K1',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K1',
+        ],
+        [
+            'NAME' => 'Бонусы для уровня K2',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K2',
+        ],
+        [
+            'NAME' => 'Бонусы для уровня K3',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K3',
+        ],
     ];
 
     protected function afterUp(): void
