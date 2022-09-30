@@ -28,7 +28,7 @@ class UserService
 
         foreach (self::ENUM_PROPERTIES as $enumProperty) {
             if ($user[$enumProperty]) {
-                $user[$enumProperty] = CUserFieldEnum::GetList(['ID' => $user[$enumProperty]])->fetch()['VALUE'];
+                $user[$enumProperty] = CUserFieldEnum::GetList([], ['ID' => $user[$enumProperty]])->fetch()['VALUE'];
             }
         }
 
