@@ -54,7 +54,6 @@ if($arParams["SEF_MODE"] == "Y")
 		$arVariables
 	);
 
-    // Задаем параметры при открытии /catalog/ - открываем корневой раздел
 	if (! isset($arVariables['SECTION_CODE'])) {
         $arVariables['SECTION_CODE'] = '';
         $componentPage = "section";
@@ -102,6 +101,24 @@ if($arParams["SEF_MODE"] == "Y")
 	}
 
 	CComponentEngine::initComponentVariables($componentPage, $arComponentVariables, $arVariableAliases, $arVariables);
+
+    $arVariables["SMART_FILTER_PATH"] = explode("?", $_SERVER["REQUEST_URI"])[0];
+
+    if(!empty($arVariables["SECTION_ID"]))
+    {
+        if (!empty($arVariables["SMART_FILTER_PATH"]))
+        {
+            $smartParts = array_reverse(explode("/", $arVariables["SMART_FILTER_PATH"]));
+            foreach($smartParts as $smartPart)
+            {
+                if(!empty($smartPart) && $arSection = CIBlockSection::GetList([], ['CODE' => $smartPart])->GetNext())
+                {
+                    $arVariables["SECTION_ID"] = $arSection["ID"];
+                    break;
+                }
+            }
+        }
+    }
 
 	$arResult = array(
 		"FOLDER" => $arParams["SEF_FOLDER"],

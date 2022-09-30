@@ -84,6 +84,11 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     <?php foreach ($arResult['PRICES'] as $key => $price): ?>
         <span><?="{$price['PRICE']} ($key)"?></span>
     <?php endforeach; ?>
+
+    <p>Ссылки на документы</p>
+    <?php foreach ($arResult['DOCUMENTS'] as $item): ?>
+        <p><?=$item?></p>
+    <?php endforeach; ?>
 </div>
 
 <?php

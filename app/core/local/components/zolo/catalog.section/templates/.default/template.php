@@ -129,7 +129,6 @@ $containerName = 'container-'.$navParams['NavNum'];
 			{
 				$areaIds = array();
 
-				// Эрмитаж
 				foreach ($arResult['ITEMS'] as $item)
 				{
 					$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
@@ -138,10 +137,8 @@ $containerName = 'container-'.$navParams['NavNum'];
 					$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
 				}
 
-				// Вывод карточек товаров
 				foreach ($arResult['ITEM_ROWS'] as $rowData)
 				{
-					// Вырезает по N элементов из общей кучи и выводит в строке
 				    $rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
 					?>
 					<div class="row <?=$rowData['CLASS']?>" data-entity="items-row">
@@ -183,7 +180,6 @@ $containerName = 'container-'.$navParams['NavNum'];
 			?>
             <!-- items-container -->
 		</div>
-		<? /* КНОПКА "ПОКАЗАТЬ ЕЩЁ" */?>
         <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
             <button type="button"
                     class="btn btn-primary btn-md"

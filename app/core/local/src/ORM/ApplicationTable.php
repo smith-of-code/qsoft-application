@@ -2,15 +2,21 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Entity;
-use QSoft\ORM\Traits\HasHighloadEnums;
+use Bitrix\Main\SystemException;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\Entity\EnumField;
 
 Loc::loadMessages(__FILE__);
 
-class ApplicationTable extends Entity\DataManager
+final class ApplicationTable extends BaseTable
 {
-    use HasHighloadEnums;
+    protected static array $decorators = [
+        'UF_TYPE' => EnumDecorator::class,
+        'UF_STATUS' => EnumDecorator::class,
+    ];
 
     public static function getTableName(): string
     {
@@ -18,39 +24,33 @@ class ApplicationTable extends Entity\DataManager
     }
 
     /**
-     * @return array
-     * @throws \Bitrix\Main\LoaderException
-     * @throws \Bitrix\Main\SystemException
+     * @throws SystemException
      */
     public static function getMap(): array
     {
-        $data = self::getEnumValues(self::getTableName(), ['UF_STATUS', 'UF_TYPE']);
-
         return [
-            new Entity\IntegerField('ID', [
+            new IntegerField('ID', [
                 'primary' => true,
                 'autocomplete' => true,
                 'title' => Loc::getMessage('APPLICATION_ENTITY_ID_FIELD'),
             ]),
-            new Entity\IntegerField('UF_USER_ID', [
+            new IntegerField('UF_USER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_USER_ID_FIELD'),
             ]),
-            new Entity\EnumField('UF_TYPE', [
+            new EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_TYPE_FIELD'),
-            ]),
-            new Entity\EnumField('UF_STATUS', [
+            ], self::getTableName()),
+            new EnumField('UF_STATUS', [
                 'required' => true,
-                'values' => $data['UF_STATUS'],
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_STATUS_FIELD'),
-            ]),
-            new Entity\StringField('UF_COMMENT', [
+            ], self::getTableName()),
+            new StringField('UF_COMMENT', [
                 'required' => true,
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_TEXT_FIELD'),
             ]),
-            new Entity\StringField('UF_DATA', [
+            new StringField('UF_DATA', [
                 'required' => true,
                 'title' => Loc::getMessage('APPLICATION_ENTITY_UF_DATA_FIELD'),
             ]),

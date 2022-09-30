@@ -25,4 +25,10 @@ class UserGroupsService
             ],
         ]);
     }
+
+    public function currentUserIsConsultant(): bool
+    {
+        global $USER;
+        return $USER->GetID() && $this->isConsultant($USER->GetID());
+    }
 }

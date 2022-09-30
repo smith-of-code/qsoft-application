@@ -25,25 +25,28 @@ class UserService
         if (!$user || !$user = $user->fetch()) {
             return null;
         }
+
+        foreach (self::ENUM_PROPERTIES as $enumProperty) {
+            if ($user[$enumProperty]) {
+                $user[$enumProperty] = CUserFieldEnum::GetList([], ['ID' => $user[$enumProperty]])->fetch()['VALUE'];
+            }
+        }
+
         return $user;
+    }
+
+    public function getCurrent(): ?array
+    {
+        global $USER;
+        return $USER->GetID() ? $this->get($USER->GetID()) : null;
     }
 
     public function getActive(int $userId): ?array
     {
-        $user = $this->user::GetByID($userId);
+        $user = $this->get($userId);
 
-        if (!$user || !$user = $user->fetch()) {
+        if (!$user || $user['ACTIVE'] === 'N' || $user['BLOCKED'] === 'Y') {
             return null;
-        }
-
-        if ($user['ACTIVE'] === 'N' || $user['BLOCKED'] === 'Y') {
-            return null;
-        }
-
-        foreach (self::ENUM_PROPERTIES as $enumProperty) {
-            if ($user[$enumProperty]) {
-                $user[$enumProperty] = CUserFieldEnum::GetList(['ID' => $user[$enumProperty]])->fetch()['VALUE'];
-            }
         }
 
         return $user;

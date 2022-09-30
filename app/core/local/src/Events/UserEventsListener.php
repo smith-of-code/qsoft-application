@@ -1,6 +1,6 @@
 <?php
 
-namespace QSoft\Events\User;
+namespace QSoft\Events;
 
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\UserGroupsService;
@@ -20,7 +20,7 @@ class UserEventsListener
         self::$loyaltyService = new LoyaltyService;
     }
 
-    public static function OnBeforeUserUpdate(array $fields): void
+    public static function OnBeforeUserUpdate(array $fields)
     {
         self::initDependencies();
 
@@ -30,7 +30,7 @@ class UserEventsListener
         }
 
         if (self::$userGroupService->isConsultant($fields['ID'])) {
-            if ($user['UF_MENTOR_ID'] !== $fields['UF_MENTOR_ID']) {
+            if (is_numeric($fields['UF_MENTOR_ID']) && $user['UF_MENTOR_ID'] !== $fields['UF_MENTOR_ID']) {
                 if (
                     !self::$userService->getActive($fields['UF_MENTOR_ID'])
                     || !self::$userGroupService->isConsultant($fields['UF_MENTOR_ID'])
