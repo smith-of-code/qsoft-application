@@ -58,6 +58,14 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
 
             $this->arResult['NOTIFICATION_COUNT'] = $count;
 
+            $userGroups = CUser::GetUserGroup($GLOBALS['USER']->GetID());
+            $consultantGroup = CGroup::GetList([], [], [
+                'ACTIVE' => 'Y',
+                'STRING_ID' => 'consultant',
+            ])->Fetch();
+
+            $this->arResult['IS_CONSULTANT'] = $consultantGroup && in_array($consultantGroup['ID'], $userGroups);
+
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
             ShowError($e->getMessage());
