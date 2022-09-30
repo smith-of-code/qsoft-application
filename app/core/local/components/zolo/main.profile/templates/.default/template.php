@@ -1,7 +1,13 @@
 <?php
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
 }
+
+/**
+ * @var array $arResult
+ * @var array $arParams
+ * @var array $templateData
+ */
 
 use Bitrix\Main\Localization\Loc;
 ?>
@@ -24,3 +30,12 @@ use Bitrix\Main\Localization\Loc;
     <button style="background: darkgreen">Сохранить изменения</button>
     <?=dump($arResult)?>
 </div>
+
+<?php
+ $APPLICATION->IncludeComponent(
+     'zolo:personal.main.profile.navigation_manu',
+     '',
+     [],
+     [],
+ );
+?>
