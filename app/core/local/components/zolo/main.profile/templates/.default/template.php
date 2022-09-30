@@ -8,7 +8,7 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
  * @var array $arParams
  * @var array $templateData
  */
-//TODO Брать статус из HL-блока
+//TODO Убрать статус из HL-блока
 use Bitrix\Main\Localization\Loc;
 ?>
 
