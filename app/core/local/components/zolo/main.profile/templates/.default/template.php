@@ -33,7 +33,7 @@ use Bitrix\Main\Localization\Loc;
 
 <?php
  $APPLICATION->IncludeComponent(
-     'zolo:personal.main.profile.navigation_manu',
+     'zolo:personal.main.profile.navigation_menu',
      '',
      [],
      [],
