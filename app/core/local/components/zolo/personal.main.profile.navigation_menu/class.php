@@ -6,6 +6,7 @@ use	Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use QSoft\Service\UserGroupsService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -48,23 +49,18 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
                 'XML_ID' => 'NOTIFICATION_STATUS_UNREAD',
             ])->Fetch();
 
+            $userId = $GLOBALS['USER']->GetID();
             $entity = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
             $count = $entity::getList([
                 'filter' => [
-                    'UF_USER_ID' => $GLOBALS['USER']->GetID(),
+                    'UF_USER_ID' => $userId,
                     'UF_STATUS' => $statusEnum['ID'],
                 ],
             ])->getSelectedRowsCount();
 
             $this->arResult['NOTIFICATION_COUNT'] = $count;
 
-            $userGroups = CUser::GetUserGroup($GLOBALS['USER']->GetID());
-            $consultantGroup = CGroup::GetList([], [], [
-                'ACTIVE' => 'Y',
-                'STRING_ID' => 'consultant',
-            ])->Fetch();
-
-            $this->arResult['IS_CONSULTANT'] = $consultantGroup && in_array($consultantGroup['ID'], $userGroups);
+            $this->arResult['IS_CONSULTANT'] = (new UserGroupsService())->isConsultant($userId);
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
