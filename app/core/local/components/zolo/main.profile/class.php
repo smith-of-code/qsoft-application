@@ -1,5 +1,5 @@
 <?php
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
 }
 
@@ -7,7 +7,6 @@ use Bitrix\Main\Context;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Loader;
-use Bitrix\Highloadblock\HighloadBlockTable;
 
 class UserProfileForm extends CBitrixComponent
 {
