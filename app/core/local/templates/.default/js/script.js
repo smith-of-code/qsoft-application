@@ -615,8 +615,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./select */ "./assets/js/modules/select.js");
+
+var ELEMENTS_SELECTOR = {
   card: '[data-pets-card]',
+  list: '[data-pets-list]',
   main: '[data-pets-main]',
   edit: '[data-pets-edit]',
   modifyButton: '[data-pets-modify]',
@@ -631,8 +634,10 @@ __webpack_require__.r(__webpack_exports__);
   nameInput: '[data-pets-name-input]',
   genderInput: '[data-pets-gender-input]',
   typeInput: '[data-pets-type-input]',
+  changeInput: '[data-pets-change]',
   buttonSave: '[data-pets-save]',
-  buttonCancel: '[data-pets-cancel]'
+  buttonCancel: '[data-pets-cancel]',
+  buttonAdd: '[data-pets-add]'
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('click', ELEMENTS_SELECTOR.deleteButton, function () {
@@ -640,6 +645,15 @@ __webpack_require__.r(__webpack_exports__);
   });
   $(document).on('click', ELEMENTS_SELECTOR.modifyButton, function () {
     $(this).closest(ELEMENTS_SELECTOR.card).addClass('pet-card--editing');
+    var card = $(this).closest(ELEMENTS_SELECTOR.card);
+    var buttonSave = card.find(ELEMENTS_SELECTOR.buttonSave);
+    buttonSave.attr('disabled', true);
+    buttonSave.addClass('button--disabled');
+    $(document).on('input', ELEMENTS_SELECTOR.changeInput, function () {
+      var buttonSave = $(this).closest(ELEMENTS_SELECTOR.card).find(ELEMENTS_SELECTOR.buttonSave);
+      buttonSave.removeAttr('disabled');
+      buttonSave.removeClass('button--disabled');
+    });
   });
   $(document).on('click', ELEMENTS_SELECTOR.buttonSave, function () {
     var element = $(this).closest(ELEMENTS_SELECTOR.card); //имя
@@ -655,7 +669,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var genderInput = $(this).closest(ELEMENTS_SELECTOR.edit).find("".concat(ELEMENTS_SELECTOR.genderInput, " option:selected")).text();
     var gender = typeInput == 'Девочка' ? 'woman' : 'man';
-    element.find(ELEMENTS_SELECTOR.gender).html("<svg class=\"icon icon--man\">\n            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-".concat(gender, "\"></use>\n        </svg>'")); //тип
+    element.find(ELEMENTS_SELECTOR.gender).html("<svg class=\"icon icon--man\">\n            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-".concat(gender, "\"></use>\n        </svg>")); //тип
 
     var typeInput = $(this).closest(ELEMENTS_SELECTOR.edit).find("".concat(ELEMENTS_SELECTOR.typeInput, " option:selected")).data('option-icon');
     var icon = typeInput == 'dog' ? 'dog' : 'cat';
@@ -664,6 +678,12 @@ __webpack_require__.r(__webpack_exports__);
   });
   $(document).on('click', ELEMENTS_SELECTOR.buttonCancel, function () {
     $(this).closest(ELEMENTS_SELECTOR.card).removeClass('pet-card--editing');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.buttonAdd, function () {
+    var template = $('#hidden-template-pet').text();
+    template = template.replaceAll('#ID#', Date.now());
+    $(ELEMENTS_SELECTOR.list).append(template);
+    Object(_select__WEBPACK_IMPORTED_MODULE_0__["default"])();
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
