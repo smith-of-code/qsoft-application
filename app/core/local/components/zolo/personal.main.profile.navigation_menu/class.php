@@ -1,10 +1,7 @@
 <?php
 
-use Bitrix\Main;
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
-use Bitrix\Iblock\Component\Tools;
-use Bitrix\Catalog\PriceTable;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Service\UserGroupsService;
 
