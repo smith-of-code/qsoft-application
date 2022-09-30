@@ -10,8 +10,6 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
  */
 
 use Bitrix\Main\Localization\Loc;
-
-$currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 
 <div><?=Loc::getMessage('SETTINGS_PERSONAL_INFO')?></div>
