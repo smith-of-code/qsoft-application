@@ -18,7 +18,26 @@ if (!Loader::includeModule('highloadblock')) {
 
 class PersonalMainProfileNavigationMenu extends CBitrixComponent
 {
+    const PROFILE_URL = '/personal/';
+    const ORDER_HISTORY_URL = '/personal/orders/';
+    const INCOMES_CALCULATOR_URL = '/personal/calculator/';
+    const SALES_REPORT_URL = '/personal/sales-report/';
+    const NOTIFICATIONS_URL = '/personal/notifications/';
+
     private bool $isError = false;
+
+    public function onPrepareComponentParams($arParams)
+    {
+        $arParams = parent::onPrepareComponentParams($arParams);
+
+        $arParams['PROFILE_URL'] = $arParams['PROFILE_URL'] ?: self::PROFILE_URL;
+        $arParams['ORDER_HISTORY_URL'] = $arParams['ORDER_HISTORY_URL'] ?: self::ORDER_HISTORY_URL;
+        $arParams['INCOMES_CALCULATOR_URL'] = $arParams['INCOMES_CALCULATOR_URL'] ?: self::INCOMES_CALCULATOR_URL;
+        $arParams['SALES_REPORT_URL'] = $arParams['SALES_REPORT_URL'] ?: self::SALES_REPORT_URL;
+        $arParams['NOTIFICATIONS_URL'] = $arParams['NOTIFICATIONS_URL'] ?: self::NOTIFICATIONS_URL;
+
+        return $arParams;
+    }
 
     public function executeComponent()
     {
