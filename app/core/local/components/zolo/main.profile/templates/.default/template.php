@@ -30,3 +30,12 @@ use Bitrix\Main\Localization\Loc;
     <button style="background: darkgreen">Сохранить изменения</button>
     <?=dump($arResult)?>
 </div>
+
+<?php
+ $APPLICATION->IncludeComponent(
+     'zolo:personal.main.profile.navigation_manu',
+     '',
+     [],
+     [],
+ );
+?>
