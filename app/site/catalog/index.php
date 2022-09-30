@@ -6,9 +6,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => \Bitrix\Iblock\IblockTable::getRow(['filter' => [
-			'CODE' => 'product'
-		]])['ID'],
+		"IBLOCK_ID" => IBLOCK_PRODUCT,
 		"TEMPLATE_THEME" => "",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"BASKET_URL" => "/personal/cart/",

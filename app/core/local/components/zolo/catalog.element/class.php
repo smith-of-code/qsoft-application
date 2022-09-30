@@ -1,286 +1,290 @@
-<?
-use Bitrix\Main,
-	Bitrix\Main\Loader,
-	Bitrix\Iblock\Component\Element,
-	Bitrix\Main\Localization\Loc,
-	Bitrix\Catalog,
-	Bitrix\Sale\Internals\FacebookConversion;
+<?php
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+use Bitrix\Main;
+use	Bitrix\Main\Loader;
+use	Bitrix\Main\Localization\Loc;
+use Bitrix\Iblock\Component\Tools;
+use Bitrix\Catalog\PriceTable;
+
+if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
+    die();
+}
 
 Loc::loadMessages(__FILE__);
 
-if (!\Bitrix\Main\Loader::includeModule('iblock'))
+if (!Loader::includeModule('iblock'))
 {
-	ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
-	return;
+    ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+    return;
 }
 
-class CatalogElementComponent extends Element
+class CatalogElementComponent extends CBitrixComponent
 {
-	public function __construct($component = null)
-	{
-		parent::__construct($component);
-		$this->setExtendedMode(false);
-	}
+    private bool $isError = false;
+    /**
+     * @param array $arParams
+     * @return array
+     */
+    public function onPrepareComponentParams($arParams): array
+    {
+        $arParams = parent::onPrepareComponentParams($arParams);
 
-	/**
-	 * Processing parameters unique to catalog.element component.
-	 *
-	 * @param array $params		Component parameters.
-	 * @return array
-	 */
-	public function onPrepareComponentParams($params)
-	{
-		$params = parent::onPrepareComponentParams($params);
+        $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE'] ?? '');
+        if (!$arParams['IBLOCK_TYPE']) {
+            Tools::process404(Loc::getMessage('IBLOCK_TYPE_NOT_SET'), false, false);
+            $this->isError = true;
 
-		$params['COMPATIBLE_MODE'] = (isset($params['COMPATIBLE_MODE']) && $params['COMPATIBLE_MODE'] === 'N' ? 'N' : 'Y');
-		if ($params['COMPATIBLE_MODE'] === 'N')
-		{
-			$params['SET_VIEWED_IN_COMPONENT'] = 'N';
-			$params['DISABLE_INIT_JS_IN_COMPONENT'] = 'Y';
-			$params['OFFERS_LIMIT'] = 0;
-		}
+            return $arParams;
+        }
 
-		$this->setCompatibleMode($params['COMPATIBLE_MODE'] === 'Y');
+        $arParams['IBLOCK_ID'] = (int)(trim($arParams['IBLOCK_ID']) ?? 0);
+        if (!$arParams['IBLOCK_ID']) {
+            Tools::process404(Loc::getMessage('IBLOCK_ID_NOT_SET'), false, false);
+            $this->isError = true;
 
-		$params['SET_VIEWED_IN_COMPONENT'] = isset($params['SET_VIEWED_IN_COMPONENT']) && $params['SET_VIEWED_IN_COMPONENT'] === 'Y' ? 'Y' : 'N';
+            return $arParams;
+        }
 
-		$params['DISABLE_INIT_JS_IN_COMPONENT'] = isset($params['DISABLE_INIT_JS_IN_COMPONENT']) && $params['DISABLE_INIT_JS_IN_COMPONENT'] === 'Y' ? 'Y' : 'N';
-		if ($params['DISABLE_INIT_JS_IN_COMPONENT'] !== 'Y')
-		{
-			\CJSCore::Init(array('popup'));
-		}
+        $arParams['ELEMENT_ID'] = (int)(trim($arParams['ELEMENT_ID']) ?? 0);
+        $arParams['ELEMENT_CODE'] = trim($arParams['ELEMENT_CODE'] ?? '');
+        if (!$arParams['ELEMENT_ID'] && !$arParams['ELEMENT_CODE']) {
+            Tools::process404(Loc::getMessage('ELEMENT_DATA_NOT_SET'), false, false);
+            $this->isError = true;
 
-		return $params;
-	}
+            return $arParams;
+        }
 
-	/**
-	 * Fill additional keys for component cache.
-	 *
-	 * @param array &$resultCacheKeys		Cached result keys.
-	 * @return void
-	 */
-	protected function initAdditionalCacheKeys(&$resultCacheKeys)
-	{
-		parent::initAdditionalCacheKeys($resultCacheKeys);
+        $arParams['SECTION_ID'] = (int)(trim($arParams['SECTION_ID']) ?? 0);
+        $arParams['SECTION_CODE'] = trim($arParams['SECTION_CODE'] ?? '');
 
-		if (
-			$this->useCatalog
-			&& !empty($this->storage['CATALOGS'][$this->arParams['IBLOCK_ID']])
-			&& is_array($this->storage['CATALOGS'][$this->arParams['IBLOCK_ID']])
-		)
-		{
-			$element =& $this->elements[0];
+        return $arParams;
+    }
 
-			// catalog hit stats
-			$productTitle = !empty($element['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'])
-				? $element['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']
-				: $element['NAME'];
+    public function executeComponent()
+    {
+        try {
+            if ($this->isError) {
+                return;
+            }
 
-			$categoryId = '';
-			$categoryPath = array();
+            if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
+                throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+            }
 
-			if (isset($element['SECTION']['ID']))
-			{
-				$categoryId = $element['SECTION']['ID'];
-			}
+            if ($this->startResultCache()) {
+                if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
+                    throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
+                }
 
-			if (isset($element['SECTION']['PATH']))
-			{
-				foreach ($element['SECTION']['PATH'] as $cat)
-				{
-					$categoryPath[$cat['ID']] = $cat['NAME'];
-				}
-			}
+                if (CIBlock::GetList([], ['=ID' => $this->arParams['IBLOCK_ID']])->SelectedRowsCount() <= 0) {
+                    throw new Main\LoaderException(Loc::getMessage('IBLOCK_ID_NOT_SET'));
+                }
 
-			$this->arResult['CATEGORY_PATH'] = implode('/', $categoryPath);
+                $baseSelect = [
+                    'ID',
+                    'NAME',
+                    'CODE',
+                    'DETAIL_PAGE_URL',
+                    'PREVIEW_PICTURE',
+                    'DETAIL_PICTURE',
+                    'DETAIL_TEXT',
+                    'DETAIL_TEXT_TYPE',
+                    'PREVIEW_TEXT',
+                    'PREVIEW_TEXT_TYPE',
+                ];
 
-			$counterData = array(
-				'product_id' => $element['ID'],
-				'iblock_id' => $this->arParams['IBLOCK_ID'],
-				'product_title' => $productTitle,
-				'category_id' => $categoryId,
-				'category' => $categoryPath
-			);
+                $product = $this->getProduct($baseSelect);
+                $this->arResult['PRODUCT'] = $product;
 
-			if (empty($element['OFFERS']))
-			{
-				$priceProductId = $element['ID'];
-			}
-			else
-			{
-				$offer = reset($element['OFFERS']);
-				$priceProductId = $offer['ID'];
-				unset($offer);
-			}
+                $fileIds = $this->getFilesByItem($product);
 
-			// price for anonymous
-			if ($this->useDiscountCache)
-			{
-				if ($this->storage['USE_SALE_DISCOUNTS'])
-				{
-					$priceTypes = array();
-					$priceIterator = Catalog\GroupAccessTable::getList(array(
-						'select' => array('CATALOG_GROUP_ID'),
-						'filter' => array('GROUP_ID' => 2, '=ACCESS' => Catalog\GroupAccessTable::ACCESS_BUY),
-						'order' => array('CATALOG_GROUP_ID' => 'ASC')
-					));
-					while ($priceType = $priceIterator->fetch())
-					{
-						$priceTypeId = (int)$priceType['CATALOG_GROUP_ID'];
-						$priceTypes[$priceTypeId] = $priceTypeId;
-						unset($priceTypeId);
-					}
-					Catalog\Discount\DiscountManager::preloadPriceData(array($priceProductId), $priceTypes);
-					Catalog\Product\Price::loadRoundRules($priceTypes);
-				}
-			}
-			$optimalPrice = \CCatalogProduct::GetOptimalPrice($priceProductId, 1, array(2), 'N', array(), $this->getSiteId(), array());
-			$counterData['price'] = $optimalPrice['RESULT_PRICE']['DISCOUNT_PRICE'];
-			$counterData['currency'] = $optimalPrice['RESULT_PRICE']['CURRENCY'];
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
+                $this->arResult['OFFERS'] = $offers;
 
-			// make sure it is in utf8
-			$counterData = Main\Text\Encoding::convertEncoding($counterData, SITE_CHARSET, 'UTF-8');
+                $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
+                $fileIterator = CFile::GetList([], $itemFilter);
+                while ($file = $fileIterator->Fetch()) {
+                    $file['SRC'] = CFile::GetFileSRC($file);
+                    $this->arResult['FILES'][$file['ID']] = $file;
+                }
 
-			// pack value and protocol version
-			$rcmLogCookieName = Main\Config\Option::get('main', 'cookie_name', 'BITRIX_SM') . '_' . Main\Analytics\Catalog::getCookieLogName();
+                $buttons = CIBlock::GetPanelButtons(
+                    $this->arParams['IBLOCK_ID'],
+                    $product['ID'],
+                    0,
+                    ['SECTION_BUTTONS' => true, 'SESSID' => false]
+                );
 
-			$this->arResult['counterData'] = array(
-				'item' => base64_encode(json_encode($counterData)),
-				'user_id' => new Main\Text\JsExpression(
-					'function(){return BX.message("USER_ID") ? BX.message("USER_ID") : 0;}'
-				),
-				'recommendation' => new Main\Text\JsExpression(
-					'function() {
-							var rcmId = "";
-							var cookieValue = BX.getCookie("' . $rcmLogCookieName . '");
-							var productId = ' . $element["ID"] . ';
-							var cItems = [];
-							var cItem;
+                $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
+                $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
 
-							if (cookieValue)
-							{
-								cItems = cookieValue.split(".");
-							}
+                $this->setResultCacheKeys([]);
+            }
 
-							var i = cItems.length;
-							while (i--)
-							{
-								cItem = cItems[i].split("-");
-								if (cItem[0] == productId)
-								{
-									rcmId = cItem[1];
-									break;
-								}
-							}
+            $basketFilter = [
+                'FUSER_ID' => CSaleBasket::GetBasketUserID(),
+                'LID' => SITE_ID,
+            ];
+            $basketIterator = CSaleBasket::GetList([], $basketFilter, false, false, ['*']);
 
-							return rcmId;
-						}'
-				),
-				'v' => '2'
-			);
-			$resultCacheKeys[] = 'counterData';
+            $basketInfo = [];
+            $productIdsString = array_column($this->arResult['OFFERS'], 'ID');
+            while($basket = $basketIterator->Fetch()) {
+                if (in_array($basket['PRODUCT_ID'], $productIdsString)) {
+                    $basketInfo[$basket['PRODUCT_ID']] = $basket;
+                }
+            }
+            $this->arResult['BASKET'] = $basketInfo;
+            $this->arResult = $this->transformData($this->arResult);
 
-			if ($this->arParams['SET_VIEWED_IN_COMPONENT'] === 'Y')
-			{
-				$viewedProduct = array(
-					'PRODUCT_ID' => $element['ID'],
-					'OFFER_ID' => $element['ID']
-				);
+            $this->includeComponentTemplate();
+        } catch (Throwable $e) {
+            ShowError($e->getMessage());
+        }
+    }
 
-				if (!empty($element['OFFERS']))
-				{
-					$viewedProduct['OFFER_ID'] = $element['OFFER_ID_SELECTED'] > 0
-						? $element['OFFER_ID_SELECTED']
-						: $element['OFFERS'][0]['ID'];
-				}
+    private function getProduct(array $arSelect): array
+    {
+        $arFilter = [
+            'IBLOCK_TYPE' => $this->arParams['IBLOCK_TYPE'],
+            'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+            'ACTIVE' => 'Y',
+            'SECTION_ID' => $this->arParams['SECTION_ID'],
+            'SECTION_CODE' => $this->arParams['SECTION_CODE'],
+        ];
 
-				$this->arResult['VIEWED_PRODUCT'] = $viewedProduct;
-				$resultCacheKeys[] = 'VIEWED_PRODUCT';
-				unset($viewedProduct);
-			}
-			unset($element);
-		}
-	}
+        if ($this->arParams['ELEMENT_ID']) {
+            $arFilter['ID'] = $this->arParams['ELEMENT_ID'];
+        } else {
+            $arFilter['CODE'] = $this->arParams['ELEMENT_CODE'];
+        }
 
-	/**
-	 * Save compatible viewed product in catalog.element only.
-	 *
-	 * @return void
-	 */
-	protected function saveViewedProduct()
-	{
-		if ($this->isEnableCompatible())
-		{
-			if ((string)Main\Config\Option::get('sale', 'product_viewed_save') === 'Y')
-			{
-				if (
-					!isset($_SESSION['VIEWED_ENABLE'])
-					&& isset($_SESSION['VIEWED_PRODUCT'])
-					&& $_SESSION['VIEWED_PRODUCT'] != $this->arResult['ID']
-					&& Loader::includeModule('sale')
-				)
-				{
-					$_SESSION['VIEWED_ENABLE'] = 'Y';
-					$fields = array(
-						'PRODUCT_ID' => (int)$_SESSION['VIEWED_PRODUCT'],
-						'MODULE' => 'catalog',
-						'LID' => $this->getSiteId()
-					);
-					/** @noinspection PhpDeprecationInspection */
-					\CSaleViewedProduct::Add($fields);
-				}
+        CIBlockElement::GetPropertyValuesArray($properties, $this->arParams['IBLOCK_ID'], $arFilter);
+        if (!empty($properties)) {
+            $arSelect = array_merge($arSelect, $this->getPropertyKeys($properties));
+        }
 
-				if (
-					isset($_SESSION['VIEWED_ENABLE'])
-					&& $_SESSION['VIEWED_ENABLE'] === 'Y'
-					&& $_SESSION['VIEWED_PRODUCT'] != $this->arResult['ID']
-					&& Loader::includeModule('sale')
-				)
-				{
-					$fields = array(
-						'PRODUCT_ID' => $this->arResult['ID'],
-						'MODULE' => 'catalog',
-						'LID' => $this->getSiteId(),
-						'IBLOCK_ID' => $this->arResult['IBLOCK_ID']
-					);
-					/** @noinspection PhpDeprecationInspection */
-					\CSaleViewedProduct::Add($fields);
-				}
+        $product = CIBlockElement::GetList([], $arFilter, false, false, $arSelect)->Fetch();
+        if (!$product) {
+            throw new RuntimeException(Loc::getMessage('ELEMENT_NOT_FOUND'));
+        }
 
-				$_SESSION['VIEWED_PRODUCT'] = $this->arResult['ID'];
-			}
+        $productPrice = PriceTable::getList([
+            'filter' => ['PRODUCT_ID' => $product['ID']],
+        ])->fetch();
+        if ($productPrice) {
+            $product['PRICE'] = $productPrice;
+        }
 
-			if ($this->arParams['SET_VIEWED_IN_COMPONENT'] === 'Y' && !empty($this->arResult['VIEWED_PRODUCT']))
-			{
-				if (Loader::includeModule('catalog') && Loader::includeModule('sale'))
-				{
-					if ((string)Main\Config\Option::get('catalog', 'enable_viewed_products') !== 'N')
-					{
-						Catalog\CatalogViewedProductTable::refresh(
-							$this->arResult['VIEWED_PRODUCT']['OFFER_ID'],
-							\CSaleBasket::GetBasketUserID(),
-							$this->getSiteId(),
-							$this->arResult['VIEWED_PRODUCT']['PRODUCT_ID']
-						);
-					}
-				}
-			}
-		}
-	}
+        return $product;
+    }
 
-	/**
-	 * Save bigdata analytics for catalog.element only.
-	 *
-	 * @return void
-	 */
-	protected function sendCounters()
-	{
-		parent::sendCounters();
-		if (isset($this->arResult['counterData']) && Main\Analytics\Catalog::isOn())
-		{
-			Main\Analytics\Counter::sendData('ct', $this->arResult['counterData']);
-		}
-	}
+    private function getOffers(int $productId, array $arSelect, array &$fileIds): array
+    {
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+        $offers = [];
+        if (!empty($offersResult) && !empty(current($offersResult))) {
+            $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
+            foreach ($offersIblockIds as $item) {
+                $properties = [];
+                CIBlockElement::GetPropertyValuesArray($properties, $item, []);
+
+                $keys = $this->getPropertyKeys($properties);
+                $arSelect = array_merge($arSelect, $keys);
+
+                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], $arSelect);
+                $offers = array_merge($offers, current($currentOffers));
+
+                foreach (current($currentOffers) as $offer) {
+                    $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
+                }
+            }
+        }
+
+        $ids = array_column($offers, 'ID');
+        $prices = PriceTable::getList([
+            'filter' => ['@PRODUCT_ID' => $ids],
+        ])->fetchAll();
+        foreach ($offers as &$offer) {
+            $price = current(array_filter($prices, function ($item) use ($offer) {
+                return (int) $item['PRODUCT_ID'] === $offer['ID'];
+            }));
+
+            if ($price) {
+                $offer['PRICE'] = $price;
+            }
+        }
+
+        return $offers;
+    }
+
+    private function getPropertyKeys(array $properties): array
+    {
+        return array_map(static function ($item) {
+            return "PROPERTY_{$item}";
+        }, array_keys(current($properties)));
+    }
+
+    private function getFilesByItem(array $item): array
+    {
+        $result = [];
+        if (isset($item['PREVIEW_PICTURE']) && $item['PREVIEW_PICTURE']) {
+            $result[] = $item['PREVIEW_PICTURE'];
+        }
+        if (isset($item['DETAIL_PICTURE']) && $item['DETAIL_PICTURE']) {
+            $result[] = $item['DETAIL_PICTURE'];
+        }
+        if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
+            $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
+        }
+        if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
+            $result[] = $item['PROPERTY_VIDEO_VALUE'];
+        }
+
+        return $result;
+    }
+
+    private function transformData(array $data): array
+    {
+        $result = [
+            'TITLE' => $data['PRODUCT']['NAME'],
+            'PRICES' => [],
+            'DISCOUNT_LABELS' => [],
+            'COLORS' => [],
+            'SIZES' => [],
+            'ARTICLES' => [],
+            'BESTSELLERS' => [],
+            'PACKAGINGS' => [],
+            'PHOTOS' => [],
+            'PRODUCT_IMAGE' => [$data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']]['SRC']],
+            'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
+            'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
+            'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
+            'AGE' => $data['PRODUCT']['PROPERTY_AGE_VALUE'],
+            'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
+            'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
+            'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
+            'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
+            'BASKET_COUNT' => [],
+        ];
+
+        foreach ($data['OFFERS'] as $offer) {
+            $result['PRICES'][$offer['ID']] = $offer['PRICE'];
+            $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
+            $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+            $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
+            $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
+            $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
+            $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
+            if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
+                foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
+                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item]['SRC'];
+                }
+            }
+            $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
+        }
+
+        return $result;
+    }
 }

@@ -1,0 +1,125 @@
+.file {
+    display: flex;
+    flex-direction: column;
+
+    padding-bottom: rem($gap-average);
+
+    border-bottom: rem(1px) solid $alto;
+
+    @media #{$screen-tablet} {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    & + & {
+        margin-top: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-medium);
+        }
+    }
+
+    &__prewiew {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon {
+        $size: 24px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+
+        color: $brickRed;
+
+        @media #{$screen-tablet} {
+            $size: 32px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+
+    &__name {
+        flex-shrink: 0;
+
+        width: rem(260px);
+        max-width: rem(260px);
+        margin-left: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-left: rem($gap-normal);
+        }
+
+        &-heading {
+            @include text-ellips;
+        }
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+
+        margin-top: rem($gap-medium);
+        margin-left: rem(36px);
+
+        @media #{$screen-tablet} {
+            width: 100%;
+            margin-top: 0;
+            margin-left: 0
+        }
+    }
+
+    &__format {
+        @include text-small($font-weight-medium);
+
+        text-transform: uppercase;
+
+        width: rem(70px); 
+
+        color: $saltBox;
+
+        @media #{$screen-tablet} {
+            margin-top: 0;
+            margin-left: auto;
+        }
+    }
+
+    &__weight {
+        @include text-small($font-weight-medium);
+
+        width: rem(70px);
+
+        color: $saltBox;
+
+        @media #{$screen-tablet} {
+            margin-left: auto;
+        }
+    }
+
+    &__delete {
+        @media #{$screen-tablet} {
+            margin-left: auto;
+        }
+
+        &-button {
+            @media #{$screen-tablet} {
+                $size: 32px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+
+            &-icon {
+                @media #{$screen-tablet} {
+                    $size: 32px;
+
+                    width: rem($size);
+                    height: rem($size);
+                }
+            }
+        }
+    }
+}

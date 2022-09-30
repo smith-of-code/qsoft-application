@@ -31,6 +31,30 @@
         }
     }
 
+    &--full & {
+        &__box {
+            right: 0;
+            left: 0;
+
+            padding: rem(20px) 0;
+        }
+
+        &__list {
+            padding: 0 rem(16px);
+        }
+
+        &__item {
+            font-size: rem($font-size-small);
+            padding: rem(4px) rem(8px);
+
+            &:hover {
+                color: $tuna;
+                border-radius: rem($border-radius-small);
+                background-color: $athensGray;
+            }
+        }
+    }
+
     &__box {
         position: absolute;
         z-index: $z-index-menu;
