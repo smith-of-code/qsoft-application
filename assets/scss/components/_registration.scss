@@ -1,0 +1,41 @@
+.registration {
+    &__subtitle {
+        @include text-miniature;
+
+        margin-bottom: rem($gap-normal);
+
+        color: $saltBox;
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-big);
+        }
+    }
+
+
+    &__actions {
+        margin-top: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-normal);
+        }
+
+        &-col {
+            &:not(:last-of-type) {
+                margin-bottom: rem($gap-small);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem($gap-normal);
+                }
+            }
+
+            &--separated {
+                margin-bottom: rem($gap-normal);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem($gap-big);
+                }
+            }
+        }
+    }
+
+}

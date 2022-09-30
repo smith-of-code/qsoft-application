@@ -1,0 +1,17 @@
+.content {
+    &__heading {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-medium);
+        }
+
+        &--centered {
+            text-align: center;
+
+            @media #{$screen-desktop} {
+                text-align: left;
+            }
+        }
+    }
+}

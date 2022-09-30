@@ -113,13 +113,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_camera_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./svg/camera.svg */ "./assets/icons/svg/camera.svg");
 /* harmony import */ var _svg_calendar_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./svg/calendar.svg */ "./assets/icons/svg/calendar.svg");
 /* harmony import */ var _svg_add_circle_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./svg/add-circle.svg */ "./assets/icons/svg/add-circle.svg");
-/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
-/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
-/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
-/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
-/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
+/* harmony import */ var _svg_lock_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./svg/lock.svg */ "./assets/icons/svg/lock.svg");
+/* harmony import */ var _svg_tick_circle_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./svg/tick-circle.svg */ "./assets/icons/svg/tick-circle.svg");
+/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
+/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
+/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
+/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
+/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
+
+
 
 
 
@@ -466,6 +470,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/icons/svg/lock.svg":
+/*!***********************************!*\
+  !*** ./assets/icons/svg/lock.svg ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-lock-usage",
+      viewBox: "0 0 24 24",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-lock",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
 /***/ "./assets/icons/svg/man.svg":
 /*!**********************************!*\
   !*** ./assets/icons/svg/man.svg ***!
@@ -579,6 +603,26 @@ __webpack_require__.r(__webpack_exports__);
       id: "icon-rotate-usage",
       viewBox: "0 0 24 24",
       url: __webpack_require__.p + "./images/icons/sprite.svg#icon-rotate",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
+/***/ "./assets/icons/svg/tick-circle.svg":
+/*!******************************************!*\
+  !*** ./assets/icons/svg/tick-circle.svg ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-tick-circle-usage",
+      viewBox: "0 0 48 48",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-tick-circle",
       toString: function () {
         return this.url;
       }

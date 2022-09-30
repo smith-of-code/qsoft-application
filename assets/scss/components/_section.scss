@@ -1,0 +1,23 @@
+.section {
+    &--limited {
+        max-width: rem(370px);
+    }
+
+    &--limited-middle {
+        max-width: rem(520px);
+
+        @media #{$screen-desktop} {
+            max-width: rem(770px);
+        }
+    }
+
+    &--centered {
+        margin-right: auto;
+        margin-left: auto;
+
+        @media #{$screen-desktop} {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+}
