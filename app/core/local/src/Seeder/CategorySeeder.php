@@ -10,39 +10,39 @@ class CategorySeeder implements Seederable
 {
     const CHILDREN_CATEGORIES = [
         [
-            'CODE' => 'dry_food',
+            'CODE' => 'dry_food_for_',
             'NAME' => 'Сухие корма',
         ],
         [
-            'CODE' => 'wet_food',
+            'CODE' => 'wet_food_for_',
             'NAME' => 'Влажные корма',
         ],
         [
-            'CODE' => 'treats',
+            'CODE' => 'treats_for_',
             'NAME' => 'Лакомства',
         ],
         [
-            'CODE' => 'accessories',
+            'CODE' => 'accessories_for_',
             'NAME' => 'Аксессуары',
             'CHILDREN' => [
                 [
-                    'CODE' => 'toys',
+                    'CODE' => 'toys_for_',
                     'NAME' => 'Игрушки',
                 ],
                 [
-                    'CODE' => 'houses_and_beds',
+                    'CODE' => 'houses_and_beds_for_',
                     'NAME' => 'Домики и лежанки',
                 ],
                 [
-                    'CODE' => 'for_walks',
+                    'CODE' => 'walks_for_',
                     'NAME' => 'Для прогулок',
                 ],
                 [
-                    'CODE' => 'for_feeding',
+                    'CODE' => 'feeding_for_',
                     'NAME' => 'Для кормления',
                 ],
                 [
-                    'CODE' => 'smart_products',
+                    'CODE' => 'smart_products_for_',
                     'NAME' => 'Умные товары',
                 ],
             ],
@@ -56,11 +56,11 @@ class CategorySeeder implements Seederable
 
     const CATEGORIES = [
         [
-            'CODE' => 'for_cats',
+            'CODE' => 'cats',
             'NAME' => 'Для кошек',
         ],
         [
-            'CODE' => 'for_dogs',
+            'CODE' => 'dogs',
             'NAME' => 'Для собак',
         ],
     ];
@@ -71,16 +71,17 @@ class CategorySeeder implements Seederable
             throw new RuntimeException('Не удалось загрузить модуль iblock');
         }
 
+        // FIXME: Переделать на рекурсию
         $startArray = self::CATEGORIES;
         $finalArray = [];
         array_walk($startArray, static function ($item) use (&$finalArray) {
             $children = array_map(static function ($child) use ($item) {
-                if ($item['CODE'] === 'for_cats' && $child['CODE'] === 'small_') {
-                    $child['CODE'] = 'small_cats';
-                    $child['NAME'] .= 'котята';
-                } else if ($item['CODE'] === 'for_dogs' && $child['CODE'] === 'small_') {
-                    $child['CODE'] = 'small_dogs';
-                    $child['NAME'] .= 'щенки';
+                $child = self::fixCategory($child, $item['CODE']);
+
+                if (isset($child['CHILDREN'])) {
+                    $child['CHILDREN'] = array_map(static function ($grandChild) use ($child, $item) {
+                        return self::fixCategory($grandChild, $item['CODE']);
+                    }, $child['CHILDREN']);
                 }
 
                 return $child;
@@ -88,6 +89,8 @@ class CategorySeeder implements Seederable
 
             $finalArray[] = array_merge($item, ['CHILDREN' => $children]);
         });
+
+        dd($finalArray);
 
         $connection = Application::getInstance()->getConnection();
         $connection->startTransaction();
@@ -101,6 +104,27 @@ class CategorySeeder implements Seederable
         self::createCategory($productIblockId, $finalArray);
 
         $connection->commitTransaction();
+    }
+
+    private static function fixCategory(array $category, string $parentCategory): array
+    {
+        if ($parentCategory === 'cats') {
+            if ($category['CODE'] === 'small_') {
+                $category['CODE'] = 'small_cats';
+                $category['NAME'] .= 'котята';
+            } else {
+                $category['CODE'] .= 'cats';
+            }
+        } else if ($parentCategory === 'dogs') {
+            if ($category['CODE'] === 'small_') {
+                $category['CODE'] = 'small_dogs';
+                $category['NAME'] .= 'щенки';
+            } else {
+                $category['CODE'] .= 'dogs';
+            }
+        }
+
+        return $category;
     }
 
     private static function createCategory(int $iblockId, array $categories, int $parentId = 0): void
