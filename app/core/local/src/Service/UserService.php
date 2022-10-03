@@ -2,50 +2,56 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Main\UserFieldTable;
 use CUser;
-use CUserFieldEnum;
+use QSoft\Entity\User;
 
 class UserService
 {
-    private const ENUM_PROPERTIES = [
-        'UF_LOYALTY_LEVEL',
-    ];
-
-    private CUser $user;
+    /**
+     * @var CUser Объект пользователя Битрикса
+     */
+    private CUser $c_user;
+    /**
+     * @var User Объект пользователя
+     */
+    private User $user;
 
     public function __construct()
     {
-        $this->user = new CUser;
+        $this->c_user = new CUser;
     }
 
-    public function get(int $userId): ?array
+    /**
+     * Возвращает пользователя по ID
+     * @param int $userId ID пользователя
+     * @return User|null
+     */
+    public function get(int $userId): ?User
     {
-        $user = $this->user::GetByID($userId);
-        if (!$user || !$user = $user->fetch()) {
-            return null;
-        }
-
-        foreach (self::ENUM_PROPERTIES as $enumProperty) {
-            if ($user[$enumProperty]) {
-                $user[$enumProperty] = CUserFieldEnum::GetList([], ['ID' => $user[$enumProperty]])->fetch()['VALUE'];
-            }
-        }
-
-        return $user;
+        $this->user = new User($userId);
+        return $this->user;
     }
 
-    public function getCurrent(): ?array
+    /**
+     * Возвращает текущего пользователя
+     * @return User|null
+     */
+    public function getCurrent(): ?User
     {
         global $USER;
         return $USER->GetID() ? $this->get($USER->GetID()) : null;
     }
 
-    public function getActive(int $userId): ?array
+    /**
+     * Возвращает активного пользователя по его ID
+     * @param int $userId
+     * @return CUser|null
+     */
+    public function getActive(int $userId): ?User
     {
         $user = $this->get($userId);
 
-        if (!$user || $user['ACTIVE'] === 'N' || $user['BLOCKED'] === 'Y') {
+        if (!$user || $user->active === 'N') {
             return null;
         }
 
@@ -55,13 +61,13 @@ class UserService
     public function activate(int $userId): bool
     {
         if ($this->update($userId, ['ACTIVE' => 'Y'])) {
-            return $this->user->Authorize($userId);
+            return $this->c_user->Authorize($userId);
         }
         return false;
     }
 
     public function update(int $userId, array $fields): bool
     {
-        return (new CUser)->Update($userId, $fields);
+        return $this->c_user->Update($userId, $fields);
     }
 }
