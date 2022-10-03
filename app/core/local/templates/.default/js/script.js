@@ -606,6 +606,33 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/accordeon.js":
+/*!****************************************!*\
+  !*** ./assets/js/modules/accordeon.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return accordeon; });
+var ELEMENTS_SELECTOR = {
+  button: '[data-accordeon-toggle]',
+  accordeon: '[data-accordeon]',
+  content: '[data-accordeon-content]'
+};
+function accordeon() {
+  $(document).on('click', ELEMENTS_SELECTOR.button, function () {
+    var $parent = $(this).closest(ELEMENTS_SELECTOR.accordeon);
+    var $content = $parent.find(ELEMENTS_SELECTOR.content);
+    $parent.toggleClass('accordeon__item--opened');
+    $content.slideToggle();
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/add-pets.js":
 /*!***************************************!*\
   !*** ./assets/js/modules/add-pets.js ***!
@@ -1514,6 +1541,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_inputmask__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/inputmask */ "./assets/js/modules/inputmask.js");
 /* harmony import */ var _modules_add_pets__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/add-pets */ "./assets/js/modules/add-pets.js");
 /* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/validation */ "./assets/js/modules/validation.js");
+/* harmony import */ var _modules_accordeon__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/accordeon */ "./assets/js/modules/accordeon.js");
 /**
  * Vendors
  */
@@ -1527,6 +1555,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -1567,6 +1596,7 @@ var app = {
     Object(_modules_inputmask__WEBPACK_IMPORTED_MODULE_16__["default"])();
     Object(_modules_add_pets__WEBPACK_IMPORTED_MODULE_17__["default"])();
     Object(_modules_validation__WEBPACK_IMPORTED_MODULE_18__["default"])();
+    Object(_modules_accordeon__WEBPACK_IMPORTED_MODULE_19__["default"])();
   },
   load: function load() {},
   resize: function resize() {},

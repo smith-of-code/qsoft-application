@@ -132,18 +132,16 @@
         }
     }
 
-    &--covered#{&}--full-red {
-        border-color: $brickRed;
-        background-color: $brickRed;
+    &--covered#{&}--red-white {
+        color: $tuna;
+        border-color: $white;
+        background-color: $white;
 
-        &:hover {
-            border-color: $mandy;
-            background-color: $mandy;
-        }
-
+        &:hover,
         &:focus {
-            border-color: $mandy2;
-            background-color: $mandy2;
+            color: $brickRed;
+            border-color: $white;
+            background-color: $white;
         }
     }
 

@@ -32,6 +32,7 @@
  import inputmask from './modules/inputmask';
  import addPets from './modules/add-pets';
  import validation from './modules/validation';
+ import accordeon from './modules/accordeon';
 
 
  const app = {
@@ -57,6 +58,7 @@
         inputmask();
         addPets();
         validation();
+        accordeon();
     },
 
     load() {

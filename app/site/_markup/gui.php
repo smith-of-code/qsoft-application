@@ -1836,6 +1836,68 @@
                     </div>
                     <!--/Загрузчик-->
 
+                    <div class="gui__block">
+                        <h2>Аккордеон</h2>
+                        <div class="accordeon">
+
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header">
+                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header">
+                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header">
+                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Аккордеон-->
+
                     <!--Шаги-->
                     <div class="gui__block">
                         <h2 class="gui__title">Шаги</h2>
