@@ -90,10 +90,20 @@
         }
 
         &--error {
-            border-color: $brickRed;
+            border-color: $brickRed !important;
 
             &:focus {
-                border-color: $brickRed;
+                border-color: $brickRed !important;
+            }
+        }
+
+        &--error + .select2 {
+            .select2-selection--single {
+                border-color: $brickRed !important;
+
+                &:focus {
+                    border-color: $brickRed !important;
+                }
             }
         }
 
