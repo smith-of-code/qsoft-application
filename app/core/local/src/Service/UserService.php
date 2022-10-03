@@ -8,11 +8,11 @@ use QSoft\Entity\User;
 class UserService
 {
     /**
-     * @var CUser Объект пользователя Битрикса
+     * @var CUser РћР±СЉРµРєС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р‘РёС‚СЂРёРєСЃР°
      */
     private CUser $c_user;
     /**
-     * @var User Объект пользователя
+     * @var User РћР±СЉРµРєС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      */
     private User $user;
 
@@ -22,8 +22,8 @@ class UserService
     }
 
     /**
-     * Возвращает пользователя по ID
-     * @param int $userId ID пользователя
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕ ID
+     * @param int $userId ID РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      * @return User|null
      */
     public function get(int $userId): ?User
@@ -33,7 +33,7 @@ class UserService
     }
 
     /**
-     * Возвращает текущего пользователя
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      * @return User|null
      */
     public function getCurrent(): ?User
@@ -43,7 +43,7 @@ class UserService
     }
 
     /**
-     * Возвращает активного пользователя по его ID
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕ РµРіРѕ ID
      * @param int $userId
      * @return CUser|null
      */

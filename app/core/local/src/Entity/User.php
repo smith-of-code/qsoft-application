@@ -2,36 +2,34 @@
 
 namespace QSoft\Entity;
 
-use Bitrix\Main\UserFieldTable;
 use CFile;
-use CSite;
 use CUser;
 use CUserFieldEnum;
 
 class User
 {
     /**
-     * @var int ID пользователя
+     * @var int ID РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      */
     public $id;
     /**
-     * @var string Логин
+     * @var string Р›РѕРіРёРЅ
      */
     public $login;
     /**
-     * @var string Флаг активности (Y|N)
+     * @var string Р¤Р»Р°Рі Р°РєС‚РёРІРЅРѕСЃС‚Рё (Y|N)
      */
     public $active;
     /**
-     * @var string Имя
+     * @var string РРјСЏ
      */
     public $name;
     /**
-     * @var string Фамилия
+     * @var string Р¤Р°РјРёР»РёСЏ
      */
     public $last_name;
     /**
-     * @var string Отчество
+     * @var string РћС‚С‡РµСЃС‚РІРѕ
      */
     public $second_name;
     /**
@@ -39,63 +37,63 @@ class User
      */
     public $email;
     /**
-     * @var string Номер телефона
+     * @var string РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°
      */
     public $phone;
     /**
-     * @var string Пол
+     * @var string РџРѕР»
      */
     public $gender;
     /**
-     * @var string Дата рождения
+     * @var string Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ
      */
     public $birthday;
     /**
-     * @var int Фотография (URL)
+     * @var int Р¤РѕС‚РѕРіСЂР°С„РёСЏ (URL)
      */
     public $photo;
 
 
     /**
-     * @var string Согласен на использование персональных данных (Y|N)
+     * @var string РЎРѕРіР»Р°СЃРµРЅ РЅР° РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РїРµСЂСЃРѕРЅР°Р»СЊРЅС‹С… РґР°РЅРЅС‹С… (Y|N)
      */
     public $agree_with_personal_data_processing;
     /**
-     * @var string Согласен с условиями пользования сайтом (Y|N)
+     * @var string РЎРѕРіР»Р°СЃРµРЅ СЃ СѓСЃР»РѕРІРёСЏРјРё РїРѕР»СЊР·РѕРІР°РЅРёСЏ СЃР°Р№С‚РѕРј (Y|N)
      */
     public $agree_with_terms_of_use;
     /**
-     * @var string Согласен с правилами компании (Y|N)
+     * @var string РЎРѕРіР»Р°СЃРµРЅ СЃ РїСЂР°РІРёР»Р°РјРё РєРѕРјРїР°РЅРёРё (Y|N)
      */
     public $agree_with_company_rules;
     /**
-     * @var string Согласен на получение информации о продуктах, спецпредложениях и акциях (Y|N)
+     * @var string РЎРѕРіР»Р°СЃРµРЅ РЅР° РїРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРѕРґСѓРєС‚Р°С…, СЃРїРµС†РїСЂРµРґР»РѕР¶РµРЅРёСЏС… Рё Р°РєС†РёСЏС… (Y|N)
      */
     public $agree_to_receive_information_about_promotions;
     /**
-     * @var int ID наставника
+     * @var int ID РЅР°СЃС‚Р°РІРЅРёРєР°
      */
     public $mentor_id;
     /**
-     * @var string Уровень в программе лояльности
+     * @var string РЈСЂРѕРІРµРЅСЊ РІ РїСЂРѕРіСЂР°РјРјРµ Р»РѕСЏР»СЊРЅРѕСЃС‚Рё
      */
     public $loyalty_level;
     /**
-     * @var int Бонусные баллы
+     * @var int Р‘РѕРЅСѓСЃРЅС‹Рµ Р±Р°Р»Р»С‹
      */
     public $bonus_points;
     /**
-     * @var string Дата проверки условий поддержания уровня программы лояльности
+     * @var string Р”Р°С‚Р° РїСЂРѕРІРµСЂРєРё СѓСЃР»РѕРІРёР№ РїРѕРґРґРµСЂР¶Р°РЅРёСЏ СѓСЂРѕРІРЅСЏ РїСЂРѕРіСЂР°РјРјС‹ Р»РѕСЏР»СЊРЅРѕСЃС‚Рё
      */
     public $loyalty_check_date;
 
     /**
-     * @var array Массив ID групп, в которых состоит пользователь
+     * @var array РњР°СЃСЃРёРІ ID РіСЂСѓРїРї, РІ РєРѕС‚РѕСЂС‹С… СЃРѕСЃС‚РѕРёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
      */
     private $user_groups;
 
     /**
-     * Коды пользовательских полей типа "Список"
+     * РљРѕРґС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РїРѕР»РµР№ С‚РёРїР° "РЎРїРёСЃРѕРє"
      */
     private const ENUM_PROPERTIES = [
         'UF_LOYALTY_LEVEL',
@@ -105,26 +103,26 @@ class User
 
     /**
      * User constructor.
-     * @param int $userId ID пользователя
+     * @param int $userId ID РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      */
     public function __construct(int $userId)
     {
-        // Получаем поля и свойства пользователя
+        // РџРѕР»СѓС‡Р°РµРј РїРѕР»СЏ Рё СЃРІРѕР№СЃС‚РІР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
             throw new RuntimeException('User not found');
         }
 
-        // Для пользовательских полей типа "Список" получаем установленное значение
+        // Р”Р»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РїРѕР»РµР№ С‚РёРїР° "РЎРїРёСЃРѕРє" РїРѕР»СѓС‡Р°РµРј СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
         foreach (self::ENUM_PROPERTIES as $enumProperty) {
             if ($user[$enumProperty]) {
                 $user[$enumProperty] = CUserFieldEnum::GetList([], ['ID' => $user[$enumProperty]])->fetch()['VALUE'];
             }
         }
 
-        // Задаем параметры объекта пользователя
+        // Р—Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РѕР±СЉРµРєС‚Р° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         foreach ($user as $key => $value) {
-            // Стандартные поля
+            // РЎС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РїРѕР»СЏ
             $this->id = $user['ID'];
             $this->login = $user['LOGIN'];
             $this->active = $user['ACTIVE'];
@@ -136,7 +134,7 @@ class User
             $this->gender = $user['PERSONAL_GENDER'];
             $this->birthday = $user['PERSONAL_BIRTHDAY'];
             $this->photo = CFile::GetPath($user['PERSONAL_PHOTO']);
-            // Пользовательские поля
+            // РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РїРѕР»СЏ
             $this->agree_with_personal_data_processing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'];
             $this->agree_with_terms_of_use = $user['UF_AGREE_WITH_TERMS_OF_USE'];
             $this->agree_with_company_rules = $user['UF_AGREE_WITH_COMPANY_RULES'];
@@ -149,7 +147,7 @@ class User
     }
 
     /**
-     * @return array Массив идентификаторов групп, к которым принадлежит пользователь
+     * @return array РњР°СЃСЃРёРІ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ РіСЂСѓРїРї, Рє РєРѕС‚РѕСЂС‹Рј РїСЂРёРЅР°РґР»РµР¶РёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
      */
     private function getUserGroups($forceUpdate = false): array
     {
@@ -160,7 +158,7 @@ class User
     }
 
     /**
-     * Является ли пользователь Консультантом
+     * РЇРІР»СЏРµС‚СЃСЏ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РљРѕРЅСЃСѓР»СЊС‚Р°РЅС‚РѕРј
      * @return bool
      */
     public function isConsultant(): bool
@@ -169,7 +167,7 @@ class User
     }
 
     /**
-     * Является ли пользователь Покупателем
+     * РЇРІР»СЏРµС‚СЃСЏ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РџРѕРєСѓРїР°С‚РµР»РµРј
      * @return bool
      */
     public function isCustomer(): bool
