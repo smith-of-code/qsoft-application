@@ -34,6 +34,26 @@ $arComponentVariables = array(
 	"action",
 );
 
+$arSortDirs = array("asc", "desc");
+$arSortFields = CIBlockParameters::GetElementSortFields(
+    array('ID', 'SORT', 'NAME'),
+    array('KEY_LOWERCASE' => 'Y')
+);
+
+if(!empty($_REQUEST["sort_field"]) && isset($arSortFields[$_REQUEST["sort_field"]]))
+{
+    $arParams["ELEMENT_SORT_FIELD"] = $_REQUEST["sort_field"];
+
+    if(!empty($_REQUEST["sort_dir"]) && in_array($_REQUEST["sort_dir"], $arSortDirs))
+    {
+        $arParams["ELEMENT_SORT_ORDER"] = $_REQUEST["sort_dir"];
+    }
+    else
+    {
+        $arParams["ELEMENT_SORT_ORDER"] = array_first($arSortDirs);
+    }
+}
+
 if($arParams["SEF_MODE"] == "Y")
 {
 	$arVariables = array();
