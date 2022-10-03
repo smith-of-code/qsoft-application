@@ -17,6 +17,14 @@
         }
     }
 
+    &--white {
+        background-color: $white;
+    }
+
+    &--grayish {
+        background-color: $athensGray;
+    }
+
     &--rounded {
         border-radius: rem($border-radius);
 
@@ -31,6 +39,12 @@
 
     &--circle {
         border-radius: rem($border-radius-average);
+    }
+
+    &--hidden {
+        @media #{$screen-tablet} {
+            background-color: transparent;
+        }
     }
 
     &__heading {

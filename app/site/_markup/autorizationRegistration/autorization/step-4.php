@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>Восстановление пароля</title>
+        <title>Создание нового пароля</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
@@ -24,7 +24,7 @@
 
                 <div class="registration">
                     <section class="section section--limited-middle section--centered">
-                        <form class="registration__form form" action="" method="post">
+                        <form class="registration__form form form--separated form--wraped-big" action="" method="post">
 
                             <div class="registration__requirement requirement box box--gray box--circle">
                                 <div class="requirement__col">
@@ -52,33 +52,54 @@
                             </div>
 
                             <div class="form__row">
-                                <div class="form__col form__col--1-2">
+                                <div class="form__col form__col--1-2 form__col--full">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text-required" class="form__label form__label--required">
+                                            <label for="password" class="form__label form__label--required">
                                                 <span class="form__label-text">Новые пароль</span>
                                             </label>
                                         </div>
 
-                                        <div class="form__field-block form__field-block--input">
-                                            <div class="input">
-                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Новые пароль">
+                                        <div class="form__field-block form__field-block--input" data-password-block>
+                                            <div class="input input--iconed">
+                                                <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
+                                                <span class="input__icon input__icon-password" data-password-toggle>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
+                                                    </svg>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
+                                                    </svg>
+                                                </span>
                                             </div>
                                         </div>
+
+                                        <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny">
+                                            Сгенерировать пароль
+                                        </button>
                                     </div>
                                 </div>
 
-                                <div class="form__col form__col--1-2">
+
+                                <div class="form__col form__col--1-2 form__col--full">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text-required" class="form__label form__label--required">
+                                            <label for="password" class="form__label form__label--required">
                                                 <span class="form__label-text">Подтверждение пароля</span>
                                             </label>
                                         </div>
 
-                                        <div class="form__field-block form__field-block--input">
-                                            <div class="input">
-                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Подтверждение пароля">
+                                        <div class="form__field-block form__field-block--input" data-password-block>
+                                            <div class="input input--iconed">
+                                                <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
+                                                <span class="input__icon input__icon-password" data-password-toggle>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
+                                                    </svg>
+                                                    <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
+                                                    </svg>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

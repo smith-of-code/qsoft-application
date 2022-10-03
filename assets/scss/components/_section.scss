@@ -1,4 +1,16 @@
 .section {
+    & + & {
+        margin-top: rem($gap-big);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(34px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(48px);
+        }
+    }
+
     &--limited {
         max-width: rem(370px);
     }
@@ -11,6 +23,10 @@
         }
     }
 
+    &--limited-big {
+        max-width: rem(770px);
+    }
+
     &--centered {
         margin-right: auto;
         margin-left: auto;
@@ -18,6 +34,14 @@
         @media #{$screen-desktop} {
             margin-right: 0;
             margin-left: 0;
+        }
+    }
+
+    &__title {
+        margin-bottom: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-big);
         }
     }
 }
