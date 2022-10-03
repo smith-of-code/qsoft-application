@@ -8,7 +8,7 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
  * @var array $arParams
  * @var array $templateData
  */
-//TODO Убрать статус из HL-блока
+
 use Bitrix\Main\Localization\Loc;
 ?>
 
@@ -41,7 +41,14 @@ use Bitrix\Main\Localization\Loc;
         Общее<br>
         <div style="background: whitesmoke; margin:5px">
             Статус и гражданство<br>
-            Статус: <input type="text" value="<?=$arResult['DOCUMENTS']['status']?>" required><br>
+            Статус: <select value="<?=$arResult['LEGAL_ENTITY']['UF_STATUS']?>">
+                <?php foreach ($arResult['SELECT_OPTIONS']['STATUS'] as $id => $value) : ?>
+                    <option value="<?= $id ?>" class="form-control__option"
+                        <?= ($id == $arResult['LEGAL_ENTITY']['UF_STATUS']) ? 'selected' : '' ?>>
+                        <?= $value ?>
+                    </option>
+                <?php endforeach;?>
+            </select><br>
             Гражданство: <input type="text" value="<?=$arResult['DOCUMENTS']['citizenship']?>" required>
             Паспортные данные<br>
             Серия: <input type="text" value="<?=$arResult['DOCUMENTS']['passport']['series']?>" required>
@@ -69,7 +76,7 @@ use Bitrix\Main\Localization\Loc;
             Файл: <input type="text" value="<?=$file?>" required> <br>
             <?php endforeach;?>
         </div>
-        <?php if ($arResult['DOCUMENTS']['status'] = "Самозанятый") :?>
+        <?php if ($arResult['DOCUMENTS']['STATUS'] == "Самозанятый") :?>
             Самозанятый
             <div style="background: whitesmoke; margin:5px">
                 ИНН и копия свидетельства о постановке на учет в налоговом органе<br>
@@ -91,7 +98,7 @@ use Bitrix\Main\Localization\Loc;
                     Файл: <input type="text" value="<?=$file?>" required> <br>
                 <?php endforeach;?>
             </div>
-        <?php elseif ($arResult['DOCUMENTS']['status'] = "ИП") :?>
+        <?php elseif ($arResult['DOCUMENTS']['STATUS'] == "ИП") :?>
             Индивидуальный предприниматель
             <div style="background: whitesmoke; margin:5px">
                 Наименование ИП: <input type="text" value="<?=$arResult['DOCUMENTS']['name']?>" required>
@@ -126,7 +133,7 @@ use Bitrix\Main\Localization\Loc;
                     Файл: <input type="text" value="<?=$file?>" required> <br>
                 <?php endforeach;?>
             </div>
-        <?php elseif ($arResult['DOCUMENTS']['status'] = "ООО") :?>
+        <?php elseif ($arResult['DOCUMENTS']['STATUS'] == "ООО") :?>
             Общество с ограниченной ответственностью (ООО)
             <div style="background: whitesmoke; margin:5px">
                 Наименование организации (полное): <input type="text" value="<?=$arResult['DOCUMENTS']['name']?>" required>
@@ -180,8 +187,56 @@ use Bitrix\Main\Localization\Loc;
     </div>
 <?php endif;?>
 
-    <div style="background: grey; margin: 5px;">Данные о питомцах</div>
-    <div style="background: grey; margin: 5px;">Наставник/Консультант</div>
+    <div style="background: grey; margin: 5px;">
+        Данные о питомцах
+        <div style="background: whitesmoke; margin:5px">
+            <?php foreach ($arResult['PETS_INFO'] as $pet) : ?>
+            Тип питомца:<select value="<?=$pet['UF_KIND']?>">
+                    <?php foreach ($arResult['SELECT_OPTIONS']['PET_KIND'] as $id => $value) : ?>
+                        <option value="<?= $id ?>" class="form-control__option"
+                            <?= ($id == $pet['UF_KIND']) ? 'selected' : '' ?>>
+                            <?= $value ?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            Пол:<select value="<?=$pet['UF_GENDER']?>">
+                    <?php foreach ($arResult['SELECT_OPTIONS']['PET_GENDER'] as $id => $value) : ?>
+                        <option value="<?= $id ?>" class="form-control__option"
+                            <?= ($id == $pet['UF_GENDER']) ? 'selected' : '' ?>>
+                            <?= $value ?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            Дата рождения: <input type="date" value="<?=$pet['UF_BIRTHDATE']?>" required><br>
+            Порода:<select value="<?=$pet['UF_BREED']?>">
+                    <?php foreach ($arResult['SELECT_OPTIONS']['PET_BREED'] as $id => $value) : ?>
+                        <option value="<?= $id ?>" class="form-control__option"
+                            <?= ($id == $pet['UF_BREED']) ? 'selected' : '' ?>>
+                            <?= $value ?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            Кличка: <input type="text" value="<?=$pet['UF_NAME']?>" required><br>
+            <?php endforeach;?>
+            <button>Отменить изменения</button>
+            <button style="background: darkgreen">Сохранить изменения</button>
+        </div>
+    </div>
+    <div style="background: grey; margin: 5px;">
+        Контактные данные наставника
+        <div style="background: whitesmoke; margin:5px">
+            Фамилия: <input type="text" value="<?=$arResult['MENTOR_INFO']['LAST_NAME']?>" required>
+            Имя: <input type="text" value="<?=$arResult['MENTOR_INFO']['NAME']?>" required>
+            Отчество: <input type="text" value="<?=$arResult['MENTOR_INFO']['SECOND_NAME']?>"><br>
+            Email: <input type="text" value="<?=$arResult['MENTOR_INFO']['EMAIL']?>" required>
+            Телефон: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHONE']?>" required><br>
+            Населенный пункт: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_CITY']?>" required>
+            Пункт выдачи заказов: <input type="text" value="<?=$arResult['MENTOR_INFO']['']?>" required><br>
+            Фото: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO']?>"><br>
+            <button>Отменить изменения</button>
+            <button style="background: darkgreen">Сохранить изменения</button>
+        </div>
+    </div>
     <div style="background: grey; margin: 5px;">Система лояльности</div>
     <div style="background: grey; margin: 5px;">Персональные акции</div>
 
