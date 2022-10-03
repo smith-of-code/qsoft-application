@@ -108,15 +108,15 @@
 
                             <div class="registration__actions registration__actions--inlined registration__actions--separated">
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--white-green">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
                                         <span class="button__text">Назад</span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--red">
+                                    <button type="submit" class="button button--rounded button--covered button--red button--full">
                                         <span class="button__text">Далее</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 

@@ -42,9 +42,9 @@
 
                         <div class="registration__actions">
                             <div class="registration__actions-col">
-                                <a href="" class="button button--rounded button--covered button--white-green">
+                                <button type="button" class="button button--rounded button--covered button--white-green button--full">
                                     <span class="button__text">Назад к авторизации</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </section>

@@ -86,21 +86,21 @@
                                 </div>
 
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--red">
+                                    <button type="submit" class="button button--rounded button--covered button--red button--full">
                                         <span class="button__text">Войти</span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--white-green">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
                                         <span class="button__text">Зарегистрироваться как покупатель</span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--white-green">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
                                         <span class="button__text">Зарегистрироваться как консультант</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 

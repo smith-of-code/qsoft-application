@@ -89,7 +89,8 @@
                                                                     <select class="select__control" name="r111" id="r111" data-select-control data-placeholder="Выберите статус">
                                                                         <option><!-- пустой option для placeholder --></option>
                                                                         <option value="1">Самозанятый</option>
-                                                                        <option value="2">Не работаю</option>
+                                                                        <option value="2">ИП</option>
+                                                                        <option value="3">OOO</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -111,6 +112,7 @@
                                                                     <select class="select__control" name="r11" id="r11" data-select-control data-placeholder="Выберите пол">
                                                                         <option><!-- пустой option для placeholder --></option>
                                                                         <option value="1">Резидент РФ</option>
+                                                                        <option value="2">Незезидент РФ</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -134,7 +136,7 @@
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
-                                                                <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Введите серию паспорта">
+                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="12 34" data-passport-seria>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -150,7 +152,7 @@
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
-                                                                <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Введите номер паспорта">
+                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите номер паспорта" data-passport-number>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -457,7 +459,7 @@
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
-                                                                <input type="number" class="input__control" name="text-required" id="text-required" placeholder="ИНН">
+                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="ИНН" data-inn>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -528,7 +530,7 @@
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
-                                                                <input type="number" class="input__control" name="text-required" id="text-required" placeholder="БИК">
+                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="БИК" data-bik>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -661,15 +663,15 @@
 
                             <div class="registration__actions registration__actions--inlined registration__actions--separated">
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--white-green">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
                                         <span class="button__text">Назад</span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--red">
+                                    <button type="submit" class="button button--rounded button--covered button--red button--full">
                                         <span class="button__text">Далее</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 

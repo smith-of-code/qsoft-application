@@ -108,7 +108,7 @@
 
                             <div class="registration__actions">
                                 <div class="registration__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--green">
+                                    <button type="button" class="button button--rounded button--covered button--green button--full">
                                         <span class="button__text">Сохранить</span>
                                     </button>
                                 </div>

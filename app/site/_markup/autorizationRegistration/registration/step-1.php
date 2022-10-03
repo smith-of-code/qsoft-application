@@ -267,7 +267,7 @@
 
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="input">
-                                                        <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Введите телефон">
+                                                        <input type="tel" class="input__control" name="text-required" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
                                                     </div>
                                                 </div>
 
@@ -287,7 +287,7 @@
 
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="input">
-                                                        <input type="email" class="input__control" name="text-required" id="text-required" placeholder="Введите E-mail">
+                                                        <input type="text" class="input__control" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email">
                                                     </div>
                                                 </div>
                                             </div>
@@ -365,15 +365,15 @@
 
                                 <div class="registration__actions registration__actions--inlined registration__actions--separated">
                                     <div class="registration__actions-col">
-                                        <a href="" class="button button--rounded button--covered button--white-green">
+                                        <button type="button" class="button button--rounded button--covered button--white-green button--full" data-registration-prev>
                                             <span class="button__text">Назад к авторизации</span>
-                                        </a>
+                                        </button>
                                     </div>
 
                                     <div class="registration__actions-col">
-                                        <a href="" class="button button--rounded button--covered button--red">
+                                        <button type="submit" class="button button--rounded button--covered button--red button--full" data-registration-next>
                                             <span class="button__text">Далее</span>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

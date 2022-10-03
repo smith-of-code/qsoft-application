@@ -48,9 +48,9 @@
 
                             <div class="registration__actions">
                                 <div class="registration__actions-col">
-                                    <a href="" class="button button--rounded button--covered button--red">
+                                    <button type="submit" class="button button--rounded button--covered button--red button--full">
                                         <span class="button__text">Отправить</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
