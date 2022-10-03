@@ -108,7 +108,7 @@
                                     <!--/dropzone-->
 
                                     <div class="form__row">
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="text-required" class="form__label form__label--required">
@@ -124,7 +124,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="text-required" class="form__label form__label--required">
@@ -142,7 +142,7 @@
                                     </div>
 
                                     <div class="form__row form__row--centered">
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="text-required" class="form__label form__label--required">
@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="checkbox">
                                                     <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check">
@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div class="form__row">
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="select33" class="form__label form__label--required">
@@ -200,7 +200,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="birthdate" class="form__label form__label--required">
@@ -257,7 +257,7 @@
                                     </div>
 
                                     <div class="form__row">
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="text-required" class="form__label form__label--required">
@@ -277,7 +277,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form__col form__col--1-2">
+                                        <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">
                                                     <label for="text-required" class="form__label form__label--required">

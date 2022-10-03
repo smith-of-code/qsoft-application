@@ -39,7 +39,7 @@
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите логин">
+                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="">
                                             </div>
                                         </div>
                                     </div>

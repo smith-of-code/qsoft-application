@@ -75,7 +75,7 @@
 
                             <div class="registration__actions">
                                 <div class="registration__actions-col registration__actions-col--separated">
-                                    <a href="" class="button button--simple button--red">
+                                    <a href="" class="registration__button button button--simple button--red">
                                         <span class="button__icon">
                                             <svg class="icon icon--lock">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-lock"></use>
