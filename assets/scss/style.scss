@@ -11,6 +11,7 @@
 @import '~tippy.js/dist/tippy.css';
 @import '~tippy.js/themes/light.css';
 @import '~select2/dist/css/select2.css';
+@import '~@fancyapps/fancybox/dist/jquery.fancybox.css';
 
 
 /**
@@ -92,5 +93,9 @@
 @import "components/notification";
 
 @import "components/requirement";
+
+@import "components/modal";
+
+@import "components/contidions";
 
 

@@ -1,0 +1,231 @@
+.modal {
+    &#{&}--small {
+        max-width: rem(343px);
+    }
+
+    &#{&}--wide {
+        width: rem(770px);
+    }
+
+    &#{&}--limited {
+        max-height: rem(750px);
+    }
+
+    &--limited & {
+        &__section {
+            @media #{$screen-tablet} {
+                padding-right: rem(200px);
+                padding-left: rem(200px);
+            }
+
+            &--header {
+                padding-bottom: rem($gap-big);
+
+                @media #{$screen-tablet} {
+                    padding-bottom: rem($gap-normal);
+                }
+            }
+        }
+    }
+
+    &--small & {
+        &__content {
+            padding-top: rem($gap-big);
+            padding-bottom: rem(40px);
+
+            @media #{$screen-tablet} {
+                padding-bottom: rem($gap-big);
+            }
+        }
+
+        &__section {
+            &--header {
+                padding-bottom: rem($gap-average);
+            }
+        }
+    }
+
+    &--full & {
+        &__content {
+            padding-top: rem($gap-big);
+            padding-bottom: rem($gap-big);
+
+            @media #{$screen-tablet} {
+                padding-top: rem(40px);
+                padding-bottom: rem(40px);
+            }
+        }
+
+        &__section {
+            @media #{$screen-tablet} {
+                padding-right: rem($gap-big);
+                padding-left: rem($gap-big);
+            }
+
+            &--header {
+                padding-bottom: rem($gap-normal);
+
+                @media #{$screen-tablet} {
+                    padding-bottom: rem(30px);
+                }
+            }
+        }
+    }
+
+    &--centered & {
+        &__section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &--scrolled & {
+        &__content {
+            padding-bottom: 0;
+        }
+
+        &__section {
+            &--content {
+                max-height: rem(650px);
+                padding-right: rem(30px);
+
+                @media #{$screen-tablet} {
+                    padding-right: rem(200px);
+                }
+
+                .os-scrollbar-vertical {
+                    right: rem($gap-medium);
+                    bottom: rem($gap-normal);
+
+                    @media #{$screen-tablet} {
+                        right: rem($gap-normal);
+                    }
+                }
+            }
+
+            &-actions {
+                margin-bottom: rem($gap-big);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem(64px);
+                }
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+
+        height: auto !important;
+        max-width: 100%;
+
+        padding-top: rem($gap-big);
+        padding-bottom: rem($gap-big);
+
+        @media #{$screen-tablet} {
+            padding-top: rem(48px);
+            padding-bottom: rem(64px);
+        }
+    }
+
+    &__section {
+        padding-right: rem($gap-medium);
+        padding-left: rem($gap-medium);
+
+        &--header {
+            flex-shrink: 0;
+
+            @media #{$screen-tablet} {
+                text-align: center;
+            }
+        }
+
+        &--content {
+            flex-grow: 1;
+        }
+
+        &-actions {
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(20px);
+            }
+        }
+
+        &-text {
+            font-size: rem($font-size-small);
+
+            text-align: center;
+
+            color: $saltBox;
+        }
+
+        &-notice {
+            font-size: rem($font-size-small);
+
+            margin-top: rem($gap-average);
+
+            color: $seaGreen;
+        }
+
+        &-variant {
+            display: none;
+
+            &--active {
+                display: block;
+            }
+        }
+    }
+
+    .fancybox {
+        &-bg {
+            background: rgba($tuna, .55);
+        }
+
+        &-close {
+            $button-offset: 12px;
+
+            position: absolute;
+            top: rem($button-offset);
+            right: rem($button-offset);
+
+            cursor: pointer;
+
+            @media #{$screen-tablet} {
+                $button-offset: 24px;
+
+                top: rem($button-offset);
+                right: rem($button-offset);
+            }
+
+            &-icon {
+                $icon-size: 24px;
+
+                width: rem($icon-size);
+                height: rem($icon-size);
+
+                color: $saltBox;
+                fill: transparent;
+            }
+        }
+
+        &-content {
+            overflow: hidden;
+
+            padding: 0;
+        }
+
+        &-slide {
+            $modal-overlay-offset: 16px;
+
+            padding-right: rem($modal-overlay-offset);
+            padding-left: rem($modal-overlay-offset);
+        }
+
+        &-navigation {
+            display: none;
+        }
+    }
+}

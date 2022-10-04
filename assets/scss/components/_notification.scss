@@ -17,6 +17,40 @@
         padding-bottom: rem(55px);
     }
 
+    &--simple {
+        padding: 0;
+
+        background-color: transparent;
+    }
+
+    &--simple & {
+        &__icon {
+            $size: 80px;
+
+            width: rem($size);
+            height: rem($size);
+            margin-bottom: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                $size: 108px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+
+        &__title {
+            margin-bottom: rem($gap-medium);
+        }
+
+        &__text {
+            font-size: rem($font-size-normal);
+            font-weight: $font-weight-semibold;
+
+            color: $saltBox;
+        }
+    }
+
     &__icon {
         $size: 48px;
 
