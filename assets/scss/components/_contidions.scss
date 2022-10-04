@@ -1,0 +1,48 @@
+.conditions {
+    &__block {
+        font-size: rem($font-size-small);
+        line-height: rem(22px);
+
+        & + & {
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-normal);
+            }
+        }
+    }
+
+    &__title {
+        margin-bottom: rem($gap-average);
+    }
+
+    &__item {
+        $size-dot: 3px;
+
+        position: relative;
+
+        margin-bottom: rem($gap-mini);
+        padding-left: rem(18px);
+
+        &::before {
+            position: absolute;
+            top: em(10px); // magic num
+            left: 0;
+
+            display: block;
+
+            width: rem($size-dot);
+            height: rem($size-dot);
+
+            content: "";
+
+            color: $saltBox;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+    }
+
+    &__text {
+        margin-top: rem($gap-small);
+    }
+}

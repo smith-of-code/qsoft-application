@@ -210,6 +210,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: close-square">
+                                    <svg class="icon icon--close-square gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -240,6 +246,18 @@
                                 <li class="icons__item" title="Icon: woman">
                                     <svg class="icon icon--woman gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-serious">
+                                    <svg class="icon icon--cat-serious gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-cheerful">
+                                    <svg class="icon icon--cat-cheerful gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -902,14 +920,14 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text-required" class="form__label form__label--required">
+                                            <label for="text-required12" class="form__label form__label--required">
                                                 <span class="form__label-text">Обязательное поле ввода</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Обязательное поле ввода">
+                                                <input type="text" class="input__control" name="text-required" id="text-required12" placeholder="Обязательное поле ввода">
                                             </div>
                                         </div>
                                     </div>
@@ -1079,13 +1097,170 @@
                                         </div>
                                         <div class="form__field-block form__field-block--input">
                                             <label class="input input--textarea">
-                                                <textarea type="text" class="input__control" name="textarea" id="textarea" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
+                                                <textarea type="text" class="input__control" name="textarea" id="textarea1" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
                                                 <div class="input__counter">
                                                     <span class="input__counter-current" data-textarea-current></span>
                                                         /
                                                     <span class="input__counter-total" data-textarea-total></span>
                                                 </div>
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text" class="form__label">
+                                                <span class="form__label-text">Нередактируемое</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--simple">
+                                                <input type="text" class="input__control" name="Email" id="Email" value="Pushkin@ya.ru" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="birthdate" class="form__label">
+                                                <span class="form__label-text">Дата</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--iconed">
+                                                <input inputmode="numeric"
+                                                    class="input__control"
+                                                    name="birthdate"
+                                                    id="birthdate"
+                                                    placeholder="ДД.ММ.ГГГГ"
+                                                    data-mask-date 
+                                                    data-inputmask-alias="datetime"
+                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                    data-pets-date-input
+                                                    data-pets-change
+                                                    value="09.11.2011"
+                                                >
+                                                <span class="input__icon">
+                                                    <svg class="icon icon--calendar">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text" class="form__label">
+                                                <span class="form__label-text">Телефон</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="tel" class="input__control" name="text-required" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">E-mail</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required2" placeholder="example@email.com" data-mail inputmode="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">Серия паспорта</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required3" placeholder="12 34" data-passport-seria>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">Номер</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required4" placeholder="Введите номер паспорта" data-passport-number>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required5" class="form__label form__label--required">
+                                                <span class="form__label-text">ИНН</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required5" placeholder="ИНН" data-inn>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required6" class="form__label form__label--required">
+                                                <span class="form__label-text">БИК</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required6" placeholder="БИК" data-bik>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1870,6 +2045,7 @@
                     </div>
                     <!--/Загрузчик-->
 
+                    <!--Аккордеон-->
                     <div class="gui__block">
                         <h2 class="gui__title">Аккордеон</h2>
 
@@ -1992,6 +2168,782 @@
                         </div>
                     </div>
                     <!--/Аккордеон-->
+
+                    <!--Модальные окна-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Модальные окна</h2>
+
+                        <ul class="buttons__list">
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support-1"
+                                    >
+                                    Техническая поддержка 1
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support-2"
+                                    >
+                                    Техническая поддержка 2
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support-3"
+                                    >
+                                    Техническая поддержка 3
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support-4"
+                                    >
+                                    Техническая поддержка 4
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support-4"
+                                    >
+                                    Техническая поддержка 4
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#approve-number"
+                                    >
+                                    Подтверждение номера
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#conditions"
+                                    >
+                                    Условия поддержания уровня
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#congratulate"
+                                    >
+                                    Поздравляем!
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#thanks"
+                                    >
+                                    Спасибо за обращение
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!--Другое-->
+                        <article id="technical-support-1" class="modal modal--limited modal--wide box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Техническая поддержка</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <form action="" class="form">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select1m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Тип обращения</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Возврат заказа</option>
+                                                                    <option value="2">Неработающая функциональность</option>
+                                                                    <option value="3">Смена наставника/контактного лица</option>
+                                                                    <option value="4">Смена персональных данных</option>
+                                                                    <option value="5">Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--gaped">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="Email1" class="form__label">
+                                                            <span class="form__label-text">Email</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--simple">
+                                                            <input type="text" class="input__control" name="Email" id="Email1" value="Pushkin@ya.ru" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--closer">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Комментарий</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="input input--textarea">
+                                                            <textarea type="text" class="input__control" name="textarea" id="textarea2" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                            <div class="input__counter">
+                                                                <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                    /
+                                                                <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal__section-actions">
+                                            <button type="button" class="form__footer-button button button--rounded button--covered button--red button--full">Отправить</button>
+                                        </div>
+                                    </form>
+                                </section>
+                                
+                            </div>
+                        </article>
+                        <!--/Другое-->
+
+                        <!--Возврат заказа-->
+                        <article id="technical-support-2" class="modal modal--limited modal--wide box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Техническая поддержка</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <form action="" class="form">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select2m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Тип обращения</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select2m" id="select2m" data-select-control data-placeholder="Выберите город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Возврат заказа</option>
+                                                                    <option value="2">Неработающая функциональность</option>
+                                                                    <option value="3">Смена наставника/контактного лица</option>
+                                                                    <option value="4">Смена персональных данных</option>
+                                                                    <option value="5">Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--gaped">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="Email2" class="form__label">
+                                                            <span class="form__label-text">Email</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--simple">
+                                                            <input type="text" class="input__control" name="Email" id="Email2" value="Pushkin@ya.ru" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--closer">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required7" class="form__label form__label--required">
+                                                            <span class="form__label-text">Номер заказа</span>
+                                                        </label>
+                                                    </div>
+            
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="text" class="input__control" name="text-required" id="text-required7" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Комментарий</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="input input--textarea">
+                                                            <textarea type="text" class="input__control" name="textarea" id="textarea3" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                            <div class="input__counter">
+                                                                <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                    /
+                                                                <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal__section-actions">
+                                            <button type="button" class="form__footer-button button button--rounded button--covered button--red button--full">Отправить</button>
+                                        </div>
+                                    </form>
+                                </section>
+                                
+                            </div>
+                        </article>
+                        <!--/Возврат заказа-->
+
+                        <!--Смена наставника/контактного лица-->
+                        <article id="technical-support-3" class="modal modal--limited modal--wide box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Техническая поддержка</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <form action="" class="form">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select3m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Тип обращения</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select3m" id="select3m" data-select-control data-placeholder="Выберите город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Возврат заказа</option>
+                                                                    <option value="2">Неработающая функциональность</option>
+                                                                    <option value="3">Смена наставника/контактного лица</option>
+                                                                    <option value="4">Смена персональных данных</option>
+                                                                    <option value="5">Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--gaped">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="Email3" class="form__label">
+                                                            <span class="form__label-text">Email</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--simple">
+                                                            <input type="text" class="input__control" name="Email" id="Email3" value="Pushkin@ya.ru" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--closer">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="ID" class="form__label">
+                                                            <span class="form__label-text">ID текущего наставника</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--simple">
+                                                            <input type="text" class="input__control" name="ID" id="ID" value="323213" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required9" class="form__label form__label--required">
+                                                            <span class="form__label-text">ID нового наставника</span>
+                                                        </label>
+                                                    </div>
+            
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="number" class="input__control" name="text-required" id="text-required9" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select4m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Причина</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select4m" id="select4m" data-select-control data-placeholder="Выберите город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Возврат заказа</option>
+                                                                    <option value="2">Неработающая функциональность</option>
+                                                                    <option value="3">Смена наставника/контактного лица</option>
+                                                                    <option value="4">Смена персональных данных</option>
+                                                                    <option value="5">Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Комментарий</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="input input--textarea">
+                                                            <textarea type="text" class="input__control" name="textarea" id="textarea4" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                            <div class="input__counter">
+                                                                <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                    /
+                                                                <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal__section-actions">
+                                            <button type="button" class="form__footer-button button button--rounded button--covered button--red button--full">Отправить</button>
+                                        </div>
+                                    </form>
+                                </section>
+                                
+                            </div>
+                        </article>
+                        <!--/Смена наставника/контактного лица-->
+
+                        <!--Смена персональных данных-->
+                        <article id="technical-support-4" class="modal modal--limited modal--wide box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Техническая поддержка</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content" data-scrollbar>
+                                    <form action="" class="form">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select5m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Тип обращения</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select5m" id="select5m" data-select-control data-placeholder="Выберите город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Возврат заказа</option>
+                                                                    <option value="2">Неработающая функциональность</option>
+                                                                    <option value="3">Смена наставника/контактного лица</option>
+                                                                    <option value="4">Смена персональных данных</option>
+                                                                    <option value="5">Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--gaped">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="Email4" class="form__label">
+                                                            <span class="form__label-text">Email</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--simple">
+                                                            <input type="text" class="input__control" name="Email" id="Email4" value="Pushkin@ya.ru" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row form__row--closer">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required10" class="form__label">
+                                                            <span class="form__label-text">Актуальная фамилия</span>
+                                                        </label>
+                                                    </div>
+            
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="number" class="input__control" name="text-required" id="text-required10" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required11" class="form__label">
+                                                            <span class="form__label-text">Актуальное имя</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="number" class="input__control" name="text-required" id="text-required11" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required" class="form__label">
+                                                            <span class="form__label-text">Актуальное отчество</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Дата рождения</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input input--iconed">
+                                                            <input inputmode="numeric"
+                                                                class="input__control"
+                                                                name="birthdate"
+                                                                id="birthdate2"
+                                                                placeholder="ДД.ММ.ГГГГ"
+                                                                data-mask-date 
+                                                                data-inputmask-alias="datetime"
+                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                data-pets-date-input
+                                                                data-pets-change
+                                                                value="09.11.2011"
+                                                            >
+                                                            <span class="input__icon">
+                                                                <svg class="icon icon--calendar">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="dropzone" data-uploader>
+                                                    <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                                                    <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                                        <div class="dropzone__message dz-message needsclick">
+                                                            <div class="dropzone__message-caption needsclick">
+                                                                <h6 class="dropzone__message-title">Ограничения:</h6>
+                                                                <ul class="dropzone__message-list">
+                                                                    <li class="dropzone__message-item">до 10 файлов</li>
+                                                                    <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                                                    <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <button type="button" class="dropzone__button dropzone__button--wide button button--medium button--rounded button--outlined button--green">
+                                                                <span class="button__icon">
+                                                                    <svg class="icon icon--import">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="button__text button__text--required">Загрузить файл</span>
+                                                            </button>
+                                                        </div>
+                        
+                                                        <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Комментарий</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="input input--textarea">
+                                                            <textarea type="text" class="input__control" name="textarea" id="textarea5" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                            <div class="input__counter">
+                                                                <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                    /
+                                                                <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal__section-actions">
+                                            <button type="button" class="form__footer-button button button--rounded button--covered button--red button--full">Отправить</button>
+                                        </div>
+                                    </form>
+                                </section>
+                                
+                            </div>
+                        </article>
+                        <!--/Смена персональных данных-->
+
+                        <!--Подтверждение номера-->
+                        <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--small">Подтверждение номера</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <p class="modal__section-text">
+                                        На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
+                                    </p>
+
+                                    <div class="form__row">
+                                        <div class="form__col">
+                                            <div class="form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <div class="input input--tiny input--centered">
+                                                        <input type="text" class="input__control" name="tel" id="tel" value="3233">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="modal__section-notice">
+                                        Телефон подтвержден
+                                    </p>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Подтверждение номера-->
+
+                        <!--Условия поддержания уровня-->
+                        <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Условия поддержания уровня</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <div class="conditions">
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+
+                                                <li class="conditions__item">
+                                                    Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+
+                                            <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                            </p>
+                                            <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                        </div>
+
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+
+                                                <li class="conditions__item">
+                                                    Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+
+                                            <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+
+                                            </p>
+                                            <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Условия поддержания уровня-->
+
+                        <!--Поздравляем-->
+                        <article id="congratulate" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--cat-cheerful">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title">Поздравляем!</h4>
+                                        <p class="notification__text">Вы перевыполнили план по удержанию уровня!</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Поздравляем-->
+
+                        <!--Спасибо за обращение-->
+                        <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--cat-serious">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title">Спасибо за обращение</h4>
+                                        <p class="notification__text">Мы проверим обновленные данные и уведомим Вас о результате внесения изменений. </p>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Спасибо за обращение-->
+
+
+                    </div>
+                    <!--/Модальные окна-->
 
                     <!--Шаги-->
                     <div class="gui__block">
@@ -2165,7 +3117,7 @@
                                                         <div class="pet-card__col pet-card__col--1-3 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="birthdate" class="form__label">
+                                                                    <label for="birthdate3" class="form__label">
                                                                         <span class="form__label-text">Дата рождения</span>
                                                                     </label>
                                                                 </div>
@@ -2175,7 +3127,7 @@
                                                                         <input inputmode="numeric"
                                                                             class="input__control"
                                                                             name="birthdate"
-                                                                            id="birthdate"
+                                                                            id="birthdate3"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
                                                                             data-inputmask-alias="datetime"
@@ -2360,7 +3312,7 @@
                                                         <div class="pet-card__col pet-card__col--1-3 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="birthdate" class="form__label">
+                                                                    <label for="birthdate4" class="form__label">
                                                                         <span class="form__label-text">Дата рождения</span>
                                                                     </label>
                                                                 </div>
@@ -2370,7 +3322,7 @@
                                                                         <input inputmode="numeric"
                                                                             class="input__control"
                                                                             name="birthdate"
-                                                                            id="birthdate"
+                                                                            id="birthdate4"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
                                                                             data-inputmask-alias="datetime"
@@ -2420,14 +3372,14 @@
                                                         <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="text19" class="form__label">
+                                                                    <label for="text199" class="form__label">
                                                                         <span class="form__label-text">Кличка</span>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" value="Мурка" class="input__control" name="nickname" id="text19" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                                        <input type="text" value="Мурка" class="input__control" name="nickname" id="text199" placeholder="Выбрать" data-pets-name-input data-pets-change>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2623,14 +3575,14 @@
                                                         <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="text19" class="form__label">
+                                                                    <label for="text1999" class="form__label">
                                                                         <span class="form__label-text">Кличка</span>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" name="nickname" id="text19" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                                        <input type="text" class="input__control" name="nickname" id="text1999" placeholder="Выбрать" data-pets-name-input data-pets-change>
                                                                     </div>
                                                                 </div>
                                                             </div>

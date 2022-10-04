@@ -424,6 +424,14 @@
         display: block;
 
         @include text-ellips;
+
+        &--required {
+            &::after {
+                content: " *";
+
+                color: $brickRed;
+            }
+        }
     }
 
     &__icon {

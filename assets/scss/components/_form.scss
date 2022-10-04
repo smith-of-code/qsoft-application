@@ -112,6 +112,18 @@
         &--centered {
             align-items: center;
         }
+
+        &--gaped {
+            margin-top: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(40px);
+            }
+        }
+
+        &--closer {
+            margin-top: rem($gap-small);
+        }
     }
 
     &__col {
@@ -135,6 +147,10 @@
 
             &--input {
                 position: relative;
+            }
+
+            &--label {
+                margin-top: rem(6px);
             }
         }
 

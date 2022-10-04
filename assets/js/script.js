@@ -34,6 +34,7 @@
  import registration from './modules/registration';
  import validation from './modules/validation';
  import accordeon from './modules/accordeon';
+ import fancybox from './modules/fancybox';
 
 
 
@@ -62,6 +63,7 @@
         registration();
         validation();
         accordeon();
+        fancybox();
 
     },
 
