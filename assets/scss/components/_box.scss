@@ -17,6 +17,14 @@
         }
     }
 
+    &--white {
+        background-color: $white;
+    }
+
+    &--grayish {
+        background-color: $athensGray;
+    }
+
     &--rounded {
         border-radius: rem($border-radius);
 
@@ -33,11 +41,45 @@
         border-radius: rem($border-radius-average);
     }
 
+    &--hidden {
+        @media #{$screen-tablet} {
+            background-color: transparent;
+        }
+    }
+
+    &--inner {
+        padding: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            background-color: rem($gap-normal);
+        }
+    }
+
     &__heading {
         margin-bottom: rem(20px);
 
         @media #{$screen-tablet} {
             margin-bottom: rem($gap-normal);
+        }
+
+        &--middle {
+            margin-bottom: rem($gap-average);
+
+            color: $saltBox;
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-medium);
+            }
+        }
+
+        &--small {
+            margin-bottom: rem(20px);
+
+            color: $black;
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-medium);
+            }
         }
     }
 }

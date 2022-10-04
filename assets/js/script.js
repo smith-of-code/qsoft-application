@@ -31,7 +31,9 @@
  import steps from './modules/steps';
  import inputmask from './modules/inputmask';
  import addPets from './modules/add-pets';
+ import registration from './modules/registration';
  import validation from './modules/validation';
+
 
 
  const app = {
@@ -57,6 +59,7 @@
         inputmask();
         addPets();
         validation();
+        registration();
     },
 
     load() {

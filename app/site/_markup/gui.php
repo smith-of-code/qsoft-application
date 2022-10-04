@@ -198,6 +198,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: lock">
+                                    <svg class="icon icon--lock gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-lock"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: tick-circle">
+                                    <svg class="icon icon--tick-circle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -1736,7 +1748,7 @@
 
                     <!--Хлебные крошки-->
                     <div class="gui__block">
-                        <h2>Хлебные крошки</h2>
+                        <h2 class="gui__title">Хлебные крошки</h2>
 
                         <div class="breadcrumbs">
                             <ul class="breadcrumbs__list">
@@ -1759,6 +1771,28 @@
                         </div>
                     </div>
                     <!--/Хлебные крошки-->
+
+                    <!--Уведомление-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Уведомление</h2>
+
+                        <div class="notification">
+                            <div class="notification__icon">
+                                <svg class="icon icon--tick-circle">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                </svg>
+                            </div>
+
+                            <h4 class="notification__title">
+                                Заявка успешно отправлена!
+                            </h4>
+
+                            <p class="notification__text">
+                                Ваша заявка на восстановление пароля отправлена. Проверьте вашу электронную почту.
+                            </p>
+                        </div>
+                    </div>
+                    <!--/Уведомление-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">
