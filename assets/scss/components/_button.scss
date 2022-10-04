@@ -37,6 +37,10 @@
         font-weight: $font-weight-semibold;
     }
 
+    &--tiny {
+        @include text-tiny;
+    }
+
     &--mini {
         height: rem($size-mini);
     }

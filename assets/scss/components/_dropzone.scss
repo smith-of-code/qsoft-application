@@ -1,10 +1,12 @@
 .dropzone {
     &--image {
-        padding: rem($gap-normal) rem($gap-medium);
+        padding: 0;
 
         border-radius: rem($border-radius-average);
 
         @media #{$screen-tablet} {
+            padding: rem($gap-normal) rem($gap-medium);
+
             background-color: $athensGray;
         }
     }

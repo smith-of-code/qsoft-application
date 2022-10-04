@@ -1,0 +1,41 @@
+.notification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: rem(20px) rem($gap-medium);
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+
+    @media #{$screen-tablet} {
+        padding: rem(40px) rem(20px);
+    }
+
+    @media #{$screen-desktop} {
+        padding: rem(40px);
+        padding-bottom: rem(55px);
+    }
+
+    &__icon {
+        $size: 48px;
+
+        width: rem($size);
+        height: rem($size);
+        margin-bottom: rem($gap-normal);
+
+        color: $seaGreen;
+    }
+
+    &__title {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(15px);
+        }
+    }
+
+    &__text {
+        text-align: center;
+    }
+}
