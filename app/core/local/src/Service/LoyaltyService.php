@@ -12,16 +12,28 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\DateTime;
 use CCatalogGroup;
 use Exception;
+use QSoft\Entity\User;
 use QSoft\ORM\TransactionTable;
 use RuntimeException;
 
+/**
+ * Класс для работы с программой лояльности
+ * @package QSoft\Service
+ */
 class LoyaltyService
 {
-    private UserService $userService;
-    private UserGroupsService $userGroupsService;
+    /**
+     * @var User Пользователь
+     */
+    public User $user;
 
-    public const LOYALTY_LEVELS = [
-        'K1' => [
+    private const LOYALTY_LEVEL_K1 = 'K1';
+    private const LOYALTY_LEVEL_K2 = 'K2';
+    private const LOYALTY_LEVEL_K3 = 'K3';
+
+    private const LOYALTY_LEVELS = [
+        self::LOYALTY_LEVEL_K1 => [
+            'label' => 'K1',
             'referral_size' => 100,
             'general_discount' => 7, // %
             'bonuses_by_personal_discount' => 2,
@@ -34,7 +46,8 @@ class LoyaltyService
                 'step' => 100,
             ],
         ],
-        'K2' => [
+        self::LOYALTY_LEVEL_K2 => [
+            'label' => 'K2',
             'upgrade_size' => 100,
             'referral_size' => 150,
             'general_discount' => 10, // %
@@ -48,7 +61,8 @@ class LoyaltyService
                 'step' => 200,
             ],
         ],
-        'K3' => [
+        self::LOYALTY_LEVEL_K3 => [
+            'label' => 'K3',
             'upgrade_size' => 300,
             'referral_size' => 200,
             'general_discount' => 12, // %
@@ -64,82 +78,55 @@ class LoyaltyService
         ],
     ];
 
-    public function __construct()
+    /**
+     * LoyaltyService constructor.
+     * @param User $user
+     */
+    public function __construct(User $user)
     {
-        $this->userService = new UserService;
-        $this->userGroupsService = new UserGroupsService;
+        $this->user = $user;
     }
 
     /**
-     * @throws Exception
+     * Получение текущего уровня в программе лояльности
+     * @return string|null
      */
-    public function addReferralBonuses(int $userId): bool
+    public function getLoyaltyLevel() : ?string
     {
-        $user = $this->userService->getActive($userId);
-        if (!$user) {
-            throw new RuntimeException('User not found');
+        if ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K3)) {
+            return self::LOYALTY_LEVEL_K3;
+        } elseif ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K2)) {
+            return self::LOYALTY_LEVEL_K2;
+        } elseif ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K1)) {
+            return self::LOYALTY_LEVEL_K1;
         }
-
-        if (!$this->userGroupsService->isConsultant($user['ID'])) {
-            throw new RuntimeException('User is not consultant');
-        }
-        $amount = self::LOYALTY_LEVELS[$user['UF_LOYALTY_LEVEL']]['referral_size'];
-
-        TransactionTable::add([
-            'UF_USER_ID' => $userId,
-            'UF_TYPE' => TransactionTable::TYPES['referral'],
-            'UF_SOURCE' => TransactionTable::SOURCES['personal'],
-            'UF_MEASURE' => TransactionTable::MEASURES['points'],
-            'UF_AMOUNT' => $amount,
-        ]);
-
-        return $this->userService->update($user['ID'], [
-            'UF_BONUS_POINTS' => $user['UF_BONUS_POINTS'] + $amount,
-            'UF_LOYALTY_CHECK_DATE' => new DateTime,
-        ]);
+        return null;
     }
 
     /**
-     * @throws LoaderException
-     * @throws ArgumentException
-     * @throws ObjectNotFoundException
-     * @throws ObjectPropertyException
-     * @throws SystemException
+     * Получить коэффициенты и параметры текущего уровня программы лояльности
+     * @return array|null
      */
-    public function setOfferBonusesPrices(int $offerId, float $priceValue): void
+    public function getLoyaltyLevelInfo() : ?array
     {
-        Loader::includeModule('sale');
+        return self::LOYALTY_LEVELS[$this->getLoyaltyLevel()] ?? null;
+    }
 
-        $prices = Price::getList([
-            'filter' => [
-                '=PRODUCT_ID' => $offerId,
-            ],
-            'limit' => count(self::LOYALTY_LEVELS),
-        ]);
+    /**
+     * Количество уровней программы лояльности
+     * @return int
+     */
+    static public function getAmountOfLevels() : int
+    {
+        return count(self::LOYALTY_LEVELS);
+    }
 
-        $existingPrices = [];
-        while ($price = $prices->fetch()) {
-            $existingPrices[$price['CATALOG_GROUP_ID']] = $price;
-        }
-
-        $priceTypes = CCatalogGroup::GetList([], ['=NAME' => array_keys(self::LOYALTY_LEVELS)]);
-        while ($priceType = $priceTypes->Fetch()) {
-            $params = self::LOYALTY_LEVELS[$priceType['NAME']]['personal_bonuses_by_price'];
-            $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
-
-            if ($existingPrices[$priceType['ID']]) {
-                Price::update($existingPrices[$priceType['ID']]['ID'], [
-                    'PRICE' => $bonuses,
-                    'PRICE_SCALE' => $bonuses,
-                ]);
-            } else {
-                Price::add([
-                    'PRODUCT_ID' => $offerId,
-                    'CATALOG_GROUP_ID' => $priceType['ID'],
-                    'PRICE' => $bonuses,
-                    'PRICE_SCALE' => $bonuses,
-                ]);
-            }
-        }
+    /**
+     * Получить все уровни программы лояльности и информацию о них
+     * @return array[]
+     */
+    static public function getLoyaltyLevels() : array
+    {
+        return self::LOYALTY_LEVELS;
     }
 }

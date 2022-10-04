@@ -5,15 +5,36 @@ namespace QSoft\Entity;
 use CFile;
 use CUser;
 use CUserFieldEnum;
+use QSoft\Service\BonusAccountService;
+use QSoft\Service\LoyaltyService;
+use QSoft\Service\UserGroupsService;
+use RuntimeException;
 
 class User
 {
+    /**
+     * @var CUser Объект пользователя Битрикса
+     */
+    private CUser $c_user;
+    /**
+     * @var BonusAccountService Объект для работы с бонусным счетом пользователя
+     */
+    public BonusAccountService $bonusAccountService;
+    /**
+     * @var LoyaltyService Объект для работы с программой лояльности
+     */
+    public LoyaltyService $loyaltyService;
+    /**
+     * @var UserGroupsService Объект для работы с бонусным счетом пользователя
+     */
+    public UserGroupsService $userGroupsService;
+
     /**
      * @var int ID пользователя
      */
     public $id;
     /**
-     * @var string Логин
+     * @var string Логин (он же номер телефона)
      */
     public $login;
     /**
@@ -36,10 +57,6 @@ class User
      * @var string E-mail
      */
     public $email;
-    /**
-     * @var string Номер телефона
-     */
-    public $phone;
     /**
      * @var string Пол
      */
@@ -75,10 +92,6 @@ class User
      */
     public $mentor_id;
     /**
-     * @var string Уровень в программе лояльности
-     */
-    public $loyalty_level;
-    /**
      * @var int Бонусные баллы
      */
     public $bonus_points;
@@ -88,25 +101,19 @@ class User
     public $loyalty_check_date;
 
     /**
-     * @var array Массив ID групп, в которых состоит пользователь
-     */
-    private $user_groups;
-
-    /**
      * Коды пользовательских полей типа "Список"
      */
-    private const ENUM_PROPERTIES = [
-        'UF_LOYALTY_LEVEL',
-    ];
-    private const USER_GROUP_ID_CONSULTANT = 9;
-    private const USER_GROUP_ID_CUSTOMER = 10;
+    private const ENUM_PROPERTIES = [];
 
     /**
      * User constructor.
      * @param int $userId ID пользователя
+     * @throws RuntimeException
      */
     public function __construct(int $userId)
     {
+        $this->c_user = new CUser;
+        
         // Получаем поля и свойства пользователя
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
@@ -130,7 +137,6 @@ class User
             $this->last_name = $user['LAST_NAME'];
             $this->second_name = $user['SECOND_NAME'];
             $this->email = $user['EMAIL'];
-            $this->phone = $user['PERSONAL_PHONE'];
             $this->gender = $user['PERSONAL_GENDER'];
             $this->birthday = $user['PERSONAL_BIRTHDAY'];
             $this->photo = CFile::GetPath($user['PERSONAL_PHOTO']);
@@ -139,39 +145,66 @@ class User
             $this->agree_with_terms_of_use = $user['UF_AGREE_WITH_TERMS_OF_USE'];
             $this->agree_with_company_rules = $user['UF_AGREE_WITH_COMPANY_RULES'];
             $this->agree_to_receive_information_about_promotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'];
-            $this->mentor_id = $user['UF_MENTOR_ID'];
-            $this->loyalty_level = $user['UF_LOYALTY_LEVEL'];
-            $this->bonus_points = $user['UF_BONUS_POINTS'];
+            $this->mentor_id = (int) $user['UF_MENTOR_ID'];
+            $this->bonus_points = (int) $user['UF_BONUS_POINTS'];
             $this->loyalty_check_date = $user['UF_LOYALTY_CHECK_DATE'];
         }
+
+        //Задаем необходимые связанные объекты
+        $this->bonusAccountService = new BonusAccountService($this);
+        $this->loyaltyService = new LoyaltyService($this);
+        $this->userGroupsService = new UserGroupsService($this);
     }
 
     /**
-     * @return array Массив идентификаторов групп, к которым принадлежит пользователь
+     * Является ли аккаунт пользователя активным (не отключен)
+     * @return CUser|null
      */
-    private function getUserGroups($forceUpdate = false): array
+    public function isActive(): ?bool
     {
-        if (! isset($this->user_groups) || $forceUpdate) {
-            $this->user_groups = CUser::GetUserGroup($this->id);
+        if ($this->active === 'Y') {
+            return true;
         }
-        return $this->user_groups;
+        return false;
     }
 
     /**
      * Является ли пользователь Консультантом
      * @return bool
      */
-    public function isConsultant(): bool
+    public function isConsultant(): ?bool
     {
-        return in_array(self::USER_GROUP_ID_CONSULTANT, $this->getUserGroups());
+        return $this->userGroupsService->isConsultant();
     }
 
     /**
-     * Является ли пользователь Покупателем
+     * Является ли пользователь Конечным покупателем
      * @return bool
      */
-    public function isCustomer(): bool
+    public function isBuyer(): ?bool
     {
-        return in_array(self::USER_GROUP_ID_CUSTOMER, $this->getUserGroups());
+        return $this->userGroupsService->isBuyer();
+    }
+
+    /**
+     * Активирует и авторизует пользователя
+     * @return bool
+     */
+    public function activate(): bool
+    {
+        if ($this->update(['ACTIVE' => 'Y'])) {
+            return $this->c_user->Authorize($this->id);
+        }
+        return false;
+    }
+
+    /**
+     * Обновляет поля пользователя
+     * @param array $fields
+     * @return bool
+     */
+    public function update(array $fields): bool
+    {
+        return $this->c_user->Update($this->id, $fields);
     }
 }

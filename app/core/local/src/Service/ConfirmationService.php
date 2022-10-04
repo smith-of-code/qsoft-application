@@ -9,6 +9,7 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\UserTable;
 use InvalidArgumentException;
 use QSoft\Client\SmsClient;
+use QSoft\Entity\User;
 use QSoft\ORM\ConfirmationTable;
 
 Loc::loadMessages(__FILE__);
@@ -26,15 +27,12 @@ class ConfirmationService
 
     public function sendSmsConfirmation(int $userId): void
     {
-        $user = UserTable::getById($userId);
-        if (!$user || !$user = $user->fetch()) {
-            throw new InvalidArgumentException('User not found');
-        }
+        $user = new User($userId);
 
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $userId,
+            'UF_USER_ID' => $user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['sms'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_phone'],
             'UF_CODE' => $code,
@@ -45,21 +43,18 @@ class ConfirmationService
                 Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
                 $code
             ),
-            $user['LOGIN']
+            $user->login
         );
     }
 
     public function sendEmailConfirmation(int $userId): void
     {
-        $user = UserTable::getById($userId);
-        if (!$user || !$user = $user->fetch()) {
-            throw new InvalidArgumentException('User not found');
-        }
+        $user = new User($userId);
 
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $userId,
+            'UF_USER_ID' => $user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
@@ -69,8 +64,8 @@ class ConfirmationService
             'EVENT_NAME' => 'NEW_USER_CONFIRM',
             'LID' => SITE_ID,
             'C_FIELDS' => [
-                'EMAIL' => $user['EMAIL'],
-                'USER_ID' => $userId,
+                'EMAIL' => $user->email,
+                'USER_ID' => $user->id,
                 'CONFIRM_CODE' => $code,
             ],
         ]);

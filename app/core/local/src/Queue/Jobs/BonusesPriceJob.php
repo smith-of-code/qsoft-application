@@ -2,15 +2,12 @@
 
 namespace QSoft\Queue\Jobs;
 
-use QSoft\Service\LoyaltyService;
+use QSoft\Service\BonusAccountService;
 
 class BonusesPriceJob extends BaseJob
 {
-    private LoyaltyService $loyaltyService;
-
     public function __construct()
     {
-        $this->loyaltyService = new LoyaltyService;
     }
 
     protected function getQueueName(): string
@@ -20,7 +17,7 @@ class BonusesPriceJob extends BaseJob
 
     protected function process($data)
     {
-        $this->loyaltyService->setOfferBonusesPrices($data['offerId'], $data['priceValue']);
+        BonusAccountService::setOfferBonusesPrices($data['offerId'], $data['priceValue']);
     }
 
     protected function validateInputData($data): bool

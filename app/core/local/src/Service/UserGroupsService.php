@@ -4,31 +4,62 @@ namespace QSoft\Service;
 
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserGroupTable;
+use QSoft\Entity\User;
 
 class UserGroupsService
 {
-    public const CONSULTANT_GROUP = 'consultant';
+    private User $user;
 
-    public function isConsultant(int $userId): bool
+    public const USER_GROUP_CONSULTANT = 'consultant';
+    public const USER_GROUP_BUYER = 'buyer';
+    public const USER_GROUP_LOYALTY_K1 = 'loyalty_K1';
+    public const USER_GROUP_LOYALTY_K2 = 'loyalty_K2';
+    public const USER_GROUP_LOYALTY_K3 = 'loyalty_K3';
+
+    /**
+     * UserGroupsService constructor.
+     * @param User $user
+     */
+    public function __construct(User $user) {
+        $this->user = $user;
+    }
+
+    /**
+     * Относится ли пользователь к группе с заданным символьным идентификатором
+     * @param string $groupCode Символьный идентификатор (STRING_ID)
+     * @return bool
+     */
+    public function isInAGroup(string $groupCode): bool
     {
-        $consultantGroupId = GroupTable::getRow([
+        $groupId = GroupTable::getRow([
             'filter' => [
-                '=STRING_ID' => self::CONSULTANT_GROUP,
+                '=STRING_ID' => $groupCode,
             ],
             'select' => ['ID'],
         ])['ID'];
-
         return (bool) UserGroupTable::getRow([
             'filter' => [
-                '=USER_ID' => $userId,
-                '=GROUP_ID' => $consultantGroupId,
+                '=USER_ID' => $this->user->id,
+                '=GROUP_ID' => $groupId,
             ],
         ]);
     }
 
-    public function currentUserIsConsultant(): bool
+    /**
+     * Является ли пользователь Консультантом
+     * @return bool
+     */
+    public function isConsultant(): bool
     {
-        global $USER;
-        return $USER->GetID() && $this->isConsultant($USER->GetID());
+        return $this->isInAGroup(self::USER_GROUP_CONSULTANT);
+    }
+
+    /**
+     * Является ли пользователь Конечным покупателем
+     * @return bool
+     */
+    public function isBuyer(): bool
+    {
+        return $this->isInAGroup(self::USER_GROUP_BUYER);
     }
 }
