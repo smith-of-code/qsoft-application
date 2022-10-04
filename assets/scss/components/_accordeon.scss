@@ -1,4 +1,16 @@
 .accordeon {
+    &--simple & {
+        &__item {
+            padding: rem(6px) rem($gap-medium);
+
+            background-color: $white;
+
+            & + & {
+                margin-top: rem($gap-medium);
+            }
+        }
+    }
+
     &__item {
         padding: rem(20px) rem($gap-medium);
 
@@ -13,6 +25,8 @@
         &__toggle {
             &-icon {
                 transform: rotate(180deg);
+
+                color: $brickRed;
             }
         }
 
@@ -24,6 +38,8 @@
     &__header {
         display: flex;
         justify-content: space-between;
+
+        cursor: pointer;
     }
 
     &__title {
