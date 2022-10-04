@@ -10,19 +10,19 @@ class AddUserGroupsForLoyaltyProgram extends Migration
     private array $groups = [
         [
             'NAME' => 'Программа лояльности - K1',
-            'STRING_ID' => 'loyalty_k1',
+            'STRING_ID' => 'loyalty_K1',
             'ACTIVE' => 'Y',
             'C_SORT' => 400,
         ],
         [
             'NAME' => 'Программа лояльности - K2',
-            'STRING_ID' => 'loyalty_k2',
+            'STRING_ID' => 'loyalty_K2',
             'ACTIVE' => 'Y',
             'C_SORT' => 400,
         ],
         [
             'NAME' => 'Программа лояльности - K3',
-            'STRING_ID' => 'loyalty_k3',
+            'STRING_ID' => 'loyalty_K3',
             'ACTIVE' => 'Y',
             'C_SORT' => 400,
         ],
