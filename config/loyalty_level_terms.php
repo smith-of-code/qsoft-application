@@ -8,14 +8,20 @@ return [
                 'hold' => [
                     'self' => 5000.0
                 ],
-                'upgrade' => ''
+                'upgrade' => [
+                    'self' => 10000.0,
+                    'team' => 10000.0
+                ]
             ],
             '2' => [
                 'hold' => [
                     'self' => 5000.0,
                     'team' => 7000.0
                 ],
-                'upgrade' => ''
+                'upgrade' => [
+                    'self' => 50000.0,
+                    'team' => 100000.0
+                ]
             ],
             '3' => [
                 'hold' => [
