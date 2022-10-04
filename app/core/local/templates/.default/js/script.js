@@ -121,8 +121,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
 /* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
 /* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
-/* harmony import */ var _svg_cat_cheerful_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./svg/cat-cheerful.svg */ "./assets/icons/svg/cat-cheerful.svg");
-/* harmony import */ var _svg_cat_serious_svg__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./svg/cat-serious.svg */ "./assets/icons/svg/cat-serious.svg");
+/* harmony import */ var _svg_cat_cheerful_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./svg/cat-cheerful.svg */ "./assets/icons/svg/cat-cheerful.svg");
+/* harmony import */ var _svg_cat_serious_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./svg/cat-serious.svg */ "./assets/icons/svg/cat-serious.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
 
@@ -1599,6 +1599,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/technicalSupport.js":
+/*!***********************************************!*\
+  !*** ./assets/js/modules/technicalSupport.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  modal: '[data-support]',
+  variant: '[data-variant-block]',
+  option: '[data-option]'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('change', ELEMENTS_SELECTOR.option, function () {
+    var option = $("".concat(ELEMENTS_SELECTOR.option, " option:selected")).attr('data-variant');
+    $(ELEMENTS_SELECTOR.variant).removeClass('modal__section-variant--active');
+    $(ELEMENTS_SELECTOR.modal).find("[data-variant-block='".concat(option, "'")).addClass('modal__section-variant--active');
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/toggle.js":
 /*!*************************************!*\
   !*** ./assets/js/modules/toggle.js ***!
@@ -1753,6 +1778,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/validation */ "./assets/js/modules/validation.js");
 /* harmony import */ var _modules_accordeon__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./modules/accordeon */ "./assets/js/modules/accordeon.js");
 /* harmony import */ var _modules_fancybox__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/fancybox */ "./assets/js/modules/fancybox.js");
+/* harmony import */ var _modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./modules/technicalSupport */ "./assets/js/modules/technicalSupport.js");
 /**
  * Vendors
  */
@@ -1766,6 +1792,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -1812,6 +1839,7 @@ var app = {
     Object(_modules_validation__WEBPACK_IMPORTED_MODULE_19__["default"])();
     Object(_modules_accordeon__WEBPACK_IMPORTED_MODULE_20__["default"])();
     Object(_modules_fancybox__WEBPACK_IMPORTED_MODULE_21__["default"])();
+    Object(_modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__["default"])();
   },
   load: function load() {},
   resize: function resize() {},

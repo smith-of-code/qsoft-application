@@ -124,6 +124,14 @@
         &--closer {
             margin-top: rem($gap-small);
         }
+
+        &--separated {
+            margin-bottom: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-big);
+            }
+        }
     }
 
     &__col {
