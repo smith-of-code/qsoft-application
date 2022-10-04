@@ -33,6 +33,7 @@
  import addPets from './modules/add-pets';
  import registration from './modules/registration';
  import validation from './modules/validation';
+ import accordeon from './modules/accordeon';
 
 
 
@@ -58,8 +59,10 @@
         steps();
         inputmask();
         addPets();
-        validation();
         registration();
+        validation();
+        accordeon();
+
     },
 
     load() {

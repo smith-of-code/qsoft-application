@@ -8,6 +8,12 @@
         box-shadow: $box-shadow;
     }
 
+    &--hovering {
+        &:hover {
+            box-shadow: $box-shadow-big;
+        }
+    }
+
     &--gray {
         padding: rem($gap-average) rem($gap-medium);
         background-color: $athensGray;
