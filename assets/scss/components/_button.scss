@@ -414,6 +414,10 @@
         }
     }
 
+    &#{&}--ordinary {
+        width: auto;
+    }
+
     &--disabled {
         cursor: default;
     }

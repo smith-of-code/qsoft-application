@@ -216,6 +216,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: heart">
+                                    <svg class="icon icon--heart gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -1343,6 +1349,28 @@
                                             <div class="form__control">
                                                 <div class="select select--mitigate select--small" data-select>
                                                     <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1">Надёжный</option>
+                                                        <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
+                                                        <option value="3">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--mini" data-select>
+                                                    <select class="select__control" name="select5" id="select5" data-select-control data-placeholder="Селект">
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <option value="1">Надёжный</option>
                                                         <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
@@ -3491,6 +3519,141 @@
                         </div>
                     </div>
                     <!--/Данные о питомцах-->
+
+                    <!--Карточки товара-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки товара</h2>
+
+                        <div class="product-cards">
+                            <ul class="product-cards__list">
+                                <li class="product-cards__item">
+                                    <article class="product-card box box--circle box--hovering box--grayish">
+                                        <div class="product-card__block">
+                                            <a href="#" class="product-card__link"></a>
+                                            <div class="product-card__label label label--pink">ограниченное предложение</div>
+
+                                            <div class="product-card__favourite">
+                                                <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red">
+                                                    <span class="button__icon">
+                                                        <svg class="icon icon--heart">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="product-card__wrapper">
+                                                <div class="product-card__image box box--circle">
+                                                    <div class="product-card__box">
+                                                        <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-card__content">
+                                                <h6 class="product-card__title">Клиппер-переноска для кошек и собак Ferplast Jet 10 серый/фиолетовый серый/фиолетовыйсерый/фиолетовый серый/фиолетовый</h6>
+
+                                                <p class="product-card__article">Арт. СХ-С-456013</p>
+
+                                                <div class="product-card__color color">
+                                                    <ul class="color__list">
+                                                        <li class="color__item">
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="product-card__breed">
+                                                    <div class="select select--mini" data-select>
+                                                        <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                                                            <option><!-- пустой option для placeholder --></option>
+                                                            <option value="1">Для всех пород</option>
+                                                            <option value="2">Мелкие породы</option>
+                                                            <option value="3">Средние породы</option>
+                                                            <option value="4">Крупные породы</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="product-card__price price">
+                                                    <p class="price__main">1 545 ₽</p>
+                                                    <div class="price__calculation">
+                                                        <p class="price__calculation-total">1 420 ₽</p>
+                                                        <p class="price__calculation-accumulation">14 ББ</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="product-card__cart">
+                                                    <div class="quantity" data-quantity>
+                                                        <div class="quantity__button" data-quantity-button>
+                                                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                <span class="button__icon">
+                                                                    <svg class="icon icon--basket">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="button__text">В корзину</span>
+                                                            </button>
+                                                        </div>
+                            
+                                                        <div class="quantity__actions">
+                                                            <div class="quantity__decrease">
+                                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                    <span class="button__icon button__icon--small">
+                                                                        <svg class="icon icon--minus">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                            
+                                                            <div class="quantity__total">
+                                                                <span class="quantity__total-icon">
+                                                                    <svg class="icon icon--basket">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="quantity__total-sum" data-quantity-sum></span>
+                                                            </div>
+                            
+                                                            <div class="quantity__increase">
+                                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                    <span class="button__icon button__icon--small">
+                                                                        <svg class="icon icon--plus">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </li>
+
+                                <li class="product-cards__item">
+                                    <article class="product-card" style="background-color: deepskyblue">
+                                        Карточка товара
+                                    </article>
+                                </li>
+
+                                <li class="product-cards__item">
+                                    <article class="product-card" style="background-color: deepskyblue">
+                                        Карточка товара
+                                    </article>
+                                </li>
+
+                                <li class="product-cards__item">
+                                    <article class="product-card" style="background-color: deepskyblue">
+                                        Карточка товара
+                                    </article>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Карточки товара-->
                 </main>
             </div>
         </div>
