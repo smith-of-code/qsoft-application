@@ -1,0 +1,19 @@
+.packs {
+    $gap: 8px;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        margin-top: rem(-$gap);
+        margin-right: rem(-$gap / 2);
+        margin-left: rem(-$gap / 2);
+    }
+
+    &__item {
+        margin-top: rem($gap);
+        padding-right: rem($gap / 2);
+        padding-left: rem($gap / 2);
+    }
+} 

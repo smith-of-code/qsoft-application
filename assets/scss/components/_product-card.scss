@@ -1,9 +1,10 @@
 .product-card {
-    &__block {
-        position: relative;
+    position: relative;
 
-        height: 100%;
-    }
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
 
     &__link {
         @include position-stretching;
@@ -12,11 +13,10 @@
     &__wrapper {
         padding: rem($gap-small);
 
-        
         @media #{$screen-desktop} {
             padding: rem($gap-mini);
             padding-bottom: rem($gap-average);
-        } 
+        }
     }
 
     &__image {
@@ -63,12 +63,12 @@
     }
 
     &__content {
-        padding: rem($gap-small);
-        padding-top: 0;
+        flex-grow: 1;
+
+        padding: 0 rem($gap-small) rem($gap-average);
 
         @media #{$screen-desktop} {
-            padding: rem(20px);
-            padding-top: 0;
+            padding: 0 rem(20px) rem($gap-average);
         }
     }
 
@@ -82,24 +82,58 @@
         font-size: rem($font-size-small);
         line-height: rem($line-height-miniature);
 
-        margin-bottom: rem($gap-average);
+        margin-bottom: rem(14px);
 
         @media #{$screen-tablet} {
             line-height: rem($line-height-small);
+
+            margin-bottom: rem($gap-medium);
         }
     }
 
-    &__color {
-        margin-bottom: rem($gap-small);
+    &__packs {
+        position: relative;
+        z-index: $z-index-html;
+
+        margin-bottom: rem($gap-average);
+
+        &--mobile {
+            @media #{$screen-desktop} {
+                display: none;
+            }
+        }
+
+        &--desktop {
+            display: none;
+
+            @media #{$screen-desktop} {
+                display: block;
+            }
+        }
+    }
+
+    &__colors {
+        position: relative;
+        z-index: $z-index-html;
+
+        margin-bottom: rem(10px);
 
         @media #{$screen-tablet} {
-            margin-bottom: rem($gap-average);
+            margin-bottom: rem($gap-medium);
         }
     }
 
     &__breed {
         max-width: rem(159px);
-        margin-bottom: rem($gap-average);
+    }
+
+    &__footer {
+        margin-top: auto;
+        padding: 0 rem($gap-small) rem($gap-average);
+
+        @media #{$screen-desktop} {
+            padding: 0 rem(20px) rem($gap-average);
+        }
     }
 
     &__price {
