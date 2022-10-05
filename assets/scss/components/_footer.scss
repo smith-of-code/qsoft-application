@@ -1,0 +1,129 @@
+.footer {
+    padding: rem($gap-big) 0 rem($gap-normal);
+
+	background-color: $tuna;
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-normal);
+    }
+
+	&__nav {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-big) rem(-18px) rem(36px);
+
+		@media #{$screen-desktop} {
+            flex-wrap: nowrap;
+
+            margin: rem(-$gap-big) rem(-$gap-big) rem($gap-medium);
+		}
+	}
+
+	&__list {
+        flex-basis: percentage(1 / 2);
+        
+		margin-top: rem($gap-big);
+        padding: 0 rem(18px);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 4);
+        }
+
+        @media #{$screen-desktop} {
+            flex-basis: auto;
+
+            min-width: rem(200px);
+            padding: 0 rem($gap-big);
+        }
+	}
+
+	&__item {
+        font-size: rem($font-size-mini);
+        line-height: ($line-height-small / $font-size-mini);
+
+		margin-bottom: rem($gap-small);
+        
+        letter-spacing: 0.02em;
+
+        color: $white;
+
+        @include resetting-vertical-indentation-of-last;
+
+        &--heading {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-bold;
+            line-height: ($line-height-normal / $font-size-mini);
+        }
+	}
+
+	&__link {
+        transition: color $transition-duration $transition-function,
+                    border-color $transition-duration $transition-function,
+                    background-color $transition-duration $transition-function;
+        text-decoration: none;
+
+        color: inherit;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $mandy2;
+        }
+	}
+
+	&__social {
+		&-list {
+            display: flex;
+            flex-wrap: wrap;
+
+            margin-right: rem(-$gap-medium);
+            margin-bottom: rem($gap-medium);
+
+            border-top: rem(1px) solid #494953;
+            border-bottom: rem(1px) solid #494953;
+		}
+
+		&-item {
+            margin-top: rem($gap-small);
+            margin-right: rem($gap-medium);
+            margin-bottom: rem($gap-small);
+		}
+
+		&-link {
+            $size: 24px;
+            
+            display: block;
+
+            width: rem($size);
+            height: rem($size);
+
+            transition: color $transition-duration $transition-function;
+
+            color: $white;
+
+            &:hover {
+                color: $mandy;
+            }
+
+            &:active {
+                color: $mandy2;
+            }
+		}
+	}
+
+	&__bottom {
+        margin-top: rem($gap-medium);
+	}
+
+	&__copyright {
+        font-size: $font-size-miniature;
+        line-height: ($line-height-miniature / $font-size-miniature);
+
+        letter-spacing: 0.02em;
+
+        color: $white;
+	}
+}
