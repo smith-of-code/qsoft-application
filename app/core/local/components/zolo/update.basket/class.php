@@ -3,6 +3,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use Bitrix\Sale;
 use Bitrix\Currency\CurrencyManager;
@@ -10,15 +11,11 @@ use Bitrix\Main\Localization\Loc;
 
 Loader::includeModule('sale');
 
-class UpdateBasket extends \CBitrixComponent
+class UpdateBasket extends \CBitrixComponent implements Controllerable
 {
     private $basket;
     private $currency;
     private $requestParams;
-
-    const UPDATE_BASKET_AJAX = 'UPDATE_BASKET_AJAX_SKU_DATA';
-    const CACHE_KEY_CHECK_HYPER = 'UpdateBasketAjaxSkuData';
-    const CACHE_TTL = 60 * 60 * 3;
 
     public function __construct($component)
     {
@@ -26,6 +23,11 @@ class UpdateBasket extends \CBitrixComponent
 
         $this->basket = Sale\Basket::loadItemsForFUser(CSaleBasket::GetBasketUserID(), SITE_ID);
         $this->currency = CurrencyManager::getBaseCurrency();
+    }
+
+    public function configureActions()
+    {
+        return [];
     }
 
     public function onPrepareComponentParams($arParams)
