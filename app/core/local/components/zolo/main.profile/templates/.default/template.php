@@ -12,27 +12,46 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 use Bitrix\Main\Localization\Loc;
 ?>
 
+<?php
+$APPLICATION->IncludeComponent(
+    'zolo:personal.main.profile.navigation_menu',
+    '',
+    [],
+    [],
+);
+?>
+
 <div><?=Loc::getMessage('SETTINGS_PERSONAL_INFO')?></div>
 <?php if ($arResult['USER_GROUP'] == 'Покупатель') :?>
     <div style="background: grey; margin: 5px;">Становись консультантом</div>
 <?php endif;?>
 <div style="background: grey; margin: 5px;">
     Персональные данные
-    <div style="background: whitesmoke; margin:5px">
-        Фамилия: <input type="text" value="<?=$arResult['USER_INFO']['LAST_NAME']?>" required>
-        Имя: <input type="text" value="<?=$arResult['USER_INFO']['NAME']?>" required>
-        Отчество: <input type="text" value="<?=$arResult['USER_INFO']['SECOND_NAME']?>"><br>
-        Пол: <input type="text" value="<?=$arResult['USER_INFO']['PERSONAL_GENDER']?>" required>
-        Дата рождения: <input type="text" value="<?=$arResult['USER_INFO']['PERSONAL_BIRTHDAY']?>" required><br>
-        Email: <input type="text" value="<?=$arResult['USER_INFO']['EMAIL']?>" required>
-        Телефон: <input type="text" value="<?=$arResult['USER_INFO']['PERSONAL_PHONE']?>" required><br>
-        Населенный пункт: <input type="text" value="<?=$arResult['USER_INFO']['PERSONAL_CITY']?>" required>
-        Пункт выдачи заказов: <input type="text" value="<?=$arResult['USER_INFO']['']?>" required><br>
-        Фото: <input type="text" value="<?=$arResult['USER_INFO']['PERSONAL_PHOTO']?>"><br>
-    </div>
-    <button>Отменить изменения</button>
-    <button style="background: darkgreen">Сохранить изменения</button>
-    <?=dump($arResult)?>
+    <form action="" method="post" id="user_info">
+        <div style="background: whitesmoke; margin:5px">
+            Фамилия: <input type="text" name="LAST_NAME" value="<?=$arResult['USER_INFO']['LAST_NAME']?>" required>
+            Имя: <input type="text" name="NAME" value="<?=$arResult['USER_INFO']['NAME']?>" required>
+            Отчество: <input type="text" name="SECOND_NAME" value="<?=$arResult['USER_INFO']['SECOND_NAME']?>"><br>
+            Пол: <select name="PERSONAL_GENDER" value="<?=$arResult['USER_INFO']['PERSONAL_GENDER']?>">
+                <?php foreach ($arResult['SELECT_OPTIONS']['USER_GENDER'] as $id => $value) : ?>
+                    <option value="<?= $id ?>" class="form-control__option"
+                        <?= ($id == $arResult['USER_INFO']['PERSONAL_GENDER']) ? 'selected' : '' ?>>
+                        <?= $value ?>
+                    </option>
+                <?php endforeach;?>
+            </select>
+            Дата рождения: <input type="text" name="PERSONAL_BIRTHDAY" value="<?=$arResult['USER_INFO']['PERSONAL_BIRTHDAY']?>" required><br>
+            Email: <input type="text" name="EMAIL" value="<?=$arResult['USER_INFO']['EMAIL']?>" required>
+            Телефон: <input type="text" name="PERSONAL_PHONE" value="<?=$arResult['USER_INFO']['PERSONAL_PHONE']?>" required><br>
+            Населенный пункт: <input type="text" name="PERSONAL_CITY" value="<?=$arResult['USER_INFO']['PERSONAL_CITY']?>" required>
+            Пункт выдачи заказов: <input type="text" value="<?=$arResult['USER_INFO']['UF_PICKUP_POINT_ID']?>"><br>
+            Фото:
+            <img src="<?=$arResult['USER_INFO']['PERSONAL_PHOTO_URL']?>"><br>
+        </div>
+        <button>Отменить изменения</button>
+        <button style="background: darkgreen" type="submit" value="Y">Сохранить изменения</button>
+    </form>
+        <?=dump($arResult)?>
 </div>
 
 <?php if ($arResult['USER_GROUP'] == 'Консультант') :?>
@@ -232,20 +251,10 @@ use Bitrix\Main\Localization\Loc;
             Телефон: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHONE']?>" required><br>
             Населенный пункт: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_CITY']?>" required>
             Пункт выдачи заказов: <input type="text" value="<?=$arResult['MENTOR_INFO']['']?>" required><br>
-            Фото: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO']?>"><br>
+            Фото: <img src="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO_URL']?>"><br>
             <button>Отменить изменения</button>
             <button style="background: darkgreen">Сохранить изменения</button>
         </div>
     </div>
     <div style="background: grey; margin: 5px;">Система лояльности</div>
     <div style="background: grey; margin: 5px;">Персональные акции</div>
-
-
-<?php
-$APPLICATION->IncludeComponent(
-    'zolo:personal.main.profile.navigation_menu',
-    '',
-    [],
-    [],
-);
-?>

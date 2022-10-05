@@ -61,6 +61,13 @@ class UserProfileForm extends CBitrixComponent
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
         //Персональные акции
+
+        $this->myRequest = Context::getCurrent()->getRequest();
+        $this->arRequest = $this->myRequest->getPostList()->toArray();
+
+        if (!empty($this->arRequest["EDIT_PORTFOLIO"])) {
+            $this->update($this->arRequest);
+        }
     }
 
     private function getUserGroup()
@@ -85,13 +92,8 @@ class UserProfileForm extends CBitrixComponent
             $arUserInfo['USER_GROUP'] = 'Консультант';
         }
 
-        switch ($arUserInfo['PERSONAL_GENDER']) {
-            case 'M':
-                $arUserInfo['PERSONAL_GENDER'] = 'Мужской';
-                break;
-            case 'F':
-                $arUserInfo['PERSONAL_GENDER'] = 'Женский';
-                break;
+        if (!empty($arUserInfo['PERSONAL_PHOTO'])) {
+            $arUserInfo['PERSONAL_PHOTO_URL'] = CFile::GetPath($arUserInfo['PERSONAL_PHOTO']);
         }
 
         return $arUserInfo;
@@ -145,6 +147,9 @@ class UserProfileForm extends CBitrixComponent
 
     private function getSelect()
     {
+        //Пол пользователя
+        $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
+
         //Статусы юр лица для консультантов
         $entity = CUserTypeEntity::GetList([], [
             'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLLEGALENTITIES,
@@ -195,6 +200,14 @@ class UserProfileForm extends CBitrixComponent
 
     private function update($arParams)
     {
-        $arPreparedProperties = $this->prepareProperties($arParams);
+        \Bitrix\Main\Diag\Debug::dumpToFile($arParams, '$arParams', '/debug.php');
+        //$arPreparedProperties = $this->prepareProperties($arParams);
+    }
+
+    private function prepareProperties($arPops)
+    {
+        $preparedProps = [];
+
+        return $preparedProps;
     }
 }
