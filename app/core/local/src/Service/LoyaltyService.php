@@ -93,11 +93,11 @@ class LoyaltyService
      */
     public function getLoyaltyLevel() : ?string
     {
-        if ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K3)) {
+        if ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_3)) {
             return self::LOYALTY_LEVEL_K3;
-        } elseif ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K2)) {
+        } elseif ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_2)) {
             return self::LOYALTY_LEVEL_K2;
-        } elseif ($this->user->userGroupsService->isInAGroup($this->user->userGroupsService::USER_GROUP_LOYALTY_K1)) {
+        } elseif ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_1)) {
             return self::LOYALTY_LEVEL_K1;
         }
         return null;

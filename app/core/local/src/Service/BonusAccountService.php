@@ -35,17 +35,17 @@ class BonusAccountService
     public function addReferralBonuses(): bool
     {
         // Для отключенного аккаунта добавление баллов невозможно
-        if (! $this->user->isActive()) {
+        if (! $this->user->active) {
             throw new RuntimeException('User not found');
         }
 
         // Начисление баллов доступно только для Консультанта
-        if (! $this->user->isConsultant()) {
+        if (! $this->user->groups->isConsultant()) {
             throw new RuntimeException('User is not consultant');
         }
 
         // Получаем количество баллов для начисления
-        $loyaltyParams = $this->user->loyaltyService->getLoyaltyLevelInfo();
+        $loyaltyParams = $this->user->loyalty->getLoyaltyLevelInfo();
         $amount = $loyaltyParams['referral_size'];
 
         TransactionTable::add([
@@ -57,53 +57,8 @@ class BonusAccountService
         ]);
 
         return $this->user->update([
-            'UF_BONUS_POINTS' => $this->user->bonus_points + $amount,
+            'UF_BONUS_POINTS' => $this->user->bonusPoints + $amount,
             'UF_LOYALTY_CHECK_DATE' => new DateTime,
         ]);
-    }
-
-    /**
-     * @throws LoaderException
-     * @throws ArgumentException
-     * @throws ObjectNotFoundException
-     * @throws ObjectPropertyException
-     * @throws SystemException
-     */
-    static public function setOfferBonusesPrices(int $offerId, float $priceValue): void
-    {
-        Loader::includeModule('sale');
-
-        $prices = Price::getList([
-            'filter' => [
-                '=PRODUCT_ID' => $offerId,
-            ],
-            'limit' => LoyaltyService::getAmountOfLevels(),
-        ]);
-
-        $existingPrices = [];
-        while ($price = $prices->fetch()) {
-            $existingPrices[$price['CATALOG_GROUP_ID']] = $price;
-        }
-
-        $loyaltyLevels = LoyaltyService::getLoyaltyLevels();
-        $priceTypes = CCatalogGroup::GetList([], ['=NAME' => array_keys($loyaltyLevels)]);
-        while ($priceType = $priceTypes->Fetch()) {
-            $params = $loyaltyLevels[$priceType['NAME']]['personal_bonuses_by_price'];
-            $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
-
-            if ($existingPrices[$priceType['ID']]) {
-                Price::update($existingPrices[$priceType['ID']]['ID'], [
-                    'PRICE' => $bonuses,
-                    'PRICE_SCALE' => $bonuses,
-                ]);
-            } else {
-                Price::add([
-                    'PRODUCT_ID' => $offerId,
-                    'CATALOG_GROUP_ID' => $priceType['ID'],
-                    'PRICE' => $bonuses,
-                    'PRICE_SCALE' => $bonuses,
-                ]);
-            }
-        }
     }
 }

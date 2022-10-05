@@ -10,11 +10,10 @@ class UserGroupsService
 {
     private User $user;
 
-    public const USER_GROUP_CONSULTANT = 'consultant';
     public const USER_GROUP_BUYER = 'buyer';
-    public const USER_GROUP_LOYALTY_K1 = 'loyalty_K1';
-    public const USER_GROUP_LOYALTY_K2 = 'loyalty_K2';
-    public const USER_GROUP_LOYALTY_K3 = 'loyalty_K3';
+    public const USER_GROUP_CONSULTANT_1 = 'consultant_1';
+    public const USER_GROUP_CONSULTANT_2 = 'consultant_2';
+    public const USER_GROUP_CONSULTANT_3 = 'consultant_3';
 
     /**
      * UserGroupsService constructor.
@@ -51,7 +50,9 @@ class UserGroupsService
      */
     public function isConsultant(): bool
     {
-        return $this->isInAGroup(self::USER_GROUP_CONSULTANT);
+        return $this->isInAGroup(self::USER_GROUP_CONSULTANT_1)
+            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_2)
+            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_3);
     }
 
     /**

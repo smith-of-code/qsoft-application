@@ -2,6 +2,7 @@
 
 namespace QSoft\Entity;
 
+use Carbon\Carbon;
 use CFile;
 use CUser;
 use CUserFieldEnum;
@@ -15,90 +16,90 @@ class User
     /**
      * @var CUser Объект пользователя Битрикса
      */
-    private CUser $c_user;
+    private CUser $cUser;
     /**
      * @var BonusAccountService Объект для работы с бонусным счетом пользователя
      */
-    public BonusAccountService $bonusAccountService;
+    public BonusAccountService $bonusAccount;
     /**
      * @var LoyaltyService Объект для работы с программой лояльности
      */
-    public LoyaltyService $loyaltyService;
+    public LoyaltyService $loyalty;
     /**
      * @var UserGroupsService Объект для работы с бонусным счетом пользователя
      */
-    public UserGroupsService $userGroupsService;
+    public UserGroupsService $groups;
 
     /**
      * @var int ID пользователя
      */
-    public $id;
+    public int $id;
     /**
      * @var string Логин (он же номер телефона)
      */
-    public $login;
+    public string $login;
     /**
-     * @var string Флаг активности (Y|N)
+     * @var bool Флаг активности
      */
-    public $active;
+    public bool $active;
     /**
      * @var string Имя
      */
-    public $name;
+    public string $name;
     /**
      * @var string Фамилия
      */
-    public $last_name;
+    public string $lastName;
     /**
      * @var string Отчество
      */
-    public $second_name;
+    public string $secondName;
     /**
      * @var string E-mail
      */
-    public $email;
+    public string $email;
     /**
      * @var string Пол
      */
-    public $gender;
+    public string $gender;
     /**
      * @var string Дата рождения
      */
-    public $birthday;
+    public string $birthday;
     /**
-     * @var int Фотография (URL)
+     * @var int Фотография (ID файла)
      */
-    public $photo;
+    public int $photo;
 
 
     /**
-     * @var string Согласен на использование персональных данных (Y|N)
+     * @var bool Согласен на использование персональных данных
      */
-    public $agree_with_personal_data_processing;
+    public bool $agreeWithPersonalDataProcessing;
     /**
-     * @var string Согласен с условиями пользования сайтом (Y|N)
+     * @var bool Согласен с условиями пользования сайтом
      */
-    public $agree_with_terms_of_use;
+    public bool $agreeWithTermsOfUse;
     /**
-     * @var string Согласен с правилами компании (Y|N)
+     * @var bool Согласен с правилами компании
      */
-    public $agree_with_company_rules;
+    public bool $agreeWithCompanyRules;
     /**
-     * @var string Согласен на получение информации о продуктах, спецпредложениях и акциях (Y|N)
+     * @var bool Согласен на получение информации о продуктах, спецпредложениях и акциях
      */
-    public $agree_to_receive_information_about_promotions;
+    public bool $agreeToReceiveInformationAboutPromotions;
     /**
      * @var int ID наставника
      */
-    public $mentor_id;
+    public int $mentorId;
     /**
      * @var int Бонусные баллы
      */
-    public $bonus_points;
+    public int $bonusPoints;
     /**
      * @var string Дата проверки условий поддержания уровня программы лояльности
      */
-    public $loyalty_check_date;
+    public string $loyaltyCheckDate;
 
     /**
      * Коды пользовательских полей типа "Список"
@@ -112,7 +113,7 @@ class User
      */
     public function __construct(int $userId)
     {
-        $this->c_user = new CUser;
+        $this->cUser = new CUser;
         
         // Получаем поля и свойства пользователя
         $user = CUser::GetByID($userId);
@@ -127,63 +128,31 @@ class User
             }
         }
 
-        // Задаем параметры объекта пользователя
-        foreach ($user as $key => $value) {
-            // Стандартные поля
-            $this->id = $user['ID'];
-            $this->login = $user['LOGIN'];
-            $this->active = $user['ACTIVE'];
-            $this->name = $user['NAME'];
-            $this->last_name = $user['LAST_NAME'];
-            $this->second_name = $user['SECOND_NAME'];
-            $this->email = $user['EMAIL'];
-            $this->gender = $user['PERSONAL_GENDER'];
-            $this->birthday = $user['PERSONAL_BIRTHDAY'];
-            $this->photo = CFile::GetPath($user['PERSONAL_PHOTO']);
-            // Пользовательские поля
-            $this->agree_with_personal_data_processing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'];
-            $this->agree_with_terms_of_use = $user['UF_AGREE_WITH_TERMS_OF_USE'];
-            $this->agree_with_company_rules = $user['UF_AGREE_WITH_COMPANY_RULES'];
-            $this->agree_to_receive_information_about_promotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'];
-            $this->mentor_id = (int) $user['UF_MENTOR_ID'];
-            $this->bonus_points = (int) $user['UF_BONUS_POINTS'];
-            $this->loyalty_check_date = $user['UF_LOYALTY_CHECK_DATE'];
-        }
+        // Стандартные поля
+        $this->id = $user['ID'];
+        $this->login = $user['LOGIN'];
+        $this->active = $user['ACTIVE'] === 'Y';
+        $this->name = $user['NAME'];
+        $this->lastName = $user['LAST_NAME'];
+        $this->secondName = $user['SECOND_NAME'];
+        $this->email = $user['EMAIL'];
+        $this->gender = $user['PERSONAL_GENDER'];
+        $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
+        $this->photo = $user['PERSONAL_PHOTO'];
+
+        // Пользовательские поля
+        $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
+        $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
+        $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
+        $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
+        $this->mentorId = (int) $user['UF_MENTOR_ID'];
+        $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
+        $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
-        $this->bonusAccountService = new BonusAccountService($this);
-        $this->loyaltyService = new LoyaltyService($this);
-        $this->userGroupsService = new UserGroupsService($this);
-    }
-
-    /**
-     * Является ли аккаунт пользователя активным (не отключен)
-     * @return CUser|null
-     */
-    public function isActive(): ?bool
-    {
-        if ($this->active === 'Y') {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Является ли пользователь Консультантом
-     * @return bool
-     */
-    public function isConsultant(): ?bool
-    {
-        return $this->userGroupsService->isConsultant();
-    }
-
-    /**
-     * Является ли пользователь Конечным покупателем
-     * @return bool
-     */
-    public function isBuyer(): ?bool
-    {
-        return $this->userGroupsService->isBuyer();
+        $this->bonusAccount = new BonusAccountService($this);
+        $this->loyalty = new LoyaltyService($this);
+        $this->groups = new UserGroupsService($this);
     }
 
     /**
@@ -193,9 +162,19 @@ class User
     public function activate(): bool
     {
         if ($this->update(['ACTIVE' => 'Y'])) {
-            return $this->c_user->Authorize($this->id);
+            $this->active = true;
+            return $this->cUser->Authorize($this->id);
         }
         return false;
+    }
+
+    /**
+     * Возвращает URL фотографии пользователя
+     * @return string|null
+     */
+    public function getPhotoUrl(): ?string
+    {
+        return CFile::GetPath($this->photo);
     }
 
     /**
@@ -205,6 +184,6 @@ class User
      */
     public function update(array $fields): bool
     {
-        return $this->c_user->Update($this->id, $fields);
+        return $this->cUser->Update($this->id, $fields);
     }
 }

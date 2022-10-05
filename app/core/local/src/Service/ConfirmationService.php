@@ -73,15 +73,12 @@ class ConfirmationService
 
     public function sendResetPasswordEmail(int $userId): void
     {
-        $user = UserTable::getById($userId);
-        if (!$user || !$user = $user->fetch()) {
-            throw new InvalidArgumentException('User not found');
-        }
+        $user = new User($userId);
 
-        $code = $this->generateCodeOTP($userId);
+        $code = $this->generateCodeOTP($user->id);
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $userId,
+            'UF_USER_ID' => $user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
@@ -91,8 +88,8 @@ class ConfirmationService
             'EVENT_NAME' => 'USER_PASS_REQUEST',
             'LID' => SITE_ID,
             'C_FIELDS' => [
-                'EMAIL' => $user['EMAIL'],
-                'USER_ID' => $userId,
+                'EMAIL' => $user->email,
+                'USER_ID' => $user->id,
                 'CONFIRM_CODE' => $code,
             ],
         ]);

@@ -17,17 +17,17 @@ class UserEventsListener
 
         $user = new User($fields['ID']);
 
-        if ($user->userGroupsService->isConsultant()) {
-            if (is_numeric($fields['UF_MENTOR_ID']) && $user->mentor_id !== $fields['UF_MENTOR_ID']) {
+        if ($user->groups->isConsultant()) {
+            if (is_numeric($fields['UF_MENTOR_ID']) && $user->mentorId !== $fields['UF_MENTOR_ID']) {
                 //Получим юзера-ментора
                 $userMentor = new User($fields['UF_MENTOR_ID']);
                 if (
-                    ! $userMentor->isActive()
-                    || ! $userMentor->isConsultant()
+                    ! $userMentor->active
+                    || ! $userMentor->groups->isConsultant()
                 ) {
                     throw new RuntimeException('Invalid mentor ID');
                 }
-                $userMentor->bonusAccountService->addReferralBonuses();
+                $userMentor->bonusAccount->addReferralBonuses();
             }
         }
     }
