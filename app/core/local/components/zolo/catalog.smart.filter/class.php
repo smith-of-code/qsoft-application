@@ -1247,6 +1247,8 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 		if (!$smartParts)
 			$smartParts[] = array("clear");
 
+        $url .= "?" . array_last(explode("?", str_replace("ajax=y", "", $_SERVER["REQUEST_URI"])));
+
 		return str_replace("#SMART_FILTER_PATH#", implode("/", $this->encodeSmartParts($smartParts)), $url);
 	}
 

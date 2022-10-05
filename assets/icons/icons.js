@@ -21,11 +21,16 @@ import './svg/gallery.svg';
 import './svg/camera.svg';
 import './svg/calendar.svg';
 import './svg/add-circle.svg';
+import './svg/lock.svg';
+import './svg/tick-circle.svg';
+import './svg/close-square.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';
 import './svg/pet.svg';
 import './svg/man.svg';
 import './svg/woman.svg';
+import './svg/cat-cheerful.svg';
+import './svg/cat-serious.svg';
 
 
