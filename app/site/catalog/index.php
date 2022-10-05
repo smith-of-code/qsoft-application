@@ -93,9 +93,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		),
 		"LIST_OFFERS_LIMIT" => "0",
 		"SECTION_BACKGROUND_IMAGE" => "-",
-		"DETAIL_PROPERTY_CODE" => array(
-			0 => "",
-		),
+		"DETAIL_PROPERTY_CODE" => "",
 		"DETAIL_META_KEYWORDS" => "-",
 		"DETAIL_META_DESCRIPTION" => "-",
 		"DETAIL_BROWSER_TITLE" => "-",
@@ -135,8 +133,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000000",
 		"PAGER_SHOW_ALL" => "N",
 		"ADD_PICT_PROP" => "-",
-		"LABEL_PROP" => array(
-		),
+		"LABEL_PROP" => "",
 		"PRODUCT_DISPLAY_MODE" => "Y",
 		"OFFER_ADD_PICT_PROP" => "-",
 		"OFFER_TREE_PROPS" => array(
@@ -226,8 +223,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"DETAIL_CHECK_SECTION_ID_VARIABLE" => "N",
 		"SHOW_DEACTIVATED" => "N",
 		"SHOW_SKU_DESCRIPTION" => "N",
-		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
-		),
+		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => "",
 		"DETAIL_BLOG_URL" => "catalog_comments",
 		"DETAIL_BLOG_EMAIL_NOTIFY" => "N",
 		"DETAIL_FB_APP_ID" => "",
@@ -270,7 +266,13 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 			"sections" => "",
 			"section" => "#SECTION_CODE_PATH#/",
 			"element" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
-			"smart_filter" => "filter/#SMART_FILTER_PATH#/apply/",
+			"compare" => "compare.php?action=#ACTION_CODE#",
+			"smart_filter" => "#SECTION_CODE_PATH#/#SMART_FILTER_PATH#",
+		),
+		"VARIABLE_ALIASES" => array(
+			"compare" => array(
+				"ACTION_CODE" => "action",
+			),
 		)
 	),
 	false

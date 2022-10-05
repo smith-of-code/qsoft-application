@@ -2,18 +2,23 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Entity\DatetimeField;
+use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Entity;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\DateTime;
-use QSoft\ORM\Traits\HasHighloadEnums;
+use QSoft\ORM\Decorators\CreatedAtDecorator;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\Entity\EnumField;
 use RuntimeException;
 
 Loc::loadMessages(__FILE__);
 
-class ConfirmationTable extends Entity\DataManager
+final class ConfirmationTable extends BaseTable
 {
-    use HasHighloadEnums;
-
     public const ACTIVE_TIME = 30; // Seconds
 
     public const CHANNELS = [
@@ -27,52 +32,56 @@ class ConfirmationTable extends Entity\DataManager
         'confirm_phone' => 'CONFIRMATION_TYPE_PHONE_CONFIRMATION',
     ];
 
+    protected static array $decorators = [
+        'UF_CHANNEL' => EnumDecorator::class,
+        'UF_TYPE' => EnumDecorator::class,
+        'UF_CREATED_AT' => CreatedAtDecorator::class,
+    ];
+
     public static function getTableName(): string
     {
         return 'confirmation';
     }
 
+    /**
+     * @throws SystemException
+     */
     public static function getMap(): array
     {
-        $data = self::getEnumValues(self::getTableName(), ['UF_CHANNEL', 'UF_TYPE']);
-
         return [
-            new Entity\IntegerField('ID', [
+            new IntegerField('ID', [
                 'primary' => true,
                 'autocomplete' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_ID_FIELD'),
             ]),
-            new Entity\IntegerField('UF_USER_ID', [
+            new IntegerField('UF_USER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_USER_ID_FIELD'),
             ]),
-            new Entity\EnumField('UF_CHANNEL', [
+            new EnumField('UF_CHANNEL', [
                 'required' => true,
-                'values' => $data['UF_CHANNEL'],
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_CHANNEL_FIELD'),
-            ]),
-            new Entity\EnumField('UF_TYPE', [
+            ], self::getTableName()),
+            new EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_TYPE_FIELD'),
-            ]),
-            new Entity\StringField('UF_CODE', [
+            ], self::getTableName()),
+            new StringField('UF_CODE', [
                 'required' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_CODE_FIELD'),
             ]),
-            new Entity\DatetimeField('UF_CREATED_AT', [
+            new DatetimeField('UF_CREATED_AT', [
                 'required' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_CREATED_AT_FIELD'),
             ]),
         ];
     }
 
-    public static function add(array $data)
-    {
-        $data['UF_CREATED_AT'] = new DateTime;
-        return parent::add($data);
-    }
-
+    /**
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     * @throws ArgumentException
+     */
     public static function getActiveSmsCode(int $userId)
     {
         $result = self::getRow([
@@ -88,6 +97,11 @@ class ConfirmationTable extends Entity\DataManager
         return $result ? $result['UF_CODE'] : null;
     }
 
+    /**
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     * @throws ArgumentException
+     */
     public static function getActiveEmailCode(int $userId, string $type)
     {
         if ($type !== self::TYPES['confirm_email'] && $type !== self::TYPES['reset_password']) {

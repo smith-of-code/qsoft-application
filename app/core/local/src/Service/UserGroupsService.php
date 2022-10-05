@@ -66,4 +66,11 @@ class UserGroupsService
     {
         return in_array(self::getGroupId(self::BUYER_GROUP), self::getUserGroupArray($userId));
     }
+
+    public function currentUserIsConsultant(): bool
+    {
+        global $USER;
+        return $USER->GetID() && $this->isConsultant($USER->GetID());
+
+    }
 }

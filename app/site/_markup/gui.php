@@ -198,6 +198,24 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: lock">
+                                    <svg class="icon icon--lock gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-lock"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: tick-circle">
+                                    <svg class="icon icon--tick-circle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: close-square">
+                                    <svg class="icon icon--close-square gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -228,6 +246,18 @@
                                 <li class="icons__item" title="Icon: woman">
                                     <svg class="icon icon--woman gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-serious">
+                                    <svg class="icon icon--cat-serious gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-cheerful">
+                                    <svg class="icon icon--cat-cheerful gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -837,14 +867,14 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text1" class="form__label">
+                                            <label for="text16" class="form__label">
                                                 <span class="form__label-text">Поле ввода</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input input--iconed">
-                                                <input type="text" class="input__control" name="text" id="text1" placeholder="Поле ввода с лэйблом">
+                                                <input type="text" class="input__control" name="text" id="text16" placeholder="Поле ввода с лэйблом">
                                                 <span class="input__icon">
                                                     <svg class="icon icon--check">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check"></use>
@@ -890,14 +920,14 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="text-required" class="form__label form__label--required">
+                                            <label for="text-required12" class="form__label form__label--required">
                                                 <span class="form__label-text">Обязательное поле ввода</span>
                                             </label>
                                         </div>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Обязательное поле ввода">
+                                                <input type="text" class="input__control" name="text-required" id="text-required12" placeholder="Обязательное поле ввода">
                                             </div>
                                         </div>
                                     </div>
@@ -1067,13 +1097,170 @@
                                         </div>
                                         <div class="form__field-block form__field-block--input">
                                             <label class="input input--textarea">
-                                                <textarea type="text" class="input__control" name="textarea" id="textarea" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
+                                                <textarea type="text" class="input__control" name="textarea" id="textarea1" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
                                                 <div class="input__counter">
                                                     <span class="input__counter-current" data-textarea-current></span>
                                                         /
                                                     <span class="input__counter-total" data-textarea-total></span>
                                                 </div>
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text" class="form__label">
+                                                <span class="form__label-text">Нередактируемое</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--simple">
+                                                <input type="text" class="input__control" name="Email" id="Email" value="Pushkin@ya.ru" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="birthdate" class="form__label">
+                                                <span class="form__label-text">Дата</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input input--iconed">
+                                                <input inputmode="numeric"
+                                                    class="input__control"
+                                                    name="birthdate"
+                                                    id="birthdate"
+                                                    placeholder="ДД.ММ.ГГГГ"
+                                                    data-mask-date 
+                                                    data-inputmask-alias="datetime"
+                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                    data-pets-date-input
+                                                    data-pets-change
+                                                    value="09.11.2011"
+                                                >
+                                                <span class="input__icon">
+                                                    <svg class="icon icon--calendar">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text" class="form__label">
+                                                <span class="form__label-text">Телефон</span>
+                                            </label>
+                                        </div>
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="tel" class="input__control" name="text-required" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">E-mail</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required2" placeholder="example@email.com" data-mail inputmode="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">Серия паспорта</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required3" placeholder="12 34" data-passport-seria>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required" class="form__label form__label--required">
+                                                <span class="form__label-text">Номер</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required4" placeholder="Введите номер паспорта" data-passport-number>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required5" class="form__label form__label--required">
+                                                <span class="form__label-text">ИНН</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required5" placeholder="ИНН" data-inn>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--label">
+                                            <label for="text-required6" class="form__label form__label--required">
+                                                <span class="form__label-text">БИК</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="input">
+                                                <input type="text" class="input__control" name="text-required" id="text-required6" placeholder="БИК" data-bik>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1736,7 +1923,7 @@
 
                     <!--Хлебные крошки-->
                     <div class="gui__block">
-                        <h2>Хлебные крошки</h2>
+                        <h2 class="gui__title">Хлебные крошки</h2>
 
                         <div class="breadcrumbs">
                             <ul class="breadcrumbs__list">
@@ -1759,6 +1946,28 @@
                         </div>
                     </div>
                     <!--/Хлебные крошки-->
+
+                    <!--Уведомление-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Уведомление</h2>
+
+                        <div class="notification">
+                            <div class="notification__icon">
+                                <svg class="icon icon--tick-circle">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                </svg>
+                            </div>
+
+                            <h4 class="notification__title">
+                                Заявка успешно отправлена!
+                            </h4>
+
+                            <p class="notification__text">
+                                Ваша заявка на восстановление пароля отправлена. Проверьте вашу электронную почту.
+                            </p>
+                        </div>
+                    </div>
+                    <!--/Уведомление-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">
@@ -1836,6 +2045,786 @@
                     </div>
                     <!--/Загрузчик-->
 
+                    <!--Аккордеон-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Аккордеон</h2>
+
+                        <h3 style="margin-top: 50px;">Серый</h3>
+
+                        <div class="accordeon">
+                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Простой</h3>
+
+                        <div class="accordeon accordeon--simple">
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h6 class="accordeon__title">Состав заказа</h6>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                </div>
+
+                                <div class="accordeon__body" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h6 class="accordeon__title">Состав заказа</h6>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+
+                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                <div class="accordeon__header" data-accordeon-toggle>
+                                    <h6 class="accordeon__title">Состав заказа</h6>
+
+                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="accordeon__body" data-accordeon-content>
+                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Аккордеон-->
+
+                    <!--Модальные окна-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Модальные окна</h2>
+
+                        <ul class="buttons__list">
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support"
+                                    >
+                                    Техническая поддержка
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#approve-number"
+                                    >
+                                    Подтверждение номера
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#conditions"
+                                    >
+                                    Условия поддержания уровня
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#congratulate"
+                                    >
+                                    Поздравляем!
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#thanks"
+                                    >
+                                    Спасибо за обращение
+                                </button>
+                            </li>
+                        </ul>
+
+                        <article id="technical-support" class="modal modal--limited modal--wide modal--scrolled box box--circle box--hanging" style="display: none" data-support>
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Техническая поддержка</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content" data-scrollbar>
+                                    <form action="" class="form">
+                                        <div class="form__row form__row--separated">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="select1m" class="form__label form__label--required">
+                                                            <span class="form__label-text">Тип обращения</span>
+                                                        </label>
+                                                    </div>
+    
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите город" data-option>
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1" data-variant="refund">Возврат заказа</option>
+                                                                    <option value="2" data-variant="nonfunctional">Неработающая функциональность</option>
+                                                                    <option value="3" data-variant="change">Смена наставника/контактного лица</option>
+                                                                    <option value="4" data-variant="personal">Смена персональных данных</option>
+                                                                    <option value="5" data-variant="other" selected>Другое</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Возврат заказа-->
+                                        <div class="modal__section-variant" data-variant-block="refund">
+                                            <div class="form__row form__row--gaped">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="Email2" class="form__label">
+                                                                <span class="form__label-text">Email</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="Email" id="Email2" value="Pushkin@ya.ru" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row form__row--closer">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required7" class="form__label form__label--required">
+                                                                <span class="form__label-text">Номер заказа</span>
+                                                            </label>
+                                                        </div>
+                
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" class="input__control" name="text-required" id="text-required7" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Комментарий</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <label class="input input--textarea">
+                                                                <textarea type="text" class="input__control" name="textarea" id="textarea3" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                                <div class="input__counter">
+                                                                    <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                        /
+                                                                    <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Возврат заказа-->
+
+                                        <!--Неработающая функциональность-->
+                                        <div class="modal__section-variant" data-variant-block="nonfunctional">
+
+                                            <div class="form__row form__row--gaped">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="Email1" class="form__label">
+                                                                <span class="form__label-text">Email</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="Email" id="Email1" value="Pushkin@ya.ru" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__row form__row--closer">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Комментарий</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <label class="input input--textarea">
+                                                                <textarea type="text" class="input__control" name="textarea" id="textarea2" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                                <div class="input__counter">
+                                                                    <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                        /
+                                                                    <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Неработающая функциональность-->
+
+                                        <!--Смена наставника/контактного лица-->
+                                        <div class="modal__section-variant" data-variant-block="change">
+                                            <div class="form__row form__row--gaped">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="Email3" class="form__label">
+                                                                <span class="form__label-text">Email</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="Email" id="Email3" value="Pushkin@ya.ru" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row form__row--closer">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="ID" class="form__label">
+                                                                <span class="form__label-text">ID текущего наставника</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="ID" id="ID" value="323213" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required9" class="form__label form__label--required">
+                                                                <span class="form__label-text">ID нового наставника</span>
+                                                            </label>
+                                                        </div>
+                
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="number" class="input__control" name="text-required" id="text-required9" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="select4m" class="form__label form__label--required">
+                                                                <span class="form__label-text">Причина</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="form__control">
+                                                                <div class="select select--mitigate" data-select>
+                                                                    <select class="select__control" name="select4m" id="select4m" data-select-control data-placeholder="Выберите город">
+                                                                        <option><!-- пустой option для placeholder --></option>
+                                                                        <option value="1">Возврат заказа</option>
+                                                                        <option value="2">Неработающая функциональность</option>
+                                                                        <option value="3">Смена наставника/контактного лица</option>
+                                                                        <option value="4">Смена персональных данных</option>
+                                                                        <option value="5">Другое</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Комментарий</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <label class="input input--textarea">
+                                                                <textarea type="text" class="input__control" name="textarea" id="textarea4" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                                <div class="input__counter">
+                                                                    <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                        /
+                                                                    <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Смена наставника/контактного лица-->
+
+                                        <!--Смена персональных данных-->
+                                        <div class="modal__section-variant" data-variant-block="personal">
+                                            <div class="form__row form__row--gaped">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="Email4" class="form__label">
+                                                                <span class="form__label-text">Email</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="Email" id="Email4" value="Pushkin@ya.ru" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row form__row--closer">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required10" class="form__label">
+                                                                <span class="form__label-text">Актуальная фамилия</span>
+                                                            </label>
+                                                        </div>
+                
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="number" class="input__control" name="text-required" id="text-required10" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required11" class="form__label">
+                                                                <span class="form__label-text">Актуальное имя</span>
+                                                            </label>
+                                                        </div>
+    
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="number" class="input__control" name="text-required" id="text-required11" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="form__label">
+                                                                <span class="form__label-text">Актуальное отчество</span>
+                                                            </label>
+                                                        </div>
+    
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="number" class="input__control" name="text-required" id="text-required" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Дата рождения</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--iconed">
+                                                                <input inputmode="numeric"
+                                                                    class="input__control"
+                                                                    name="birthdate"
+                                                                    id="birthdate2"
+                                                                    placeholder="ДД.ММ.ГГГГ"
+                                                                    data-mask-date 
+                                                                    data-inputmask-alias="datetime"
+                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                    data-pets-date-input
+                                                                    data-pets-change
+                                                                    value="09.11.2011"
+                                                                >
+                                                                <span class="input__icon">
+                                                                    <svg class="icon icon--calendar">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="dropzone" data-uploader>
+                                                        <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+    
+                                                        <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                                            <div class="dropzone__message dz-message needsclick">
+                                                                <div class="dropzone__message-caption needsclick">
+                                                                    <h6 class="dropzone__message-title">Ограничения:</h6>
+                                                                    <ul class="dropzone__message-list">
+                                                                        <li class="dropzone__message-item">до 10 файлов</li>
+                                                                        <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                                                        <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                                                    </ul>
+                                                                </div>
+    
+                                                                <button type="button" class="dropzone__button dropzone__button--wide button button--medium button--rounded button--outlined button--green">
+                                                                    <span class="button__icon">
+                                                                        <svg class="icon icon--import">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span class="button__text button__text--required">Загрузить файл</span>
+                                                                </button>
+                                                            </div>
+                            
+                                                            <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Комментарий</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <label class="input input--textarea">
+                                                                <textarea type="text" class="input__control" name="textarea" id="textarea5" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                                <div class="input__counter">
+                                                                    <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                        /
+                                                                    <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Смена персональных данных-->
+
+                                        <!--Другое-->
+                                        <div class="modal__section-variant modal__section-variant--active" data-variant-block="other">
+                                            <div class="form__row form__row--gaped">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="Email1" class="form__label">
+                                                                <span class="form__label-text">Email</span>
+                                                            </label>
+                                                        </div>
+        
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--simple">
+                                                                <input type="text" class="input__control" name="Email" id="Email1" value="Pushkin@ya.ru" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__row form__row--closer">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text" class="form__label">
+                                                                <span class="form__label-text">Комментарий</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <label class="input input--textarea">
+                                                                <textarea type="text" class="input__control" name="textarea" id="textarea2" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""></textarea>
+                                                                <div class="input__counter">
+                                                                    <span class="input__counter-current" data-textarea-current="">0</span>
+                                                                        /
+                                                                    <span class="input__counter-total" data-textarea-total="">1000</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Другое-->
+
+                                        <div class="modal__section-actions">
+                                            <button type="button" class="form__footer-button button button--rounded button--covered button--red button--full">Отправить</button>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </article>
+
+                        <!--Подтверждение номера-->
+                        <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--small">Подтверждение номера</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <p class="modal__section-text">
+                                        На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
+                                    </p>
+
+                                    <div class="form__row">
+                                        <div class="form__col">
+                                            <div class="form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <div class="input input--tiny input--centered">
+                                                        <input type="text" class="input__control" name="tel" id="tel" value="3233">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="modal__section-notice">
+                                        Телефон подтвержден
+                                    </p>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Подтверждение номера-->
+
+                        <!--Условия поддержания уровня-->
+                        <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <header class="modal__section modal__section--header">
+                                    <p class="heading heading--average">Условия поддержания уровня</p>
+                                </header>
+
+                                <section class="modal__section modal__section--content">
+                                    <div class="conditions">
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+
+                                                <li class="conditions__item">
+                                                    Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+
+                                            <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                            </p>
+                                            <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                        </div>
+
+                                        <div class="conditions__block">
+                                            <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+
+                                            <ul class="conditions__list">
+                                                <li class="conditions__item">
+                                                    Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+
+                                                <li class="conditions__item">
+                                                    Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                </li>
+                                            </ul>
+
+                                            <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+
+                                            </p>
+                                            <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Условия поддержания уровня-->
+
+                        <!--Поздравляем-->
+                        <article id="congratulate" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--cat-cheerful">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title">Поздравляем!</h4>
+                                        <p class="notification__text">Вы перевыполнили план по удержанию уровня!</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Поздравляем-->
+
+                        <!--Спасибо за обращение-->
+                        <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--cat-serious">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title">Спасибо за обращение</h4>
+                                        <p class="notification__text">Мы проверим обновленные данные и уведомим Вас о результате внесения изменений. </p>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Спасибо за обращение-->
+
+
+                    </div>
+                    <!--/Модальные окна-->
+
                     <!--Шаги-->
                     <div class="gui__block">
                         <h2 class="gui__title">Шаги</h2>
@@ -1900,35 +2889,35 @@
                             </h4>
 
                             <div class="pet-cards">
-                                <ul class="pet-cards__list">
+                                <ul class="pet-cards__list" data-pets-list>
                                     <li class="pet-cards__item">
                                         <!--Карточка питомца-->
                                         <article class="pet-card" data-pets-card>
                                             <div class="pet-card__main box box--circle" data-pets-main>
                                                 <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
+                                                    <div class="pet-card__avatar" data-pets-type>
                                                         <svg class="icon icon--dog">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
                                                         </svg>
                                                     </div>
 
                                                     <div class="pet-card__info">
-                                                        <div class="pet-card__name">
+                                                        <div class="pet-card__name" data-pets-name>
                                                             Мухтар Бесстрашный
                                                         </div>
 
-                                                        <div class="pet-card__breed">
-                                                            Австралийская овчарка
+                                                        <div class="pet-card__breed" data-pets-breed>
+                                                            Лабрадор
                                                         </div>
 
                                                         <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
+                                                            <div class="pet-card__gender" data-pets-gender>
                                                                 <svg class="icon icon--man">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
                                                                 </svg>
                                                             </div>
 
-                                                            <div class="pet-card__date">
+                                                            <div class="pet-card__date" data-pets-date>
                                                                 09.10.2017
                                                             </div>
                                                         </div>
@@ -1959,12 +2948,12 @@
                                             </div>
 
                                             <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
-                                                <form class="form">
+                                                <form class="form" action="" method="post" data-pets-form data-validation="add-pets">
                                                     <div class="pet-card__row form__row">
                                                         <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="pet-card-select" class="form__label">
+                                                                    <label for="pet-card-select1" class="form__label">
                                                                         <span class="form__label-text">Тип питомца</span>
                                                                     </label>
                                                                 </div>
@@ -1972,10 +2961,10 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate select--iconed" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select1" data-select-control data-placeholder="Выбрать">
-                                                                                <option data-option-icon="cat"><!-- пустой option для placeholder --></option>
+                                                                            <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2" data-option-icon="dog">Собака</option>
+                                                                                <option value="2" data-option-icon="dog" selected>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -1986,7 +2975,7 @@
                                                         <div class="pet-card__col pet-card__col--1-3 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="pet-card-select" class="form__label">
+                                                                    <label for="pet-card-select11" class="form__label">
                                                                         <span class="form__label-text">Пол</span>
                                                                     </label>
                                                                 </div>
@@ -1994,7 +2983,407 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select" data-select-control data-placeholder="Выбрать">
+                                                                            <select class="select__control" name="gender" id="pet-card-select11" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" selected>Мальчик</option>
+                                                                                <option value="2">Девочка</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="birthdate3" class="form__label">
+                                                                        <span class="form__label-text">Дата рождения</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input inputmode="numeric"
+                                                                            class="input__control"
+                                                                            name="birthdate"
+                                                                            id="birthdate3"
+                                                                            placeholder="ДД.ММ.ГГГГ"
+                                                                            data-mask-date 
+                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
+                                                                            data-pets-change
+                                                                            value="09.10.2017"
+                                                                        >
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--calendar">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select111" class="form__label">
+                                                                        <span class="form__label-text">Порода</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="breed" id="pet-card-select111" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" selected>Лабрадор</option>
+                                                                                <option value="2">Пудель</option>
+                                                                                <option value="3">Болонка</option>
+                                                                                <option value="4">Мопс</option>
+                                                                                <option value="5">Китайская хохлатая</option>
+                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
+                                                                                <option value="7">Дог</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text19" class="form__label">
+                                                                        <span class="form__label-text">Кличка</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input">
+                                                                        <input value="Мухтар Бесстрашный" type="text" class="input__control" name="nickname" id="text19" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pet-card__buttons">
+                                                        <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
+                                                            Сохранить изменения
+                                                        </button>
+
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
+                                                            Отменить изменения
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </article>
+                                        <!--/Карточка питомца-->
+                                    </li>
+
+                                    <li class="pet-cards__item">
+                                        <!--Карточка питомца-->
+                                        <article class="pet-card" data-pets-card>
+                                            <div class="pet-card__main box box--circle" data-pets-main>
+                                                <div class="pet-card__content">
+                                                    <div class="pet-card__avatar" data-pets-type>
+                                                        <svg class="icon icon--cat">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div class="pet-card__info">
+                                                        <div class="pet-card__name" data-pets-name>
+                                                            Мурка
+                                                        </div>
+
+                                                        <div class="pet-card__breed" data-pets-breed>
+                                                            Русская голубая
+                                                        </div>
+
+                                                        <div class="pet-card__info-record">
+                                                            <div class="pet-card__gender" data-pets-gender>
+                                                                <svg class="icon icon--woman">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="pet-card__date" data-pets-date>
+                                                                09.11.2011
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pet-card__actions">
+                                                    <div class="pet-card__modify">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--edit">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="pet-card__delete">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--basket">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
+                                                <form class="form" action="" method="post" data-validation="add-pets" data-pets-form>
+                                                    <div class="pet-card__row form__row">
+                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select2" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate select--iconed" data-select>
+                                                                            <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" data-option-icon="cat" selected>Кошка</option>
+                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select22" class="form__label">
+                                                                        <span class="form__label-text">Пол</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="gender" id="pet-card-select22" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Мальчик</option>
+                                                                                <option value="2" selected>Девочка</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="birthdate4" class="form__label">
+                                                                        <span class="form__label-text">Дата рождения</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input input--iconed">
+                                                                        <input inputmode="numeric"
+                                                                            class="input__control"
+                                                                            name="birthdate"
+                                                                            id="birthdate4"
+                                                                            placeholder="ДД.ММ.ГГГГ"
+                                                                            data-mask-date 
+                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
+                                                                            data-pets-change
+                                                                            value="09.11.2011"
+                                                                        >
+                                                                        <span class="input__icon">
+                                                                            <svg class="icon icon--calendar">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="pet-card-select222" class="form__label">
+                                                                        <span class="form__label-text">Порода</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="breed" id="pet-card-select222" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1">Лабрадор</option>
+                                                                                <option value="2">Пудель</option>
+                                                                                <option value="3">Болонка</option>
+                                                                                <option value="4">Мопс</option>
+                                                                                <option value="5">Китайская хохлатая</option>
+                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
+                                                                                <option value="7">Дог</option>
+                                                                                <option value="8" selected>Русская голубая</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="text199" class="form__label">
+                                                                        <span class="form__label-text">Кличка</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="input">
+                                                                        <input type="text" value="Мурка" class="input__control" name="nickname" id="text199" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pet-card__buttons">
+                                                        <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
+                                                            Сохранить изменения
+                                                        </button>
+
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
+                                                            Отменить изменения
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </article>
+                                        <!--/Карточка питомца-->
+                                    </li>
+                                </ul>
+
+                                <div class="pet-cards__adding">
+                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" data-pets-add>
+                                        <span class="button__icon button__icon--medium">
+                                            <svg class="icon icon--add-circle">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Добавить питомца</span>
+                                    </button>
+                                </div>
+                                
+
+                                <!--/Шаблон карточки для добавления на страницу-->
+                                <script id="hidden-template-pet" type="text/x-custom-template">
+                                    <li class="pet-cards__item">
+                                        <!--Карточка питомца-->
+                                        <article class="pet-card pet-card--editing" data-pets-card data-pets-new>
+                                            <div class="pet-card__main box box--circle" data-pets-main>
+                                                <div class="pet-card__content">
+                                                    <div class="pet-card__avatar" data-pets-type>
+                                                        <svg class="icon icon--dog">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div class="pet-card__info">
+                                                        <div class="pet-card__name" data-pets-name></div>
+
+                                                        <div class="pet-card__breed" data-pets-breed></div>
+
+                                                        <div class="pet-card__info-record">
+                                                            <div class="pet-card__gender" data-pets-gender>
+                                                                <svg class="icon icon--man">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="pet-card__date" data-pets-date></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pet-card__actions">
+                                                    <div class="pet-card__modify">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--edit">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="pet-card__delete">
+                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
+                                                            <span class="button__icon">
+                                                                <svg class="icon icon--basket">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
+                                                <form class="form" action="" method="post" data-pets-form data-validation="add-pets">
+                                                    <div class="pet-card__row form__row">
+                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="type-#ID#" class="form__label">
+                                                                        <span class="form__label-text">Тип питомца</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate select--iconed" data-select>
+                                                                            <select class="select__control" name="type" id="type-#ID#" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                <option value="1" data-option-icon="cat">Кошка</option>
+                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
+                                                            <div class="form__field">
+                                                                <div class="form__field-block form__field-block--label">
+                                                                    <label for="gender-#ID#" class="form__label">
+                                                                        <span class="form__label-text">Пол</span>
+                                                                    </label>
+                                                                </div>
+                        
+                                                                <div class="form__field-block form__field-block--input">
+                                                                    <div class="form__control">
+                                                                        <div class="select select--mitigate" data-select>
+                                                                            <select class="select__control" name="gender" id="gender-#ID#" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">Мальчик</option>
                                                                                 <option value="2">Девочка</option>
@@ -2017,12 +3406,14 @@
                                                                     <div class="input input--iconed">
                                                                         <input inputmode="numeric"
                                                                             class="input__control"
-                                                                            name="text"
+                                                                            name="birthdate"
                                                                             id="birthdate"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
                                                                             data-inputmask-alias="datetime"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
+                                                                            data-pets-date-input
+                                                                            data-pets-change
                                                                         >
                                                                         <span class="input__icon">
                                                                             <svg class="icon icon--calendar">
@@ -2037,7 +3428,7 @@
                                                         <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="pet-card-select2" class="form__label">
+                                                                    <label for="breed-#ID#" class="form__label">
                                                                         <span class="form__label-text">Порода</span>
                                                                     </label>
                                                                 </div>
@@ -2045,7 +3436,7 @@
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
                                                                         <div class="select select--mitigate" data-select>
-                                                                            <select class="select__control" name="select" id="pet-card-select2" data-select-control data-placeholder="Выбрать">
+                                                                            <select class="select__control" name="breed" id="breed-#ID#" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">Лабрадор</option>
                                                                                 <option value="2">Пудель</option>
@@ -2064,14 +3455,14 @@
                                                         <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--label">
-                                                                    <label for="text1" class="form__label">
+                                                                    <label for="text1999" class="form__label">
                                                                         <span class="form__label-text">Кличка</span>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" name="text" id="text1" placeholder="Выбрать">
+                                                                        <input type="text" class="input__control" name="nickname" id="text1999" placeholder="Выбрать" data-pets-name-input data-pets-change>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2079,11 +3470,11 @@
                                                     </div>
 
                                                     <div class="pet-card__buttons">
-                                                        <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full">
+                                                        <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full button--disabled" disabled data-pets-save>
                                                             Сохранить изменения
                                                         </button>
 
-                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full">
+                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
                                                             Отменить изменения
                                                         </button>
                                                     </div>
@@ -2092,138 +3483,9 @@
                                         </article>
                                         <!--/Карточка питомца-->
                                     </li>
+                                </script>
+                                <!--/Шаблон карточки для добавления на страницу-->
 
-                                    <li class="pet-cards__item">
-                                        <!--Карточка питомца-->
-                                        <article class="pet-card" data-pets-card>
-                                            <div class="pet-card__main box box--circle" data-pets-main>
-                                                <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
-                                                        <svg class="icon icon--cat">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
-                                                        </svg>
-                                                    </div>
-
-                                                    <div class="pet-card__info">
-                                                        <div class="pet-card__name">
-                                                            Веснушка
-                                                        </div>
-
-                                                        <div class="pet-card__breed">
-                                                            Абиссинская кошка
-                                                        </div>
-
-                                                        <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
-                                                                <svg class="icon icon--woman">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="pet-card__date">
-                                                                20.12.2019
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="pet-card__actions">
-                                                    <div class="pet-card__modify">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
-                                                            <span class="button__icon">
-                                                                <svg class="icon icon--edit">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="pet-card__delete">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
-                                                            <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <!--/Карточка питомца-->
-                                    </li>
-
-                                    <li class="pet-cards__item">
-                                        <!--Карточка питомца-->
-                                        <article class="pet-card" data-pets-card>
-                                            <div class="pet-card__main box box--circle" data-pets-main>
-                                                <div class="pet-card__content">
-                                                    <div class="pet-card__avatar">
-                                                        <svg class="icon icon--cat">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
-                                                        </svg>
-                                                    </div>
-
-                                                    <div class="pet-card__info">
-                                                        <div class="pet-card__name">
-                                                            Барон Корф VI
-                                                        </div>
-
-                                                        <div class="pet-card__breed">
-                                                            Американская короткошерстная кошка
-                                                        </div>
-
-                                                        <div class="pet-card__info-record">
-                                                            <div class="pet-card__gender">
-                                                                <svg class="icon icon--man">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="pet-card__date">
-                                                                20.12.2019
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="pet-card__actions">
-                                                    <div class="pet-card__modify">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
-                                                            <span class="button__icon">
-                                                                <svg class="icon icon--edit">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="pet-card__delete">
-                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
-                                                            <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <!--/Карточка питомца-->
-                                    </li>
-                                </ul>
-
-                                <div class="pet-cards__adding">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
-                                        <span class="button__icon button__icon--medium">
-                                            <svg class="icon icon--add-circle">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Добавить питомца</span>
-                                    </button>
-                                </div>
                             </div>
 
                         </div>

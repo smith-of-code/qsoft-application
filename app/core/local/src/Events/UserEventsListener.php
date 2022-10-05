@@ -1,6 +1,6 @@
 <?php
 
-namespace QSoft\Events\User;
+namespace QSoft\Events;
 
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\UserGroupsService;

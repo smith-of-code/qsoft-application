@@ -2,71 +2,80 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\Entity\DatetimeField;
+use Bitrix\Main\Entity\FloatField;
+use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Entity;
-use Bitrix\Main\Type\DateTime;
-use QSoft\ORM\Traits\HasHighloadEnums;
+use Bitrix\Main\SystemException;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\Entity\EnumField;
 
 Loc::loadMessages(__FILE__);
 
-class TransactionTable extends Entity\DataManager
+final class TransactionTable extends BaseTable
 {
-    use HasHighloadEnums;
+    const TYPES = [
+        'purchase' => 'TRANSACTION_TYPE_PURCHASE',
+        'invite' => 'TRANSACTION_TYPE_INVITE',
+        'referral' => 'TRANSACTION_TYPE_REFERRAL',
+    ];
+
+    const SOURCES = [
+        'personal' => 'TRANSACTION_SOURCE_PERSONAL',
+        'group' => 'TRANSACTION_SOURCE_GROUP',
+    ];
+
+    const MEASURES = [
+        'money' => 'TRANSACTION_MEASURE_MONEY',
+        'points' => 'TRANSACTION_MEASURE_POINTS',
+    ];
+
+    protected static array $decorators = [
+        'UF_TYPE' => EnumDecorator::class,
+        'UF_SOURCE' => EnumDecorator::class,
+        'UF_MEASURE' => EnumDecorator::class,
+    ];
 
     public static function getTableName(): string
     {
         return 'transaction';
     }
 
+    /**
+     * @throws SystemException
+     */
     public static function getMap(): array
     {
-        $data = self::getEnumValues(self::getTableName(), ['UF_TYPE', 'UF_SOURCE', 'UF_MEASURE']);
-
         return [
-            new Entity\IntegerField('ID', [
+            new IntegerField('ID', [
                 'primary' => true,
                 'autocomplete' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_ID_FIELD'),
             ]),
-            new Entity\IntegerField('UF_USER_ID', [
+            new IntegerField('UF_USER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_USER_ID_FIELD'),
             ]),
-            new Entity\DatetimeField('UF_CREATED_AT', [
+            new DatetimeField('UF_CREATED_AT', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_CREATED_AT_FIELD'),
             ]),
-            new Entity\EnumField('UF_TYPE', [
+            new EnumField('UF_TYPE', [
                 'required' => true,
-                'values' => $data['UF_TYPE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_TYPE_FIELD'),
-            ]),
-            new Entity\EnumField('UF_SOURCE', [
+            ], self::getTableName()),
+            new EnumField('UF_SOURCE', [
                 'required' => true,
-                'values' => $data['UF_SOURCE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_SOURCE_FIELD'),
-            ]),
-            new Entity\EnumField('UF_MEASURE', [
+            ], self::getTableName()),
+            new EnumField('UF_MEASURE', [
                 'required' => true,
-                'values' => $data['UF_MEASURE'],
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_MEASURE_FIELD'),
-            ]),
-            new Entity\FloatField('UF_AMOUNT', [
+            ], self::getTableName()),
+            new FloatField('UF_AMOUNT', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_AMOUNT_FIELD'),
             ]),
         ];
-    }
-
-    public static function add(array $data)
-    {
-        return parent::add(array_merge($data, ['UF_CREATED_AT' => new DateTime]));
-    }
-
-    public static function addMulti($rows, $ignoreEvents = false)
-    {
-        return parent::addMulti(array_map(static function ($row) {
-            return array_merge($row, ['UF_CREATED_AT' => new DateTime]);
-        }, $rows), $ignoreEvents);
     }
 }

@@ -76,6 +76,9 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'IS_BESTSELLER',
             'LIST_TYPE' => 'C',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
+            'DISPLAY_EXPANDED' => 'Y',
             'VALUES' => [
                 [
                     'VALUE' => 'Да',
@@ -101,6 +104,21 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'USER_TYPE_SETTINGS' => [
                 'TABLE_NAME' => 'size',
             ],
+        ],
+        [
+            'NAME' => 'Бонусы для уровня K1',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K1',
+        ],
+        [
+            'NAME' => 'Бонусы для уровня K2',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K2',
+        ],
+        [
+            'NAME' => 'Бонусы для уровня K3',
+            'PROPERTY_TYPE' => 'N',
+            'CODE' => 'BONUSES_K3',
         ],
     ];
 

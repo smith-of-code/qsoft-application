@@ -11,6 +11,7 @@
 @import '~tippy.js/dist/tippy.css';
 @import '~tippy.js/themes/light.css';
 @import '~select2/dist/css/select2.css';
+@import '~@fancyapps/fancybox/dist/jquery.fancybox.css';
 
 
 /**
@@ -35,6 +36,8 @@
 @import "components/container";
 @import "components/page";
 @import "components/heading";
+
+@import "components/content";
 
 @import "components/icon";
 @import "components/icons";
@@ -80,4 +83,19 @@
 @import "components/pet-cards";
 
 @import "components/breadcrumbs";
+
+@import "components/accordeon";
+
+@import "components/section";
+
+@import "components/registration";
+
+@import "components/notification";
+
+@import "components/requirement";
+
+@import "components/modal";
+
+@import "components/contidions";
+
 

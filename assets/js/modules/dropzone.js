@@ -1,7 +1,5 @@
 import dropzone from 'dropzone';
 
-console.log(dropzone.prototype.defaultOptions);
-
 // Локализация. Взято с https://gist.github.com/ValeriaVG/5ffcf92c98216e44e92d3db6a36ff838
 dropzone.prototype.defaultOptions.dictDefaultMessage = 'Перетащите файлы для загрузки в это поле';
 dropzone.prototype.defaultOptions.dictFallbackMessage = 'К сожалению, ваш браузер не поддерживает Drag-n-Drop';

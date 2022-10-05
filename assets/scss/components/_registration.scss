@@ -1,0 +1,99 @@
+.registration {
+    &__subtitle {
+        @include text-miniature;
+
+        margin-bottom: rem($gap-normal);
+
+        color: $saltBox;
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-big);
+        }
+    }
+
+
+    &__actions {
+        margin-top: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-normal);
+        }
+
+        &--separated {
+            margin-top: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-big);
+            }
+        }
+
+        &--separated & {
+            &-col {
+                &:not(:last-of-type) {
+                    margin-bottom: rem($gap-medium);
+                }
+            }
+        }
+
+        &--inlined {
+            @media #{$screen-tablet} {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &--inlined & {
+            &-col {
+                @media #{$screen-tablet} {
+                    width: 50%;
+                }
+
+                &:not(:last-of-type) {
+                    @media #{$screen-tablet} {
+                        margin-right: rem($gap-medium);
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        &-col {
+            &:not(:last-of-type) {
+                margin-bottom: rem($gap-small);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem($gap-normal);
+                }
+            }
+        }
+    }
+
+    &__checkboxes {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(40px);
+        }
+    }
+
+    &__box {
+        padding: rem($gap-medium) rem($gap-average);
+
+        @media #{$screen-tablet} {
+            padding: 0;
+        }
+
+        &--small {
+            padding: rem($gap-average);
+            padding-bottom: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                padding: 0;
+            }
+        }
+    }
+
+    &__button {
+        width: fit-content;
+    }
+}

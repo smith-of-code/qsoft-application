@@ -27,6 +27,12 @@
         }
     }
 
+    &--tiny & {
+        &__control {
+            width: rem(120px);
+        }
+    }
+
     &--placeholder & {
         &__control {
             padding-top: rem(16px);
@@ -35,8 +41,7 @@
 
     &--textarea & {
         &__control {
-            height: auto;
-            max-height: rem(108px);
+            height: rem(108px);
             padding-top: rem(14px);
             padding-bottom: rem(14px);
 
@@ -52,6 +57,12 @@
         }
     }
 
+    &--simple & {
+        &__control {
+            border: 0;
+        }
+    }
+
     &--iconed & {
         &__control {
             padding-right: rem(48px);
@@ -61,6 +72,12 @@
     &--prefix & {
         &__control {
             padding-left: rem(36px);
+        }
+    }
+
+    &--centered & {
+        &__control {
+            text-align: center;
         }
     }
 
@@ -90,10 +107,20 @@
         }
 
         &--error {
-            border-color: $brickRed;
+            border-color: $brickRed !important;
 
             &:focus {
-                border-color: $brickRed;
+                border-color: $brickRed !important;
+            }
+        }
+
+        &--error + .select2 {
+            .select2-selection--single {
+                border-color: $brickRed !important;
+
+                &:focus {
+                    border-color: $brickRed !important;
+                }
             }
         }
 
