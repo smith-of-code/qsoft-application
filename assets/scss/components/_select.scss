@@ -3,17 +3,63 @@
 
     position: relative;
 
-    &--mitigate {
+    &#{&}--mitigate {
         font-size: rem($font-size-small);
     }
 
-    &--small {
+    &#{&}--small {
         .select2-dropdown {
             width: rem(320px) !important;
         }
 
         .select2-results {
             padding: rem(16px) 0;
+        }
+    }
+
+    &#{&}--mini {
+        font-size: rem($font-size-miniature);
+
+        .select2-container--default {
+            .select2-selection--single {
+                height: rem(24px);
+
+                background-color: $white;
+                border: rem(1px) solid $white;
+                border-radius: rem($border-radius-small);
+
+                .select2-selection__rendered {
+                    line-height: rem($line-height-miniature);
+
+                    padding: rem($gap-mini) rem($gap-small);
+                }
+            }
+        }
+
+        .select2-container {
+            .select2-selection {
+                &::after {
+                    right: rem($gap-small);
+
+                    width: rem(12px);
+                    height: rem(12px);
+    
+                    color: $saltBox;
+                }
+            }
+        }
+
+        .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+            border-bottom-left-radius: rem($border-radius-small);
+            border-bottom-right-radius: rem($border-radius-small); 
+        }
+
+        .select2-results {
+            padding: rem($gap-medium) 0;
+        }
+
+        .select2-results__options {
+            padding: 0 rem($gap-small);
         }
     }
 
@@ -151,8 +197,8 @@
     }
 
     .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
-        border-bottom-left-radius: rem($border-radius);
-        border-bottom-right-radius: rem($border-radius); 
+        border-bottom-left-radius: rem($border-radius-middle);
+        border-bottom-right-radius: rem($border-radius-middle); 
     }
 
     .nicescroll-rails {

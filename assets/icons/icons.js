@@ -24,6 +24,8 @@ import './svg/add-circle.svg';
 import './svg/lock.svg';
 import './svg/tick-circle.svg';
 import './svg/close-square.svg';
+import './svg/heart.svg';
+import './svg/heart-fill.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';

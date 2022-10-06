@@ -414,6 +414,10 @@
         }
     }
 
+    &#{&}--ordinary {
+        width: auto;
+    }
+
     &--disabled {
         cursor: default;
     }
@@ -487,6 +491,20 @@
 
             width: rem($size);
             height: rem($size);
+        }
+
+        &--big {
+            $size: 24px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-desktop} {
+                $size: 32px;
+
+                width: rem($size);
+                height: rem($size);
+            }
         }
     }
 }
