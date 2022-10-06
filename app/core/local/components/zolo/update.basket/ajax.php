@@ -1,8 +1,12 @@
 <?php
 
+use Bitrix\Currency\CurrencyManager;
 use Bitrix\Main;
+use Bitrix\Main\Loader;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\Fuser;
 
 
 class UpdateBasketController extends \Bitrix\Main\Engine\Controller
@@ -16,49 +20,54 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
                     Main\Engine\ActionFilter\Authentication::class,
                 ],
             ],
+            'clearBasket' => [
+                '-prefilters' => [
+                    Main\Engine\ActionFilter\Csrf::class,
+                    Main\Engine\ActionFilter\Authentication::class,
+                ],
+            ],
         ];
     }
 
     public function updateItemAction($id, $quantity): array
     {
-        $basket = Basket::loadItemsForFUser(CSaleBasket::GetBasketUserID(), SITE_ID);
+        Loader::includeModule('sale');
+
+        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
 
         if ($quantity > 0) {
             $this->updateBasketItem($basket, $id, $quantity);
         } else {
             $this->deleteBasketItem($basket, $id);
         }
+        $basket->save();
 
-        return ['test' => 'value'];
+        return [];
+    }
+
+    public function clearBasketAction(): array
+    {
+        Loader::includeModule('sale');
+
+        CSaleBasket::DeleteAll(Fuser::getId());
+
+        return [];
     }
 
     protected function updateBasketItem(BasketBase $basket, $id, $quantity)
     {
-        if ($basketItem = $this->getBasketItem($basket, $id)) {
-            if (!$basketItem->setField('QUANTITY', $quantity)->isSuccess()) {
-                // TODO log error
-            }
-        } else {
+        if (!($basketItem = $this->getBasketItem($basket, $id))) {
             $basketItem = $basket->createItem('catalog', $id);
-
-            $resultCreate = $basketItem->setFields([
-                'QUANTITY' => $quantity,
-                'CURRENCY' => $this->currency,
-                'LID' => SITE_ID,
-                'PRODUCT_PROVIDER_CLASS' => 'Qsoft\Catalog\Provider\ProductProvider',
-            ]);
-
-            if (!$resultCreate->isSuccess()) {
-                // TODO log error
-            }
         }
 
-        if (!$basket->save()->isSuccess()) {
-            // TODO log error
-        }
+        $basketItem->setFields([
+            'QUANTITY' => $quantity,
+            'CURRENCY' => CurrencyManager::getBaseCurrency(),
+            'PRODUCT_PROVIDER_CLASS' => '\Bitrix\Catalog\Product\CatalogProvider',
+        ]);
     }
 
-    protected function getBasketItem(BasketBase $basket, $id): ?\Bitrix\Sale\BasketItem
+    protected function getBasketItem(BasketBase $basket, $id): ?BasketItem
     {
         foreach ($basket as $basketItem) {
             if ($basketItem->getField('PRODUCT_ID') == $id) {
@@ -69,9 +78,10 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
         return null;
     }
 
-    protected function deleteBasketItem($id)
+    protected function deleteBasketItem(BasketBase $basket, $id)
     {
-
+        if ($basketItem = $this->getBasketItem($basket, $id)) {
+            $basketItem->delete();
+        }
     }
-
 }
