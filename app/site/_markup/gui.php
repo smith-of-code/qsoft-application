@@ -12,8 +12,179 @@
     <body class="page page--banner">
 
         <!--header-->
-        <header class="page__header header" style="background-color: cadetblue">
-            Хедер
+        <header class="page__header header">
+            <div class="header__row header__row--main">
+                <div class="container">
+                    <div class="header__wrapper">
+                        <div class="header__block header__block--logo">
+                            <div class="logo">
+                                <a class="logo__link" href="#">
+                                    <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="header__block header__block--menu menu">
+                            <div class="header__menu">
+                                <button type="button" class="header__menu-button header__menu-button--main button button--big button--square button--covered button--red button--heavy">
+                                    <span class="button__icon">
+                                        <svg class="icon icon--burger">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="button__text">Каталог</span>
+                                </button>
+
+                                <button type="button" class="header__menu-button header__menu-button--hidden button button--covered button--square button--small button--red button--burger">
+                                    <span class="button__icon button__icon--medium">
+                                        <svg class="icon icon--burger">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="menu__dropdown box">
+                                <!--каталог-->
+                            </div>
+                        </div>
+
+                        <div class="header__block header__block--search search">
+                            <div class="header__search header__search--mobile">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input input--small input--buttoned">
+                                            <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
+                                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                                                <span class="button__icon button__icon--medium">
+                                                    <svg class="icon icon--search">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__search header__search--tablet">
+
+                            </div>
+
+                            <div class="header__search header__search--desktop">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input input--small input--buttoned input--gray">
+                                            <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
+                                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                                                <span class="button__icon button__icon--medium">
+                                                    <svg class="icon icon--search">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="header__block header__block--personal personal">
+                            <div class="personal__elements">
+                                <div class="personal__item personal__item--hidden">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--notification">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                            </svg>
+
+                                            <span class="button__icon-counter button__icon-counter--red">10</span>
+                                        </span>
+
+                                        <span class="personal__button-text button__text">Уведомления</span>
+                                    </button>
+                                </div>
+
+                                <div class="personal__item personal__item--hidden">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--user">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Профиль</span>
+                                    </button>
+                                </div>
+
+                                <!--Для неавторизованного пользователя (скрыто по умолчанию)-->
+                                <div class="personal__item personal__item--hidden" style="display: none">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--login">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Войти</span>
+                                    </button>
+                                </div>
+                                <!--/Для неавторизованного пользователя-->
+
+                                <div class="personal__item">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--basket">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                            </svg>
+
+                                            <span class="button__icon-counter button__icon-counter--dark">12</span>
+                                        </span>
+                                        <span class="personal__button-text button__text">16 842 ₽</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header__row header__row--nav">
+                <div class="container">
+                    <div class="header__wrapper">
+                        <nav class="navigation">
+                            <ul class="navigation__list">
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">AmeБизнес</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">FAQ</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">Новости</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" type="button" class="navigation__button button button--simple button--dark-red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--discount">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Акции</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </header>
         <!--/header-->
 
@@ -220,6 +391,36 @@
                                 <li class="icons__item" title="Icon: heart">
                                     <svg class="icon icon--heart gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: user">
+                                    <svg class="icon icon--user gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: search">
+                                    <svg class="icon icon--search gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: discount">
+                                    <svg class="icon icon--discount gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: burger">
+                                    <svg class="icon icon--burger gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: login">
+                                    <svg class="icon icon--login gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
                                     </svg>
                                 </li>
                             </ul>

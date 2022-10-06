@@ -29,12 +29,26 @@
     color: $white;
     border: rem(1px) solid;
 
+    &--vertical {
+        flex-direction: column;
+    }
+
+    &--vertical & {
+        &__icon {
+            margin-right: 0;
+        }
+    }
+
     &--full {
         width: 100%;
     }
 
     &--bold {
         font-weight: $font-weight-semibold;
+    }
+
+    &--heavy {
+        font-weight: $font-weight-bold;
     }
 
     &--tiny {
@@ -216,6 +230,24 @@
         }
     }
 
+    &--covered#{&}--dark {
+        color: $white;
+        border-color: $tuna;
+        background-color: $tuna;
+
+        &:hover {
+            color: $white;
+            border-color: $brickRed;
+            background-color: $brickRed;
+        }
+
+        &:focus {
+            color: $white;
+            border-color: $mandy2;
+            background-color: $mandy2;
+        }
+    }
+
     &--covered#{&}--disabled {
         color: $alto;
         border-color: $athensGray;
@@ -347,6 +379,18 @@
         }
     }
 
+    &--simple#{&}--dark-red {
+        color: $brickRed;
+
+        &:hover {
+            color: $tuna;
+        }
+
+        &:focus {
+            color: $tuna;
+        }
+    }
+
     &--simple#{&}--gray {
         color: $saltBox;
 
@@ -395,7 +439,7 @@
         width: rem(24px);
         height: rem(24px);
 
-        @media #{$screen-tablet} {
+        @media #{$screen-desktop} {
             width: rem(64px);
             height: rem(28px);
         }
@@ -416,6 +460,11 @@
 
     &#{&}--ordinary {
         width: auto;
+    }
+
+    &--burger {
+        width: rem(28px);
+        padding: rem($gap-mini);
     }
 
     &--disabled {
@@ -441,6 +490,8 @@
     &__icon {
         $size: 20px;
         $icon-margin: 4px;
+
+        position: relative;
 
         flex-shrink: 0;
 
@@ -478,7 +529,7 @@
             width: rem($size);
             height: rem($size);
 
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 $size: 16px;
 
                 width: rem($size);
@@ -504,6 +555,48 @@
 
                 width: rem($size);
                 height: rem($size);
+            }
+        }
+
+        &--mixed {
+            $size: 28px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-desktop} {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+
+        &-counter {
+            $size: 20px;
+
+            @include text-miniature;
+
+            position: absolute;
+            top: rem(-2px);
+            right: rem(-10px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: rem($size);
+            height: rem($size);
+
+            color: $white;
+            border-radius: 50%;
+
+            &--red {
+                background-color: $brickRed;
+            }
+
+            &--dark {
+                background-color: $tuna;
             }
         }
     }

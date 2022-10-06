@@ -9,6 +9,12 @@
         width: 100%;
     }
 
+    &--squared & {
+        &__control {
+            border-radius: $border-radius-small;
+        }
+    }
+
     &--small & {
         &__control {
             @include text-tiny;
@@ -53,6 +59,17 @@
             &::-webkit-scrollbar {
                 width: 0;
                 background: transparent;
+            }
+        }
+    }
+
+    &--gray & {
+        &__control {
+            border-color: #f2f1f4;
+            background-color: #f2f1f4;
+
+            &:focus {
+                border-color: #f2f1f4;
             }
         }
     }
@@ -206,6 +223,19 @@
 
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+
+        &--search {
+            top: 50%;
+            right: rem($gap-mini);
+
+            width: rem(36px);
+            height: rem(36px);
+
+            transform: translateY(-50%);
+
+            border-top-left-radius: rem($border-radius-small);
+            border-bottom-left-radius: rem($border-radius-small);
+        }
     }
 
     &__counter {
