@@ -3,6 +3,7 @@
 namespace QSoft\Service;
 
 use Bitrix\Main\Type\DateTime;
+use Exception;
 use QSoft\Entity\User;
 use QSoft\ORM\TransactionTable;
 use RuntimeException;
@@ -29,8 +30,9 @@ class BonusAccountService
 
     /**
      * Начисляет баллы Консультанту за приглашение пользователя в рамках реферальной системы
-     * @throws RuntimeException
      * @return bool
+     * @throws Exception
+     * @throws RuntimeException
      */
     public function addReferralBonuses(): bool
     {

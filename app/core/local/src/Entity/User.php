@@ -8,6 +8,7 @@ use CUser;
 use CUserFieldEnum;
 use QSoft\Service\BonusAccountService;
 use QSoft\Service\LoyaltyService;
+use QSoft\Service\OrderAmountService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -29,6 +30,10 @@ class User
      * @var UserGroupsService Объект для работы с бонусным счетом пользователя
      */
     public UserGroupsService $groups;
+    /**
+     * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
+     */
+    public OrderAmountService $orderAmount;
 
     /**
      * @var int ID пользователя
@@ -63,9 +68,9 @@ class User
      */
     public string $gender;
     /**
-     * @var string Дата рождения
+     * @var Carbon Дата рождения
      */
-    public string $birthday;
+    public Carbon $birthday;
     /**
      * @var int Фотография (ID файла)
      */
@@ -97,9 +102,9 @@ class User
      */
     public int $bonusPoints;
     /**
-     * @var string Дата проверки условий поддержания уровня программы лояльности
+     * @var Carbon Дата проверки условий поддержания уровня программы лояльности
      */
-    public string $loyaltyCheckDate;
+    public Carbon $loyaltyCheckDate;
 
     /**
      * Коды пользовательских полей типа "Список"
@@ -138,7 +143,7 @@ class User
         $this->email = $user['EMAIL'];
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
-        $this->photo = $user['PERSONAL_PHOTO'];
+        $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
@@ -153,6 +158,7 @@ class User
         $this->bonusAccount = new BonusAccountService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+        $this->orderAmount = new OrderAmountService($this);
     }
 
     /**

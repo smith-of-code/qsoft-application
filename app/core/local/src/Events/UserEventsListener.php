@@ -7,14 +7,9 @@ use RuntimeException;
 
 class UserEventsListener
 {
-    private static function initDependencies(): void
-    {
-    }
 
     public static function OnBeforeUserUpdate(array $fields)
     {
-        self::initDependencies();
-
         // Пользователь, для которого вносятся изменения
         $user = new User($fields['ID']);
 
