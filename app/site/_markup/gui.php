@@ -222,6 +222,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart"></use>
                                     </svg>
                                 </li>
+                                
+                                <li class="icons__item" title="Icon: arrow-left">
+                                    <svg class="icon icon--arrow gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -4400,6 +4406,138 @@
                         </div>
                     </div>
                     <!--/Карточки товара-->
+
+                    <!--Слайдер-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Слайдеры</h2>
+
+                        <div class="gui__slider">
+                            <h3 style="margin-top: 40px">Слайдер на главной</h3>
+
+                            <div class="slider slider--main" data-carousel="main">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <img
+                                                src="https://fakeimg.pl/1920x800/"
+                                                alt="#"
+                                                class="slider__slide-image"
+                                            />
+
+                                            <article class="slider__slide-card card-slide">
+                                                <div class="card-slide__inner">
+                                                    <h2 class="card-slide__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-slide__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-slide__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-slide__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </article>
+                                        </div>
+                                        
+                                        <div class="swiper-slide slider__slide">
+                                            <img
+                                                src="https://fakeimg.pl/1920x801/"
+                                                alt="#"
+                                                class="slider__slide-image"
+                                            />
+
+                                            <article class="slider__slide-card card-slide">
+                                                <div class="card-slide__inner">
+                                                    <h2 class="card-slide__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-slide__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-slide__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-slide__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                            <h3 style="margin-top: 40px">Слайдер на деталке</h3>
+                            
+                            <div class="slider slider--pagination" data-carousel="pagination">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <img
+                                                src="https://fakeimg.pl/1920x801/"
+                                                alt="#"
+                                                class="slider__slide-image"
+                                            />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Слайдер-->
                 </main>
             </div>
         </div>

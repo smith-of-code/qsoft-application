@@ -1,0 +1,69 @@
+.card-slide {
+    padding: rem($gap-average);
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+    box-shadow: 0 rem(8px) rem(24px) rgba($black, .16);
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-big) rem($gap-normal) rem($gap-normal);
+    }
+
+    &__inner {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    &__title {
+        font-size: rem($font-size-average);
+        font-weight: $font-weight-bold;
+        line-height: ($line-height-normal / $font-size-average);
+
+        margin-bottom: rem($gap-average);
+
+        color: $tuna;
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-large);
+            line-height: ($line-height-large / $font-size-large);
+
+            margin-bottom: rem(14px);
+        }
+    }
+
+    &__text {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: ($line-height-small);
+
+        margin-bottom: rem(3px);
+
+        color: $codGray;
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-average);
+            line-height: ($line-height-average / $font-size-average);
+        }
+    }
+
+    &__pagination {
+        display: none;
+
+        @media #{$screen-tablet} {
+            position: absolute;
+            bottom: rem($gap-normal);
+            left: rem($gap-normal);
+            
+            display: block;
+        }
+    }
+
+    &__sale {
+        align-self: flex-end;
+    }
+}

@@ -1,0 +1,33 @@
+.pagination {
+    &--default {
+        & .swiper-pagination-bullet {
+            $size: 8px;
+            
+            display: inline-block;
+            
+            width: rem($size);
+            height: rem($size);
+            margin: 0 0 0 rem($gap-small) !important;
+            
+            cursor: pointer;
+            transition: $transition-duration-medium $transition-function;
+            
+            opacity: 1;
+            border-radius: rem($border-radius-small);
+            outline: none;
+            background: #c8c8c8;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            // TODO: hover, active
+      
+            &-active {
+                width: rem(24px);
+                
+                background: $brickRed;
+            }
+        }
+    }
+}

@@ -37,7 +37,7 @@
  import fancybox from './modules/fancybox';
  import technicalSupport from './modules/technicalSupport';
  import addFavourite from './modules/add-favourite';
-
+ import swiper from './modules/swiper'; 
 
 
  const app = {
@@ -68,6 +68,7 @@
         fancybox();
         technicalSupport();
         addFavourite();
+        swiper();
 
     },
 
