@@ -77,6 +77,14 @@
         }
 	}
 
+    &__social {
+        margin-bottom: rem($gap-medium);
+        padding: rem($gap-small) 0;
+
+        border-top: rem(1px) solid #494953;
+        border-bottom: rem(1px) solid #494953;
+    }
+
 	&__bottom {
         margin-top: rem($gap-medium);
 	}

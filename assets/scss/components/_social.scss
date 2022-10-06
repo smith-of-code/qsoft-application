@@ -1,19 +1,12 @@
 .social {
-    margin-bottom: rem($gap-medium);
-
-    border-top: rem(1px) solid #494953;
-    border-bottom: rem(1px) solid #494953;
-
     &__list {
         display: flex;
         flex-wrap: wrap;
 
-        margin: 0 rem(-$gap-small) rem(-$gap-small);
-        padding: rem($gap-small) 0;
+        margin: 0 rem(-$gap-small);
     }
 
     &__item {
-        margin-bottom: rem($gap-small);
         padding: 0 rem($gap-small);
     }
 
