@@ -1808,7 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('change', ELEMENTS_SELECTOR.option, function () {
-    var option = $("".concat(ELEMENTS_SELECTOR.option, " option:selected")).attr('data-variant');
+    var option = $(this).find('option:selected').attr('data-variant');
     $(ELEMENTS_SELECTOR.variant).removeClass('modal__section-variant--active');
     $(ELEMENTS_SELECTOR.modal).find("[data-variant-block='".concat(option, "'")).addClass('modal__section-variant--active');
   });

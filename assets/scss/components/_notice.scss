@@ -1,6 +1,6 @@
 .notice {
-    display: flex;
     flex-direction: column;
+    height: rem(692px);
 
     &__content {
         flex-grow: 1;
