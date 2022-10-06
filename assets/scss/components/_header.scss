@@ -1,4 +1,13 @@
 .header {
+    border-bottom-right-radius: rem($gap-small);
+    border-bottom-left-radius: rem($gap-small);
+    box-shadow: $box-shadow-mini;
+
+    @media #{$screen-tablet} {
+        border-radius: 0;
+        box-shadow: none;
+    }
+
     &--main & {
         &__row {
             &--nav {
@@ -70,7 +79,7 @@
     }
 
     &__block {
-        &--menu {
+        &--catalog {
             order: -1;
 
             @media #{$screen-tablet} {
@@ -141,7 +150,7 @@
         }
     }
 
-    &__menu {
+    &__catalog {
         &-button {
             &--main {
                 display: none;

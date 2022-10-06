@@ -24,28 +24,32 @@
                             </div>
                         </div>
 
-                        <div class="header__block header__block--menu menu">
-                            <div class="header__menu">
-                                <button type="button" class="header__menu-button header__menu-button--main button button--big button--square button--covered button--red button--heavy">
-                                    <span class="button__icon">
-                                        <svg class="icon icon--burger">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="button__text">Каталог</span>
-                                </button>
+                        <div class="header__block header__block--catalog catalog">
+                            <div class="header__catalog">
+                                <div class="header__catalog-button header__catalog-button--main">
+                                    <button type="button" class="button button--big button--square button--covered button--red button--heavy">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--burger">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Каталог</span>
+                                    </button>
+                                </div>
 
-                                <button type="button" class="header__menu-button header__menu-button--hidden button button--covered button--square button--small button--red button--burger">
-                                    <span class="button__icon button__icon--medium">
-                                        <svg class="icon icon--burger">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
-                                        </svg>
-                                    </span>
-                                </button>
+                                <div class="header__catalog-button header__catalog-button--hidden">
+                                    <button type="button" class="button button--covered button--square button--small button--red button--burger">
+                                        <span class="button__icon button__icon--medium">
+                                            <svg class="icon icon--burger">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="menu__dropdown box">
-                                <!--каталог-->
+                            <div class="catalog__dropdown menu box">
+                                
                             </div>
                         </div>
 
@@ -92,17 +96,149 @@
                         <div class="header__block header__block--personal personal">
                             <div class="personal__elements">
                                 <div class="personal__item personal__item--hidden">
-                                    <button type="button" class="button button--simple button--red button--vertical">
-                                        <span class="button__icon button__icon--mixed">
-                                            <svg class="icon icon--notification">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                            </svg>
+                                    <div class="dropdown dropdown--long" data-dropdown>
+                                        <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
+                                            <span class="button__icon button__icon--mixed">
+                                                <svg class="icon icon--notification">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                </svg>
 
-                                            <span class="button__icon-counter button__icon-counter--red">10</span>
-                                        </span>
+                                                <span class="button__icon-counter button__icon-counter--red">10</span>
+                                            </span>
 
-                                        <span class="personal__button-text button__text">Уведомления</span>
-                                    </button>
+                                            <span class="personal__button-text button__text">Уведомления</span>
+                                        </button>
+
+                                        <div class="notice dropdown__box box box--shadow" data-dropdown-block>
+                                            <div class="notice__content" data-scrollbar>
+                                                <ul class="notice__list">
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="notice__action">
+                                                <button type="button" class="button button--rounded-big button--bold button--outlined button--green button--full">Показать все</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="personal__item personal__item--hidden">
@@ -2627,7 +2763,7 @@
                                             <div class="form__col">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
-                                                        <label for="select1m" class="form__label form__label--required">
+                                                        <label for="selectTp" class="form__label form__label--required">
                                                             <span class="form__label-text">Тип обращения</span>
                                                         </label>
                                                     </div>
@@ -2635,7 +2771,7 @@
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="select select--mitigate" data-select>
-                                                                <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите город" data-option>
+                                                                <select class="select__control" name="selectTp" id="selectTp" data-select-control data-placeholder="Выберите город" data-option>
                                                                     <option><!-- пустой option для placeholder --></option>
                                                                     <option value="1" data-variant="refund">Возврат заказа</option>
                                                                     <option value="2" data-variant="nonfunctional">Неработающая функциональность</option>

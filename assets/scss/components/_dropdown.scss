@@ -31,6 +31,13 @@
         }
     }
 
+    &--long & {
+        &__box {
+            width: rem(320px);
+            max-height: rem(690px);
+        }
+    }
+
     &--full & {
         &__box {
             right: 0;
