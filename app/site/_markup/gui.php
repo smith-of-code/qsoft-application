@@ -3528,7 +3528,7 @@
 
         <!--Футер-->
         <footer class="page__footer footer">
-            <div class="container">
+            <div class="footer__container container">
                 <nav class="footer__nav">
                     <ul class="footer__list">
                         <li class="footer__item footer__item--heading">
@@ -3675,43 +3675,45 @@
                     </ul>
                 </nav>
 
-                <ul class="footer__social-list">
-                    <li class="footer__social-item">
-                        <a href="#" class="footer__social-link">
-                            <svg class="icon icon--social">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="footer__social-item">
-                        <a href="#" class="footer__social-link">
-                            <svg class="icon icon--social">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="footer__social-item">
-                        <a href="#" class="footer__social-link">
-                            <svg class="icon icon--social">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="footer__social-item">
-                        <a href="#" class="footer__social-link">
-                            <svg class="icon icon--social">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="footer__social-item">
-                        <a href="#" class="footer__social-link">
-                            <svg class="icon icon--social">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
+                <div class="footer__social social">
+                    <ul class="social__list">
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <svg class="icon icon--social">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <svg class="icon icon--social">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <svg class="icon icon--social">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <svg class="icon icon--social">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a href="#" class="social__link">
+                                <svg class="icon icon--social">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="footer__bottom">
                     <p class="footer__copyright">

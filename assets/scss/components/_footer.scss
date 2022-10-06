@@ -1,10 +1,13 @@
 .footer {
-    padding: rem($gap-big) 0 rem($gap-normal);
-
 	background-color: $tuna;
 
-    @media #{$screen-tablet} {
-        padding: rem($gap-normal);
+    &__container {
+        padding-top: rem($gap-big);
+        padding-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            padding-top: rem($gap-normal);
+        }
     }
 
 	&__nav {
@@ -72,46 +75,6 @@
         &:focus {
             color: $mandy2;
         }
-	}
-
-	&__social {
-		&-list {
-            display: flex;
-            flex-wrap: wrap;
-
-            margin-right: rem(-$gap-medium);
-            margin-bottom: rem($gap-medium);
-
-            border-top: rem(1px) solid #494953;
-            border-bottom: rem(1px) solid #494953;
-		}
-
-		&-item {
-            margin-top: rem($gap-small);
-            margin-right: rem($gap-medium);
-            margin-bottom: rem($gap-small);
-		}
-
-		&-link {
-            $size: 24px;
-            
-            display: block;
-
-            width: rem($size);
-            height: rem($size);
-
-            transition: color $transition-duration $transition-function;
-
-            color: $white;
-
-            &:hover {
-                color: $mandy;
-            }
-
-            &:active {
-                color: $mandy2;
-            }
-		}
 	}
 
 	&__bottom {
