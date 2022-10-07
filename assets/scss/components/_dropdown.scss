@@ -4,6 +4,10 @@
     &--active & {
         &__box {
             display: block;
+
+            &--scrolled {
+                display: flex;
+            }
         }
     }
 
@@ -26,6 +30,13 @@
     &--big & {
         &__box {
             padding: rem($gap-medium);
+            width: rem(320px);
+            max-height: rem(690px);
+        }
+    }
+
+    &--long & {
+        &__box {
             width: rem(320px);
             max-height: rem(690px);
         }
@@ -55,12 +66,45 @@
         }
     }
 
+    &--menu {
+        position: static;
+    }
+
+    &--menu & {
+        &__box {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+
+            overflow-y: auto;
+
+            @media #{$screen-tablet} {
+                position: absolute;
+                top: calc(100% + 70px);
+                right: 0;
+                bottom: auto;
+                left: 0;
+            }
+
+            @media #{$screen-desktop} {
+                top: calc(100% + 8px);
+            }
+
+        }
+    }
+
     &__box {
         position: absolute;
         z-index: $z-index-menu;
         top: calc(100% + 8px);
 
-        display: none; 
+        display: none;
+
+        &--shifted {
+            left: rem(-20px);
+        }
     }
 
     &__item {
@@ -76,6 +120,25 @@
 
         &:hover {
             background-color: $athensGray;
+        }
+    }
+
+    &__close {
+        $size: 28px;
+
+        position: absolute;
+        top: rem($gap-medium);
+        right: rem($gap-medium);
+
+        width: rem($size);
+        height: rem($size);
+
+        cursor: pointer;
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            display: none;
         }
     }
 

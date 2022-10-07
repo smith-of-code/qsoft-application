@@ -12,8 +12,464 @@
     <body class="page page--banner">
 
         <!--header-->
-        <header class="page__header header" style="background-color: cadetblue">
-            Хедер
+        <header class="page__header header header--main">
+            <div class="header__row header__row--main">
+                <div class="container">
+                    <div class="header__wrapper">
+                        <div class="header__block header__block--logo">
+                            <div class="logo">
+                                <a class="logo__link" href="#">
+                                    <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+                        <!--Каталог-->
+                        <div class="header__block header__block--catalog catalog">
+                            <div class="header__catalog">
+                                <div class="dropdown dropdown--menu" data-dropdown>
+                                    <!--кнопка основная-->
+                                    <div class="header__catalog-button header__catalog-button--main">
+                                        <button type="button" class="button button--big button--square button--covered button--red button--heavy" data-dropdown-button>
+                                            <span class="button__icon">
+                                                <svg class="icon icon--burger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Каталог</span>
+                                        </button>
+                                    </div>
+                                    <!--/кнопка основная-->
+
+                                    <!--кнопка на МВ-->
+                                    <div class="header__catalog-button header__catalog-button--hidden">
+                                        <button type="button" class="button button--covered button--square button--small button--red button--burger" data-dropdown-button>
+                                            <span class="button__icon button__icon--medium">
+                                                <svg class="icon icon--burger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <!--/кнопка на МВ-->
+
+                                    <!--дропдаун каталога-->
+                                    <div class="menu dropdown__box box box--shading" data-dropdown-block>
+                                        <div class="dropdown__close" data-dropdown-close>
+                                            <svg class="dropdown__close-icon icon icon--close-square">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="menu__header">
+                                            <div class="menu__header-logo logo logo--small">
+                                                <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
+                                            </div>
+                                            <div class="menu__header-profile">
+                                                <button type="button" class="button button--huge button--rounded button--outlined button--green button--full">
+                                                    <span class="button__icon button__icon--right">
+                                                        <svg class="icon icon--user">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="button__text">Войти в профиль</span>
+                                                </button>
+                                            </div>
+
+                                            <p class="menu__header-title">Каталог товаров</p>
+                                        </div>
+
+                                        <div class="menu__content">
+                                            <div class="menu__row">
+                                                <div class="menu__col">
+                                                    <ul class="menu__list">
+                                                        <li class="menu__item menu__item--heading">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Для собак</a>
+                                                        </li>
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="menu__image">
+                                                        <img src="/local/templates/.default/images/dog.png" alt="Каталог для собак" class="menu__image-pic">
+                                                    </div>
+                                                </div>
+                                                <div class="menu__col menu__col--right">
+                                                    <ul class="menu__list">
+                                                        <li class="menu__item menu__item--heading">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Для кошек</a>
+                                                        </li>
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="menu__image">
+                                                        <img src="/local/templates/.default/images/cat.png" alt="Каталог для кошек" class="menu__image-pic">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu__division">
+                                            <ul class="menu__list">
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">AmeБизнес</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">FAQ</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">Новости</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">Акции</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--/дропдаун каталога-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Каталог-->
+
+                        <!--Поиск-->
+                        <div class="header__block header__block--search search">
+                            <div class="header__search header__search--tablet">
+                                <button type="button" class="button button--iconed button--simple button--red"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#search"
+                                >
+                                    <span class="button__icon">
+                                        <svg class="icon icon--search">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <!--Попап поиска-->
+                                <article id="search" class="modal modal--whole" style="display: none">
+                                    <div class="modal__content">
+                                        <header class="modal__section modal__section--header">
+                                            <h4 class="heading heading--average">Поиск</h4>
+                                        </header>
+
+                                        <section class="modal__section modal__section--content">
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="header__search-input input input--small input--buttoned">
+                                                                <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
+                                                                <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                                                                    <span class="button__icon button__icon--medium">
+                                                                        <svg class="icon icon--search">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </article>
+                                <!--/Попап поиска-->
+                            </div>
+
+                            <div class="header__search header__search--desktop">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="header__search-input input input--small input--buttoned">
+                                            <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
+                                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                                                <span class="button__icon button__icon--medium">
+                                                    <svg class="icon icon--search">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/Поиск-->
+
+                        <div class="header__block header__block--personal personal">
+                            <div class="personal__elements">
+                                <div class="personal__item personal__item--hidden">
+                                    <div class="dropdown dropdown--long" data-dropdown>
+                                        <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
+                                            <span class="button__icon button__icon--mixed">
+                                                <svg class="icon icon--notification">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                </svg>
+
+                                                <span class="button__icon-counter button__icon-counter--red">10</span>
+                                            </span>
+
+                                            <span class="personal__button-text button__text">Уведомления</span>
+                                        </button>
+
+                                        <!--выпадающий список уведомлений-->
+                                        <div class="notice dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
+                                            <div class="notice__content" data-scrollbar>
+                                                <ul class="notice__list">
+                                                    <li class="notice__item">
+                                                        <!--Статус-->
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                        <!--Статус-->
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+
+                                                    <li class="notice__item">
+                                                        <article class="status">
+                                                            <a href="#" class="status__link"></a>
+                                                            <div class="status__header">
+                                                                <svg class="status__header-icon icon icon--notification">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                                </svg>
+
+                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
+                                                            </div>
+
+                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
+
+                                                            <div class="status__footer">
+                                                                <span class="status__date">10.12.2022</span>
+                                                                <span class="status__time"> 12:45</span>
+                                                            </div>
+                                                        </article>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="notice__action">
+                                                <a href="#" class="button button--rounded-big button--bold button--outlined button--green button--full">Показать все</a>
+                                            </div>
+                                        </div>
+                                        <!--выпадающий список уведомлений-->
+                                    </div>
+                                </div>
+
+                                <div class="personal__item personal__item--hidden">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--user">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Профиль</span>
+                                    </button>
+                                </div>
+
+                                <!--Для неавторизованного пользователя (скрыто по умолчанию)-->
+                                <div class="personal__item personal__item--hidden" style="display: none">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--login">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Войти</span>
+                                    </button>
+                                </div>
+                                <!--/Для неавторизованного пользователя-->
+
+                                <div class="personal__item">
+                                    <button type="button" class="button button--simple button--red button--vertical">
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--basket">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                            </svg>
+
+                                            <span class="button__icon-counter button__icon-counter--dark">12</span>
+                                        </span>
+                                        <span class="personal__button-text button__text">16 842 ₽</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--нижнее меню-->
+            <div class="header__row header__row--nav">
+                <div class="container">
+                    <div class="header__wrapper">
+                        <nav class="navigation">
+                            <ul class="navigation__list">
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">AmeБизнес</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">FAQ</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" class="navigation__button button button--simple button--red">
+                                        <span class="button__text">Новости</span>
+                                    </a>
+                                </li>
+
+                                <li class="navigation__item">
+                                    <a href="#" type="button" class="navigation__button button button--simple button--dark-red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--discount">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Акции</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!--/нижнее меню-->
         </header>
         <!--/header-->
 
@@ -250,6 +706,36 @@
                                 <li class="icons__item" title="Icon: heart">
                                     <svg class="icon icon--heart gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: user">
+                                    <svg class="icon icon--user gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: search">
+                                    <svg class="icon icon--search gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: discount">
+                                    <svg class="icon icon--discount gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: burger">
+                                    <svg class="icon icon--burger gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: login">
+                                    <svg class="icon icon--login gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -2456,7 +2942,7 @@
                                             <div class="form__col">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
-                                                        <label for="select1m" class="form__label form__label--required">
+                                                        <label for="selectTp" class="form__label form__label--required">
                                                             <span class="form__label-text">Тип обращения</span>
                                                         </label>
                                                     </div>
@@ -2464,7 +2950,7 @@
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="select select--mitigate" data-select>
-                                                                <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите город" data-option>
+                                                                <select class="select__control" name="selectTp" id="selectTp" data-select-control data-placeholder="Выберите город" data-option>
                                                                     <option><!-- пустой option для placeholder --></option>
                                                                     <option value="1" data-variant="refund">Возврат заказа</option>
                                                                     <option value="2" data-variant="nonfunctional">Неработающая функциональность</option>
@@ -3923,8 +4409,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio11" checked>
-                                                                <label for="radio11">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r11" id="radio11p" checked>
+                                                                <label for="radio11p">
                                                                     <div class="pack__item">600 г</div>
                                                                 </label>
                                                             </div>
@@ -3934,8 +4420,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio22">
-                                                                <label for="radio22">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r22" id="radio22p">
+                                                                <label for="radio22p">
                                                                     <div class="pack__item">1 кг</div>
                                                                 </label>
                                                             </div>
@@ -3945,8 +4431,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio33">
-                                                                <label for="radio33">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r33" id="radio33p">
+                                                                <label for="radio33p">
                                                                     <div class="pack__item">3 кг</div>
                                                                 </label>
                                                             </div>
@@ -3956,8 +4442,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio44">
-                                                                <label for="radio44">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r44" id="radio44p">
+                                                                <label for="radio44p">
                                                                     <div class="pack__item">5 кг</div>
                                                                 </label>
                                                             </div>
@@ -3967,8 +4453,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio55">
-                                                                <label for="radio55">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r55" id="radio55p">
+                                                                <label for="radio55p">
                                                                     <div class="pack__item">7 кг</div>
                                                                 </label>
                                                             </div>
@@ -3978,8 +4464,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio66">
-                                                                <label for="radio66">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r66" id="radio66p">
+                                                                <label for="radio66p">
                                                                     <div class="pack__item">10 кг</div>
                                                                 </label>
                                                             </div>
@@ -3989,8 +4475,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio77">
-                                                                <label for="radio77">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r77" id="radio77p">
+                                                                <label for="radio77p">
                                                                     <div class="pack__item">15 кг</div>
                                                                 </label>
                                                             </div>
@@ -4106,8 +4592,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
-                                                                <label for="radio">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radioc" checked>
+                                                                <label for="radioc">
                                                                     <div class="color__item color__item--pink"></div>
                                                                 </label>
                                                             </div>
@@ -4117,8 +4603,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
-                                                                <label for="radio2">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2c">
+                                                                <label for="radio2c">
                                                                     <div class="color__item color__item--blue"></div>
                                                                 </label>
                                                             </div>
@@ -4128,8 +4614,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
-                                                                <label for="radio3">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3c">
+                                                                <label for="radio3c">
                                                                     <div class="color__item color__item--green"></div>
                                                                 </label>
                                                             </div>
@@ -4139,8 +4625,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
-                                                                <label for="radio4">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4c">
+                                                                <label for="radio4c">
                                                                     <div class="color__item color__item--yellow"></div>
                                                                 </label>
                                                             </div>
@@ -4150,8 +4636,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
-                                                                <label for="radio5">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5c">
+                                                                <label for="radio5c">
                                                                     <div class="color__item color__item--red"></div>
                                                                 </label>
                                                             </div>
@@ -4161,8 +4647,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
-                                                                <label for="radio6">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6c">
+                                                                <label for="radio6c">
                                                                     <div class="color__item color__item--violet"></div>
                                                                 </label>
                                                             </div>
@@ -4277,8 +4763,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio11" checked>
-                                                                <label for="radio11">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio111p" checked>
+                                                                <label for="radio111p">
                                                                     <div class="pack__item">600 г</div>
                                                                 </label>
                                                             </div>
@@ -4288,8 +4774,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio22">
-                                                                <label for="radio22">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio221p">
+                                                                <label for="radio221p">
                                                                     <div class="pack__item">1 кг</div>
                                                                 </label>
                                                             </div>
@@ -4299,8 +4785,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio33">
-                                                                <label for="radio33">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio331p">
+                                                                <label for="radio331p">
                                                                     <div class="pack__item">3 кг</div>
                                                                 </label>
                                                             </div>
@@ -4310,8 +4796,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio44">
-                                                                <label for="radio44">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio441p">
+                                                                <label for="radio441p">
                                                                     <div class="pack__item">5 кг</div>
                                                                 </label>
                                                             </div>
@@ -4321,8 +4807,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio55">
-                                                                <label for="radio55">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio551p">
+                                                                <label for="radio551p">
                                                                     <div class="pack__item">7 кг</div>
                                                                 </label>
                                                             </div>
@@ -4332,8 +4818,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio66">
-                                                                <label for="radio66">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio661p">
+                                                                <label for="radio661p">
                                                                     <div class="pack__item">10 кг</div>
                                                                 </label>
                                                             </div>
@@ -4343,8 +4829,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio77">
-                                                                <label for="radio77">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio771p">
+                                                                <label for="radio771p">
                                                                     <div class="pack__item">15 кг</div>
                                                                 </label>
                                                             </div>
