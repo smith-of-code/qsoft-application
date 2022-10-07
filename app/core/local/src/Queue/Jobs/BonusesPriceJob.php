@@ -3,6 +3,7 @@
 namespace QSoft\Queue\Jobs;
 
 use QSoft\Service\BonusAccountService;
+use QSoft\Service\OffersService;
 
 class BonusesPriceJob extends BaseJob
 {
@@ -17,7 +18,7 @@ class BonusesPriceJob extends BaseJob
 
     protected function process($data)
     {
-        BonusAccountService::setOfferBonusesPrices($data['offerId'], $data['priceValue']);
+        OffersService::setOfferBonusesPrices($data['offerId'], $data['priceValue']);
     }
 
     protected function validateInputData($data): bool
