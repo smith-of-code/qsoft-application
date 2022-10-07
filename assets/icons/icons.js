@@ -24,6 +24,11 @@ import './svg/add-circle.svg';
 import './svg/lock.svg';
 import './svg/tick-circle.svg';
 import './svg/close-square.svg';
+import './svg/telegram.svg';
+import './svg/youtube.svg';
+import './svg/vk.svg';
+import './svg/whatsapp.svg';
+import './svg/viber.svg';
 import './svg/heart.svg';
 import './svg/heart-fill.svg';
 
