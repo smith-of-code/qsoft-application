@@ -63,17 +63,6 @@
         }
     }
 
-    &--gray & {
-        &__control {
-            border-color: #f2f1f4;
-            background-color: #f2f1f4;
-
-            &:focus {
-                border-color: #f2f1f4;
-            }
-        }
-    }
-
     &--simple & {
         &__control {
             border: 0;

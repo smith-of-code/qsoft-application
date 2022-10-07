@@ -1,3 +1,190 @@
 .menu {
-    
+    padding-top: rem($gap-medium);
+
+    @media #{$screen-tablet} {
+        padding: rem(60px) rem($gap-medium) rem($gap-big);
+    }
+
+    @media #{$screen-desktop} {
+        padding: rem(40px) rem(100px);
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-bottom: rem($gap-medium);
+        padding: 0 rem(52px);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-normal);
+            padding: 0;
+        }
+
+        @media #{$screen-desktop} {
+            text-align: left;
+        }
+
+        &-title {
+            font-size: rem($font-size-average);
+            font-weight: $font-weight-bold;
+            line-height: rem($line-height-normal);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-middle);
+                line-height: rem($line-height-middle);
+            }
+        }
+
+        &-logo {
+            margin-bottom: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
+
+        &-profile {
+            width: 100%;
+            margin-bottom: rem(40px);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
+    }
+
+    &__content {
+        padding: 0 rem(52px);
+
+        @media #{$screen-tablet} {
+            padding: 0;
+        }
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        width: 100%;
+
+        @media #{$screen-tablet} {
+            justify-content: center;
+            flex-direction: row;
+        }
+    }
+
+    &__col {
+        display: flex;
+
+        @media #{$screen-tablet} {
+            justify-content: center;
+
+            width: 50%;
+        }
+
+        @media #{$screen-desktop} {
+            justify-content: flex-start;
+        }
+
+        &--right {
+            margin-top: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-top: 0;
+
+                border-left: rem(1px) solid $alto;
+            }
+
+            @media #{$screen-desktop} {
+                padding-left: rem(60px);
+            }
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+
+        margin-top: rem(-$gap-small / 2);
+        margin-bottom: rem(-$gap-small / 2);
+
+        @media #{$screen-desktop} {
+            display: block;
+        }
+    }
+
+    &__item {
+        font-size: rem($font-size-small);
+        line-height: rem(22px / $font-size-small);
+
+        padding-top: rem($gap-small / 2);
+        padding-bottom: rem($gap-small / 2);
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-mini);
+            line-height: rem($line-height-small / $font-size-mini);
+        }
+
+        &--heading {
+            font-size: rem($font-size-normal);
+            font-weight: $font-weight-semibold;
+            line-height: rem($line-height-normal / $font-size-normal);
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-mini);
+                font-weight: $font-weight-bold;
+                line-height: rem($line-height-normal / $font-size-mini);
+            }
+        }
+
+        &--small {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-regular;
+            line-height: rem(20px);
+        }
+
+        &-link {
+            font-size: inherit;
+            font-weight: inherit;
+        }
+    }
+
+    &__image {
+        flex-shrink: 0;
+
+        display: none;
+
+        width: rem(270px);
+        height: rem(164px);
+        margin-left: rem(30px);
+
+        border-radius: rem($border-radius-average);
+
+        @media #{$screen-desktop} {
+            display: block;
+        }
+
+        &-pic {
+            border-radius: inherit;
+        }
+    }
+
+    &__division {
+        margin-top: rem($gap-medium);
+        padding-top: rem(36px);
+        padding-bottom: rem(70px);
+
+        background-image: url('/local/templates/.default/images/animals.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        @media #{$screen-tablet} {
+            display: none;
+        }
+    }
 }

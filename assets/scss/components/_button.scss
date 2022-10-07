@@ -1,4 +1,5 @@
 .button {
+    $size-huge: 48px;
     $size-big: 44px;
     $size-normal: 40px;
     $size-medium: 36px;
@@ -79,6 +80,13 @@
 
     &--big {
         height: rem($size-big);
+    }
+
+    &--huge {
+        font-size: rem($font-size-small);
+        line-height: rem(22px);
+
+        height: rem($size-huge);
     }
 
     &--square {
@@ -357,6 +365,7 @@
 
     &--simple {
         height: auto;
+        width: fit-content;
         padding: 0;
 
         border: 0;

@@ -1062,11 +1062,15 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
   button: '[data-dropdown-button]',
   dropdownBlock: '[data-dropdown-block]',
-  dropdown: '[data-dropdown]'
+  dropdown: '[data-dropdown]',
+  close: '[data-dropdown-close]'
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('click', ELEMENTS_SELECTOR.button, function () {
     $(this).closest(ELEMENTS_SELECTOR.dropdown).toggleClass('dropdown--active');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.close, function () {
+    $(this).closest(ELEMENTS_SELECTOR.dropdown).removeClass('dropdown--active');
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))

@@ -38,6 +38,8 @@
     }
 
     &__wrapper {
+        position: relative;
+
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -61,6 +63,8 @@
             }
 
             @media #{$screen-desktop} {
+                position: relative;
+
                 padding-top: rem($gap-medium);
                 padding-bottom: rem($gap-medium);
             }
@@ -127,12 +131,6 @@
     }
 
     &__search {
-        &--mobile {
-            @media #{$screen-tablet} {
-                display: none;
-            }
-        }
-
         &--tablet {
             display: none;
 
@@ -146,10 +144,25 @@
         }
 
         &--desktop {
-            display: none;
+            @media #{$screen-tablet} {
+                display: none;
+            }
 
             @media #{$screen-desktop} {
                 display: block;
+            }
+        }
+
+        &-input {
+            &-control {
+                @media #{$screen-desktop} {
+                    border-color: #f2f1f4;
+                    background-color: #f2f1f4;
+    
+                    &:focus {
+                        border-color: #f2f1f4;
+                    }
+                }
             }
         }
     }

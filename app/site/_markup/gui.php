@@ -12,7 +12,7 @@
     <body class="page page--banner">
 
         <!--header-->
-        <header class="page__header header">
+        <header class="page__header header header--main">
             <div class="header__row header__row--main">
                 <div class="container">
                     <div class="header__wrapper">
@@ -26,59 +26,193 @@
 
                         <div class="header__block header__block--catalog catalog">
                             <div class="header__catalog">
-                                <div class="header__catalog-button header__catalog-button--main">
-                                    <button type="button" class="button button--big button--square button--covered button--red button--heavy">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--burger">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                <div class="dropdown dropdown--menu" data-dropdown>
+                                    <div class="header__catalog-button header__catalog-button--main">
+                                        <button type="button" class="button button--big button--square button--covered button--red button--heavy" data-dropdown-button>
+                                            <span class="button__icon">
+                                                <svg class="icon icon--burger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Каталог</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="header__catalog-button header__catalog-button--hidden">
+                                        <button type="button" class="button button--covered button--square button--small button--red button--burger" data-dropdown-button>
+                                            <span class="button__icon button__icon--medium">
+                                                <svg class="icon icon--burger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="menu dropdown__box box box--shading" data-dropdown-block>
+                                        <div class="dropdown__close" data-dropdown-close>
+                                            <svg class="dropdown__close-icon icon icon--close-square">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
                                             </svg>
-                                        </span>
-                                        <span class="button__text">Каталог</span>
-                                    </button>
-                                </div>
+                                        </div>
 
-                                <div class="header__catalog-button header__catalog-button--hidden">
-                                    <button type="button" class="button button--covered button--square button--small button--red button--burger">
-                                        <span class="button__icon button__icon--medium">
-                                            <svg class="icon icon--burger">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
+                                        <div class="menu__header">
+                                            <div class="menu__header-logo logo logo--small">
+                                                <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
+                                            </div>
+                                            <div class="menu__header-profile">
+                                                <button type="button" class="button button--huge button--rounded button--outlined button--green button--full">
+                                                    <span class="button__icon button__icon--right">
+                                                        <svg class="icon icon--user">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="button__text">Войти в профиль</span>
+                                                </button>
+                                            </div>
 
-                            <div class="catalog__dropdown menu box">
-                                
-                            </div>
-                        </div>
+                                            <p class="menu__header-title">Каталог товаров</p>
+                                        </div>
 
-                        <div class="header__block header__block--search search">
-                            <div class="header__search header__search--mobile">
-                                <div class="form__field">
-                                    <div class="form__field-block form__field-block--input">
-                                        <div class="input input--small input--buttoned">
-                                            <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
-                                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
-                                                <span class="button__icon button__icon--medium">
-                                                    <svg class="icon icon--search">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
+                                        <div class="menu__content">
+                                            <div class="menu__row">
+                                                <div class="menu__col">
+                                                    <ul class="menu__list">
+                                                        <li class="menu__item menu__item--heading">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Для собак</a>
+                                                        </li>
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="menu__image">
+                                                        <img src="/local/templates/.default/images/dog.png" alt="Каталог для собак" class="menu__image-pic">
+                                                    </div>
+                                                </div>
+                                                <div class="menu__col menu__col--right">
+                                                    <ul class="menu__list">
+                                                        <li class="menu__item menu__item--heading">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Для кошек</a>
+                                                        </li>
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
+                                                        </li>
+
+                                                        <li class="menu__item">
+                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="menu__image">
+                                                        <img src="/local/templates/.default/images/cat.png" alt="Каталог для кошек" class="menu__image-pic">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu__division">
+                                            <ul class="menu__list">
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">AmeБизнес</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">FAQ</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">Новости</a>
+                                                </li>
+
+                                                <li class="menu__item menu__item--small">
+                                                    <a href="#" class="menu__item-link button button--simple button--red">Акции</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="header__search header__search--tablet">
+                        </div>
 
+                        <!--Поиск-->
+                        <div class="header__block header__block--search search">
+                            <div class="header__search header__search--tablet">
+                                <button type="button" class="button button--iconed button--simple button--red"
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#search"
+                                >
+                                    <span class="button__icon">
+                                        <svg class="icon icon--search">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <!--Попап поиска-->
+                                <article id="search" class="modal modal--whole" style="display: none">
+                                    <div class="modal__content">
+                                        <header class="modal__section modal__section--header">
+                                            <h4 class="heading heading--average">Поиск</h4>
+                                        </header>
+
+                                        <section class="modal__section modal__section--content">
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="header__search-input input input--small input--buttoned">
+                                                                <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
+                                                                <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                                                                    <span class="button__icon button__icon--medium">
+                                                                        <svg class="icon icon--search">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </article>
+                                <!--/Попап поиска-->
                             </div>
 
                             <div class="header__search header__search--desktop">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--input">
-                                        <div class="input input--small input--buttoned input--gray">
-                                            <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
+                                        <div class="header__search-input input input--small input--buttoned">
+                                            <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                             <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                 <span class="button__icon button__icon--medium">
                                                     <svg class="icon icon--search">
@@ -92,6 +226,7 @@
                             </div>
 
                         </div>
+                        <!--/Поиск-->
 
                         <div class="header__block header__block--personal personal">
                             <div class="personal__elements">
@@ -109,10 +244,12 @@
                                             <span class="personal__button-text button__text">Уведомления</span>
                                         </button>
 
-                                        <div class="notice dropdown__box box box--shadow" data-dropdown-block>
+                                        <!--выпадающий список уведомлений-->
+                                        <div class="notice dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
                                             <div class="notice__content" data-scrollbar>
                                                 <ul class="notice__list">
                                                     <li class="notice__item">
+                                                        <!--Статус-->
                                                         <article class="status">
                                                             <a href="#" class="status__link"></a>
                                                             <div class="status__header">
@@ -130,6 +267,7 @@
                                                                 <span class="status__time"> 12:45</span>
                                                             </div>
                                                         </article>
+                                                        <!--Статус-->
                                                     </li>
 
                                                     <li class="notice__item">
@@ -235,9 +373,10 @@
                                             </div>
 
                                             <div class="notice__action">
-                                                <button type="button" class="button button--rounded-big button--bold button--outlined button--green button--full">Показать все</button>
+                                                <a href="#" class="button button--rounded-big button--bold button--outlined button--green button--full">Показать все</a>
                                             </div>
                                         </div>
+                                        <!--выпадающий список уведомлений-->
                                     </div>
                                 </div>
 
