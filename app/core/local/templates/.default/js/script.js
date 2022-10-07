@@ -121,15 +121,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _svg_vk_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./svg/vk.svg */ "./assets/icons/svg/vk.svg");
 /* harmony import */ var _svg_whatsapp_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./svg/whatsapp.svg */ "./assets/icons/svg/whatsapp.svg");
 /* harmony import */ var _svg_viber_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./svg/viber.svg */ "./assets/icons/svg/viber.svg");
-/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
-/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
-/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
-/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
-/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
-/* harmony import */ var _svg_cat_cheerful_svg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./svg/cat-cheerful.svg */ "./assets/icons/svg/cat-cheerful.svg");
-/* harmony import */ var _svg_cat_serious_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./svg/cat-serious.svg */ "./assets/icons/svg/cat-serious.svg");
+/* harmony import */ var _svg_heart_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./svg/heart.svg */ "./assets/icons/svg/heart.svg");
+/* harmony import */ var _svg_heart_fill_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./svg/heart-fill.svg */ "./assets/icons/svg/heart-fill.svg");
+/* harmony import */ var _svg_cat_svg__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./svg/cat.svg */ "./assets/icons/svg/cat.svg");
+/* harmony import */ var _svg_dog_svg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./svg/dog.svg */ "./assets/icons/svg/dog.svg");
+/* harmony import */ var _svg_pet_svg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./svg/pet.svg */ "./assets/icons/svg/pet.svg");
+/* harmony import */ var _svg_man_svg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./svg/man.svg */ "./assets/icons/svg/man.svg");
+/* harmony import */ var _svg_woman_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./svg/woman.svg */ "./assets/icons/svg/woman.svg");
+/* harmony import */ var _svg_cat_cheerful_svg__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./svg/cat-cheerful.svg */ "./assets/icons/svg/cat-cheerful.svg");
+/* harmony import */ var _svg_cat_serious_svg__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./svg/cat-serious.svg */ "./assets/icons/svg/cat-serious.svg");
 // Пример подключения иконки
 // import './svg/my-icon.svg';
+
+
 
 
 
@@ -526,6 +530,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/icons/svg/heart-fill.svg":
+/*!*****************************************!*\
+  !*** ./assets/icons/svg/heart-fill.svg ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-heart-fill-usage",
+      viewBox: "0 0 32 32",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-heart-fill",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
+/***/ "./assets/icons/svg/heart.svg":
+/*!************************************!*\
+  !*** ./assets/icons/svg/heart.svg ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+      id: "icon-heart-usage",
+      viewBox: "0 0 32 32",
+      url: __webpack_require__.p + "./images/icons/sprite.svg#icon-heart",
+      toString: function () {
+        return this.url;
+      }
+    });
+
+/***/ }),
+
 /***/ "./assets/icons/svg/import.svg":
 /*!*************************************!*\
   !*** ./assets/icons/svg/import.svg ***!
@@ -849,6 +893,31 @@ function accordeon() {
     $content.slideToggle();
   });
 }
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./assets/js/modules/add-favourite.js":
+/*!********************************************!*\
+  !*** ./assets/js/modules/add-favourite.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  button: '[data-card-favourite]',
+  icon: '[data-card-favourite-icon]'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('click', ELEMENTS_SELECTOR.button, function () {
+    var currentType = $(this).data('card-favourite');
+    var newType = currentType == 'heart' ? 'heart-fill' : 'heart';
+    $(this).find(ELEMENTS_SELECTOR.icon).attr('xlink:href', "/local/templates/.default/images/icons/sprite.svg#icon-".concat(newType));
+    $(this).data('card-favourite', newType);
+  });
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -1315,16 +1384,29 @@ var ELEMENTS_SELECTOR = {
   sum: '[data-quantity-sum]'
 };
 function changeTotal() {
-  var sum = 0;
-  $(ELEMENTS_SELECTOR.sum).text(sum);
+  function changeSum(element) {
+    var calculation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '+';
+    var quantityBlock = element.closest(ELEMENTS_SELECTOR.quantity);
+    var sumBlock = quantityBlock.find(ELEMENTS_SELECTOR.sum);
+    var sum = sumBlock.data('quantity-sum');
+
+    if (calculation == '+') {
+      sum++;
+    } else {
+      sum--;
+    }
+
+    sumBlock.data('quantity-sum', sum);
+    sumBlock.text(sum);
+    return sum;
+  }
+
   $(document).on('click', ELEMENTS_SELECTOR.button, function () {
-    sum++;
-    $(ELEMENTS_SELECTOR.sum).text(sum);
-    $(ELEMENTS_SELECTOR.quantity).addClass('quantity--active');
+    changeSum($(this));
+    $(this).closest(ELEMENTS_SELECTOR.quantity).addClass('quantity--active');
   });
   $(document).on('click', ELEMENTS_SELECTOR.increase, function () {
-    sum++;
-    $(ELEMENTS_SELECTOR.sum).text(sum);
+    var sum = changeSum($(this));
 
     if (sum == 10) {
       $(this).prop('disabled', true);
@@ -1332,15 +1414,16 @@ function changeTotal() {
     }
   });
   $(document).on('click', ELEMENTS_SELECTOR.decrease, function () {
-    sum--;
-    $(ELEMENTS_SELECTOR.sum).text(sum);
+    var quantityBlock = $(this).closest(ELEMENTS_SELECTOR.quantity);
+    var increase = quantityBlock.find(ELEMENTS_SELECTOR.increase);
+    var sum = changeSum($(this), '-');
 
     if (sum == 0) {
-      $(ELEMENTS_SELECTOR.quantity).removeClass('quantity--active');
+      quantityBlock.removeClass('quantity--active');
     }
 
-    $(ELEMENTS_SELECTOR.increase).prop('disabled', false);
-    $(ELEMENTS_SELECTOR.increase).removeClass('button--disabled');
+    increase.prop('disabled', false);
+    increase.removeClass('button--disabled');
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
@@ -1889,6 +1972,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accordeon__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./modules/accordeon */ "./assets/js/modules/accordeon.js");
 /* harmony import */ var _modules_fancybox__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/fancybox */ "./assets/js/modules/fancybox.js");
 /* harmony import */ var _modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./modules/technicalSupport */ "./assets/js/modules/technicalSupport.js");
+/* harmony import */ var _modules_add_favourite__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./modules/add-favourite */ "./assets/js/modules/add-favourite.js");
 /**
  * Vendors
  */
@@ -1902,6 +1986,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -1950,6 +2035,7 @@ var app = {
     Object(_modules_accordeon__WEBPACK_IMPORTED_MODULE_20__["default"])();
     Object(_modules_fancybox__WEBPACK_IMPORTED_MODULE_21__["default"])();
     Object(_modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__["default"])();
+    Object(_modules_add_favourite__WEBPACK_IMPORTED_MODULE_23__["default"])();
   },
   load: function load() {},
   resize: function resize() {},

@@ -29,6 +29,8 @@ import './svg/youtube.svg';
 import './svg/vk.svg';
 import './svg/whatsapp.svg';
 import './svg/viber.svg';
+import './svg/heart.svg';
+import './svg/heart-fill.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';
