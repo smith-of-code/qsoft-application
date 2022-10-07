@@ -3,4 +3,30 @@
 
     border: rem(1px) solid $alto;
     border-radius: rem($border-radius-average);
+
+    &__row {
+        & + & {
+            margin-top: rem($gap-big);
+        }
+    }
+
+    &__accordeon {
+        &-body {
+            padding-left: rem($gap-small);
+        }
+    }
+
+    &__swither {
+        &-label {
+            justify-content: space-between;
+
+            width: 100%;
+        }
+    }
+
+    &__range {
+        & + & {
+            margin-top: rem($gap-big);
+        }
+    }
 }

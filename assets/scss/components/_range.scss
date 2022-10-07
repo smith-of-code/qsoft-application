@@ -45,7 +45,7 @@
         align-items: center;
         justify-content: space-between;
 
-        margin-top: rem(16px);
+        margin-top: rem(24px);
 
         &-input {
             position: relative;
@@ -56,5 +56,9 @@
                 margin-left: rem($gap-medium);
             }
         }
+    }
+
+    &__header {
+        margin-bottom: rem(20px);
     }
 }

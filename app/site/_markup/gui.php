@@ -3595,6 +3595,43 @@
                                         <div class="accordeon__item box box--rounded-sm" data-accordeon>
                                             <div class="accordeon__header" data-accordeon-toggle>
                                                 <h5 class="accordeon__title">Для собак</h5>
+
+                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                    <span class="accordeon__toggle-icon button__icon">
+                                                        <svg class="icon icon--arrow-down">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+
+                                            </div>
+
+                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                                                <div class="category">
+                                                    <ul class="category__list">
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Сухие корма</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Влажные корма</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Лакомства</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Аксессуары</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Появился щенок</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                            <div class="accordeon__header" data-accordeon-toggle>
+                                                <h5 class="accordeon__title">Для кошек</h5>
             
                                                 <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
                                                     <span class="accordeon__toggle-icon button__icon">
@@ -3607,40 +3644,23 @@
                                             </div>
             
                                             <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
-                                                <div class="catalog">
-                                                    <ul class="catalog__list">
-                                                        <li class="catalog__item">Сухие корма</li>
-                                                        <li class="catalog__item">Влажные корма</li>
-                                                        <li class="catalog__item">Лакомства</li>
-                                                        <li class="catalog__item">Аксессуары</li>
-                                                        <li class="catalog__item">Появился щенок</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
-                                            <div class="accordeon__header" data-accordeon-toggle>
-                                                <h5 class="accordeon__title">Для кошек</h5>
-            
-                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
-                                                    <span class="accordeon__toggle-icon button__icon">
-                                                        <svg class="icon icon--arrow-down">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-            
-                                            </div>
-            
-                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
-                                                <div class="catalog">
-                                                    <ul class="catalog__list">
-                                                        <li class="catalog__item">Сухие корма</li>
-                                                        <li class="catalog__item">Влажные корма</li>
-                                                        <li class="catalog__item">Лакомства</li>
-                                                        <li class="catalog__item">Аксессуары</li>
-                                                        <li class="catalog__item">Появился щенок</li>
+                                                <div class="category">
+                                                    <ul class="category__list">
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Сухие корма</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Влажные корма</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Лакомства</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Аксессуары</a>
+                                                        </li>
+                                                        <li class="category__item">
+                                                            <a href="#" class="category__item-link">Появился щенок</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -3653,19 +3673,19 @@
                                         <div class="switchers">
                                             <ul class="switchers__list">
                                                 <li class="switchers__item">
-                                                    <div class="switcher" name="switcher1">
-                                                        <input type="checkbox" class="switcher__input" name="switch1" id="switch11">
-                                                        <label for="switch12" class="switcher__label">
-                                                            <span class="switcher__icon"></span>
+                                                    <div class="filter__swither switcher" name="switcher1">
+                                                        <input type="checkbox" class="switcher__input" name="switch12" id="switch12">
+                                                        <label for="switch12" class="filter__swither-label switcher__label">
                                                             <span class="switcher__text switcher__text--left">Хиты продаж</span>
+                                                            <span class="switcher__icon"></span>
                                                         </label>
                                                     </div>
                                                 </li>
             
                                                 <li class="switchers__item">
-                                                    <div class="switcher" name="switcher2">
+                                                    <div class="filter__swither switcher" name="switcher2">
                                                         <input type="checkbox" class="switcher__input" name="switch1" id="switch22">
-                                                        <label for="switch22" class="switcher__label">
+                                                        <label for="switch22" class="filter__swither-label switcher__label">
                                                             <span class="switcher__text switcher__text--left">Товары со скидкой</span>
                                                             <span class="switcher__icon"></span>
                                                         </label>
@@ -3678,6 +3698,9 @@
 
                                 <div class="filter__row">
                                     <div class="filter__range range" data-range>
+                                        <div class="range__header">
+                                            <p class="range__heading heading heading--small">Цена, ₽ </p>
+                                        </div>
                                         <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
                                         <div class="range__group">
                                             <div class="range__group-field form__field">
