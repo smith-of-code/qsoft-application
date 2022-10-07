@@ -65,6 +65,10 @@
         }
     }
 
+    &--border {
+        border: rem(1px) solid $alto;
+    }
+
     &__heading {
         margin-bottom: rem(20px);
 
