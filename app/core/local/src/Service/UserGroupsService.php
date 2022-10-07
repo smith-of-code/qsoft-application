@@ -4,6 +4,7 @@ namespace QSoft\Service;
 
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserGroupTable;
+use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 
 class UserGroupsService
@@ -72,6 +73,62 @@ class UserGroupsService
             }
         }
         return $this->allGroups;
+    }
+
+    /**
+     * Добавляет пользователя в группу
+     * @param int $groupCode Символьный код группы (STRING_ID)
+     * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function addToGroup(int $groupCode) : bool
+    {
+        // Получим группы, если они ещё не были запрошены
+        $this->getAllUserGroups();
+        $this->getUserGroups();
+
+        if (! isset($this->allGroups[$groupCode])) {
+            throw new RuntimeException('User group does not exist');
+        }
+
+        // Добавим в группу
+        UserGroupTable::add([
+            'GROUP_ID' => $this->allGroups[$groupCode],
+            'USER_ID' => $this->user->id
+        ]);
+        $this->groups[$groupCode] = $this->allGroups[$groupCode];
+
+        return true;
+    }
+
+    /**
+     * Удаляет пользователя из группы
+     * @param int $groupCode Символьный код группы (STRING_ID)
+     * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function removeFromGroup(int $groupCode) : bool
+    {
+        // Получим группы, если они ещё не были запрошены
+        $this->getAllUserGroups();
+        $this->getUserGroups();
+
+        if (! isset($this->allGroups[$groupCode])) {
+            throw new RuntimeException('User group does not exist');
+        }
+
+        // Удалим из группы
+        UserGroupTable::delete([
+            'GROUP_ID' => $this->allGroups[$groupCode],
+            'USER_ID' => $this->user->id
+        ]);
+        unset($this->groups[$groupCode]);
+
+        return true;
     }
 
     /**

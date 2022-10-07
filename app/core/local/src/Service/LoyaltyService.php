@@ -34,60 +34,6 @@ class LoyaltyService
      */
     private DateTime $quarterStartDateTime;
 
-    private const LOYALTY_LEVEL_K1 = 'K1';
-    private const LOYALTY_LEVEL_K2 = 'K2';
-    private const LOYALTY_LEVEL_K3 = 'K3';
-
-    private const LOYALTY_LEVELS = [
-        self::LOYALTY_LEVEL_K1 => [
-            'label' => 'K1',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_1,
-            'referral_size' => 100,
-            'general_discount' => 7, // %
-            'bonuses_by_personal_discount' => 2,
-            'personal_bonuses_by_price' => [
-                'size' => 1,
-                'step' => 100,
-            ],
-            'group_bonuses_by_price' => [
-                'size' => 1,
-                'step' => 100,
-            ],
-        ],
-        self::LOYALTY_LEVEL_K2 => [
-            'label' => 'K2',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_2,
-            'upgrade_size' => 100,
-            'referral_size' => 150,
-            'general_discount' => 10, // %
-            'bonuses_by_personal_discount' => 2,
-            'personal_bonuses_by_price' => [
-                'size' => 2,
-                'step' => 100,
-            ],
-            'group_bonuses_by_price' => [
-                'size' => 2,
-                'step' => 200,
-            ],
-        ],
-        self::LOYALTY_LEVEL_K3 => [
-            'label' => 'K3',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_3,
-            'upgrade_size' => 300,
-            'referral_size' => 200,
-            'general_discount' => 12, // %
-            'bonuses_by_personal_discount' => 2,
-            'personal_bonuses_by_price' => [
-                'size' => 3,
-                'step' => 100,
-            ],
-            'group_bonuses_by_price' => [
-                'size' => 4,
-                'step' => 200,
-            ],
-        ],
-    ];
-
     /**
      * LoyaltyService constructor.
      * @param User $user
@@ -99,82 +45,81 @@ class LoyaltyService
 
     /**
      * Получение текущего уровня в программе лояльности
-     * @return string|null
+     * @return int
      */
-    public function getLoyaltyLevel() : ?string
+    public function getLoyaltyLevel() : int
     {
         if ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_3)) {
-            return self::LOYALTY_LEVEL_K3;
+            return 3;
         } elseif ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_2)) {
-            return self::LOYALTY_LEVEL_K2;
+            return 2;
         } elseif ($this->user->groups->isInAGroup($this->user->groups::USER_GROUP_CONSULTANT_1)) {
-            return self::LOYALTY_LEVEL_K1;
+            return 1;
         }
-        return null;
+        return 0;
     }
 
     /**
-     * Получить коэффициенты и параметры текущего уровня программы лояльности
+     * Получить коэффициенты и параметры уровня программы лояльности
+     * @param int $level Уровень программы лояльности
      * @return array|null
      */
-    public function getLoyaltyLevelInfo() : ?array
+    public function getLoyaltyLevelInfo(int $level) : ?array
     {
-        return self::LOYALTY_LEVELS[$this->getLoyaltyLevel()] ?? null;
-    }
-
-    /**
-     * Возвращает доту начала текущего квартала
-     * @return DateTime|null
-     */
-    public function getQuarterStartDate() : ?DateTime
-    {
-        if (! isset($this->quarterStartDateTime)) {
-            $this->quarterStartDateTime = DateTime::createFromTimestamp(Carbon::now()->startOfQuarter()->timestamp);
-        }
-        return $this->quarterStartDateTime;
+        return app('config')->get('loyalty_level_terms.consultant.'.$level) ?? null;
     }
 
     /**
      * Возвращает доступный пользователю уровень лояльности согласно текущим условиям
-     * @return string|null
+     * @return int
      * @throws ArgumentException
      * @throws ObjectPropertyException
      * @throws SystemException
      */
-    public function getAvailableLoyaltyLevel() : ?string
+    public function getAvailableLoyaltyLevelToUpgrade() : int
     {
-        $availableLevel = self::LOYALTY_LEVEL_K1;
+        $availableLevel = 1;
 
-        //Получим необходимые данные по затратам
-        $personalTotal = $this->user->orderAmount->getOrdersTotalSumForUser();
-        $teamTotal = $this->user->orderAmount->getOrdersTotalSumForUserTeam();
-
-        //Проверим возможность улучшения с уровня K1 на K2
-        $personalTotalToUpgrade = app('config')->get('loyalty_level_terms.consultant.terms.1.upgrade.self');
-        $teamTotalToUpgrade = app('config')->get('loyalty_level_terms.consultant.terms.1.upgrade.team');
-
-        if (! isset($personalTotalToUpgrade) || ! isset($teamTotalToUpgrade)) {
-            throw new RuntimeException('Config parameters not found');
-        }
-        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
-            $availableLevel = self::LOYALTY_LEVEL_K2;
-        }
-
-        unset($personalTotalToUpgrade);
-        unset($teamTotalToUpgrade);
-
-        //Проверим возможность улучшения с уровня K2 на K3
-        $personalTotalToUpgrade = app('config')->get('loyalty_level_terms.consultant.terms.2.upgrade.self');
-        $teamTotalToUpgrade = app('config')->get('loyalty_level_terms.consultant.terms.2.upgrade.team');
-
-        if (! isset($personalTotalToUpgrade) || ! isset($teamTotalToUpgrade)) {
-            throw new RuntimeException('Config parameters not found');
-        }
-        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
-            $availableLevel = self::LOYALTY_LEVEL_K3;
+        if ($this->checkIfCanUpgradeToLevel(3)) {
+            $availableLevel = 3;
+        } elseif ($this->checkIfCanUpgradeToLevel(2)) {
+            $availableLevel = 2;
         }
 
         return $availableLevel;
+    }
+
+    /**
+     * Проверяет возможность улучшения до конкретного уровня программы лояльности
+     * @param int $level Уровень программы лояльности
+     * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function checkIfCanUpgradeToLevel(int $level) : bool
+    {
+        $levelInfo = $this->getLoyaltyLevelInfo($level);
+
+        if (! isset($levelInfo)) {
+            throw new RuntimeException('Config parameters not found');
+        }
+
+        //Получим необходимые данные по затратам
+        $selfPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) - 1) * (-1));
+        $teamPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) - 1) * (-1));
+        $personalTotal = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodEnd);
+        $teamTotal = $this->user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodEnd);
+
+        $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
+        $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
+
+        // Проверяем условия
+        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -195,24 +140,15 @@ class LoyaltyService
         }
 
         // Получим доступный для перехода уровень
-        $availableLevel = $this->getAvailableLoyaltyLevel();
-
-        if (! isset($availableLevel)) {
-            return false;
-        }
+        $availableLevel = $this->getAvailableLoyaltyLevelToUpgrade();
 
         if ($currentLevel !== $availableLevel) {
             // Удаляем пользователя из текущей группы
             $groups = $this->user->groups->getAllUserGroups();
-            UserGroupTable::delete([
-                'GROUP_ID' => $groups[self::LOYALTY_LEVELS[$currentLevel]['group']],
-                'USER_ID' => $this->user->id
-            ]);
+            $this->user->groups->removeFromGroup($groups[$this->getLoyaltyLevelInfo($currentLevel)['group']]);
             // Устанавливаем пользователю соответствующий уровень в программе лояльности
-            UserGroupTable::add([
-                'GROUP_ID' => $groups[self::LOYALTY_LEVELS[$availableLevel]['group']],
-                'USER_ID' => $this->user->id
-            ]);
+            $this->user->groups->addToGroup($groups[$this->getLoyaltyLevelInfo($availableLevel)['group']]);
+            //TODO: Начисление баллов за переход
             return true;
         }
         return false;
@@ -224,7 +160,7 @@ class LoyaltyService
      */
     static public function getAmountOfLevels() : int
     {
-        return count(self::LOYALTY_LEVELS);
+        return count(app('config')->get('loyalty_level_terms.consultant'));
     }
 
     /**
@@ -233,6 +169,6 @@ class LoyaltyService
      */
     static public function getLoyaltyLevels() : array
     {
-        return self::LOYALTY_LEVELS;
+        return app('config')->get('loyalty_level_terms.consultant');
     }
 }

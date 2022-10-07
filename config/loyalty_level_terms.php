@@ -1,34 +1,115 @@
 <?php
 
+use QSoft\Service\UserGroupsService;
+
+/**
+ * Настройки Программы лояльности
+ *
+ * Ограничения:
+ * - self_period_months - Задается числом, кратным 3 (число месяцев в квартале)
+ * - team_period_months - Задается числом, кратным 3 (число месяцев в квартале)
+ *
+ * Виды начислений бонусных баллов:
+ * - personal_bonuses_for_cost - бонусные баллы за личную покупку, от стоимости заказа после применения скидок;
+ * - personal_bonuses_for_stock - бонусные баллы за личную покупку, от стоимости товара после применения Персональной акции;
+ * - group_bonuses_for_cost - бонусные баллы за групповую покупку, от стоимости заказа члена группы после применения скидок;
+ * - upgrade_level_bonuses - бонус за переход на заданный уровень;
+ */
 return [
     'consultant' => [
-        'reporting_period_months' => '3',
-        'terms' => [
-            '1' => [
-                'hold' => [
-                    'self' => 5000.0
-                ],
-                'upgrade' => [
-                    'self' => 10000.0,
-                    'team' => 10000.0
-                ]
+        '1' => [
+            'label' => 'K1',
+            'group' => UserGroupsService::USER_GROUP_CONSULTANT_1,
+            'hold_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за месяц (руб)
+                'self_period_months' => 3, // Количество месяцев
             ],
-            '2' => [
-                'hold' => [
-                    'self' => 5000.0,
-                    'team' => 7000.0
+            'benefits' => [
+                'referral_size' => 100, // Бонус за приглашение Консультанта (ББ)
+                'personal_discount' => 7, // Персональная скидка на все товары (%)
+                'start_kit_discount' => [
+                    'discount' => 0, // Скидка на стартовый набор Консультанта (%)
+                    'availability_period' => 14 // Сколько дней доступна скидка с момента регистрации
                 ],
-                'upgrade' => [
-                    'self' => 50000.0,
-                    'team' => 100000.0
-                ]
+                'personal_bonuses_for_cost' => [
+                    'size' => 1, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'personal_bonuses_for_stock' => [
+                    'size' => 2, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'group_bonuses_for_cost' => [
+                    'size' => 1, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
             ],
-            '3' => [
-                'hold' => [
-                    'self' => 10000.0,
-                    'team' => 20000.0
-                ]
-            ]
+        ],
+        '2' => [
+            'label' => 'K2',
+            'group' => UserGroupsService::USER_GROUP_CONSULTANT_2,
+            'hold_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за месяц (руб)
+                'self_period_months' => 3,  // Количество месяцев
+                'team_total' => 7000.0, // Сумма групповых покупок за месяц (руб)
+                'team_period_months' => 3,  // Количество месяцев
+            ],
+            'upgrade_level_terms' => [
+                'self_total' => 10000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 3,  // Количество месяцев (продолжительность периода)
+                'team_total' => 10000.0, // Сумма групповых покупок за период (руб)
+                'team_period_months' => 3,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'referral_size' => 150, // Бонус за приглашение Консультанта (ББ)
+                'personal_discount' => 10, // Персональная скидка на все товары (%)
+                'personal_bonuses_for_cost' => [
+                    'size' => 2, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'personal_bonuses_for_stock' => [
+                    'size' => 2, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'group_bonuses_for_cost' => [
+                    'size' => 2, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 200,
+                ],
+                'upgrade_level_bonuses' => 100, // Бонус (ББ) за переход на этот уровень
+            ],
+        ],
+        '3' => [
+            'label' => 'K3',
+            'group' => UserGroupsService::USER_GROUP_CONSULTANT_3,
+            'hold_level_terms' => [
+                'self_total' => 10000.0, // Сумма личных покупок за месяц (руб)
+                'self_period_months' => 3,  // Количество месяцев
+                'team_total' => 20000.0, // Сумма групповых покупок за месяц (руб)
+                'team_period_months' => 3,  // Количество месяцев
+            ],
+            'upgrade_level_terms' => [
+                'self_total' => 50000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 6,  // Количество месяцев (продолжительность периода)
+                'team_total' => 100000.0, // Сумма групповых покупок за период (руб)
+                'team_period_months' => 6,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'referral_size' => 150, // Бонус за приглашение Консультанта (ББ)
+                'personal_discount' => 12, // Персональная скидка на все товары (%)
+                'personal_bonuses_for_cost' => [
+                    'size' => 3, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'personal_bonuses_for_stock' => [
+                    'size' => 2, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 100,
+                ],
+                'group_bonuses_for_cost' => [
+                    'size' => 4, // Бонус (ББ) за каждые STEP рублей
+                    'step' => 200,
+                ],
+                'upgrade_level_bonuses' => 300, // Бонус (ББ) за переход на этот уровень + удержание в течении 6 месяцев
+            ],
         ]
     ],
     'customer' => [
