@@ -24,17 +24,17 @@
 	}
 
 	&__list {
-        flex-basis: percentage(1 / 2);
+        width: percentage(1 / 2);
         
 		margin-top: rem($gap-big);
         padding: 0 rem(18px);
 
         @media #{$screen-tablet} {
-            flex-basis: percentage(1 / 4);
+            width: percentage(1 / 4);
         }
 
         @media #{$screen-desktop} {
-            flex-basis: auto;
+            width: auto;
 
             min-width: rem(200px);
             padding: 0 rem($gap-big);
