@@ -11,6 +11,16 @@
         }
     }
 
+    &--small & {
+        &__item {
+            padding: 0;
+        }
+
+        &__header {
+            justify-content: flex-start;
+        }
+    }
+
     &__item {
         padding: rem(20px) rem($gap-medium);
 

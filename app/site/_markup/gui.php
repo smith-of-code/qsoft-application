@@ -3584,6 +3584,160 @@
                     </div>
                     <!--/Шаги-->
 
+                    <!--Фильтр-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Фильтр</h2>
+
+                        <div class="filter" style="width: 270px">
+                            <form class="form">
+                                <div class="filter__row">
+                                    <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
+                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                            <div class="accordeon__header" data-accordeon-toggle>
+                                                <h5 class="accordeon__title">Для собак</h5>
+            
+                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                    <span class="accordeon__toggle-icon button__icon">
+                                                        <svg class="icon icon--arrow-down">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+            
+                                            </div>
+            
+                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                                                <div class="catalog">
+                                                    <ul class="catalog__list">
+                                                        <li class="catalog__item">Сухие корма</li>
+                                                        <li class="catalog__item">Влажные корма</li>
+                                                        <li class="catalog__item">Лакомства</li>
+                                                        <li class="catalog__item">Аксессуары</li>
+                                                        <li class="catalog__item">Появился щенок</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                            <div class="accordeon__header" data-accordeon-toggle>
+                                                <h5 class="accordeon__title">Для кошек</h5>
+            
+                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                                    <span class="accordeon__toggle-icon button__icon">
+                                                        <svg class="icon icon--arrow-down">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+            
+                                            </div>
+            
+                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                                                <div class="catalog">
+                                                    <ul class="catalog__list">
+                                                        <li class="catalog__item">Сухие корма</li>
+                                                        <li class="catalog__item">Влажные корма</li>
+                                                        <li class="catalog__item">Лакомства</li>
+                                                        <li class="catalog__item">Аксессуары</li>
+                                                        <li class="catalog__item">Появился щенок</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="filter__row">
+                                    <div class="filter__options">
+                                        <div class="switchers">
+                                            <ul class="switchers__list">
+                                                <li class="switchers__item">
+                                                    <div class="switcher" name="switcher1">
+                                                        <input type="checkbox" class="switcher__input" name="switch1" id="switch11">
+                                                        <label for="switch12" class="switcher__label">
+                                                            <span class="switcher__icon"></span>
+                                                            <span class="switcher__text switcher__text--left">Хиты продаж</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+            
+                                                <li class="switchers__item">
+                                                    <div class="switcher" name="switcher2">
+                                                        <input type="checkbox" class="switcher__input" name="switch1" id="switch22">
+                                                        <label for="switch22" class="switcher__label">
+                                                            <span class="switcher__text switcher__text--left">Товары со скидкой</span>
+                                                            <span class="switcher__icon"></span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="filter__row">
+                                    <div class="filter__range range" data-range>
+                                        <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                                        <div class="range__group">
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="min">
+                                                        от
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="max">
+                                                        до
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__range range" data-range>
+                                        <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                                        <div class="range__group">
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="min">
+                                                        от
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="max">
+                                                        до
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="filter__row"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--/Фильтр-->
+
                     <!--Данные о питомцах-->
                     <div class="gui__block">
                         <h2 class="gui__title">Данные о питомцах</h2>
