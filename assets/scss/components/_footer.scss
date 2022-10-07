@@ -1,0 +1,100 @@
+.footer {
+	background-color: $tuna;
+
+    &__container {
+        padding-top: rem($gap-big);
+        padding-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            padding-top: rem($gap-normal);
+        }
+    }
+
+	&__nav {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-big) rem(-18px) rem(36px);
+
+		@media #{$screen-desktop} {
+            flex-wrap: nowrap;
+
+            margin: rem(-$gap-big) rem(-$gap-big) rem($gap-medium);
+		}
+	}
+
+	&__list {
+        width: percentage(1 / 2);
+        
+		margin-top: rem($gap-big);
+        padding: 0 rem(18px);
+
+        @media #{$screen-tablet} {
+            width: percentage(1 / 4);
+        }
+
+        @media #{$screen-desktop} {
+            width: auto;
+
+            min-width: rem(200px);
+            padding: 0 rem($gap-big);
+        }
+	}
+
+	&__item {
+        font-size: rem($font-size-mini);
+        line-height: ($line-height-small / $font-size-mini);
+
+		margin-bottom: rem($gap-small);
+        
+        letter-spacing: 0.02em;
+
+        color: $white;
+
+        @include resetting-vertical-indentation-of-last;
+
+        &--heading {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-bold;
+            line-height: ($line-height-normal / $font-size-mini);
+        }
+	}
+
+	&__link {
+        transition: color $transition-duration $transition-function,
+                    border-color $transition-duration $transition-function,
+                    background-color $transition-duration $transition-function;
+        text-decoration: none;
+
+        color: inherit;
+
+        &:hover {
+            color: $brickRed;
+        }
+
+        &:focus {
+            color: $mandy2;
+        }
+	}
+
+    &__social {
+        margin-bottom: rem($gap-medium);
+        padding: rem($gap-small) 0;
+
+        border-top: rem(1px) solid #494953;
+        border-bottom: rem(1px) solid #494953;
+    }
+
+	&__bottom {
+        margin-top: rem($gap-medium);
+	}
+
+	&__copyright {
+        font-size: $font-size-miniature;
+        line-height: ($line-height-miniature / $font-size-miniature);
+
+        letter-spacing: 0.02em;
+
+        color: $white;
+	}
+}
