@@ -24,9 +24,11 @@
                             </div>
                         </div>
 
+                        <!--Каталог-->
                         <div class="header__block header__block--catalog catalog">
                             <div class="header__catalog">
                                 <div class="dropdown dropdown--menu" data-dropdown>
+                                    <!--кнопка основная-->
                                     <div class="header__catalog-button header__catalog-button--main">
                                         <button type="button" class="button button--big button--square button--covered button--red button--heavy" data-dropdown-button>
                                             <span class="button__icon">
@@ -37,7 +39,9 @@
                                             <span class="button__text">Каталог</span>
                                         </button>
                                     </div>
+                                    <!--/кнопка основная-->
 
+                                    <!--кнопка на МВ-->
                                     <div class="header__catalog-button header__catalog-button--hidden">
                                         <button type="button" class="button button--covered button--square button--small button--red button--burger" data-dropdown-button>
                                             <span class="button__icon button__icon--medium">
@@ -47,7 +51,9 @@
                                             </span>
                                         </button>
                                     </div>
+                                    <!--/кнопка на МВ-->
 
+                                    <!--дропдаун каталога-->
                                     <div class="menu dropdown__box box box--shading" data-dropdown-block>
                                         <div class="dropdown__close" data-dropdown-close>
                                             <svg class="dropdown__close-icon icon icon--close-square">
@@ -158,9 +164,11 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <!--/дропдаун каталога-->
                                 </div>
                             </div>
                         </div>
+                        <!--Каталог-->
 
                         <!--Поиск-->
                         <div class="header__block header__block--search search">
@@ -422,6 +430,7 @@
                 </div>
             </div>
 
+            <!--нижнее меню-->
             <div class="header__row header__row--nav">
                 <div class="container">
                     <div class="header__wrapper">
@@ -460,6 +469,7 @@
                     </div>
                 </div>
             </div>
+            <!--/нижнее меню-->
         </header>
         <!--/header-->
 
@@ -4369,8 +4379,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio11" checked>
-                                                                <label for="radio11">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r11" id="radio11p" checked>
+                                                                <label for="radio11p">
                                                                     <div class="pack__item">600 г</div>
                                                                 </label>
                                                             </div>
@@ -4380,8 +4390,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio22">
-                                                                <label for="radio22">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r22" id="radio22p">
+                                                                <label for="radio22p">
                                                                     <div class="pack__item">1 кг</div>
                                                                 </label>
                                                             </div>
@@ -4391,8 +4401,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio33">
-                                                                <label for="radio33">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r33" id="radio33p">
+                                                                <label for="radio33p">
                                                                     <div class="pack__item">3 кг</div>
                                                                 </label>
                                                             </div>
@@ -4402,8 +4412,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio44">
-                                                                <label for="radio44">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r44" id="radio44p">
+                                                                <label for="radio44p">
                                                                     <div class="pack__item">5 кг</div>
                                                                 </label>
                                                             </div>
@@ -4413,8 +4423,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio55">
-                                                                <label for="radio55">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r55" id="radio55p">
+                                                                <label for="radio55p">
                                                                     <div class="pack__item">7 кг</div>
                                                                 </label>
                                                             </div>
@@ -4424,8 +4434,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio66">
-                                                                <label for="radio66">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r66" id="radio66p">
+                                                                <label for="radio66p">
                                                                     <div class="pack__item">10 кг</div>
                                                                 </label>
                                                             </div>
@@ -4435,8 +4445,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio77">
-                                                                <label for="radio77">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11p" value="r77" id="radio77p">
+                                                                <label for="radio77p">
                                                                     <div class="pack__item">15 кг</div>
                                                                 </label>
                                                             </div>
@@ -4552,8 +4562,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
-                                                                <label for="radio">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radioc" checked>
+                                                                <label for="radioc">
                                                                     <div class="color__item color__item--pink"></div>
                                                                 </label>
                                                             </div>
@@ -4563,8 +4573,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
-                                                                <label for="radio2">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2c">
+                                                                <label for="radio2c">
                                                                     <div class="color__item color__item--blue"></div>
                                                                 </label>
                                                             </div>
@@ -4574,8 +4584,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
-                                                                <label for="radio3">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3c">
+                                                                <label for="radio3c">
                                                                     <div class="color__item color__item--green"></div>
                                                                 </label>
                                                             </div>
@@ -4585,8 +4595,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
-                                                                <label for="radio4">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4c">
+                                                                <label for="radio4c">
                                                                     <div class="color__item color__item--yellow"></div>
                                                                 </label>
                                                             </div>
@@ -4596,8 +4606,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
-                                                                <label for="radio5">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5c">
+                                                                <label for="radio5c">
                                                                     <div class="color__item color__item--red"></div>
                                                                 </label>
                                                             </div>
@@ -4607,8 +4617,8 @@
                                                     <li class="colors__item">
                                                         <div class="color">
                                                             <div class="radio">
-                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
-                                                                <label for="radio6">
+                                                                <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6c">
+                                                                <label for="radio6c">
                                                                     <div class="color__item color__item--violet"></div>
                                                                 </label>
                                                             </div>
@@ -4723,8 +4733,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio11" checked>
-                                                                <label for="radio11">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio111p" checked>
+                                                                <label for="radio111p">
                                                                     <div class="pack__item">600 г</div>
                                                                 </label>
                                                             </div>
@@ -4734,8 +4744,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio22">
-                                                                <label for="radio22">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio221p">
+                                                                <label for="radio221p">
                                                                     <div class="pack__item">1 кг</div>
                                                                 </label>
                                                             </div>
@@ -4745,8 +4755,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio33">
-                                                                <label for="radio33">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio331p">
+                                                                <label for="radio331p">
                                                                     <div class="pack__item">3 кг</div>
                                                                 </label>
                                                             </div>
@@ -4756,8 +4766,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio44">
-                                                                <label for="radio44">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio441p">
+                                                                <label for="radio441p">
                                                                     <div class="pack__item">5 кг</div>
                                                                 </label>
                                                             </div>
@@ -4767,8 +4777,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio55">
-                                                                <label for="radio55">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio551p">
+                                                                <label for="radio551p">
                                                                     <div class="pack__item">7 кг</div>
                                                                 </label>
                                                             </div>
@@ -4778,8 +4788,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio66">
-                                                                <label for="radio66">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio661p">
+                                                                <label for="radio661p">
                                                                     <div class="pack__item">10 кг</div>
                                                                 </label>
                                                             </div>
@@ -4789,8 +4799,8 @@
                                                     <li class="packs__item">
                                                         <div class="pack">
                                                             <div class="radio">
-                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio77">
-                                                                <label for="radio77">
+                                                                <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio771p">
+                                                                <label for="radio771p">
                                                                     <div class="pack__item">15 кг</div>
                                                                 </label>
                                                             </div>
