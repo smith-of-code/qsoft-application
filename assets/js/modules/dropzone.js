@@ -22,12 +22,14 @@ const targetUrl = locationHref.replace(locationOrigin, '');
 
 const ELEMENTS_SELECTOR = {
     uploaderContainer: '[data-uploader]',
+    uploaderError: '[data-uploader-error]',
     uploaderArea: '[data-uploader-area]',
     uploaderPreviews: '[data-uploader-previews]',
     uploaderPreview: '[data-uploader-preview]',
     uploaderPreviewFilename: '[data-uploader-preview-filename]',
     uploaderPreviewFileFormat: '[data-uploader-preview-format]',
     uploaderPreviewFileSize: '[data-uploader-preview-size]',
+
 };
 
 const DATA_ATTRIBUTES = {
@@ -46,34 +48,36 @@ const baseConfig = {
     maxFileSize: 5, // Mb
     previewTemplate: `
         <div class="file" data-uploader-preview>
-            <div class="file__prewiew">
-                <div class="file__icon">
-                    <svg class="icon icon--gallery">
-                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-gallery"></use>
-                    </svg>
+            <div class="file__wrapper">
+                <div class="file__prewiew">
+                    <div class="file__icon">
+                        <svg class="icon icon--gallery">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-gallery"></use>
+                        </svg>
+                    </div>
+
+                    <div class="file__name">
+                        <h6 class="file__name-heading heading heading--tiny" data-uploader-preview-filename></h6>
+                    </div>
                 </div>
 
-                <div class="file__name">
-                    <h6 class="file__name-heading heading heading--tiny" data-uploader-preview-filename></h6>
+                <div class="file__info">
+                    <div class="file__format" data-uploader-preview-format></div>
+
+                    <div class="file__weight" data-uploader-preview-size></div>
+
+                    <div class="file__delete" data-dz-remove>
+                        <button type="button" class="file__delete-button button button--iconed button--simple button--gray">
+                            <span class="file__delete-button-icon button__icon">
+                                <svg class="icon icon--delete">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <div class="file__info">
-                <div class="file__format" data-uploader-preview-format></div>
-
-                <div class="file__weight" data-uploader-preview-size></div>
-
-                <div class="file__delete" data-dz-remove>
-                    <button type="button" class="file__delete-button button button--iconed button--simple button--gray">
-                        <span class="file__delete-button-icon button__icon">
-                            <svg class="icon icon--delete">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="dropzone__previews-item-error" data-dz-errormessage></div>
+            <div class="file__error" data-dz-errormessage></div>
         </div>
     `
 };
@@ -158,15 +162,36 @@ function uploadFiles(el) {
                     fileType = _file.substr(_file.lastIndexOf('.') + 1, _file.length),
                     fileSize = file.size;
 
+                if (initParams.single === true) {
+                    let _error = $($parentContainer).find(ELEMENTS_SELECTOR.uploaderError);
+                    _error.text('');
+                }
+
                 _filePreviewName.html(fileNameCut(fileName));
                 _filePreviewFormat.html(fileType);
                 _filePreviewSize.html(formatBytes(fileSize));
+            });
 
+            self.on("maxfilesexceeded", function (file) {
+                if (initParams.single === true) {
+                    this.removeAllFiles();
+                    this.addFile(file);
+                }
+            });
+
+            self.on('error', (file, message) => {
+                if (initParams.single === true) {
+                    let _error = $($parentContainer).find(ELEMENTS_SELECTOR.uploaderError);
+
+                    _error.text(message);
+                    this.removeAllFiles();
+                }
             });
 
             self.on('success', (file, data) => {
-                let _data = JSON.parse(data);
-                file.id = _data['FILE_ID'];
+                // для интеграции
+                // let _data = JSON.parse(data);
+                // file.id = _data['FILE_ID'];
             });
         },
     });
