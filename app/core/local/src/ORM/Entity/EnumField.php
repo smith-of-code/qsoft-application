@@ -13,9 +13,7 @@ class EnumField extends BaseEnumField
 {
     public function __construct(string $fieldName, array $parameters, string $tableName)
     {
-        if ($parameters['values']) {
-            $parameters['values'] = self::getEnumValues($tableName, $fieldName);
-        }
+        $parameters['values'] = self::getEnumValues($tableName, $fieldName);
         parent::__construct($fieldName, $parameters);
     }
 
