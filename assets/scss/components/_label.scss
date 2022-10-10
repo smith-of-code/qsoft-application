@@ -1,0 +1,24 @@
+.label {
+    font-size: rem(6px);
+    line-height: rem(10px);
+
+    display: inline-block;
+
+    padding: rem(2px) rem($gap-small);
+
+    color: $white;
+    border-radius: rem($border-radius-small);
+
+    @media #{$screen-desktop} {
+        font-size: rem($font-size-miniature);
+        line-height: rem($line-height-small);
+    }
+
+    &--pink{
+        background-color: $hibiscus;
+    }
+
+    &--violet{
+        background-color: $wisteria;
+    }
+}

@@ -1,21 +1,23 @@
 .file {
-    display: flex;
-    flex-direction: column;
-
     padding-bottom: rem($gap-average);
 
     border-bottom: rem(1px) solid $alto;
-
-    @media #{$screen-tablet} {
-        align-items: center;
-        flex-direction: row;
-    }
 
     & + & {
         margin-top: rem($gap-average);
 
         @media #{$screen-tablet} {
             margin-top: rem($gap-medium);
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+
+        @media #{$screen-tablet} {
+            align-items: center;
+            flex-direction: row;
         }
     }
 
@@ -121,5 +123,14 @@
                 }
             }
         }
+    }
+
+    &__error {
+        font-size: rem($font-size-tiny);
+        line-height: rem(14px);
+
+        margin-top: rem(5px);
+
+        color: $brickRed;
     }
 }

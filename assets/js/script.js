@@ -31,6 +31,13 @@
  import steps from './modules/steps';
  import inputmask from './modules/inputmask';
  import addPets from './modules/add-pets';
+ import registration from './modules/registration';
+ import validation from './modules/validation';
+ import accordeon from './modules/accordeon';
+ import fancybox from './modules/fancybox';
+ import technicalSupport from './modules/technicalSupport';
+ import addFavourite from './modules/add-favourite';
+
 
 
  const app = {
@@ -55,6 +62,13 @@
         steps();
         inputmask();
         addPets();
+        registration();
+        validation();
+        accordeon();
+        fancybox();
+        technicalSupport();
+        addFavourite();
+
     },
 
     load() {

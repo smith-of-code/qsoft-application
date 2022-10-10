@@ -84,7 +84,7 @@
         }
 
         @media #{$screen-desktop} {
-            width: rem(220px);
+            width: rem(200px);
         }
     }
 
@@ -101,7 +101,7 @@
         }
 
         @media #{$screen-desktop} {
-            width: rem(240px);
+            width: rem(200px);
         }
     }
 
@@ -124,7 +124,7 @@
         @include text-small;
 
         width: rem(80px);
-        margin-left: rem($gap-big);
+        margin-left: rem($gap-medium);
     }
 
     &__actions {

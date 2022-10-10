@@ -1,0 +1,55 @@
+.requirement {
+    padding: rem(20px) rem($gap-medium);
+
+    @media #{$screen-desktop} {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__col {
+        &--right {
+            margin-top: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                margin-top: 0;
+                margin-left: rem($gap-average);
+            }
+        }
+    }
+
+    &__text {
+        @include text-miniature;
+    }
+
+    &__list {
+        @include text-miniature;
+    }
+
+    &__item {
+        $size-dot: 3px;
+
+        position: relative;
+
+        margin-bottom: rem($gap-mini);
+        padding-left: rem(10px);
+
+        color: $saltBox;
+
+        &::before {
+            position: absolute;
+            top: em(8px); // magic num
+            left: 0;
+
+            display: block;
+
+            width: rem($size-dot);
+            height: rem($size-dot);
+
+            content: "";
+
+            color: $saltBox;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+    }
+}
