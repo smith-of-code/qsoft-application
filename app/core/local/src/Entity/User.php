@@ -9,6 +9,7 @@ use CUserFieldEnum;
 use QSoft\Service\BonusAccountService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\TransactionsService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -34,6 +35,10 @@ class User
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
+    /**
+     * @var TransactionsService Объект для работы с транзакциями
+     */
+    public TransactionsService $transactions;
 
     /**
      * @var int ID пользователя
@@ -159,6 +164,7 @@ class User
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->transactions = new TransactionsService($this);
     }
 
     /**

@@ -8,6 +8,9 @@ use RuntimeException;
 class UserEventsListener
 {
 
+    /**
+     * @throws \Exception
+     */
     public static function OnBeforeUserUpdate(array $fields)
     {
         // Пользователь, для которого вносятся изменения

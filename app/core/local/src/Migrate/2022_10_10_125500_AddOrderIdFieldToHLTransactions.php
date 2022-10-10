@@ -67,7 +67,13 @@ final class AddOrderIdFieldToHLTransactions extends AbstractMigration
 
         $userTypeEntity = new CUserTypeEntity();
 
-        $fieldId = CUserFieldEnum::GetList([], ['XML_ID' => 'UF_ORDER_ID'])->Fetch()['ID'];
+        $fieldId = $userTypeEntity->GetList(
+            [],
+            [
+                'ENTITY_ID' => 'HLBLOCK_' . $hlblock['ID'],
+                'FIELD_NAME' => 'UF_ORDER_ID'
+            ]
+        )->Fetch()['ID'];
 
         $userTypeEntity->Delete($fieldId);
     }
