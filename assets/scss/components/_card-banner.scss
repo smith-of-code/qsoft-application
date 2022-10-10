@@ -1,5 +1,5 @@
 .card-banner {
-    padding: rem($gap-average);
+    padding: rem($gap-normal) rem(20px);
 
     border-radius: rem($border-radius-average);
     background-color: $athensGray;
@@ -24,35 +24,27 @@
     }
 
     &__title {
-        font-size: rem($font-size-average);
-        font-weight: $font-weight-bold;
-        line-height: ($line-height-normal / $font-size-average);
+        @include title-2;
+
+        @include text-truncate-by-row(3);
 
         margin-bottom: rem($gap-average);
 
         color: $tuna;
 
         @media #{$screen-tablet} {
-            font-size: rem($font-size-large);
-            line-height: ($line-height-large / $font-size-large);
-
             margin-bottom: rem(14px);
         }
     }
 
     &__text {
-        font-size: rem($font-size-small);
-        font-weight: $font-weight-medium;
-        line-height: ($line-height-small);
+        @include text-average($font-weight-medium);
+
+        @include text-truncate-by-row(3);
 
         margin-bottom: rem(3px);
 
         color: $codGray;
-
-        @media #{$screen-tablet} {
-            font-size: rem($font-size-average);
-            line-height: ($line-height-average / $font-size-average);
-        }
     }
 
     &__pagination {

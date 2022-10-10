@@ -35,7 +35,6 @@ export default function () {
             case 'main':
                 paramsCustom = {
                     slidesPerView: 1,
-                    autoHeight: true,
                     centeredSlides: true,
                     pagination: {
                         el: pagination,
