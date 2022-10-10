@@ -4,7 +4,7 @@ namespace QSoft\Service;
 
 use Bitrix\Main\GroupTable;
 
-class UserGroupHepler
+class UserGroupHelper
 {
     /**
      * Возвращает все группы пользователей в виде пар соответствий символьного идентификатора и ID.

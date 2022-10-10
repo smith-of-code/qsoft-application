@@ -203,7 +203,7 @@ class LoyaltyService
 
         if ($currentLevel !== $availableLevel) {
             // Удаляем пользователя из текущей группы
-            $groups = $this->user->groups->getAllUserGroups();
+            $groups = UserGroupHelper::getAllUserGroups();
             UserGroupTable::delete([
                 'GROUP_ID' => $groups[self::LOYALTY_LEVELS[$currentLevel]['group']],
                 'USER_ID' => $this->user->id
