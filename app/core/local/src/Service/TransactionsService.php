@@ -45,15 +45,7 @@ class TransactionsService
     public function getTypesIds() : array
     {
         if (empty($this->types)) {
-            // Получим сведения о UF-поле объекта
-            $res = UserFieldHelper::getUserField('HLBLOCK_' . $this->hlId, 'UF_TYPE');
-            if ($res) {
-                // Получим значения UF-поля объекта
-                $vals = UserFieldHelper::getUserFieldEnumValues($res['ID']);
-                foreach ($vals as $val) {
-                    $this->types[$val['XML_ID']] = $val['ID'];
-                }
-            }
+            $this->types = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_TYPE');
         }
         return $this->types;
     }
@@ -65,15 +57,7 @@ class TransactionsService
     public function getSourcesIds() : array
     {
         if (empty($this->sources)) {
-            // Получим сведения о UF-поле объекта
-            $res = UserFieldHelper::getUserField('HLBLOCK_' . $this->hlId, 'UF_SOURCE');
-            if ($res) {
-                // Получим значения UF-поля объекта
-                $vals = UserFieldHelper::getUserFieldEnumValues($res['ID']);
-                foreach ($vals as $val) {
-                    $this->sources[$val['XML_ID']] = $val['ID'];
-                }
-            }
+            $this->sources = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_SOURCE');
         }
         return $this->sources;
     }
@@ -85,15 +69,7 @@ class TransactionsService
     public function getMeasuresIds() : array
     {
         if (empty($this->measures)) {
-            // Получим сведения о UF-поле объекта
-            $res = UserFieldHelper::getUserField('HLBLOCK_' . $this->hlId, 'UF_MEASURE');
-            if ($res) {
-                // Получим значения UF-поля объекта
-                $vals = UserFieldHelper::getUserFieldEnumValues($res['ID']);
-                foreach ($vals as $val) {
-                    $this->measures[$val['XML_ID']] = $val['ID'];
-                }
-            }
+            $this->measures = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_MEASURE');
         }
         return $this->measures;
     }
