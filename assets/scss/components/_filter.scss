@@ -1,7 +1,49 @@
 .filter {
-    &__block {
+    &--active & {
+        &__wrapper {
+            @media #{$screen-device-only} {
+                @include position-stretching(fixed, $z-index-popup);
+
+                display: block;
+
+                margin: 0 rem($gap-medium);
+            }
+        }
+
+        &__block {
+            @media #{$screen-device-only} {
+                position: absolute;
+                z-index: 10;
+                top: 50%;
+                left: 50%;
+
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        &__background {
+            @media #{$screen-device-only} {
+                position: fixed;
+                top: 0;
+                left: 0;
+
+                height: 100%;
+                width: 100%;
+
+                background: rgba($tuna, .9);
+            }
+        }
+    }
+
+    &__wrapper {
         display: none;
 
+        @media #{$screen-desktop} {
+            display: block;
+        }
+    }
+
+    &__block {
         width: 100%;
         max-width: rem(540px);
         height: calc(100vh - 100px);
@@ -17,8 +59,6 @@
         @media #{$screen-desktop} {
             position: static;
 
-            display: block;
-
             height: auto;
             margin: 0;
             padding: rem($gap-big) rem(20px) rem(48px);
@@ -26,17 +66,6 @@
             transform: translate(0);
 
             border: rem(1px) solid $alto;
-        }
-
-        &--active {
-            position: fixed;
-            z-index: 150;
-            top: 50%;
-            left: 50%;
-
-            transform: translate(-50%, -50%);
-
-            display: block;
         }
     }
 

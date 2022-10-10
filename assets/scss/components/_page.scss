@@ -12,6 +12,14 @@
         @media #{$screen-tablet} {
             padding-right: rem($WIDTH_SCROLLBAR);
         }
+
+        &-mobile {
+            @media #{$screen-device-only} {
+                overflow: hidden;
+
+                padding-right: rem($WIDTH_SCROLLBAR);
+            }
+        }
     }
 
     &__header {

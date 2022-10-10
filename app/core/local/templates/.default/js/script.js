@@ -1384,17 +1384,18 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
   button: '[data-filter-button]',
   filterBlock: '[data-filter-block]',
+  background: '[data-filter-bg]',
   close: '[data-filter-close]',
   filter: '[data-filter]'
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   $(document).on('click', ELEMENTS_SELECTOR.button, function () {
-    $(ELEMENTS_SELECTOR.filter).find(ELEMENTS_SELECTOR.filterBlock).toggleClass('filter__block--active');
-    $('.page').addClass('page--locked');
+    $(this).closest(ELEMENTS_SELECTOR.filter).toggleClass('filter--active');
+    $('.page').toggleClass('page--locked-mobile');
   });
-  $(document).on('click', ELEMENTS_SELECTOR.close, function () {
-    $(ELEMENTS_SELECTOR.filterBlock).removeClass('filter__block--active');
-    $('.page').removeClass('page--locked');
+  $(document).on('click', "".concat(ELEMENTS_SELECTOR.close, ", ").concat(ELEMENTS_SELECTOR.background), function () {
+    $(this).closest(ELEMENTS_SELECTOR.filter).removeClass('filter--active');
+    $('.page').removeClass('page--locked-mobile');
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
