@@ -164,6 +164,14 @@
     &__previews {
         margin-top: rem($gap-medium);
 
+        &--small {
+            .file {
+                &__name {
+                    width: rem(140px);
+                }
+            }
+        }
+
         &-picture {
             @include position-stretching;
 
@@ -228,5 +236,14 @@
                 right: 0;
             }
         }
+    }
+
+    &__error {
+        font-size: rem($font-size-tiny);
+        line-height: rem(14px);
+
+        color: $brickRed;
+
+        margin-top: rem(5px);
     }
 }

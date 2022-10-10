@@ -2743,8 +2743,7 @@
                                     </div>
                                 </div>
 
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
+                                <div class="dropzone__error" data-uploader-error></div>
                             </div>
                         </div>
                     </div>
@@ -3312,7 +3311,7 @@
                                                                 </button>
                                                             </div>
                             
-                                                            <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                                            <div class="dropzone__previews dropzone__previews--small dz-previews" data-uploader-previews>
                                                             </div>
                                                         </div>
                                                     </div>
