@@ -42,6 +42,10 @@
 
         &__title {
             color: $brickRed;
+
+            &--dark {
+                color: $tuna;
+            }
         }
     }
 
@@ -56,6 +60,10 @@
         margin-right: rem($gap-medium);
 
         color: $tuna;
+    }
+
+    &__toggle {
+        flex-shrink: 0;
     }
 
     &__body {

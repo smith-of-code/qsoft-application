@@ -37,6 +37,7 @@
  import fancybox from './modules/fancybox';
  import technicalSupport from './modules/technicalSupport';
  import addFavourite from './modules/add-favourite';
+ import filter from './modules/filter';
 
 
 
@@ -68,6 +69,7 @@
         fancybox();
         technicalSupport();
         addFavourite();
+        filter();
 
     },
 

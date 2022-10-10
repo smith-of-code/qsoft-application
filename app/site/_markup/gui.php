@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css" />
     </head>
 
-    <body class="page page--banner">
+    <body class="page">
 
         <!--header-->
         <header class="page__header header header--main">
@@ -3588,175 +3588,847 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Фильтр</h2>
 
-                        <div class="filter" style="width: 270px">
-                            <form class="form">
-                                <div class="filter__row">
-                                    <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
-                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
-                                            <div class="accordeon__header" data-accordeon-toggle>
-                                                <h5 class="accordeon__title">Для собак</h5>
+                        <div class="filter" data-filter>
+                            <button type="button" class="button button--square button--covered button--black-red" data-filter-button>
+                                <span class="button__icon button__icon--right button__icon--medium">
+                                    <svg class="icon icon--basket">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text">Фильтр</span>
+                            </button>
 
-                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
-                                                    <span class="accordeon__toggle-icon button__icon">
-                                                        <svg class="icon icon--arrow-down">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                                        </svg>
-                                                    </span>
-                                                </button>
+                            <div class="filter__block" data-scrollbar data-filter-block>
+                                <div class="filter__head">
+                                    <div class="filter__close" data-filter-close>
+                                        <svg class="filter__close-icon icon icon--close-square">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                        </svg>
+                                    </div>
 
-                                            </div>
+                                    <h2 class="filter__heading">Каталог товаров</h2>
+                                </div>
+                                <form class="form">
+                                    <div class="filter__row">
+                                        <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
+                                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                                <div class="accordeon__header" data-accordeon-toggle>
+                                                    <h5 class="accordeon__title accordeon__title--dark">Для собак</h5>
 
-                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
-                                                <div class="category">
-                                                    <ul class="category__list">
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Сухие корма</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Влажные корма</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Лакомства</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Аксессуары</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Появился щенок</a>
-                                                        </li>
-                                                    </ul>
+                                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                        <span class="accordeon__toggle-icon button__icon">
+                                                            <svg class="icon icon--arrow-down">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+
+                                                </div>
+
+                                                <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                                                    <div class="category">
+                                                        <ul class="category__list">
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Сухие корма</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Влажные корма</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Лакомства</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Аксессуары</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Появился щенок</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="accordeon__item box box--rounded-sm" data-accordeon>
-                                            <div class="accordeon__header" data-accordeon-toggle>
-                                                <h5 class="accordeon__title">Для кошек</h5>
-            
-                                                <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
-                                                    <span class="accordeon__toggle-icon button__icon">
-                                                        <svg class="icon icon--arrow-down">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-            
-                                            </div>
-            
-                                            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
-                                                <div class="category">
-                                                    <ul class="category__list">
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Сухие корма</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Влажные корма</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Лакомства</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Аксессуары</a>
-                                                        </li>
-                                                        <li class="category__item">
-                                                            <a href="#" class="category__item-link">Появился щенок</a>
-                                                        </li>
-                                                    </ul>
+                                            <div class="accordeon__item box box--rounded-sm" data-accordeon>
+                                                <div class="accordeon__header" data-accordeon-toggle>
+                                                    <h5 class="accordeon__title accordeon__title--dark">Для кошек</h5>
+                
+                                                    <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                        <span class="accordeon__toggle-icon button__icon">
+                                                            <svg class="icon icon--arrow-down">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                
+                                                </div>
+                
+                                                <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                                                    <div class="category">
+                                                        <ul class="category__list">
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Сухие корма</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Влажные корма</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Лакомства</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Аксессуары</a>
+                                                            </li>
+                                                            <li class="category__item">
+                                                                <a href="#" class="category__item-link button button--simple button--red">Появился щенок</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="filter__row">
-                                    <div class="filter__options">
-                                        <div class="switchers">
-                                            <ul class="switchers__list">
-                                                <li class="switchers__item">
-                                                    <div class="filter__swither switcher" name="switcher1">
-                                                        <input type="checkbox" class="switcher__input" name="switch12" id="switch12">
-                                                        <label for="switch12" class="filter__swither-label switcher__label">
-                                                            <span class="switcher__text switcher__text--left">Хиты продаж</span>
-                                                            <span class="switcher__icon"></span>
+                                    <div class="filter__row">
+                                        <div class="filter__options">
+                                            <div class="switchers">
+                                                <ul class="switchers__list">
+                                                    <li class="switchers__item">
+                                                        <div class="filter__swither switcher" name="switcher1">
+                                                            <input type="checkbox" class="switcher__input" name="switch12" id="switch12">
+                                                            <label for="switch12" class="filter__swither-label switcher__label">
+                                                                <span class="switcher__text switcher__text--left">Хиты продаж</span>
+                                                                <span class="switcher__icon"></span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                
+                                                    <li class="switchers__item">
+                                                        <div class="filter__swither switcher" name="switcher2">
+                                                            <input type="checkbox" class="switcher__input" name="switch1" id="switch22">
+                                                            <label for="switch22" class="filter__swither-label switcher__label">
+                                                                <span class="switcher__text switcher__text--left">Товары со скидкой</span>
+                                                                <span class="switcher__icon"></span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__row">
+                                        <div class="filter__range range" data-range>
+                                            <div class="range__header">
+                                                <p class="range__heading heading heading--small">Цена, ₽ </p>
+                                            </div>
+                                            <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                                            <div class="range__group">
+                                                <div class="range__group-field form__field">
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="form__field-label" for="min">
+                                                            от
+                                                        </label>
+                                                        <div class="input input--mini input--prefix">
+                                                            <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="range__group-field form__field">
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="form__field-label" for="max">
+                                                            до
+                                                        </label>
+                                                        <div class="input input--mini input--prefix">
+                                                            <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="filter__range range" data-range>
+                                            <div class="range__header">
+                                                <p class="range__heading heading heading--small">Баллы, ББ</p>
+                                            </div>
+                                            <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
+                                            <div class="range__group">
+                                                <div class="range__group-field form__field">
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="form__field-label" for="min">
+                                                            от
+                                                        </label>
+                                                        <div class="input input--mini input--prefix">
+                                                            <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="range__group-field form__field">
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="form__field-label" for="max">
+                                                            до
+                                                        </label>
+                                                        <div class="input input--mini input--prefix">
+                                                            <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Размер питомца</p>
+                                        </div>
+
+                                        <div class="checkboxes">
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF">
+            
+                                                        <label for="checkF" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+            
+                                                            <span class="checkbox__text">Для мелких пород </span>
                                                         </label>
                                                     </div>
                                                 </li>
             
-                                                <li class="switchers__item">
-                                                    <div class="filter__swither switcher" name="switcher2">
-                                                        <input type="checkbox" class="switcher__input" name="switch1" id="switch22">
-                                                        <label for="switch22" class="filter__swither-label switcher__label">
-                                                            <span class="switcher__text switcher__text--left">Товары со скидкой</span>
-                                                            <span class="switcher__icon"></span>
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF2" checked>
+            
+                                                        <label for="checkF2" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+            
+                                                            <span class="checkbox__text">Для средних пород</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+            
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF3">
+            
+                                                        <label for="checkF3" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+            
+                                                            <span class="checkbox__text">Для крупных пород</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+            
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s3" id="checkF4">
+            
+                                                        <label for="checkF4" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+            
+                                                            <span class="checkbox__text">Для всех пород</span>
                                                         </label>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="filter__row">
-                                    <div class="filter__range range" data-range>
-                                        <div class="range__header">
-                                            <p class="range__heading heading heading--small">Цена, ₽ </p>
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Возраст питомца</p>
                                         </div>
-                                        <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
-                                        <div class="range__group">
-                                            <div class="range__group-field form__field">
-                                                <div class="form__field-block form__field-block--input">
-                                                    <label class="form__field-label" for="min">
-                                                        от
-                                                    </label>
-                                                    <div class="input input--mini input--prefix">
-                                                        <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+
+                                        <div class="filter__checkboxes checkboxes">
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF5">
+
+                                                        <label for="checkF5" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для взрослых</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
-        
-                                            <div class="range__group-field form__field">
-                                                <div class="form__field-block form__field-block--input">
-                                                    <label class="form__field-label" for="max">
-                                                        до
-                                                    </label>
-                                                    <div class="input input--mini input--prefix">
-                                                        <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF6" checked>
+
+                                                        <label for="checkF6" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для щенков</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF7">
+
+                                                        <label for="checkF7" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для всех пород</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
 
-                                    <div class="filter__range range" data-range>
-                                        <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
-                                        <div class="range__group">
-                                            <div class="range__group-field form__field">
-                                                <div class="form__field-block form__field-block--input">
-                                                    <label class="form__field-label" for="min">
-                                                        от
-                                                    </label>
-                                                    <div class="input input--mini input--prefix">
-                                                        <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Возраст питомца</p>
+                                        </div>
+
+                                        <div class="filter__checkboxes checkboxes">
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF8">
+
+                                                        <label for="checkF8" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для взрослых</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
-        
-                                            <div class="range__group-field form__field">
-                                                <div class="form__field-block form__field-block--input">
-                                                    <label class="form__field-label" for="max">
-                                                        до
-                                                    </label>
-                                                    <div class="input input--mini input--prefix">
-                                                        <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF9" checked>
+
+                                                        <label for="checkF9" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для щенков</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF10">
+
+                                                        <label for="checkF10" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для всех пород</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="filter__row"></div>
-                            </form>
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Фасовка</p>
+                                        </div>
+
+                                        <div class="filter__checkboxes checkboxes" data-toggle-visibility-container>
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF11">
+
+                                                        <label for="checkF11" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">600 г</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF12" checked>
+
+                                                        <label for="checkF12" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">1 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF13">
+
+                                                        <label for="checkF13" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">3 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF14">
+
+                                                        <label for="checkF14" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">5 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF15">
+
+                                                        <label for="checkF15" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">7 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF16">
+
+                                                        <label for="checkF16" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">10 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF17">
+
+                                                        <label for="checkF17" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">15 кг</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <button type="button" class="filter__button button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                <span class="button__icon button__icon--mini button__icon--right">
+                                                    <svg class="icon icon--arrow-up">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                                    </svg>
+                                                </span>
+                                                <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать все&quot;, &quot;hide&quot;:&quot;Показать меньше&quot;}">Показать все</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Линейка товара</p>
+                                        </div>
+
+                                        <div class="filter__checkboxes checkboxes" data-toggle-visibility-container>
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF18">
+
+                                                        <label for="checkF18" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">AmeAppetite® Premium</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF19" checked>
+
+                                                        <label for="checkF19" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">AmeAppetite® Superpremium</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF20">
+
+                                                        <label for="checkF20" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">AmeAppetite® Holistic</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Вкус корма</p>
+                                        </div>
+
+                                        <div class="filter__checkboxes checkboxes" data-toggle-visibility-container>
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF21">
+
+                                                        <label for="checkF21" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Телятина</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF22" checked>
+
+                                                        <label for="checkF22" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Говядина</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF23">
+
+                                                        <label for="checkF23" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Цыпленок</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF24">
+
+                                                        <label for="checkF24" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Индейка</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF25">
+
+                                                        <label for="checkF25" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Кролик</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF26">
+
+                                                        <label for="checkF26" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Утка</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF27">
+
+                                                        <label for="checkF27" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Ягненок</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF28">
+
+                                                        <label for="checkF28" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Лосось</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item" data-toggle-visibility-block style="display: none;">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF29">
+
+                                                        <label for="checkF29" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Другое</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <button type="button" class="filter__button button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                <span class="button__icon button__icon--mini button__icon--right">
+                                                    <svg class="icon icon--arrow-up">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                                    </svg>
+                                                </span>
+                                                <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать все&quot;, &quot;hide&quot;:&quot;Показать меньше&quot;}">Показать все</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__row">
+                                        <div class="filter__header">
+                                            <p class="filter__heading heading heading--small">Вкус корма</p>
+                                        </div>
+
+                                        <div class="filter__checkboxes checkboxes" data-toggle-visibility-container>
+                                            <ul class="checkboxes__list">
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="checkF30">
+
+                                                        <label for="checkF30" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Для привередливых</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s1" id="checkF31" checked>
+
+                                                        <label for="checkF31" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Здоровая кожа и блестящая шерсть</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF32">
+
+                                                        <label for="checkF32" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Здоровое пищеварение</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF33">
+
+                                                        <label for="checkF33" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Контроль веса</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF34">
+
+                                                        <label for="checkF34" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Период роста</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <li class="checkboxes__item">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s2" id="checkF35">
+
+                                                        <label for="checkF35" class="checkbox__label">
+                                                            <span class="checkbox__icon">
+                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                </svg>
+                                                            </span>
+
+                                                            <span class="checkbox__text">Другое</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="filter__action">
+                                        <button type="button" class="button button--rounded-big button--covered button--green button--full">Применить</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <!--/Фильтр-->

@@ -1372,6 +1372,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/modules/filter.js":
+/*!*************************************!*\
+  !*** ./assets/js/modules/filter.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {var ELEMENTS_SELECTOR = {
+  button: '[data-filter-button]',
+  filterBlock: '[data-filter-block]',
+  close: '[data-filter-close]',
+  filter: '[data-filter]'
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  $(document).on('click', ELEMENTS_SELECTOR.button, function () {
+    $(ELEMENTS_SELECTOR.filter).find(ELEMENTS_SELECTOR.filterBlock).toggleClass('filter__block--active');
+    $('.page').addClass('page--locked');
+  });
+  $(document).on('click', ELEMENTS_SELECTOR.close, function () {
+    $(ELEMENTS_SELECTOR.filterBlock).removeClass('filter__block--active');
+    $('.page').removeClass('page--locked');
+  });
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./assets/js/modules/inputPlaceholder.js":
 /*!***********************************************!*\
   !*** ./assets/js/modules/inputPlaceholder.js ***!
@@ -2087,6 +2116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_fancybox__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/fancybox */ "./assets/js/modules/fancybox.js");
 /* harmony import */ var _modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./modules/technicalSupport */ "./assets/js/modules/technicalSupport.js");
 /* harmony import */ var _modules_add_favourite__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./modules/add-favourite */ "./assets/js/modules/add-favourite.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./modules/filter */ "./assets/js/modules/filter.js");
 /**
  * Vendors
  */
@@ -2100,6 +2130,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; // Пример под
  */
 // Пример подключения модуля
 //import module from './modules/module';
+
 
 
 
@@ -2150,6 +2181,7 @@ var app = {
     Object(_modules_fancybox__WEBPACK_IMPORTED_MODULE_21__["default"])();
     Object(_modules_technicalSupport__WEBPACK_IMPORTED_MODULE_22__["default"])();
     Object(_modules_add_favourite__WEBPACK_IMPORTED_MODULE_23__["default"])();
+    Object(_modules_filter__WEBPACK_IMPORTED_MODULE_24__["default"])();
   },
   load: function load() {},
   resize: function resize() {},
