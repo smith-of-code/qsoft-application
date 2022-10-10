@@ -11,6 +11,7 @@
 @import '~tippy.js/dist/tippy.css';
 @import '~tippy.js/themes/light.css';
 @import '~select2/dist/css/select2.css';
+@import '~@fancyapps/fancybox/dist/jquery.fancybox.css';
 
 
 /**
@@ -36,6 +37,8 @@
 @import "components/page";
 @import "components/heading";
 
+@import "components/content";
+
 @import "components/icon";
 @import "components/icons";
 
@@ -43,6 +46,8 @@
 
 @import "components/checkbox";
 @import "components/checkboxes";
+
+@import "components/radio";
 
 @import "components/switcher";
 @import "components/switchers";
@@ -81,3 +86,47 @@
 
 @import "components/breadcrumbs";
 
+@import "components/accordeon";
+
+@import "components/section";
+
+@import "components/registration";
+
+@import "components/notification";
+
+@import "components/requirement";
+
+@import "components/modal";
+
+@import "components/contidions";
+
+@import "components/footer";
+
+@import "components/social";
+
+@import "components/product-card";
+@import "components/product-cards";
+
+@import "components/price";
+
+@import "components/label";
+
+@import "components/color";
+@import "components/colors";
+
+@import "components/pack";
+@import "components/packs";
+
+@import "components/header";
+
+@import "components/navigation";
+
+@import "components/logo";
+
+@import "components/personal";
+
+@import "components/menu";
+
+@import "components/notice";
+
+@import "components/status";

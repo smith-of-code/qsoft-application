@@ -8,6 +8,20 @@
         box-shadow: $box-shadow;
     }
 
+    &--hovering {
+        &:hover {
+            box-shadow: $box-shadow-big;
+        }
+    }
+
+    &--hanging {
+        box-shadow: $box-shadow-big;
+    }
+
+    &--shading {
+        box-shadow: $box-shadow-medium;
+    }
+
     &--gray {
         padding: rem($gap-average) rem($gap-medium);
         background-color: $athensGray;
@@ -15,6 +29,14 @@
         @media #{$screen-tablet} {
             padding: rem($gap-medium)
         }
+    }
+
+    &--white {
+        background-color: $white;
+    }
+
+    &--grayish {
+        background-color: $athensGray;
     }
 
     &--rounded {
@@ -33,11 +55,45 @@
         border-radius: rem($border-radius-average);
     }
 
+    &--hidden {
+        @media #{$screen-tablet} {
+            background-color: transparent;
+        }
+    }
+
+    &--inner {
+        padding: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            padding: rem($gap-normal);
+        }
+    }
+
     &__heading {
         margin-bottom: rem(20px);
 
         @media #{$screen-tablet} {
             margin-bottom: rem($gap-normal);
+        }
+
+        &--middle {
+            margin-bottom: rem($gap-average);
+
+            color: $saltBox;
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-medium);
+            }
+        }
+
+        &--small {
+            margin-bottom: rem(20px);
+
+            color: $black;
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-medium);
+            }
         }
     }
 }
