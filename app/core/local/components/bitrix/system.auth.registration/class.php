@@ -4,43 +4,24 @@ use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\Helper\HlBlockHelper;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\PetTable;
+use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
 use QSoft\Service\UserService;
+
+Loc::loadMessages(__FILE__);
 
 class SystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
 {
     private const SESSION_KEY = 'registrationData';
-
-    private const REGISTRATION_TYPES = [
-        'buyer' => [
-            'name' => 'buyer',
-            'steps' => [
-                'personal_data',
-                'pets_data',
-                'choose_contact',
-                'set_password',
-                'final',
-            ],
-        ],
-        'consultant' => [
-            'name' => 'consultant',
-            'steps' => [
-                'personal_data',
-                'pets_data',
-                'choose_mentor',
-                'legal_entity_data',
-                'set_password',
-                'final',
-            ],
-        ],
-    ];
 
     private const FILE_FIELDS = [
         'photo',
@@ -63,6 +44,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function executeComponent()
     {
+        $registrationTypes = $this->getRegistrationTypes();
+
         if (isset($this->arParams['USER_ID']) && isset($this->arParams['CONFIRM_CODE'])) {
             $this->confirmEmail();
         }
@@ -71,16 +54,71 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         if (!$this->arResult) {
             $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
-            $registrationType = self::REGISTRATION_TYPES[$queryType] ?? array_first(self::REGISTRATION_TYPES);
+            $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [
                 'type' => $registrationType['name'],
+                'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
-                'currentStep' => $registrationType['steps'][0],
+                'currentStep' => $registrationType['steps'][0]['code'],
             ];
         }
 
         $this->IncludeComponentTemplate();
+    }
+
+    private function getRegistrationTypes(): array
+    {
+        return [
+            'buyer' => [
+                'name' => 'buyer',
+                'steps' => [
+                    [
+                        'code' => 'personal_data',
+                        'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
+                    ],
+                    [
+                        'code' => 'pets_data',
+                        'name' => Loc::getMessage('PETS_DATA_STEP'),
+                    ],
+                    [
+                        'code' => 'choose_contact',
+                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
+                    ],
+                    [
+                        'code' => 'set_password',
+                        'name' => Loc::getMessage('SET_PASSWORD_STEP'),
+                    ],
+                    ['code' => 'final'],
+                ],
+            ],
+            'consultant' => [
+                'name' => 'consultant',
+                'steps' => [
+                    [
+                        'code' => 'personal_data',
+                        'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
+                    ],
+                    [
+                        'code' => 'pets_data',
+                        'name' => Loc::getMessage('PETS_DATA_STEP'),
+                    ],
+                    [
+                        'code' => 'choose_mentor',
+                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
+                    ],
+                    [
+                        'code' => 'legal_entity_data',
+                        'name' => Loc::getMessage('LEGAL_ENTITY_DATA_STEP'),
+                    ],
+                    [
+                        'code' => 'set_password',
+                        'name' => Loc::getMessage('SET_PASSWORD_STEP'),
+                    ],
+                    ['code' => 'final'],
+                ],
+            ],
+        ];
     }
 
     private function confirmEmail()
@@ -128,17 +166,17 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     {
         $registrationData = $this->getRegisterData();
 
-        $registrationType = self::REGISTRATION_TYPES[$data['type']];
-        $currentStepIndex = array_search($data['currentStep'], $registrationType['steps']);
+        $registrationType = $this->getRegistrationTypes()[$data['type']];
+        $currentStepIndex = array_search($data['currentStep'], array_column($registrationType['steps'], 'code'));
         if ($direction === 'next') {
-            $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1];
+            $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1]['code'];
         } else {
-            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
+            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1]['code'];
 
             return $this->setRegisterData($registrationData);
         }
 
-        foreach ($data as $field => $value) {
+        foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
                 throw new InvalidArgumentException('User with this email already exist');
             }
@@ -150,7 +188,15 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 }
             }
             if (in_array($field, self::FILE_FIELDS)) {
-                // TODO: Хз ещё в каком виду будут приходить файлы
+                $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
+                $filePath = "$_SERVER[DOCUMENT_ROOT]/upload/register/$field" . uniqid() . $value['name'];
+                file_put_contents($filePath, $file);
+                $arFile = CFile::MakeFileArray($filePath);
+                $fileId = CFile::SaveFile($arFile, $filePath);
+                $value = [
+                    'id' => $fileId,
+                    'src' => $filePath,
+                ];
             }
         }
 
@@ -219,9 +265,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
-            'PERSONAL_BIRTHDAY' => new Date($data['birthday']),
+            'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
             'PERSONAL_GENDER' => $data['gender'],
-            'PERSONAL_CITY' => $data['city'],
+            'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
             'UF_MENTOR_ID' => $data['mentor_id'],
             'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],

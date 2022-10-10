@@ -4,12 +4,42 @@ class CSystemAuthRegistrationComponent {
   }
 
   initListeners() {
-      $('.change-step').on('click', this.changeStepListener);
+      $('button[data-change-step]').on('click', this.changeStepListener);
 
       $('.send-code').on('click', this.sendCode);
       $('.verify-code').on('click', this.verifyCode);
       $('.register').on('click', this.register);
   }
+
+    async changeStepListener() {
+        let data = registrationData;
+        $(`.${registrationData.currentStep} .form`).find('input, select').each((index, item) => {
+            if ($(item).attr('type') === 'file') {
+                const fileContainer = $(item).parent().find('.dropzone__previews-picture-image-pic');
+                data[$(item).attr('name')] = {
+                    name: fileContainer.attr('alt'),
+                    data: fileContainer.attr('src'),
+                };
+            } else if ($(item).attr('type') === 'checkbox') {
+                data[$(item).attr('name')] = $(item).attr('checked');
+            } else {
+                data[$(item).attr('name')] = $(item).val();
+            }
+        });
+
+        const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'saveStep', {
+            mode: 'class',
+            data: {
+                direction: $(this).data('direction'),
+                data,
+            },
+        });
+
+        registrationData = response.data;
+
+        $('.step-container').hide();
+        $(`.${registrationData.currentStep}`).show();
+    }
 
   async sendCode() {
       const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'sendPhoneCode', {
@@ -61,30 +91,6 @@ class CSystemAuthRegistrationComponent {
           },
       });
       console.log(response);
-  }
-
-  async changeStepListener() {
-      let data = registrationData;
-      $(`.${registrationData.currentStep} .register-form`).find('input').each((index, item) => {
-          if ($(item).attr('type') === 'file') {
-              data[$(item).attr('name')] = $(item).prop('files')[0];
-          } else {
-              data[$(item).attr('name')] = $(item).val();
-          }
-      });
-
-      const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'saveStep', {
-          mode: 'class',
-          data: {
-              direction: $(this).data('direction'),
-              data,
-          },
-      });
-
-      registrationData = response.data;
-
-      $('.step-container').hide();
-      $(`.${registrationData.currentStep}`).show();
   }
 }
 
