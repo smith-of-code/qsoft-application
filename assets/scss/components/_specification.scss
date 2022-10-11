@@ -14,10 +14,26 @@
             font-size: rem($gap-normal);
             line-height: rem($line-height-middle);
         }
+
+        &--hidden {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
     }
 
     &__article {
         @include text-medium;
+
+        &--hidden {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
     }
 
     &__description {
@@ -61,6 +77,16 @@
             white-space: nowrap;
 
             color: $tuna;
+        }
+    }
+
+    &__packs {
+        display: none;
+
+        @media #{$screen-desktop} {
+            display: block;
+
+            margin-top: rem($gap-big);
         }
     }
 }
