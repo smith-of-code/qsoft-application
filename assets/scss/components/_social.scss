@@ -1,0 +1,33 @@
+.social {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: 0 rem(-$gap-small);
+    }
+
+    &__item {
+        padding: 0 rem($gap-small);
+    }
+
+    &__link {
+        $size: 24px;
+            
+        display: block;
+
+        width: rem($size);
+        height: rem($size);
+
+        transition: color $transition-duration $transition-function;
+
+        color: $white;
+
+        &:hover {
+            color: $mandy;
+        }
+
+        &:active {
+            color: $mandy2;
+        }
+    }
+}

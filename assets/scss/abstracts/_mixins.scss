@@ -159,7 +159,7 @@
     line-height: ($line-height-normal / $font-size);
 
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         $font-size: $font-size-average;
 
         font-size: rem($font-size);

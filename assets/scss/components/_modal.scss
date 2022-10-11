@@ -114,6 +114,31 @@
         }
     }
 
+    &--whole {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+
+        border: rem(1px) solid $alto;
+    }
+
+    &--whole & {
+        &__content {
+            padding-top: rem(100px);
+            padding-bottom: rem(130px);
+        }
+
+        &__section {
+            padding-right: rem($gap-big);
+            padding-left: rem($gap-big);
+
+            &--header {
+                padding-bottom: rem($gap-big);
+            }
+        }
+    }
+
     &__content {
         display: flex;
         flex-direction: column;

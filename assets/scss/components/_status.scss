@@ -1,0 +1,54 @@
+.status {
+    position: relative;
+
+    padding: rem($gap-average) rem($gap-medium) rem($gap-small);
+
+    cursor: pointer;
+
+    &:hover {
+        border-radius: rem($border-radius-average);
+        background-color: $athensGray;
+    }
+
+    &__link {
+        @include position-stretching;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+
+        margin-bottom: rem($gap-average);
+
+        &-icon {
+            $size: 16px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem(6px);
+
+            color: $piper;
+        }
+    }
+
+    &__info {
+        @include text-miniature;
+        @include text-truncate-by-row(3);
+
+        margin-bottom: rem($gap-small);
+
+        color: $saltBox;
+    }
+
+    &__footer {
+        @include text-tiny($font-weight-semibold);
+
+        color: $saltBox;
+    }
+
+    &__date {
+        padding-right: rem(6px);
+    }
+}

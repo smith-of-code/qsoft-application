@@ -18,6 +18,10 @@
         box-shadow: $box-shadow-big;
     }
 
+    &--shading {
+        box-shadow: $box-shadow-medium;
+    }
+
     &--gray {
         padding: rem($gap-average) rem($gap-medium);
         background-color: $athensGray;
@@ -61,7 +65,7 @@
         padding: rem($gap-average);
 
         @media #{$screen-tablet} {
-            background-color: rem($gap-normal);
+            padding: rem($gap-normal);
         }
     }
 
