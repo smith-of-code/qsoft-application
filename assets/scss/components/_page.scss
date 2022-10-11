@@ -56,7 +56,6 @@
 
     &__heading {
         margin-top: rem($gap-normal);
-        margin-bottom: rem($gap-normal);
 
         @media #{$screen-tablet} {
             margin-top: rem($gap-big);
@@ -64,7 +63,6 @@
 
         @media #{$screen-desktop} {
             margin-top: rem(48px);
-            margin-bottom: rem($gap-big);
         }
     }
 }

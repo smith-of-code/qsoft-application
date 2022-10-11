@@ -1,5 +1,7 @@
 .catalog {
-    display: flex;
+    &__wrapper {
+        display: flex;
+    }
 
     &__filter {
         @media #{$screen-desktop} {
