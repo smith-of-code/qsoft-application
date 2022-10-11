@@ -22,7 +22,7 @@
 
     &__label {
         display: inline-flex;
-        align-items: flex-start;
+        align-items: center;
 
         cursor: pointer;
     }
@@ -63,8 +63,6 @@
     &__text {
         @include text-small;
 
-        line-height: 22px;
-
-        margin-top: em(1px); // magic
+        line-height: rem(22px);
     }
 }

@@ -532,6 +532,13 @@
             margin-left: rem($icon-margin);
         }
 
+        &--mini {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+
         &--small {
             $size: 12px;
 

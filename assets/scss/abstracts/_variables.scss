@@ -34,6 +34,7 @@ $aquaForest: #62a683;
 $mandy: #dc445c;
 $mandy2: #df586d;
 $black: #000000;
+$codGray: #161616;
 
 
 $color-text: $tuna;
@@ -85,6 +86,8 @@ $line-height-miniature: 16px;
 
 $screen-desktop: "(min-width: 1440px)";
 $screen-tablet: "(min-width: 768px)";
+$screen-device-only: "(max-width: 1439px)";
+
 
 
 // Gaps
@@ -114,12 +117,14 @@ $z-index-html: 1;
 $z-index-input: 2;
 $z-index-menu: 100;
 $z-index-header-default: 130;
+$z-index-popup: 150;
 
 
 // Transitions and Animations
 
 $transition-duration: 300ms;
 $transition-duration-fast: 100ms;
+$transition-duration-medium: 500ms;
 $transition-duration-slow: 800ms;
 $transition-function: ease-in-out;
 
