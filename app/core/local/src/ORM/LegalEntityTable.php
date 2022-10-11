@@ -2,7 +2,10 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\Entity\BooleanField;
+use Bitrix\Main\Entity\DatetimeField;
 use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use QSoft\ORM\Decorators\EnumDecorator;
@@ -12,9 +15,9 @@ Loc::loadMessages(__FILE__);
 
 final class LegalEntityTable extends BaseTable
 {
-    protected static array $decorators = [
-        'UF_STATUS' => EnumDecorator::class,
-    ];
+//    protected static array $decorators = [
+//        'UF_STATUS' => EnumDecorator::class,
+//    ];
 
     public static function getTableName(): string
     {

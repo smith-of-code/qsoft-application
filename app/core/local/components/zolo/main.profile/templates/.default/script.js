@@ -49,20 +49,21 @@ $(document).on("submit", "[data-pet-item]", function (e) {
     const petGender = item.find('[name="UF_GENDER"]').find(':selected').val().trim();
     const petKind = item.find('[name="UF_KIND"]').find(':selected').val().trim();
     const petBirth = item.find('[name="UF_BIRTHDATE"]').val().trim();
-    // const petCatBreed = item.find('[name="UF_CAT_BREED"]').find(':selected').val().trim();
-    // const petDogBreed = item.find('[name="UF_CAT_BREED"]').find(':selected').val().trim();
+    const petCatBreed = item.find('[name="UF_CAT_BREED"]').find(':selected').val().trim();
+    const petDogBreed = item.find('[name="UF_DOG_BREED"]').find(':selected').val().trim();
 
-    let formData = new FormData();
+    let formData = {
+        ID: id,
+        UF_NAME: petName,
+        UF_GENDER: petGender,
+        UF_KIND: petKind,
+        UF_BIRTHDATE: petBirth,
+        UF_CAT_BREED: petCatBreed,
+        UF_DOG_BREED: petDogBreed
+    };
 
-    formData.append('ID', id);
-    formData.append('UF_NAME', petName);
-    formData.append('UF_GENDER', petGender);
-    formData.append('UF_KIND', petKind);
-    formData.append('UF_BIRTHDATE', petBirth);
-    // formData.append('UF_CAT_BREED', petCatBreed);
-    // formData.append('UF_CAT_BREED', petDogBreed);
 
-    if (id === 0) {
+    if (id == 0) {
         query.action = 'addPet';
     } else {
         query.action = 'changePet';
@@ -72,10 +73,11 @@ $(document).on("submit", "[data-pet-item]", function (e) {
         url: BITRIX_AJAX + $.param(query, true),
         method: 'POST',
         cache: false,
-        data: {form: formData},
+        data: {
+            form: formData},
         success: function (response) {
             if (response.status === 'success') {
-                // location.reload();
+                location.reload();
                 if ('pet-id' in response['data']) {
                     item.attr('id', response['data']['id']);
                 }
@@ -91,8 +93,7 @@ $(document).on("click", "[add-pet]", function () {
 });
 
 $(document).on("click", "[delete-pet]", function () {
-    let _this = $(this),
-        item = _this.closest('[data-pet-item]'),
+    let item = $(this.closest('[data-pet-item]')),
         id = item.attr('id');
 
     if (id) {
@@ -135,7 +136,7 @@ function createRow() {
                         ${optionsGender}
                     </select>
                     Дата рождения: <input type="text" name="UF_BIRTHDATE"><br>
-                    Породы кошек:<select name="" name="UF_CAT_BREED" id="UF_CAT_BREED-${addonsIdx}-new">
+                    Породы кошек:<select name="UF_CAT_BREED" id="UF_CAT_BREED-${addonsIdx}-new">
                         <option disabled selected></option>
                         ${optionsCatBreed}    
                     </select>

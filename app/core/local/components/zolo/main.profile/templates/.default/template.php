@@ -236,7 +236,7 @@ $APPLICATION->IncludeComponent(
                                 <?php endforeach;?>
                             </select>
                         Дата рождения: <input type="text" name="UF_BIRTHDATE" value="<?=$pet['UF_BIRTHDATE']?>" required><br>
-                        Породы кошек:<select name="" name="UF_CAT_BREED" id="UF_CAT_BREED-<?=$index?>" value="<?=$pet['UF_BREED']?>">
+                        Породы кошек:<select name="UF_CAT_BREED" id="UF_CAT_BREED-<?=$index?>" value="<?=$pet['UF_BREED']?>">
                             <?php foreach ($arResult['SELECT_OPTIONS']['CAT_BREED'] as $id => $value) : ?>
                                 <option value="<?= $id ?>" class="form-control__option"
                                     <?= ($id == $pet['UF_BREED']) ? 'selected' : '' ?>>

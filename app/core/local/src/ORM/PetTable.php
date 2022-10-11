@@ -14,10 +14,10 @@ Loc::loadMessages(__FILE__);
 
 final class PetTable extends BaseTable
 {
-    protected static array $decorators = [
-        'UF_KIND' => EnumDecorator::class,
-        'UF_GENDER' => EnumDecorator::class,
-    ];
+//    protected static array $decorators = [
+//        'UF_KIND' => EnumDecorator::class,
+//        'UF_GENDER' => EnumDecorator::class,
+//    ];
 
     public static function getTableName(): string
     {

@@ -7,6 +7,8 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Type\Date;
+use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable as HL;
 use QSoft\Service\UserGroupsService;
 
@@ -96,6 +98,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         ])->fetch();
 
         $arLegalEntity = HL::compileEntity($hlBlock)->getDataClass()::getList([
+            'order' => ['ID' => 'DESC'],
             'filter' => [
                 'UF_USER_ID' => $this->userId,
                 'UF_IS_ACTIVE' => 1
@@ -275,22 +278,8 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
         //TODO:Загрузка кучи сканов
         $docs = [];
-        $files = ["passport.copyPassport", "innFiles", "bank.bankFiles", "referenceFNS", "egrip", "rule", "leader", "egrul"];
 
         foreach ($form as $row) {
-//            if ($row['name'] != "UF_STATUS") {
-//                \Bitrix\Main\Diag\Debug::dumpToFile($row, '$row', '/debug.php');
-//                $row['arr_name'] = str_replace('.', '"]["', $row['name']);
-//                if (in_array($row['name'], $files)) {
-//                    $docs[$row['arr_name']] = $row['value'];
-//                } else {
-//                    $docs[$row['arr_name']] = $row['value'];
-//                }
-//                \Bitrix\Main\Diag\Debug::dumpToFile($row, '$row', '/debug.php');
-//                \Bitrix\Main\Diag\Debug::dumpToFile($docs, '$docs', '/debug.php');
-//            } else {
-//                $props["UF_STATUS"] = $row['value'];
-//            }
             switch ($row['name']) {
                 case 'UF_STATUS':
                     $props["UF_STATUS"] = $row['value'];
@@ -425,31 +414,49 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         $props['UF_USER_ID'] = $USER->GetId();
-        $props['UF_CREATED_AT'] = date('d.m.Y H:i:s');
-        $props['UF_DOCUMENTS'] = json_encode($docs, true);
-        $props['UF_IS_ACTIVE'] = "Y";
+        $props['UF_CREATED_AT'] = new DateTime();
+        $props['UF_DOCUMENTS'] = json_encode($docs, JSON_UNESCAPED_UNICODE);
+        $props['UF_IS_ACTIVE'] = true;
 
-        \QSoft\ORM\LegalEntityTable()::add($props);
-        //TODO: понять откуда ошибка Call to undefined function QSoft\ORM\LegalEntityTable()
+
+        \QSoft\ORM\LegalEntityTable::add($props);
+
         //TODO: добавить модерацию (видимо переслать в ConfirmationTable)
         //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
-
     }
 
-    public function addPetAction($form): array
+    public function addPetAction($form)
     {
         global $USER;
 
-        $props = [];
-        foreach ($form as $row) {
-            if ($props[$row['name']] != ['ID']) {
-                $props[$row['name']] = $row['value'];
+        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_NAME'] = $form['UF_NAME'];
+        $props['UF_GENDER'] = $form['UF_GENDER'];
+        $props['UF_KIND'] = $form['UF_KIND'];
+        //TODO разобраться с датами
+        $props['UF_BIRTHDATE'] = $form['UF_BIRTHDATE'];
+        $props['UF_BIRTHDATE'] = new Date();
+
+        $entity = CUserTypeEntity::GetList([], [
+            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
+            "FIELD_NAME" => "UF_KIND",
+
+        ])->Fetch();
+
+        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
+        while ($enumFields = $obEntity->Fetch()) {
+            if ($form['UF_KIND'] == $enumFields['ID']) {
+                $petType = $enumFields['VALUE'];
             }
         }
 
-        $props['UF_USER_ID'] = $USER->GetId();
+        if ($petType == 'кошка') {
+            $props['UF_BREED'] = ["UF_CAT_BREED"];
+        } else {
+            $props['UF_BREED'] = ["UF_DOG_BREED"];
+        }
 
-        $pet = \QSoft\ORM\PetTable()::add($props);
+        $pet = \QSoft\ORM\PetTable::add($props);
 
         if ($pet) {
         $data['pet-id'] = $pet;
@@ -464,18 +471,32 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
     {
         global $USER;
 
-        $props = [];
-        foreach ($form as $row) {
-            if ($props[$row['name']] != ['ID']) {
-                $props[$row['name']] = $row['value'];
-            } else {
-                $id = $row['value'];
+        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_NAME'] = $form['UF_NAME'];
+        $props['UF_GENDER'] = $form['UF_GENDER'];
+        $props['UF_KIND'] = $form['UF_KIND'];
+        //TODO разобраться с датами
+        $props['UF_BIRTHDATE'] = $form['UF_BIRTHDATE'];
+        $props['UF_BIRTHDATE'] = new Date();
+
+        $entity = CUserTypeEntity::GetList([], [
+            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
+            "FIELD_NAME" => "UF_KIND",
+
+        ])->Fetch();
+
+        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
+        while ($enumFields = $obEntity->Fetch()) {
+            if ($form['UF_KIND'] == $enumFields['ID']) {
+                $petType = $enumFields['VALUE'];
             }
         }
 
-        $props['UF_USER_ID'] = $USER->GetId();
-
-        \QSoft\ORM\PetTable()::update($id, $props);
+        if ($petType == 'кошка') {
+            $props['UF_BREED'] = ["UF_CAT_BREED"];
+        } else {
+            $props['UF_BREED'] = ["UF_DOG_BREED"];
+        }
     }
 
     public function deletePetAction($id)
