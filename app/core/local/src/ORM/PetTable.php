@@ -14,6 +14,21 @@ Loc::loadMessages(__FILE__);
 
 final class PetTable extends BaseTable
 {
+    public const KINDS = [
+        'dog' => 'KIND_DOG',
+        'cat' => 'KIND_CAT',
+    ];
+
+    // TODO: Логика пород поменяется
+    public const BREEDS = [
+        'test' => 'test',
+    ];
+
+    public const GENDERS = [
+        'male' => 'GENDER_MALE',
+        'female' => 'GENDER_FEMALE',
+    ];
+
     protected static array $decorators = [
         'UF_KIND' => EnumDecorator::class,
         'UF_BREED' => EnumDecorator::class,

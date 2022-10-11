@@ -15,6 +15,7 @@ use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
+use QSoft\Service\UserGroupsService;
 use QSoft\Service\UserService;
 
 Loc::loadMessages(__FILE__);
@@ -58,6 +59,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
             $this->arResult = [
                 'type' => $registrationType['name'],
+                'pet_kinds' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_KIND'),
+                'pet_genders' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_GENDER'),
                 'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
                 'currentStep' => $registrationType['steps'][0]['code'],
@@ -82,7 +85,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
                     [
-                        'code' => 'choose_contact',
+                        'code' => 'choose_mentor',
                         'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
                     ],
                     [
@@ -179,20 +182,20 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
                 throw new InvalidArgumentException('User with this email already exist');
-            }
-            if ($field === 'mentor_id') {
+            } else if ($field === 'mentor_id') {
                 try {
-                    UserTable::getById($value);
+                    if (!(new UserGroupsService)->isConsultant($value)) {
+                        throw new InvalidArgumentException('Mentor not found');
+                    }
                 } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
-                    throw new InvalidArgumentException('User not found');
+                    throw new InvalidArgumentException('Mentor not found');
                 }
-            }
-            if (in_array($field, self::FILE_FIELDS)) {
+            } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
-                $filePath = "$_SERVER[DOCUMENT_ROOT]/upload/register/$field" . uniqid() . $value['name'];
-                file_put_contents($filePath, $file);
-                $arFile = CFile::MakeFileArray($filePath);
-                $fileId = CFile::SaveFile($arFile, $filePath);
+                $filePath = "/upload/register/$field" . uniqid() . $value['name'];
+                file_put_contents("$_SERVER[DOCUMENT_ROOT]$filePath", $file);
+                $arFile = CFile::MakeFileArray("$_SERVER[DOCUMENT_ROOT]$filePath");
+                $fileId = CFile::SaveFile($arFile, "$_SERVER[DOCUMENT_ROOT]$filePath");
                 $value = [
                     'id' => $fileId,
                     'src' => $filePath,
@@ -293,10 +296,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             PetTable::add([
                 'UF_USER_ID' => $registrationData['user_id'],
                 'UF_NAME' => $pet['name'],
-                'UF_KIND' => $pet['kind'],
+                'UF_KIND' => $pet['type'],
                 'UF_BREED' => $pet['breed'],
                 'UF_GENDER' => $pet['gender'],
-                'UF_BIRTHDATE' => new Date($pet['birthday']),
+                'UF_BIRTHDATE' => new Date($pet['birthdate']),
             ]);
         }
 

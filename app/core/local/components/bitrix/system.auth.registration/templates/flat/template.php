@@ -20,7 +20,14 @@ $isCurrentStepPassed = false;
                 <ul class="steps-counter">
                     <?php foreach ($arResult['steps'] as $step):?>
                         <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
-                        <li class="steps-counter__item steps-counter__item--current" data-steps-item>
+                        <li
+                            class="
+                                steps-counter__item
+                                <?=$step['code'] === $arResult['currentStep'] ? 'steps-counter__item--current' : ''?>
+                                <?=!$isCurrentStepPassed ? 'steps-counter__item--passed' : ''?>
+                            "
+                            data-steps-item
+                        >
                             <div
                                 class="
                                     steps-counter__circle
