@@ -63,14 +63,17 @@ final class TransactionTable extends BaseTable
             new EnumField('UF_TYPE', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_TYPE_FIELD'),
+                'values' => true,
             ], self::getTableName()),
             new EnumField('UF_SOURCE', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_SOURCE_FIELD'),
+                'values' => true,
             ], self::getTableName()),
             new EnumField('UF_MEASURE', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_MEASURE_FIELD'),
+                'values' => true,
             ], self::getTableName()),
             new FloatField('UF_AMOUNT', [
                 'required' => true,

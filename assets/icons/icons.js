@@ -31,6 +31,8 @@ import './svg/whatsapp.svg';
 import './svg/viber.svg';
 import './svg/heart.svg';
 import './svg/heart-fill.svg';
+import './svg/arrow-left.svg';
+import './svg/angle-left.svg';
 import './svg/user.svg';
 import './svg/search.svg';
 import './svg/discount.svg';

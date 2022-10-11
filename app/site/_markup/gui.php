@@ -709,6 +709,18 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: arrow-left">
+                                    <svg class="icon icon--arrow gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                    </svg>
+                                </li>
+                                
+                                <li class="icons__item" title="Icon: angle-left">
+                                    <svg class="icon icon--angle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: user">
                                     <svg class="icon icon--user gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
@@ -2743,8 +2755,7 @@
                                     </div>
                                 </div>
 
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
+                                <div class="dropzone__error" data-uploader-error></div>
                             </div>
                         </div>
                     </div>
@@ -3312,7 +3323,7 @@
                                                                 </button>
                                                             </div>
                             
-                                                            <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                                            <div class="dropzone__previews dropzone__previews--small dz-previews" data-uploader-previews>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -5802,6 +5813,269 @@
                         </div>
                     </div>
                     <!--/Карточки товара-->
+
+                    <!--Слайдер-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Слайдеры</h2>
+
+                        <div class="gui__slider">
+                            <h3 style="margin-top: 40px">Слайдер на главной</h3>
+
+                            <div class="slider slider--main" data-carousel="main">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <div class="slider__image">
+                                                <picture>
+                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
+                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
+                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
+                                                </picture>
+                                            </div>
+
+                                            <article class="slider__card card-banner">
+                                                <a href="#" class="card-banner__link"></a>
+                                                <div class="card-banner__inner">
+                                                    <h2 class="card-banner__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-banner__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-banner__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <div class="slider__image">
+                                                <picture>
+                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
+                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
+                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
+                                                </picture>
+                                            </div>
+
+                                            <article class="slider__card card-banner">
+                                                <a href="#" class="card-banner__link"></a>
+                                                <div class="card-banner__inner">
+                                                    <h2 class="card-banner__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-banner__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-banner__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="swiper-pagination pagination" data-carousel-pagination></div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 style="margin-top: 40px">Слайдер на деталке</h3>
+                            
+                            <div class="slider slider--product" data-carousel="product">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <video src="/local/templates/.default/images/video-slide.webm" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
+                                                <span class="button__icon">
+                                                    <svg class="icon icon--basket">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="swiper-pagination pagination pagination--image" data-carousel-pagination></div>
+                                        
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
+                                                <span class="button__icon">
+                                                    <svg class="icon icon--basket">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--/Слайдер-->
                 </main>
             </div>
         </div>
@@ -6028,6 +6302,12 @@
 
     .gui__example {
         margin-top: 50px;
+    }
+
+    @media (min-width: 768px) {
+        .gui__slider--product {
+            flex-basis: 47.638888888888886%;   
+        }
     }
 
 </style>

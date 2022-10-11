@@ -12,6 +12,7 @@
 @import '~tippy.js/themes/light.css';
 @import '~select2/dist/css/select2.css';
 @import '~@fancyapps/fancybox/dist/jquery.fancybox.css';
+@import '~swiper/css/swiper.min.css';
 
 
 /**
@@ -117,6 +118,13 @@
 @import "components/pack";
 @import "components/packs";
 
+@import "components/slider";
+@import "components/pagination";
+
+@import "components/card-banner";
+
+@import "components/sale";
+
 @import "components/header";
 
 @import "components/navigation";
@@ -134,3 +142,4 @@
 @import "components/filter";
 
 @import "components/category";
+
