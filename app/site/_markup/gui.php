@@ -750,6 +750,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
                                     </svg>
                                 </li>
+                                
+                                <li class="icons__item" title="Icon: clock">
+                                    <svg class="icon icon--clock gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -6076,6 +6082,239 @@
                         </div>
                     </div>
                     <!--/Слайдер-->
+
+                    <!-- Карточки-акций -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки-акций</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-stock">
+                                <ul class="cards-stock__list">
+                                      
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки-акций -->
                 </main>
             </div>
         </div>
