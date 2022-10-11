@@ -39,7 +39,7 @@
         padding-bottom: rem(56px);
         margin-top: rem($height-header-mobile);
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             margin-top: rem($height-header-desktop);
             padding-top: rem(48px);
             padding-bottom: rem(80px);

@@ -22,4 +22,16 @@
             }
         }
     }
+
+    &__main {
+        margin-top: rem($gap-big);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(35px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(56px);
+        }
+    }
 }
