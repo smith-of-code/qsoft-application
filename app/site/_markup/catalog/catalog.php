@@ -1331,9 +1331,9 @@
                                 </div>
                             </div>
 
-                            <div class="calalog__main">
+                            <div class="catalog__main">
                                 <div class="catalog__panel">
-                                    <p class="calalog__results">Найдено <span class="calalog__results-count">19 </span>товаров</p>
+                                    <p class="catalog__results">Найдено <span class="catalog__results-count">19 </span>товаров</p>
 
                                     <div class="catalog__sort">
                                         <div class="catalog__select select select--small select--sorting select--borderless" data-select>

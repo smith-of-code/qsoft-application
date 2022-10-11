@@ -123,7 +123,14 @@
         }
 
         .select2-dropdown {
-            margin-top: rem(16px);
+            width: 100% !important;
+
+            @media #{$screen-desktop} {
+                right: 0;
+                left: auto;
+
+                width: rem(320px) !important;
+            }
         }
     }
 

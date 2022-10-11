@@ -144,6 +144,8 @@
     }
 
     &__toggle {
+        padding: 0 rem(18px);
+
         @media #{$screen-desktop} {
             display: none;
         }
