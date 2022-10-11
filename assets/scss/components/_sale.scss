@@ -1,0 +1,16 @@
+.sale {
+    padding: rem(10px);
+
+    border-radius: rem($border-radius-middle);
+    background-color: $brickRed;
+
+    &__text {
+        font-size: rem($font-size-middle);
+        font-weight: $font-weight-bold;
+        line-height: (30px / $font-size-middle);
+
+        letter-spacing: 0.05em;
+
+        color: $white;
+    }
+}
