@@ -876,7 +876,45 @@
 
                                 <div class="detail__information-tabs-body tabs__body">
                                     <div class="tabs__block tabs__block--active" data-tab-section="block1">
-                                        Описание
+                                        <div class="description">
+                                            <div class="description__block">
+                                                <h5 class="description__title">Особенности нашего корма</h5>
+
+                                                <div class="description__features features">
+                                                    Особенности
+                                                </div>
+                                            </div>
+
+                                            <div class="description__block">
+                                                <h5 class="description__title">Общее</h5>
+
+                                                <p class="description__text">
+                                                    Тщательно отобранные, натуральные гипоаллергенные ингредиенты,помогают предотвратить аллергические реакции и пищевую непереносимость, обеспечивая иммунное и пищеварительное здоровье.
+                                                </p>
+
+                                                <p class="description__text">
+                                                    Деликатный способ приготовления сохраняет все полезные свойства и питательные вещества натуральных ингредиентов обеспечивают отличное физическое состояние питомца.
+                                                </p>
+                                            </div>
+
+                                            <div class="description__block">
+                                                <h5 class="description__title">Детали</h5>
+
+                                                <ul class="description__details list">
+                                                    <li class="list__item">65% мяса в составе корма</li>
+                                                    <li class="list__item">Только животные белки</li>
+                                                    <li class="list__item">1000000000 КОЕ/кг живых пробиотиков</li>
+                                                    <li class="list__item">Только гипоаллергенные ингредиенты</li>
+                                                    <li class="list__item">Только мясо без субпродуктов</li>
+                                                    <li class="list__item">Комплекс хондропротекторов</li>
+                                                    <li class="list__item">Баланс соотношения Omega 6-3</li>
+                                                    <li class="list__item">Контроль уровня кислотности рН</li>
+                                                    <li class="list__item">Низкий уровень золы в составе</li>
+                                                    <li class="list__item">Натуральные антиоксиданты</li>
+                                                    <li class="list__item">Бережный способ приготовления</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="tabs__block" data-tab-section="block2">

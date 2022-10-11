@@ -95,5 +95,11 @@
         @media #{$screen-desktop} {
             margin-top: rem(48px);
         }
+
+        &-tabs {
+            &-body {
+                margin-top: rem($gap-big);
+            }
+        }
     }
 }
