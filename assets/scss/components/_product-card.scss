@@ -157,7 +157,9 @@
     }
 
     &__breed {
-        max-width: rem(159px);
+        @media #{$screen-desktop} {
+            max-width: rem(159px);
+        }
     }
 
     &__footer {

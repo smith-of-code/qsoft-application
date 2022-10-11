@@ -142,4 +142,10 @@
             display: none;
         }
     }
+
+    &__toggle {
+        @media #{$screen-desktop} {
+            display: none;
+        }
+    }
 }

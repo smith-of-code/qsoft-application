@@ -79,6 +79,54 @@
         }
     }
 
+    &#{&}--borderless {
+        .select2-container--default {
+            .select2-selection--single {
+                background-color: transparent;
+                border: none;
+            }
+        }
+    }
+
+    &#{&}--sorting {
+        .select2-container--default {
+            .select2-selection--single {
+                .select2-selection__placeholder {
+                    color: $saltBox;
+                }
+
+                .select2-selection__rendered {
+                    position: relative;
+
+                    max-width: rem(166px);
+
+                    @media #{$screen-tablet} {
+                        max-width: rem(298px);
+                    }
+
+                    @media #{$screen-desktop} {
+                        max-width: rem(182px);
+                    }
+                }
+            }
+        }
+
+        .select2-container {
+            .select2-selection {
+                &::after {
+                    right: rem(44px);
+
+                    width: rem(20px);
+                    height: rem(20px);
+                }
+            }
+        }
+
+        .select2-dropdown {
+            margin-top: rem(16px);
+        }
+    }
+
     &--iconed {
         .select2-container--default {
             .select2-selection--single {
@@ -113,6 +161,8 @@
     }
 
     &__group {
+        position: relative;
+
         display: flex;
         align-items: center;
 
