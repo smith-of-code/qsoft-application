@@ -116,11 +116,17 @@ class User
      * @param int $userId ID пользователя
      * @throws RuntimeException
      */
-    public function __construct(int $userId)
+    public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
         
         // Получаем поля и свойства пользователя
+        if ($userId === null) {
+            global $USER;
+
+            $userId = $USER->GetID();
+        }
+
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
             throw new RuntimeException('User not found');
