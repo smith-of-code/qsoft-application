@@ -1,6 +1,4 @@
 .range {
-    height: rem(82px);
-
     .ui-widget{
         border: rem(1px) solid $alto;
         border-radius: rem($border-radius-small);
@@ -17,6 +15,8 @@
     }
 
     .ui-slider {
+        margin: 0 rem(10px);
+
         .ui-slider-range {
             border: rem(1px) solid $brickRed;
             background-color: $brickRed;
@@ -45,16 +45,22 @@
         align-items: center;
         justify-content: space-between;
 
-        margin-top: rem(16px);
+        margin-top: rem(24px);
 
         &-input {
             position: relative;
         }
 
         &-field {
+            width: 50%;
+
             &:not(:first-child) {
                 margin-left: rem($gap-medium);
             }
         }
+    }
+
+    &__header {
+        margin-bottom: rem(20px);
     }
 }

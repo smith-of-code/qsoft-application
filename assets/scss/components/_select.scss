@@ -63,6 +63,22 @@
         }
     }
 
+    &#{&}--small {
+        font-size: rem($font-size-small);
+
+        .select2-container--default {
+            .select2-selection--single {
+                height: rem(40px);
+
+                .select2-selection__rendered {
+                    line-height: rem(22px);
+
+                    padding: rem($gap-small) rem($gap-average);
+                }
+            }
+        }
+    }
+
     &--iconed {
         .select2-container--default {
             .select2-selection--single {
@@ -94,6 +110,16 @@
                 }
             }
         }
+    }
+
+    &__group {
+        display: flex;
+        align-items: center;
+
+        height: rem(40px);
+
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-small);
     }
 
     .select2-container {

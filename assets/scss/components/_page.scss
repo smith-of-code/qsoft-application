@@ -1,8 +1,26 @@
 .page {
+    $WIDTH_SCROLLBAR: 17px;
+
     display: flex;
     flex-direction: column;
 
     min-height: 100vh;
+
+    &--locked {
+        overflow-y: hidden;
+
+        @media #{$screen-tablet} {
+            padding-right: rem($WIDTH_SCROLLBAR);
+        }
+
+        &-mobile {
+            @media #{$screen-device-only} {
+                overflow: hidden;
+
+                padding-right: rem($WIDTH_SCROLLBAR);
+            }
+        }
+    }
 
     &__header {
         position: fixed;
