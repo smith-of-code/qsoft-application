@@ -40,6 +40,18 @@ final class LegalEntityTable extends BaseTable
                 'required' => true,
                 'title' => Loc::getMessage('LEGAL_ENTITY_UF_STATUS_FIELD'),
             ], self::getTableName()),
+            new BooleanField('UF_IS_ACTIVE', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_IS_ACTIVE'),
+            ]),
+            new StringField('UF_DOCUMENTS', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_DOCUMENTS'),
+            ]),
+            new DatetimeField('UF_CREATED_AT', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_CREATED_AT'),
+            ]),
         ];
     }
 }

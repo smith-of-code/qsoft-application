@@ -3,14 +3,14 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
 }
 
-use Bitrix\Main\Context;
+use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
-use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable as HL;
 use QSoft\Service\UserGroupsService;
 
-class UserProfileForm extends CBitrixComponent
+class MainProfileComponent extends CBitrixComponent  implements Controllerable
 {
     private $userId;
 
@@ -19,8 +19,8 @@ class UserProfileForm extends CBitrixComponent
         try {
             global $USER;
             $this->userId = $USER->GetId();
-
             $this->checkModules();
+
             $this->getResult();
             $this->includeComponentTemplate();
         } catch (SystemException $e) {
@@ -28,6 +28,10 @@ class UserProfileForm extends CBitrixComponent
         }
     }
 
+    /**
+     * @throws \Bitrix\Main\LoaderException
+     * @throws SystemException
+     */
     public function checkModules()
     {
         if (!Loader::includeModule('iblock')) {
@@ -41,16 +45,6 @@ class UserProfileForm extends CBitrixComponent
 
     public function getResult()
     {
-        $request = Context::getCurrent()->getRequest();
-
-        if ($request->isPost() && $request->getPost('save') == 'Y') {
-            $this->update($request->getPostList()->toArray());
-
-            if (empty($this->arResult['NOTIFICATION'])) {
-                header('Location: /personal/');
-            }
-        }
-
         $this->arResult['SELECT_OPTIONS'] = $this->getSelect();
         $this->arResult['USER_INFO'] = $this->getUser();
         $this->arResult['USER_GROUP'] = $this->getUserGroup();
@@ -61,26 +55,16 @@ class UserProfileForm extends CBitrixComponent
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
         //Персональные акции
-
-        $this->myRequest = Context::getCurrent()->getRequest();
-        $this->arRequest = $this->myRequest->getPostList()->toArray();
-
-        if (!empty($this->arRequest["EDIT_PORTFOLIO"])) {
-            $this->update($this->arRequest);
-        }
     }
 
     private function getUserGroup()
     {
         if (UserGroupsService::isBuyer($this->userId)) {
-            $userGroup = 'Покупатель';
+            return 'Покупатель';
         } elseif (UserGroupsService::isConsultant($this->userId)) {
-            $userGroup = 'Консультант';
+            return 'Консультант';
         }
-
-        return $userGroup;
     }
-
 
     private function getUser()
     {
@@ -99,6 +83,12 @@ class UserProfileForm extends CBitrixComponent
         return $arUserInfo;
     }
 
+    /**
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws SystemException
+     * @throws JsonException
+     */
     private function getLegalEntity()
     {
         $hlBlock = HL::getList([
@@ -112,7 +102,10 @@ class UserProfileForm extends CBitrixComponent
             ],
         ])->fetch();
 
-        $this->arResult['DOCUMENTS'] = json_decode($arLegalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR);
+        if ($arLegalEntity['UF_DOCUMENTS'] != '') {
+            $this->arResult['DOCUMENTS'] = json_decode($arLegalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR);
+        }
+
         foreach ($this->arResult['SELECT_OPTIONS']['STATUS'] as $key => $value) {
             if ($key == $arLegalEntity['UF_STATUS']) {
                 $this->arResult['DOCUMENTS']['STATUS'] = $value;
@@ -122,8 +115,15 @@ class UserProfileForm extends CBitrixComponent
         return $arLegalEntity;
     }
 
-    private function getPetsInfo()
+    /**
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws SystemException
+     */
+    private function getPetsInfo(): array
     {
+        $arPets = [];
+
         $hlBlock = HL::getList([
             'filter' => ['=ID' => HIGHLOAD_BLOCK_HLPETS],
         ])->fetch();
@@ -145,10 +145,24 @@ class UserProfileForm extends CBitrixComponent
         return CUser::GetByID($this->arResult['USER_INFO']['UF_MENTOR_ID'])->Fetch();
     }
 
-    private function getSelect()
+    /**
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws SystemException
+     */
+    private function getSelect(): array
     {
         //Пол пользователя
         $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
+
+        //Пункты выдачи заказов
+        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLPICKUPPOINT)->getDataClass()::getList([
+            'order' => ['UF_NAME'=>'ASC'],
+            'select' => ['*'],
+        ]);
+        while ($fields = $hlBlock->Fetch()) {
+            $selects['PICK_POINT'][$fields['ID']] = $fields['UF_NAME'];
+        }
 
         //Статусы юр лица для консультантов
         $entity = CUserTypeEntity::GetList([], [
@@ -173,15 +187,22 @@ class UserProfileForm extends CBitrixComponent
             $selects['PET_KIND'][$enumFields['ID']] = $enumFields['VALUE'];
         }
 
-        //Порода питомцев
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
-            "FIELD_NAME" => "UF_BREED",
-        ])->Fetch();
+        //Породы кошек
+        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLBREEDCAT)->getDataClass()::getList([
+            'order' => ['UF_BREED_CAT'=>'ASC'],
+            'select' => ['*'],
+        ]);
+        while ($fields = $hlBlock->Fetch()) {
+            $selects['CAT_BREED'][$fields['ID']] = $fields['UF_BREED_CAT'];
+        }
 
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            $selects['PET_BREED'][$enumFields['ID']] = $enumFields['VALUE'];
+        //Породы собак
+        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLBREEDDOG)->getDataClass()::getList([
+            'order' => ['UF_BREED_DOG'=>'ASC'],
+            'select' => ['*'],
+        ]);
+        while ($enumFields = $hlBlock->Fetch()) {
+            $selects['DOG_BREED'][$enumFields['ID']] = $enumFields['UF_BREED_DOG'];
         }
 
         //Пол питомцев
@@ -198,16 +219,271 @@ class UserProfileForm extends CBitrixComponent
         return $selects;
     }
 
-    private function update($arParams)
+    public function configureActions(): array
     {
-        \Bitrix\Main\Diag\Debug::dumpToFile($arParams, '$arParams', '/debug.php');
-        //$arPreparedProperties = $this->prepareProperties($arParams);
+        return [
+            'userInfoUpdate' => [
+                'prefilters' => []
+            ],
+            'legalEntityUpdate' => [
+                'prefilters' => []
+            ],
+            'addPet' => [
+                'prefilters' => []
+            ],
+            'changePet' => [
+                'prefilters' => []
+            ],
+            'deletePet' => [
+                'prefilters' => []
+            ],
+        ];
+
     }
 
-    private function prepareProperties($arPops)
+    public function userInfoUpdateAction($form)
     {
-        $preparedProps = [];
+        global $USER;
 
-        return $preparedProps;
+        //TODO:Загрузка фоток
+        $props = [];
+
+        foreach ($form as $row) {
+            $props[$row['name']] = $row['value'];
+        }
+
+        $user = new CUser;
+        $fields["NAME"] = $props['NAME'];
+        $fields = [
+            "NAME"              => $props['NAME'],
+            "LAST_NAME"         => $props['LAST_NAME'],
+            "SECOND_NAME"       => $props['SECOND_NAME'],
+            "PERSONAL_GENDER"   => $props['PERSONAL_GENDER'],
+            "PERSONAL_BIRTHDAY" => $props['PERSONAL_BIRTHDAY'],
+            "EMAIL"             => $props['EMAIL'],
+            "PERSONAL_PHONE"    => $props['PERSONAL_PHONE'],
+            "PERSONAL_CITY"     => $props['PERSONAL_CITY'],
+            "UF_PICKUP_POINT_ID"=> $props['UF_PICKUP_POINT_ID']
+        ];
+
+        $user->Update($USER->GetId(), $fields);
     }
+
+    public function legalEntityUpdateAction($form)
+    {
+        global $USER;
+
+        //TODO:Загрузка кучи сканов
+        $docs = [];
+        $files = ["passport.copyPassport", "innFiles", "bank.bankFiles", "referenceFNS", "egrip", "rule", "leader", "egrul"];
+
+        foreach ($form as $row) {
+//            if ($row['name'] != "UF_STATUS") {
+//                \Bitrix\Main\Diag\Debug::dumpToFile($row, '$row', '/debug.php');
+//                $row['arr_name'] = str_replace('.', '"]["', $row['name']);
+//                if (in_array($row['name'], $files)) {
+//                    $docs[$row['arr_name']] = $row['value'];
+//                } else {
+//                    $docs[$row['arr_name']] = $row['value'];
+//                }
+//                \Bitrix\Main\Diag\Debug::dumpToFile($row, '$row', '/debug.php');
+//                \Bitrix\Main\Diag\Debug::dumpToFile($docs, '$docs', '/debug.php');
+//            } else {
+//                $props["UF_STATUS"] = $row['value'];
+//            }
+            switch ($row['name']) {
+                case 'UF_STATUS':
+                    $props["UF_STATUS"] = $row['value'];
+                    break;
+                case 'citizenship':
+                    $docs["citizenship"] = $row['value'];
+                    break;
+                case 'passport.series':
+                    $docs["passport"]['series'] = $row['value'];
+                    break;
+                case 'passport.number':
+                    $docs["passport"]['number'] = $row['value'];
+                    break;
+                case 'passport.issued':
+                    $docs["passport"]['issued'] = $row['value'];
+                    break;
+                case 'passport.date':
+                    $docs["passport"]['date'] = $row['value'];
+                    break;
+                case 'passport.addressRegistration.locality':
+                    $docs["passport"]['addressRegistration']['locality'] = $row['value'];
+                    break;
+                case 'passport.addressRegistration.street':
+                    $docs["passport"]['addressRegistration']['street'] = $row['value'];
+                    break;
+                case 'passport.addressRegistration.home':
+                    $docs["passport"]['addressRegistration']['home'] = $row['value'];
+                    break;
+                case 'passport.addressRegistration.flat':
+                    $docs["passport"]['addressRegistration']['flat'] = $row['value'];
+                    break;
+                case 'passport.addressRegistration.index':
+                    $docs["passport"]['addressRegistration']['index'] = $row['value'];
+                    break;
+                case 'passport.addressFact':
+                    $docs["passport"]['addressFact'] = $row['value'];
+                    break;
+                case 'passport.addressFact.locality':
+                    $docs["passport"]['addressFact']['locality'] = $row['value'];
+                    break;
+                case 'passport.addressFact.street':
+                    $docs["passport"]['addressFact']['street'] = $row['value'];
+                    break;
+                case 'passport.addressFact.home':
+                    $docs["passport"]['addressFact']['home'] = $row['value'];
+                    break;
+                case 'passport.addressFact.flat':
+                    $docs["passport"]['addressFact']['flat'] = $row['value'];
+                    break;
+                case 'passport.addressFact.index':
+                    $docs["passport"]['addressFact']['index'] = $row['value'];
+                    break;
+                case 'passport.addressOrganization.locality':
+                    $docs["passport"]['addressOrganization']['locality'] = $row['value'];
+                    break;
+                case 'passport.addressOrganization.street':
+                    $docs["passport"]['addressOrganization']['street'] = $row['value'];
+                    break;
+                case 'passport.addressOrganization.home':
+                    $docs["passport"]['addressOrganization']['home'] = $row['value'];
+                    break;
+                case 'passport.addressOrganization.flat':
+                    $docs["passport"]['addressOrganization']['flat'] = $row['value'];
+                    break;
+                case 'passport.addressOrganization.index':
+                    $docs["passport"]['addressOrganization']['index'] = $row['value'];
+                    break;
+                case 'passport.copyPassport':
+                    $docs["passport"]['copyPassport'][] = $row['value'];
+                    break;
+                case 'inn':
+                    $docs["inn"] = $row['value'];
+                    break;
+                case 'kpp':
+                    $docs["kpp"] = $row['value'];
+                    break;
+                case 'innFiles':
+                    $docs["innFiles"][] = $row['value'];
+                    break;
+                case 'bank.name':
+                    $docs["bank"]['name'] = $row['value'];
+                    break;
+                case 'bank.bik':
+                    $docs["bank"]['bik'] = $row['value'];
+                    break;
+                case 'bank.rAccount':
+                    $docs["bank"]['rAccount'] = $row['value'];
+                    break;
+                case 'bank.kAccount':
+                    $docs["bank"]['kAccount'] = $row['value'];
+                    break;
+                case 'bank.bankFiles':
+                    $docs["bank"]['bankFiles'][] = $row['value'];
+                    break;
+                case 'nds':
+                    $docs["nds"] = $row['value'];
+                    break;
+                case 'usn':
+                    $docs["usn"][] = $row['value'];
+                    break;
+                case 'ogrnip':
+                    $docs["ogrnip"] = $row['value'];
+                    break;
+                case 'egrip':
+                    $docs["egrip"][] = $row['value'];
+                    break;
+                case 'name':
+                    $docs["name"] = $row['value'];
+                    break;
+                case 'nameSmall':
+                    $docs["nameSmall"] = $row['value'];
+                    break;
+                case 'ogrn':
+                    $docs["ogrn"] = $row['value'];
+                    break;
+                case 'rule':
+                    $docs["rule"][] = $row['value'];
+                    break;
+                case 'leader':
+                    $docs["leader"][] = $row['value'];
+                    break;
+                case 'order':
+                    $docs["order"] = $row['value'];
+                    break;
+                case 'egrul':
+                    $docs["egrul"][] = $row['value'];
+                    break;
+                case 'rightToSign':
+                    $docs["rightToSign"] = $row['value'];
+                    break;
+            }
+        }
+
+        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_CREATED_AT'] = date('d.m.Y H:i:s');
+        $props['UF_DOCUMENTS'] = json_encode($docs, true);
+        $props['UF_IS_ACTIVE'] = "Y";
+
+        \QSoft\ORM\LegalEntityTable()::add($props);
+        //TODO: понять откуда ошибка Call to undefined function QSoft\ORM\LegalEntityTable()
+        //TODO: добавить модерацию (видимо переслать в ConfirmationTable)
+        //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
+
+    }
+
+    public function addPetAction($form): array
+    {
+        global $USER;
+
+        $props = [];
+        foreach ($form as $row) {
+            if ($props[$row['name']] != ['ID']) {
+                $props[$row['name']] = $row['value'];
+            }
+        }
+
+        $props['UF_USER_ID'] = $USER->GetId();
+
+        $pet = \QSoft\ORM\PetTable()::add($props);
+
+        if ($pet) {
+        $data['pet-id'] = $pet;
+            } else {
+        $data['error'] = 'error';
+        }
+
+        return $data;
+    }
+
+    public function changePetAction($form)
+    {
+        global $USER;
+
+        $props = [];
+        foreach ($form as $row) {
+            if ($props[$row['name']] != ['ID']) {
+                $props[$row['name']] = $row['value'];
+            } else {
+                $id = $row['value'];
+            }
+        }
+
+        $props['UF_USER_ID'] = $USER->GetId();
+
+        \QSoft\ORM\PetTable()::update($id, $props);
+    }
+
+    public function deletePetAction($id)
+    {
+        \QSoft\ORM\PetTable::delete($id);
+    }
+
+    //TODO смена ментора
+    //TODO модерация
+
 }

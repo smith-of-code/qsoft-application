@@ -16,7 +16,6 @@ final class PetTable extends BaseTable
 {
     protected static array $decorators = [
         'UF_KIND' => EnumDecorator::class,
-        'UF_BREED' => EnumDecorator::class,
         'UF_GENDER' => EnumDecorator::class,
     ];
 
@@ -48,10 +47,10 @@ final class PetTable extends BaseTable
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_KIND_FIELD'),
             ], self::getTableName()),
-            new EnumField('UF_BREED', [
+            new IntegerField('UF_BREED', [
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_BREED_FIELD'),
-            ], self::getTableName()),
+            ]),
             new DateField('UF_BIRTHDATE', [
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_BIRTHDATE_FIELD'),
