@@ -13,14 +13,14 @@ if (!$orderId) {
     die();
 }
 
-$orderProducts = (new OrderService)->getOrderProducts($orderId);
+$orderProducts = (new OrderService($orderId))->getOrderProducts();
 
-$productIds = [];
+$offerIds = [];
 foreach ($orderProducts as $orderProduct) {
-    $productIds[] = $orderProduct->getProductID();
+    $offerIds[] = $orderProduct->getProductID();
 }
 
-$offers = (new ProductService)->getOffers($productIds);
+$offers = (new ProductService)->getOffersByIds($offerIds);
 
 echo Json::encode($offers);
 require_once($_SERVER['DOCUMENT_ROOT'] . BX_ROOT . '/modules/main/include/epilog_after.php');

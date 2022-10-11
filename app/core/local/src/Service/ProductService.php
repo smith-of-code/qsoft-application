@@ -7,14 +7,14 @@ use CIBlockElement;
 
 class ProductService
 {
-    public function getOffers(array $productIds): array
+    public function getOffersByIds(array $offerIds): array
     {
         $properties = [];
-        CIBlockElement::GetPropertyValuesArray($properties, IBLOCK_PRODUCT_OFFER, ['ID' => current($productIds)]);
+        CIBlockElement::GetPropertyValuesArray($properties, IBLOCK_PRODUCT_OFFER, ['ID' => current($offerIds)]);
 
         $offerIterator = CIBlockElement::GetList(
             [],
-            ['ID' => $productIds],
+            ['ID' => $offerIds],
             false,
             false,
             array_merge(

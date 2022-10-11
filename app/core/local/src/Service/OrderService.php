@@ -3,14 +3,19 @@
 namespace QSoft\Service;
 
 use Bitrix\Main\Loader;
+use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\Order;
 use Bitrix\Sale\Basket;
 use RuntimeException;
 
 class OrderService
 {
-    public function __construct()
+    private int $orderId;
+    private ?Order $order;
+
+    public function __construct(int $orderId)
     {
+        $this->orderId = $orderId;
         $this->includeModules();
     }
 
@@ -20,19 +25,19 @@ class OrderService
         Loader::includeModule('catalog');
     }
 
-    public function getOrder(int $orderId): Order
+    public function getOrder(): Order
     {
-        $order = Order::load($orderId);
-        if (!$order) {
-            throw new RuntimeException('Order not found');
+        if (!$this->order) {
+            $this->order = Order::load($this->orderId);
+            if (!$this->order) {
+                throw new RuntimeException('Order not found');
+            }
         }
-        return $order;
+        return $this->order;
     }
 
-    public function getOrderProducts(int $orderId)
+    public function getOrderProducts(): BasketBase
     {
-        $order = $this->getOrder($orderId);
-
-        return Basket::loadItemsForOrder($order);
+        return Basket::loadItemsForOrder($this->getOrder());
     }
 }
