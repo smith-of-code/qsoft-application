@@ -250,9 +250,9 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 }
             }
         }
-        $user = new \QSoft\Entity\User();
+        $currentUser = new \QSoft\Entity\User();
 
-        if ($user->groups->isConsultant()) {
+        if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
             $items['BONUSES'] = [
                 'ID' => 'BONUSES',
                 'CODE' => 'BONUSES',
