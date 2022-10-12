@@ -1,23 +1,27 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
-\Bitrix\Main\Loader::includeModule('iblock');
-
 class NewsListComponent extends CBitrixComponent
 {
+    private const NOIMAGE = "детальное изображение не найдено";
+
     public function executeComponent()
     {
-        $targetArr = ["NAME", "PREVIEW_TEXT", "DETAIL_PICTURE"];
-        $arSelect = array_merge(["ID", "IBLOCK_ID", "PROPERTY_MARKER"], $targetArr);
-        $arFilter = ["IBLOCK_ID" => $this->arParams['IBLOCK_ID']];
-        $dbItems = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
-        $this->arResult = ['NEWS' => []];
-        $targetArr[] = "PROPERTY_MARKER_VALUE";
+        $dbNews = CIBlockElement::GetList(
+            [],
+            ["IBLOCK_ID" => $this->arParams['IBLOCK_ID']],
+            false,
+            false,
+            ["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "DETAIL_PICTURE", "PROPERTY_MARKER"]
+        );
 
-        while($itemArr = $dbItems->GetNext(true, false)){
-            $itemArr['DETAIL_PICTURE'] = CFile::GetPath($itemArr['DETAIL_PICTURE']);
-            $this->arResult['NEWS'][] = array_combine($targetArr, array_map(fn($key) => $itemArr[$key], $targetArr));
+        while($newsItem = $dbNews->GetNext(true, false)) {
+            $this->arResult["NEWS"][] = [
+                "NAME" => $newsItem["NAME"],
+                "PREVIEW_TEXT" => $newsItem["PREVIEW_TEXT"],
+                "MARKER" => $newsItem["PROPERTY_MARKER_VALUE"],
+                "DETAIL_PICTURE" => CFile::GetPath($newsItem["DETAIL_PICTURE"]) ?? self::NOIMAGE,
+            ];
         }
-
-        $this->includeComponentTemplate("test");
+        $this->includeComponentTemplate();
     }
 }?>
