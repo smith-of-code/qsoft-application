@@ -6,6 +6,39 @@
 
     height: 100%;
 
+    &--slide {
+        & .button {
+            &__icon {
+                &--big {
+                    $size: 32px;
+
+                    width: rem($size);
+                    height: rem($size);
+                }
+            }
+        }
+    }
+
+    &--slide & {
+        &__wrapper {
+            padding: 0;
+        }
+
+        &__label {
+            font-size: rem($font-size-miniature);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-small / $font-size-miniature);
+
+            top: rem($gap-average);
+            left: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                top: rem($gap-small);
+                left: rem($gap-small);
+            }
+        }
+    }
+
     &__link {
         @include position-stretching;
     }
@@ -124,7 +157,9 @@
     }
 
     &__breed {
-        max-width: rem(159px);
+        @media #{$screen-desktop} {
+            max-width: rem(159px);
+        }
     }
 
     &__footer {

@@ -89,15 +89,15 @@ function createSVGIconsModule() {
     };
 }
 
-module.exports = (env) => {
-    const isDev = env.mode === 'development';
+module.exports = (env, argv) => {
+    const isDev = argv.mode === 'development';
     const isProd = !isDev;
 
     return {
         node: {
             fs: "empty"
         },
-        mode: isProd ? 'production' : isDev && 'development',
+        mode: isProd ? 'production' : 'development',
         entry: [
             filePath.src.script,
             filePath.src.style,

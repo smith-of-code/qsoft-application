@@ -1,12 +1,6 @@
 .switcher {
     &__input {
-        position: absolute;
-
-        clip: rect(0 0 0 0);
-
-        width: rem(1px);
-        height: rem(1px);
-        margin: rem(-1px);
+        @include hidden-element;
     }
 
     &__input:checked + &__label & {
@@ -41,12 +35,15 @@
     &__text {
         $margin: 10px;
 
+        font-weight: $font-weight-semibold;
+
         margin-left: rem($margin);
 
         cursor: pointer;
 
         &--left {
             margin-right: rem($margin);
+            margin-left: 0;
         }
     }
 
