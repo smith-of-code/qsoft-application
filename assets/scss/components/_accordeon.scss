@@ -17,7 +17,9 @@
         }
 
         &__header {
-            justify-content: flex-start;
+            @media #{$screen-desktop} {
+                justify-content: flex-start;
+            }
         }
     }
 
