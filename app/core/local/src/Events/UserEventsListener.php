@@ -2,42 +2,34 @@
 
 namespace QSoft\Events;
 
-use QSoft\Service\LoyaltyService;
-use QSoft\Service\UserGroupsService;
-use QSoft\Service\UserService;
+use QSoft\Entity\User;
 use RuntimeException;
 
 class UserEventsListener
 {
-    private static UserService $userService;
-    private static UserGroupsService $userGroupService;
-    private static LoyaltyService $loyaltyService;
-
-    private static function initDependencies(): void
-    {
-        self::$userService = new UserService;
-        self::$userGroupService = new UserGroupsService;
-        self::$loyaltyService = new LoyaltyService;
-    }
 
     public static function OnBeforeUserUpdate(array $fields)
     {
-        self::initDependencies();
+        // Пользователь, для которого вносятся изменения
+        $user = new User($fields['ID']);
 
-        $user = self::$userService->get($fields['ID']);
-        if (!$user) {
-            throw new RuntimeException('User not found');
-        }
+        if ($user->groups->isConsultant()) {
 
-        if (self::$userGroupService->isConsultant($fields['ID'])) {
-            if (is_numeric($fields['UF_MENTOR_ID']) && $user['UF_MENTOR_ID'] !== $fields['UF_MENTOR_ID']) {
+            // Если задан корректный ID Консультанта,
+            // а также он был изменен и не является ID самого пользователя
+            if (is_numeric($fields['UF_MENTOR_ID'])
+                && $user->mentorId !== $fields['UF_MENTOR_ID']
+                && $user->id !== $fields['UF_MENTOR_ID']
+            ) {
+                //Получим юзера-ментора
+                $userMentor = new User($fields['UF_MENTOR_ID']);
                 if (
-                    !self::$userService->getActive($fields['UF_MENTOR_ID'])
-                    || !self::$userGroupService->isConsultant($fields['UF_MENTOR_ID'])
+                    ! $userMentor->active
+                    || ! $userMentor->groups->isConsultant()
                 ) {
                     throw new RuntimeException('Invalid mentor ID');
                 }
-                self::$loyaltyService->addReferralBonuses($fields['UF_MENTOR_ID']);
+                $userMentor->bonusAccount->addReferralBonuses();
             }
         }
     }

@@ -6,7 +6,7 @@ use CUserFieldEnum;
 
 abstract class EnumDecorator implements DecoratorInterface
 {
-    public static function prepareField(string $fieldName, $fieldValue)
+    public static function prepareField(string $fieldName, $fieldValue = null)
     {
         return CUserFieldEnum::GetList([], ['XML_ID' => $fieldName])->Fetch()['ID'];
     }

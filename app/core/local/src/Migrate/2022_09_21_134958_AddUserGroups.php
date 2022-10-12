@@ -9,12 +9,6 @@ class AddUserGroups extends Migration
 
     private array $groups = [
         [
-            'NAME' => 'Консультант',
-            'STRING_ID' => 'consultant',
-            'ACTIVE' => 'Y',
-            'C_SORT' => 400,
-        ],
-        [
             'NAME' => 'Покупатель',
             'STRING_ID' => 'buyer',
             'ACTIVE' => 'Y',

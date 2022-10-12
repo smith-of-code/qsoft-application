@@ -1,0 +1,81 @@
+.catalog {
+    &__wrapper {
+        display: flex;
+    }
+
+    &__filter {
+        @media #{$screen-desktop} {
+            flex-shrink: 0;
+
+            width: rem(270px);
+            margin-right: rem(30px);
+        }
+    }
+
+    &__panel {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__results {
+        font-size: rem($font-size-normal);
+        line-height: rem($line-height-average);
+
+        margin-bottom: rem($gap-average);
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-average);
+
+            margin-bottom: 0;
+        }
+    }
+
+    &__button {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(30px);
+        }
+    }
+
+    &__select {
+        width: 100%;
+
+        @media #{$screen-tablet} {
+            width: 50%;
+        }
+
+        @media #{$screen-desktop} {
+            width: rem(230px);
+        }
+    }
+
+    &__sort {
+        display: flex;
+        align-items: center;
+
+        @media #{$screen-desktop} {
+            display: block;
+        }
+    }
+
+    &__toggle {
+        margin-left: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            width: 50%;
+            margin-left: rem($gap-normal);
+        }
+
+        @media #{$screen-desktop} {
+            width: auto;
+        }
+    }
+}
