@@ -152,51 +152,6 @@ class AddFieldsForUsers extends Migration
         ],
         [
             'ENTITY_ID' => 'USER',
-            'FIELD_NAME' => 'UF_LOYALTY_LEVEL',
-            'USER_TYPE_ID' => 'enumeration',
-            'XML_ID' => '',
-            'SORT' => '500',
-            'MULTIPLE' => 'N',
-            'MANDATORY' => 'Y',
-            'SHOW_FILTER' => 'N',
-            'SHOW_IN_LIST' => 'Y',
-            'EDIT_IN_LIST' => '',
-            'IS_SEARCHABLE' => 'N',
-            'VALUES' => [
-                'n1' => [
-                    'XML_ID' => 'K1',
-                    'VALUE' => 'K1',
-                    'DEF' => 'Y',
-                    'SORT' => 100,
-                ],
-                'n2' => [
-                    'XML_ID' => 'K2',
-                    'VALUE' => 'K2',
-                    'DEF' => 'N',
-                    'SORT' => 200,
-                ],
-                'n3' => [
-                    'XML_ID' => 'K3',
-                    'VALUE' => 'K3',
-                    'DEF' => 'N',
-                    'SORT' => 300,
-                ],
-            ],
-            'EDIT_FORM_LABEL' => [
-                'ru' => 'Уровень в системе лояльности',
-                'en' => 'Level of loyalty system',
-            ],
-            'LIST_COLUMN_LABEL' => [
-                'ru' => 'Уровень в системе лояльности',
-                'en' => 'Level of loyalty system',
-            ],
-            'LIST_FILTER_LABEL' => [
-                'ru' => 'Уровень в системе лояльности',
-                'en' => 'Level of loyalty system',
-            ],
-        ],
-        [
-            'ENTITY_ID' => 'USER',
             'FIELD_NAME' => 'UF_LOYALTY_CHECK_DATE',
             'USER_TYPE_ID' => 'date',
             'XML_ID' => '',

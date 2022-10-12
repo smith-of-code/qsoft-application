@@ -1,0 +1,22 @@
+.pack {
+    &__item {
+        font-size: rem($font-size-mini);
+        font-weight: $font-weight-semibold;
+        line-height: rem($line-height-small);
+
+        padding: rem(2px) rem($gap-mini);
+
+        cursor: pointer;
+
+        color: $saltBox;
+        border-radius: rem($border-radius-small);
+        background-color: $white;
+    }
+
+    &__input:checked + label & {
+        &__item {
+            color: $white;
+            background-color: $tuna;
+        }
+    }
+}

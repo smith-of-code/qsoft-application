@@ -1,0 +1,43 @@
+.price {
+    &__main {
+        @include text-small;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(6px);
+        }
+    }
+
+    &__calculation {
+        display: flex;
+        align-items: center;
+
+        &-total {
+            @include text-normal($font-weight-bold);
+
+            margin-right: rem(6px);
+
+            @media #{$screen-desktop} {
+                margin-right: rem($gap-small);
+            }
+        }
+
+        &-accumulation {
+            font-size: rem(10px);
+            font-weight: $font-weight-bold;
+            line-height: rem(12px);
+
+            padding: rem(2px) rem($gap-small);
+
+            color: #43aa8b;
+            border: rem(1px) solid #43aa8b;
+            border-radius: rem(20px);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-miniature);
+                line-height: rem($line-height-mini);
+
+                padding: 0 rem($gap-average);
+            }
+        }
+    }
+}

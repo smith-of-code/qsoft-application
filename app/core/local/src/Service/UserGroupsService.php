@@ -4,73 +4,83 @@ namespace QSoft\Service;
 
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserGroupTable;
+use QSoft\Entity\User;
 
 class UserGroupsService
 {
-    public const CONSULTANT_GROUP = 'consultant';
-    public const BUYER_GROUP = 'buyer';
-    const CACHE_TTL = 86400;
+    private User $user;
+    /**
+     * @var array Группы, в которых состоит пользователь
+     */
+    private array $groups;
 
+    public const USER_GROUP_BUYER = 'buyer';
+    public const USER_GROUP_CONSULTANT_1 = 'consultant_1';
+    public const USER_GROUP_CONSULTANT_2 = 'consultant_2';
+    public const USER_GROUP_CONSULTANT_3 = 'consultant_3';
 
-    public static function getUserGroups()
-    {
-        $userGroups = array_pluck(GroupTable::getList(array(
-            'filter' => ['!STRING_ID' => false],
-            'select' => ['ID', 'STRING_ID'],
-            'cache' => [
-                'ttl' => self::CACHE_TTL
-            ],
-        ))->fetchAll(), 'ID', 'STRING_ID');
-
-        return $userGroups;
+    /**
+     * UserGroupsService constructor.
+     * @param User $user
+     */
+    public function __construct(User $user) {
+        $this->user = $user;
+        $this->groups = [];
+        $this->allGroups = [];
     }
 
-    private static function getUserGroupArray($userId = false)
+    /**
+     * Возвращает группы, в которых состоит пользователь, в виде пар соответствия символьного идентификатора и ID группы
+     * @return array Массив пар "STRING_ID" - "ID"
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function getUserGroups() : array
     {
-        global $USER;
-        if ($userId) {
-            return $USER::GetUserGroup($userId);
+        if (empty($this->groups)) {
+            $groupsRes = UserGroupTable::getList([
+                'filter' => ['USER_ID' => $this->user->id],
+                'select' => ['GROUP_ID','GROUP_CODE'=>'GROUP.STRING_ID'],
+            ]);
+            while ($group = $groupsRes->fetch()) {
+                $this->groups[$group['GROUP_CODE']] = $group['GROUP_ID'];
+            }
         }
-        return $USER->GetUserGroupArray();
+        return $this->groups;
     }
 
-    private static function getGroupId($groupCode)
+    /**
+     * Относится ли пользователь к группе с заданным символьным идентификатором
+     * @param string $groupCode Символьный идентификатор группы (STRING_ID)
+     * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function isInAGroup(string $groupCode): bool
     {
-        return array_get(self::getUserGroups(), $groupCode, '0');
+        $this->getUserGroups();
+        return in_array($groupCode, array_keys($this->groups), true);
     }
 
-    public function isConsultant(int $userId): bool
+    /**
+     * Является ли пользователь Консультантом
+     * @return bool
+     */
+    public function isConsultant(): bool
     {
-        $consultantGroupId = GroupTable::getRow([
-            'filter' => [
-                '=STRING_ID' => self::CONSULTANT_GROUP,
-            ],
-            'select' => ['ID'],
-            'cache' => [
-                'ttl' => self::CACHE_TTL
-            ],
-        ])['ID'];
-
-        return (bool) UserGroupTable::getRow([
-            'filter' => [
-                '=USER_ID' => $userId,
-                '=GROUP_ID' => $consultantGroupId,
-            ],
-            'cache' => [
-                'ttl' => self::CACHE_TTL
-            ],
-        ]);
+        return $this->isInAGroup(self::USER_GROUP_CONSULTANT_1)
+            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_2)
+            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_3);
     }
 
-    public function isBuyer(int $userId): bool
+    /**
+     * Является ли пользователь Конечным покупателем
+     * @return bool
+     */
+    public function isBuyer(): bool
     {
-        return in_array(self::getGroupId(self::BUYER_GROUP), self::getUserGroupArray($userId));
-    }
-
-    public function currentUserIsConsultant(): bool
-    {
-        global $USER;
-        return $USER->GetID() && $this->isConsultant($USER->GetID());
-
+        return $this->isInAGroup(self::USER_GROUP_BUYER);
     }
 }

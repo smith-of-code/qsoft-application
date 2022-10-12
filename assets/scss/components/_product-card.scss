@@ -1,0 +1,205 @@
+.product-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+
+    &--slide {
+        & .button {
+            &__icon {
+                &--big {
+                    $size: 32px;
+
+                    width: rem($size);
+                    height: rem($size);
+                }
+            }
+        }
+    }
+
+    &--slide & {
+        &__wrapper {
+            padding: 0;
+        }
+
+        &__label {
+            font-size: rem($font-size-miniature);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-small / $font-size-miniature);
+
+            top: rem($gap-average);
+            left: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                top: rem($gap-small);
+                left: rem($gap-small);
+            }
+        }
+    }
+
+    &__link {
+        @include position-stretching;
+    }
+
+    &__wrapper {
+        padding: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            padding: rem($gap-mini);
+            padding-bottom: rem($gap-average);
+        }
+    }
+
+    &__image {
+        position: relative;
+
+        flex-shrink: 0;
+
+        width: 100%;
+
+        overflow: hidden;
+
+        &:before {
+            $card-width: rem(148px);
+            $card-height: rem(130px);
+
+            display: block;
+
+            padding-top: percentage($card-height / $card-width);
+
+            content: '';
+
+            @media #{$screen-desktop} {
+                $card-width: rem(262px);
+                $card-height: rem(224px);
+
+                padding-top: percentage($card-height / $card-width);
+            }
+        }
+    }
+
+    &__box {
+        @include position-stretching;
+
+        background-color: $white;
+    }
+
+    &__pic {
+        @include position-stretching;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    &__content {
+        flex-grow: 1;
+
+        padding: 0 rem($gap-small) rem($gap-average);
+
+        @media #{$screen-desktop} {
+            padding: 0 rem(20px) rem($gap-average);
+        }
+    }
+
+    &__title {
+        @include text-truncate-by-row(3);
+
+        margin-bottom: rem($gap-small);
+    }
+
+    &__article {
+        font-size: rem($font-size-small);
+        line-height: rem($line-height-miniature);
+
+        margin-bottom: rem(14px);
+
+        @media #{$screen-tablet} {
+            line-height: rem($line-height-small);
+
+            margin-bottom: rem($gap-medium);
+        }
+    }
+
+    &__packs {
+        position: relative;
+        z-index: $z-index-html;
+
+        margin-bottom: rem($gap-average);
+
+        &--mobile {
+            @media #{$screen-desktop} {
+                display: none;
+            }
+        }
+
+        &--desktop {
+            display: none;
+
+            @media #{$screen-desktop} {
+                display: block;
+            }
+        }
+    }
+
+    &__colors {
+        position: relative;
+        z-index: $z-index-html;
+
+        margin-bottom: rem(10px);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-medium);
+        }
+    }
+
+    &__breed {
+        @media #{$screen-desktop} {
+            max-width: rem(159px);
+        }
+    }
+
+    &__footer {
+        margin-top: auto;
+        padding: 0 rem($gap-small) rem($gap-average);
+
+        @media #{$screen-desktop} {
+            padding: 0 rem(20px) rem($gap-average);
+        }
+    }
+
+    &__price {
+        margin-bottom: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-average);
+        }
+    }
+
+    &__label {
+        position: absolute;
+        z-index: $z-index-html;
+        top: rem(14px);
+        left: rem(14px);
+
+        @media #{$screen-tablet} {
+            top: rem($gap-medium);
+            left: rem($gap-medium);
+        }
+    }
+
+    &__favourite {
+        position: absolute;
+        z-index: $z-index-html;
+        top: rem($gap-small);
+        right: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            top: rem($gap-average);
+            right: rem($gap-average);
+        }
+    }
+}

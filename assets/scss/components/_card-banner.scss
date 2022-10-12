@@ -1,0 +1,66 @@
+.card-banner {
+    padding: rem($gap-normal) rem(20px);
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+    box-shadow: 0 rem(8px) rem(24px) rgba($black, .16);
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-big) rem($gap-normal) rem($gap-normal);
+    }
+
+    &__link {
+        @include position-stretching(absolute, $z-index-html);
+    }
+
+    &__inner {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    &__title {
+        @include title-2;
+
+        @include text-truncate-by-row(3);
+
+        margin-bottom: rem($gap-average);
+
+        color: $tuna;
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(14px);
+        }
+    }
+
+    &__text {
+        @include text-average($font-weight-medium);
+
+        @include text-truncate-by-row(3);
+
+        margin-bottom: rem(3px);
+
+        color: $codGray;
+    }
+
+    &__pagination {
+        display: none;
+
+        @media #{$screen-tablet} {
+            position: absolute;
+            z-index: $z-index-input;
+            bottom: 0;
+            left: 0;
+            
+            display: block;
+        }
+    }
+
+    &__sale {
+        align-self: flex-end;
+    }
+}

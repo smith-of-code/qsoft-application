@@ -9,6 +9,12 @@
         width: 100%;
     }
 
+    &--squared & {
+        &__control {
+            border-radius: $border-radius-small;
+        }
+    }
+
     &--small & {
         &__control {
             @include text-tiny;
@@ -206,6 +212,32 @@
 
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+
+        &--search {
+            top: 50%;
+            right: rem($gap-mini);
+
+            width: rem(36px);
+            height: rem(36px);
+
+            transform: translateY(-50%);
+
+            border-top-left-radius: rem($border-radius-small);
+            border-bottom-left-radius: rem($border-radius-small);
+        }
+
+        &--select {
+            top: 50%;
+            right: rem($gap-mini);
+
+            width: rem(32px);
+            height: rem(32px);
+
+            transform: translateY(-50%);
+
+            border-top-left-radius: rem($border-radius-small);
+            border-bottom-left-radius: rem($border-radius-small);
+        }
     }
 
     &__counter {
