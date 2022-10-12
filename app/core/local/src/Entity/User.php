@@ -7,8 +7,10 @@ use CFile;
 use CUser;
 use CUserFieldEnum;
 use QSoft\Service\BonusAccountService;
+use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -23,6 +25,10 @@ class User
      */
     public BonusAccountService $bonusAccount;
     /**
+     * @var LegalEntityService Объект для работы с питомцами пользователя
+     */
+    public LegalEntityService $legalEntity;
+    /**
      * @var LoyaltyService Объект для работы с программой лояльности
      */
     public LoyaltyService $loyalty;
@@ -34,7 +40,10 @@ class User
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
-
+    /**
+     * @var PetService Объект для работы с питомцами пользователя
+     */
+    public PetService $pets;
     /**
      * @var int ID пользователя
      */
@@ -156,9 +165,11 @@ class User
 
         //Задаем необходимые связанные объекты
         $this->bonusAccount = new BonusAccountService($this);
+        $this->legalEntity = new LegalEntityService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->pets = new PetService($this);
     }
 
     /**

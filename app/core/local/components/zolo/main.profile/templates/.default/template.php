@@ -10,8 +10,6 @@ global $APPLICATION;
 $APPLICATION->IncludeComponent(
     'zolo:personal.main.profile.navigation_menu',
     '',
-    [],
-    [],
 );
 ?>
 
@@ -70,138 +68,138 @@ $APPLICATION->IncludeComponent(
                         </option>
                     <?php endforeach;?>
                 </select><br>
-                Гражданство: <input type="text" name="citizenship" value="<?=$arResult['DOCUMENTS']['citizenship']?>" required>
+                Гражданство: <input type="text" name="citizenship" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['citizenship']?>" required>
                 Паспортные данные<br>
-                Серия: <input type="text" name="passport.series" value="<?=$arResult['DOCUMENTS']['passport']['series']?>" required>
-                Номер: <input type="text" name="passport.number" value="<?=$arResult['DOCUMENTS']['passport']['number']?>" required><br>
-                Кем выдан: <input type="text" name="passport.issued" value="<?=$arResult['DOCUMENTS']['passport']['issued']?>" required>
-                Когда выдан: <input type="text" name="passport.date" value="<?=$arResult['DOCUMENTS']['passport']['date']?>" required><br>
+                Серия: <input type="text" name="passport.series" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['series']?>" required>
+                Номер: <input type="text" name="passport.number" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['number']?>" required><br>
+                Кем выдан: <input type="text" name="passport.issued" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['issued']?>" required>
+                Когда выдан: <input type="text" name="passport.date" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['date']?>" required><br>
                 Адрес регистрации<br>
-                Населенный пункт: <input type="text" name="passport.addressRegistration.locality" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['locality']?>" required>
-                Улица: <input type="text" name="passport.addressRegistration.street" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['street']?>" required><br>
-                Дом: <input type="text" name="passport.addressRegistration.home" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['home']?>" required>
-                Квартира: <input type="text" name="passport.addressRegistration.flat" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['flat']?>" required>
-                Индекс: <input type="text" name="passport.addressRegistration.index" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['index']?>" required><br>
+                Населенный пункт: <input type="text" name="passport.addressRegistration.locality" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['locality']?>" required>
+                Улица: <input type="text" name="passport.addressRegistration.street" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['street']?>" required><br>
+                Дом: <input type="text" name="passport.addressRegistration.home" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['home']?>" required>
+                Квартира: <input type="text" name="passport.addressRegistration.flat" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['flat']?>" required>
+                Индекс: <input type="text" name="passport.addressRegistration.index" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['index']?>" required><br>
                 Адрес проживания<br>
                 Адрес регистрации совпадает с адресом фактического проживания
-                <input type="checkbox" name="passport.addressRegistration.index" value="<?=$arResult['DOCUMENTS']['passport']['addressRegistration']['index']?>"><br>
-                <?php if ($arResult['DOCUMENTS']['passport']['addressFact'] != 'Y') :?>
-                    Населенный пункт: <input type="text" name="passport.addressFact.locality" value="<?=$arResult['DOCUMENTS']['passport']['addressFact']['locality']?>" required>
-                    Улица: <input type="text" name="passport.addressFact.street" value="<?=$arResult['DOCUMENTS']['passport']['addressFact']['street']?>" required><br>
-                    Дом: <input type="text" name="passport.addressFact.home" value="<?=$arResult['DOCUMENTS']['passport']['addressFact']['home']?>" required>
-                    Квартира: <input type="text" name="passport.addressFact.flat" value="<?=$arResult['DOCUMENTS']['passport']['addressFact']['flat']?>" required>
-                    Индекс: <input type="text" name="passport.addressFact.index" value="<?=$arResult['DOCUMENTS']['passport']['addressFact']['index']?>" required><br>
+                <input type="checkbox" name="passport.addressRegistration.index" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressRegistration']['index']?>"><br>
+                <?php if ($arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact'] != 'Y') :?>
+                    Населенный пункт: <input type="text" name="passport.addressFact.locality" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['locality']?>" required>
+                    Улица: <input type="text" name="passport.addressFact.street" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['street']?>" required><br>
+                    Дом: <input type="text" name="passport.addressFact.home" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['home']?>" required>
+                    Квартира: <input type="text" name="passport.addressFact.flat" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['flat']?>" required>
+                    Индекс: <input type="text" name="passport.addressFact.index" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['index']?>" required><br>
                 <?php endif;?>
                 Копия паспорта<br>
-                <?php foreach ($arResult['DOCUMENTS']['passport']['copyPassport'] as $file) :?>
+                <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['copyPassport'] as $file) :?>
                 Файл: <input type="text" name="passport.copyPassport" value="<?=$file?>" required> <br>
                 <?php endforeach;?>
             </div>
-            <?php if ($arResult['DOCUMENTS']['STATUS'] == "Самозанятый") :?>
+            <?php if ($arResult['STATUS'] == "Самозанятый") :?>
                 Самозанятый
                 <div style="background: whitesmoke; margin:5px">
                     ИНН и копия свидетельства о постановке на учет в налоговом органе<br>
-                    ИНН:<br><input type="text" name="inn" value="<?=$arResult['DOCUMENTS']['inn']?>" required>
-                    <?php foreach ($arResult['DOCUMENTS']['innFiles'] as $file) :?>
+                    ИНН:<br><input type="text" name="inn" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['inn']?>" required>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['innFiles'] as $file) :?>
                         Файл: <input type="text" name="innFiles" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Банковские реквизиты<br>
-                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['DOCUMENTS']['bank']['name']?>" required>
-                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['DOCUMENTS']['bank']['bik']?>" required><br>
-                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['DOCUMENTS']['bank']['rAccount']?>" required>
-                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['DOCUMENTS']['bank']['kAccount']?>" required><br>
+                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['name']?>" required>
+                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bik']?>" required><br>
+                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['rAccount']?>" required>
+                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['kAccount']?>" required><br>
                     Сведения о банковских реквизитах<br>
-                    <?php foreach ($arResult['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
                         Файл: <input type="text" name="bank.bankFiles" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Справка о постановке на учет физического лица в качестве плательщика налога на профессиональный доход<br>
-                    <?php foreach ($arResult['DOCUMENTS']['referenceFNS'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['referenceFNS'] as $file) :?>
                         Файл: <input type="text" name="referenceFNS" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                 </div>
-            <?php elseif ($arResult['DOCUMENTS']['STATUS'] == "ИП") :?>
+            <?php elseif ($arResult['STATUS'] == "ИП") :?>
                 Индивидуальный предприниматель
                 <div style="background: whitesmoke; margin:5px">
-                    Наименование ИП: <input type="text" name="name" value="<?=$arResult['DOCUMENTS']['name']?>" required>
-                    ИНН: <input type="text" name="inn" value="<?=$arResult['DOCUMENTS']['inn']?>" required>
-                    Плательщик НДС: <input type="checkbox" name="nds" value="<?=$arResult['DOCUMENTS']['nds']?>" required>
+                    Наименование ИП: <input type="text" name="name" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['name']?>" required>
+                    ИНН: <input type="text" name="inn" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['inn']?>" required>
+                    Плательщик НДС: <input type="checkbox" name="nds" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['nds']?>" required>
                     Копия свидетельства о постановке на учет в налоговом органе:
-                    <?php foreach ($arResult['DOCUMENTS']['referenceFNS'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['referenceFNS'] as $file) :?>
                         Файл: <input type="text" name="referenceFNS" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
-                    <?php if ($arResult['DOCUMENTS']['nds'] == "Да") :?>
+                    <?php if ($arResult['LEGAL_ENTITY']['DOCUMENTS']['nds'] == "Да") :?>
                         “Уведомление о применении УСН упрощенной системы налогоплательщика”:
-                        <?php foreach ($arResult['DOCUMENTS']['usn'] as $file) :?>
+                        <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['usn'] as $file) :?>
                             Файл: <input type="text" name="usn" value="<?=$file?>" required> <br>
                         <?php endforeach;?>
                     <?php endif;?>
-                    ОГРНИП: <input type="text" name="ogrnip" value="<?=$arResult['DOCUMENTS']['ogrnip']?>" required> <br>
+                    ОГРНИП: <input type="text" name="ogrnip" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['ogrnip']?>" required> <br>
                     “Свидетельство о государственной регистрации ИП/листа записи ЕГРИП”;
-                    <?php foreach ($arResult['DOCUMENTS']['egrip'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['egrip'] as $file) :?>
                         Файл: <input type="text" name="egrip" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Банковские реквизиты<br>
-                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['DOCUMENTS']['bank']['name']?>" required>
-                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['DOCUMENTS']['bank']['bik']?>" required><br>
-                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['DOCUMENTS']['bank']['rAccount']?>" required>
-                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['DOCUMENTS']['bank']['kAccount']?>" required><br>
+                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['name']?>" required>
+                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bik']?>" required><br>
+                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['rAccount']?>" required>
+                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['kAccount']?>" required><br>
                     Сведения о банковских реквизитах<br>
-                    <?php foreach ($arResult['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
                         Файл: <input type="text" name="bank.bankFiles" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Справка о постановке на учет физического лица в качестве плательщика налога на профессиональный доход<br>
-                    <?php foreach ($arResult['DOCUMENTS']['referenceFNS'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['referenceFNS'] as $file) :?>
                         Файл: <input type="text" name="referenceFNS" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                 </div>
-            <?php elseif ($arResult['DOCUMENTS']['STATUS'] == "ООО") :?>
+            <?php elseif ($arResult['STATUS'] == "ООО") :?>
                 Общество с ограниченной ответственностью (ООО)
                 <div style="background: whitesmoke; margin:5px">
-                    Наименование организации (полное): <input type="text" name="name" value="<?=$arResult['DOCUMENTS']['name']?>" required>
-                    Наименование организации (сокращенное): <input type="text" name="nameSmall" value="<?=$arResult['DOCUMENTS']['nameSmall']?>" required>
-                    ОГРН: <input type="text" name="ogrn" value="<?=$arResult['DOCUMENTS']['ogrn']?>" required> <br>
-                    ИНН: <input type="text" name="inn" value="<?=$arResult['DOCUMENTS']['inn']?>" required>
-                    Плательщик НДС: <input type="checkbox" name="nds" value="<?=$arResult['DOCUMENTS']['nds']?>" required>
+                    Наименование организации (полное): <input type="text" name="name" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['name']?>" required>
+                    Наименование организации (сокращенное): <input type="text" name="nameSmall" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['nameSmall']?>" required>
+                    ОГРН: <input type="text" name="ogrn" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['ogrn']?>" required> <br>
+                    ИНН: <input type="text" name="inn" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['inn']?>" required>
+                    Плательщик НДС: <input type="checkbox" name="nds" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['nds']?>" required>
                     Копия свидетельства о постановке на учет российской организации в налоговом органе (ИНН)
-                    <?php foreach ($arResult['DOCUMENTS']['referenceFNS'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['referenceFNS'] as $file) :?>
                         Файл: <input type="text" name="referenceFNS" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
-                    КПП: <input type="text" name="kpp" value="<?=$arResult['DOCUMENTS']['kpp']?>" required>
+                    КПП: <input type="text" name="kpp" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['kpp']?>" required>
                     “Устав ООО”
-                    <?php foreach ($arResult['DOCUMENTS']['rule'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['rule'] as $file) :?>
                         Файл: <input type="text" name="rule" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     “Протокол участников (решения участника) ООО об избрании руководителя организации”;
-                    <?php foreach ($arResult['DOCUMENTS']['leader'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['leader'] as $file) :?>
                         Файл: <input type="text" name="leader" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
-                    Приказ о вступлении в должность ген.директора: <input type="text" name="order" value="<?=$arResult['DOCUMENTS']['order']?>" required>
+                    Приказ о вступлении в должность ген.директора: <input type="text" name="order" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['order']?>" required>
                     “Свидетельство о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ”
-                    <?php foreach ($arResult['DOCUMENTS']['egrul'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['egrul'] as $file) :?>
                         Файл: <input type="text" name="egrul" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Право подписи: “[У меня есть право подписи документов ООО”|“У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо]”
-                    <input type="checkbox" name="rightToSign" value="<?=$arResult['DOCUMENTS']['rightToSign']?>" required>
-                    <?php if ($arResult['DOCUMENTS']['rightToSign'] != "Да") :?>
-                        <?php foreach ($arResult['DOCUMENTS']['rightToSign'] as $file) :?>
+                    <input type="checkbox" name="rightToSign" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['rightToSign']?>" required>
+                    <?php if ($arResult['LEGAL_ENTITY']['DOCUMENTS']['rightToSign'] != "Да") :?>
+                        <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['rightToSign'] as $file) :?>
                             Файл: <input type="text" name="rightToSign" value="<?=$file?>" required> <br>
                         <?php endforeach;?>
                     <?endif;?>
                     Банковские реквизиты<br>
-                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['DOCUMENTS']['bank']['name']?>" required>
-                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['DOCUMENTS']['bank']['bik']?>" required><br>
-                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['DOCUMENTS']['bank']['rAccount']?>" required>
-                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['DOCUMENTS']['bank']['kAccount']?>" required><br>
+                    Наименование банка:<input type="text" name="bank.name" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['name']?>" required>
+                    БИК:<input type="text" name="bank.bik" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bik']?>" required><br>
+                    Расчетный счет:<input type="text" name="bank.rAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['rAccount']?>" required>
+                    Корреспондентский счет:<input type="text" name="bank.kAccount" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['kAccount']?>" required><br>
                     Сведения о банковских реквизитах<br>
-                    <?php foreach ($arResult['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
+                    <?php foreach ($arResult['LEGAL_ENTITY']['DOCUMENTS']['bank']['bankFiles'] as $file) :?>
                         Файл: <input type="text" name="bank.bankFiles" value="<?=$file?>" required> <br>
                     <?php endforeach;?>
                     Адрес организации<br>
-                    Населенный пункт: <input type="text" name="addressOrganization.locality" value="<?=$arResult['DOCUMENTS']['addressOrganization']['locality']?>" required>
-                    Улица: <input type="text" name="addressOrganization.street" value="<?=$arResult['DOCUMENTS']['addressOrganization']['street']?>" required><br>
-                    Дом, корпус, строение: <input type="text" name="addressOrganization.home" value="<?=$arResult['DOCUMENTS']['addressOrganization']['home']?>" required>
-                    Этаж, помещение, комната: <input type="text" name="addressOrganization.flat" value="<?=$arResult['DOCUMENTS']['addressOrganization']['flat']?>" required>
-                    Индекс: <input type="text" name="addressOrganization.index" value="<?=$arResult['DOCUMENTS']['addressOrganization']['index']?>" required><br>
+                    Населенный пункт: <input type="text" name="addressOrganization.locality" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['addressOrganization']['locality']?>" required>
+                    Улица: <input type="text" name="addressOrganization.street" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['addressOrganization']['street']?>" required><br>
+                    Дом, корпус, строение: <input type="text" name="addressOrganization.home" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['addressOrganization']['home']?>" required>
+                    Этаж, помещение, комната: <input type="text" name="addressOrganization.flat" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['addressOrganization']['flat']?>" required>
+                    Индекс: <input type="text" name="addressOrganization.index" value="<?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['addressOrganization']['index']?>" required><br>
                 </div>
             <?php endif;?>
             <button>Отменить изменения</button>

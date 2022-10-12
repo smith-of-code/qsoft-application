@@ -10,11 +10,12 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable as HL;
-use QSoft\Service\UserGroupsService;
+use QSoft\Entity\User;
 
 class MainProfileComponent extends CBitrixComponent  implements Controllerable
 {
     private $userId;
+    private $user;
 
     public function executeComponent()
     {
@@ -23,6 +24,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
             $this->userId = $USER->GetId();
             $this->checkModules();
 
+            $this->user = new User($USER->GetId());
             $this->getResult();
             $this->includeComponentTemplate();
         } catch (SystemException $e) {
@@ -47,39 +49,37 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
     public function getResult()
     {
-        $this->arResult['SELECT_OPTIONS'] = $this->getSelect();
+        $this->arResult['SELECT_OPTIONS'] = $this->getSelects();
+
         $this->arResult['USER_INFO'] = $this->getUser();
-        $this->arResult['USER_GROUP'] = $this->getUserGroup();
+
         if ($this->arResult['USER_GROUP'] == 'Консультант') {
-            $this->arResult['LEGAL_ENTITY'] = $this->getLegalEntity();
+            $this->arResult['LEGAL_ENTITY'] = $this->user->legalEntity->get();
+            foreach ($this->arResult['SELECT_OPTIONS']['STATUS'] as $key => $value) {
+                if ($key == $this->arResult['LEGAL_ENTITY']['UF_STATUS']) {
+                    $this->arResult['STATUS'] = $value;
+                }
+            }
         }
-        $this->arResult['PETS_INFO'] = $this->getPetsInfo();
+        $this->arResult['PETS_INFO'] = $this->user->pets->get();
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
         //Персональные акции
     }
 
-    private function getUserGroup()
-    {
-        if (UserGroupsService::isBuyer($this->userId)) {
-            return 'Покупатель';
-        } elseif (UserGroupsService::isConsultant($this->userId)) {
-            return 'Консультант';
-        }
-    }
 
     private function getUser()
     {
         $arUserInfo = CUser::GetByID($this->userId)->Fetch();
 
-        if (UserGroupsService::isBuyer($this->userId)) {
-            $arUserInfo['USER_GROUP'] = 'Покупатель';
-        } elseif (UserGroupsService::isConsultant($this->userId)) {
-            $arUserInfo['USER_GROUP'] = 'Консультант';
+        if ($this->user->groups->isBuyer()) {
+            $this->arResult['USER_GROUP'] = 'Покупатель';
+        } elseif ($this->user->groups->isConsultant()) {
+            $this->arResult['USER_GROUP'] = 'Консультант';
         }
 
         if (!empty($arUserInfo['PERSONAL_PHOTO'])) {
-            $arUserInfo['PERSONAL_PHOTO_URL'] = CFile::GetPath($arUserInfo['PERSONAL_PHOTO']);
+            $arUserInfo['PERSONAL_PHOTO_URL'] = $this->user->getPhotoUrl();
         }
 
         return $arUserInfo;
@@ -89,59 +89,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
      * @throws \Bitrix\Main\ArgumentException
      * @throws \Bitrix\Main\ObjectPropertyException
      * @throws SystemException
-     * @throws JsonException
      */
-    private function getLegalEntity()
-    {
-        $hlBlock = HL::getList([
-            'filter' => ['=ID' => HIGHLOAD_BLOCK_HLLEGALENTITIES],
-        ])->fetch();
-
-        $arLegalEntity = HL::compileEntity($hlBlock)->getDataClass()::getList([
-            'order' => ['ID' => 'DESC'],
-            'filter' => [
-                'UF_USER_ID' => $this->userId,
-                'UF_IS_ACTIVE' => 1
-            ],
-        ])->fetch();
-
-        if ($arLegalEntity['UF_DOCUMENTS'] != '') {
-            $this->arResult['DOCUMENTS'] = json_decode($arLegalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR);
-        }
-
-        foreach ($this->arResult['SELECT_OPTIONS']['STATUS'] as $key => $value) {
-            if ($key == $arLegalEntity['UF_STATUS']) {
-                $this->arResult['DOCUMENTS']['STATUS'] = $value;
-            }
-        }
-
-        return $arLegalEntity;
-    }
-
-    /**
-     * @throws \Bitrix\Main\ArgumentException
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws SystemException
-     */
-    private function getPetsInfo(): array
-    {
-        $arPets = [];
-
-        $hlBlock = HL::getList([
-            'filter' => ['=ID' => HIGHLOAD_BLOCK_HLPETS],
-        ])->fetch();
-
-        $resPets = HL::compileEntity($hlBlock)->getDataClass()::getList([
-            'filter' => [
-                'UF_USER_ID' => $this->userId,
-            ],
-        ]);
-        while ($pet = $resPets->Fetch()){
-            $arPets[] = $pet;
-        }
-
-        return $arPets;
-    }
 
     private function getMentorInfo()
     {
@@ -153,7 +101,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
      * @throws \Bitrix\Main\ArgumentException
      * @throws SystemException
      */
-    private function getSelect(): array
+    private function getSelects(): array
     {
         //Пол пользователя
         $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
@@ -255,7 +203,6 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
             $props[$row['name']] = $row['value'];
         }
 
-        $user = new CUser;
         $fields["NAME"] = $props['NAME'];
         $fields = [
             "NAME"              => $props['NAME'],
@@ -269,7 +216,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
             "UF_PICKUP_POINT_ID"=> $props['UF_PICKUP_POINT_ID']
         ];
 
-        $user->Update($USER->GetId(), $fields);
+        (new User($USER->GetId()))->Update($fields);
     }
 
     public function legalEntityUpdateAction($form)

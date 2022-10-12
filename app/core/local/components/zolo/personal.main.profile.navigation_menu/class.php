@@ -3,7 +3,7 @@
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Highloadblock\HighloadBlockTable;
-use QSoft\Service\UserGroupsService;
+use QSoft\Entity\User;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -76,7 +76,7 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
 
             $this->arResult['NOTIFICATION_COUNT'] = $count;
 
-            $this->arResult['IS_CONSULTANT'] = (new UserGroupsService())->isConsultant($userId);
+            $this->arResult['IS_CONSULTANT'] = (new User($userId))->groups->isConsultant();
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
