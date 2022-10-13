@@ -20,11 +20,10 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
     public function executeComponent()
     {
         try {
-            global $USER;
-            $this->userId = $USER->GetId();
+            $this->userId = $GLOBALS['USER']->GetID();
             $this->checkModules();
 
-            $this->user = new User($USER->GetId());
+            $this->user = new User($this->userId);
             $this->getResult();
             $this->includeComponentTemplate();
         } catch (SystemException $e) {
@@ -116,26 +115,15 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         //Статусы юр лица для консультантов
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLLEGALENTITIES,
-            "FIELD_NAME" => "UF_STATUS"
-        ])->Fetch();
-
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            $selects['STATUS'][$enumFields['ID']] = $enumFields['VALUE'];
+        $enums = (new \QSoft\ORM\LegalEntityTable)::getFieldValues(['UF_STATUS']);
+        foreach ($enums['UF_STATUS'] as $enum) {
+            $selects['STATUS'][$enum['ID']] = $enum['VALUE'];
         }
 
         //Типы питомцев
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
-            "FIELD_NAME" => "UF_KIND",
-
-        ])->Fetch();
-
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            $selects['PET_KIND'][$enumFields['ID']] = $enumFields['VALUE'];
+        $enums = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
+        foreach ($enums['UF_KIND'] as $enum) {
+            $selects['PET_KIND'][$enum['ID']] = $enum['VALUE'];
         }
 
         //Породы кошек
@@ -157,14 +145,9 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         //Пол питомцев
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
-            "FIELD_NAME" => "UF_GENDER",
-        ])->Fetch();
-
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            $selects['PET_GENDER'][$enumFields['ID']] = $enumFields['VALUE'];
+        $enums = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_GENDER']);
+        foreach ($enums['UF_GENDER'] as $enum) {
+            $selects['PET_GENDER'][$enum['ID']] = $enum['VALUE'];
         }
 
         return $selects;
@@ -194,8 +177,6 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
     public function userInfoUpdateAction($form)
     {
-        global $USER;
-
         //TODO:Загрузка фоток
         $props = [];
 
@@ -216,151 +197,23 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
             "UF_PICKUP_POINT_ID"=> $props['UF_PICKUP_POINT_ID']
         ];
 
-        (new User($USER->GetId()))->Update($fields);
+        (new User($GLOBALS['USER']->GetID()))->Update($fields);
     }
 
     public function legalEntityUpdateAction($form)
     {
-        global $USER;
-
         //TODO:Загрузка кучи сканов
         $docs = [];
 
         foreach ($form as $row) {
-            switch ($row['name']) {
-                case 'UF_STATUS':
-                    $props["UF_STATUS"] = $row['value'];
-                    break;
-                case 'citizenship':
-                    $docs["citizenship"] = $row['value'];
-                    break;
-                case 'passport.series':
-                    $docs["passport"]['series'] = $row['value'];
-                    break;
-                case 'passport.number':
-                    $docs["passport"]['number'] = $row['value'];
-                    break;
-                case 'passport.issued':
-                    $docs["passport"]['issued'] = $row['value'];
-                    break;
-                case 'passport.date':
-                    $docs["passport"]['date'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.locality':
-                    $docs["passport"]['addressRegistration']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.street':
-                    $docs["passport"]['addressRegistration']['street'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.home':
-                    $docs["passport"]['addressRegistration']['home'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.flat':
-                    $docs["passport"]['addressRegistration']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.index':
-                    $docs["passport"]['addressRegistration']['index'] = $row['value'];
-                    break;
-                case 'passport.addressFact':
-                    $docs["passport"]['addressFact'] = $row['value'];
-                    break;
-                case 'passport.addressFact.locality':
-                    $docs["passport"]['addressFact']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressFact.street':
-                    $docs["passport"]['addressFact']['street'] = $row['value'];
-                    break;
-                case 'passport.addressFact.home':
-                    $docs["passport"]['addressFact']['home'] = $row['value'];
-                    break;
-                case 'passport.addressFact.flat':
-                    $docs["passport"]['addressFact']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressFact.index':
-                    $docs["passport"]['addressFact']['index'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.locality':
-                    $docs["passport"]['addressOrganization']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.street':
-                    $docs["passport"]['addressOrganization']['street'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.home':
-                    $docs["passport"]['addressOrganization']['home'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.flat':
-                    $docs["passport"]['addressOrganization']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.index':
-                    $docs["passport"]['addressOrganization']['index'] = $row['value'];
-                    break;
-                case 'passport.copyPassport':
-                    $docs["passport"]['copyPassport'][] = $row['value'];
-                    break;
-                case 'inn':
-                    $docs["inn"] = $row['value'];
-                    break;
-                case 'kpp':
-                    $docs["kpp"] = $row['value'];
-                    break;
-                case 'innFiles':
-                    $docs["innFiles"][] = $row['value'];
-                    break;
-                case 'bank.name':
-                    $docs["bank"]['name'] = $row['value'];
-                    break;
-                case 'bank.bik':
-                    $docs["bank"]['bik'] = $row['value'];
-                    break;
-                case 'bank.rAccount':
-                    $docs["bank"]['rAccount'] = $row['value'];
-                    break;
-                case 'bank.kAccount':
-                    $docs["bank"]['kAccount'] = $row['value'];
-                    break;
-                case 'bank.bankFiles':
-                    $docs["bank"]['bankFiles'][] = $row['value'];
-                    break;
-                case 'nds':
-                    $docs["nds"] = $row['value'];
-                    break;
-                case 'usn':
-                    $docs["usn"][] = $row['value'];
-                    break;
-                case 'ogrnip':
-                    $docs["ogrnip"] = $row['value'];
-                    break;
-                case 'egrip':
-                    $docs["egrip"][] = $row['value'];
-                    break;
-                case 'name':
-                    $docs["name"] = $row['value'];
-                    break;
-                case 'nameSmall':
-                    $docs["nameSmall"] = $row['value'];
-                    break;
-                case 'ogrn':
-                    $docs["ogrn"] = $row['value'];
-                    break;
-                case 'rule':
-                    $docs["rule"][] = $row['value'];
-                    break;
-                case 'leader':
-                    $docs["leader"][] = $row['value'];
-                    break;
-                case 'order':
-                    $docs["order"] = $row['value'];
-                    break;
-                case 'egrul':
-                    $docs["egrul"][] = $row['value'];
-                    break;
-                case 'rightToSign':
-                    $docs["rightToSign"] = $row['value'];
-                    break;
+            if($row['name'] != 'UF_STATUS') {
+                array_set($docs, $row['name'], $row['value']);
+            } else {
+                $props["UF_STATUS"] = $row['value'];
             }
         }
 
-        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
         $props['UF_CREATED_AT'] = new DateTime();
         $props['UF_DOCUMENTS'] = json_encode($docs, JSON_UNESCAPED_UNICODE);
         $props['UF_IS_ACTIVE'] = true;
@@ -374,33 +227,23 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
     public function addPetAction($form)
     {
-        global $USER;
-
-        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
         $props['UF_NAME'] = $form['UF_NAME'];
         $props['UF_GENDER'] = $form['UF_GENDER'];
         $props['UF_KIND'] = $form['UF_KIND'];
-        //TODO разобраться с датами
-        $props['UF_BIRTHDATE'] = $form['UF_BIRTHDATE'];
-        $props['UF_BIRTHDATE'] = new Date();
+        $props['UF_BIRTHDATE'] = new date($form['UF_BIRTHDATE'], "d.m.Y");
 
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
-            "FIELD_NAME" => "UF_KIND",
-
-        ])->Fetch();
-
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            if ($form['UF_KIND'] == $enumFields['ID']) {
-                $petType = $enumFields['VALUE'];
+        $kinds = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
+        foreach ($kinds['UF_KIND'] as $kind) {
+            if ($form['UF_KIND'] == $kind['ID']) {
+                $petType = $kind['XML_ID'];
             }
         }
 
-        if ($petType == 'кошка') {
-            $props['UF_BREED'] = ["UF_CAT_BREED"];
-        } else {
-            $props['UF_BREED'] = ["UF_DOG_BREED"];
+        if ($petType == 'KIND_CAT') {
+            $props['UF_BREED'] = $form["UF_CAT_BREED"];
+        } elseif ($petType == 'KIND_DOG') {
+            $props['UF_BREED'] = $form["UF_DOG_BREED"];
         }
 
         $pet = \QSoft\ORM\PetTable::add($props);
@@ -416,34 +259,26 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
     public function changePetAction($form)
     {
-        global $USER;
-
-        $props['UF_USER_ID'] = $USER->GetId();
+        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
         $props['UF_NAME'] = $form['UF_NAME'];
         $props['UF_GENDER'] = $form['UF_GENDER'];
         $props['UF_KIND'] = $form['UF_KIND'];
-        //TODO разобраться с датами
-        $props['UF_BIRTHDATE'] = $form['UF_BIRTHDATE'];
-        $props['UF_BIRTHDATE'] = new Date();
+        $props['UF_BIRTHDATE'] = new date($form['UF_BIRTHDATE'], "d.m.Y");
 
-        $entity = CUserTypeEntity::GetList([], [
-            'ENTITY_ID' => "HLBLOCK_" . HIGHLOAD_BLOCK_HLPETS,
-            "FIELD_NAME" => "UF_KIND",
-
-        ])->Fetch();
-
-        $obEntity = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $entity['ID']]);
-        while ($enumFields = $obEntity->Fetch()) {
-            if ($form['UF_KIND'] == $enumFields['ID']) {
-                $petType = $enumFields['VALUE'];
+        $kinds = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
+        foreach ($kinds['UF_KIND'] as $kind) {
+            if ($form['UF_KIND'] == $kind['ID']) {
+                $petType = $kind['XML_ID'];
             }
         }
 
-        if ($petType == 'кошка') {
-            $props['UF_BREED'] = ["UF_CAT_BREED"];
-        } else {
-            $props['UF_BREED'] = ["UF_DOG_BREED"];
+        if ($petType == 'KIND_CAT') {
+            $props['UF_BREED'] = $form["UF_CAT_BREED"];
+        } elseif ($petType == 'KIND_DOG') {
+            $props['UF_BREED'] = $form["UF_DOG_BREED"];
         }
+
+        \QSoft\ORM\PetTable::update($form['ID'], $props);
     }
 
     public function deletePetAction($id)

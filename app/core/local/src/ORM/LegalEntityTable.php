@@ -15,9 +15,9 @@ Loc::loadMessages(__FILE__);
 
 final class LegalEntityTable extends BaseTable
 {
-//    protected static array $decorators = [
-//        'UF_STATUS' => EnumDecorator::class,
-//    ];
+    protected static array $decorators = [
+        'UF_STATUS' => EnumDecorator::class,
+    ];
 
     public static function getTableName(): string
     {

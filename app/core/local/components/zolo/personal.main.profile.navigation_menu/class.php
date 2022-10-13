@@ -2,8 +2,8 @@
 
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
-use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Entity\User;
+use QSoft\ORM\NotificationService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -50,33 +50,11 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
                 throw new RuntimeException(Loc::getMessage('HLNOTIFICATION_NOT_DEFINED'));
             }
 
-            $hlBlock = HighloadBlockTable::getById(HIGHLOAD_BLOCK_HLNOTIFICATION)->fetch();
-            if (!$hlBlock) {
-                throw new RuntimeException(Loc::getMessage('HLNOTIFICATION_NOT_SET'));
-            }
+            $user = new User($GLOBALS['USER']->GetID());
 
-            $statusField = CUserTypeEntity::GetList([], [
-                'ENTITY_ID' => 'HLBLOCK_' . $hlBlock['ID'],
-                'FIELD_NAME' => 'UF_STATUS',
-            ])->Fetch();
+            $this->arResult['NOTIFICATION_COUNT'] = $user->notification->getUnreadNotify();
 
-            $statusEnum = CUserFieldEnum::GetList([], [
-                'USER_FIELD_ID' => $statusField['ID'],
-                'XML_ID' => 'NOTIFICATION_STATUS_UNREAD',
-            ])->Fetch();
-
-            $userId = $GLOBALS['USER']->GetID();
-            $entity = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();
-            $count = $entity::getList([
-                'filter' => [
-                    'UF_USER_ID' => $userId,
-                    'UF_STATUS' => $statusEnum['ID'],
-                ],
-            ])->getSelectedRowsCount();
-
-            $this->arResult['NOTIFICATION_COUNT'] = $count;
-
-            $this->arResult['IS_CONSULTANT'] = (new User($userId))->groups->isConsultant();
+            $this->arResult['IS_CONSULTANT'] = $user->groups->isConsultant();
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {

@@ -9,6 +9,7 @@ use CUserFieldEnum;
 use QSoft\Service\BonusAccountService;
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
+use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
@@ -36,6 +37,10 @@ class User
      * @var UserGroupsService Объект для работы с бонусным счетом пользователя
      */
     public UserGroupsService $groups;
+    /**
+     * @var NotificationService Объект для работы с уведомлениями
+     */
+    public NotificationService $notification;
     /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
@@ -184,6 +189,7 @@ class User
         $this->legalEntity = new LegalEntityService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+        $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->pets = new PetService($this);
     }
