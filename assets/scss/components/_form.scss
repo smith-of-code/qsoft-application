@@ -3,6 +3,7 @@
     $horizontal-gutter: 16px;
     $horizontal-gutter-big: 24px;
     $vertical-gutter: 24px;
+    $vertical-gutter-small: 16px;
 
     width: 100%;
 
@@ -129,6 +130,20 @@
                 margin-bottom: rem($gap-big);
             }
         }
+
+        &--special {
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-big);
+            }
+        }
+
+        &--mixed {
+            margin-top: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-medium);
+            }
+        }
     }
 
     &__col {
@@ -144,6 +159,10 @@
         line-height: ($line-height-normal / $font-size-form-elements);
 
         position: relative;
+
+        &--fixed {
+            max-width: rem(330px);
+        }
 
         &-block {
             &--field {

@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="registration__actions">
-                                <div class="registration__actions-col registration__actions-col--separated">
+                                <div class="registration__actions-col registration__actions-col--separated registration__actions-col--gaped">
                                     <a href="" class="registration__button button button--simple button--red">
                                         <span class="button__icon">
                                             <svg class="icon icon--lock">

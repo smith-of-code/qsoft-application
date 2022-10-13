@@ -71,6 +71,16 @@
                     margin-bottom: rem($gap-normal);
                 }
             }
+
+            &--gaped {
+                &:not(:last-of-type) {
+                    margin-bottom: rem($gap-normal);
+
+                    @media #{$screen-tablet} {
+                        margin-bottom: rem($gap-big);
+                    }
+                }
+            }
         }
     }
 
@@ -78,7 +88,7 @@
         margin-top: rem($gap-normal);
 
         @media #{$screen-tablet} {
-            margin-top: rem(40px);
+            margin-top: rem(25px);
         }
     }
 
