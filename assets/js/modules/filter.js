@@ -8,7 +8,7 @@ const ELEMENTS_SELECTOR = {
 
 export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.button, function() {
-        $(this).closest(ELEMENTS_SELECTOR.filter).toggleClass('filter--active');
+        $(ELEMENTS_SELECTOR.filter).toggleClass('filter--active');
         $('.page').toggleClass('page--locked-mobile');
     });
 

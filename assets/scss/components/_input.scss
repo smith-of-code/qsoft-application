@@ -134,6 +134,8 @@
             font-size: rem($font-size-tiny);
             line-height: rem(14px);
 
+            margin-left: rem($gap-medium);
+
             color: $brickRed;
         }
     }
@@ -219,6 +221,19 @@
 
             width: rem(36px);
             height: rem(36px);
+
+            transform: translateY(-50%);
+
+            border-top-left-radius: rem($border-radius-small);
+            border-bottom-left-radius: rem($border-radius-small);
+        }
+
+        &--select {
+            top: 50%;
+            right: rem($gap-mini);
+
+            width: rem(32px);
+            height: rem(32px);
 
             transform: translateY(-50%);
 
