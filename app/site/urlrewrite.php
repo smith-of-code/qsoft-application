@@ -90,7 +90,7 @@ $arUrlRewrite=array (
   ),
   7 => 
   array (
-    'CONDITION' => '#^/news/#',
+    'CONDITION' => '#^/info/news/#',
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/info/news/index.php',
@@ -98,7 +98,7 @@ $arUrlRewrite=array (
   ),
   8 =>
   array (
-      'CONDITION' => '#^/expert-advice/#',
+      'CONDITION' => '#^/info/expert-advice/#',
       'RULE' => '',
       'ID' => 'bitrix:news',
       'PATH' => '/info/expert-advice/index.php',
@@ -106,7 +106,7 @@ $arUrlRewrite=array (
   ),
   13 =>
   array (
-      'CONDITION' => '#^/events/#',
+      'CONDITION' => '#^/info/events/#',
       'RULE' => '',
       'ID' => 'bitrix:news',
       'PATH' => '/info/events/index.php',
