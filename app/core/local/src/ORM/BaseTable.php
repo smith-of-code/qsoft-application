@@ -40,10 +40,8 @@ abstract class BaseTable extends DataManager
 
     final protected static function prepareFields(array $fields): array
     {
-        foreach ($fields as $fieldName => &$fieldValue) {
-            if (static::$decorators[$fieldName]) {
-                $fieldValue = static::$decorators[$fieldName]::prepareField($fieldName, $fieldValue);
-            }
+        foreach (static::$decorators as $fieldName => $decorator) {
+            $fields[$fieldName] = $decorator::prepareField($fieldName, $fields[$fieldName]);
         }
         return $fields;
     }

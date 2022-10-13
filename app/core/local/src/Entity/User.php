@@ -56,9 +56,9 @@ class User
      */
     public string $lastName;
     /**
-     * @var string Отчество
+     * @var string|null Отчество
      */
-    public string $secondName;
+    public ?string $secondName;
     /**
      * @var string E-mail
      */

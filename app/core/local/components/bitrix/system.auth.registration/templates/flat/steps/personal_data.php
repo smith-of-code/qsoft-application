@@ -270,7 +270,12 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny" data-send-code>
+                            <button
+                                type="button"
+                                class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                data-src="#approve-number"
+                                data-send-code
+                            >
                                 Отправить проверочный код
                             </button>
                         </div>
@@ -403,7 +408,7 @@
                 </div>
 
                 <div class="registration__actions-col">
-                    <button class="button button--rounded button--covered button--red button--full" data-change-step data-direction="next">
+                    <button class="button button--rounded button--covered button--red button--full <?=$arResult['phone'] ? '' : 'button--disabled'?>" <?=$arResult['phone'] ? '' : 'disabled'?> data-change-step data-direction="next">
                         <span class="button__text">Далее</span>
                     </button>
                 </div>
@@ -411,3 +416,33 @@
         </div>
     </div>
 </section>
+
+<article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
+    <div class="modal__content">
+        <header class="modal__section modal__section--header">
+            <p class="heading heading--small">Подтверждение номера</p>
+        </header>
+
+        <section class="modal__section modal__section--content">
+            <p class="modal__section-text">
+                На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
+            </p>
+
+            <div class="form__row">
+                <div class="form__col">
+                    <div class="form__field">
+                        <div class="form__field-block form__field-block--input">
+                            <div class="input input--tiny input--centered">
+                                <input type="text" maxlength="6" class="input__control" name="verify_code" id="verify_code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="button button--rounded button--covered button--red button--full" data-verify-code>
+                <span class="button__text">Далее</span>
+            </button>
+        </section>
+    </div>
+</article>

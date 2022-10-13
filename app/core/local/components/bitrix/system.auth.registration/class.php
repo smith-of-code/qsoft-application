@@ -233,10 +233,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user->Update($result['ID'], ['ACTIVE' => 'N']);
         $user->Logout();
 
-        $this->setRegisterData(array_merge($this->getRegisterData(), [
+        $this->setRegisterData([
             'password' => $password,
             'user_id' => $result['ID'],
-        ]));
+        ]);
 
         (new ConfirmationService)->sendSmsConfirmation($result['ID']);
 
@@ -310,6 +310,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function getRegisterData(): array
     {
+//        Application::getInstance()->getSession()->remove(self::SESSION_KEY);
         if (Application::getInstance()->getSession()->has(self::SESSION_KEY)) {
             return Application::getInstance()->getSession()->get(self::SESSION_KEY);
         }
