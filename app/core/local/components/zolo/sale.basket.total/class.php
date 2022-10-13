@@ -1,6 +1,7 @@
 <?php
 
 
+use QSoft\Basket\BasketBonus;
 use QSoft\Entity\User;
 use QSoft\Service\InnerBonusAccountService;
 use Bitrix\Currency\CurrencyManager;
@@ -15,34 +16,39 @@ use Bitrix\Sale\Fuser;
 class SaleBasketTotal extends CBitrixComponent
 {
 
-    public function onPrepareComponentParams($arParams)
-    {
-        return parent::onPrepareComponentParams($arParams);
-    }
+    private $user;
+    private $account;
+    private $basketBonus;
 
     public function executeComponent()
     {
         global $USER;
+        if ($USER->GetId()) {
+            $this->user = new User($USER->GetId());
+            if ($this->user->groups->isConsultant()) {
+                $this->loadBonusAccount();
+                $this->loadBasketBonus();
 
-        $user = new User($USER->GetId());
-        if ($user->groups->isConsultant()) {
-            $level = $user->loyalty->getLoyaltyLevel();
-            $innerBonusService = new InnerBonusAccountService($user);
-            $account = $innerBonusService->getAccount();
+                $this->arResult['USER_LOYALTY_LEVEL'] = $this->user->loyalty->getLoyaltyLevel();;
 
-            $this->arResult['USER_LOYALTY_LEVEL'] = $level;
-            $this->arResult['ACTIVE_BONUSES'] = $account['CURRENT_BUDGET'];
-
-            dump($this->arResult);
+                dump($this->arResult);
+            }
         }
-
-
-
     }
 
-    public function loadBasketBonuses()
+    public function loadBonusAccount()
     {
+        $innerBonusService = new InnerBonusAccountService($this->user);
+        $this->account = $innerBonusService->getAccount();
+        $this->arResult['ACTIVE_BONUSES'] = $this->account['CURRENT_BUDGET'];
+    }
 
+
+    public function loadBasketBonus()
+    {
+        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+        $this->basketBonus = new BasketBonus($basket);
+        $this->arResult['BASKET_BONUS_SUM'] = $this->basketBonus->getUserBonusSum($this->user);
     }
 
 

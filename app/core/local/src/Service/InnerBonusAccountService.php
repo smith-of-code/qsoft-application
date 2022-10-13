@@ -4,9 +4,8 @@
 namespace QSoft\Service;
 
 
-use Bitrix\Main\Application;
-use QSoft\Entity\User;
 use CSaleUserAccount;
+use QSoft\Entity\User;
 
 class InnerBonusAccountService
 {
@@ -52,7 +51,7 @@ class InnerBonusAccountService
 
     public function payBonuses(int $amount, $orderId): bool
     {
-        return  CSaleUserAccount::Pay(
+        return CSaleUserAccount::Pay(
             $this->user->id,
             $amount,
             self::CURRENCY,
@@ -63,7 +62,6 @@ class InnerBonusAccountService
 
     public function updateAccount(int $changeSum, $actionInfo): bool
     {
-        dump($changeSum);
         return CSaleUserAccount::UpdateAccount(
             $this->user->id,
             $changeSum,
@@ -72,18 +70,20 @@ class InnerBonusAccountService
         );
     }
 
-    public function storeOrderBonuses($amount)
+    public function storeOrderBonuses($amount): void
     {
         $_SESSION[self::SESSION_BONUS_OFF_KEY] = $amount;
     }
 
-    public function getStoredBonuses()
+    public function getStoredBonuses(): int
     {
-        return $_SESSION[self::SESSION_BONUS_OFF_KEY] ?? 0;
+        return (int)$_SESSION[self::SESSION_BONUS_OFF_KEY] ?? 0;
     }
 
-    public function clearStoredBonuses()
+    public function clearStoredBonuses(): void
     {
         unset($_SESSION[self::SESSION_BONUS_OFF_KEY]);
     }
+
+
 }
