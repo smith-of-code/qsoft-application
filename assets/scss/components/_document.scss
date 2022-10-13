@@ -5,15 +5,29 @@
     align-items: center;
 
     @media #{$screen-tablet} {
-        flex-direction: row;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     @media #{$screen-desktop} {
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
     }
 
     &__link {
         @include position-stretching;
+    }
+
+    &__link:hover & {
+        &__icon {
+            color: $brickRed;
+        }
+
+        &__text {
+            &-name {
+                text-decoration: underline;
+            }
+        }
     }
 
     &__icon {
@@ -37,6 +51,14 @@
     }
 
     &__text {
+        font-size: rem($font-size-small);
+        line-height: rem($line-height-small);
 
+        display: flex;
+        flex-direction: column;
+
+        &-size {
+            color: $saltBox;
+        }
     }
 }
