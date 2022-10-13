@@ -80,6 +80,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Уровень в программе лояльности
+     */
+    private string $loyaltyLevel;
 
 
     /**
@@ -114,7 +118,9 @@ class User
     /**
      * Коды пользовательских полей типа "Список"
      */
-    private const ENUM_PROPERTIES = [];
+    private const ENUM_PROPERTIES = [
+        'UF_LOYALTY_LEVEL',
+    ];
 
     /**
      * User constructor.
@@ -149,6 +155,9 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'];
+
+        var_dump($this->loyaltyLevel);
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
