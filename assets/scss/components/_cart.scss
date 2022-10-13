@@ -28,7 +28,9 @@
         }
     }
 
-    &__packs {
+    &__packs,
+    &__breed,
+    &__colors {
         margin-bottom: rem($gap-medium);
 
         @media #{$screen-desktop} {

@@ -16,6 +16,13 @@
             height: rem($size);
         }
 
+        &--big {
+            $size: 24px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+
         &--pink {
             background-color: #f242af;
         }
@@ -39,6 +46,11 @@
         &--violet {
             background-color: #9348df;
         }
+
+        &--white {
+            border: rem(1px) solid $alto;
+            background-color: $white;
+        }
     }
 
     &__input:checked + label & {
@@ -49,6 +61,11 @@
             @media #{$screen-desktop} {
                 outline: rem(1px) solid $tuna;
                 outline-offset: rem(4px);
+            }
+
+            &--big {
+                outline: rem(2px) solid $tuna !important;
+                outline-offset: rem(2px);
             }
         }
     }

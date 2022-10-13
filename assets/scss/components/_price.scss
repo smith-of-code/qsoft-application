@@ -1,6 +1,6 @@
 .price {
     &__main {
-        @include text-small;
+        font-size: rem($font-size-small);
 
         @media #{$screen-desktop} {
             margin-bottom: rem(6px);
@@ -12,11 +12,16 @@
         align-items: center;
 
         &-total {
-            @include text-normal($font-weight-bold);
+            font-size: rem($font-size-medium);
+            font-weight: $font-weight-bold;
+            line-height: rem($line-height-medium);
 
             margin-right: rem(6px);
 
             @media #{$screen-desktop} {
+                font-size: rem($font-size-normal);
+                line-height: rem($line-height-small);
+
                 margin-right: rem($gap-small);
             }
         }

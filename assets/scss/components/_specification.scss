@@ -80,7 +80,9 @@
         }
     }
 
-    &__packs {
+    &__packs,
+    &__colors,
+    &__breed {
         display: none;
 
         @media #{$screen-desktop} {
@@ -88,5 +90,21 @@
 
             margin-top: rem($gap-big);
         }
+    }
+
+    &__category {
+        @include text-medium($font-weight-semibold);
+
+        margin-bottom: rem($gap-small);
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-medium);
+        }
+    }
+
+    &__select {
+        width: rem(220px);
     }
 }

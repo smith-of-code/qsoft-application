@@ -16,16 +16,4 @@
         padding-right: rem($gap / 2);
         padding-left: rem($gap / 2);
     }
-
-    &__title {
-        @include text-medium($font-weight-semibold);
-
-        margin-bottom: rem($gap-small);
-
-        color: $saltBox;
-
-        @media #{$screen-desktop} {
-            margin-bottom: rem($gap-medium);
-        }
-    }
 } 

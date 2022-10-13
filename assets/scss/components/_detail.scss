@@ -19,6 +19,8 @@
 
         &-wrapper {
             @media #{$screen-tablet} {
+                flex-grow: 1;
+
                 margin-left: rem($gap-normal);
             }
 

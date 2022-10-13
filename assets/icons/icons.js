@@ -8,6 +8,7 @@ import './svg/check.svg';
 import './svg/eye.svg';
 import './svg/eye-off.svg';
 import './svg/basket.svg';
+import './svg/trash.svg';
 import './svg/rotate.svg';
 import './svg/plus.svg';
 import './svg/minus.svg';
@@ -40,6 +41,8 @@ import './svg/burger.svg';
 import './svg/login.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
+
+import './svg/pdf.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';

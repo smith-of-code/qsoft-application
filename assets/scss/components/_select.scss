@@ -17,6 +17,25 @@
         }
     }
 
+    &#{&}--middle {
+        .select2-results {
+            padding: rem(16px) 0;
+        }
+
+        .select2-container {
+            .select2-selection {
+                &::after {
+                    right: rem($gap-medium);
+
+                    width: rem(16px);
+                    height: rem(16px);
+
+                    color: $saltBox;
+                }
+            }
+        }
+    }
+
     &#{&}--mini {
         font-size: rem($font-size-miniature);
 
@@ -74,6 +93,22 @@
                     line-height: rem(22px);
 
                     padding: rem($gap-small) rem($gap-average);
+                }
+            }
+        }
+    }
+
+    &#{&}--middle {
+        font-size: rem($font-size-small);
+
+        .select2-container--default {
+            .select2-selection--single {
+                height: rem(36px);
+
+                .select2-selection__rendered {
+                    line-height: rem(22px);
+
+                    padding: rem(7px) rem($gap-medium);
                 }
             }
         }

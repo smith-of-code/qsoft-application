@@ -577,6 +577,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: trash">
+                                    <svg class="icon icon--trash gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: rotate">
                                     <svg class="icon icon--rotate gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-rotate"></use>
@@ -764,7 +770,7 @@
                                 </li>
                             </ul>
 
-                            <ul class="icons__list">
+                            <ul class="icons__list gui__block">
                                 <li class="icons__item" title="Icon: cat">
                                     <svg class="icon icon--cat gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
@@ -804,6 +810,14 @@
                                 <li class="icons__item" title="Icon: cat-cheerful">
                                     <svg class="icon icon--cat-cheerful gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: pdf">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -2542,6 +2556,7 @@
                     <!--Варианты фасовки-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты фасовки</h2>
+                        <h3 style="margin-top: 50px;">Простые</h3>
                         <div class="packs">
                             <ul class="packs__list">
                                 <li class="packs__item">
@@ -2622,12 +2637,96 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Обведенные</h3>
+                        <div class="packs">
+                            <ul class="packs__list">
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="r111" checked>
+                                            <label for="r111">
+                                                <div class="pack__item">600 г</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="r222">
+                                            <label for="r222">
+                                                <div class="pack__item">1 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="r333">
+                                            <label for="r333">
+                                                <div class="pack__item">3 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="r444">
+                                            <label for="r444">
+                                                <div class="pack__item">5 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="r555">
+                                            <label for="r555">
+                                                <div class="pack__item">7 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="r666" disabled>
+                                            <label for="r666">
+                                                <div class="pack__item pack__item--disabled">10 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="r777" disabled>
+                                            <label for="r777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты фасовки-->
 
                     <!--Варианты цветов-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты цветов</h2>
+
+                        <h3 style="margin-top: 50px;">Маленькие</h3>
                         <div class="colors">
                             <ul class="colors__list">
                                 <li class="colors__item">
@@ -2691,6 +2790,78 @@
                                             <input type="radio" class="color__input radio__input" name="radio" value="r66" id="radio66">
                                             <label for="radio66">
                                                 <div class="color__item color__item--violet"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Большие</h3>
+
+                        <div class="colors colors--big">
+                            <ul class="colors__list">
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--white"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--pink"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
+                                            <label for="radio2">
+                                                <div class="color__item color__item--big color__item--blue"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
+                                            <label for="radio3">
+                                                <div class="color__item color__item--big color__item--green"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
+                                            <label for="radio4">
+                                                <div class="color__item color__item--big color__item--yellow"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
+                                            <label for="radio5">
+                                                <div class="color__item color__item--big color__item--red"></div>
                                             </label>
                                         </div>
                                     </div>
@@ -4550,8 +4721,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4745,8 +4916,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4950,8 +5121,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -6308,6 +6479,11 @@
     .gui__icon {
         width: 30px;
         height: 30px;
+    }
+
+    .gui__icon--big {
+        width: 60px;
+        height: 60px;
     }
 
     .gui__example {

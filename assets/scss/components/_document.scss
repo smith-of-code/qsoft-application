@@ -1,0 +1,42 @@
+.document {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    @media #{$screen-tablet} {
+        flex-direction: row;
+    }
+
+    @media #{$screen-desktop} {
+        flex-direction: column;
+    }
+
+    &__link {
+        @include position-stretching;
+    }
+
+    &__icon {
+        $size: 64px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+        margin-right: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            margin-right: 0;
+            margin-bottom: rem($gap-average);
+        }
+
+        @media #{$screen-desktop} {
+            margin-right: rem($gap-average);
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+
+    }
+}

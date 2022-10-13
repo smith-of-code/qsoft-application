@@ -782,7 +782,7 @@
                                     <h4 class="cart__heading">Ваш заказ</h4>
 
                                     <div class="cart__packs">
-                                        <p class="packs__title">Фасовка</p>
+                                        <p class="specification__category">Фасовка</p>
                                         <div class="select select--mini" data-select>
                                             <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите фасовку" data-option>
                                                 <option><!-- пустой option для placeholder --></option>
@@ -904,7 +904,7 @@
                                                     <li class="list__item">65% мяса в составе корма</li>
                                                     <li class="list__item">Только животные белки</li>
                                                     <li class="list__item">1000000000 КОЕ/кг живых пробиотиков</li>
-                                                    <li class="list__item">Только гипоаллергенные ингредиенты</li>
+                                                    <li class="list__item">Только гипоаллергенные ингредиенты</li> 
                                                     <li class="list__item">Только мясо без субпродуктов</li>
                                                     <li class="list__item">Комплекс хондропротекторов</li>
                                                     <li class="list__item">Баланс соотношения Omega 6-3</li>
