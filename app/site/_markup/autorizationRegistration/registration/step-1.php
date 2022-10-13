@@ -107,7 +107,7 @@
                                     </div>
                                     <!--/dropzone-->
 
-                                    <div class="form__row">
+                                    <div class="form__row form__row--special">
                                         <div class="form__col">
                                             <div class="form__field">
                                                 <div class="form__field-block form__field-block--label">

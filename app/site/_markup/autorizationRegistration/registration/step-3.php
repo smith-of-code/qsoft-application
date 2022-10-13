@@ -98,6 +98,7 @@
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="input">
                                                         <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите ID наставника">
+                                                        <span class="input__control-error">Такого пользователя не существует</span>
                                                     </div>
                                                 </div>
                                             </div>

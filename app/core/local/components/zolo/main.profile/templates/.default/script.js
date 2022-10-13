@@ -73,14 +73,13 @@ $(document).on("submit", "[data-pet-item]", function (e) {
         url: BITRIX_AJAX + $.param(query, true),
         method: 'POST',
         cache: false,
-        data: {
-            form: formData},
+        data: {form: formData},
         success: function (response) {
             if (response.status === 'success') {
                 location.reload();
-                if ('pet-id' in response['data']) {
-                    item.attr('id', response['data']['id']);
-                }
+                // if ('pet-id' in response['data']) {
+                //     item.attr('id', response['data']['id']);
+                // }
             }
         }
     });
