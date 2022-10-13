@@ -4,10 +4,16 @@
 
         margin-bottom: rem($gap-normal);
 
+        text-align: center;
+
         color: $saltBox;
 
         @media #{$screen-tablet} {
             margin-bottom: rem($gap-big);
+        }
+
+        @media #{$screen-desktop} {
+            text-align: left;
         }
     }
 

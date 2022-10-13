@@ -20,7 +20,7 @@
         <!--content-->
         <main class="page__content content">
             <div class="content__container container">
-                <h1 class="content__heading content__heading--centered">Создание нового пароля</h1>
+                <h1 class="content__heading content__heading--separated">Регистрация</h1>
 
                 <div class="registration">
                 <section class="section">
@@ -63,7 +63,7 @@
                     </section>
 
                     <section class="section section--limited-big">
-                        <h4 class="section__title">Юридические данные</h4>
+                        <h4 class="section__title">Установка пароля</h4>
 
                         <form class="registration__form form form--separated form--wraped" action="" method="post">
 

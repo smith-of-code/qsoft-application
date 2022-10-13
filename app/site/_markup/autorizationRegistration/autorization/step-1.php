@@ -34,7 +34,7 @@
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="text-required" class="form__label form__label--required">
-                                                <span class="form__label-text">Введите логин</span>
+                                                <span class="form__label-text">Логин</span>
                                             </label>
                                         </div>
 
@@ -51,7 +51,7 @@
                                 <div class="form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="password" class="form__label">
+                                            <label for="password" class="form__label form__label--required">
                                                 <span class="form__label-text">Пароль</span>
                                             </label>
                                         </div>
