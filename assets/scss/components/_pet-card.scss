@@ -34,7 +34,7 @@
 
     &__avatar {
         $size: 40px;
-        $size-big: 56px;
+        $size-big: 58px;
 
         flex-shrink: 0;
 
@@ -190,13 +190,13 @@
     &__row {
         flex-wrap: wrap;
 
-        margin-top: rem(-$gap-normal / 2);
-        margin-bottom: rem(-$gap-normal / 2);
+        // margin-top: rem(-$gap-normal / 2);
+        margin-bottom: rem(-$gap-normal);
     }
 
     &__col {
-        margin-top: rem($gap-normal / 2);
-        margin-bottom: rem($gap-normal / 2);
+        // margin-top: rem($gap-normal / 2);
+        margin-bottom: rem($gap-normal);
 
         &--1-2 {
             @media #{$screen-tablet} {

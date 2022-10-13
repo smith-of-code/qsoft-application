@@ -39,7 +39,7 @@
 
         width: rem($size);
         height: rem($size);
-        margin-right: rem(16px);
+        margin-right: rem($gap-average);
 
         transition: color $transition-duration $transition-function,
         border-color $transition-duration $transition-function,
