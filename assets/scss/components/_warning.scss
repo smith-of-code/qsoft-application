@@ -1,0 +1,30 @@
+.warning {
+    display: flex;
+    align-items: center;
+
+    &__mark {
+        margin-right: rem($gap-small);
+    }
+
+    &__icon {
+        $size: 24px;
+
+        width: rem($size);
+        height: rem($size);
+
+        cursor: pointer;
+        transition: color $transition-duration $transition-function;
+
+        color: $tuna;
+
+        &:hover {
+            color: $brickRed;
+        }
+    }
+
+    &__text {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+    }
+}

@@ -1,0 +1,22 @@
+.progress-bar {
+    width: 100%;
+    height: rem(12px);
+
+    border: rem($border-radius-mini) solid $alto;
+    border-radius: rem($border-radius-middle);
+    background-color: $alto;
+
+    &__filler {
+        height: 100%;
+
+        border-radius: rem($border-radius-normal);
+
+        &--green {
+            background-color: $seaGreen;
+        }
+
+        &--red {
+            background-color: $brickRed;
+        }
+    }
+}

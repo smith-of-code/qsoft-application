@@ -40,6 +40,7 @@ import './svg/burger.svg';
 import './svg/login.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
+import './svg/attention.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';
@@ -48,5 +49,7 @@ import './svg/man.svg';
 import './svg/woman.svg';
 import './svg/cat-cheerful.svg';
 import './svg/cat-serious.svg';
+import './svg/cat-smile.svg';
+import './svg/cat-happy.svg';
 
 
