@@ -47,4 +47,4 @@ exclude
 !package.json
 !package-lock.json
 /tools
-.const
+app/site/test.php
