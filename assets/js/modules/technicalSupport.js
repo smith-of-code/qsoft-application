@@ -6,7 +6,7 @@ const ELEMENTS_SELECTOR = {
 
 export default function () {
     $(document).on('change', ELEMENTS_SELECTOR.option, function () {
-        let option = $(`${ELEMENTS_SELECTOR.option} option:selected`).attr('data-variant');
+        let option = $(this).find('option:selected').attr('data-variant');
 
         $(ELEMENTS_SELECTOR.variant).removeClass('modal__section-variant--active');
 

@@ -14,10 +14,6 @@ class UserGroupsService
      * @var array Группы, в которых состоит пользователь
      */
     private array $groups;
-    /**
-     * @var array Все группы пользователей
-     */
-    private array $allGroups;
 
     public const USER_GROUP_BUYER = 'buyer';
     public const USER_GROUP_CONSULTANT_1 = 'consultant_1';
@@ -35,7 +31,7 @@ class UserGroupsService
     }
 
     /**
-     * Возвращает группы, в которых состоит пользователь
+     * Возвращает группы, в которых состоит пользователь, в виде пар соответствия символьного идентификатора и ID группы
      * @return array Массив пар "STRING_ID" - "ID"
      * @throws \Bitrix\Main\ArgumentException
      * @throws \Bitrix\Main\ObjectPropertyException
@@ -135,6 +131,9 @@ class UserGroupsService
      * Относится ли пользователь к группе с заданным символьным идентификатором
      * @param string $groupCode Символьный идентификатор группы (STRING_ID)
      * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
      */
     public function isInAGroup(string $groupCode): bool
     {

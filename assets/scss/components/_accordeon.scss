@@ -11,6 +11,18 @@
         }
     }
 
+    &--small & {
+        &__item {
+            padding: 0;
+        }
+
+        &__header {
+            @media #{$screen-desktop} {
+                justify-content: flex-start;
+            }
+        }
+    }
+
     &__item {
         padding: rem(20px) rem($gap-medium);
 
@@ -32,6 +44,10 @@
 
         &__title {
             color: $brickRed;
+
+            &--dark {
+                color: $tuna;
+            }
         }
     }
 
@@ -46,6 +62,10 @@
         margin-right: rem($gap-medium);
 
         color: $tuna;
+    }
+
+    &__toggle {
+        flex-shrink: 0;
     }
 
     &__body {

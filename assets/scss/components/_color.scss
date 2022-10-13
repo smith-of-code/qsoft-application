@@ -1,0 +1,55 @@
+.color {
+    &__item {
+        $size: 14px;
+
+        width: rem($size);
+        height: rem($size);
+
+        cursor: pointer;
+
+        border-radius: 50%;
+
+        @media #{$screen-desktop} {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+
+        &--pink {
+            background-color: #f242af;
+        }
+
+        &--blue {
+            background-color: #4269f2;
+        }
+
+        &--green {
+            background-color: #31c95b;
+        }
+
+        &--yellow {
+            background-color: #f2a142;
+        }
+
+        &--red {
+            background-color: #df4848;
+        }
+
+        &--violet {
+            background-color: #9348df;
+        }
+    }
+
+    &__input:checked + label & {
+        &__item {
+            outline: rem(2px) solid $tuna;
+            outline-offset: rem(1px);
+
+            @media #{$screen-desktop} {
+                outline: rem(1px) solid $tuna;
+                outline-offset: rem(4px);
+            }
+        }
+    }
+}

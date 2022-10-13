@@ -31,15 +31,54 @@ export default function(){
             create: function(event, ui) {
                 let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges)
 
-                $parent.find(ELEMENTS_SELECTOR.rangeMin).on('keyup', function(){
+                $parent.on('change', ELEMENTS_SELECTOR.rangeMin, function(){
                     minVal = +$(this).val().trim();
+                    maxVal = +$parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim();
+
+                    if (minVal < min) {
+                        minVal = min;
+                    }
+
+                    if (minVal > max) {
+                        minVal = max;
+                    }
+
+                    if (minVal > maxVal) {
+                        maxVal = minVal;
+                    }
+
+                    $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+                    $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
+
                     slider.slider( 'option','values',[minVal,maxVal]);
-                })
+                });
         
-                $parent.find(ELEMENTS_SELECTOR.rangeMax).on('keyup', function(){
-                    maxVal = +$(this).val().trim()
+                $parent.on('change', ELEMENTS_SELECTOR.rangeMax, function(){
+                    maxVal = +$(this).val().trim();
+                    minVal = +$parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim();
+
+                    if (maxVal < min) {
+                        maxVal = min;
+                    }
+
+                    if (maxVal > max) {
+                        maxVal = max;
+                    }
+
+                    if (maxVal < minVal) {
+                        minVal = maxVal;
+                    }
+
+                    $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+                    $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
+
                     slider.slider( 'option','values',[minVal,maxVal]);
-                })
+                });
+
+                $parent.on('change', `${ELEMENTS_SELECTOR.rangeMax}, ${ELEMENTS_SELECTOR.rangeMin}`, function (e) {
+                    let val = +$(this).val().trim();
+                    $(this).val(Math.floor(val));
+                });
             }
         });
     })
