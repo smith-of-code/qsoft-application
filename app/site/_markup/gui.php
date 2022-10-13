@@ -177,7 +177,7 @@
                                         data-fancybox data-modal-type="modal"
                                         data-src="#search"
                                 >
-                                    <span class="button__icon">
+                                    <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--search">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
                                         </svg>
@@ -196,7 +196,7 @@
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
-                                                            <div class="header__search-input input input--small input--buttoned">
+                                                            <div class="header__search-input input input--small input--buttoned input--squared">
                                                                 <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                                                 <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                                     <span class="button__icon button__icon--medium">
@@ -219,7 +219,7 @@
                             <div class="header__search header__search--desktop">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--input">
-                                        <div class="header__search-input input input--small input--buttoned">
+                                        <div class="header__search-input input input--small input--buttoned input--squared">
                                             <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                             <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                 <span class="button__icon button__icon--medium">
@@ -412,7 +412,7 @@
                                 </div>
                                 <!--/Для неавторизованного пользователя-->
 
-                                <div class="personal__item">
+                                <div class="personal__item personal__item--basket">
                                     <button type="button" class="button button--simple button--red button--vertical">
                                         <span class="button__icon button__icon--mixed">
                                             <svg class="icon icon--basket">
@@ -748,6 +748,18 @@
                                 <li class="icons__item" title="Icon: login">
                                     <svg class="icon icon--login gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: sort">
+                                    <svg class="icon icon--sort gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: filter">
+                                    <svg class="icon icon--filter gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -1906,6 +1918,12 @@
                                                         <option value="4" disabled>Недоступный</option>
                                                         <option value="5">Открытый</option>
                                                         <option value="6">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
+                                                        <option value="4" disabled>Недоступный</option>
+                                                        <option value="5">Открытый</option>
+                                                        <option value="6">Открытый</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -1922,10 +1940,6 @@
                         <h2 class="gui__title">Ползунок</h2>
 
                         <form class="form">
-                            <div class="range" data-range>
-                                <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
-                            </div>
-
                             <div class="range" data-range>
                                 <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div> 
                                 <div class="range__group">
@@ -4454,22 +4468,18 @@
                         <div class="form__field">
                             <div class="form__field-block form__field-block--input">
                                 <div class="form__control">
-                                    <div class="select select--mini" data-select>
+                                    <div class="select select--small select--sorting select--borderless" data-select>
                                         <div class="select__group">
-                                            <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Селект">
+                                            <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
                                                 <option><!-- пустой option для placeholder --></option>
-                                                <option value="1">Надёжный</option>
-                                                <option value="2">Активное, пассивное, нейтральное, быстрое, медленное и разнообразное пополнение</option>
-                                                <option value="3">Открытый</option>
-                                                <option value="4" disabled>Недоступный</option>
-                                                <option value="5">Открытый</option>
-                                                <option value="6">Открытый</option>
+                                                <option value="1">По цене</option>
+                                                <option value="2">По популярности</option>
                                             </select>
 
-                                            <button type="button" class="button button--iconed button--covered button--rounded button--big button--red">
-                                                <span class="button__icon button__icon--small">
-                                                    <svg class="icon icon--plus">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                <span class="button__icon button__icon--medium">
+                                                    <svg class="icon icon--sort">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
                                                     </svg>
                                                 </span>
                                             </button>

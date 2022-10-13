@@ -71,5 +71,15 @@
 
     &__text {
         text-align: center;
+
+        &--small {
+            font-size: rem($font-size-mini);
+            line-height: rem($line-height-small);
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-small);
+                line-height: rem(22px);
+            }
+        }
     }
 }

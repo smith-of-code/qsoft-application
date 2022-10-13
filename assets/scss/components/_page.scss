@@ -35,7 +35,7 @@
         flex-direction: column;
         flex-grow: 1;
 
-        padding-top: rem(32px);
+        padding-top: rem(24px);
         padding-bottom: rem(56px);
         margin-top: rem($height-header-mobile);
 
@@ -44,9 +44,25 @@
             padding-top: rem(48px);
             padding-bottom: rem(80px);
         }
+
+        &--breadcrumbs {
+            padding-top: rem($gap-normal);
+        }
     }
 
     &__footer {
         flex-shrink: 0;
+    }
+
+    &__heading {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-big);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(48px);
+        }
     }
 }
