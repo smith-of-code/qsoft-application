@@ -23,7 +23,7 @@ class User
      */
     public LoyaltyService $loyalty;
     /**
-     * @var UserGroupsService Объект для работы с бонусным счетом пользователя
+     * @var UserGroupsService Объект для работы с группами (ролями) пользователя
      */
     public UserGroupsService $groups;
     /**

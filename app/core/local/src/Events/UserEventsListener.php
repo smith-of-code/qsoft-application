@@ -3,6 +3,7 @@
 namespace QSoft\Events;
 
 use QSoft\Entity\User;
+use QSoft\Service\BonusAccountHelper;
 use RuntimeException;
 
 class UserEventsListener
@@ -32,7 +33,7 @@ class UserEventsListener
                 ) {
                     throw new RuntimeException('Invalid mentor ID');
                 }
-                $userMentor->bonusAccount->addReferralBonuses();
+                (new BonusAccountHelper())->addReferralBonuses($userMentor);
             }
         }
     }
