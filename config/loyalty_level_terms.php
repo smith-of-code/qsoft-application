@@ -1,6 +1,6 @@
 <?php
 
-use QSoft\Service\UserGroupsService;
+use \QSoft\Helper\LoyaltyProgramHelper;
 
 /**
  * Настройки Программы лояльности
@@ -17,9 +17,9 @@ use QSoft\Service\UserGroupsService;
  */
 return [
     'consultant' => [
-        '1' => [
-            'label' => 'K1',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_1,
+        LoyaltyProgramHelper::LOYALTY_LEVEL_K1 => [
+            'label' => 'K1', // Название для вывода в публичной части
+            'level' => 1, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
                 'self_total' => 5000.0, // Сумма личных покупок за месяц (руб)
                 'self_period_months' => 3, // Количество месяцев
@@ -45,9 +45,9 @@ return [
                 ],
             ],
         ],
-        '2' => [
-            'label' => 'K2',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_2,
+        LoyaltyProgramHelper::LOYALTY_LEVEL_K2 => [
+            'label' => 'K2', // Название для вывода в публичной части
+            'level' => 2, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
                 'self_total' => 5000.0, // Сумма личных покупок за месяц (руб)
                 'self_period_months' => 3,  // Количество месяцев
@@ -78,9 +78,9 @@ return [
                 'upgrade_level_bonuses' => 100, // Бонус (ББ) за переход на этот уровень
             ],
         ],
-        '3' => [
-            'label' => 'K3',
-            'group' => UserGroupsService::USER_GROUP_CONSULTANT_3,
+        LoyaltyProgramHelper::LOYALTY_LEVEL_K3 => [
+            'label' => 'K3', // Название для вывода в публичной части
+            'level' => 3, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
                 'self_total' => 10000.0, // Сумма личных покупок за месяц (руб)
                 'self_period_months' => 3,  // Количество месяцев

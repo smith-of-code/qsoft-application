@@ -6,6 +6,7 @@ use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserGroupTable;
 use http\Exception\RuntimeException;
 use QSoft\Entity\User;
+use QSoft\Helper\UserGroupHelper;
 
 class UserGroupsService
 {
@@ -16,9 +17,7 @@ class UserGroupsService
     private array $groups;
 
     public const USER_GROUP_BUYER = 'buyer';
-    public const USER_GROUP_CONSULTANT_1 = 'consultant_1';
-    public const USER_GROUP_CONSULTANT_2 = 'consultant_2';
-    public const USER_GROUP_CONSULTANT_3 = 'consultant_3';
+    public const USER_GROUP_CONSULTANT = 'consultant';
 
     /**
      * UserGroupsService constructor.
@@ -27,7 +26,6 @@ class UserGroupsService
     public function __construct(User $user) {
         $this->user = $user;
         $this->groups = [];
-        $this->allGroups = [];
     }
 
     /**
@@ -43,32 +41,13 @@ class UserGroupsService
             $groupsRes = UserGroupTable::getList([
                 'filter' => ['USER_ID' => $this->user->id],
                 'select' => ['GROUP_ID','GROUP_CODE'=>'GROUP.STRING_ID'],
+                'cache' => ['ttl' => 31536000], // Кешируем на 1 год
             ]);
             while ($group = $groupsRes->fetch()) {
                 $this->groups[$group['GROUP_CODE']] = $group['GROUP_ID'];
             }
         }
         return $this->groups;
-    }
-
-    /**
-     * Возвращает все группы пользователей
-     * @return array Массив пар "STRING_ID" - "ID"
-     * @throws \Bitrix\Main\ArgumentException
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws \Bitrix\Main\SystemException
-     */
-    public function getAllUserGroups() : array
-    {
-        if (empty($this->allGroups)) {
-            $groupsRes = GroupTable::getList([
-                'select' => ['ID','STRING_ID'],
-            ]);
-            while ($group = $groupsRes->fetch()) {
-                $this->allGroups[$group['GROUP_CODE']] = $group['GROUP_ID'];
-            }
-        }
-        return $this->allGroups;
     }
 
     /**
@@ -82,7 +61,7 @@ class UserGroupsService
     public function addToGroup(int $groupCode) : bool
     {
         // Получим группы, если они ещё не были запрошены
-        $this->getAllUserGroups();
+        $allGroups = UserGroupHelper::getAllUserGroups();
         $this->getUserGroups();
 
         if (! isset($this->allGroups[$groupCode])) {
@@ -91,10 +70,10 @@ class UserGroupsService
 
         // Добавим в группу
         UserGroupTable::add([
-            'GROUP_ID' => $this->allGroups[$groupCode],
+            'GROUP_ID' => $allGroups[$groupCode],
             'USER_ID' => $this->user->id
         ]);
-        $this->groups[$groupCode] = $this->allGroups[$groupCode];
+        $this->groups[$groupCode] = $allGroups[$groupCode];
 
         return true;
     }
@@ -110,16 +89,16 @@ class UserGroupsService
     public function removeFromGroup(int $groupCode) : bool
     {
         // Получим группы, если они ещё не были запрошены
-        $this->getAllUserGroups();
+        $allGroups = UserGroupHelper::getAllUserGroups();
         $this->getUserGroups();
 
-        if (! isset($this->allGroups[$groupCode])) {
+        if (! isset($allGroups[$groupCode])) {
             throw new RuntimeException('User group does not exist');
         }
 
         // Удалим из группы
         UserGroupTable::delete([
-            'GROUP_ID' => $this->allGroups[$groupCode],
+            'GROUP_ID' => $allGroups[$groupCode],
             'USER_ID' => $this->user->id
         ]);
         unset($this->groups[$groupCode]);
@@ -147,9 +126,7 @@ class UserGroupsService
      */
     public function isConsultant(): bool
     {
-        return $this->isInAGroup(self::USER_GROUP_CONSULTANT_1)
-            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_2)
-            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_3);
+        return $this->isInAGroup(self::USER_GROUP_CONSULTANT);
     }
 
     /**

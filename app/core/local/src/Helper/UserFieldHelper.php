@@ -5,8 +5,6 @@ namespace QSoft\Helper;
 use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use http\Exception\RuntimeException;
-use QSoft\Entity\User;
-use QSoft\ORM\TransactionTable;
 
 /**
  * Класс для работы с пользовательскими полями

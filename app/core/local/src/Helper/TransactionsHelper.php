@@ -9,9 +9,8 @@ use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
 use QSoft\ORM\TransactionTable;
 
-class TransactionsService
+class TransactionsHelper
 {
-    private User $user;
     private int $hlId;
     /**
      * @var array Типы транзакций [XML_ID => ID]
@@ -26,13 +25,8 @@ class TransactionsService
      */
     private array $measures;
 
-    /**
-     * TransactionsService constructor.
-     * @param User $user
-     */
-    public function __construct(User $user) {
-        $this->user = $user;
-        $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION;
+    public function __construct() {
+        $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION; //.const
         if (! isset($this->hlId)) {
             throw new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
         }
@@ -72,5 +66,19 @@ class TransactionsService
             $this->measures = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_MEASURE');
         }
         return $this->measures;
+    }
+
+    public function add(int $userId, $type, $source, $measure, $amount)
+    {
+        $this->getTypesIds();
+        $this->getSourcesIds();
+        $this->getMeasuresIds();
+        TransactionTable::add([
+            'UF_USER_ID' => $userId,
+            'UF_TYPE' => $this->types[$type],
+            'UF_SOURCE' => $this->sources[$source],
+            'UF_MEASURE' => $this->measures[$measure],
+            'UF_AMOUNT' => $amount,
+        ]);
     }
 }

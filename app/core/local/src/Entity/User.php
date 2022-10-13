@@ -6,10 +6,8 @@ use Carbon\Carbon;
 use CFile;
 use CUser;
 use CUserFieldEnum;
-use QSoft\Service\BonusAccountService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\OrderAmountService;
-use QSoft\Service\TransactionsService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -19,10 +17,6 @@ class User
      * @var CUser Объект пользователя Битрикса
      */
     private CUser $cUser;
-    /**
-     * @var BonusAccountService Объект для работы с бонусным счетом пользователя
-     */
-    public BonusAccountService $bonusAccount;
     /**
      * @var LoyaltyService Объект для работы с программой лояльности
      */
@@ -35,10 +29,6 @@ class User
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
-    /**
-     * @var TransactionsService Объект для работы с транзакциями
-     */
-    public TransactionsService $transactions;
 
     /**
      * @var int ID пользователя
@@ -83,7 +73,7 @@ class User
     /**
      * @var string Уровень в программе лояльности
      */
-    private string $loyaltyLevel;
+    public string $loyaltyLevel;
 
 
     /**
@@ -171,9 +161,7 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
-        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'];
-
-        var_dump($this->loyaltyLevel);
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
@@ -185,11 +173,9 @@ class User
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
-        $this->bonusAccount = new BonusAccountService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
         $this->orderAmount = new OrderAmountService($this);
-        $this->transactions = new TransactionsService($this);
     }
 
     /**

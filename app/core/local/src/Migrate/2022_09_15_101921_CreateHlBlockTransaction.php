@@ -101,6 +101,12 @@ final class CreateHlBlockTransaction extends BaseCreateHighloadMigration
                 'DEF' => 'N',
                 'SORT' => 30,
             ],
+            'n4' => [
+                'XML_ID' => 'TRANSACTION_TYPE_UPGRADE',
+                'VALUE' => 'повышение уровня',
+                'DEF' => 'N',
+                'SORT' => 40,
+            ],
         ],
         'UF_SOURCE' => [
             'n1' => [
