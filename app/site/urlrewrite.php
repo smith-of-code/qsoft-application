@@ -93,7 +93,23 @@ $arUrlRewrite=array (
     'CONDITION' => '#^/news/#',
     'RULE' => '',
     'ID' => 'bitrix:news',
-    'PATH' => '/news/index.php',
+    'PATH' => '/info/news/index.php',
     'SORT' => 100,
+  ),
+  8 =>
+  array (
+      'CONDITION' => '#^/expert-advice/#',
+      'RULE' => '',
+      'ID' => 'bitrix:news',
+      'PATH' => '/info/expert-advice/index.php',
+      'SORT' => 100,
+  ),
+  13 =>
+  array (
+      'CONDITION' => '#^/events/#',
+      'RULE' => '',
+      'ID' => 'bitrix:news',
+      'PATH' => '/info/events/index.php',
+      'SORT' => 100,
   ),
 );

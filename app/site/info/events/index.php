@@ -5,10 +5,12 @@ $APPLICATION->SetTitle("Мероприятия");
 	"IBLOCK_TYPE" => "events",
 	"IBLOCK_ID" => IBLOCK_EVENT,
     "SEF_MODE" => "Y",
-    "SEF_FOLDER" => "/info/events/",
+    "SEF_FOLDER" => "/events/",
     "SEF_URL_TEMPLATES" => [
         "list" => "index.php",
-    ]
+		"detail" => "detail/#ID#/",
+    ],
+	"SHOW_404" => "Y",
 	),
 	false
 );?>

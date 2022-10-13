@@ -5,10 +5,12 @@ $APPLICATION->SetTitle("Советы экспертов");
 	"IBLOCK_TYPE" => "expert_advices",
 	"IBLOCK_ID" => IBLOCK_EXPERT_ADVICE,
     "SEF_MODE" => "Y",
-    "SEF_FOLDER" => "/info/expert-advice/",
+    "SEF_FOLDER" => "/expert-advice/",
     "SEF_URL_TEMPLATES" => [
         "list" => "index.php",
-    ]
+		"detail" => "detail/#ID#/",
+    ],
+	"SHOW_404" => "Y",
 	),
 	false
 );?>
