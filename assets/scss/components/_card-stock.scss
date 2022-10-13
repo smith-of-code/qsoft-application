@@ -12,7 +12,7 @@
 
     &:hover {
         box-shadow: $box-shadow-big;
-        background-color: rgba(0, 0, 0, .08);
+        background-color: rgba($black, .08);
     }
 
     &__link {
@@ -110,8 +110,12 @@
 
     &__bottom {
         flex-grow: 1;
-        
-        padding: rem($gap-medium) rem($gap-small);
+
+        padding: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            padding: rem($gap-medium);
+        }
     }
 
     &__title {
