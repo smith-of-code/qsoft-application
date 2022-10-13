@@ -48,8 +48,10 @@
         font-weight: $font-weight-semibold;
     }
 
-    &--heavy {
-        font-weight: $font-weight-bold;
+    &--heavy & {
+        &__text {
+            font-weight: $font-weight-bold;
+        }
     }
 
     &--tiny {
