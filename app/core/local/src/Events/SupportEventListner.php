@@ -2,13 +2,12 @@
 
 namespace QSoft\Events;
 
-use CMain;
-use CTicket;
+use QSoft\ORM\LegalEntityTable;
 use \CTicketDictionary;
 use \CUserFieldEnum;
-use \CUser;
 use DateTime;
-use QSoft\ORM\LegalEntityTable;
+use CTicket;
+use \CUser;
 
 /**
  * Класс обработки событий техподдержки.
@@ -51,9 +50,16 @@ class SupportEventListner
 
     public function OnAfterTicketAdd(array $ticketValues): void
     {
-        $fields = $this->prepareFieldsByMessage($ticketValues);
+        $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
 
-        CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
+        if (
+            $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
+            || $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
+        ) {
+            $fields = $this->prepareFieldsByMessage($ticketValues);
+    
+            CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
+        }
     }
 
     /**
@@ -81,7 +87,9 @@ class SupportEventListner
      */
     private function isRequestAcepted(int $requestStatus): bool
     {
-        $userFieldValue = (new CUserFieldEnum())->GetList([], ['ID' => $requestStatus])->GetNext();
+        $userFieldValue = (new CUserFieldEnum())
+            ->GetList([], ['ID' => $requestStatus])
+            ->GetNext();
 
         return  $userFieldValue['XML_ID'] == self::ACCEPTED;
     }
@@ -97,7 +105,9 @@ class SupportEventListner
         if ($this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
             $fields = unserialize($ticketValues['UF_DATA']);
 
-            LegalEntityTable::add($this->prepareProps($fields, $ticketValues['OWNER_USER_ID']));
+            LegalEntityTable::add(
+                $this->prepareProps($fields, $ticketValues['OWNER_USER_ID'])
+            );
         }
     }
 
@@ -267,7 +277,10 @@ class SupportEventListner
             "EXPIRE_AGENT_DONE" => "N",
             "MESSAGE" => "
                 ссылка на детальную страницу с сериализованными данными:
-                " . $protocol . $_SERVER['HTTP_HOST'] . '/bitrix/admin/request_form.php?ID=' . $ticketValues["ID"],
+                " . $protocol 
+                    . $_SERVER['HTTP_HOST']
+                    . '/bitrix/admin/request_form.php?ID='
+                    . $ticketValues["ID"],
             "MESSAGE_SEARCH" => "",
             "IS_SPAM" => null,
             "EXTERNAL_ID" => null,

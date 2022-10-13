@@ -15,7 +15,7 @@ class additionalsupport extends CModule
 
 	public function __construct()
 	{
-		$arModuleVersion = array();
+		$arModuleVersion = [];
 
 		include(__DIR__.'/version.php');
 
@@ -59,7 +59,7 @@ class additionalsupport extends CModule
 		$this->uninstallEvents();
 	}
 
-	function uninstallDB($arParams = array())
+	function uninstallDB($arParams = [])
 	{
 		unregisterModule($this->MODULE_ID);
 		

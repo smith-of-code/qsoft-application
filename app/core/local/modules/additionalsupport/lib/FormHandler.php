@@ -2,12 +2,10 @@
 
 namespace Bitrix\additionalsupport;
 
-use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
-use CMain;
+use Bitrix\Main\Loader;
 use \CTicket;
-use CUserTypeEntity;
 
 class FormHandler
 {

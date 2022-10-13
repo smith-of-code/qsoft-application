@@ -12,7 +12,7 @@ AddEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBef
 // Прослушиваем запрос на изменение профиля пользователя.
 AddEventHandler('support', 'OnAfterTicketUpdate', [new SupportEventListner(), 'onAfterTicketUpdate']);
 
-// Прослушиваем запрос на созданиетикета.
+// Прослушиваем запрос на создание тикета.
 AddEventHandler('support', 'OnAfterTicketAdd', [new SupportEventListner(), 'onAfterTicketAdd']);
 /**
  * Catalog module events
