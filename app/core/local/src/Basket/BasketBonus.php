@@ -42,7 +42,7 @@ class BasketBonus
         $offersBonuses = $this->loadBasketBonusesByUserLevel($user);
 
         foreach ($offersBonuses as $bonusItem) {
-            $bonus += $bonusItem[$propLevel];
+            $bonus += (int)$bonusItem[$propLevel];
         }
 
         return $bonus;
@@ -64,7 +64,6 @@ class BasketBonus
 
             if ($propLevel) {
                 $result = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
-
             }
         }
         return $result;
