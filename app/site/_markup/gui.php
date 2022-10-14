@@ -887,6 +887,22 @@
                                             </label>
                                         </div>
                                     </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input input__control--error" name="check[]" value="s22" id="check22">
+
+                                            <label for="check22" class="checkbox__label">
+                                                <span class="checkbox__icon error">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Обязательный</span>
+                                            </label>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </form>
@@ -2741,6 +2757,37 @@
                             </div>
                         </div>
 
+                        <div class="dropzone dropzone--error" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropzone__error" data-uploader-error>Необходимо загрузить файл</div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+
                         <h3 style="margin-top: 50px;">Загрузчик фото</h3>
 
                         <div class="dropzone dropzone--image" data-uploader>
@@ -2776,6 +2823,42 @@
                                 </div>
 
                                 <div class="dropzone__error" data-uploader-error></div>
+                            </div>
+                        </div>
+
+                        <div class="dropzone dropzone--image dropzone--error" data-uploader style="margin-top: 50px;">
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
+                                        <svg class="dropzone__message-button-icon icon icon--camera">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="dropzone__message-block">
+                                        <div class="dropzone__message-caption needsclick">
+                                            <h6 class="dropzone__message-title">Требования к фото</h6>
+                                            <ul class="dropzone__message-list">
+                                                <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
+                                                <li class="dropzone__message-item">размер 240 Х 320 px</li>
+                                                <li class="dropzone__message-item">вес не более 1МБ</li>
+                                            </ul>
+                                        </div>
+
+                                        <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--import">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Загрузить фото</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dropzone__error" data-uploader-error>Необходимо загрузить фотографию</div>
                             </div>
                         </div>
                     </div>
