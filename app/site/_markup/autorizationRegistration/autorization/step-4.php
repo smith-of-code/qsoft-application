@@ -56,7 +56,7 @@
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="password" class="form__label form__label--required">
-                                                <span class="form__label-text">Новые пароль</span>
+                                                <span class="form__label-text">Новый пароль</span>
                                             </label>
                                         </div>
 

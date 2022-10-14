@@ -107,20 +107,36 @@ class User
     public Carbon $loyaltyCheckDate;
 
     /**
+     * @var bool Этот флаг говорит об авторизованности пользователя только в том, случае, если не был передан $userId (то есть когда пользователь текущий)
+     */
+    public bool $isAuthorized;
+
+    /**
      * Коды пользовательских полей типа "Список"
      */
     private const ENUM_PROPERTIES = [];
 
     /**
      * User constructor.
-     * @param int $userId ID пользователя
-     * @throws RuntimeException
+     * @param int|null $userId ID пользователя
      */
-    public function __construct(int $userId)
+    public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
         
         // Получаем поля и свойства пользователя
+        if ($userId === null) {
+            global $USER;
+
+            $userId = $USER->GetID();
+
+            $this->isAuthorized = $userId !== null;
+
+            if ($userId === null) {
+                return;
+            }
+        }
+
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
             throw new RuntimeException('User not found');

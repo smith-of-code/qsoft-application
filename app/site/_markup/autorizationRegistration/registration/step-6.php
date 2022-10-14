@@ -20,7 +20,7 @@
         <!--content-->
         <main class="page__content content">
             <div class="content__container container">
-                <h1 class="content__heading content__heading--centered">Создание нового пароля</h1>
+                <h1 class="content__heading content__heading--separated">Регистрация</h1>
 
                 <div class="registration">
                 <section class="section">
@@ -74,8 +74,8 @@
                                 Заявка успешно отправлена!
                             </h4>
 
-                            <p class="notification__text">
-                                Ваша заявка на восстановление пароля отправлена. Проверьте вашу электронную почту.
+                            <p class="notification__text notification__text--small">
+                                Ваша заявка на регистрацию оформлена. Проверьте, пожалуйста, электронную почту
                             </p>
                         </div>
                     </section>

@@ -5,7 +5,7 @@
         border-radius: rem($border-radius-average);
 
         @media #{$screen-tablet} {
-            padding: rem($gap-normal) rem($gap-medium);
+            padding: rem($gap-medium) rem($gap-normal);
 
             background-color: $athensGray;
         }
