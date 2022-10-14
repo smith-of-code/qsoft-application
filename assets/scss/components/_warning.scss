@@ -26,5 +26,7 @@
         @include text-miniature($font-weight-medium);
 
         letter-spacing: 0.02em;
+
+        color: $saltBox;
     }
 }

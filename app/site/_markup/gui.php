@@ -824,6 +824,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: cat-sad">
+                                    <svg class="icon icon--cat-sad gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-sad"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -6110,6 +6116,21 @@
                         <h2 class="gui__title">Карточки прогресса</h2>
 
                         <h3>Карточки прогресс - общие</h3>
+
+                        <!-- Для интеграции:
+                            Есть 4 состояния
+                            - если (накопленная сумма / требуемая сумма) < 0.5, 
+                                то иконка = "icon-cat-sad", текст "Нужно больше усилий"
+
+                            - если 0.5 <= (накопленная сумма / требуемая сумма) < 1, 
+                                то иконка = "icon-cat-serious", текст "Хорошо получается"
+
+                            - если (накопленная сумма / требуемая сумма) = 1, 
+                                то иконка = "icon-cat-smile", текст "Цель достигнута"
+
+                            - если (накопленная сумма / требуемая сумма) > 1, 
+                                то иконка = "icon-cat-happy", текст "Просто фантастика"
+                         -->
 
                         <div class="cards-progress cards-progress--triple">
                             <ul class="cards-progress__list">
