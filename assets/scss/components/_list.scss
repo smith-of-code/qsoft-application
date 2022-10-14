@@ -1,3 +1,35 @@
 .list {
-    
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include list-reset;
+
+    &__item {
+        $size-dot: 6px;
+
+        position: relative;
+
+        margin-bottom: rem($gap-small);
+        padding-left: rem(20px);
+
+        @include resetting-vertical-indentation-of-last;
+
+        &::before {
+            position: absolute;
+            top: em(8px); // magic num
+            left: 0;
+
+            display: block;
+
+            width: rem($size-dot);
+            height: rem($size-dot);
+
+            content: "";
+
+            color: $brickRed;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+    }
+
 }

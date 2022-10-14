@@ -529,6 +529,8 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Ненумерованные списки</h2>
 
+                        <h3 style="margin-top: 50px;">Простой</h3>
+
                         <ul>
                             <li>Возможность быстро проявить себя</li>
 
@@ -537,6 +539,18 @@
                             <li>Причастность к конечному результату работы компании</li>
 
                             <li>Разнообразный опыт</li>
+                        </ul>
+
+                        <h3 style="margin-top: 50px;">Цветной</h3>
+
+                        <ul class="list">
+                            <li class="list__item">Возможность быстро проявить себя</li>
+
+                            <li class="list__item">Более свободное отношение к графику работы, отсутствие строгих <a href="#">корпоративных правил</a></li>
+
+                            <li class="list__item">Причастность к конечному результату работы компании</li>
+
+                            <li class="list__item">Разнообразный опыт</li>
                         </ul>
                     </div>
                     <!--/Ненумерованные списки-->
@@ -766,6 +780,32 @@
                                 <li class="icons__item" title="Icon: filter">
                                     <svg class="icon icon--filter gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: chemistry">
+                                    <svg class="icon icon--chemistry gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diagnosis">
+                                    <svg class="icon icon--diagnosis gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diploma">
+                                    <svg class="icon icon--diploma gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: protection">
+                                    <svg class="icon icon--protection gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -2870,6 +2910,130 @@
                         </div>
                     </div>
                     <!--/Варианты цветов-->
+
+                    <!--Документы-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Документы</h2>
+
+                        <div class="documents">
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о государственной регистрации</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Заключение ветеринарной комиссии</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Часто задаваемые вопросы</span>
+                                            <span class="document__text-size">(1.2 Mb)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о безопасности</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Документы-->
+
+                    <!--Особенности-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Особенности</h2>
+
+                        <div class="features">
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--chemistry">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Сбалансированная формула</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--protection">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Профилактика здоровья ежедневно</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diagnosis">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diploma">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Особенности-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">

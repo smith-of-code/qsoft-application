@@ -1,0 +1,19 @@
+.description {
+    @media #{$screen-desktop} {
+        display: flex;
+    }
+
+    &__col {
+        &--right {
+            @media #{$screen-desktop} {
+                margin-left: rem(130px);
+            }
+        }
+    }
+
+    &__image {
+        @media #{$screen-desktop} {
+            width: rem(470px);
+        }
+    }
+}

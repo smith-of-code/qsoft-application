@@ -870,43 +870,90 @@
                                 <div class="detail__information-tabs-body tabs__body">
                                     <div class="tabs__block tabs__block--active" data-tab-section="block1">
                                         <div class="description">
-                                            <div class="description__block">
-                                                <h5 class="description__title">Особенности нашего корма</h5>
+
+                                            <div class="description__col">
+                                                <h5>Особенности нашего корма</h5>
 
                                                 <div class="description__features features">
-                                                    Особенности
+                                                    <div class="features__item">
+                                                        <div class="feature">
+                                                            <div class="feature__icon">
+                                                                <svg class="icon icon--chemistry">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="feature__text">Сбалансированная формула</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="features__item">
+                                                        <div class="feature">
+                                                            <div class="feature__icon">
+                                                                <svg class="icon icon--diagnosis">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="features__item">
+                                                        <div class="feature">
+                                                            <div class="feature__icon">
+                                                                <svg class="icon icon--protection">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="feature__text">Профилактика здоровья ежедневно</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="features__item">
+                                                        <div class="feature">
+                                                            <div class="feature__icon">
+                                                                <svg class="icon icon--diploma">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="description__block">
-                                                <h5 class="description__title">Общее</h5>
 
-                                                <p class="description__text">
+                                                <h5>Общее</h5>
+
+                                                <p>
                                                     Тщательно отобранные, натуральные гипоаллергенные ингредиенты,помогают предотвратить аллергические реакции и пищевую непереносимость, обеспечивая иммунное и пищеварительное здоровье.
                                                 </p>
 
-                                                <p class="description__text">
+                                                <p>
                                                     Деликатный способ приготовления сохраняет все полезные свойства и питательные вещества натуральных ингредиентов обеспечивают отличное физическое состояние питомца.
                                                 </p>
-                                            </div>
 
-                                            <div class="description__block">
-                                                <h5 class="description__title">Детали</h5>
+                                                <h5>Детали</h5>
 
-                                                <ul class="description__details list">
-                                                    <li class="list__item">65% мяса в составе корма</li>
-                                                    <li class="list__item">Только животные белки</li>
-                                                    <li class="list__item">1000000000 КОЕ/кг живых пробиотиков</li>
-                                                    <li class="list__item">Только гипоаллергенные ингредиенты</li> 
-                                                    <li class="list__item">Только мясо без субпродуктов</li>
-                                                    <li class="list__item">Комплекс хондропротекторов</li>
-                                                    <li class="list__item">Баланс соотношения Omega 6-3</li>
-                                                    <li class="list__item">Контроль уровня кислотности рН</li>
-                                                    <li class="list__item">Низкий уровень золы в составе</li>
-                                                    <li class="list__item">Натуральные антиоксиданты</li>
-                                                    <li class="list__item">Бережный способ приготовления</li>
+                                                <ul>
+                                                    <li>65% мяса в составе корма</li>
+                                                    <li>Только животные белки</li>
+                                                    <li>1000000000 КОЕ/кг живых пробиотиков</li>
+                                                    <li>Только гипоаллергенные ингредиенты</li> 
+                                                    <li>Только мясо без субпродуктов</li>
+                                                    <li>Комплекс хондропротекторов</li>
+                                                    <li>Баланс соотношения Omega 6-3</li>
+                                                    <li>Контроль уровня кислотности рН</li>
+                                                    <li>Низкий уровень золы в составе</li>
+                                                    <li>Натуральные антиоксиданты</li>
+                                                    <li>Бережный способ приготовления</li>
                                                 </ul>
                                             </div>
+
+                                            <div class="description__col description__col--right">
+                                                <div class="description__image">
+                                                    <img src="/local/templates/.default/images/product.png" alt="Товар" class="description__image__pic">
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -914,61 +961,65 @@
                                         <div class="documents">
                                             <div class="documents__item">
                                                 <div class="document">
-                                                    <a href="#" class="document__link" target="_blank"></a>
-                                                    <div class="document__icon">
-                                                        <svg class="icon icon--pdf">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="document__text">
-                                                        <span class="document__text-name">Сертификат о государственной регистрации</span>
-                                                        <span class="document__text-size">(630 KB)</span>
-                                                    </div>
+                                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                        <div class="document__icon">
+                                                            <svg class="icon icon--pdf">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="document__text">
+                                                            <span class="document__text-name">Сертификат о государственной регистрации</span>
+                                                            <span class="document__text-size">(630 KB)</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
 
                                             <div class="documents__item">
                                                 <div class="document">
-                                                    <a href="#" class="document__link" target="_blank"></a>
-                                                    <div class="document__icon">
-                                                        <svg class="icon icon--pdf">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="document__text">
-                                                        <span class="document__text-name">Заключение ветеринарной комиссии</span>
-                                                        <span class="document__text-size">(630 KB)</span>
-                                                    </div>
+                                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                        <div class="document__icon">
+                                                            <svg class="icon icon--pdf">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="document__text">
+                                                            <span class="document__text-name">Заключение ветеринарной комиссии</span>
+                                                            <span class="document__text-size">(630 KB)</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
 
                                             <div class="documents__item">
                                                 <div class="document">
-                                                    <a href="#" class="document__link" target="_blank"></a>
-                                                    <div class="document__icon">
-                                                        <svg class="icon icon--pdf">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="document__text">
-                                                        <span class="document__text-name">Часто задаваемые вопросы</span>
-                                                        <span class="document__text-size">(1.2 Mb)</span>
-                                                    </div>
+                                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                        <div class="document__icon">
+                                                            <svg class="icon icon--pdf">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="document__text">
+                                                            <span class="document__text-name">Часто задаваемые вопросы</span>
+                                                            <span class="document__text-size">(1.2 Mb)</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
 
                                             <div class="documents__item">
                                                 <div class="document">
-                                                    <a href="#" class="document__link" target="_blank"></a>
-                                                    <div class="document__icon">
-                                                        <svg class="icon icon--pdf">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="document__text">
-                                                        <span class="document__text-name">Сертификат о безопасности</span>
-                                                        <span class="document__text-size">(630 KB)</span>
-                                                    </div>
+                                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                        <div class="document__icon">
+                                                            <svg class="icon icon--pdf">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="document__text">
+                                                            <span class="document__text-name">Сертификат о безопасности</span>
+                                                            <span class="document__text-size">(630 KB)</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

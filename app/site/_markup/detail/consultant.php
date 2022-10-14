@@ -877,48 +877,130 @@
                                 <div class="detail__information-tabs-body tabs__body">
                                     <div class="tabs__block tabs__block--active" data-tab-section="block1">
                                         <div class="description">
-                                            <div class="description__block">
-                                                <h5 class="description__title">Особенности нашего корма</h5>
 
-                                                <div class="description__features features">
-                                                    Особенности
+                                        <div class="description__col">
+                                            <h5>Особенности нашего корма</h5>
+
+                                            <div class="description__features features">
+                                                <div class="features__item">
+                                                    <div class="feature">
+                                                        <div class="feature__icon">
+                                                            <svg class="icon icon--chemistry">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="feature__text">Сбалансированная формула</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="features__item">
+                                                    <div class="feature">
+                                                        <div class="feature__icon">
+                                                            <svg class="icon icon--diagnosis">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="features__item">
+                                                    <div class="feature">
+                                                        <div class="feature__icon">
+                                                            <svg class="icon icon--protection">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="feature__text">Профилактика здоровья ежедневно</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="features__item">
+                                                    <div class="feature">
+                                                        <div class="feature__icon">
+                                                            <svg class="icon icon--diploma">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="description__block">
-                                                <h5 class="description__title">Общее</h5>
 
-                                                <p class="description__text">
-                                                    Тщательно отобранные, натуральные гипоаллергенные ингредиенты,помогают предотвратить аллергические реакции и пищевую непереносимость, обеспечивая иммунное и пищеварительное здоровье.
-                                                </p>
+                                            <h5>Общее</h5>
 
-                                                <p class="description__text">
-                                                    Деликатный способ приготовления сохраняет все полезные свойства и питательные вещества натуральных ингредиентов обеспечивают отличное физическое состояние питомца.
-                                                </p>
+                                            <p>
+                                                Тщательно отобранные, натуральные гипоаллергенные ингредиенты,помогают предотвратить аллергические реакции и пищевую непереносимость, обеспечивая иммунное и пищеварительное здоровье.
+                                            </p>
+
+                                            <p>
+                                                Деликатный способ приготовления сохраняет все полезные свойства и питательные вещества натуральных ингредиентов обеспечивают отличное физическое состояние питомца.
+                                            </p>
+
+                                            <h5>Детали</h5>
+
+                                            <ul>
+                                                <li>65% мяса в составе корма</li>
+                                                <li>Только животные белки</li>
+                                                <li>1000000000 КОЕ/кг живых пробиотиков</li>
+                                                <li>Только гипоаллергенные ингредиенты</li> 
+                                                <li>Только мясо без субпродуктов</li>
+                                                <li>Комплекс хондропротекторов</li>
+                                                <li>Баланс соотношения Omega 6-3</li>
+                                                <li>Контроль уровня кислотности рН</li>
+                                                <li>Низкий уровень золы в составе</li>
+                                                <li>Натуральные антиоксиданты</li>
+                                                <li>Бережный способ приготовления</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="description__col description__col--right">
+                                            <div class="description__image">
+                                                <img src="/local/templates/.default/images/product.png" alt="Товар" class="description__image__pic">
                                             </div>
+                                        </div>
 
-                                            <div class="description__block">
-                                                <h5 class="description__title">Детали</h5>
-
-                                                <ul class="description__details list">
-                                                    <li class="list__item">65% мяса в составе корма</li>
-                                                    <li class="list__item">Только животные белки</li>
-                                                    <li class="list__item">1000000000 КОЕ/кг живых пробиотиков</li>
-                                                    <li class="list__item">Только гипоаллергенные ингредиенты</li> 
-                                                    <li class="list__item">Только мясо без субпродуктов</li>
-                                                    <li class="list__item">Комплекс хондропротекторов</li>
-                                                    <li class="list__item">Баланс соотношения Omega 6-3</li>
-                                                    <li class="list__item">Контроль уровня кислотности рН</li>
-                                                    <li class="list__item">Низкий уровень золы в составе</li>
-                                                    <li class="list__item">Натуральные антиоксиданты</li>
-                                                    <li class="list__item">Бережный способ приготовления</li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="tabs__block" data-tab-section="block2">
-                                        Состав
+                                        <h5>Состав</h5>
+
+                                        <p>Мясо цыпленка дегидрированное, спельта, маис, куриный жир (с токоферолами), рис, экстракт пивных дрожжей, сушеная свекловичная пульпа, экстракт хрящей (коллаген, хондроитин, глюкозамин), сушеное яблоко, льняное семя, пребиотик MOS (маннаноолигосахариды), витаминно-минеральный комплекс.Мясо цыпленка дегидрированное, спельта, маис, куриный жир (с токоферолами), рис, экстракт пивных дрожжей, сушеная свекловичная пульпа, витаминно-минеральный комплекс.</p>
+
+
+                                        <div class="calories">
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Протеин, %</span>
+                                                <span class="calories__item-size">20 - 30</span>
+                                            </div>
+
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Жир, %</span>
+                                                <span class="calories__item-size">15 - 16</span>
+                                            </div>
+
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Сырая клетчатка,%</span>
+                                                <span class="calories__item-size">3 - 3.5</span>
+                                            </div>
+
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Кальций, %</span>
+                                                <span class="calories__item-size">22 - 29</span>
+                                            </div>
+
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Фосфор, %</span>
+                                                <span class="calories__item-size">0.8 - 1</span>
+                                            </div>
+
+                                            <div class="calories__item">
+                                                <span class="calories__item-name">Сырая зола, %</span>
+                                                <span class="calories__item-size">22 - 30</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="tabs__block" data-tab-section="block3">

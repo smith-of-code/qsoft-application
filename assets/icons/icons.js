@@ -41,6 +41,10 @@ import './svg/burger.svg';
 import './svg/login.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
+import './svg/protection.svg';
+import './svg/diploma.svg';
+import './svg/diagnosis.svg';
+import './svg/chemistry.svg';
 
 import './svg/pdf.svg';
 

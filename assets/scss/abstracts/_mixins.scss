@@ -254,6 +254,23 @@
     }
 }
 
+@mixin text-middle ($font-weight: null) {
+    $font-size: $font-size-mini;
+
+    font-size: rem($font-size);
+    @if $font-weight {
+        font-weight: $font-weight;
+    }
+    line-height: ($line-height-small / $font-size);
+
+    @media #{$screen-desktop} {
+        $font-size: $font-size-small;
+
+        font-size: rem($font-size);
+        line-height: (22px / $font-size);
+    }
+}
+
 
 @mixin text-small ($font-weight: null) {
     $font-size: $font-size-miniature;
