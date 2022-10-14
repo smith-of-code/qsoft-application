@@ -19,4 +19,3 @@ AddEventHandler('support', 'OnAfterTicketAdd', [new SupportEventListner(), 'onAf
  */
 AddEventHandler('catalog', 'OnPriceAdd', [OfferEventsListener::class, 'OnPriceAdd']);
 AddEventHandler('catalog', 'OnPriceUpdate', [OfferEventsListener::class, 'OnPriceUpdate']);
-

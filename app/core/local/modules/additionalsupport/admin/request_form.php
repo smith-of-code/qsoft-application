@@ -21,7 +21,7 @@ $APPLICATION->SetTitle(GetMessage("admin_index_title"));
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
 $fields = [];
-if (loader::includeModule('additionalsupport')) {
+if (loader::includeModule('additionalsupport') && $_REQUEST['ID'] > 0) {
 	$fields = (new FormHandler())->GetFormData($_REQUEST['ID']);
 }
 ?>

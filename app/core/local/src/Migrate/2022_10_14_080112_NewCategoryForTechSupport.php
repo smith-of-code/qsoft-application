@@ -12,7 +12,7 @@ class NewCategoryForTechSupport extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $this->initModule();
 
@@ -89,7 +89,7 @@ class NewCategoryForTechSupport extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         $arrayFilter = ['CHANGE_ROLE', 'CHANGE_OF_PERSONAL_DATA', 'SUPPORT', 'REGISTRATION'];
 
@@ -100,7 +100,11 @@ class NewCategoryForTechSupport extends Migration
         }
     }
 
-    private function initModule()
+    /**
+     * @return void
+     * @throw SystemException
+     */
+    private function initModule(): void
     {
         if (!Loader::includeModule('support')) {
             throw new SystemException('Не подключен модуль ТП');

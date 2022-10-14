@@ -6,11 +6,15 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Loader;
 use \CTicket;
-use CTicketDictionary;
 
 class FormHandler
 {
-    public function GetFormData(int $id)
+    /**
+     * @param int $id
+     * 
+     * @return array
+     */
+    public function GetFormData(int $id): array
     {
         $this->initModule();
         
@@ -23,13 +27,22 @@ class FormHandler
         return $this->prepareFields(unserialize($ticket['~UF_DATA']));
     }
 
-    private function initModule()
+    /**
+     * @return void
+     * @throw SystemException
+     */
+    private function initModule(): void
     {
         if (!Loader::includeModule('support')) {
             throw new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
         }
     }
 
+    /**
+     * @param array $arrValues
+     * 
+     * @return array
+     */
     private function prepareFields(array $arrValues): array
     {
         foreach ($arrValues as $key => $value) {
@@ -39,6 +52,7 @@ class FormHandler
             }
             $fields[$key] = $value;
         }
+
         return $fields ?? [];
     }
 }
