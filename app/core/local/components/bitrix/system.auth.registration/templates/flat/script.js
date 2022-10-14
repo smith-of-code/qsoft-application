@@ -9,9 +9,25 @@ class CSystemAuthRegistrationComponent {
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
-      $(`.${registrationData.currentStep} .form select`).on('change', this.removeError)
-      $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError)
+      $(`.${registrationData.currentStep} .form select`).on('change', this.removeError);
+      $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
+      $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
+      $('input[name=without_living]').on('change', this.hideBlockByCheckbox);
+      $('select[name=status]').on('change', this.changeLegalEntity);
   }
+
+    hideBlockByCheckbox() {
+        if ($(`#${$(this).attr('id')}:checked`).length) {
+            $('.block_living').hide();
+        } else {
+            $('.block_living').show();
+        }
+    }
+
+    changeLegalEntity() {
+      $('.legal_entity').hide();
+      $(`.legal_entity.${$(this).val()}`).show();
+    }
 
     removeError() {
       switch (true) {
@@ -22,6 +38,16 @@ class CSystemAuthRegistrationComponent {
 
       $(this).removeClass('input__control--error');
       $(this).parent().find('span.input__control-error').remove();
+    }
+
+    blockInputByCheckbox() {
+      const input = $(`input[name=${$(this).attr('name').replace('without_', '')}]`);
+      if ($(`#${$(this).attr('id')}:checked`).length) {
+          input.val('');
+          input.attr('disabled', true);
+      } else {
+          input.attr('disabled', null);
+      }
     }
 
     async changeStepListener() {
@@ -62,9 +88,19 @@ class CSystemAuthRegistrationComponent {
 
                     }
                 } else if ($(item).attr('type') === 'checkbox') {
-                    data[$(item).attr('name')] = $(item).attr('checked');
+                    data[$(item).attr('name')] = !!$(`#${$(item).attr('id')}:checked`).length;
+                    if (!data[$(item).attr('name')] && ['agree_with_personal_data_processing', 'agree_with_terms_of_use', 'agree_with_company_rules'].includes($(item).attr('name'))) {
+                        // TODO:: Checkbox error
+                    }
                 } else {
                     if (!$(item).val()) {
+                        if (
+                            ($(item).attr('name') === 'second_name' && $('input[name=without_second_name]:checked').length)
+                            || ($(item).attr('name') === 'mentor_id' && $('input[name=without_mentor_id]:checked').length)
+                            || ($(item).attr('name').indexOf('living') !== -1 && $('input[name=without_living]:checked').length)
+                        ) {
+                            return
+                        }
                         $(item).addClass('input__control--error');
                     }
                     data[$(item).attr('name')] = $(item).val();
@@ -194,11 +230,12 @@ class CSystemAuthRegistrationComponent {
           case password.match(/[А-я]+/i):
           case !password.match(/[a-z]+/i):
           case !password.match(/[A-Z]+/i):
-              // Error
+              $('input[name=password]').addClass('input__control--error');
+              $('input[name=password_confirm]').addClass('input__control--error');
               return;
       }
 
-      const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
+      await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
           mode: 'class',
           data: {
               data: {
@@ -208,6 +245,31 @@ class CSystemAuthRegistrationComponent {
               },
           },
       });
+
+      let isBreak = false;
+      let isCurrentStepPassed = false;
+      $('.steps-counter__item').each(function() {
+          if (isBreak) return;
+          const circle = $(this).find('.steps-counter__circle');
+
+          if (isCurrentStepPassed) {
+              isBreak = true;
+              $(this).addClass('steps-counter__item--current');
+              circle.addClass('steps-counter__circle--current');
+              return;
+          }
+
+          if ($(this).hasClass('steps-counter__item--current')) {
+              isCurrentStepPassed = true;
+              $(this).removeClass('steps-counter__item--current');
+              circle.removeClass('steps-counter__circle--current');
+              $(this).addClass('steps-counter__item--passed');
+              circle.addClass('steps-counter__circle--passed');
+          }
+      });
+
+      $('.step-container').hide();
+      $('.final').show();
   }
 }
 

@@ -3,6 +3,7 @@
 namespace QSoft\Events;
 
 use QSoft\Entity\User;
+use QSoft\Service\LoyaltyService;
 use RuntimeException;
 
 class UserEventsListener
@@ -31,6 +32,13 @@ class UserEventsListener
                 }
                 $userMentor->bonusAccount->addReferralBonuses();
             }
+        }
+    }
+
+    public static function OnBeforeUserAdd(array &$fields)
+    {
+        if (!$fields['UF_LOYALTY_LEVEL']) {
+            $fields['UF_LOYALTY_LEVEL'] = LoyaltyService::LOYALTY_LEVEL_K1;
         }
     }
 }

@@ -34,9 +34,9 @@ class LoyaltyService
      */
     private DateTime $quarterStartDateTime;
 
-    private const LOYALTY_LEVEL_K1 = 'K1';
-    private const LOYALTY_LEVEL_K2 = 'K2';
-    private const LOYALTY_LEVEL_K3 = 'K3';
+    public const LOYALTY_LEVEL_K1 = 'K1';
+    public const LOYALTY_LEVEL_K2 = 'K2';
+    public const LOYALTY_LEVEL_K3 = 'K3';
 
     private const LOYALTY_LEVELS = [
         self::LOYALTY_LEVEL_K1 => [

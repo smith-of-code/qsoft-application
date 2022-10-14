@@ -53,7 +53,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         $this->arResult = $this->getRegisterData();
 
-        if (!$this->arResult) {
+        if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]) {
             $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
             $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
@@ -182,7 +182,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
                 throw new InvalidArgumentException('User with this email already exist');
-            } else if ($field === 'mentor_id') {
+            } else if ($field === 'mentor_id' && $value) {
                 try {
                     if (!(new UserGroupsService)->isConsultant($value)) {
                         throw new InvalidArgumentException('Mentor not found');

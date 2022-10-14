@@ -19,14 +19,14 @@
                         <div class="form__field">
                             <div class="checkbox">
                                 <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="without_mentor"
-                                        id="without_mentor"
-                                    <?=$arResult['without_mentor'] ? 'checked' : ''?>
+                                    type="checkbox"
+                                    class="checkbox__input"
+                                    name="without_mentor_id"
+                                    id="without_mentor_id"
+                                    <?=$arResult['without_mentor_id'] ? 'checked' : ''?>
                                 >
 
-                                <label for="without_mentor" class="checkbox__label">
+                                <label for="without_mentor_id" class="checkbox__label">
                                     <span class="checkbox__icon">
                                         <svg class="checkbox__icon-pic icon icon--check">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">

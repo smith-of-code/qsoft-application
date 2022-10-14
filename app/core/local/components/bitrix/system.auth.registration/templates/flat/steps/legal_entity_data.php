@@ -24,7 +24,7 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="r111" class="form__label form__label--required">
+                                        <label for="status" class="form__label form__label--required">
                                             <span class="form__label-text">Статус</span>
                                         </label>
                                     </div>
@@ -32,11 +32,11 @@
                                     <div class="form__field-block form__field-block--input">
                                         <div class="form__control">
                                             <div class="select select--mitigate" data-select>
-                                                <select class="select__control" name="r111" id="r111" data-select-control data-placeholder="Выберите статус">
+                                                <select class="select__control" name="status" id="status" data-select-control data-placeholder="Выберите статус">
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Самозанятый</option>
-                                                    <option value="2">ИП</option>
-                                                    <option value="3">OOO</option>
+                                                    <option value="self_employed" <?=$arResult['status'] === 'self_employed' ? 'selected' : ''?>>Самозанятый</option>
+                                                    <option value="ip" <?=$arResult['status'] === 'ip' ? 'selected' : ''?>>ИП</option>
+                                                    <option value="ltc" <?=$arResult['status'] === 'ltc' ? 'selected' : ''?>>OOO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="r11" class="form__label form__label--required">
+                                        <label for="nationality" class="form__label form__label--required">
                                             <span class="form__label-text">Гражданство</span>
                                         </label>
                                     </div>
@@ -55,10 +55,10 @@
                                     <div class="form__field-block form__field-block--input">
                                         <div class="form__control">
                                             <div class="select select--mitigate" data-select>
-                                                <select class="select__control" name="r11" id="r11" data-select-control data-placeholder="Выберите пол">
+                                                <select class="select__control" name="nationality" id="nationality" data-select-control data-placeholder="Выберите пол">
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Резидент РФ</option>
-                                                    <option value="2">Незезидент РФ</option>
+                                                    <option value="russian" <?=$arResult['nationality'] === 'russian' ? 'selected' : ''?>>Резидент РФ</option>
+                                                    <option value="not_russian" <?=$arResult['nationality'] === 'not_russian' ? 'selected' : ''?>>Незезидент РФ</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -75,14 +75,22 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="passport_series" class="form__label form__label--required">
                                             <span class="form__label-text">Серия паспорта</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="12 34" data-passport-seria>
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="passport_series"
+                                                id="passport_series"
+                                                placeholder="12 34"
+                                                data-passport-seria
+                                                value="<?=$arResult['passport_series']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -91,14 +99,22 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="passport_number" class="form__label form__label--required">
                                             <span class="form__label-text">Номер</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите номер паспорта" data-passport-number>
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="passport_number"
+                                                id="passport_number"
+                                                placeholder="Введите номер паспорта"
+                                                data-passport-number
+                                                value="<?=$arResult['passport_number']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -109,14 +125,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="who_got" class="form__label form__label--required">
                                             <span class="form__label-text">Кем выдан</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Кем выдан">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="who_got"
+                                                id="who_got"
+                                                placeholder="Кем выдан"
+                                                value="<?=$arResult['who_got']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +148,7 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="date" class="form__label">
+                                        <label for="getting_date" class="form__label">
                                             <span class="form__label-text">Дата выдачи паспорта</span>
                                         </label>
                                     </div>
@@ -134,15 +157,15 @@
                                         <div class="input input--iconed">
                                             <input inputmode="numeric"
                                                    class="input__control"
-                                                   name="date"
-                                                   id="date"
+                                                   name="getting_date"
+                                                   id="getting_date"
                                                    placeholder="ДД.ММ.ГГГГ"
                                                    data-mask-date
                                                    data-inputmask-alias="datetime"
                                                    data-inputmask-inputformat="dd.mm.yyyy"
                                                    data-pets-date-input
                                                    data-pets-change
-                                                   value="09.10.2017"
+                                                   value="<?=$arResult['getting_date']?>"
                                             >
                                             <span class="input__icon">
                                                 <svg class="icon icon--calendar">
@@ -196,14 +219,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="register_locality" class="form__label form__label--required">
                                             <span class="form__label-text">Населенный пункт</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Населенный пункт">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="register_locality"
+                                                id="register_locality"
+                                                placeholder="Населенный пункт"
+                                                value="<?=$arResult['register_locality']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -212,14 +242,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="register_street" class="form__label form__label--required">
                                             <span class="form__label-text">Улица</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Улица">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="register_street"
+                                                id="register_street"
+                                                placeholder="Улица"
+                                                value="<?=$arResult['register_street']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -230,14 +267,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="register_house" class="form__label form__label--required">
                                             <span class="form__label-text">Дом</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Дом">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="register_house"
+                                                id="register_house"
+                                                placeholder="Дом"
+                                                value="<?=$arResult['register_house']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -246,14 +290,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="register_apartment" class="form__label form__label--required">
                                             <span class="form__label-text">Квартира</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Квартира">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="register_apartment"
+                                                id="register_apartment"
+                                                placeholder="Квартира"
+                                                value="<?=$arResult['register_apartment']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -263,14 +314,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="register_postal_code" class="form__label form__label--required">
                                             <span class="form__label-text">Индекс</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Индекс">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="register_postal_code"
+                                                id="register_postal_code"
+                                                placeholder="Индекс"
+                                                value="<?=$arResult['register_postal_code']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -278,21 +336,28 @@
                         </div>
                     </div>
 
-                    <div class="section__box-block">
+                    <div class="section__box-block block_living">
                         <h6 class="box__heading box__heading--small">Адрес проживания</h6>
 
                         <div class="form__row">
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="living_locality" class="form__label form__label--required">
                                             <span class="form__label-text">Населенный пункт</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Населенный пункт">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="living_locality"
+                                                id="living_locality"
+                                                placeholder="Населенный пункт"
+                                                value="<?=$arResult['living_locality']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -301,14 +366,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="living_street" class="form__label form__label--required">
                                             <span class="form__label-text">Улица</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Улица">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="living_street"
+                                                id="living_street"
+                                                placeholder="Улица"
+                                                value="<?=$arResult['living_street']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -319,14 +391,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="living_house" class="form__label form__label--required">
                                             <span class="form__label-text">Дом</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Дом">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="living_house"
+                                                id="living_house"
+                                                placeholder="Дом"
+                                                value="<?=$arResult['living_house']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -335,14 +414,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="living_apartment" class="form__label form__label--required">
                                             <span class="form__label-text">Квартира</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Квартира">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="living_apartment"
+                                                id="living_apartment"
+                                                placeholder="Квартира"
+                                                value="<?=$arResult['living_apartment']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -352,14 +438,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="living_postal_code" class="form__label form__label--required">
                                             <span class="form__label-text">Индекс</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Индекс">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="living_postal_code"
+                                                id="living_postal_code"
+                                                placeholder="Индекс"
+                                                value="<?=$arResult['living_postal_code']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -370,9 +463,15 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="checkbox">
-                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check">
+                                        <input
+                                            type="checkbox"
+                                            class="checkbox__input"
+                                            name="without_living"
+                                            id="without_living"
+                                            <?=$arResult['without_living'] ? 'checked' : ''?>
+                                        >
 
-                                        <label for="check" class="checkbox__label">
+                                        <label for="without_living" class="checkbox__label">
                                             <span class="checkbox__icon">
                                                 <svg class="checkbox__icon-pic icon icon--check">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
@@ -389,7 +488,7 @@
                 </div>
             </div>
 
-            <div class="section__box-inner">
+            <div class="section__box-inner legal_entity self_employed">
                 <h5 class="box__heading box__heading--middle">Самозанятый</h5>
 
                 <div class="section__box-content box box--white box--rounded-sm box--inner">
@@ -398,14 +497,22 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="tin" class="form__label form__label--required">
                                             <span class="form__label-text">ИНН</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="ИНН" data-inn>
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="tin"
+                                                id="tin"
+                                                placeholder="ИНН"
+                                                data-inn
+                                                value="<?=$arResult['tin']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -453,14 +560,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="bank_name" class="form__label form__label--required">
                                             <span class="form__label-text">Наименование банка</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Наименование банка">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bank_name"
+                                                id="bank_name"
+                                                placeholder="Наименование банка"
+                                                value="<?=$arResult['bank_name']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -469,14 +583,22 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="bic" class="form__label form__label--required">
                                             <span class="form__label-text">БИК</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="БИК" data-bik>
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bic"
+                                                id="bic"
+                                                placeholder="БИК"
+                                                data-bik
+                                                value="<?=$arResult['bic']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -487,14 +609,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="checking_account" class="form__label form__label--required">
                                             <span class="form__label-text">Расчетный счет</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Расчетный счет">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="checking_account"
+                                                id="checking_account"
+                                                placeholder="Расчетный счет"
+                                                value="<?=$arResult['checking_account']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -503,14 +632,21 @@
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="text-required" class="form__label form__label--required">
+                                        <label for="correspondent_account" class="form__label form__label--required">
                                             <span class="form__label-text">Корреспондентский счет</span>
                                         </label>
                                     </div>
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control" name="text-required" id="text-required" placeholder="Корреспондентский счет">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="correspondent_account"
+                                                id="correspondent_account"
+                                                placeholder="Корреспондентский счет"
+                                                value="<?=$arResult['correspondent_account']?>"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -588,9 +724,1100 @@
                         <div class="form__col">
                             <div class="form__field">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="correctness_confirmation_self_employed"
+                                        id="correctness_confirmation_self_employed"
+                                        <?=$arResult['correctness_confirmation_self_employed'] ? 'checked' : ''?>
+                                    >
 
-                                    <label for="check" class="checkbox__label">
+                                    <label for="correctness_confirmation_self_employed" class="checkbox__label">
+                                        <span class="checkbox__icon">
+                                            <svg class="checkbox__icon-pic icon icon--check">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                            </svg>
+                                        </span>
+
+                                        <span class="checkbox__text">Я подтверждаю правильность введенных данных и подлинность загруженных документов</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section__box-inner legal_entity ltc">
+                <h5 class="box__heading box__heading--middle">Общество с ограниченной ответственностью</h5>
+
+                <div class="section__box-content box box--white box--rounded-sm box--inner">
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_full_name" class="form__label form__label--required">
+                                            <span class="form__label-text">Наименование организации (полное)</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ltc_full_name"
+                                                id="ltc_full_name"
+                                                placeholder="Наименование организации (полное)"
+                                                value="<?=$arResult['ltc_full_name']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_short_name" class="form__label form__label--required">
+                                            <span class="form__label-text">Наименование организации (сокращенное)</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ltc_short_name"
+                                                id="ltc_short_name"
+                                                placeholder="Наименование организации (сокращенное)"
+                                                value="<?=$arResult['ltc_short_name']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ogrn" class="form__label form__label--required">
+                                            <span class="form__label-text">ОГРН</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ogrn"
+                                                id="ogrn"
+                                                placeholder="ОГРН"
+                                                data-ogrn
+                                                value="<?=$arResult['ogrn']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="tin" class="form__label form__label--required">
+                                            <span class="form__label-text">ИНН</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="tin"
+                                                id="tin"
+                                                placeholder="ИНН"
+                                                data-short-inn
+                                                value="<?=$arResult['tin']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="nds_payer_ltc"
+                                        id="nds_payer_ltc"
+                                        <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
+                                    >
+
+                                    <label for="nds_payer_ltc" class="checkbox__label">
+                                        <span class="checkbox__icon">
+                                            <svg class="checkbox__icon-pic icon icon--check">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                            </svg>
+                                        </span>
+
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="kpp" class="form__label form__label--required">
+                                            <span class="form__label-text">КПП</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="kpp"
+                                                id="kpp"
+                                                placeholder="КПП"
+                                                data-kpp
+                                                value="<?=$arResult['kpp']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию устава ООО</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию протокола участников (решения участника) ООО об избрании руководителя организации</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="need_proxy"
+                                        id="need_proxy"
+                                        <?=$arResult['need_proxy'] ? 'checked' : ''?>
+                                    >
+
+                                    <label for="need_proxy" class="checkbox__label">
+                                        <span class="checkbox__icon">
+                                            <svg class="checkbox__icon-pic icon icon--check">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                            </svg>
+                                        </span>
+
+                                        <span class="checkbox__text">У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Банковские реквизиты</h6>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="bank_name" class="form__label form__label--required">
+                                            <span class="form__label-text">Наименование банка</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bank_name"
+                                                id="bank_name"
+                                                placeholder="Наименование банка"
+                                                value="<?=$arResult['bank_name']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="bic" class="form__label form__label--required">
+                                            <span class="form__label-text">БИК</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bic"
+                                                id="bic"
+                                                placeholder="БИК"
+                                                data-bik
+                                                value="<?=$arResult['bic']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="checking_account" class="form__label form__label--required">
+                                            <span class="form__label-text">Расчетный счет</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="checking_account"
+                                                id="checking_account"
+                                                placeholder="Расчетный счет"
+                                                value="<?=$arResult['checking_account']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="correspondent_account" class="form__label form__label--required">
+                                            <span class="form__label-text">Корреспондентский счет</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="correspondent_account"
+                                                id="correspondent_account"
+                                                placeholder="Корреспондентский счет"
+                                                value="<?=$arResult['correspondent_account']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Адрес организации</h6>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_locality" class="form__label form__label--required">
+                                            <span class="form__label-text">Населенный пункт</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ltc_locality"
+                                                id="ltc_locality"
+                                                placeholder="Населенный пункт"
+                                                value="<?=$arResult['ltc_locality']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_street" class="form__label form__label--required">
+                                            <span class="form__label-text">Улица</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ltc_street"
+                                                id="ltc_street"
+                                                placeholder="Улица"
+                                                value="<?=$arResult['ltc_street']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_address_1" class="form__label form__label--required">
+                                            <span class="form__label-text">Дом, корпус, строение</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="ltc_address_1"
+                                                id="ltc_address_1"
+                                                placeholder="Дом, корпус, строение"
+                                                value="<?=$arResult['ltc_address_1']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_address_2" class="form__label form__label--required">
+                                            <span class="form__label-text">Этаж, помещение, комната</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="ltc_address_2"
+                                                id="ltc_address_2"
+                                                placeholder="Этаж, помещение, комната"
+                                                value="<?=$arResult['ltc_address_2']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ltc_postal_code" class="form__label form__label--required">
+                                            <span class="form__label-text">Индекс</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="ltc_postal_code"
+                                                id="ltc_postal_code"
+                                                placeholder="Индекс"
+                                                value="<?=$arResult['ltc_postal_code']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="correctness_confirmation_ltc"
+                                        id="correctness_confirmation_ltc"
+                                        <?=$arResult['correctness_confirmation_ltc'] ? 'checked' : ''?>
+                                    >
+
+                                    <label for="correctness_confirmation_ltc" class="checkbox__label">
+                                        <span class="checkbox__icon">
+                                            <svg class="checkbox__icon-pic icon icon--check">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                            </svg>
+                                        </span>
+
+                                        <span class="checkbox__text">Я подтверждаю правильность введенных данных и подлинность загруженных документов</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section__box-inner legal_entity ip">
+                <h5 class="box__heading box__heading--middle">Индивидуальный предприниматель</h5>
+
+                <div class="section__box-content box box--white box--rounded-sm box--inner">
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ip_name" class="form__label form__label--required">
+                                            <span class="form__label-text">Наименование ИП</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ip_name"
+                                                id="ip_name"
+                                                placeholder="Наименование ИП"
+                                                value="<?=$arResult['ip_name'] ?? "ИП $arResult[last_name] $arResult[first_name] $arResult[second_name]"?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="tin" class="form__label form__label--required">
+                                            <span class="form__label-text">ИНН</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="tin"
+                                                id="tin"
+                                                placeholder="ИНН"
+                                                data-inn
+                                                value="<?=$arResult['tin']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="nds_payer_ip"
+                                        id="nds_payer_ip"
+                                        <?=$arResult['nds_payer_ip'] ? 'checked' : ''?>
+                                    >
+
+                                    <label for="nds_payer_ip" class="checkbox__label">
+                                        <span class="checkbox__icon">
+                                            <svg class="checkbox__icon-pic icon icon--check">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                            </svg>
+                                        </span>
+
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="ogrnip" class="form__label form__label--required">
+                                            <span class="form__label-text">ОГРНИП</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="ogrnip"
+                                                id="ogrnip"
+                                                placeholder="ОГРНИП"
+                                                data-ogrnip
+                                                value="<?=$arResult['ogrnip']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Банковские реквизиты</h6>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="bank_name" class="form__label form__label--required">
+                                            <span class="form__label-text">Наименование банка</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bank_name"
+                                                id="bank_name"
+                                                placeholder="Наименование банка"
+                                                value="<?=$arResult['bank_name']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="bic" class="form__label form__label--required">
+                                            <span class="form__label-text">БИК</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="text"
+                                                class="input__control"
+                                                name="bic"
+                                                id="bic"
+                                                placeholder="БИК"
+                                                data-bik
+                                                value="<?=$arResult['bic']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="checking_account" class="form__label form__label--required">
+                                            <span class="form__label-text">Расчетный счет</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="checking_account"
+                                                id="checking_account"
+                                                placeholder="Расчетный счет"
+                                                value="<?=$arResult['checking_account']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="correspondent_account" class="form__label form__label--required">
+                                            <span class="form__label-text">Корреспондентский счет</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input
+                                                type="number"
+                                                class="input__control"
+                                                name="correspondent_account"
+                                                id="correspondent_account"
+                                                placeholder="Корреспондентский счет"
+                                                value="<?=$arResult['correspondent_account']?>"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section__box-block">
+                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
+
+                        <div class="dropzone" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox__input"
+                                        name="correctness_confirmation_ip"
+                                        id="correctness_confirmation_ip"
+                                        <?=$arResult['correctness_confirmation_ip'] ? 'checked' : ''?>
+                                    >
+
+                                    <label for="correctness_confirmation_ip" class="checkbox__label">
                                         <span class="checkbox__icon">
                                             <svg class="checkbox__icon-pic icon icon--check">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
