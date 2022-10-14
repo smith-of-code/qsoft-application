@@ -1,0 +1,228 @@
+.card-order {
+    position: relative;
+
+    overflow: hidden;
+
+    
+
+    border-radius: rem($border-radius-average);
+    
+
+    
+
+    &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+
+        height: rem(4px);
+
+        content: "";
+    }
+
+    &--green {
+        $color: $seaGreen;
+
+        &::before {
+            background-color: $color;
+        }
+
+        & .text-block__value {
+            &--marked {
+                &::before {
+                    background-color: $color;
+                }
+            }
+        }
+    }
+
+    &--blue {
+        $color: $bostonBlue;
+
+        &::before {
+            background-color: $color;
+        }
+
+        & .text-block__value {
+            &--marked {
+                &::before {
+                    background-color: $color;
+                }
+            }
+        }
+    }
+
+    &--red {
+        $color: $brickRed;
+
+        &::before {
+            background-color: $color;
+        }
+
+        & .text-block__value {
+            &--marked {
+                &::before {
+                    background-color: $color;
+                }
+            }
+        }
+    }
+
+    &--divided & {
+        &__header {
+            margin-bottom: rem($gap-medium);
+
+            border-radius: rem($border-radius-average);
+        }
+        
+        &__content {
+            padding: rem($gap-medium);
+
+            border-radius: rem($border-radius-average);
+        }
+    }
+
+    &__inner {
+    }
+
+    &__header {
+        padding: rem($gap-medium) rem($gap-medium) rem($gap-average);
+
+        background-color: $athensGray;
+
+        @media #{$screen-desktop} {
+            padding: rem(20px) rem($gap-medium) rem($gap-average);
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        @media #{$screen-desktop} {
+            margin: 0 rem(-25px);
+        }
+    }
+
+    &__item {
+        @media #{$screen-desktop} {
+            padding: 0 rem(25px);
+        }
+
+        &:nth-child(1) {
+            order: 4;
+
+            @media #{$screen-desktop} {
+                order: 1;
+            }
+        }
+
+        &:nth-child(2) {
+            order: 3;
+
+            @media #{$screen-desktop} {
+                order: 2;
+            }
+        }
+
+        &:nth-child(3) {
+            order: 1;
+
+            @media #{$screen-desktop} {
+                order: 3;
+            }
+        }
+
+        &:nth-child(4) {
+            order: 2;
+
+            @media #{$screen-desktop} {
+                order: 4;
+            }
+        }
+
+        &:nth-child(5) {
+            order: 5;
+        }
+
+        &--span {
+            flex-basis: 100%;
+
+            margin: rem($gap-average) 0 rem(6px);
+
+            @media #{$screen-desktop} {
+                flex-basis: initial;
+
+                margin: initial;
+            }
+        }
+    }
+
+    &__title {
+        font-size: rem($font-size-normal);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-normal / $font-size-normal);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+
+    &__subtitle {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px / $font-size-small);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+
+    &__price {
+        & .price__calculation {
+            align-items: flex-end;
+        }
+
+        & .price__calculation-total {
+            font-size: rem($font-size-normal);
+            font-weight: $font-weight-semibold;
+            line-height: ($line-height-normal / $font-size-normal);
+
+            margin-right: 0;
+            margin-bottom: rem($gap-mini);
+        }
+
+        & .price__calculation-accumulation {
+            @include text-miniature($font-weight-bold);
+        }
+    }
+
+    &__action {
+        margin-top: rem($gap-average);
+    }
+
+    &__button {
+        width: 100%;
+    }
+
+    &__content {
+        padding: 0 rem($gap-medium) rem($gap-medium);
+
+        background-color: $athensGray;
+
+        & .accordeon {
+            &__item {
+                padding: rem($gap-mini) rem($gap-medium);
+    
+                border-radius: rem($border-radius-middle);
+                background-color: $white;
+            }
+
+            &__header {
+                align-items: center;
+            }
+        }
+    }
+}

@@ -49,5 +49,8 @@ import './svg/man.svg';
 import './svg/woman.svg';
 import './svg/cat-cheerful.svg';
 import './svg/cat-serious.svg';
+import './svg/credit-paid.svg';
+import './svg/credit-not-paid.svg';
+import './svg/cart-card.svg';
 
 

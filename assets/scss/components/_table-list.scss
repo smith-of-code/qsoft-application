@@ -1,0 +1,90 @@
+.table-list {
+
+    &__head {
+    }
+
+    &__cell {
+    }
+
+    &__name {
+    }
+
+    &__list {
+    }
+
+    &__item {
+    }
+}
+
+.product-line {
+
+    &__inner {
+    }
+
+    &__info {
+    }
+
+    &__image {
+
+        &-picture {
+
+        }
+    }
+
+    &__wrapper {
+    }
+
+    &__title {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+
+    &__subtitle {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+
+        color: $saltBox;
+    }
+
+    &__characteristic {
+    }
+
+    &__list {
+    }
+
+    &__params {
+
+        &--bold & {
+            &-value {
+                font-size: rem($font-size-small);
+                font-weight: $font-weight-bold;
+                line-height: ();
+            }
+        }
+
+        &-name {
+            @include text-miniature($font-weight-medium);
+
+            letter-spacing: 0.02em;
+
+            color: $saltBox;
+        }
+
+        &-value {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-small;
+            line-height: (22px / $font-size-small);
+
+            letter-spacing: 0.02em;
+            
+            color: $saltBox;
+        }
+    }
+
+    &__text {
+    }
+}
