@@ -54,7 +54,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $this->arResult = $this->getRegisterData();
 
         $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
-        if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]) {
+        if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]['name']) {
             $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [

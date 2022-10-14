@@ -1,6 +1,11 @@
 class CSystemAuthRegistrationComponent {
   constructor() {
+      this.initPage();
       this.initListeners();
+  }
+
+  initPage() {
+      $('.legal_entity').hide();
   }
 
   initListeners() {
@@ -10,6 +15,7 @@ class CSystemAuthRegistrationComponent {
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
       $(`.${registrationData.currentStep} .form select`).on('change', this.removeError);
+      $(`.${registrationData.currentStep} .form input[type=checkbox]`).on('change', this.removeError);
       $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
       $('input[name=without_living]').on('change', this.hideBlockByCheckbox);
@@ -44,6 +50,7 @@ class CSystemAuthRegistrationComponent {
       const input = $(`input[name=${$(this).attr('name').replace('without_', '')}]`);
       if ($(`#${$(this).attr('id')}:checked`).length) {
           input.val('');
+          input.removeClass('input__control--error');
           input.attr('disabled', true);
       } else {
           input.attr('disabled', null);
@@ -89,8 +96,8 @@ class CSystemAuthRegistrationComponent {
                     }
                 } else if ($(item).attr('type') === 'checkbox') {
                     data[$(item).attr('name')] = !!$(`#${$(item).attr('id')}:checked`).length;
-                    if (!data[$(item).attr('name')] && ['agree_with_personal_data_processing', 'agree_with_terms_of_use', 'agree_with_company_rules'].includes($(item).attr('name'))) {
-                        // TODO:: Checkbox error
+                    if (!data[$(item).attr('name')] && ['agree_with_personal_data_processing', 'agree_with_terms_of_use', 'agree_with_company_rules', 'correctness_confirmation_self_employed', 'correctness_confirmation_ip', 'correctness_confirmation_ltc'].includes($(item).attr('name'))) {
+                        $(item).addClass('input__control--error');
                     }
                 } else {
                     if (!$(item).val()) {
