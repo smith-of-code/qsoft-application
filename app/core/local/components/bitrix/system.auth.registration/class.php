@@ -53,8 +53,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         $this->arResult = $this->getRegisterData();
 
+        $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
         if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]) {
-            $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
             $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [
@@ -310,7 +310,6 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function getRegisterData(): array
     {
-//        Application::getInstance()->getSession()->remove(self::SESSION_KEY);
         if (Application::getInstance()->getSession()->has(self::SESSION_KEY)) {
             return Application::getInstance()->getSession()->get(self::SESSION_KEY);
         }
