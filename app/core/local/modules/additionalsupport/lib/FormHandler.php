@@ -6,14 +6,19 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Loader;
 use \CTicket;
+use CTicketDictionary;
 
 class FormHandler
 {
     public function GetFormData(int $id)
     {
         $this->initModule();
-
+        
         $ticket = CTicket::GetByID($id, LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_DATA']])->GetNext();
+
+        if (!is_array(unserialize($ticket['~UF_DATA']))) {
+            return [];
+        }
 
         return $this->prepareFields(unserialize($ticket['~UF_DATA']));
     }
