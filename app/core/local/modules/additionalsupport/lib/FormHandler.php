@@ -20,11 +20,11 @@ class FormHandler
         
         $ticket = CTicket::GetByID($id, LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_DATA']])->GetNext();
 
-        if (!is_array(unserialize($ticket['~UF_DATA']))) {
+        if (!is_array(json_decode($ticket['~UF_DATA'], true))) {
             return [];
         }
 
-        return $this->prepareFields(unserialize($ticket['~UF_DATA']));
+        return $this->prepareFields(json_decode($ticket['~UF_DATA'], true));
     }
 
     /**
@@ -43,16 +43,18 @@ class FormHandler
      * 
      * @return array
      */
-    private function prepareFields(array $arrValues): array
+    private function prepareFields(array $arrValues, string $mergedKey = null): array
     {
+        $fields = [];
         foreach ($arrValues as $key => $value) {
             if (is_array($value)) {
-                $this->prepareFields($value);
+                $fields = array_merge($fields, $this->prepareFields($value, $key));
                 continue;
             }
-            $fields[$key] = $value;
+
+            $fields[$mergedKey . ' ' . $key] = $value;
         }
 
-        return $fields ?? [];
+        return $fields;
     }
 }

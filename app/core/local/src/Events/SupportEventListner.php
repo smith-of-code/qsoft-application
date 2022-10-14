@@ -28,7 +28,9 @@ class SupportEventListner
      */
     public function onAfterTicketUpdate(array $ticketValues): void
     {
-        $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        if ($ticketValues['CATEGORY_ID'] > 0) {
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        }
 
         switch ($category['SID']) {
             case self::CHANGE_OF_PERSONAL_DATA:
@@ -44,6 +46,8 @@ class SupportEventListner
                 break;
             case self::SUPPORT:
                 // Событие для техподдержки.
+                break;
+            default:
                 break;
         }
     }
@@ -70,8 +74,8 @@ class SupportEventListner
      */
     private function changeUserFields(array $ticketValues): void
     {
-        if ($this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
-            $fields = unserialize($ticketValues['UF_DATA']);
+        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
+            $fields = json_decode($ticketValues['UF_DATA'], true);
 
             (new CUser())->Update($ticketValues['OWNER_USER_ID'], $fields['USER_INFO']);
 
@@ -103,7 +107,7 @@ class SupportEventListner
     private function registrateConsultant($ticketValues): void
     {
         if ($this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
-            $fields = unserialize($ticketValues['UF_DATA']);
+            $fields = json_decode($ticketValues['UF_DATA'], true);
 
             LegalEntityTable::add(
                 $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID'])

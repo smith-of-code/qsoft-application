@@ -76,15 +76,15 @@ class NewUserFields extends Migration {
                 "SHOW_NO_VALUE" => "Y",
             ],
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Одобрение запроса:',
+                'ru' => 'Одобрение запроса',
                 'en' => 'Accept request',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Одобрение запроса:',
+                'ru' => 'Одобрение запроса',
                 'en' => 'Accept request',
             ],
             'LIST_FILTER_LABEL' => [
-                'ru' => 'Одобрение запроса:',
+                'ru' => 'Одобрение запроса',
                 'en' => 'Accept request',
             ],
         ],
