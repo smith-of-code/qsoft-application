@@ -1,19 +1,52 @@
 <?if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die();
 
-class CommonPageComponent extends CBitrixComponent
+CModule::IncludeModule("iblock");
+
+class CommonPageComponent extends CBitrixComponent implements \Bitrix\Main\Engine\Contract\Controllerable
 {
+    private const LIMIT = 3;
+
+    public function configureActions()
+    {
+        return [
+            'load' => [
+                '-prefilters' => [
+                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
+                    \Bitrix\Main\Engine\ActionFilter\Authentication::class
+                ],
+            ]
+        ];
+    }
+
+    public function loadAction($iblock_id, $offset)
+    {
+        $nextItemsPack = $this->getItems($iblock_id, $offset);
+        return ['ITEMS' => $nextItemsPack, 'OFFSET' => $offset + count($nextItemsPack)];
+    }
+
     public function executeComponent()
+    {
+        $this->arResult['ITEMS'] = $this->getItems($this->arParams['IBLOCK_ID']);
+        $this->arResult['IBLOCK_ID'] = $this->arParams['IBLOCK_ID'];
+        $this->arResult['OFFSET'] = self::LIMIT;
+        $this->includeComponentTemplate();
+    }
+
+    private function getItems($iblock_id, $offset = 0)
     {
         $dbItems = CIBlockElement::GetList(
             [],
-            ['IBLOCK_ID' => $this->arParams['IBLOCK_ID']],
+            ['IBLOCK_ID' => $iblock_id],
             false,
-            false,
+            [
+                'nTopCount' => self::LIMIT,
+                'nOffset' => $offset,
+            ],
             ['ID', 'IBLOCK_ID', 'NAME', 'PREVIEW_TEXT', 'DETAIL_PICTURE', 'PROPERTY_MARKER', 'PROPERTY_PUBLISHED_AT']
         );
 
         while($item = $dbItems->GetNext(true, false)) {
-            $this->arResult['ITEMS'][] = [
+            $result[] = [
                 'NAME' => $item['NAME'],
                 'PREVIEW_TEXT' => $item['PREVIEW_TEXT'],
                 'MARKER' => $item['PROPERTY_MARKER_VALUE'],
@@ -21,6 +54,7 @@ class CommonPageComponent extends CBitrixComponent
                 'DETAIL_PICTURE' => CFile::GetPath($item['DETAIL_PICTURE']),
             ];
         }
-        $this->includeComponentTemplate();
+
+        return $result;
     }
 }?>
