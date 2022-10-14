@@ -1,4 +1,16 @@
 .dropzone {
+    &--error & {
+        &__message {
+            &-caption {
+                border: rem(1px) solid $brickRed;
+            }
+
+            &-button {
+                border: rem(1px) dashed $brickRed !important;
+            }
+        }
+    }
+
     &--image {
         padding: 0;
 
