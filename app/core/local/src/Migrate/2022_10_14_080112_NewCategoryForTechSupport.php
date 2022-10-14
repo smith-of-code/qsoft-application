@@ -106,5 +106,4 @@ class NewCategoryForTechSupport extends Migration
             throw new SystemException('Не подключен модуль ТП');
         }
     }
-
 }

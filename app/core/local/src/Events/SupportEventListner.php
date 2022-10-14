@@ -73,9 +73,9 @@ class SupportEventListner
         if ($this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
             $fields = unserialize($ticketValues['UF_DATA']);
 
-            (new CUser())->Update($ticketValues['OWNER_USER_ID'], $fields);
+            (new CUser())->Update($ticketValues['OWNER_USER_ID'], $fields['USER_INFO']);
 
-            LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields, $ticketValues['OWNER_USER_ID']));
+            LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
         }
     }
 
@@ -106,7 +106,7 @@ class SupportEventListner
             $fields = unserialize($ticketValues['UF_DATA']);
 
             LegalEntityTable::add(
-                $this->prepareProps($fields, $ticketValues['OWNER_USER_ID'])
+                $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID'])
             );
         }
     }
