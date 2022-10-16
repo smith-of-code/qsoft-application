@@ -18,17 +18,8 @@ class CSystemAuthRegistrationComponent {
       $(`.${registrationData.currentStep} .form input[type=checkbox]`).on('change', this.removeError);
       $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
-      $('input[name=without_living]').on('change', this.hideBlockByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
   }
-
-    hideBlockByCheckbox() {
-        if ($(`#${$(this).attr('id')}:checked`).length) {
-            $('.block_living').hide();
-        } else {
-            $('.block_living').show();
-        }
-    }
 
     changeLegalEntity() {
       $('.legal_entity').hide();
@@ -67,6 +58,18 @@ class CSystemAuthRegistrationComponent {
             }
 
             $(`.${registrationData.currentStep} .form`).find('input, select').each((index, item) => {
+                if (
+                    registrationData.currentStep === 'legal_entity_data'
+                    && $(item).closest('.legal_entity').length
+                    && !$(item).closest('.legal_entity').hasClass(data.status)
+                ) {
+                    return;
+                }
+
+                if ($(item).attr('type') === 'hidden') {
+                    return;
+                }
+
                 if ($(item).attr('name').startsWith('pets')) {
                     if (!$(item).val()) {
                         $(item).addClass('input__control--error');
@@ -83,7 +86,19 @@ class CSystemAuthRegistrationComponent {
                     }
                 } else if ($(item).attr('type') === 'file') {
                     if ($(item).attr('multiple')) {
-                        // TODO:: Get and validate files
+                        data[$(item).attr('name')] = { files: [] };
+                        $(item).parent().find('.file.dz-success.dz-complete').each((index, innerItem) => {
+                            data[$(item).attr('name')].files.push({
+                                id: $(innerItem).find('input[type=hidden]').val(),
+                                name: $(innerItem).find('[data-uploader-preview-filename]').html(),
+                                format: $(innerItem).find('[data-uploader-preview-format]').html(),
+                                size: $(innerItem).find('[data-uploader-preview-size]').html(),
+                            });
+                        });
+
+                        if (!data[$(item).attr('name')].files.length) {
+                            $(item).parent().addClass('dropzone--error');
+                        }
                     } else {
                         const fileContainer = $(item).parent().find('img.dropzone__previews-picture-image-pic').last();
                         if (fileContainer.attr('alt')) {
@@ -193,12 +208,6 @@ class CSystemAuthRegistrationComponent {
       }
 
       $.fancybox.open({ src: '#approve-number' });
-
-      registrationData = {
-          ...registrationData,
-          user_id: response.data.user_id,
-          password: response.data.password,
-      };
   }
 
   async verifyCode() {

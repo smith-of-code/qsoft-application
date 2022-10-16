@@ -181,35 +181,10 @@
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию паспорта</h6>
-
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="test[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "test[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'passport',
+                            'FILES' => $arResult['passport'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -523,34 +498,10 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'tax_registration_certificate',
+                            'FILES' => $arResult['tax_registration_certificate']
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -657,67 +608,19 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'bank_details',
+                            'FILES' => $arResult['bank_details'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'personal_tax_registration_certificate',
+                            'FILES' => $arResult['personal_tax_registration_certificate'],
+                        ])?>
                     </div>
 
                     <div class="form__row">
@@ -891,67 +794,19 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'tax_registration_certificate',
+                            'FILES' => $arResult['tax_registration_certificate'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'usn_notification',
+                            'FILES' => $arResult['usn_notification'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -985,133 +840,37 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию устава ООО</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'llc_charter',
+                            'FILES' => $arResult['llc_charter'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию протокола участников (решения участника) ООО об избрании руководителя организации</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'llc_members',
+                            'FILES' => $arResult['llc_members'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'ceo_appointment',
+                            'FILES' => $arResult['ceo_appointment'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'llc_registration_certificate',
+                            'FILES' => $arResult['llc_registration_certificate'],
+                        ])?>
                     </div>
 
                     <div class="form__row">
@@ -1143,34 +902,10 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'procuration',
+                            'FILES' => $arResult['procuration'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -1277,34 +1012,10 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'bank_details',
+                            'FILES' => $arResult['bank_details'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -1547,67 +1258,19 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'tax_registration_certificate',
+                            'FILES' => $arResult['tax_registration_certificate'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'usn_notification',
+                            'FILES' => $arResult['usn_notification'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -1641,34 +1304,10 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'ip_registration_certificate',
+                            'FILES' => $arResult['ip_registration_certificate'],
+                        ])?>
                     </div>
 
                     <div class="section__box-block">
@@ -1775,34 +1414,10 @@
                     <div class="section__box-block">
                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
 
-                        <div class="dropzone" data-uploader>
-                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
-
-                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
-                                <div class="dropzone__message dz-message needsclick">
-                                    <div class="dropzone__message-caption needsclick">
-                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                        <ul class="dropzone__message-list">
-                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                        </ul>
-                                    </div>
-
-                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--import">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Загрузить файл</span>
-                                    </button>
-                                </div>
-
-                                <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'bank_details',
+                            'FILES' => $arResult['bank_details'],
+                        ])?>
                     </div>
 
                     <div class="form__row">

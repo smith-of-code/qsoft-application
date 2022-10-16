@@ -145,7 +145,7 @@
                                     class="checkbox__input"
                                     name="without_second_name"
                                     id="without_second_name"
-                                    <?=$arResult['without_second_name'] ? 'checked' : ''?>
+                                    <?=$arResult['without_second_name'] === 'true' ? 'checked' : ''?>
                                 >
 
                                 <label for="without_second_name" class="checkbox__label">
@@ -317,7 +317,7 @@
                                 class="checkbox__input"
                                 name="agree_with_personal_data_processing"
                                 id="agree_with_personal_data_processing"
-                                <?=$arResult['agree_with_personal_data_processing'] ? 'checked' : ''?>
+                                <?=$arResult['agree_with_personal_data_processing'] === 'true' ? 'checked' : ''?>
                             >
 
                             <label for="agree_with_personal_data_processing" class="checkbox__label">
@@ -339,7 +339,7 @@
                                 class="checkbox__input"
                                 name="agree_with_terms_of_use"
                                 id="agree_with_terms_of_use"
-                                <?=$arResult['agree_with_terms_of_use'] ? 'checked' : ''?>
+                                <?=$arResult['agree_with_terms_of_use'] === 'true' ? 'checked' : ''?>
                             >
 
                             <label for="agree_with_terms_of_use" class="checkbox__label">
@@ -361,7 +361,7 @@
                                 class="checkbox__input"
                                 name="agree_with_company_rules"
                                 id="agree_with_company_rules"
-                                <?=$arResult['agree_with_company_rules'] ? 'checked' : ''?>
+                                <?=$arResult['agree_with_company_rules'] === 'true' ? 'checked' : ''?>
                             >
 
                             <label for="agree_with_company_rules" class="checkbox__label">
@@ -383,7 +383,7 @@
                                 class="checkbox__input"
                                 name="agree_to_receive_information__about_promotions"
                                 id="agree_to_receive_information__about_promotions"
-                                <?=$arResult['agree_to_receive_information__about_promotions'] ? 'checked' : ''?>
+                                <?=$arResult['agree_to_receive_information__about_promotions'] === 'true' ? 'checked' : ''?>
                             >
 
                             <label for="agree_to_receive_information__about_promotions" class="checkbox__label">

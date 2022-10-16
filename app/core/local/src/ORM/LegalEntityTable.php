@@ -2,9 +2,13 @@
 
 namespace QSoft\ORM;
 
+use Bitrix\Main\Entity\BooleanField;
+use Bitrix\Main\Entity\DatetimeField;
 use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\TextField;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
+use QSoft\ORM\Decorators\CreatedAtDecorator;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\Entity\EnumField;
 
@@ -12,8 +16,15 @@ Loc::loadMessages(__FILE__);
 
 final class LegalEntityTable extends BaseTable
 {
+    public const STATUSES = [
+        'ip' => 'STATUS_IP',
+        'ltc' => 'STATUS_JURIDICAL',
+        'self_employed' => 'STATUS_SELF_EMPLOYED',
+    ];
+
     protected static array $decorators = [
         'UF_STATUS' => EnumDecorator::class,
+        'UF_CREATED_AT' => CreatedAtDecorator::class,
     ];
 
     public static function getTableName(): string
@@ -40,6 +51,18 @@ final class LegalEntityTable extends BaseTable
                 'required' => true,
                 'title' => Loc::getMessage('LEGAL_ENTITY_UF_STATUS_FIELD'),
             ], self::getTableName()),
+            new BooleanField('UF_IS_ACTIVE', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_IS_ACTIVE_FIELD'),
+            ]),
+            new TextField('UF_DOCUMENTS', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_DOCUMENTS_FIELD'),
+            ]),
+            new DatetimeField('UF_CREATED_AT', [
+                'required' => true,
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_CREATED_AT_FIELD'),
+            ]),
         ];
     }
 }

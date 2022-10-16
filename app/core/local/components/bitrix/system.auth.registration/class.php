@@ -12,6 +12,7 @@ use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\ORM\ConfirmationTable;
+use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
@@ -28,6 +29,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         'photo',
         'passport',
         'tax_registration_certificate',
+        'personal_tax_registration_certificate',
+        'bank_details',
         'usn_notification',
         'ip_registration_certificate',
         'llc_charter',
@@ -191,15 +194,19 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     throw new InvalidArgumentException('Mentor not found');
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
-                $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
-                $filePath = "/upload/register/$field" . uniqid() . $value['name'];
-                file_put_contents("$_SERVER[DOCUMENT_ROOT]$filePath", $file);
-                $arFile = CFile::MakeFileArray("$_SERVER[DOCUMENT_ROOT]$filePath");
-                $fileId = CFile::SaveFile($arFile, "$_SERVER[DOCUMENT_ROOT]$filePath");
-                $value = [
-                    'id' => $fileId,
-                    'src' => $filePath,
-                ];
+                if (!empty($value['files'])) {
+                    $value = $value['files'];
+                } else {
+                    $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
+                    $filePath = "/upload/register/$field" . uniqid() . $value['name'];
+                    file_put_contents("$_SERVER[DOCUMENT_ROOT]$filePath", $file);
+                    $arFile = CFile::MakeFileArray("$_SERVER[DOCUMENT_ROOT]$filePath");
+                    $fileId = CFile::SaveFile($arFile, "$_SERVER[DOCUMENT_ROOT]$filePath");
+                    $value = [
+                        'id' => $fileId,
+                        'src' => $filePath,
+                    ];
+                }
             }
         }
 
@@ -292,18 +299,105 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $registrationData['password'],
         );
 
-        foreach ($data['pets'] as $pet) {
-            PetTable::add([
+//        foreach ($data['pets'] as $pet) {
+//            PetTable::add([
+//                'UF_USER_ID' => $registrationData['user_id'],
+//                'UF_NAME' => $pet['name'],
+//                'UF_KIND' => $pet['type'],
+//                'UF_BREED' => $pet['breed'],
+//                'UF_GENDER' => $pet['gender'],
+//                'UF_BIRTHDATE' => new Date($pet['birthdate']),
+//            ]);
+//        }
+
+        if ($data['status']) {
+            $documents = [
+                'nationality' => $data['nationality'],
+                'passport_series' => $data['passport_series'],
+                'passport_number' => $data['passport_number'],
+                'who_got' => $data['who_got'],
+                'getting_date' => $data['getting_date'],
+                'passport' => $data['passport'],
+                'register_locality' => $data['register_locality'],
+                'register_street' => $data['register_street'],
+                'register_house' => $data['register_house'],
+                'register_apartment' => $data['register_apartment'],
+                'register_postal_code' => $data['register_postal_code'],
+                'living_locality' => $data['living_locality'] ?? $data['register_locality'],
+                'living_street' => $data['living_street'] ?? $data['register_street'],
+                'living_house' => $data['living_house'] ?? $data['register_house'],
+                'living_apartment' => $data['living_apartment'] ?? $data['register_apartment'],
+                'living_postal_code' => $data['living_postal_code'] ?? $data['register_postal_code'],
+            ];
+
+            if ($data['status'] === 'self_employed') {
+                $documents += [
+                    'tin' => $data['tin'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                    'personal_tax_registration_certificate' => $data['personal_tax_registration_certificate'],
+                ];
+            } else if ($data['status'] === 'ltc') {
+                $documents += [
+                    'ltc_full_name' => $data['ltc_full_name'],
+                    'ltc_short_name' => $data['ltc_short_name'],
+                    'ogrn' => $data['ogrn'],
+                    'tin' => $data['tin'],
+                    'nds_payer' => $data['nds_payer_ltc'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'usn_notification' => $data['usn_notification'],
+                    'kpp' => $data['kpp'],
+                    'llc_charter' => $data['llc_charter'],
+                    'llc_members' => $data['llc_members'],
+                    'ceo_appointment' => $data['ceo_appointment'],
+                    'llc_registration_certificate' => $data['llc_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                    'ltc_locality' => $data['ltc_locality'],
+                    'ltc_street' => $data['ltc_street'],
+                    'ltc_address_1' => $data['ltc_address_1'],
+                    'ltc_address_2' => $data['ltc_address_2'],
+                    'ltc_postal_code' => $data['ltc_postal_code'],
+                ];
+
+                if ($data['need_proxy']) {
+                    $documents['procuration'] = $data['procuration'];
+                }
+            } else if ($data['status'] === 'ip') {
+                $documents += [
+                    'ip_name' => $data['ip_name'],
+                    'tin' => $data['tin'],
+                    'nds_payer' => $data['nds_payer_ip'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'usn_notification' => $data['usn_notification'],
+                    'ogrnip' => $data['ogrnip'],
+                    'ip_registration_certificate' => $data['ip_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                ];
+            }
+
+            LegalEntityTable::add([
                 'UF_USER_ID' => $registrationData['user_id'],
-                'UF_NAME' => $pet['name'],
-                'UF_KIND' => $pet['type'],
-                'UF_BREED' => $pet['breed'],
-                'UF_GENDER' => $pet['gender'],
-                'UF_BIRTHDATE' => new Date($pet['birthdate']),
+                'UF_STATUS' => LegalEntityTable::STATUSES[$data['status']],
+                'UF_IS_ACTIVE' => true,
+                'UF_DOCUMENTS' => json_encode($documents, JSON_UNESCAPED_UNICODE),
             ]);
         }
 
-        (new ConfirmationService)->sendEmailConfirmation($registrationData['user_id']);
+        (new ConfirmationService)->sendEmailConfirmation((int) $registrationData['user_id']);
+
+        $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 
         return ['status' => 'success'];
     }
