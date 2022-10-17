@@ -21,7 +21,7 @@ class LegalEntityService
             'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=UF_USER_ID' => $this->user->id,
-                '=UF_IS_ACTIVE' => 1
+                '=UF_IS_ACTIVE' => true
             ],
         ]);
 

@@ -3,36 +3,54 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
 }
 
+use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\Errorable;
+use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Loader;
+use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable as HL;
 use QSoft\Entity\User;
+use QSoft\ORM\CatBreedTable;
+use QSoft\ORM\DogBreedTable;
+use QSoft\ORM\LegalEntityTable;
+use QSoft\ORM\PetTable;
+use QSoft\ORM\PickupPointTable;
 
-class MainProfileComponent extends CBitrixComponent  implements Controllerable
+class MainProfileComponent extends CBitrixComponent implements Controllerable, Errorable
 {
-    private $userId;
-    private $user;
+    private int $userId;
+    private User $user;
+
+    protected ErrorCollection $errorCollection;
+
+    public function onPrepareComponentParams($arParams)
+    {
+        $this->errorCollection = new ErrorCollection();
+
+        $this->userId = $GLOBALS['USER']->GetID();
+        $this->checkModules();
+
+        $this->user = new User($this->userId);
+    }
 
     public function executeComponent()
     {
         try {
-            $this->userId = $GLOBALS['USER']->GetID();
-            $this->checkModules();
-
-            $this->user = new User($this->userId);
             $this->getResult();
             $this->includeComponentTemplate();
-        } catch (SystemException $e) {
+        } catch (Exception $e) {
             ShowError($e->getMessage());
         }
     }
 
     /**
-     * @throws \Bitrix\Main\LoaderException
+     * @throws LoaderException
      * @throws SystemException
      */
     public function checkModules()
@@ -60,8 +78,8 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
                 }
             }
         }
-        $this->arResult['PETS_INFO'] = $this->user->pets->get();
-        $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
+        $this->arResult['PETS_INFO'] = $this->user->pets->getAll();
+        $this->arResult['MENTOR_INFO'] = $this->user->mentor;
         //Система лояльности
         //Персональные акции
     }
@@ -85,19 +103,8 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
     }
 
     /**
-     * @throws \Bitrix\Main\ArgumentException
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws SystemException
-     */
-
-    private function getMentorInfo()
-    {
-        return CUser::GetByID($this->arResult['USER_INFO']['UF_MENTOR_ID'])->Fetch();
-    }
-
-    /**
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws \Bitrix\Main\ArgumentException
+     * @throws ObjectPropertyException
+     * @throws ArgumentException
      * @throws SystemException
      */
     private function getSelects(): array
@@ -106,8 +113,8 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
 
         //Пункты выдачи заказов
-        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLPICKUPPOINT)->getDataClass()::getList([
-            'order' => ['UF_NAME'=>'ASC'],
+        $hlBlock = PickupPointTable::getList([
+            'order' => ['UF_NAME' => 'ASC'],
             'select' => ['*'],
         ]);
         while ($fields = $hlBlock->Fetch()) {
@@ -115,20 +122,20 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         //Статусы юр лица для консультантов
-        $enums = (new \QSoft\ORM\LegalEntityTable)::getFieldValues(['UF_STATUS']);
-        foreach ($enums['UF_STATUS'] as $enum) {
-            $selects['STATUS'][$enum['ID']] = $enum['VALUE'];
+        $petGenders = LegalEntityTable::getFieldValues(['UF_STATUS'])['UF_STATUS'];
+        foreach ($petGenders as $petGender) {
+            $selects['STATUS'][$petGender['ID']] = $petGender['VALUE'];
         }
 
         //Типы питомцев
-        $enums = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
-        foreach ($enums['UF_KIND'] as $enum) {
-            $selects['PET_KIND'][$enum['ID']] = $enum['VALUE'];
+        $petGenders = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
+        foreach ($petGenders as $petGender) {
+            $selects['PET_KIND'][$petGender['ID']] = $petGender['VALUE'];
         }
 
         //Породы кошек
-        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLBREEDCAT)->getDataClass()::getList([
-            'order' => ['UF_BREED_CAT'=>'ASC'],
+        $hlBlock = CatBreedTable::getList([
+            'order' => ['UF_BREED_CAT' => 'ASC'],
             'select' => ['*'],
         ]);
         while ($fields = $hlBlock->Fetch()) {
@@ -136,8 +143,8 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         //Породы собак
-        $hlBlock = HL::compileEntity(HIGHLOAD_BLOCK_HLBREEDDOG)->getDataClass()::getList([
-            'order' => ['UF_BREED_DOG'=>'ASC'],
+        $hlBlock = DogBreedTable::getList([
+            'order' => ['UF_BREED_DOG' => 'ASC'],
             'select' => ['*'],
         ]);
         while ($enumFields = $hlBlock->Fetch()) {
@@ -145,9 +152,9 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         }
 
         //Пол питомцев
-        $enums = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_GENDER']);
-        foreach ($enums['UF_GENDER'] as $enum) {
-            $selects['PET_GENDER'][$enum['ID']] = $enum['VALUE'];
+        $petGenders = PetTable::getFieldValues(['UF_GENDER'])['UF_GENDER'];
+        foreach ($petGenders as $petGender) {
+            $selects['PET_GENDER'][$petGender['ID']] = $petGender['VALUE'];
         }
 
         return $selects;
@@ -175,29 +182,28 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
 
     }
 
-    public function userInfoUpdateAction($form)
+    public function userInfoUpdateAction(array $userInfo)
     {
         //TODO:Загрузка фоток
         $props = [];
 
-        foreach ($form as $row) {
-            $props[$row['name']] = $row['value'];
+        foreach ($userInfo as $userInfoRow) {
+            $props[$userInfoRow['name']] = $userInfoRow['value'];
         }
 
-        $fields["NAME"] = $props['NAME'];
         $fields = [
-            "NAME"              => $props['NAME'],
-            "LAST_NAME"         => $props['LAST_NAME'],
-            "SECOND_NAME"       => $props['SECOND_NAME'],
-            "PERSONAL_GENDER"   => $props['PERSONAL_GENDER'],
-            "PERSONAL_BIRTHDAY" => $props['PERSONAL_BIRTHDAY'],
-            "EMAIL"             => $props['EMAIL'],
-            "PERSONAL_PHONE"    => $props['PERSONAL_PHONE'],
-            "PERSONAL_CITY"     => $props['PERSONAL_CITY'],
-            "UF_PICKUP_POINT_ID"=> $props['UF_PICKUP_POINT_ID']
+            'NAME' => $props['NAME'],
+            'LAST_NAME' => $props['LAST_NAME'],
+            'SECOND_NAME' => $props['SECOND_NAME'],
+            'PERSONAL_GENDER' => $props['PERSONAL_GENDER'],
+            'PERSONAL_BIRTHDAY' => $props['PERSONAL_BIRTHDAY'],
+            'EMAIL' => $props['EMAIL'],
+            'PERSONAL_PHONE' => $props['PERSONAL_PHONE'],
+            'PERSONAL_CITY' => $props['PERSONAL_CITY'],
+            'UF_PICKUP_POINT_ID' => $props['UF_PICKUP_POINT_ID']
         ];
 
-        (new User($GLOBALS['USER']->GetID()))->Update($fields);
+        (new User($GLOBALS['USER']->GetID()))->update($fields);
     }
 
     public function legalEntityUpdateAction($form)
@@ -206,7 +212,7 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         $docs = [];
 
         foreach ($form as $row) {
-            if($row['name'] != 'UF_STATUS') {
+            if ($row['name'] != 'UF_STATUS') {
                 array_set($docs, $row['name'], $row['value']);
             } else {
                 $props["UF_STATUS"] = $row['value'];
@@ -219,74 +225,90 @@ class MainProfileComponent extends CBitrixComponent  implements Controllerable
         $props['UF_IS_ACTIVE'] = true;
 
 
-        \QSoft\ORM\LegalEntityTable::add($props);
+        LegalEntityTable::add($props);
 
         //TODO: добавить модерацию (видимо переслать в ConfirmationTable)
         //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
     }
 
-    public function addPetAction($form)
+    protected function preparePetForSaving(array $pet): array
     {
-        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
-        $props['UF_NAME'] = $form['UF_NAME'];
-        $props['UF_GENDER'] = $form['UF_GENDER'];
-        $props['UF_KIND'] = $form['UF_KIND'];
-        $props['UF_BIRTHDATE'] = new date($form['UF_BIRTHDATE'], "d.m.Y");
+        global $USER;
 
-        $kinds = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
-        foreach ($kinds['UF_KIND'] as $kind) {
-            if ($form['UF_KIND'] == $kind['ID']) {
+        $props['UF_USER_ID'] = $USER->GetID();
+        $props['UF_NAME'] = $pet['UF_NAME'];
+        $props['UF_GENDER'] = $pet['UF_GENDER'];
+        $props['UF_KIND'] = $pet['UF_KIND'];
+        $props['UF_BIRTHDATE'] = new date($pet['UF_BIRTHDATE'], 'd.m.Y');
+
+        $kinds = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
+        foreach ($kinds as $kind) {
+            if ($pet['UF_KIND'] == $kind['ID']) {
                 $petType = $kind['XML_ID'];
+
+                if ($petType == 'KIND_CAT') {
+                    $props['UF_BREED'] = $pet['UF_CAT_BREED'];
+                } elseif ($petType == 'KIND_DOG') {
+                    $props['UF_BREED'] = $pet['UF_DOG_BREED'];
+                }
             }
         }
 
-        if ($petType == 'KIND_CAT') {
-            $props['UF_BREED'] = $form["UF_CAT_BREED"];
-        } elseif ($petType == 'KIND_DOG') {
-            $props['UF_BREED'] = $form["UF_DOG_BREED"];
-        }
-
-        $pet = \QSoft\ORM\PetTable::add($props);
-
-        if ($pet) {
-        $data['pet-id'] = $pet;
-            } else {
-        $data['error'] = 'error';
-        }
-
-        return $data;
+        return $props;
     }
 
-    public function changePetAction($form)
+    public function addPetAction(array $pet): ?array
     {
-        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
-        $props['UF_NAME'] = $form['UF_NAME'];
-        $props['UF_GENDER'] = $form['UF_GENDER'];
-        $props['UF_KIND'] = $form['UF_KIND'];
-        $props['UF_BIRTHDATE'] = new date($form['UF_BIRTHDATE'], "d.m.Y");
+        $preparedPet = $this->preparePetForSaving($pet);
 
-        $kinds = (new \QSoft\ORM\PetTable)::getFieldValues(['UF_KIND']);
-        foreach ($kinds['UF_KIND'] as $kind) {
-            if ($form['UF_KIND'] == $kind['ID']) {
-                $petType = $kind['XML_ID'];
-            }
-        }
-
-        if ($petType == 'KIND_CAT') {
-            $props['UF_BREED'] = $form["UF_CAT_BREED"];
-        } elseif ($petType == 'KIND_DOG') {
-            $props['UF_BREED'] = $form["UF_DOG_BREED"];
-        }
-
-        \QSoft\ORM\PetTable::update($form['ID'], $props);
+        return [
+            'pet-id' => PetTable::add($preparedPet)->getId()
+        ];
     }
 
-    public function deletePetAction($id)
+    public function changePetAction(array $pet)
     {
-        \QSoft\ORM\PetTable::delete($id);
+        global $USER;
+
+        if (!$this->canUserChangePet($USER->GetID(), $pet['ID'])) {
+            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
+
+            return null;
+        }
+
+        $preparedPet = $this->preparePetForSaving($pet);
+
+        PetTable::update($pet['ID'], $preparedPet);
+    }
+
+    public function deletePetAction(int $petId)
+    {
+        global $USER;
+
+        if (!$this->canUserChangePet($USER->GetID(), $petId)) {
+            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
+
+            return null;
+        }
+
+        PetTable::delete($petId);
+    }
+
+    protected function canUserChangePet(int $userId, int $petId): bool
+    {
+        return (bool)(new User($userId))->pets->get($petId);
     }
 
     //TODO смена ментора
     //TODO модерация
 
+    public function getErrors()
+    {
+        $this->errorCollection->toArray();
+    }
+
+    public function getErrorByCode($code)
+    {
+        $this->errorCollection->getErrorByCode($code);
+    }
 }
