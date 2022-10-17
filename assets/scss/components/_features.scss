@@ -12,7 +12,7 @@
         margin-left: rem(-22px);
     }
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         margin-top: rem(-$gap-medium);
         margin-right: rem(-38px);
         margin-left: rem(-38px);
@@ -28,7 +28,7 @@
             padding-left: rem(22px);
         }
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             width: percentage(1 / 2);
             margin-top: rem($gap-medium);
             padding-right: rem(38px);

@@ -100,7 +100,9 @@
 
         &-tabs {
             &-body {
-                margin-top: rem($gap-big);
+                @media #{$screen-tablet} {
+                    margin-top: rem($gap-big);
+                }
             }
         }
     }

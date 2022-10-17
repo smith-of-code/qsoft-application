@@ -3,10 +3,53 @@
         display: flex;
     }
 
+    &--tablet {
+        @media #{$screen-tablet} {
+            display: flex;
+        }
+    }
+
     &__col {
+        @media #{$screen-tablet} {
+            width: 50%;
+        }
+
+        @media #{$screen-desktop} {
+            width: auto;
+        }
+
         &--right {
+            margin-top: rem($gap-normal);
+            margin-bottom: rem($gap-normal);
+
+            @media #{$screen-tablet} {
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-left: rem($gap-normal);
+            }
+
             @media #{$screen-desktop} {
                 margin-left: rem(130px);
+            }
+        }
+
+        &--half {
+            @media #{$screen-tablet} {
+                width: auto;
+            }
+
+            @media #{$screen-desktop} {
+                width: percentage(1 / 2);
+
+                h5 {
+                    margin-top: 0;
+                }
+            }
+
+            &:last-child {
+                @media #{$screen-desktop} {
+                    margin-left: rem(30px);
+                }
             }
         }
     }
@@ -15,5 +58,21 @@
         @media #{$screen-desktop} {
             width: rem(470px);
         }
+    }
+
+    &__annotation {
+        font-size: rem($font-size-miniature);
+        line-height: ($line-height-miniature / $font-size-miniature);
+
+        display: block;
+
+        letter-spacing: 0.02em;
+
+        color: $saltBox;
+    }
+
+    &__title {
+        margin-top: 0;
+        margin-bottom: rem($gap-medium);
     }
 }

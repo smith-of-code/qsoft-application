@@ -1985,6 +1985,62 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--middle select--simple" data-select>
+                                                    <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--white"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Белый
+                                                        </option>
+                                                        <option value="2" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--pink"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Розовый
+                                                        </option>
+                                                        <option value="3" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--blue"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Синий
+                                                        </option>
+                                                        <option value="4" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--green"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Зеленый
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="specification__select select select--middle" data-select>
+                                                    <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для всех пород
+                                                        </option>
+                                                        <option value="2" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для мелких пород
+                                                        </option>
+                                                        <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для средних пород
+                                                        </option>
+                                                        <option value="4" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для крупных пород
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <!--/Селекты-->
@@ -2897,9 +2953,9 @@
                                 </li>
 
                                 <li class="colors__item">
-                                    <div class="color">
+                                    <div class="color color--disabled">
                                         <div class="radio">
-                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5" disabled>
                                             <label for="radio5">
                                                 <div class="color__item color__item--big color__item--red"></div>
                                             </label>
@@ -3034,6 +3090,56 @@
                         </div>
                     </div>
                     <!--/Особенности-->
+
+                    <!--Состав-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Состав</h2>
+
+                        <div class="nutritionals">
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Протеин, %</span>
+                                    <span class="nutritional__size">20 - 30</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Жир, %</span>
+                                    <span class="nutritional__size">15 - 16</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая клетчатка,%</span>
+                                    <span class="nutritional__size">3 - 3.5</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Кальций, %</span>
+                                    <span class="nutritional__size">22 - 29</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Фосфор, %</span>
+                                    <span class="nutritional__size">0.8 - 1</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая зола, %</span>
+                                    <span class="nutritional__size">22 - 30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Состав-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">
@@ -4910,8 +5016,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2" data-option-icon="dog" selected>Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>'>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' selected>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -5105,8 +5211,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat" selected>Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -5310,8 +5416,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="type-#ID#" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>

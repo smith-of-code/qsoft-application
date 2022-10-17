@@ -1,16 +1,77 @@
 .color {
+    &--option {
+        display: flex;
+        align-items: center;
+    }
+
+    &--option & {
+        &__item {
+            display: inline-block;
+
+            margin-right: rem($gap-small);
+        }
+    }
+
+    &--disabled & {
+        &__item {
+            &::before {
+                position: absolute;
+                z-index: -1;
+                top: 50%;
+                right: 50%;
+
+                display: block;
+
+                width: rem(28px);
+                height: rem(28px);
+
+                content: '';
+                transition: transform $transition-duration $transition-function;
+                transform: translate(50%, -50%);
+
+                border-radius: rem($border-radius-small);
+                background-color: $alto;
+            }
+
+            &::after {
+                position: absolute;
+                z-index: 1;
+                top: 50%;
+                right: 0;
+
+                display: block;
+
+                width: rem(28px);
+                height: rem(2px);
+
+                content: '';
+                transition: transform $transition-duration $transition-function;
+                transform: rotate(-45deg);
+
+                background-color: $alto;
+            }
+        }
+    }
+
     &__item {
         $size: 14px;
 
+        position: relative;
+
         width: rem($size);
         height: rem($size);
-
-        cursor: pointer;
 
         border-radius: 50%;
 
         @media #{$screen-desktop} {
             $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+
+        &--medium {
+            $size: 16px;
 
             width: rem($size);
             height: rem($size);
@@ -53,6 +114,10 @@
         }
     }
 
+    &__input + label {
+        cursor: pointer;
+    }
+
     &__input:checked + label & {
         &__item {
             outline: rem(2px) solid $tuna;
@@ -68,5 +133,9 @@
                 outline-offset: rem(2px);
             }
         }
+    }
+
+    &__input:disabled + label {
+        cursor: default;
     }
 }

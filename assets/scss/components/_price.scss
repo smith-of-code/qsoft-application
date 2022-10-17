@@ -24,6 +24,10 @@
 
                 margin-right: rem($gap-small);
             }
+
+            &--red {
+                color: $brickRed;
+            }
         }
 
         &-accumulation {
@@ -43,6 +47,18 @@
 
                 padding: 0 rem($gap-average);
             }
+        }
+    }
+
+    &__calculation & {
+        &__main {
+            margin-bottom: 0;
+
+            letter-spacing: 0.02em;
+
+            text-decoration-line: line-through;
+
+            color: $saltBox;
         }
     }
 }

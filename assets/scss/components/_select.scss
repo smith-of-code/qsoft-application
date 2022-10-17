@@ -117,8 +117,17 @@
     &#{&}--borderless {
         .select2-container--default {
             .select2-selection--single {
-                background-color: transparent;
                 border: none;
+                background-color: transparent;
+            }
+        }
+    }
+
+    &#{&}--simple {
+        .select2-container--default {
+            .select2-selection--single {
+                border: none;
+                background-color: $white;
             }
         }
     }
@@ -392,5 +401,9 @@
                 height: rem($size);
             }
         }
+    }
+
+    &__color {
+        display: flex;
     }
 }
