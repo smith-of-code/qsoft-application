@@ -18,7 +18,7 @@ class UserEventsListener
             // Если задан корректный ID Консультанта,
             // а также он был изменен и не является ID самого пользователя
             if (is_numeric($fields['UF_MENTOR_ID'])
-                && $user->mentorId !== $fields['UF_MENTOR_ID']
+                && $user->mentor->id !== $fields['UF_MENTOR_ID']
                 && $user->id !== $fields['UF_MENTOR_ID']
             ) {
                 //Получим юзера-ментора
