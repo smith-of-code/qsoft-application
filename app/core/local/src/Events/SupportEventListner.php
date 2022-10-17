@@ -153,10 +153,28 @@ class SupportEventListner
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
 
+        $users = [
+            $ticket['OWNER_USER_ID'],
+            $ticket['RESPONSIBLE_USER_ID'],
+        ];
+
+        $user = (new \CUser)->GetList('', '', ['ID' => implode('|', $users)], ['PHONE_NUMBER']);
+
+        $owner = [];
+        $responsible = [];
+
+        while ($res = $user->GetNext()) {
+            if ($res['ID'] == $ticket['OWNER_USER_ID']) {
+                $owner = $res;
+            } else {
+                $responsible = $res;
+            }
+        }
+
         $fields = [
             "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
-            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "MESSAGE_SENDER" => '+79042356440', // почта отправителя
+            "MESSAGE_TAKER" => '+79042356440', // почта получателя
             "TICKED_STATUS" => $status['VALUE'], // статус заявки
             "TICKED_NUMBER" => $ticket['ID'], // номер тикета
             "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
@@ -168,6 +186,8 @@ class SupportEventListner
         $sms->setSite($ticket['SITE_ID'])
             ->setLanguage(SITE_ID)
             ->send();
+
+            dd($sms);
     }
 
     /**
