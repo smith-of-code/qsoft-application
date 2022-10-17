@@ -177,7 +177,7 @@
                                         data-fancybox data-modal-type="modal"
                                         data-src="#search"
                                 >
-                                    <span class="button__icon">
+                                    <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--search">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
                                         </svg>
@@ -196,7 +196,7 @@
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
-                                                            <div class="header__search-input input input--small input--buttoned">
+                                                            <div class="header__search-input input input--small input--buttoned input--squared">
                                                                 <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                                                 <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                                     <span class="button__icon button__icon--medium">
@@ -219,7 +219,7 @@
                             <div class="header__search header__search--desktop">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--input">
-                                        <div class="header__search-input input input--small input--buttoned">
+                                        <div class="header__search-input input input--small input--buttoned input--squared">
                                             <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                             <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                 <span class="button__icon button__icon--medium">
@@ -412,7 +412,7 @@
                                 </div>
                                 <!--/Для неавторизованного пользователя-->
 
-                                <div class="personal__item">
+                                <div class="personal__item personal__item--basket">
                                     <button type="button" class="button button--simple button--red button--vertical">
                                         <span class="button__icon button__icon--mixed">
                                             <svg class="icon icon--basket">
@@ -751,6 +751,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: clock">
+                                    <svg class="icon icon--clock gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: sort">
                                     <svg class="icon icon--sort gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
@@ -878,6 +884,22 @@
                                                 </span>
 
                                                 <span class="checkbox__text">Недоступный чекбокс</span>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input input__control--error" name="check[]" value="s22" id="check22">
+
+                                            <label for="check22" class="checkbox__label">
+                                                <span class="checkbox__icon error">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Обязательный</span>
                                             </label>
                                         </div>
                                     </li>
@@ -2735,6 +2757,37 @@
                             </div>
                         </div>
 
+                        <div class="dropzone dropzone--error" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropzone__error" data-uploader-error>Необходимо загрузить файл</div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+
                         <h3 style="margin-top: 50px;">Загрузчик фото</h3>
 
                         <div class="dropzone dropzone--image" data-uploader>
@@ -2770,6 +2823,42 @@
                                 </div>
 
                                 <div class="dropzone__error" data-uploader-error></div>
+                            </div>
+                        </div>
+
+                        <div class="dropzone dropzone--image dropzone--error" data-uploader style="margin-top: 50px;">
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
+                                        <svg class="dropzone__message-button-icon icon icon--camera">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="dropzone__message-block">
+                                        <div class="dropzone__message-caption needsclick">
+                                            <h6 class="dropzone__message-title">Требования к фото</h6>
+                                            <ul class="dropzone__message-list">
+                                                <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
+                                                <li class="dropzone__message-item">размер 240 Х 320 px</li>
+                                                <li class="dropzone__message-item">вес не более 1МБ</li>
+                                            </ul>
+                                        </div>
+
+                                        <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--import">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Загрузить фото</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dropzone__error" data-uploader-error>Необходимо загрузить фотографию</div>
                             </div>
                         </div>
                     </div>
@@ -6086,6 +6175,347 @@
                         </div>
                     </div>
                     <!--/Слайдер-->
+
+                    <!-- Карточки-акций -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки-акций</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-stock">
+                                <ul class="cards-stock__list">
+                                      
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки-акций -->
                 </main>
             </div>
         </div>
