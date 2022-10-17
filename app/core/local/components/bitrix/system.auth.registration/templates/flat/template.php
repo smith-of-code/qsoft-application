@@ -56,6 +56,7 @@ $isCurrentStepPassed = false;
 </main>
 
 <script src="/local/templates/.default/js/script.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
     var registrationData = <?=CUtil::PhpToJSObject($arResult)?>;
