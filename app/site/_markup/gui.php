@@ -6255,9 +6255,17 @@
                                             </div>
                                             <div class="card-progress__warning warning">
                                                 <div class="warning__mark">
-                                                    <svg class="icon icon--attention warning__icon">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
-                                                    </svg>
+                                                    <button type="button" 
+                                                        class="button button--iconed button--simple button--red"
+                                                        data-fancybox data-modal-type="modal"
+                                                        data-src="#conditions"
+                                                    >
+                                                        <span class="button__icon">
+                                                            <svg class="icon icon--basket warning__icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
                                                 </div>
                                                 <p class="warning__text">
                                                     Условия повышения уровня
