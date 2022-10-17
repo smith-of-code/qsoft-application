@@ -1,0 +1,25 @@
+.amount {
+    &__target {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-small / $font-size-small);
+
+        letter-spacing: 0.02em;
+
+        &--green {
+            color: $seaGreen;
+        }
+
+        &--red {
+            color: $brickRed;
+        }
+    }
+
+    &__total {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+}

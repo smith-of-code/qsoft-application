@@ -771,6 +771,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: clock">
+                                    <svg class="icon icon--clock gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: sort">
                                     <svg class="icon icon--sort gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
@@ -780,6 +786,12 @@
                                 <li class="icons__item" title="Icon: filter">
                                     <svg class="icon icon--filter gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: attention">
+                                    <svg class="icon icon--attention gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -850,6 +862,36 @@
                                 <li class="icons__item" title="Icon: cat-cheerful">
                                     <svg class="icon icon--cat-cheerful gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                    </svg>
+                                </li>
+                                
+                                <li class="icons__item" title="Icon: cat-smile">
+                                    <svg class="icon icon--cat-smile gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-happy">
+                                    <svg class="icon icon--cat-happy gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-sad">
+                                    <svg class="icon icon--cat-sad gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-sad"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-winks">
+                                    <svg class="icon icon--cat-winks gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-winks"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-glasses">
+                                    <svg class="icon icon--cat-glasses gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-glasses"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -932,6 +974,22 @@
                                                 </span>
 
                                                 <span class="checkbox__text">Недоступный чекбокс</span>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="checkboxes__item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="checkbox__input input__control--error" name="check[]" value="s22" id="check22">
+
+                                            <label for="check22" class="checkbox__label">
+                                                <span class="checkbox__icon error">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+
+                                                <span class="checkbox__text">Обязательный</span>
                                             </label>
                                         </div>
                                     </li>
@@ -3176,6 +3234,37 @@
                             </div>
                         </div>
 
+                        <div class="dropzone dropzone--error" data-uploader>
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-caption needsclick">
+                                        <h6 class="dropzone__message-title">Ограничения:</h6>
+                                        <ul class="dropzone__message-list">
+                                            <li class="dropzone__message-item">до 10 файлов</li>
+                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
+                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropzone__error" data-uploader-error>Необходимо загрузить файл</div>
+
+                                    <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                        <span class="button__icon">
+                                            <svg class="icon icon--import">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Загрузить файл</span>
+                                    </button>
+                                </div>
+
+                                <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                </div>
+                            </div>
+                        </div>
+
                         <h3 style="margin-top: 50px;">Загрузчик фото</h3>
 
                         <div class="dropzone dropzone--image" data-uploader>
@@ -3211,6 +3300,42 @@
                                 </div>
 
                                 <div class="dropzone__error" data-uploader-error></div>
+                            </div>
+                        </div>
+
+                        <div class="dropzone dropzone--image dropzone--error" data-uploader style="margin-top: 50px;">
+                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
+
+                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                <div class="dropzone__message dz-message needsclick">
+                                    <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
+                                        <svg class="dropzone__message-button-icon icon icon--camera">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                        </svg>
+                                    </div>
+
+                                    <div class="dropzone__message-block">
+                                        <div class="dropzone__message-caption needsclick">
+                                            <h6 class="dropzone__message-title">Требования к фото</h6>
+                                            <ul class="dropzone__message-list">
+                                                <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
+                                                <li class="dropzone__message-item">размер 240 Х 320 px</li>
+                                                <li class="dropzone__message-item">вес не более 1МБ</li>
+                                            </ul>
+                                        </div>
+
+                                        <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--import">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Загрузить фото</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dropzone__error" data-uploader-error>Необходимо загрузить фотографию</div>
                             </div>
                         </div>
                     </div>
@@ -6527,6 +6652,590 @@
                         </div>
                     </div>
                     <!--/Слайдер-->
+
+                    <!-- Карточки прогресса -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки прогресса</h2>
+
+                        <h3>Карточки прогресс - общие</h3>
+
+                        <!-- Для интеграции:
+                            Есть 4 состояния
+                            - если (накопленная сумма / требуемая сумма) < 0.5, 
+                                то иконка = "icon-cat-sad", текст "Нужно больше усилий"
+
+                            - если 0.5 <= (накопленная сумма / требуемая сумма) < 1, 
+                                то иконка = "icon-cat-serious", текст "Хорошо получается"
+
+                            - если (накопленная сумма / требуемая сумма) = 1, 
+                                то иконка = "icon-cat-smile", текст "Цель достигнута"
+
+                            - если (накопленная сумма / требуемая сумма) > 1, 
+                                то иконка = "icon-cat-happy", текст "Просто фантастика"
+                         -->
+
+                        <div class="cards-progress cards-progress--triple">
+                            <ul class="cards-progress__list">
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-smile">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Цель достигнута
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            175 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Выполнено
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по групповым покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-happy">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Просто фантастика
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            179 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Перевыполнено 
+                                                        </p>
+                                                        <p class="card-progress__text">
+                                                            на 4 000 ₽
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Удержание уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-serious">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Осталось еще немного
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--red">
+                                                            124 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Осталось 56 000 ₽
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-progress__warning warning">
+                                                <div class="warning__mark">
+                                                    <button type="button" 
+                                                        class="button button--iconed button--simple button--red"
+                                                        data-fancybox data-modal-type="modal"
+                                                        data-src="#conditions"
+                                                    >
+                                                        <span class="button__icon">
+                                                            <svg class="icon icon--basket warning__icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <p class="warning__text">
+                                                    Условия повышения уровня
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-smile">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Цель достигнута
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            175 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Выполнено
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Карточки прогресс - текущий уровень</h3>
+
+                        <div class="gui__block" style="padding: 10px; background: #f4f3f6;">
+                            
+                            <div class="card-level">
+                                <div class="card-level__inner">
+                                    <div class="card-level__top">
+                                        <p class="card-level__title">
+                                            Текущий уровень К1 – скидка 7%
+                                        </p>
+                                        <p class="card-level__progress">
+                                            Прогресс 89%
+                                        </p>
+                                    </div>
+                                    <div class="card-level__progress-bar multi-progress">
+                                        <div style="width: 100%;" class="multi-progress__filler multi-progress__filler--green"></div>
+                                        <div style="width: 65%;" class="multi-progress__filler multi-progress__filler--purple"></div>
+                                    </div>
+                                    <ul class="card-level__list">
+                                        <li class="card-level__item card-level__item--green">
+                                            Личные покупки за отчетный квартал
+                                        </li>
+                                        <li class="card-level__item card-level__item--purple">
+                                            Групповые покупки за отчетный квартал
+                                        </li>
+                                    </ul>
+                                    <p class="card-level__text">
+                                        Уровень К2 - скидка 10%
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /Карточки прогресса -->
+
+                    <!-- Карточки-акций -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки-акций</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-stock">
+                                <ul class="cards-stock__list">
+                                      
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cards-stock__item">
+                                        <div class="card-stock">
+                                            <a href="#" class="card-stock__link"></a>
+                                            <div class="card-stock__inner">
+                                                <div class="card-stock__top">
+                                                    <div class="card-stock__wrapper">
+                                                        <div class="card-stock__image box box--circle">
+                                                            <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                        </div>
+                                                        <div class="card-stock__finish date-finish">
+                                                            <span class="date-finish__icon">
+                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="date-finish__text">
+                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                    Действует
+                                                                </span>
+                                                                до
+                                                                <time datetime="2022-09-20">20.09.2022</time>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-stock__devider dots">
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                        <span class="dots__item"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-stock__bottom">
+                                                    <p class="card-stock__title">
+                                                        Скидка 15%
+                                                    </p>
+                                                    <p class="card-stock__text">
+                                                        На развивающие игрушки для кошек Complemento
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки-акций -->
                 </main>
             </div>
         </div>

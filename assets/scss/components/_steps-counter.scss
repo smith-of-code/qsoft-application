@@ -154,11 +154,48 @@
 
                 content: '';
 
-                background-image: url('/local/templates/.default/images/icons/cat.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
             }
 
             &::after {
                 background-color: $pastelPink;
+            }
+        }
+
+        &--current#{&}--1 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-serious.svg');
+            }
+        }
+
+        &--current#{&}--2 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-smile.svg');
+            }
+        }
+
+        &--current#{&}--3 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-winks.svg');
+            }
+        }
+
+        &--current#{&}--4 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-happy.svg');
+            }
+        }
+
+        &--current#{&}--5 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-glasses.svg');
+            }
+        }
+
+        &--current#{&}--6 {
+            &::before {
+                background-image: url('/local/templates/.default/images/icons/cat-cheerful.svg');
             }
         }
 
