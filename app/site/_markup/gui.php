@@ -768,6 +768,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: attention">
+                                    <svg class="icon icon--attention gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
@@ -810,6 +816,24 @@
                                 <li class="icons__item" title="Icon: cat-cheerful">
                                     <svg class="icon icon--cat-cheerful gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                    </svg>
+                                </li>
+                                
+                                <li class="icons__item" title="Icon: cat-smile">
+                                    <svg class="icon icon--cat-smile gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-happy">
+                                    <svg class="icon icon--cat-happy gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-sad">
+                                    <svg class="icon icon--cat-sad gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-sad"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -6175,6 +6199,249 @@
                         </div>
                     </div>
                     <!--/Слайдер-->
+
+                    <!-- Карточки прогресса -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки прогресса</h2>
+
+                        <h3>Карточки прогресс - общие</h3>
+
+                        <!-- Для интеграции:
+                            Есть 4 состояния
+                            - если (накопленная сумма / требуемая сумма) < 0.5, 
+                                то иконка = "icon-cat-sad", текст "Нужно больше усилий"
+
+                            - если 0.5 <= (накопленная сумма / требуемая сумма) < 1, 
+                                то иконка = "icon-cat-serious", текст "Хорошо получается"
+
+                            - если (накопленная сумма / требуемая сумма) = 1, 
+                                то иконка = "icon-cat-smile", текст "Цель достигнута"
+
+                            - если (накопленная сумма / требуемая сумма) > 1, 
+                                то иконка = "icon-cat-happy", текст "Просто фантастика"
+                         -->
+
+                        <div class="cards-progress cards-progress--triple">
+                            <ul class="cards-progress__list">
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-smile">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Цель достигнута
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            175 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Выполнено
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по групповым покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-happy">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Просто фантастика
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            179 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Перевыполнено 
+                                                        </p>
+                                                        <p class="card-progress__text">
+                                                            на 4 000 ₽
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Удержание уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-serious">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Осталось еще немного
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--red">
+                                                            124 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+    
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Осталось 56 000 ₽
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-progress__warning warning">
+                                                <div class="warning__mark">
+                                                    <button type="button" 
+                                                        class="button button--iconed button--simple button--red"
+                                                        data-fancybox data-modal-type="modal"
+                                                        data-src="#conditions"
+                                                    >
+                                                        <span class="button__icon">
+                                                            <svg class="icon icon--basket warning__icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <p class="warning__text">
+                                                    Условия повышения уровня
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="cards-progress__item">
+                                    
+                                    <div class="card-progress">
+                                        <div class="card-progress__inner">
+                                            <p class="card-progress__title">
+                                                Повышения уровня по личным покупкам
+                                            </p>
+                                            <div class="card-progress__mark">
+                                                <svg class="card-progress__icon icon icon--cat-smile">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                </svg>
+                                                <span class="card-progress__mark-text">
+                                                    Цель достигнута
+                                                </span>
+                                            </div>
+                                            <div class="card-progress__wrapper">
+                                                <div class="card-progress__progress progress-bar">
+                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                </div>
+                                                <div class="card-progress__bottom">
+                                                    <div class="card-progress__amount amount">
+                                                        <p class="amount__target amount__target--green">
+                                                            175 000 ₽
+                                                        </p>
+                                                        <p class="amount__total">
+                                                            из 175 000 ₽
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-progress__status">
+                                                        <p class="card-progress__text">
+                                                            Выполнено
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Карточки прогресс - текущий уровень</h3>
+
+                        <div class="gui__block" style="padding: 10px; background: #f4f3f6;">
+                            
+                            <div class="card-level">
+                                <div class="card-level__inner">
+                                    <div class="card-level__top">
+                                        <p class="card-level__title">
+                                            Текущий уровень К1 – скидка 7%
+                                        </p>
+                                        <p class="card-level__progress">
+                                            Прогресс 89%
+                                        </p>
+                                    </div>
+                                    <div class="card-level__progress-bar multi-progress">
+                                        <div style="width: 100%;" class="multi-progress__filler multi-progress__filler--green"></div>
+                                        <div style="width: 65%;" class="multi-progress__filler multi-progress__filler--purple"></div>
+                                    </div>
+                                    <ul class="card-level__list">
+                                        <li class="card-level__item card-level__item--green">
+                                            Личные покупки за отчетный квартал
+                                        </li>
+                                        <li class="card-level__item card-level__item--purple">
+                                            Групповые покупки за отчетный квартал
+                                        </li>
+                                    </ul>
+                                    <p class="card-level__text">
+                                        Уровень К2 - скидка 10%
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /Карточки прогресса -->
 
                     <!-- Карточки-акций -->
                     <div class="gui__block">
