@@ -3,6 +3,8 @@
 namespace QSoft\Events;
 
 use QSoft\ORM\LegalEntityTable;
+use Bitrix\Main\Mail\Event as EmailEvent;
+use Bitrix\Main\Sms\Event as SmsEvent;
 use \CTicketDictionary;
 use \CUserFieldEnum;
 use DateTime;
@@ -15,6 +17,7 @@ use \CUser;
 class SupportEventListner
 {
     private const CHANGE_OF_PERSONAL_DATA = 'CHANGE_OF_PERSONAL_DATA';
+    private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
     private const REGISTRATION = 'REGISTRATION';
     private const SUPPORT = 'SUPPORT';
     private const CHANGE_ROLE = 'CHANGE_ROLE';
@@ -52,7 +55,13 @@ class SupportEventListner
         }
     }
 
-    public function OnAfterTicketAdd(array $ticketValues): void
+    /**
+     * Прослушивание собития OnAfterTicketAdd
+     * @param array $ticketValues
+     * 
+     * @return void
+     */
+    public function onAfterTicketAdd(array $ticketValues): void
     {
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
 
@@ -64,6 +73,96 @@ class SupportEventListner
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
         }
+    }
+
+    /**
+     * Прослушивание собития OnBeforeTicketUpdate
+     * @param array $ticketValues
+     * 
+     * @return void
+     */
+    public function onBeforeTicketUpdate(array $ticketValues): array
+    {
+        // Получаем тикет, чтобы сравнить текущий статус($ticket) с новым ($ticketValues)
+        $ticket = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])->GetNext();
+
+        if ($this->checkStatus($ticket, $ticketValues)) {
+            $this->sendEmail($ticket);
+            $this->sendSMS($ticket);
+        }
+
+        return $ticketValues; // Обязательно возвращаем данные тикета.
+    }
+
+    /**
+     * @param array $ticket
+     * @param array $ticketValues
+     * 
+     * @return bool
+     */
+    private function checkStatus(array $ticket, array $ticketValues): bool
+    {
+        if (
+            isset($ticket['UF_ACCEPT_REQUEST'])
+            && isset($ticketValues['UF_ACCEPT_REQUEST'])
+            && $ticket['UF_ACCEPT_REQUEST'] != $ticketValues['UF_ACCEPT_REQUEST']
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param array $ticket
+     * 
+     * @return void
+     */
+    private function sendEmail(array $ticket): void
+    {
+        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+
+        EmailEvent::send([
+            "EVENT_NAME" => self::TICKET_ACCEPTION_EVENT,
+            // Константа SITE_ID в админке передает значение "ru", 
+            // что  не подходит для отправки письма, нужен "s1", его можно получить из тикета.
+            "LID" => $ticket['SITE_ID'],
+            "C_FIELDS" => [
+                "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+                "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
+                "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+                "TICKED_STATUS" => $status['VALUE'], // статус заявки
+                "TICKED_NUMBER" => $ticket['ID'], // номер тикета
+                "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+                "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+            ]
+        ]);
+    }
+
+    /**
+     * // Отправка sms
+     * @param array $ticket
+     * 
+     * @return void
+     */
+    private function sendSMS(array $ticket): void
+    {
+        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+
+        $fields = [
+            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
+            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "TICKED_STATUS" => $status['VALUE'], // статус заявки
+            "TICKED_NUMBER" => $ticket['ID'], // номер тикета
+            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+        ];
+
+        $sms = new SmsEvent(self::TICKET_ACCEPTION_EVENT, $fields);
+
+        $sms->setSite($ticket['SITE_ID'])
+            ->setLanguage(SITE_ID)
+            ->send();
     }
 
     /**
@@ -106,7 +205,7 @@ class SupportEventListner
      */
     private function registrateConsultant($ticketValues): void
     {
-        if ($this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
+        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
             $fields = json_decode($ticketValues['UF_DATA'], true);
 
             LegalEntityTable::add(

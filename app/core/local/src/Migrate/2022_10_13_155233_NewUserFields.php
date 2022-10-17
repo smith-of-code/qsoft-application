@@ -58,13 +58,13 @@ class NewUserFields extends Migration {
             'VALUES' => [
                 'n1' => [
                     'XML_ID' => 'REJECTED',
-                    'VALUE' => 'Отклонено',
+                    'VALUE' => 'отклонена',
                     'DEF' => 'N',
                     'SORT' => 100,
                 ],
                 'n2' => [
                     'XML_ID' => 'ACCEPTED',
-                    'VALUE' => 'Принято',
+                    'VALUE' => 'принята',
                     'DEF' => 'N',
                     'SORT' => 200,
                 ],

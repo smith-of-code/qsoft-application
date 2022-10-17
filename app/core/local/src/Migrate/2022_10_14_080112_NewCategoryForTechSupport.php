@@ -91,6 +91,8 @@ class NewCategoryForTechSupport extends Migration
      */
     public function down(): void
     {
+        $this->initModule();
+        
         $arrayFilter = ['CHANGE_ROLE', 'CHANGE_OF_PERSONAL_DATA', 'SUPPORT', 'REGISTRATION'];
 
         $DBResult = CTicketDictionary::GetList([],[],['SID' => implode('|',$arrayFilter)]);

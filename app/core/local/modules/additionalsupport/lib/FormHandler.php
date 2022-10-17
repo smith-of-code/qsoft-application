@@ -17,7 +17,7 @@ class FormHandler
     public function GetFormData(int $id): array
     {
         $this->initModule();
-        
+
         $ticket = CTicket::GetByID($id, LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_DATA']])->GetNext();
 
         if (!is_array(json_decode($ticket['~UF_DATA'], true))) {
@@ -29,7 +29,7 @@ class FormHandler
 
     /**
      * @return void
-     * @throw SystemException
+     * @throws SystemException
      */
     private function initModule(): void
     {
