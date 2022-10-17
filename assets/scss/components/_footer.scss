@@ -18,8 +18,9 @@
 
 		@media #{$screen-desktop} {
             flex-wrap: nowrap;
+            justify-content: space-between;
 
-            margin: rem(-$gap-big) rem(-$gap-big) rem($gap-medium);
+            margin: rem(-$gap-big) rem(-38px) rem($gap-medium);
 		}
 	}
 
@@ -34,10 +35,43 @@
         }
 
         @media #{$screen-desktop} {
-            width: auto;
+            padding: 0 rem(38px);
+        }
 
-            min-width: rem(200px);
-            padding: 0 rem($gap-big);
+        &--dogs {
+            @media #{$screen-desktop} {
+                width: rem(200px);
+            }
+        }
+
+        &--cats {
+            @media #{$screen-desktop} {
+                width: rem(200px);
+            }
+        }
+
+        &--customers {
+            @media #{$screen-desktop} {
+                width: rem(202px);
+            }
+        }
+
+        &--company {
+            @media #{$screen-desktop} {
+                width: rem(172px);
+            }
+        }
+
+        &--contacts {
+            @media #{$screen-desktop} {
+                width: rem(224px);
+            }
+        }
+
+        &--info {
+            @media #{$screen-desktop} {
+                width: rem(246px);
+            }
         }
 	}
 
@@ -86,6 +120,9 @@
     }
 
 	&__bottom {
+        display: flex;
+        align-items: center;
+
         margin-top: rem($gap-medium);
 	}
 
@@ -97,4 +134,8 @@
 
         color: $white;
 	}
+
+    &__logo {
+        margin-left: auto;
+    }
 }

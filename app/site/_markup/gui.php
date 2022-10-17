@@ -6525,7 +6525,7 @@
         <footer class="page__footer footer">
             <div class="footer__container container">
                 <nav class="footer__nav">
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--dogs">
                         <li class="footer__item footer__item--heading">
                             Для собак
                         </li>
@@ -6555,7 +6555,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--cats">
                         <li class="footer__item footer__item--heading">
                             Для кошек
                         </li>
@@ -6585,7 +6585,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--customers">
                         <li class="footer__item footer__item--heading">
                             Покупателям
                         </li>
@@ -6610,7 +6610,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--company">
                         <li class="footer__item footer__item--heading">
                             Компания AmeAppetite
                         </li>
@@ -6630,7 +6630,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--contacts">
                         <li class="footer__item footer__item--heading">
                             Контакты
                         </li>
@@ -6648,13 +6648,13 @@
                             Москва, Проспект Мира, 87
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--info">
                         <li class="footer__item footer__item--heading">
                             Правовая информация
                         </li>
                         <li class="footer__item">
                             <a href="#" class="footer__link">
-                                Правила компании
+                            Условия использования Сайта
                             </a>
                         </li>
                         <li class="footer__item">
@@ -6714,6 +6714,13 @@
                     <p class="footer__copyright">
                         &copy; AmeAppetite, 2022
                     </p>
+                    <div class="footer__logo">
+                        <div class="logo">
+                            <a class="logo__link" href="#">
+                                <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
