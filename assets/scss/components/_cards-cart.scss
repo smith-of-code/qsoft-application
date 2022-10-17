@@ -1,0 +1,11 @@
+.cards-cart {
+
+    &__list {
+    }
+
+    &__item {
+        padding: rem($gap-medium) 0;
+
+        border-bottom: rem(1px) solid $alto;
+    }
+}

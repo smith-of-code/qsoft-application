@@ -1,0 +1,82 @@
+.card-cart {
+    position: relative;
+
+    &__link {
+        @include position-stretching(absolute);
+    }
+
+    &__inner {
+    }
+
+    &__header {
+        display: flex;
+    }
+
+    &__image {
+        position: relative;
+
+        width: rem(90px);
+        height: rem(100px);
+        margin-right: rem($gap-medium);
+
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-middle);
+
+        &-picture {
+            @include position-stretching(absolute);
+
+            width: 100%;
+            height: 100%;
+
+            @include object-fit(cover);
+        }
+    }
+
+    &__info {
+    }
+
+    &__title {
+        @include text-miniature($font-weight-medium);
+
+        margin-bottom: rem($gap-mini);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+
+    &__subtitle {
+        @include text-miniature($font-weight-medium);
+
+        margin-bottom: rem($gap-mini);
+
+        letter-spacing: 0.02em;
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-small);
+        }
+    }
+
+    &__wrapper {
+    }
+
+    &__counter {
+    }
+
+    &__price {
+    }
+
+    &__actions {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+
+        @media #{$screen-desktop} {
+            flex-direction: column;
+        }
+    }
+}

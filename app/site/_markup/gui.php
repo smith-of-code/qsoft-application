@@ -6783,6 +6783,118 @@
                         </div>
                     </div>
                     <!-- /Карточки-акций -->
+
+                    <!-- Карточки товаров в корзине -->
+                    <div class="gui__block">
+                        <h2 class="gui__title"></h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-cart">
+                                <ul class="cards-cart__list">
+                                    <li class="cards-cart__item">
+
+                                        <article class="card-cart">
+                                            <a href="#" class="card-cart__link"></a>
+
+                                            <div class="card-cart__inner">
+                                                <header class="card-cart__header">
+                                                    <div class="card-cart__image">
+                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="card-cart__image-picture">
+                                                    </div>
+                                                    <div class="card-cart__info">
+                                                        <h2 class="card-cart__title">
+                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                        </h2>
+                                                        <p class="card-cart__subtitle">
+                                                            Арт. СХ-С-956027
+                                                        </p>
+
+                                                        <!-- parameter - blocks -->
+
+                                                        <!-- product-status -->
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-cart__wrapper">
+                                                    <div class="card-cart__counter">
+
+                                                        <div class="quantity" style="width: 230px" data-quantity>
+                                                            <div class="quantity__button" data-quantity-button>
+                                                                <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                    <span class="button__icon">
+                                                                        <svg class="icon icon--basket">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span class="button__text">В корзину</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="quantity__actions">
+                                                                <div class="quantity__decrease">
+                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                        <span class="button__icon button__icon--small">
+                                                                            <svg class="icon icon--minus">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="quantity__total">
+                                                                    <span class="quantity__total-icon">
+                                                                        <svg class="icon icon--basket">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                </div>
+
+                                                                <div class="quantity__increase">
+                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                        <span class="button__icon button__icon--small">
+                                                                            <svg class="icon icon--plus">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="card-cart__price">
+
+                                                    </div>
+                                                    
+                                                    <!-- total / old-price / current-price -->
+                                                </div>
+
+                                                <!-- btn-like, btn-litter -->
+                                                <div class="card-cart__actions">
+                                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                        <span class="button__icon button__icon--big">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+                    <!-- /Карточки товаров в корзине -->
                 </main>
             </div>
         </div>
