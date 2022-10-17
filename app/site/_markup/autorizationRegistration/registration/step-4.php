@@ -65,7 +65,7 @@
                     <section class="section section--limited-big">
                         <h4 class="section__title">Юридические данные</h4>
 
-                        <form class="registration__form form form--separated form--wraped" action="" method="post">
+                        <form class="registration__form form form--wraped" action="" method="post">
                             <div class="section__box box box--gray box--rounded-sm">
                                 <div class="section__box-inner">
                                     <h5 class="box__heading box__heading--middle">Общее</h5>
@@ -74,7 +74,7 @@
                                         <div class="section__box-block">
                                             <h6 class="box__heading box__heading--small">Статус и гражданство</h6>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -125,7 +125,7 @@
                                         <div class="section__box-block">
                                             <h6 class="box__heading box__heading--small">Паспортные данные</h6>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -159,7 +159,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -246,7 +246,7 @@
                                         <div class="section__box-block">
                                             <h6 class="box__heading box__heading--small">Адрес регистрации</h6>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -280,7 +280,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -335,7 +335,7 @@
                                         <div class="section__box-block">
                                             <h6 class="box__heading box__heading--small">Адрес проживания</h6>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -369,7 +369,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -420,7 +420,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="checkbox">
@@ -450,7 +450,7 @@
                                         <div class="section__box-block">
                                             <div class="form__row">
                                                 <div class="form__col">
-                                                    <div class="form__field">
+                                                    <div class="form__field form__field--fixed">
                                                         <div class="form__field-block form__field-block--label">
                                                             <label for="text-required" class="form__label form__label--required">
                                                                 <span class="form__label-text">ИНН</span>
@@ -503,7 +503,7 @@
                                         <div class="section__box-block">
                                             <h6 class="box__heading box__heading--small">Банковские реквизиты</h6>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">
@@ -537,7 +537,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form__row">
+                                            <div class="form__row form__row--mixed">
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--label">

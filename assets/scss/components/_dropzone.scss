@@ -1,11 +1,23 @@
 .dropzone {
+    &--error & {
+        &__message {
+            &-caption {
+                border: rem(1px) solid $brickRed;
+            }
+
+            &-button {
+                border: rem(1px) dashed $brickRed !important;
+            }
+        }
+    }
+
     &--image {
         padding: 0;
 
         border-radius: rem($border-radius-average);
 
         @media #{$screen-tablet} {
-            padding: rem($gap-normal) rem($gap-medium);
+            padding: rem($gap-medium) rem($gap-normal);
 
             background-color: $athensGray;
         }

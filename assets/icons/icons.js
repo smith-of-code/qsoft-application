@@ -38,6 +38,7 @@ import './svg/search.svg';
 import './svg/discount.svg';
 import './svg/burger.svg';
 import './svg/login.svg';
+import './svg/clock.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
 import './svg/attention.svg';

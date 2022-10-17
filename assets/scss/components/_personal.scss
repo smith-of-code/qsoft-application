@@ -31,11 +31,25 @@
                 display: block;
             }
         }
+
+        &--basket {
+            margin-right: rem(6px);
+
+            @media #{$screen-tablet} {
+                margin-right: 0;
+            }
+
+            @media #{$screen-desktop} {
+                margin-right: rem(14px);
+            }
+        }
     }
 
     &__button {
         &-text {
             display: none;
+
+            letter-spacing: 0.02em;
 
             @media #{$screen-tablet} {
                 display: block;

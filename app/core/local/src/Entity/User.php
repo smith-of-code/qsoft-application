@@ -7,8 +7,11 @@ use CFile;
 use CUser;
 use CUserFieldEnum;
 use QSoft\Service\BonusAccountService;
+use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
+use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -23,6 +26,10 @@ class User
      */
     public BonusAccountService $bonusAccount;
     /**
+     * @var LegalEntityService Объект для работы с питомцами пользователя
+     */
+    public LegalEntityService $legalEntity;
+    /**
      * @var LoyaltyService Объект для работы с программой лояльности
      */
     public LoyaltyService $loyalty;
@@ -31,10 +38,17 @@ class User
      */
     public UserGroupsService $groups;
     /**
+     * @var NotificationService Объект для работы с уведомлениями
+     */
+    public NotificationService $notification;
+    /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
-
+    /**
+     * @var PetService Объект для работы с питомцами пользователя
+     */
+    public PetService $pets;
     /**
      * @var int ID пользователя
      */
@@ -94,9 +108,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var int ID наставника
+     * @var User Наставник
      */
-    public int $mentorId;
+    public User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -166,15 +180,18 @@ class User
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentorId = (int) $user['UF_MENTOR_ID'];
+        $this->mentor = new self((int) $user['UF_MENTOR_ID']);
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
         $this->bonusAccount = new BonusAccountService($this);
+        $this->legalEntity = new LegalEntityService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+        $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->pets = new PetService($this);
     }
 
     /**
