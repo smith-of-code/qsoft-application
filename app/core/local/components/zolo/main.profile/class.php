@@ -24,7 +24,7 @@ use QSoft\ORM\PickupPointTable;
 
 class MainProfileComponent extends CBitrixComponent implements Controllerable, Errorable
 {
-    private int $userId;
+    private ?int $userId;
     private User $user;
 
     protected ErrorCollection $errorCollection;
@@ -32,11 +32,15 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
     public function onPrepareComponentParams($arParams)
     {
         $this->errorCollection = new ErrorCollection();
-
         $this->userId = $GLOBALS['USER']->GetID();
-        $this->checkModules();
-
         $this->user = new User($this->userId);
+
+        if (! isset($this->userId)) {
+            echo Loc::getMessage('PSETTINGS_NEED_AUTHORIZATION');
+            die();
+        }
+
+        $this->checkModules();
     }
 
     public function executeComponent()
@@ -79,8 +83,9 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
             }
         }
         $this->arResult['PETS_INFO'] = $this->user->pets->getAll();
-        $this->arResult['MENTOR_INFO'] = $this->user->mentor;
+        $this->arResult['MENTOR_INFO'] = $this->user->getMentor();
         //Система лояльности
+        $this->arResult['LOYALTY_INFO'] = $this->user->loyalty->getLoyaltyProgramInfo();
         //Персональные акции
     }
 

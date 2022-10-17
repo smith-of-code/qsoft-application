@@ -52,4 +52,27 @@ class DateTimeService
         }
         return Carbon::now()->endOfQuarter();
     }
+
+    /**
+     * Возвращает отформатированный номер квартала.
+     * Если не указать номер квартала - будет использован номер текущего квартала
+     * @param int $quarter Номер квартала
+     * @return string Форматированный номер
+     */
+    static public function getQuarterFormatted(int $quarter = 0): string
+    {
+        if ($quarter <= 0) {
+            $quarter = Carbon::now()->quarter;
+        }
+        if ($quarter === 1) {
+            return 'I';
+        } elseif ($quarter === 2) {
+            return 'II';
+        } elseif ($quarter === 3) {
+            return 'III';
+        } elseif ($quarter === 4) {
+            return 'IV';
+        }
+        return '';
+    }
 }

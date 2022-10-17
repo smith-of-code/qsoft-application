@@ -7,6 +7,7 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
 use QSoft\Entity\User;
+use QSoft\Service\BonusAccountHelper;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -117,7 +118,8 @@ class LoyaltyProgramHelper
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $this->levelsIDs[$availableLevel]])) {
                 // Начисляем баллы за повышение уровня
-                $user->bonusAccount->addUpgradeLevelBonuses($availableLevel);
+                $user->loyaltyLevel = $availableLevel;
+                (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
             }
             return true;
         }
@@ -125,7 +127,7 @@ class LoyaltyProgramHelper
     }
 
     /**
-     * Возвращает доступный пользователю уровень лояльности согласно текущим условиям
+     * Возвращает доступный пользователю уровень лояльности с учетом текущих достижений в программе лояльности
      * @param User $user Пользователь
      * @return string|null
      * @throws ArgumentException
@@ -185,10 +187,10 @@ class LoyaltyProgramHelper
 
     /**
      * Получить количество баллов для начисления за приглашение Консультанта
-     * @param $level
+     * @param string $level
      * @return int|null
      */
-    public function getReferralBonus($level) : ?int
+    public function getReferralBonus(string $level) : ?int
     {
         $this->getLoyaltyLevels();
         return (int) $this->levels[$level]['benefits']['referral_size'] ?? null;
@@ -196,12 +198,27 @@ class LoyaltyProgramHelper
 
     /**
      * Получить количество баллов для начисления за приглашение Консультанта
-     * @param $level
+     * @param string $level
      * @return int|null
      */
-    public function getUpgradeLevelBonus($level) : ?int
+    public function getUpgradeLevelBonus(string $level) : ?int
     {
         $this->getLoyaltyLevels();
         return (int) $this->levels[$level]['benefits']['referral_size'] ?? null;
+    }
+
+    /**
+     * Возвращает уровень, следующий за текущим (на который можно подняться)
+     * @param string $level
+     * @return string|null
+     */
+    public function getNextLevel(string $level) : ?string
+    {
+        if ($level === self::LOYALTY_LEVEL_K1) {
+            return self::LOYALTY_LEVEL_K2;
+        } elseif ($level === self::LOYALTY_LEVEL_K2) {
+            return self::LOYALTY_LEVEL_K3;
+        }
+        return null;
     }
 }

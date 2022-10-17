@@ -276,6 +276,45 @@ $APPLICATION->IncludeComponent(
         </div>
     </div>
     <div style="background: grey; margin: 5px;">Система лояльности</div>
+        <div class="profile_block_title">
+            <span class="block_title"><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_TITLE')?></span>
+        </div>
+        <?php if (! empty($arResult['LOYALTY_INFO'])) :?>
+            <?php if ($arResult['USER_GROUP'] == 'Консультант') :?>
+
+            <?/* БЛОК "ДОСТИЖЕНИЯ" */?>
+            <div style="display: flex; flex-direction: row;">
+                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #daf5e8">
+                    <div><?=$arResult['LOYALTY_INFO']['CURRENT_LEVEL']?></div>
+                    <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_LEVEL')?></div>
+                </div>
+                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #fdd1d8">
+                    <div><?=$arResult['LOYALTY_INFO']['PERSONAL_DISCOUNT'] . '%'?></div>
+                    <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_DISCOUNT')?></div>
+                </div>
+                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #dccee2">
+                    <div><?=$arResult['LOYALTY_INFO']['CURRENT_AMOUNT_OF_BONUSES']?></div>
+                    <div>
+                        <?=Loc::getMessage(
+                            'PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_BONUSES',
+                            [
+                                '#QUARTER#' => \QSoft\Service\DateTimeService::getQuarterFormatted(),
+                                '#YEAR#' => \Carbon\Carbon::now()->year
+                            ]
+                        )?>
+                    </div>
+                </div>
+            </div>
+            <?php elseif ($arResult['USER_GROUP'] == 'Покупатель') :?>
+
+            <?php endif;?>
+        <?php else: ?>
+            <div>
+                <span class="error" style="background-color: #f5b0cc; color: white; font-weight: bold;">
+                    <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_NOT_PARTICIPANT')?>
+                </span>
+            </div>
+        <?php endif;?>
     <div style="background: grey; margin: 5px;">Персональные акции</div>
 
 

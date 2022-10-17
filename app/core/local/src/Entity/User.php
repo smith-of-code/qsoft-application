@@ -113,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var ?User Наставник
+     * @var int ID Наставника
      */
-    public ?User $mentor;
+    public int $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -188,7 +188,7 @@ class User
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = (int) $user['UF_MENTOR_ID'] > 0 ? new self((int) $user['UF_MENTOR_ID']) : null;
+        $this->mentor = (int) $user['UF_MENTOR_ID'];
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
@@ -222,6 +222,15 @@ class User
     public function getPhotoUrl(): ?string
     {
         return CFile::GetPath($this->photo);
+    }
+
+    /**
+     * Возвращает наставника текущего пользователя
+     * @return User|null
+     */
+    public function getMentor(): ?User
+    {
+        return $this->mentor > 0 ? new self((int) $this->mentor) : null;
     }
 
     /**
