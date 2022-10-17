@@ -3,12 +3,7 @@
 
     overflow: hidden;
 
-    
-
     border-radius: rem($border-radius-average);
-    
-
-    
 
     &::before {
         position: absolute;
@@ -83,9 +78,6 @@
         }
     }
 
-    &__inner {
-    }
-
     &__header {
         padding: rem($gap-medium) rem($gap-medium) rem($gap-average);
 
@@ -158,6 +150,18 @@
                 margin: initial;
             }
         }
+
+        &--delivery {
+            @media #{$screen-desktop} {
+                min-width: rem(148px);
+            }
+        }
+
+        &--pay {
+            @media #{$screen-desktop} {
+                min-width: rem(165px);
+            }
+        }
     }
 
     &__title {
@@ -181,21 +185,35 @@
     }
 
     &__price {
-        & .price__calculation {
-            align-items: flex-end;
-        }
+        & .price {
+            &__calculation {
+                align-items: flex-end;
 
-        & .price__calculation-total {
-            font-size: rem($font-size-normal);
-            font-weight: $font-weight-semibold;
-            line-height: ($line-height-normal / $font-size-normal);
+                &-total {
+                    font-size: rem($font-size-normal);
+                    font-weight: $font-weight-semibold;
+                    line-height: ($line-height-normal / $font-size-normal);
 
-            margin-right: 0;
-            margin-bottom: rem($gap-mini);
-        }
+                    margin-right: 0;
+                    margin-bottom: rem($gap-mini);
 
-        & .price__calculation-accumulation {
-            @include text-miniature($font-weight-bold);
+                    @media #{$screen-desktop} {
+                        font-size: rem($font-size-average);
+                        font-weight: $font-weight-bold;
+                        line-height: ($line-height-average / $font-size-average);
+                    }
+                }
+
+                &-picture {
+                    @media #{$screen-desktop} {
+                        top: 0;
+                    }
+                }
+
+                &-accumulation {
+                    @include text-miniature($font-weight-bold);
+                }
+            }
         }
     }
 
@@ -222,6 +240,28 @@
 
             &__header {
                 align-items: center;
+            }
+
+            &__title {
+                color: $tuna;
+            }
+
+            &__toggle {
+                border-color: $athensGray;
+                background-color: $athensGray;
+
+                &:focus {
+                    border-color: $athensGray;
+                    background-color: $athensGray;
+                }
+            }
+
+            &__body {
+                margin-top: rem(14px);
+
+                @media #{$screen-desktop} {
+                    margin-top: rem(18px);
+                }
             }
         }
     }

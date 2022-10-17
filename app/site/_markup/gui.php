@@ -6488,7 +6488,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--delivery">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус заказа
@@ -6499,7 +6499,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--pay">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус оплаты
@@ -6531,13 +6531,8 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-
-                                                    <!-- button -->
-
                                                 </header>
 
-
-                                                <!-- dropdown -->
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
                                                         <div class="accordeon__header" data-accordeon-toggle>
@@ -6554,7 +6549,202 @@
                                                         </div>
 
                                                         <div class="accordeon__body" data-accordeon-content>
-                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -6588,7 +6778,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--delivery">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус заказа
@@ -6599,7 +6789,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--pay">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус оплаты
@@ -6631,13 +6821,8 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-
-                                                    <!-- button -->
-
                                                 </header>
 
-
-                                                <!-- dropdown -->
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
                                                         <div class="accordeon__header" data-accordeon-toggle>
@@ -6654,7 +6839,202 @@
                                                         </div>
 
                                                         <div class="accordeon__body" data-accordeon-content>
-                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -6688,7 +7068,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--delivery">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус заказа
@@ -6699,7 +7079,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--pay">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус оплаты
@@ -6731,13 +7111,8 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-
-                                                    <!-- button -->
-
                                                 </header>
 
-
-                                                <!-- dropdown -->
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
                                                         <div class="accordeon__header" data-accordeon-toggle>
@@ -6754,7 +7129,202 @@
                                                         </div>
 
                                                         <div class="accordeon__body" data-accordeon-content>
-                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -6800,7 +7370,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--delivery">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус заказа
@@ -6811,7 +7381,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--pay">
                                                             <div class="text-block">
                                                                 <p class="text-block__name">
                                                                     Статус оплаты
@@ -6856,8 +7426,6 @@
                                                     </div>
                                                 </header>
 
-
-                                                <!-- dropdown -->
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
                                                         <div class="accordeon__header" data-accordeon-toggle>
@@ -6870,7 +7438,6 @@
                                                                     </svg>
                                                                 </span>
                                                             </button>
-
                                                         </div>
 
                                                         <div class="accordeon__body" data-accordeon-content>
@@ -6883,17 +7450,17 @@
                                                                             Наименование
                                                                         </p>
                                                                     </div>
-                                                                    <div class="table-list__cell">
+                                                                    <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
                                                                             Цена
                                                                         </p>
                                                                     </div>
-                                                                    <div class="table-list__cell">
+                                                                    <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
                                                                             Количество
                                                                         </p>
                                                                     </div>
-                                                                    <div class="table-list__cell">
+                                                                    <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
                                                                             Сумма баллов
                                                                         </p>
@@ -6908,7 +7475,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="" alt="" class="product-line__image-picture">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -6921,7 +7488,7 @@
                                                                                 </div>
                                                                                 <div class="product-line__characteristic">
                                                                                     <ul class="product-line__list">
-                                                                                        <li class="product-line__params">
+                                                                                        <li class="product-line__params product-line__params--span">
                                                                                             <p class="product-line__text">
                                                                                                 <span class="product-line__params-name">
                                                                                                     Цена:
@@ -6941,7 +7508,117 @@
                                                                                                 </span>
                                                                                             </p>
                                                                                         </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
                                                                                         <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
                                                                                             <p class="product-line__text">
                                                                                                 <span class="product-line__params-name">
                                                                                                     Сумма баллов:
