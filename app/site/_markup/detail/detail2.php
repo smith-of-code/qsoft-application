@@ -499,7 +499,7 @@
                         </ul>
                     </div>
 
-                    <div class="content__main">
+                    <div class="content__main content__main--separated">
                         <div class="detail__card">
                             <div class="detail__card-specification detail__card-specification--mobile specification">
                                 <p class="specification__title">Умная игрушка для кошек Smart Dot, Petoneer</p>
