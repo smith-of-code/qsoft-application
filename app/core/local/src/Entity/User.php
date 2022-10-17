@@ -113,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var User Наставник
+     * @var ?User Наставник
      */
-    public User $mentor;
+    public ?User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -144,7 +144,7 @@ class User
     public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
-        
+
         // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
@@ -160,7 +160,7 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('User not found');
+            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение
@@ -188,7 +188,7 @@ class User
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = new self((int) $user['UF_MENTOR_ID']);
+        $this->mentor = (int) $user['UF_MENTOR_ID'] > 0 ? new self((int) $user['UF_MENTOR_ID']) : null;
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
