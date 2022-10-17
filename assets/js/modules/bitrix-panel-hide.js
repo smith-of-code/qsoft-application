@@ -9,7 +9,7 @@ const CLASS = {
 export default function () {
     const bitrixPanel = document.querySelector(ID.bitrix);
 
-    if (bitrixPanel) return;
+    if (!bitrixPanel) return;
 
     document.querySelector('body').style.paddingTop = `${bitrixPanel.offsetHeight}px`;
     bitrixPanel.classList.add(CLASS.fixed);
