@@ -122,6 +122,85 @@
         }
     }
 
+    &--menu & {
+        &__list {
+            align-items: flex-start;
+            flex-direction: column;
+
+            padding: rem(18px) rem($gap-mini);
+
+            border: rem(1px) solid $alto;
+            border-radius: rem($border-radius-average);
+
+            @media #{$screen-tablet} {
+                padding: rem(22px) rem($gap-small);
+            }
+        }
+
+        &__item {
+            @include resetting-vertical-indentation-of-first;
+
+            //раскоментировать
+            // @include text-middle ($font-weight-medium);
+
+            //убрать
+            font-size: rem($font-size-mini);
+
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            margin: 0;
+            margin-top: rem($gap-mini);
+            padding: rem(6px) rem(20px);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(6px);
+                padding: rem(6px) rem($gap-medium);
+            }
+
+            &--active {
+                border-radius: rem($gap-average);
+                background-color: $athensGray;
+            }
+
+            &-icon {
+                $size: 20px;
+
+                flex-shrink: 0;
+
+                width: rem($size);
+                height: rem($size);
+                margin-right: rem($gap-small);
+
+                @media #{$screen-tablet} {
+                    $size: 24px;
+
+                    width: rem($size);
+                    height: rem($size);
+                }
+            }
+
+            &-counter {
+                $size: 20px;
+
+                @include text-miniature;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: rem($size);
+                height: rem($size);
+                margin-left: rem($gap-small);
+
+                color: $white;
+                border-radius: 50%;
+                background-color: $tuna;
+            }
+        }
+    }
+
     &__list {
         display: flex;
         align-items: center;

@@ -103,6 +103,10 @@
         }
     }
 
+    &--simple {
+        padding: 0;
+    }
+
     &__message {
         &-caption {
             padding: rem($gap-normal);

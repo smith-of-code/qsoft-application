@@ -11,6 +11,16 @@
         display: flex;
         align-items: center;
 
+        &--columned {
+            flex-direction: column
+        }
+
+        &--columned & {
+            &-total {
+                margin-right: 0
+            }
+        }
+
         &-total {
             @include text-normal($font-weight-bold);
 

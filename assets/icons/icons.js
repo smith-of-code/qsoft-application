@@ -41,6 +41,10 @@ import './svg/login.svg';
 import './svg/clock.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
+import './svg/receipts.svg';
+import './svg/profile.svg';
+import './svg/chart-square.svg';
+import './svg/calculator.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';

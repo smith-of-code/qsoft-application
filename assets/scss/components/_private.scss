@@ -1,0 +1,22 @@
+.private {
+    &__row {
+        @media #{$screen-desktop} {
+            display: flex;
+        }
+    }
+
+    &__col {
+        &--limited {
+            flex-shrink: 0;
+
+            @media #{$screen-desktop} {
+                width: rem(270px);
+                margin-right: rem(30px);
+            }
+        }
+
+        &--full {
+            flex-grow: 1;
+        }
+    }
+}

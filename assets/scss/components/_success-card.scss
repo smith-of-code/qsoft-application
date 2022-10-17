@@ -1,0 +1,52 @@
+.success-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    padding: rem($gap-medium) rem($gap-big);
+
+    border-radius: rem($gap-average);
+    border-bottom: rem(6px) solid;
+    background-color: $white;
+
+    &--green {
+        border-color: $tara;
+    }
+
+    &--green & {
+        &__title {
+            color: $seaGreen;
+        }
+    }
+
+    &--red {
+        border-color: $pastelPink;
+    }
+
+    &--red & {
+        &__title {
+            color: $brickRed;
+        }
+    }
+
+    &--violet {
+        border-color: $snuff;
+    }
+
+    &--violet & {
+        &__title {
+            color: $wisteria;
+        }
+    }
+
+    &__info {
+        font-size: rem($font-size-miniature);
+        line-height: ($font-size-normal / $font-size-miniature);
+
+        text-align: center;
+
+        color: $saltBox;
+    }
+}

@@ -768,6 +768,30 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: receipts">
+                                    <svg class="icon icon--receipts gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: profile">
+                                    <svg class="icon icon--profile gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: chart-square">
+                                    <svg class="icon icon--chart-square gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: calculator">
+                                    <svg class="icon icon--calculator gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list">
