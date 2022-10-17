@@ -16,12 +16,17 @@ use \CUser;
  */
 class SupportEventListner
 {
+    // Коды категорий
     private const CHANGE_OF_PERSONAL_DATA = 'CHANGE_OF_PERSONAL_DATA';
-    private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
     private const REGISTRATION = 'REGISTRATION';
-    private const SUPPORT = 'SUPPORT';
     private const CHANGE_ROLE = 'CHANGE_ROLE';
+    private const SUPPORT = 'SUPPORT';
+    // XML_ID ответа о принятии заявки 
     private const ACCEPTED = 'ACCEPTED';
+    // Название символьного кода почтового события.
+    private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
+    // Название символьного кода почтового события.
+    private const TICKET_ACCEPTION_EVENT_SMS = 'TICKET_ACCEPTION_EVENT_SMS';
 
     /**
      * Прослушивание собития OnAfterTicketUpdate
@@ -158,7 +163,7 @@ class SupportEventListner
             "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
         ];
 
-        $sms = new SmsEvent(self::TICKET_ACCEPTION_EVENT, $fields);
+        $sms = new SmsEvent(self::TICKET_ACCEPTION_EVENT_SMS, $fields);
 
         $sms->setSite($ticket['SITE_ID'])
             ->setLanguage(SITE_ID)
