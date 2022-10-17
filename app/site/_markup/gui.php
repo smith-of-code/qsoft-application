@@ -836,6 +836,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-sad"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: cat-winks">
+                                    <svg class="icon icon--cat-winks gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-winks"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-glasses">
+                                    <svg class="icon icon--cat-glasses gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-glasses"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
