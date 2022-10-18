@@ -177,7 +177,7 @@
                                         data-fancybox data-modal-type="modal"
                                         data-src="#search"
                                 >
-                                    <span class="button__icon">
+                                    <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--search">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
                                         </svg>
@@ -196,7 +196,7 @@
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
-                                                            <div class="header__search-input input input--small input--buttoned">
+                                                            <div class="header__search-input input input--small input--buttoned input--squared">
                                                                 <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                                                 <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                                     <span class="button__icon button__icon--medium">
@@ -219,7 +219,7 @@
                             <div class="header__search header__search--desktop">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--input">
-                                        <div class="header__search-input input input--small input--buttoned">
+                                        <div class="header__search-input input input--small input--buttoned input--squared">
                                             <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
                                             <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                 <span class="button__icon button__icon--medium">
@@ -412,7 +412,7 @@
                                 </div>
                                 <!--/Для неавторизованного пользователя-->
 
-                                <div class="personal__item">
+                                <div class="personal__item personal__item--basket">
                                     <button type="button" class="button button--simple button--red button--vertical">
                                         <span class="button__icon button__icon--mixed">
                                             <svg class="icon icon--basket">
