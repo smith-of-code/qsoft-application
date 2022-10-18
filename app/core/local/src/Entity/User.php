@@ -6,11 +6,12 @@ use Carbon\Carbon;
 use CFile;
 use CUser;
 use CUserFieldEnum;
-use QSoft\Service\BonusAccountService;
+
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
@@ -22,11 +23,7 @@ class User
      */
     private CUser $cUser;
     /**
-     * @var BonusAccountService Объект для работы с бонусным счетом пользователя
-     */
-    public BonusAccountService $bonusAccount;
-    /**
-     * @var LegalEntityService Объект для работы с питомцами пользователя
+     * @var LegalEntityService Объект для работы с документами пользователя
      */
     public LegalEntityService $legalEntity;
     /**
@@ -34,7 +31,7 @@ class User
      */
     public LoyaltyService $loyalty;
     /**
-     * @var UserGroupsService Объект для работы с бонусным счетом пользователя
+     * @var UserGroupsService Объект для работы с группами (ролями) пользователя
      */
     public UserGroupsService $groups;
     /**
@@ -45,6 +42,10 @@ class User
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
+    /**
+     * @var UserDiscountsService Объект для работы со скидками и акциями пользователя
+     */
+    public UserDiscountsService $discounts;
     /**
      * @var PetService Объект для работы с питомцами пользователя
      */
@@ -89,6 +90,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Уровень в программе лояльности
+     */
+    public string $loyaltyLevel;
 
 
     /**
@@ -128,7 +133,9 @@ class User
     /**
      * Коды пользовательских полей типа "Список"
      */
-    private const ENUM_PROPERTIES = [];
+    private const ENUM_PROPERTIES = [
+        'UF_LOYALTY_LEVEL',
+    ];
 
     /**
      * User constructor.
@@ -174,6 +181,7 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
@@ -185,12 +193,12 @@ class User
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
-        $this->bonusAccount = new BonusAccountService($this);
         $this->legalEntity = new LegalEntityService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
         $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
     }
 

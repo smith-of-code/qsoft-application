@@ -3,11 +3,15 @@
 namespace QSoft\Events;
 
 use QSoft\Entity\User;
+use QSoft\Service\BonusAccountHelper;
 use RuntimeException;
 
 class UserEventsListener
 {
 
+    /**
+     * @throws \Exception
+     */
     public static function OnBeforeUserUpdate(array $fields)
     {
         // Пользователь, для которого вносятся изменения
@@ -29,7 +33,7 @@ class UserEventsListener
                 ) {
                     throw new RuntimeException('Invalid mentor ID');
                 }
-                $userMentor->bonusAccount->addReferralBonuses();
+                (new BonusAccountHelper())->addReferralBonuses($userMentor);
             }
         }
     }
