@@ -8,7 +8,9 @@ $APPLICATION->SetTitle("Мероприятия");
     "SEF_FOLDER" => "/info/events/",
     "SEF_URL_TEMPLATES" => [
         "list" => "index.php",
-    ]
+		"detail" => "detail/#ID#/",
+    ],
+	"SHOW_404" => "Y",
 	),
 	false
 );?>

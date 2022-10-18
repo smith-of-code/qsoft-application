@@ -8,7 +8,9 @@ $APPLICATION->SetTitle("Советы экспертов");
     "SEF_FOLDER" => "/info/expert-advice/",
     "SEF_URL_TEMPLATES" => [
         "list" => "index.php",
-    ]
+		"detail" => "detail/#ID#/",
+    ],
+	"SHOW_404" => "Y",
 	),
 	false
 );?>

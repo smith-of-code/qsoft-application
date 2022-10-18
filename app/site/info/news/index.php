@@ -8,7 +8,9 @@ $APPLICATION->SetTitle("Новости");
     "SEF_FOLDER" => "/info/news/",
     "SEF_URL_TEMPLATES" => [
         "list" => "index.php",
-    ]
+		"detail" => "detail/#ID#/",
+    ],
+	"SHOW_404" => "Y",
 	),
 	false
 );?>
