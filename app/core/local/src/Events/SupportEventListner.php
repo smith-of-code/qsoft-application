@@ -186,8 +186,6 @@ class SupportEventListner
         $sms->setSite($ticket['SITE_ID'])
             ->setLanguage(SITE_ID)
             ->send();
-
-            dd($sms);
     }
 
     /**
@@ -202,6 +200,7 @@ class SupportEventListner
             $fields = json_decode($ticketValues['UF_DATA'], true);
 
             (new CUser())->Update($ticketValues['OWNER_USER_ID'], $fields['USER_INFO']);
+            $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']);
 
             LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
         }
@@ -223,12 +222,11 @@ class SupportEventListner
     }
 
     /**
-     * @param mixed $formValues
-     * @param mixed $userId
+     * @param array $formValues
      * 
      * @return void
      */
-    private function registrateConsultant($ticketValues): void
+    private function registrateConsultant(array $ticketValues): void
     {
         if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
             $fields = json_decode($ticketValues['UF_DATA'], true);
@@ -245,141 +243,19 @@ class SupportEventListner
      * 
      * @return array
      */
-    private function prepareProps($formValues, $userId): array
+    private function prepareProps(array$formValues, int $userId): array
     {
+        if (!$userId) {
+            return [];
+        }
+
         $docs = [];
 
-        foreach ($formValues as $row) {
-            switch ($row['name']) {
-                case 'UF_STATUS':
-                    $props['UF_STATUS'] = $row['value'];
-                    break;
-                case 'citizenship':
-                    $docs['citizenship'] = $row['value'];
-                    break;
-                case 'passport.series':
-                    $docs['passport']['series'] = $row['value'];
-                    break;
-                case 'passport.number':
-                    $docs['passport']['number'] = $row['value'];
-                    break;
-                case 'passport.issued':
-                    $docs['passport']['issued'] = $row['value'];
-                    break;
-                case 'passport.date':
-                    $docs['passport']['date'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.locality':
-                    $docs['passport']['addressRegistration']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.street':
-                    $docs['passport']['addressRegistration']['street'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.home':
-                    $docs['passport']['addressRegistration']['home'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.flat':
-                    $docs['passport']['addressRegistration']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressRegistration.index':
-                    $docs['passport']['addressRegistration']['index'] = $row['value'];
-                    break;
-                case 'passport.addressFact':
-                    $docs['passport']['addressFact'] = $row['value'];
-                    break;
-                case 'passport.addressFact.locality':
-                    $docs['passport']['addressFact']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressFact.street':
-                    $docs['passport']['addressFact']['street'] = $row['value'];
-                    break;
-                case 'passport.addressFact.home':
-                    $docs['passport']['addressFact']['home'] = $row['value'];
-                    break;
-                case 'passport.addressFact.flat':
-                    $docs['passport']['addressFact']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressFact.index':
-                    $docs['passport']['addressFact']['index'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.locality':
-                    $docs['passport']['addressOrganization']['locality'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.street':
-                    $docs['passport']['addressOrganization']['street'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.home':
-                    $docs['passport']['addressOrganization']['home'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.flat':
-                    $docs['passport']['addressOrganization']['flat'] = $row['value'];
-                    break;
-                case 'passport.addressOrganization.index':
-                    $docs['passport']['addressOrganization']['index'] = $row['value'];
-                    break;
-                case 'passport.copyPassport':
-                    $docs['passport']['copyPassport'][] = $row['value'];
-                    break;
-                case 'inn':
-                    $docs['inn'] = $row['value'];
-                    break;
-                case 'kpp':
-                    $docs['kpp'] = $row['value'];
-                    break;
-                case 'innFiles':
-                    $docs['innFiles'][] = $row['value'];
-                    break;
-                case 'bank.name':
-                    $docs['bank']['name'] = $row['value'];
-                    break;
-                case 'bank.bik':
-                    $docs['bank']['bik'] = $row['value'];
-                    break;
-                case 'bank.rAccount':
-                    $docs['bank']['rAccount'] = $row['value'];
-                    break;
-                case 'bank.kAccount':
-                    $docs['bank']['kAccount'] = $row['value'];
-                    break;
-                case 'bank.bankFiles':
-                    $docs['bank']['bankFiles'][] = $row['value'];
-                    break;
-                case 'nds':
-                    $docs['nds'] = $row['value'];
-                    break;
-                case 'usn':
-                    $docs['usn'][] = $row['value'];
-                    break;
-                case 'ogrnip':
-                    $docs['ogrnip'] = $row['value'];
-                    break;
-                case 'egrip':
-                    $docs['egrip'][] = $row['value'];
-                    break;
-                case 'name':
-                    $docs['name'] = $row['value'];
-                    break;
-                case 'nameSmall':
-                    $docs['nameSmall'] = $row['value'];
-                    break;
-                case 'ogrn':
-                    $docs['ogrn'] = $row['value'];
-                    break;
-                case 'rule':
-                    $docs['rule'][] = $row['value'];
-                    break;
-                case 'leader':
-                    $docs['leader'][] = $row['value'];
-                    break;
-                case 'order':
-                    $docs['order'] = $row['value'];
-                    break;
-                case 'egrul':
-                    $docs['egrul'][] = $row['value'];
-                    break;
-                case 'rightToSign':
-                    $docs['rightToSign'] = $row['value'];
-                    break;
+        foreach ($formValues as $key => $row) {
+            if ($key == 'UF_STATUS') {
+                $props["UF_STATUS"] = $row;
+            } else {
+                array_set($docs, $key, $row);
             }
         }
 

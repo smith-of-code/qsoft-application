@@ -5,6 +5,7 @@ namespace Bitrix\additionalsupport;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Loader;
+use Bitrix\Report\VisualConstructor\Fields\Div;
 use \CTicket;
 
 class FormHandler
@@ -24,7 +25,7 @@ class FormHandler
             return [];
         }
 
-        return $this->prepareFields(json_decode($ticket['~UF_DATA'], true));
+        return json_decode($ticket['~UF_DATA'], true);
     }
 
     /**
@@ -36,25 +37,46 @@ class FormHandler
         if (!Loader::includeModule('support')) {
             throw new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
         }
+
+        if (!Loader::includeModule('report')) {
+            throw new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
+        }
     }
 
     /**
      * @param array $arrValues
      * 
-     * @return array
+     * @return string
      */
-    private function prepareFields(array $arrValues, string $mergedKey = null): array
+    public function prepareFields(array $arrValues): string
     {
-        $fields = [];
-        foreach ($arrValues as $key => $value) {
-            if (is_array($value)) {
-                $fields = array_merge($fields, $this->prepareFields($value, $key));
-                continue;
-            }
+        $html = new Div();
+        $start = (new Div())->start()->getContent();
+        $end = (new Div())->end()->getContent();
+        $indent = '<br>';
+        $fields = '';
 
-            $fields[$mergedKey . ' ' . $key] = $value;
+        foreach ($arrValues as $key => $value) {
+            if (is_array($value)) { 
+                $fields 
+                    .=  $indent .  $indent . $start
+                    . $this->getBolderText($key) . ': '
+                    . $end . $this->prepareFields($value, $key);
+            } else {
+                $fields .= $start . $key . ': ' . $value . $end;
+            }
         }
 
         return $fields;
+    }
+
+    /**
+     * @param mixed $content
+     * 
+     * @return string
+     */
+    private function getBolderText($content): string
+    {
+        return '<b>' . $content . '</b>';
     }
 }

@@ -22,18 +22,27 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_ad
 
 $fields = [];
 if (loader::includeModule('additionalsupport') && $_REQUEST['ID'] > 0) {
-	$fields = (new FormHandler())->GetFormData($_REQUEST['ID']);
+	$formHandler = (new FormHandler());
+	$fields = $formHandler->GetFormData($_REQUEST['ID']);
 }
 ?>
 <div>
 	<div>
 		<?php foreach ($fields as $key => $value): ?>
-			<div><?=$key?>: <?=$value?></div>
+				<div>
+					<hr>
+						<b><?=$key == 'USER_INFO' ? 'Информация о пользователе' : 'Юридическая информация'?></b>: 
+					<hr>
+					<?=$formHandler->prepareFields($value)?>
+				</div>
 		<?php endforeach; ?>
 	</div>
+	<hr>
 	<div>
 		<a href="/bitrix/admin/ticket_edit.php?ID=<?= $_REQUEST['ID'] ?>&lang=<?= LANG ?>">
 			<-- Вернуться в тикет
 		</a>
 	</div>
+	<br>
+	<br>
 </div>
