@@ -1,11 +1,14 @@
 .cards-cart {
-
-    &__list {
-    }
-
     &__item {
+        position: relative;
+        
         padding: rem($gap-medium) 0;
 
         border-bottom: rem(1px) solid $alto;
+
+        @media #{$screen-desktop} {
+            min-height: rem(148px);
+            padding: rem($gap-normal) 0 rem($gap-medium);
+        }
     }
 }

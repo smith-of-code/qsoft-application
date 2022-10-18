@@ -42,6 +42,8 @@ import './svg/clock.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
 import './svg/attention.svg';
+import './svg/personal-action.svg';
+import './svg/non-returnable.svg';
 
 import './svg/cat.svg';
 import './svg/dog.svg';
