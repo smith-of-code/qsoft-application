@@ -15,6 +15,7 @@
                 }
             }).then(function (response) {
                 add(response['data']['ITEMS']);
+                offset = response['data']['OFFSET'];
             }, function (response) {
                 alert(response['status']);
             });

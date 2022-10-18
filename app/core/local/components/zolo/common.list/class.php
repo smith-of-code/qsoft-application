@@ -2,6 +2,7 @@
 
 CModule::IncludeModule("iblock");
 
+//zolo:common.list -"общий": из названия раздела "Сервис Общие страницы" в ВТЗ
 class CommonPageComponent extends CBitrixComponent implements \Bitrix\Main\Engine\Contract\Controllerable
 {
     private const LIMIT = 3;
