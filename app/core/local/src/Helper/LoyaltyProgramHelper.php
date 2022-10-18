@@ -7,7 +7,7 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
 use QSoft\Entity\User;
-use QSoft\Service\BonusAccountHelper;
+use QSoft\Helper\BonusAccountHelper;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -19,9 +19,14 @@ class LoyaltyProgramHelper
 {
     const CONFIG_NAME = 'loyalty_level_terms';
 
+    // Уровни программы для Консультантов
     const LOYALTY_LEVEL_K1 = 'K1';
     const LOYALTY_LEVEL_K2 = 'K2';
     const LOYALTY_LEVEL_K3 = 'K3';
+    // Уровни программы для Конечных покупателей
+    const LOYALTY_LEVEL_B1 = 'B1';
+    const LOYALTY_LEVEL_B2 = 'B2';
+    const LOYALTY_LEVEL_B3 = 'B3';
 
     /**
      * @var array Массив ID значений свойства пользователя "Уровень в программе лояльности" ("XML_ID" => "ID")
@@ -39,11 +44,31 @@ class LoyaltyProgramHelper
     }
 
     /**
+     * Проверяет, является ли строка уровнем в программе лояльности
+     * @param string $level
+     * @return bool
+     */
+    public function isLoyaltyLevel(string $level) : bool
+    {
+        $allLevels = [
+            self::LOYALTY_LEVEL_K1,
+            self::LOYALTY_LEVEL_K2,
+            self::LOYALTY_LEVEL_K3,
+            self::LOYALTY_LEVEL_B1,
+            self::LOYALTY_LEVEL_B2,
+            self::LOYALTY_LEVEL_B3,
+        ];
+        return in_array($level, $allLevels, true);
+    }
+
+    /**
      * Возвращает конфигурацию уровней программы лояльности
      * @return mixed
      */
     static function getConfiguration() {
-        return app('config')->get(self::CONFIG_NAME.'.consultant');
+        $consultantLevels = app('config')->get(self::CONFIG_NAME.'.consultant');
+        $buyerLevels = app('config')->get(self::CONFIG_NAME.'.customer');
+        return array_merge($consultantLevels, $buyerLevels);
     }
 
     /**

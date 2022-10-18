@@ -71,8 +71,7 @@ class LoyaltyService
 
             } elseif ($this->user->groups->isBuyer()) {
 
-                //TODO: Показатели для обычного покупателя
-
+                $result['PERSONAL_DISCOUNT'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_discount'];
             }
         }
 

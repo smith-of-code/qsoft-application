@@ -135,6 +135,7 @@ class User
      */
     private const ENUM_PROPERTIES = [
         'UF_LOYALTY_LEVEL',
+        'UF_PERSONAL_DISCOUNT_LEVEL',
     ];
 
     /**
@@ -181,7 +182,6 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
-        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
@@ -194,8 +194,17 @@ class User
 
         //Задаем необходимые связанные объекты
         $this->legalEntity = new LegalEntityService($this);
-        $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+
+        //Задаем уровень в программе лояльности в зависимости от группы пользователя
+        $this->loyaltyLevel = '';
+        if ($this->groups->isBuyer()) {
+            $this->loyaltyLevel = $user['UF_PERSONAL_DISCOUNT_LEVEL'] ?? '';
+        } elseif ($this->groups->isConsultant()) {
+            $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
+        }
+        $this->loyalty = new LoyaltyService($this);
+        
         $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);

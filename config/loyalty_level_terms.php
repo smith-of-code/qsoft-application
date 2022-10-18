@@ -1,6 +1,6 @@
 <?php
 
-use \QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
 
 /**
  * Настройки Программы лояльности
@@ -8,6 +8,10 @@ use \QSoft\Helper\LoyaltyProgramHelper;
  * Ограничения:
  * - self_period_months - Задается числом, кратным 3 (число месяцев в квартале)
  * - team_period_months - Задается числом, кратным 3 (число месяцев в квартале)
+ *
+ * Типы условий:
+ * - hold_level_terms - условия удержания данного уровня;
+ * - upgrade_level_terms - условия перехода на данный уровень;
  *
  * Виды начислений бонусных баллов:
  * - personal_bonuses_for_cost - бонусные баллы за личную покупку, от стоимости заказа после применения скидок;
@@ -113,18 +117,39 @@ return [
         ]
     ],
     'customer' => [
-        'reporting_period_months' => '1',
-        'terms' => [
-            '1' => [
-                'upgrade' => 3000.0
+        LoyaltyProgramHelper::LOYALTY_LEVEL_B1 => [
+            'level' => 1, // Уровень (значение для сортировки уровней)
+            'benefits' => [
+                'personal_discount' => 2, // Персональная скидка на все товары (%)
             ],
-            '2' => [
-                'hold' => 3000.0,
-                'upgrade' => 5000.0
+        ],
+        LoyaltyProgramHelper::LOYALTY_LEVEL_B2 => [
+            'level' => 2, // Уровень (значение для сортировки уровней)
+            'hold_level_terms' => [
+                'self_total' => 3000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
             ],
-            '3' => [
-                'hold' => 5000.0
-            ]
+            'upgrade_level_terms' => [
+                'self_total' => 3000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'personal_discount' => 3, // Персональная скидка на все товары (%)
+            ],
+        ],
+        LoyaltyProgramHelper::LOYALTY_LEVEL_B3 => [
+            'level' => 3, // Уровень (значение для сортировки уровней)
+            'hold_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'upgrade_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'personal_discount' => 5, // Персональная скидка на все товары (%)
+            ],
         ]
     ]
 ];
