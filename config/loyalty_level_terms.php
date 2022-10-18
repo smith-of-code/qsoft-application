@@ -27,10 +27,6 @@ return [
             'benefits' => [
                 'referral_size' => 100, // Бонус за приглашение Консультанта (ББ)
                 'personal_discount' => 7, // Персональная скидка на все товары (%)
-                'start_kit_discount' => [
-                    'discount' => 0, // Скидка на стартовый набор Консультанта (%)
-                    'availability_period' => 14 // Сколько дней доступна скидка с момента регистрации
-                ],
                 'personal_bonuses_for_cost' => [
                     'size' => 1, // Бонус (ББ) за каждые STEP рублей
                     'step' => 100,

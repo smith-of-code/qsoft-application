@@ -41,7 +41,7 @@ class UserGroupsService
             $groupsRes = UserGroupTable::getList([
                 'filter' => ['USER_ID' => $this->user->id],
                 'select' => ['GROUP_ID','GROUP_CODE'=>'GROUP.STRING_ID'],
-                'cache' => ['ttl' => 31536000], // Кешируем на 1 год
+                'cache' => ['ttl' => 86400], // Кешируем на 1 сутки
             ]);
             while ($group = $groupsRes->fetch()) {
                 $this->groups[$group['GROUP_CODE']] = $group['GROUP_ID'];
