@@ -1,0 +1,110 @@
+.specification {
+    &__title {
+        font-size: rem($font-size-average);
+        font-weight: $font-weight-bold;
+        line-height: rem($line-height-normal);
+
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-medium);
+        }
+
+        @media #{$screen-desktop} {
+            font-size: rem($gap-normal);
+            line-height: rem($line-height-middle);
+        }
+
+        &--hidden {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
+    }
+
+    &__article {
+        @include text-medium;
+
+        &--hidden {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
+    }
+
+    &__description {
+        font-size: rem($font-size-small);
+        line-height: rem($line-height-small);
+
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-top: rem($gap-big);
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &::before {
+                flex-grow: 1;
+                order: 2;
+
+                margin: 0 rem(3px);
+
+                content: '';
+
+                border-bottom: rem(1px) dotted $alto;
+            }
+
+            & + & {
+                margin-top: rem($gap-average);
+            }
+        }
+
+        &-topic {
+            color: $saltBox;
+        }
+
+        &-response {
+            order: 3;
+
+            white-space: nowrap;
+
+            color: $tuna;
+        }
+    }
+
+    &__packs,
+    &__colors,
+    &__breed {
+        display: none;
+
+        @media #{$screen-desktop} {
+            display: block;
+
+            margin-top: rem($gap-big);
+        }
+    }
+
+    &__category {
+        @include text-medium($font-weight-semibold);
+
+        margin-bottom: rem($gap-small);
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-medium);
+        }
+    }
+
+    &__select {
+        width: rem(300px);
+    }
+}

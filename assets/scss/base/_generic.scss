@@ -86,8 +86,8 @@ h5 {
     margin-bottom: 0;
 
     &:not([class]) {
-        margin-top: rem($gap-small);
-        margin-bottom: rem($gap-small);
+        margin-top: rem($gap-middle);
+        margin-bottom: rem($gap-medium);
 
         @include resetting-vertical-indentation-of-last;
     }
@@ -112,7 +112,7 @@ p {
     margin-bottom: 0;
 
     &:not([class]) {
-        margin-bottom: rem($gap-small);
+        margin-bottom: rem(22px);
 
         @include resetting-vertical-indentation-of-last;
     }
@@ -181,18 +181,18 @@ ul {
         }
 
         & > li {
-            $size-dot: 6px;
+            $size-dot: 3px;
 
             position: relative;
 
             margin-bottom: rem($gap-small);
-            padding-left: rem(20px);
+            padding-left: rem(14px);
 
             @include resetting-vertical-indentation-of-last;
 
             &::before {
                 position: absolute;
-                top: em(8px); // magic num
+                top: em(10px); // magic num
                 left: 0;
 
                 display: block;
@@ -202,7 +202,7 @@ ul {
 
                 content: "";
 
-                color: $brickRed;
+                color: $tuna;
                 border-radius: 50%;
                 background-color: currentColor;
             }

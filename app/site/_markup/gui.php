@@ -529,6 +529,8 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Ненумерованные списки</h2>
 
+                        <h3 style="margin-top: 50px;">Простой</h3>
+
                         <ul>
                             <li>Возможность быстро проявить себя</li>
 
@@ -537,6 +539,18 @@
                             <li>Причастность к конечному результату работы компании</li>
 
                             <li>Разнообразный опыт</li>
+                        </ul>
+
+                        <h3 style="margin-top: 50px;">Цветной</h3>
+
+                        <ul class="list">
+                            <li class="list__item">Возможность быстро проявить себя</li>
+
+                            <li class="list__item">Более свободное отношение к графику работы, отсутствие строгих <a href="#">корпоративных правил</a></li>
+
+                            <li class="list__item">Причастность к конечному результату работы компании</li>
+
+                            <li class="list__item">Разнообразный опыт</li>
                         </ul>
                     </div>
                     <!--/Ненумерованные списки-->
@@ -574,6 +588,12 @@
                                 <li class="icons__item" title="Icon: basket">
                                     <svg class="icon icon--basket gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: trash">
+                                    <svg class="icon icon--trash gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                     </svg>
                                 </li>
 
@@ -776,7 +796,33 @@
                                 </li>
                             </ul>
 
-                            <ul class="icons__list">
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: chemistry">
+                                    <svg class="icon icon--chemistry gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diagnosis">
+                                    <svg class="icon icon--diagnosis gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diploma">
+                                    <svg class="icon icon--diploma gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: protection">
+                                    <svg class="icon icon--protection gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
                                 <li class="icons__item" title="Icon: cat">
                                     <svg class="icon icon--cat gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
@@ -846,6 +892,14 @@
                                 <li class="icons__item" title="Icon: cat-glasses">
                                     <svg class="icon icon--cat-glasses gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-glasses"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: pdf">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -1989,6 +2043,62 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--middle select--simple" data-select>
+                                                    <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--white"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Белый
+                                                        </option>
+                                                        <option value="2" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--pink"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Розовый
+                                                        </option>
+                                                        <option value="3" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--blue"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Синий
+                                                        </option>
+                                                        <option value="4" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--green"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Зеленый
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="specification__select select select--middle" data-select>
+                                                    <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для всех пород
+                                                        </option>
+                                                        <option value="2" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для мелких пород
+                                                        </option>
+                                                        <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для средних пород
+                                                        </option>
+                                                        <option value="4" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для крупных пород
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <!--/Селекты-->
@@ -2600,6 +2710,7 @@
                     <!--Варианты фасовки-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты фасовки</h2>
+                        <h3 style="margin-top: 50px;">Простые</h3>
                         <div class="packs">
                             <ul class="packs__list">
                                 <li class="packs__item">
@@ -2680,12 +2791,96 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Обведенные</h3>
+                        <div class="packs">
+                            <ul class="packs__list">
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="r111" checked>
+                                            <label for="r111">
+                                                <div class="pack__item">600 г</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="r222">
+                                            <label for="r222">
+                                                <div class="pack__item">1 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="r333">
+                                            <label for="r333">
+                                                <div class="pack__item">3 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="r444">
+                                            <label for="r444">
+                                                <div class="pack__item">5 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="r555">
+                                            <label for="r555">
+                                                <div class="pack__item">7 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="r666" disabled>
+                                            <label for="r666">
+                                                <div class="pack__item pack__item--disabled">10 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="r777" disabled>
+                                            <label for="r777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты фасовки-->
 
                     <!--Варианты цветов-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты цветов</h2>
+
+                        <h3 style="margin-top: 50px;">Маленькие</h3>
                         <div class="colors">
                             <ul class="colors__list">
                                 <li class="colors__item">
@@ -2755,8 +2950,254 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Большие</h3>
+
+                        <div class="colors colors--big">
+                            <ul class="colors__list">
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--white"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--pink"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
+                                            <label for="radio2">
+                                                <div class="color__item color__item--big color__item--blue"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
+                                            <label for="radio3">
+                                                <div class="color__item color__item--big color__item--green"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
+                                            <label for="radio4">
+                                                <div class="color__item color__item--big color__item--yellow"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color color--disabled">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5" disabled>
+                                            <label for="radio5">
+                                                <div class="color__item color__item--big color__item--red"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты цветов-->
+
+                    <!--Документы-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Документы</h2>
+
+                        <div class="documents">
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о государственной регистрации</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Заключение ветеринарной комиссии</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Часто задаваемые вопросы</span>
+                                            <span class="document__text-size">(1.2 Mb)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о безопасности</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Документы-->
+
+                    <!--Особенности-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Особенности</h2>
+
+                        <div class="features">
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--chemistry">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Сбалансированная формула</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--protection">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Профилактика здоровья ежедневно</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diagnosis">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diploma">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Особенности-->
+
+                    <!--Состав-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Состав</h2>
+
+                        <div class="nutritionals">
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Протеин, %</span>
+                                    <span class="nutritional__size">20 - 30</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Жир, %</span>
+                                    <span class="nutritional__size">15 - 16</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая клетчатка,%</span>
+                                    <span class="nutritional__size">3 - 3.5</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Кальций, %</span>
+                                    <span class="nutritional__size">22 - 29</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Фосфор, %</span>
+                                    <span class="nutritional__size">0.8 - 1</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая зола, %</span>
+                                    <span class="nutritional__size">22 - 30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Состав-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">
@@ -4675,8 +5116,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4700,8 +5141,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2" data-option-icon="dog" selected>Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>'>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' selected>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -4870,8 +5311,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4895,8 +5336,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat" selected>Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -5075,8 +5516,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -5100,8 +5541,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="type-#ID#" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -7017,6 +7458,11 @@
     .gui__icon {
         width: 30px;
         height: 30px;
+    }
+
+    .gui__icon--big {
+        width: 60px;
+        height: 60px;
     }
 
     .gui__example {
