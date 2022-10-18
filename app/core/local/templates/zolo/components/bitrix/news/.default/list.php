@@ -7,7 +7,7 @@
 ?>
 
 <?$APPLICATION->IncludeComponent(
-	"zolo:common.list", //common -"общий": из названия раздела "Сервис Общие страницы" в ВТЗ
+	"zolo:common.list",
 	"",
 	Array(
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
