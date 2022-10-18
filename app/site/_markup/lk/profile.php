@@ -1381,8 +1381,8 @@
                                                                                 <div class="pet-card__delete">
                                                                                     <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                                                         <span class="button__icon">
-                                                                                            <svg class="icon icon--basket">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                                            <svg class="icon icon--trash">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                                             </svg>
                                                                                         </span>
                                                                                     </button>
@@ -1576,8 +1576,8 @@
                                                                                 <div class="pet-card__delete">
                                                                                     <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                                                         <span class="button__icon">
-                                                                                            <svg class="icon icon--basket">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                                            <svg class="icon icon--trash">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                                             </svg>
                                                                                         </span>
                                                                                     </button>
@@ -1780,8 +1780,8 @@
                                                                                 <div class="pet-card__delete">
                                                                                     <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                                                         <span class="button__icon">
-                                                                                            <svg class="icon icon--basket">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                                            <svg class="icon icon--trash">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                                             </svg>
                                                                                         </span>
                                                                                     </button>
@@ -2140,6 +2140,80 @@
 
                                                             <div class="section__box-inner">
                                                                 <h5 class="box__heading box__heading--middle">Плановые показатели</h5>
+
+                                                                <div class="cards-progress">
+                                                                    <ul class="cards-progress__list">
+                                                                        <li class="cards-progress__item">
+                                                                            <div class="card-progress">
+                                                                                <div class="card-progress__inner">
+                                                                                    <p class="card-progress__title">
+                                                                                        Удержание уровня по личным покупкам
+                                                                                    </p>
+                                                                                    <div class="card-progress__mark">
+                                                                                        <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                        </svg>
+                                                                                        <span class="card-progress__mark-text">
+                                                                                            Осталось еще немного
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="card-progress__wrapper">
+                                                                                        <div class="card-progress__progress progress-bar">
+                                                                                            <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                        </div>
+                                                                                        <div class="card-progress__bottom">
+                                                                                            <div class="card-progress__amount amount">
+                                                                                                <p class="amount__target amount__target--red">
+                                                                                                    124 000 ₽
+                                                                                                </p>
+                                                                                                <p class="amount__total">
+                                                                                                    из 175 000 ₽
+                                                                                                </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="card-progress__status">
+                                                                                                <p class="card-progress__text">
+                                                                                                    Осталось 56 000 ₽
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__warning warning">
+                                                                                        <div class="warning__mark">
+                                                                                            <button type="button" 
+                                                                                                class="button button--iconed button--simple button--red"
+                                                                                                data-fancybox data-modal-type="modal"
+                                                                                                data-src="#conditions"
+                                                                                            >
+                                                                                                <span class="button__icon">
+                                                                                                    <svg class="icon icon--basket warning__icon">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <p class="warning__text">
+                                                                                            Условия повышения уровня
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                        <li class="cards-progress__item">
+                                                                            <div class="card-progress">
+                                                                                <div class="card-progress__inner">
+                                                                                    <div class="card-progress__image">
+                                                                                        <svg class="card-progress__image-pic icon icon--cat-cheerful">
+                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
 
                                                             <div class="section__box-inner">

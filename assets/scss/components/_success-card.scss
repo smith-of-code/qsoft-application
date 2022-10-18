@@ -5,7 +5,7 @@
     justify-content: center;
 
     height: 100%;
-    padding: rem($gap-medium) rem($gap-big);
+    padding: rem($gap-medium) rem($gap-small) rem($gap-big);
 
     border-radius: rem($gap-average);
     border-bottom: rem(6px) solid;
