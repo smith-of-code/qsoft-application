@@ -12,7 +12,7 @@
     <body class="page">
 
         <!--header-->
-        <header class="page__header header header--main">
+        <header class="page__header page__header--main header--main">
             <div class="header__row header__row--main">
                 <div class="container">
                     <div class="header__wrapper">
