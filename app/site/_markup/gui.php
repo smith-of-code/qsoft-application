@@ -818,6 +818,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: cup">
+                                    <svg class="icon icon--cup gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">

@@ -2202,12 +2202,14 @@
                                                                         </li>
                                                                         <li class="cards-progress__item">
                                                                             <div class="card-progress">
-                                                                                <div class="card-progress__inner">
+                                                                                <div class="card-progress__inner card-progress__inner--columed">
                                                                                     <div class="card-progress__image">
                                                                                         <svg class="card-progress__image-pic icon icon--cat-cheerful">
                                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
                                                                                         </svg>
                                                                                     </div>
+
+                                                                                    <p class="card-progress__text">У Вас максимальный уровень</p>
                                                                                 </div>
                                                                             </div>
 
@@ -2218,6 +2220,83 @@
 
                                                             <div class="section__box-inner">
                                                                 <h5 class="box__heading box__heading--middle">Преимущества аккаунтов разного уровня</h5>
+
+                                                                <div class="accordeon accordeon--white">
+                                                                    <div class="accordeon__item box box--circle" data-accordeon>
+                                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                                            <div class="accordeon__header-col">
+                                                                                <span class="accordeon__icon">
+                                                                                    <svg class="icon icon--cup">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <h5 class="accordeon__title">Преимущества аккаунта к1</h5>
+                                                                            </div>
+
+                                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                                    <svg class="icon icon--arrow-down">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordeon__item box box--circle" data-accordeon>
+                                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                                            <div class="accordeon__header-col">
+                                                                                <span class="accordeon__icon">
+                                                                                    <svg class="icon icon--cup">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <h5 class="accordeon__title">Преимущества аккаунта к2</h5>
+                                                                            </div>
+
+                                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                                    <svg class="icon icon--arrow-down">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordeon__item box box--circle" data-accordeon>
+                                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                                            <div class="accordeon__header-col">
+                                                                                <span class="accordeon__icon">
+                                                                                    <svg class="icon icon--cup">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <h5 class="accordeon__title">Преимущества аккаунта к3</h5>
+                                                                            </div>
+
+                                                                            <button type="button" class="accordeon__toggle button button button--circular button--mini button--mixed button--gray-red">
+                                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                                    <svg class="icon icon--arrow-down">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </button>
+                                                                        </div>
+                                        
+                                                                        <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
+                                                                            Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </section>
