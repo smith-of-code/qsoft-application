@@ -6714,12 +6714,10 @@
                     <p class="footer__copyright">
                         &copy; AmeAppetite, 2022
                     </p>
-                    <div class="footer__logo">
-                        <div class="logo">
-                            <a class="logo__link" href="#">
-                                <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
-                            </a>
-                        </div>
+                    <div class="footer__logo logo">
+                        <a target="_blank" class="logo__link" href="https://qsoft.ru">
+                            <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
+                        </a>
                     </div>
                 </div>
             </div>

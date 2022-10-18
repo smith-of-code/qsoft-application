@@ -14,13 +14,17 @@
         display: flex;
         flex-wrap: wrap;
 
-        margin: rem(-$gap-big) rem(-18px) rem(36px);
+        margin: rem(-$gap-big) rem(-13px) rem(36px);
+
+        @media #{$screen-tablet} {
+            margin: rem(-$gap-big) rem(-30px) rem(36px);
+        }
 
 		@media #{$screen-desktop} {
             flex-wrap: nowrap;
             justify-content: space-between;
 
-            margin: rem(-$gap-big) rem(-38px) rem($gap-medium);
+            margin: rem(-$gap-big) rem(-34px) rem($gap-medium);
 		}
 	}
 
@@ -28,47 +32,71 @@
         width: percentage(1 / 2);
         
 		margin-top: rem($gap-big);
-        padding: 0 rem(18px);
+        padding: 0 rem(13px);
 
         @media #{$screen-tablet} {
-            width: percentage(1 / 4);
+            padding: 0 rem(30px);
         }
 
         @media #{$screen-desktop} {
-            padding: 0 rem(38px);
+            padding: 0 rem(34px);
         }
 
         &--dogs {
+            @media #{$screen-tablet} {
+                width: rem(187px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(200px);
             }
         }
 
         &--cats {
+            @media #{$screen-tablet} {
+                width: rem(187px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(200px);
             }
         }
 
         &--customers {
+            @media #{$screen-tablet} {
+                width: rem(195px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(202px);
             }
         }
 
         &--company {
+            @media #{$screen-tablet} {
+                width: rem(160px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(172px);
             }
         }
 
         &--contacts {
+            @media #{$screen-tablet} {
+                width: rem(188px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(224px);
             }
         }
 
         &--info {
+            @media #{$screen-tablet} {
+                width: rem(235px);
+            }
+
             @media #{$screen-desktop} {
                 width: rem(246px);
             }
@@ -136,6 +164,7 @@
 	}
 
     &__logo {
+        max-height: rem(17px);
         margin-left: auto;
     }
 }
