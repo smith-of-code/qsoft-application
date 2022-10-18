@@ -5,7 +5,7 @@ namespace QSoft\ORM;
 use Bitrix\Main\Entity\BooleanField;
 use Bitrix\Main\Entity\DatetimeField;
 use Bitrix\Main\Entity\IntegerField;
-use Bitrix\Main\Entity\TextField;
+use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use QSoft\ORM\Decorators\CreatedAtDecorator;
@@ -53,15 +53,15 @@ final class LegalEntityTable extends BaseTable
             ], self::getTableName()),
             new BooleanField('UF_IS_ACTIVE', [
                 'required' => true,
-                'title' => Loc::getMessage('LEGAL_ENTITY_UF_IS_ACTIVE_FIELD'),
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_IS_ACTIVE'),
             ]),
-            new TextField('UF_DOCUMENTS', [
+            new StringField('UF_DOCUMENTS', [
                 'required' => true,
-                'title' => Loc::getMessage('LEGAL_ENTITY_UF_DOCUMENTS_FIELD'),
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_DOCUMENTS'),
             ]),
             new DatetimeField('UF_CREATED_AT', [
                 'required' => true,
-                'title' => Loc::getMessage('LEGAL_ENTITY_UF_CREATED_AT_FIELD'),
+                'title' => Loc::getMessage('LEGAL_ENTITY_UF_CREATED_AT'),
             ]),
         ];
     }

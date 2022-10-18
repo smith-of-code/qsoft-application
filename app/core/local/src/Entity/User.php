@@ -6,9 +6,13 @@ use Carbon\Carbon;
 use CFile;
 use CUser;
 use CUserFieldEnum;
-use QSoft\Service\BonusAccountService;
+
+use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
+use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\UserDiscountsService;
+use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
 
@@ -19,22 +23,33 @@ class User
      */
     private CUser $cUser;
     /**
-     * @var BonusAccountService Объект для работы с бонусным счетом пользователя
+     * @var LegalEntityService Объект для работы с документами пользователя
      */
-    public BonusAccountService $bonusAccount;
+    public LegalEntityService $legalEntity;
     /**
      * @var LoyaltyService Объект для работы с программой лояльности
      */
     public LoyaltyService $loyalty;
     /**
-     * @var UserGroupsService Объект для работы с бонусным счетом пользователя
+     * @var UserGroupsService Объект для работы с группами (ролями) пользователя
      */
     public UserGroupsService $groups;
+    /**
+     * @var NotificationService Объект для работы с уведомлениями
+     */
+    public NotificationService $notification;
     /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
-
+    /**
+     * @var UserDiscountsService Объект для работы со скидками и акциями пользователя
+     */
+    public UserDiscountsService $discounts;
+    /**
+     * @var PetService Объект для работы с питомцами пользователя
+     */
+    public PetService $pets;
     /**
      * @var int ID пользователя
      */
@@ -75,6 +90,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Уровень в программе лояльности
+     */
+    public string $loyaltyLevel;
 
 
     /**
@@ -94,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var int ID наставника
+     * @var User Наставник
      */
-    public int $mentorId;
+    public User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -114,7 +133,9 @@ class User
     /**
      * Коды пользовательских полей типа "Список"
      */
-    private const ENUM_PROPERTIES = [];
+    private const ENUM_PROPERTIES = [
+        'UF_LOYALTY_LEVEL',
+    ];
 
     /**
      * User constructor.
@@ -160,21 +181,25 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentorId = (int) $user['UF_MENTOR_ID'];
+        $this->mentor = new self((int) $user['UF_MENTOR_ID']);
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
-        $this->bonusAccount = new BonusAccountService($this);
+        $this->legalEntity = new LegalEntityService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+        $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->discounts = new UserDiscountsService($this);
+        $this->pets = new PetService($this);
     }
 
     /**

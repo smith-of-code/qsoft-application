@@ -80,6 +80,7 @@ $line-height-normal: 24px;
 $line-height-small: 20px;
 $line-height-mini: 18px;
 $line-height-miniature: 16px;
+$line-height-tiny: 14px;
 
 
 // Breakpoints
@@ -107,8 +108,11 @@ $width-container: 1170px;
 $gap-container: $gap-normal;
 $gap-container-medium: $gap-medium;
 
-$height-header-mobile: 137px;
-$height-header-desktop: 168px;
+$height-header-mobile: 136px;
+$height-header-tablet: 148px;
+
+$height-header-main-mobile: 136px;
+$height-header-main-tablet: 168px;
 
 
 // Z-indexes
@@ -132,6 +136,7 @@ $transition-function: ease-in-out;
 // border
 $border-radius-mini: 2px;
 $border-radius-small: 4px;
+$border-radius-normal: 6px;
 $border-radius-middle: 8px;
 $border-radius: 12px;
 $border-radius-average: 16px;
