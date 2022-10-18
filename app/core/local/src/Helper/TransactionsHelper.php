@@ -70,14 +70,14 @@ class TransactionsHelper
 
     public function add(int $userId, $type, $source, $measure, $amount)
     {
-        $this->getTypesIds();
-        $this->getSourcesIds();
-        $this->getMeasuresIds();
+        $typesIDs = $this->getTypesIds();
+        $sourcesIDs = $this->getSourcesIds();
+        $measuresIDs = $this->getMeasuresIds();
         TransactionTable::add([
             'UF_USER_ID' => $userId,
-            'UF_TYPE' => $this->types[$type],
-            'UF_SOURCE' => $this->sources[$source],
-            'UF_MEASURE' => $this->measures[$measure],
+            'UF_TYPE' => $typesIDs[$type],
+            'UF_SOURCE' => $sourcesIDs[$source],
+            'UF_MEASURE' => $measuresIDs[$measure],
             'UF_AMOUNT' => $amount,
         ]);
     }

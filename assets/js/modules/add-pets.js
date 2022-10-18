@@ -77,7 +77,7 @@ export default function () {
         </svg>`);
 
         //тип
-        let typeInput = element.find(`${ELEMENTS_SELECTOR.typeInput} option:selected`).data('option-icon');
+        let typeInput = element.find(`${ELEMENTS_SELECTOR.typeInput} option:selected`).data('pets-species');
         let icon = (typeInput == 'dog') ? 'dog' : 'cat';
         element.find(ELEMENTS_SELECTOR.type).html(`<svg class="icon icon--${icon}">
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>

@@ -90,8 +90,8 @@ class LoyaltyProgramHelper
      */
     public function getLoyaltyLevelInfo(string $level) : ?array
     {
-        $this->getLoyaltyLevels();
-        return $this->levels[$level];
+        $levels = $this->getLoyaltyLevels();
+        return $levels[$level];
     }
 
     /**
@@ -100,8 +100,8 @@ class LoyaltyProgramHelper
      */
     public function getAmountOfLevels() : int
     {
-        $this->getLoyaltyLevels();
-        return count($this->levels);
+        $levels = $this->getLoyaltyLevels();
+        return count($levels);
     }
 
     /**
@@ -139,9 +139,9 @@ class LoyaltyProgramHelper
         $availableLevel = $this->getAvailableLoyaltyLevelToUpgrade($user);
 
         if (isset($availableLevel)) {
-            $this->getLevelsIDs();
+            $levelsIDs = $this->getLevelsIDs();
             // Обновляем уровень
-            if ($user->update(['UF_LOYALTY_LEVEL' => $this->levelsIDs[$availableLevel]])) {
+            if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
                 // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
                 (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
@@ -217,8 +217,8 @@ class LoyaltyProgramHelper
      */
     public function getReferralBonus(string $level) : ?int
     {
-        $this->getLoyaltyLevels();
-        return (int) $this->levels[$level]['benefits']['referral_size'] ?? null;
+        $levels = $this->getLoyaltyLevels();
+        return (int) $levels[$level]['benefits']['referral_size'] ?? null;
     }
 
     /**
@@ -228,8 +228,8 @@ class LoyaltyProgramHelper
      */
     public function getUpgradeLevelBonus(string $level) : ?int
     {
-        $this->getLoyaltyLevels();
-        return (int) $this->levels[$level]['benefits']['referral_size'] ?? null;
+        $levels = $this->getLoyaltyLevels();
+        return (int) $levels[$level]['benefits']['referral_size'] ?? null;
     }
 
     /**
