@@ -6478,35 +6478,35 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
-                                                                <p class="text-block__value">
+                                                                <p class="info-slot__value">
                                                                     Дубровская А.Ф.
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--delivery">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус заказа
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--marked">
+                                                                <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--icon">
-                                                                    <span class="text-block__icon">
-                                                                        <svg class="icon icon--credit-not-paid text-block__icon-mark">
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
                                                                         </svg>
                                                                     </span>
@@ -6520,11 +6520,13 @@
                                                                 <div class="price__calculation price__calculation--column">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
-                                                                            <svg class="icon icon--cart-card price__calculation-icon">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
                                                                             </svg>
                                                                         </span>
-                                                                        11 904 ₽
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
                                                                     </p>
                                                                     <p class="price__calculation-accumulation">119 ББ</p>
                                                                 </div>
@@ -6582,7 +6584,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -6637,7 +6639,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -6692,7 +6694,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -6768,35 +6770,35 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
-                                                                <p class="text-block__value">
+                                                                <p class="info-slot__value">
                                                                     Дубровская А.Ф.
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--delivery">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус заказа
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--marked">
+                                                                <p class="info-slot__value info-slot__value--marked">
                                                                     Размещен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--icon">
-                                                                    <span class="text-block__icon">
-                                                                        <svg class="icon icon--credit-not-paid text-block__icon-mark">
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
                                                                         </svg>
                                                                     </span>
@@ -6810,11 +6812,13 @@
                                                                 <div class="price__calculation price__calculation--column">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
-                                                                            <svg class="icon icon--cart-card price__calculation-icon">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
                                                                             </svg>
                                                                         </span>
-                                                                        11 904 ₽
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
                                                                     </p>
                                                                     <p class="price__calculation-accumulation">119 ББ</p>
                                                                 </div>
@@ -6872,7 +6876,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -6927,7 +6931,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -7058,35 +7062,35 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
-                                                                <p class="text-block__value">
+                                                                <p class="info-slot__value">
                                                                     Дубровская А.Ф.
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--delivery">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус заказа
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--marked">
+                                                                <p class="info-slot__value info-slot__value--marked">
                                                                     Отменен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--icon">
-                                                                    <span class="text-block__icon">
-                                                                        <svg class="icon icon--credit-not-paid text-block__icon-mark">
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-not-paid"></use>
                                                                         </svg>
                                                                     </span>
@@ -7100,11 +7104,13 @@
                                                                 <div class="price__calculation price__calculation--column">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
-                                                                            <svg class="icon icon--cart-card price__calculation-icon">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
                                                                             </svg>
                                                                         </span>
-                                                                        11 904 ₽
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
                                                                     </p>
                                                                     <p class="price__calculation-accumulation">119 ББ</p>
                                                                 </div>
@@ -7360,35 +7366,35 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
-                                                                <p class="text-block__value">
+                                                                <p class="info-slot__value">
                                                                     Дубровская А.Ф.
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--delivery">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус заказа
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--marked">
+                                                                <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="text-block">
-                                                                <p class="text-block__name">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
-                                                                <p class="text-block__value text-block__value--icon">
-                                                                    <span class="text-block__icon">
-                                                                        <svg class="icon icon--credit-not-paid text-block__icon-mark">
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
                                                                         </svg>
                                                                     </span>
@@ -7402,11 +7408,13 @@
                                                                 <div class="price__calculation price__calculation--column">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
-                                                                            <svg class="icon icon--cart-card price__calculation-icon">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
                                                                             </svg>
                                                                         </span>
-                                                                        11 904 ₽
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
                                                                     </p>
                                                                     <p class="price__calculation-accumulation">119 ББ</p>
                                                                 </div>

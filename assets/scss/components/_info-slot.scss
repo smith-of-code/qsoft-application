@@ -1,4 +1,4 @@
-.text-block {
+.info-slot {
     &__name {
         @include text-miniature($font-weight-medium);
         
@@ -53,16 +53,15 @@
         }
 
         &--icon {
-            padding-left: rem($gap-normal);
+            display: flex;
+            align-items: center;
         }
     }
 
     &__icon {
-        position: absolute;
-        top: 0;
-        left: 0;
-
         display: inline-flex;
+
+        margin-right: rem($gap-mini);
         
         &-mark {
             $size: 20px;

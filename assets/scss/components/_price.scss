@@ -25,9 +25,8 @@
             }
 
             &--has-icon {
-                position: relative;
-
-                padding-left: rem($gap-big);
+                display: flex;
+                align-items: center;
             }
         }
 
@@ -51,9 +50,7 @@
         }
 
         &-picture {
-            position: absolute;
-            top: rem(-2px);
-            left: 0;
+            margin-right: rem($gap-mini);
         }
 
         &-icon {

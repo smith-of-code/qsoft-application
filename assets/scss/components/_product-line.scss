@@ -26,7 +26,6 @@
         flex-shrink: 0;
 
         width: rem(68px);
-        height: rem(68px);
         margin-right: rem($gap-medium);
 
         border: rem(1px) solid $alto;
@@ -34,7 +33,14 @@
 
         @media #{$screen-tablet} {
             width: rem(56px);
-            height: rem(56px);
+        }
+
+        &::before {
+            display: block;
+
+            padding-top: percentage(68px / 68px);
+
+            content: "";
         }
 
         &-picture {
@@ -52,13 +58,17 @@
     &__title {
         @include text-miniature($font-weight-medium);
 
-        @include text-truncate-by-row(2);
+        @include text-truncate-by-row(3);
 
         margin-bottom: rem($gap-mini);
 
         letter-spacing: 0.02em;
 
         color: $tuna;
+
+        @media #{$screen-tablet} {
+            @include text-truncate-by-row(2);
+        }
     }
 
     &__subtitle {
