@@ -21,7 +21,7 @@ class DateTimeService
 
     /**
      * Возвращает дату начала указанного квартала
-     * @param int $quarter Позиция квартала:
+     * @param int $quarter Позиция квартала (относительная):
      * "0" - текущий квартал, "-1" - предыдущий квартал, "1" - следующий квартал.
      * Аналогично для других кварталов (например "-3" - сдвиг на 3 квартала назад).
      * @return Carbon
@@ -38,7 +38,7 @@ class DateTimeService
 
     /**
      * Возвращает дату окончания указанного квартала
-     * @param int $quarter Позиция квартала:
+     * @param int $quarter Позиция квартала (относительная):
      * "0" - текущий квартал, "-1" - предыдущий квартал, "1" - следующий квартал.
      * Аналогично для других кварталов (например "-3" - сдвиг на 3 квартала назад).
      * @return Carbon
@@ -74,5 +74,39 @@ class DateTimeService
             return 'IV';
         }
         return '';
+    }
+
+    /**
+     * Возвращает дату начала указанного месяца
+     * @param int $month Позиция месяца (относительная):
+     * "0" - текущий месяц, "-1" - предыдущий месяц, "1" - следующий месяц.
+     * Аналогично для других месяцев (например "-3" - сдвиг на 3 месяц назад).
+     * @return Carbon
+     */
+    static public function getStartOfMonth(int $month): Carbon
+    {
+        if ($month > 0) {
+            return Carbon::now()->modify('+' . $month . ' month')->startOfMonth();
+        } elseif ($month < 0) {
+            return Carbon::now()->modify($month . ' month')->startOfMonth();
+        }
+        return Carbon::now()->startOfMonth();
+    }
+
+    /**
+     * Возвращает дату окончания указанного месяца
+     * @param int $month Позиция месяца (относительная):
+     * "0" - текущий месяц, "-1" - предыдущий месяц, "1" - следующий месяц.
+     * Аналогично для других месяцев (например "-3" - сдвиг на 3 месяц назад).
+     * @return Carbon
+     */
+    static public function getEndOfMonth(int $month): Carbon
+    {
+        if ($month > 0) {
+            return Carbon::now()->modify('+' . $month . ' month')->endOfMonth();
+        } elseif ($month < 0) {
+            return Carbon::now()->modify($month . ' month')->endOfMonth();
+        }
+        return Carbon::now()->endOfMonth();
     }
 }

@@ -5,6 +5,7 @@ namespace QSoft\Service;
 use Bitrix\Catalog\Product\Price;
 use Bitrix\Main\Loader;
 use CCatalogGroup;
+use QSoft\Helper\LoyaltyProgramHelper;
 
 /**
  * Класс для работы с торговыми предложениями
@@ -27,7 +28,7 @@ class OffersService
             'filter' => [
                 '=PRODUCT_ID' => $offerId,
             ],
-            'limit' => LoyaltyService::getAmountOfLevels(),
+            'limit' => LoyaltyProgramHelper::LOYALTY_LEVELS_AMOUNT_K,
         ]);
 
         $existingPrices = [];

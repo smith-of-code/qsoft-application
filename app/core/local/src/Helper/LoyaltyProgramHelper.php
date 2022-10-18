@@ -7,7 +7,6 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
 use QSoft\Entity\User;
-use QSoft\Helper\BonusAccountHelper;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -20,10 +19,12 @@ class LoyaltyProgramHelper
     const CONFIG_NAME = 'loyalty_level_terms';
 
     // Уровни программы для Консультантов
+    const LOYALTY_LEVELS_AMOUNT_K = 3; // Количество уровней
     const LOYALTY_LEVEL_K1 = 'K1';
     const LOYALTY_LEVEL_K2 = 'K2';
     const LOYALTY_LEVEL_K3 = 'K3';
     // Уровни программы для Конечных покупателей
+    const LOYALTY_LEVELS_AMOUNT_B = 3; // Количество уровней
     const LOYALTY_LEVEL_B1 = 'B1';
     const LOYALTY_LEVEL_B2 = 'B2';
     const LOYALTY_LEVEL_B3 = 'B3';
@@ -91,17 +92,7 @@ class LoyaltyProgramHelper
     public function getLoyaltyLevelInfo(string $level) : ?array
     {
         $levels = $this->getLoyaltyLevels();
-        return $levels[$level];
-    }
-
-    /**
-     * Количество уровней программы лояльности
-     * @return int
-     */
-    public function getAmountOfLevels() : int
-    {
-        $levels = $this->getLoyaltyLevels();
-        return count($levels);
+        return $levels[$level] ?? null;
     }
 
     /**
@@ -127,11 +118,7 @@ class LoyaltyProgramHelper
         // Получим текущий уровень пользователя
         $currentLevel = $user->loyaltyLevel;
 
-        if (! $user->groups->isConsultant()) {
-            throw new RuntimeException('Пользователь не является Консультантом');
-        }
-
-        if (! isset($currentLevel) || $currentLevel === '') {
+        if (! $this->isLoyaltyLevel($currentLevel)) {
             throw new RuntimeException('Пользователь не является участником программы лояльности');
         }
 
@@ -140,13 +127,22 @@ class LoyaltyProgramHelper
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            // Обновляем уровень
-            if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
-                // Начисляем баллы за повышение уровня
-                $user->loyaltyLevel = $availableLevel;
-                (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+            if ($user->groups->isConsultant()) {
+                // Обновляем уровень
+                if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
+                    // Начисляем баллы за повышение уровня
+                    $user->loyaltyLevel = $availableLevel;
+                    (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                }
+                return true;
+            } elseif ($user->groups->isBuyer()) {
+                if ($user->update(['UF_PERSONAL_DISCOUNT_LEVEL' => $levelsIDs[$availableLevel]])) {
+                    // Начисляем баллы за повышение уровня
+                    $user->loyaltyLevel = $availableLevel;
+                    (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -161,15 +157,31 @@ class LoyaltyProgramHelper
      */
     public function getAvailableLoyaltyLevelToUpgrade(User $user) : ?string
     {
-        $availableLevel = null;
+        if ($user->groups->isConsultant()) {
 
-        if ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_K3)) {
-            $availableLevel = self::LOYALTY_LEVEL_K3;
-        } elseif ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_K2)) {
-            $availableLevel = self::LOYALTY_LEVEL_K2;
+            $availableLevel = self::LOYALTY_LEVEL_K1;
+
+            if ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_K3)) {
+                $availableLevel = self::LOYALTY_LEVEL_K3;
+            } elseif ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_K2)) {
+                $availableLevel = self::LOYALTY_LEVEL_K2;
+            }
+
+            return $availableLevel;
+
+        } elseif ($user->groups->isBuyer()) {
+
+            $availableLevel = self::LOYALTY_LEVEL_B1;
+
+            if ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_B3)) {
+                $availableLevel = self::LOYALTY_LEVEL_B3;
+            } elseif ($this->checkIfCanUpgradeToLevel($user, self::LOYALTY_LEVEL_B2)) {
+                $availableLevel = self::LOYALTY_LEVEL_B2;
+            }
+
+            return $availableLevel;
         }
-
-        return $availableLevel;
+        return null;
     }
 
     /**
@@ -187,26 +199,43 @@ class LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Config parameters not found');
+            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }
         // Если указанный уровень не выше текущего - улучшение невозможно
         if ((int) $levelInfo['level'] <= (int) $currentLevelInfo['level']) {
             return false;
         }
 
-        // Получим необходимые данные по затратам
-        $selfPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) - 1) * (-1));
-        $teamPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) - 1) * (-1));
-        $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodEnd);
-        $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodEnd);
+        if ($user->groups->isConsultant()) {
+            // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
+            $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
+            $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+            $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
+            $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+            $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
+            $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
 
-        $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
-        $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
+            $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
+            $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
 
-        // Проверяем условия
-        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
-            return true;
+            // Проверяем условия
+            if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
+                return true;
+            }
+        } elseif ($user->groups->isBuyer()) {
+            // Получим необходимые данные по затратам за прошедший месяц
+            $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
+            $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
+            $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
+
+            $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
+
+            // Проверяем условия
+            if ($personalTotal >= $personalTotalToUpgrade) {
+                return true;
+            }
         }
+
         return false;
     }
 
