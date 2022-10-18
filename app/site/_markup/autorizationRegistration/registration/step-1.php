@@ -26,37 +26,37 @@
                     <section class="section">
                         <ul class="steps-counter">
                             <li class="steps-counter__item steps-counter__item--current" data-steps-item>
-                                <div class="steps-counter__circle  steps-counter__circle--current" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--1 steps-counter__circle--current" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Персональные данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--2" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Данные о питомцах</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--3" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Выбор наставника</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--4" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Юридические данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--5" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Установка пароля</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--6" data-steps-indicator>
                                 </div>
                             </li>
                         </ul>

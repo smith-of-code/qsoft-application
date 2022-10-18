@@ -1,6 +1,6 @@
 .price {
     &__main {
-        @include text-small;
+        font-size: rem($font-size-small);
 
         @media #{$screen-desktop} {
             margin-bottom: rem(6px);
@@ -22,12 +22,21 @@
         }
 
         &-total {
-            @include text-normal($font-weight-bold);
+            font-size: rem($font-size-medium);
+            font-weight: $font-weight-bold;
+            line-height: rem($line-height-medium);
 
             margin-right: rem(6px);
 
             @media #{$screen-desktop} {
+                font-size: rem($font-size-normal);
+                line-height: rem($line-height-small);
+
                 margin-right: rem($gap-small);
+            }
+
+            &--red {
+                color: $brickRed;
             }
         }
 
@@ -48,6 +57,18 @@
 
                 padding: 0 rem($gap-average);
             }
+        }
+    }
+
+    &__calculation & {
+        &__main {
+            margin-bottom: 0;
+
+            letter-spacing: 0.02em;
+
+            text-decoration-line: line-through;
+
+            color: $saltBox;
         }
     }
 }

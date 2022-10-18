@@ -8,6 +8,7 @@ import './svg/check.svg';
 import './svg/eye.svg';
 import './svg/eye-off.svg';
 import './svg/basket.svg';
+import './svg/trash.svg';
 import './svg/rotate.svg';
 import './svg/plus.svg';
 import './svg/minus.svg';
@@ -45,13 +46,25 @@ import './svg/receipts.svg';
 import './svg/profile.svg';
 import './svg/chart-square.svg';
 import './svg/calculator.svg';
+import './svg/protection.svg';
+import './svg/diploma.svg';
+import './svg/diagnosis.svg';
+import './svg/chemistry.svg';
 
-import './svg/cat.svg';
+import './svg/pdf.svg';
+import './svg/attention.svg';
+
 import './svg/dog.svg';
 import './svg/pet.svg';
 import './svg/man.svg';
 import './svg/woman.svg';
+import './svg/cat.svg';
+import './svg/cat-sad.svg';
 import './svg/cat-cheerful.svg';
 import './svg/cat-serious.svg';
+import './svg/cat-smile.svg';
+import './svg/cat-happy.svg';
+import './svg/cat-winks.svg';
+import './svg/cat-glasses.svg';
 
 
