@@ -18,7 +18,7 @@ $isCurrentStepPassed = false;
     <div class="registration">
         <section class="section">
             <ul class="steps-counter">
-                <?php foreach ($arResult['steps'] as $step):?>
+                <?php foreach ($arResult['steps'] as $index => $step):?>
                     <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
                     <li
                             class="
@@ -31,6 +31,7 @@ $isCurrentStepPassed = false;
                         <div
                                 class="
                                     steps-counter__circle
+                                    steps-counter__circle--<?=++$index?>
                                     <?=$step['code'] === $arResult['currentStep'] ? 'steps-counter__circle--current' : ''?>
                                     <?=!$isCurrentStepPassed ? 'steps-counter__circle--passed' : ''?>
                                 "
@@ -44,12 +45,12 @@ $isCurrentStepPassed = false;
         </section>
 
         <?php foreach (scandir(__DIR__ . '/steps') as $stepTemplate): ?>
-            <div
-                    class="step-container <?=str_replace('.php', '', $stepTemplate)?>"
+            <section
+                    class="section section--limited-big step-container <?=str_replace('.php', '', $stepTemplate)?>"
                 <?=$stepTemplate !== "$arResult[currentStep].php" ? 'style="display: none"' : ''?>
             >
                 <?php include "steps/$stepTemplate"; ?>
-            </div>
+            </section>
         <?php endforeach; ?>
     </div>
 </div>
