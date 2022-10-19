@@ -9,7 +9,7 @@ use \CTicketDictionary;
 use \CUserFieldEnum;
 use DateTime;
 use CTicket;
-use \CUser;
+use QSoft\Entity\User;
 
 /**
  * Класс обработки событий техподдержки.
@@ -43,7 +43,9 @@ class SupportEventListner
         switch ($category['SID']) {
             case self::CHANGE_OF_PERSONAL_DATA:
                 // Событие для смены персональных данных.
-                $this->changeUserFields($ticketValues);
+                if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])) {
+                    $this->changeUserFields($ticketValues);
+                }
                 break;
             case self::REGISTRATION:
                 // Событие для регистрации консультанта.
@@ -196,14 +198,13 @@ class SupportEventListner
      */
     private function changeUserFields(array $ticketValues): void
     {
-        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
-            $fields = json_decode($ticketValues['UF_DATA'], true);
+        $fields = json_decode($ticketValues['UF_DATA'], true);
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $user->Update($fields['USER_INFO']);
+        $user->legalEntity->Update();
+        $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']);
 
-            (new CUser())->Update($ticketValues['OWNER_USER_ID'], $fields['USER_INFO']);
-            $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']);
-
-            LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
-        }
+        LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
     }
 
     /**
@@ -212,7 +213,7 @@ class SupportEventListner
      * 
      * @return bool
      */
-    private function isRequestAcepted(int $requestStatus): bool
+    private function isRequestAccepted(int $requestStatus): bool
     {
         $userFieldValue = (new CUserFieldEnum())
             ->GetList([], ['ID' => $requestStatus])
@@ -228,7 +229,7 @@ class SupportEventListner
      */
     private function registrateConsultant(array $ticketValues): void
     {
-        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAcepted($ticketValues['UF_ACCEPT_REQUEST'])) {
+        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])) {
             $fields = json_decode($ticketValues['UF_DATA'], true);
 
             LegalEntityTable::add(
