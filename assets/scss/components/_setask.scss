@@ -2,28 +2,31 @@
     display: flex;
     flex-direction: column;
 
-    width: 100%;
     height: max-content;
-    padding: rem(16px);
+
+    padding: rem($gap-medium);
     
-    background: $white;
+    background-color: $white;
 
-    border: rem(1px) solid $alto;
-    border-radius: rem(16px);
-
+    @media #{$screen-tablet} {
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-average);
+    }
+    
     &__image {
         display: none;
         
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
 
             height: rem(172px);
-            margin-bottom: rem(24px);
+            margin-bottom: rem($gap-normal);
 
             background-color: $athensGray;
-            border-radius: rem(16px);
+            border-radius: rem($border-radius-average);
         }
 
         &-picture {
@@ -35,24 +38,26 @@
     &__button {
         width: 100%;
 
-        margin-top: rem(24px);
+        margin-top: rem($gap-normal);
 
         @media #{$screen-desktop} {
-            margin-top: rem(32px);
+            margin-top: rem($gap-big);
         }
     }
 
     &__text {
         font-weight: $font-weight-semibold;
-        text-align: center;
+    
+        margin-bottom: rem($gap-mini);
 
-        margin-bottom: rem(4px);
+        text-align: center;
     }
 
     &__subtext {
         font-weight: $font-weight-medium;
         font-size: rem($font-size-small);
         line-height: 22px;
+
         text-align: center;
 
         color: $saltBox; 

@@ -4,7 +4,7 @@
         display: flex;
         flex-direction: column;
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             flex-direction: row;
         }
     }
@@ -12,7 +12,7 @@
     &__questions {
         max-width: 100%;
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             max-width: rem(770px);
         }
     }
@@ -21,12 +21,16 @@
         width: 100%;
         margin-top: rem(28px);
 
-        @media #{$screen-desktop} {
+        @media #{$screen-tablet} {
             flex-direction: row;
 
-            max-width: rem(370px);
+            max-width: rem(300px);
             margin-top: rem(56px);
             margin-left: rem(30px);
+        }
+
+        @media #{$screen-desktop} {
+            max-width: rem(370px);
         }
     }
 }
