@@ -1,5 +1,7 @@
 <?php
 
+CModule::IncludeModule('sale');
+
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Sale\Order;

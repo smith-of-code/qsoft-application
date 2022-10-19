@@ -10,13 +10,33 @@ use RuntimeException;
 
 class OrderService
 {
+    const STATUSES = [
+        'OD' => [
+            'NAME' => 'Доставлен',
+            'COLOR' => '#2D8859',
+        ],
+        'OP' => [
+            'NAME' => 'Размещен',
+            'COLOR' => '#3887B5',
+        ],
+        'OC' => [
+            'NAME' => 'Отменен',
+            'COLOR' => '#D82F49',
+        ],
+    ];
     private int $orderId;
     private ?Order $order;
 
+    public function getInstance(int $orderId): OrderService
+    {
+        return new OrderService($orderId);
+    }
+
     public function __construct(int $orderId)
     {
-        $this->orderId = $orderId;
         $this->includeModules();
+        $this->orderId = $orderId;
+        $this->order = Order::load($this->orderId);
     }
 
     private function includeModules(): void
@@ -25,15 +45,29 @@ class OrderService
         Loader::includeModule('catalog');
     }
 
-    public function getOrder(): Order
+    public function getOrderDetails(): Order
+    {
+        $this->isOrderExist();
+        return $this->getDetails();
+    }
+
+    private function getDetails()
+    {
+        $order = $this->order;
+        $result = [
+            'ID' => $order->getId(),
+            'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
+            'CREATED_BY' => UserTable::getById($order->getUserId())->fetch(),
+            //'STATUS_NAME' =>
+            //'STATUS_PAID' =>
+            //'TOTAL_PRICE' =>
+        ];
+    }
+    private function isOrderExist()
     {
         if (!$this->order) {
-            $this->order = Order::load($this->orderId);
-            if (!$this->order) {
-                throw new RuntimeException('Order not found');
-            }
+            throw new RuntimeException('Order not found');
         }
-        return $this->order;
     }
 
     public function getOrderProducts(): BasketBase
