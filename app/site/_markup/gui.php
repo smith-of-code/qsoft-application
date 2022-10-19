@@ -7240,21 +7240,34 @@
                         <h2 class="gui__title">Попап cookie</h2>
 
                         <div class="gui__block">
-                            <div class="cookie" style="position: relative;" data-cookie>
-                                <div class="cookie__image">
-                                    <img class="cookie__image-picture" src="/local/templates/.default/images/cookies.png" alt="cookie">
+                            <div class="cookie" data-cookie>
+                                <div class="container">
+                                    <div class="cookie__row">
+                                        <div class="cookie__col">
+                                            <div class="cookie__image">
+                                                <img class="cookie__image-picture" src="/local/templates/.default/images/cookies.png" alt="cookie">
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__text">
+                                                Мы используем файлы cookie для Вашего удобства пользования сайтом. Продолжая использовать наш сайт, Вы даете согласие на обработку файлов cookie
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__actions">
+                                                <a href="#" class="cookie__actions-button cookie__actions-accept button button--rounded button--outlined button--red" data-cookie-more>
+                                                    Узнать больше
+                                                </a>
+                                                <button type="button" class="cookie__actions-button cookie__actions-more button button--rounded button--covered button--red" data-cookie-accept>
+                                                    Принять
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="cookie__text">
-                                    Мы используем файлы cookie для Вашего удобства пользования сайтом. Продолжая использовать наш сайт, Вы даете согласие на обработку файлов cookie
-                                </div>
-                                <div class="cookie__actions">
-                                    <a href="#" class="cookie__actions-button cookie__actions-accept button button--rounded button--outlined button--red" data-cookie-more>
-                                        Узнать больше
-                                    </a>
-                                    <button type="button" class="cookie__actions-button cookie__actions-more button button--rounded button--covered button--red" data-cookie-accept>
-                                        Принять
-                                    </button>
-                                </div>
+
+
+                                
                             </div>
                         </div>
                     </div>
