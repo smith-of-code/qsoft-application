@@ -67,8 +67,8 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__delete">
                                     <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                         <span class="button__icon">
-                                            <svg class="icon icon--basket">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                            <svg class="icon icon--trash">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                             </svg>
                                         </span>
                                     </button>
@@ -279,8 +279,8 @@ if (!$arResult['pets']) {
                             <div class="pet-card__delete">
                                 <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                     <span class="button__icon">
-                                        <svg class="icon icon--basket">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                        <svg class="icon icon--trash">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                         </svg>
                                     </span>
                                 </button>
