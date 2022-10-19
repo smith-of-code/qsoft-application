@@ -1,2 +1,2 @@
 <?php
-$MESS['SUPPORT_NOT_INCLUDED'] = 'Модуль Золо не подключен';
+$MESS['SUPPORT_NOT_INCLUDED'] = 'Модуль zolo не подключен';
