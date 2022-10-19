@@ -55,4 +55,30 @@
             margin-bottom: 0;
         }
     }
+
+    &__info {
+        margin-top: rem($gap-small);
+    }
+
+    &__level {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-small / $font-size-small);
+
+        display: block;
+
+        margin-bottom: rem($gap-mini);
+
+        letter-spacing: 0.02em;
+    }
+
+    &__id {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px / $font-size-small);
+
+        display: block;
+
+        letter-spacing: 0.02em;
+    }
 }
