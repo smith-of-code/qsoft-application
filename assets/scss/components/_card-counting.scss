@@ -1,0 +1,51 @@
+.card-counting {
+    width: 100%;
+    height: 100%;
+    padding: rem($gap-normal);
+
+    border-radius: rem($border-radius-average);
+    background-color: $white;
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-normal) rem($gap-medium);
+    }
+
+    &--extra & {
+        &__name {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-semibold;
+            line-height: ($line-height-small / $font-size-small);
+        }
+    }
+
+    &__value {
+        font-size: rem($font-size-medium);
+        font-weight: $font-weight-bold;
+        line-height: ($line-height-medium / $font-size-medium);
+
+        margin-bottom: rem($gap-medium);
+
+        text-align: center;
+
+        color: $tuna;
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-average);
+            font-weight: $font-weight-semibold;
+            line-height: ($line-height-average / $font-size-average);
+        }
+    }
+
+    &__range {
+        margin-bottom: rem(20px);
+    }
+
+    &__name {
+        @include text-miniature($font-weight-medium);
+
+        text-align: center;
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+}

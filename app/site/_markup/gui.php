@@ -7236,6 +7236,185 @@
                         </div>
                     </div>
                     <!-- /Карточки-акций -->
+
+                    <!-- Карточки подсчета -->
+                    <div class="gui__block" style="padding: 16px; background: #f4f3f6;">
+                        <h2 class="gui__title">Карточки подсчета</h2>
+
+                        <h3 style="margin-top: 40px;">3 шт.</h3>
+                        
+                        <div class="gui__block">
+
+                            <div class="cards-counting">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <p class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <span class="card-counting__value-count"></span>
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </p>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <p class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <span class="card-counting__value-count"></span>
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </p>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1"
+                                                        data-current="5"
+                                                        data-max="10"
+                                                        data-step="1"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <p class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <span class="card-counting__value-count"></span>
+                                                    <span class="card-counting__value-suffix">
+                                                        ББ
+                                                    </span>
+                                                </p>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="0"
+                                                        data-current="100"
+                                                        data-max="1000"
+                                                        data-step="10"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Средняя сумма баллов 1 покупателя
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <h3 style="margin-top: 40px;">2 шт.</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-counting cards-counting--double">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <p class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <span class="card-counting__value-count"></span>
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </p>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <p class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <span class="card-counting__value-count"></span>
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </p>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1"
+                                                        data-current="5"
+                                                        data-max="10"
+                                                        data-step="1"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки подсчета -->
                 </main>
             </div>
         </div>
