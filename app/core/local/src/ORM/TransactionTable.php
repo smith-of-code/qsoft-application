@@ -18,6 +18,7 @@ final class TransactionTable extends BaseTable
         'purchase' => 'TRANSACTION_TYPE_PURCHASE',
         'invite' => 'TRANSACTION_TYPE_INVITE',
         'referral' => 'TRANSACTION_TYPE_REFERRAL',
+        'upgrade' => 'TRANSACTION_TYPE_UPGRADE',
     ];
 
     const SOURCES = [

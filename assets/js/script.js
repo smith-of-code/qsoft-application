@@ -39,6 +39,7 @@
  import addFavourite from './modules/add-favourite';
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
+ import bitrixPanelHide from './modules/bitrix-panel-hide'; 
 
 
  const app = {
@@ -75,7 +76,7 @@
     },
 
     load() {
-
+        bitrixPanelHide();
     },
 
     resize() {

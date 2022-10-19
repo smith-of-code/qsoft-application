@@ -11,10 +11,22 @@ use RuntimeException;
 
 class EnumField extends BaseEnumField
 {
+    protected array $valuesExt;
+
     public function __construct(string $fieldName, array $parameters, string $tableName)
     {
-        $parameters['values'] = self::getEnumValues($tableName, $fieldName);
+        $values = self::getEnumValues($tableName, $fieldName);
+
+        $this->valuesExt = $values;
+
+        $parameters['values'] = array_column($values, 'ID');
+
         parent::__construct($fieldName, $parameters);
+    }
+
+    public function getValuesExt(): array
+    {
+        return $this->valuesExt;
     }
 
     private static function getEnumValues(string $tableName, string $fieldName): array
@@ -37,7 +49,6 @@ class EnumField extends BaseEnumField
             throw new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
         }
 
-        $enums = CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
-        return array_column($enums, 'ID');
+        return CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
     }
 }

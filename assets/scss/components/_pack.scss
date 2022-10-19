@@ -1,4 +1,20 @@
 .pack {
+    &--bordered & {
+        &__item {
+            border: rem(1px) solid $alto;
+
+            &--disabled {
+                border-color: #f1f1f1;
+            }
+        }
+
+        &__input:checked + label & {
+            &__item {
+                border-color: $tuna;
+            }
+        }
+    }
+
     &__item {
         font-size: rem($font-size-mini);
         font-weight: $font-weight-semibold;
@@ -11,12 +27,21 @@
         color: $saltBox;
         border-radius: rem($border-radius-small);
         background-color: $white;
+
+        &--disabled {
+            color: $saltBox;
+            background-color: #f1f1f1;
+        }
     }
 
     &__input:checked + label & {
         &__item {
             color: $white;
             background-color: $tuna;
+
+            &--bordered {
+                border-color: $tuna;
+            }
         }
     }
 }

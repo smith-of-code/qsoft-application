@@ -1,6 +1,6 @@
 <?php
 
-namespace QSoft\Service;
+namespace QSoft\Helper;
 
 use Bitrix\Main\GroupTable;
 
@@ -18,9 +18,10 @@ class UserGroupHelper
         $allGroups = [];
         $groupsRes = GroupTable::getList([
             'select' => ['ID','STRING_ID'],
+            'cache' => ['ttl' => 31536000], // Кешируем на 1 год
         ]);
         while ($group = $groupsRes->fetch()) {
-            $allGroups[$group['GROUP_CODE']] = $group['GROUP_ID'];
+            $allGroups[$group['STRING_ID']] = $group['ID'];
         }
         return $allGroups;
     }

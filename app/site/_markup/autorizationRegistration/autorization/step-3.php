@@ -35,7 +35,7 @@
                                 Заявка успешно отправлена!
                             </h4>
 
-                            <p class="notification__text">
+                            <p class="notification__text notification__text--small">
                                 Ваша заявка на восстановление пароля отправлена. Проверьте вашу электронную почту.
                             </p>
                         </div>
