@@ -3,8 +3,17 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init(["fx"]);
 
+\Bitrix\Main\UI\Extension::load('zolo.application');
+
 global $APPLICATION;
 ?>
+
+<script>
+    window.onload = () => {
+        const application = new Zolo.Application();
+        application.run();
+    }
+</script>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -15,7 +24,7 @@ global $APPLICATION;
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css" />
-    <?$APPLICATION->ShowHead()?>
+    <?php $APPLICATION->ShowHead()?>
 </head>
 
 <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
