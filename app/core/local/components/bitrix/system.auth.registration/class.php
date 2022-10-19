@@ -10,14 +10,17 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\PetHelper;
+use QSoft\ORM\CatBreedTable;
 use QSoft\ORM\ConfirmationTable;
+use QSoft\ORM\DogBreedTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
 use QSoft\Service\UserGroupsService;
-use QSoft\Service\UserService;
 
 Loc::loadMessages(__FILE__);
 
@@ -64,11 +67,13 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'type' => $registrationType['name'],
                 'pet_kinds' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_KIND'),
                 'pet_genders' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_GENDER'),
+                'breeds' => (new PetHelper)->getBreeds(),
                 'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
                 'currentStep' => $registrationType['steps'][0]['code'],
             ];
         }
+        $this->arResult['breeds'] = (new PetHelper)->getBreeds();
 
         $this->IncludeComponentTemplate();
     }
@@ -136,7 +141,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         );
 
         if ($confirmResult) {
-            (new UserService)->activate($this->arParams['USER_ID']);
+            (new User($this->arParams['USER_ID']))->activate();
         }
 
         LocalRedirect('/');
@@ -184,14 +189,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
-                throw new InvalidArgumentException('User with this email already exist');
+                return ['status' => 'error', 'message' => 'User with this email already exist'];
             } else if ($field === 'mentor_id' && $value) {
                 try {
-                    if (!(new UserGroupsService)->isConsultant($value)) {
+                    if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
-                } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
-                    throw new InvalidArgumentException('Mentor not found');
+                } catch (\Exception $e) {
+                    return ['status' => 'error', 'message' => 'Mentor not found'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
@@ -269,7 +274,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'select' => ['ID'],
         ])['ID'];
 
-        // TODO PHOTO, legal entity
+        // TODO PHOTO
         $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],

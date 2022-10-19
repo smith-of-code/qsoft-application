@@ -203,7 +203,6 @@
 </footer>
 <!--/Футер-->
 
-<script src="/local/templates/.default/js/script.js"></script>
 </body>
 
 </html>
