@@ -7240,7 +7240,7 @@
                         <h2 class="gui__title">Попап cookie</h2>
 
                         <div class="gui__block">
-                            <div class="cookie" data-cookie>
+                            <div class="cookie" style="position: relative;" data-cookie>
                                 <div class="container">
                                     <div class="cookie__row">
                                         <div class="cookie__col">
