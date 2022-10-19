@@ -37,6 +37,7 @@ class BonusAccountHelper
         }
 
         // Начисление баллов доступно только для Консультанта
+        // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             throw new RuntimeException('Пользователь не является Консультантом');
         }
@@ -56,8 +57,7 @@ class BonusAccountHelper
 
             // Обновляем количество баллов пользователя
             return $user->update([
-                'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
-                'UF_LOYALTY_CHECK_DATE' => new DateTime,
+                'UF_BONUS_POINTS' => $user->bonusPoints + $amount
             ]);
         }
         return false;
@@ -76,6 +76,7 @@ class BonusAccountHelper
         }
 
         // Начисление баллов доступно только для Консультанта
+        // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             throw new RuntimeException('Пользователь не является Консультантом');
         }
@@ -95,8 +96,7 @@ class BonusAccountHelper
 
             // Обновляем количество баллов пользователя
             return $user->update([
-                'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
-                'UF_LOYALTY_CHECK_DATE' => new DateTime,
+                'UF_BONUS_POINTS' => $user->bonusPoints + $amount
             ]);
         }
         return false;
@@ -105,7 +105,7 @@ class BonusAccountHelper
     /**
      * Получение транзакций с баллами за текущий квартал
      */
-    public function getBonusesForCurrentQuarter(User $user)
+    public function getBonusesTransactionsForCurrentQuarter(User $user)
     {
         $filter = [
             '=UF_USER_ID' => $user->id,
@@ -128,7 +128,7 @@ class BonusAccountHelper
      */
     public function getTotalBonusesForCurrentQuarter(User $user) : int
     {
-        $transactions = $this->getBonusesForCurrentQuarter($user);
+        $transactions = $this->getBonusesTransactionsForCurrentQuarter($user);
 
         // Суммируем стоимость транзакций в баллах
         $total = 0;

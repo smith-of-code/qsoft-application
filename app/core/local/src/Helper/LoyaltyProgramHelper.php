@@ -102,7 +102,9 @@ class LoyaltyProgramHelper
     public function getLevelsIDs() : array
     {
         if (empty($this->levelsIDs)) {
-            $this->levelsIDs = UserFieldHelper::getUserFieldEnumValuesIds('USER', 'UF_LOYALTY_LEVEL');
+            $consultantLevelsIDs = UserFieldHelper::getUserFieldEnumValuesIds('USER', 'UF_LOYALTY_LEVEL');
+            $buyerLevelsIDs = UserFieldHelper::getUserFieldEnumValuesIds('USER', 'UF_PERSONAL_DISCOUNT_LEVEL');
+            $this->levelsIDs = array_merge($consultantLevelsIDs, $buyerLevelsIDs);
         }
         return $this->levelsIDs;
     }
@@ -133,15 +135,12 @@ class LoyaltyProgramHelper
                     // Начисляем баллы за повышение уровня
                     $user->loyaltyLevel = $availableLevel;
                     (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                    return true;
                 }
-                return true;
             } elseif ($user->groups->isBuyer()) {
                 if ($user->update(['UF_PERSONAL_DISCOUNT_LEVEL' => $levelsIDs[$availableLevel]])) {
-                    // Начисляем баллы за повышение уровня
-                    $user->loyaltyLevel = $availableLevel;
-                    (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                    return true;
                 }
-                return true;
             }
         }
         return false;
@@ -251,27 +250,48 @@ class LoyaltyProgramHelper
     }
 
     /**
-     * Получить количество баллов для начисления за приглашение Консультанта
-     * @param string $level
-     * @return int|null
+     * Получить количество баллов для начисления за переход на данный уровень
+     * @param string $level Уровень в системе лояльности
+     * @return int|null Количество баллов
      */
     public function getUpgradeLevelBonus(string $level) : ?int
     {
         $levels = $this->getLoyaltyLevels();
-        return (int) $levels[$level]['benefits']['referral_size'] ?? null;
+        return (int) $levels[$level]['benefits']['upgrade_level_bonuses'] ?? null;
+    }
+
+    /**
+     * Получить величину персональной скидки Консультанта или Конечного покупателя
+     * @param string $level Уровень в системе лояльности
+     * @return int Величина скидки в процентах
+     */
+    public function getPersonalDiscount(string $level) : int
+    {
+        if ($this->isLoyaltyLevel($level)) {
+            $levels = $this->getLoyaltyLevels();
+            return (int) $levels[$level]['benefits']['personal_discount'] ?? 0;
+        }
+        return 0;
     }
 
     /**
      * Возвращает уровень, следующий за текущим (на который можно подняться)
-     * @param string $level
-     * @return string|null
+     * @param string $level Уровень в системе лояльности
+     * @return string|null Уровень в системе лояльности
      */
     public function getNextLevel(string $level) : ?string
     {
+        // Проверка для уровней программы лояльности для Консультанта
         if ($level === self::LOYALTY_LEVEL_K1) {
             return self::LOYALTY_LEVEL_K2;
         } elseif ($level === self::LOYALTY_LEVEL_K2) {
             return self::LOYALTY_LEVEL_K3;
+        }
+        // Проверка для уровней программы лояльности для Конечного пользователя
+        if ($level === self::LOYALTY_LEVEL_B1) {
+            return self::LOYALTY_LEVEL_B2;
+        } elseif ($level === self::LOYALTY_LEVEL_B2) {
+            return self::LOYALTY_LEVEL_B3;
         }
         return null;
     }
