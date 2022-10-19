@@ -18,7 +18,7 @@ $isCurrentStepPassed = false;
     <div class="registration">
         <section class="section">
             <ul class="steps-counter">
-                <?php foreach ($arResult['steps'] as $index => $step):?>
+                <?php foreach ($arResult['steps'] as $step):?>
                     <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
                     <li
                             class="
@@ -31,7 +31,7 @@ $isCurrentStepPassed = false;
                         <div
                                 class="
                                     steps-counter__circle
-                                    steps-counter__circle--<?=++$index?>
+                                    steps-counter__circle--<?=$step['index']?>
                                     <?=$step['code'] === $arResult['currentStep'] ? 'steps-counter__circle--current' : ''?>
                                     <?=!$isCurrentStepPassed ? 'steps-counter__circle--passed' : ''?>
                                 "

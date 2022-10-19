@@ -13,9 +13,7 @@ use Bitrix\Main\UserTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
-use QSoft\ORM\CatBreedTable;
 use QSoft\ORM\ConfirmationTable;
-use QSoft\ORM\DogBreedTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -71,9 +69,12 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
                 'currentStep' => $registrationType['steps'][0]['code'],
+                'default_pet' => [
+                    'type' => 'dog',
+                    'gender' => 'man',
+                ],
             ];
         }
-        $this->arResult['breeds'] = (new PetHelper)->getBreeds();
 
         $this->IncludeComponentTemplate();
     }
@@ -85,48 +86,63 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'name' => 'buyer',
                 'steps' => [
                     [
+                        'index' => 1,
                         'code' => 'personal_data',
                         'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
                     ],
                     [
+                        'index' => 3,
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
                     [
+                        'index' => 2,
                         'code' => 'choose_mentor',
                         'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
                     ],
                     [
+                        'index' => 5,
                         'code' => 'set_password',
                         'name' => Loc::getMessage('SET_PASSWORD_STEP'),
                     ],
-                    ['code' => 'final'],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
                 ],
             ],
             'consultant' => [
                 'name' => 'consultant',
                 'steps' => [
                     [
+                        'index' => 1,
                         'code' => 'personal_data',
                         'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
                     ],
                     [
+                        'index' => 2,
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
                     [
+                        'index' => 3,
                         'code' => 'choose_mentor',
                         'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
                     ],
                     [
+                        'index' => 4,
                         'code' => 'legal_entity_data',
                         'name' => Loc::getMessage('LEGAL_ENTITY_DATA_STEP'),
                     ],
                     [
+                        'index' => 5,
                         'code' => 'set_password',
                         'name' => Loc::getMessage('SET_PASSWORD_STEP'),
                     ],
-                    ['code' => 'final'],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
                 ],
             ],
         ];

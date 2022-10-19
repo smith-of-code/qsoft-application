@@ -24,8 +24,8 @@ if (!$arResult['pets']) {
                     <div class="pet-card__main box box--circle" data-pets-main>
                         <div class="pet-card__content">
                             <div class="pet-card__avatar" data-pets-type>
-                                <svg class="icon icon--<?=$pet['~type']?>">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$pet['~type']?>"></use>
+                                <svg class="icon icon--<?=$pet['~type'] ?? $arResult['default_pet']['type']?>">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$pet['~type'] ?? $arResult['default_pet']['type']?>"></use>
                                 </svg>
                             </div>
 
@@ -40,8 +40,8 @@ if (!$arResult['pets']) {
 
                                 <div class="pet-card__info-record">
                                     <div class="pet-card__gender" data-pets-gender>
-                                        <svg class="icon icon--<?=$pet['~gender']?>">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$pet['~gender']?>"></use>
+                                        <svg class="icon icon--<?=$pet['~gender'] ?? $arResult['default_pet']['gender']?>">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$pet['~gender'] ?? $arResult['default_pet']['gender']?>"></use>
                                         </svg>
                                     </div>
 
@@ -93,8 +93,10 @@ if (!$arResult['pets']) {
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <?php foreach ($arResult['pet_kinds'] as $petsKind):?>
                                                             <option
-                                                                    value="<?=$petsKind['XML_ID']?>"
-                                                                    data-option-icon="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
+                                                                value="<?=$petsKind['XML_ID']?>"
+                                                                data-pets-species="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
+                                                                data-option-before='<svg class="select__item-icon icon icon--<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"></use></svg>'
+                                                                data-pets-card
                                                                 <?=$pet['type'] === $petsKind['XML_ID'] ? 'selected' : ''?>
                                                             >
                                                                 <?=mb_ucfirst($petsKind['VALUE'])?>
@@ -120,7 +122,7 @@ if (!$arResult['pets']) {
                                                 <div class="select select--mitigate" data-select>
                                                     <select class="select__control" name="pets-<?=$index?>-gender" id="pets-<?=$index?>-gender" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
                                                         <option><!-- пустой option для placeholder --></option>
-                                                        <?php foreach ($arResult['pet_genders'] as $petsGender):?>
+                                                        <?php foreach ($arResult['pet_genders'] as $index => $petsGender):?>
                                                             <option
                                                                     value="<?=$petsGender['XML_ID']?>"
                                                                 <?=$pet['gender'] === $petsGender['XML_ID'] ? 'selected' : ''?>

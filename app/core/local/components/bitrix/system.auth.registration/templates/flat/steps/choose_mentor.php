@@ -32,7 +32,7 @@
                                         </svg>
                                     </span>
 
-                                <span class="checkbox__text">Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'контактное лицо' : 'наставника'?></span>
+                                <span class="checkbox__text">Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'Контактное лицо' : 'наставника'?></span>
                             </label>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                         class="input__control"
                                         name="mentor_id"
                                         id="mentor_id"
-                                        placeholder="Введите ID наставника"
+                                        placeholder="Введите ID <?=$arResult['type'] === 'buyer' ? 'контактного лица' : 'наставника'?>"
                                         value="<?=$arResult['mentor_id']?>"
                                 >
                             </div>

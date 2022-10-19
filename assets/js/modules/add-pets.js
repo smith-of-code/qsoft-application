@@ -71,7 +71,7 @@ export default function () {
 
         //пол
         let genderInput = element.find(`${ELEMENTS_SELECTOR.genderInput} option:selected`).text();
-        let gender = (genderInput == 'Девочка') ? 'woman' : 'man';
+        let gender = genderInput.indexOf('Девочка') !== -1 ? 'woman' : 'man';
         element.find(ELEMENTS_SELECTOR.gender).html(`<svg class="icon icon--${gender}">
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${gender}"></use>
         </svg>`);
