@@ -12,7 +12,7 @@
     <h4 class="section__title">Установка пароля</h4>
 
     <div class="registration__form form form--separated form--wraped">
-        <div class="registration__requirement requirement box box--gray box--circle">
+        <div class="registration__requirement requirement requirement--inlined box box--gray box--circle">
             <div class="requirement__col">
                 <p class="requirement__text">
                     Требования к паролю:
