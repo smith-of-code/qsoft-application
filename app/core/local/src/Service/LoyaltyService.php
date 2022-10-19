@@ -50,23 +50,18 @@ class LoyaltyService
 
                 // Получим необходимые данные по затратам для удержания текущего уровня
                 $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$this->user->loyaltyLevel]['hold_level_terms']['self_total'];
-                $result['CURRENT_LEVEL_DETAILS']['TEAM_PURCHASES_LIMIT'] = $levels[$this->user->loyaltyLevel]['hold_level_terms']['team_total'];
-                $selfPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levels[$this->user->loyaltyLevel]['hold_level_terms']['self_period_months'], 3) - 1) * (-1));
-                $teamPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levels[$this->user->loyaltyLevel]['hold_level_terms']['team_period_months'], 3) - 1) * (-1));
-                $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodEnd);
-                $result['CURRENT_LEVEL_DETAILS']['TEAM_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodEnd);
-                $result['CURRENT_LEVEL_DETAILS']['BENEFITS'] = $levels[$this->user->loyaltyLevel]['benefits'];
+                $selfPeriodStart = DateTimeService::getStartOfQuarter((intdiv($levels[$this->user->loyaltyLevel]['hold_level_terms']['self_period_months'], 3) - 1) * (-1));
+                $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
+                $left = $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] - $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES'];
+                $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
 
                 // Получим необходимые данные по затратам для повышения на следующий уровень
                 if (isset($nextLevel)) {
-                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$this->user->loyaltyLevel]['upgrade_level_terms']['self_total'];
-                    $result['UPGRADE_LEVEL_DETAILS']['TEAM_PURCHASES_LIMIT'] = $levels[$this->user->loyaltyLevel]['upgrade_level_terms']['team_total'];
-
-                    $selfPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levels[$this->user->loyaltyLevel]['upgrade_level_terms']['self_period_months'], 3) - 1) * (-1));
-                    $teamPeriodEnd = DateTimeService::getStartOfQuarter((intdiv($levels[$this->user->loyaltyLevel]['upgrade_level_terms']['team_period_months'], 3) - 1) * (-1));
-                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodEnd);
-                    $result['UPGRADE_LEVEL_DETAILS']['TEAM_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodEnd);
-                    $result['UPGRADE_LEVEL_DETAILS']['BENEFITS'] = $levels[$nextLevel]['benefits'];
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$nextLevel]['upgrade_level_terms']['self_total'];
+                    $selfPeriodStart = DateTimeService::getStartOfQuarter((intdiv($levels[$nextLevel]['upgrade_level_terms']['self_period_months'], 3) - 1) * (-1));
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
+                    $left = $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] - $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'];
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
                 }
 
             } elseif ($this->user->groups->isBuyer()) {

@@ -275,24 +275,34 @@ $APPLICATION->IncludeComponent(
             Фото: <img src="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO_URL']?>"><br>
         </div>
     </div>
-    <div style="background: grey; margin: 5px;">Система лояльности</div>
-        <div class="profile_block_title">
+<?php /* БЛОК СИСТЕМА ЛОЯЛЬНОСТИ */ ?>
+    <div class="loyalty_container">
+        <div style="background: grey; margin: 5px; width: 100%;">
             <span class="block_title"><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_TITLE')?></span>
+            <span style="font-weight: bold;">
+                <?=Loc::getMessage(
+                    'PROFILE_PAGE_LOYALTY_SYSTEM_CURRENT_QUARTER',
+                    [
+                        '#QUARTER#' => \QSoft\Service\DateTimeService::getQuarterFormatted(),
+                        '#YEAR#' => \Carbon\Carbon::now()->year
+                    ]
+                )?>
+            </span>
         </div>
         <?php if (! empty($arResult['LOYALTY_INFO'])) :?>
             <?php if ($arResult['USER_GROUP'] == 'Консультант') :?>
 
-            <?/* БЛОК "ДОСТИЖЕНИЯ" */?>
+            <?php /* БЛОК "ДОСТИЖЕНИЯ" */?>
             <div style="display: flex; flex-direction: row;">
-                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #daf5e8">
+                <div style="display: flex; flex-direction: column; height: 100px; background-color: #daf5e8">
                     <div><?=$arResult['LOYALTY_INFO']['CURRENT_LEVEL']?></div>
                     <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_LEVEL')?></div>
                 </div>
-                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #fdd1d8">
+                <div style="display: flex; flex-direction: column; height: 100px; background-color: #fdd1d8">
                     <div><?=$arResult['LOYALTY_INFO']['PERSONAL_DISCOUNT'] . '%'?></div>
                     <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_DISCOUNT')?></div>
                 </div>
-                <div class="block current_level" style="display: flex; flex-direction: column; height: 100px; background-color: #dccee2">
+                <div style="display: flex; flex-direction: column; height: 100px; background-color: #dccee2">
                     <div><?=$arResult['LOYALTY_INFO']['CURRENT_AMOUNT_OF_BONUSES']?></div>
                     <div>
                         <?=Loc::getMessage(
@@ -305,6 +315,80 @@ $APPLICATION->IncludeComponent(
                     </div>
                 </div>
             </div>
+            <br>
+            <?php /* БЛОК "ПЛАНОВЫЕ ПОКАЗАТЕЛИ" */?>
+            <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; flex-direction: column; height: 150px; background-color: #daf5e8">
+                    <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_RETENTION_PERSONAL_PURCHASES')?></div>
+                    <div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT',
+                                [
+                                        '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES'],
+                                ]
+                            )?>
+                        </div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT_PLAN',
+                                [
+                                    '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'],
+                                ]
+                            )?>
+                        </div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_LEFT',
+                                [
+                                    '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'],
+                                ]
+                            )?>
+                        </div>
+                    </div>
+                    <div>
+                        <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_RETENTION_TERMS')?>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <?php if (isset($arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS'])): ?>
+                    <div style="display: flex; flex-direction: column; height: 150px; background-color: #fdd1d8">
+                    <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_ELEVATION_PERSONAL_PURCHASES')?></div>
+                    <div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT',
+                                [
+                                    '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'],
+                                ]
+                            )?>
+                        </div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT_PLAN',
+                                [
+                                    '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'],
+                                ]
+                            )?>
+                        </div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_LEFT',
+                                [
+                                    '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'],
+                                ]
+                            )?>
+                        </div>
+                    </div>
+                    <div>
+                        <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_ELEVATION_TERMS')?>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
             <?php elseif ($arResult['USER_GROUP'] == 'Покупатель') :?>
 
             <?php endif;?>
@@ -315,6 +399,7 @@ $APPLICATION->IncludeComponent(
                 </span>
             </div>
         <?php endif;?>
+    </div>
     <div style="background: grey; margin: 5px;">Персональные акции</div>
 
 
