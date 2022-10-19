@@ -2,7 +2,7 @@
 // Инициализация административного блока, стилей и интерфейса
 
 use Bitrix\Main\Loader;
-use Bitrix\additionalsupport\FormHandler;
+use Bitrix\zolo\FormHandler;
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_before.php");
 IncludeModuleLangFile(__FILE__);
@@ -21,7 +21,7 @@ $APPLICATION->SetTitle(GetMessage("admin_index_title"));
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
 $fields = [];
-if (loader::includeModule('additionalsupport') && $_REQUEST['ID'] > 0) {
+if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 	$formHandler = (new FormHandler());
 	$fields = $formHandler->GetFormData($_REQUEST['ID']);
 }

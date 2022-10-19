@@ -280,11 +280,11 @@ class SupportEventListner
             "NOTIFY_AGENT_DONE" => "N",
             "EXPIRE_AGENT_DONE" => "N",
             "MESSAGE" => "
-                ссылка на детальную страницу с сериализованными данными:
-                " . $protocol 
-                    . $_SERVER['HTTP_HOST']
-                    . '/bitrix/admin/request_form.php?ID='
-                    . $ticketValues["ID"],
+            Ссылка на детальную страницу заявки: "
+                . $protocol 
+                . $_SERVER['HTTP_HOST']
+                . '/bitrix/admin/applocation_detail.php?ID='
+                . $ticketValues["ID"],
             "MESSAGE_SEARCH" => "",
             "IS_SPAM" => null,
             "EXTERNAL_ID" => null,

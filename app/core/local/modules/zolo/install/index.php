@@ -1,12 +1,12 @@
 <?php
 
 includeModuleLangFile(__FILE__);
-if (class_exists('additionalsupport'))
+if (class_exists('zolo'))
 	return;
 
-class additionalsupport extends CModule
+class zolo extends CModule
 {
-	var $MODULE_ID = 'additionalsupport';
+	var $MODULE_ID = 'zolo';
 	var $MODULE_VERSION;
 	var $MODULE_VERSION_DATE;
 	var $MODULE_NAME;
