@@ -101,6 +101,15 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.buttonAdd, function() { // переписать на отправку формы и сделать валидацию
         let template = $('#hidden-template-pet').text();
         template = template.replaceAll('#ID#', Date.now());
+        template = $(template);
+
+        const petKind = template.closest('.pet-cards__item').find('[data-pet-kind]').val();
+        template.find(`[data-breed]`).hide();
+        if (petKind) {
+            template.find(`[data-breed=${petKind}]`).show();
+        } else {
+            template.find(`[data-breed=empty]`).show();
+        }
         $(ELEMENTS_SELECTOR.list).append(template);
 
         select();

@@ -20,7 +20,7 @@ class CSystemAuthRegistrationComponent {
       $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
-      $('select[data-pet-kind]').on('change', this.checkBreedSelects);
+      $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
   }
 
     changeLegalEntity() {
