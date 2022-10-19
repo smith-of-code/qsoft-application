@@ -24,7 +24,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 ?>
 
 <?php
-// dump($arResult, $arParams, $templateData);
+// dump($arResult);
+// dump($arParams);
+// dump($templateData);
 ?>
 <!--content-->
 <!-- хлебные крошки -->
@@ -67,135 +69,63 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
 
-                    <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                            <div class="product-card__header">
-                                <div class="product-card__label label label--violet">ограниченное предложение</div>
+                    <?php if (!empty($arResult['PHOTOS'])): ?>
+                        <?php foreach ($arResult['PHOTOS'] as $value): ?>
+                            <?php foreach ($value as $photo): ?>
+                                <div class="swiper-slide slider__slide">
+                                    <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                        <div class="product-card__header">
+                                            <div class="product-card__label label label--violet">ограниченное предложение</div>
 
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                    </button>
+                                            <div class="product-card__favourite">
+                                                <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                    <span class="button__icon button__icon--big">
+                                                        <svg class="icon icon--heart">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="product-card__wrapper">
+                                                <div class="product-card__image box box--circle">
+                                                    <div class="product-card__box">
+                                                        <img src="<?=$photo ?>" alt="Название товара" class="product-card__pic">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
                                 </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="swiper-slide slider__slide">
+                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                <div class="product-card__header">
+                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
 
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
+                                    <div class="product-card__favourite">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                            <span class="button__icon button__icon--big">
+                                                <svg class="icon icon--heart">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <img src="app/site/local/templates/.default/images/no_image.jpg" alt="Название товара" class="product-card__pic">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                            <div class="product-card__header">
-                                <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                            <div class="product-card__header">
-                                <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="https://fakeimg.pl/366x312/" alt="Название товара" class="product-card__pic">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                            <div class="product-card__header">
-                                <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <video src="/local/templates/.default/images/video-slide.webm" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                            <div class="product-card__header">
-                                <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
+                            </article>
+                        </div>
+                    <?php endif; ?>
 
                 </div>
 
@@ -532,17 +462,16 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                 <?=$arResult['DESCRIPTION']?>
                             </p>
 
-                            <p>
-                                <?=$arResult['DESCRIPTION']?>
-                            </p>
+                            <!-- блок Детали -->
+                            <?php if (!empty($arResult['PRODUCT_DETAILS'])): ?>
+                                <h5>Детали</h5>
 
-                            <h5>Детали</h5>
-
-                            <ul>
-                                <?php foreach ($arResult['PRODUCT_DETAILS'] as $value): ?>
-                                    <li><?=$value?></li>
-                                <?php endforeach?>
-                            </ul>
+                                <ul>
+                                    <?php foreach ($arResult['PRODUCT_DETAILS'] as $value): ?>
+                                        <li><?=$value?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
 
                         <div class="description__col description__col--right">

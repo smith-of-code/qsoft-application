@@ -243,6 +243,9 @@ class CatalogElementComponent extends CBitrixComponent
         if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
             $result[] = $item['PROPERTY_VIDEO_VALUE'];
         }
+        if (isset($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
+            $result = array_merge($item['PROPERTY_IMAGES_VALUE'], $result);
+        }
         if (isset($item['PROPERTY_DOCUMENTS_VALUE']) && $item['PROPERTY_DOCUMENTS_VALUE']) {
             $result = array_merge($item['PROPERTY_DOCUMENTS_VALUE'], $result);
         }
@@ -332,7 +335,7 @@ class CatalogElementComponent extends CBitrixComponent
         while($item = $properties->GetNext()) {
             $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
         }
-        // dump($data);
+
         $result['ENERGY_VALUE'] = [
             'CALCIUM' => $data['PRODUCT']['PROPERTY_CALCIUM_VALUE'],
             'PRHOSPHORUS' => $data['PRODUCT']['PROPERTY_PRHOSPHORUS_VALUE'],
