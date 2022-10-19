@@ -1,0 +1,13 @@
+.stock {
+    font-size: rem($font-size-miniature);
+    font-weight: $font-weight-medium;
+    line-height: ($line-height-miniature / $font-size-miniature);
+
+    color: $saltBox;
+
+    margin-left: rem($gap-small);
+
+    &--yes {
+        color: $seaGreen;
+    }
+}

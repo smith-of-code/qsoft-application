@@ -1,0 +1,64 @@
+.document {
+    &__link {
+        display: flex;
+        align-items: center;
+
+        text-decoration: none;
+
+        color: $tuna;
+
+        @media #{$screen-tablet} {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        @media #{$screen-desktop} {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__link:hover & {
+        &__icon {
+            color: $brickRed;
+        }
+
+        &__text {
+            &-name {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__icon {
+        $size: 64px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+        margin-right: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            margin-right: 0;
+            margin-bottom: rem($gap-average);
+        }
+
+        @media #{$screen-desktop} {
+            margin-right: rem($gap-average);
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        font-size: rem($font-size-small);
+        line-height: rem($line-height-small);
+
+        display: flex;
+        flex-direction: column;
+
+        &-size {
+            color: $saltBox;
+        }
+    }
+}
