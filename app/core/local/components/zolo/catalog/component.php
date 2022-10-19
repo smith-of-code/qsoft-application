@@ -33,7 +33,7 @@ $arComponentVariables = array(
 	"ELEMENT_CODE",
 	"action",
 );
-
+\Bitrix\Main\Loader::includeModule('iblock');
 $arSortDirs = array("asc", "desc");
 $arSortFields = CIBlockParameters::GetElementSortFields(
     array('ID', 'SORT', 'NAME'),

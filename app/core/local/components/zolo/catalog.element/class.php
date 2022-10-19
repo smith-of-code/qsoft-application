@@ -66,6 +66,10 @@ class CatalogElementComponent extends CBitrixComponent
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
+            if (!Loader::includeModule('sale') || !Loader::includeModule('catalog')) {
+                throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+            }
+
             if ($this->startResultCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
                     throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
@@ -133,6 +137,7 @@ class CatalogElementComponent extends CBitrixComponent
                 }
             }
             $this->arResult['BASKET'] = $basketInfo;
+
             $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
@@ -292,6 +297,7 @@ class CatalogElementComponent extends CBitrixComponent
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
             'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
+            'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
         ];
@@ -315,6 +321,26 @@ class CatalogElementComponent extends CBitrixComponent
         foreach ($data['DOCUMENTS'] as $documentId) {
             $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
         }
+
+        $properties = CIBlockProperty::GetList(
+            $arOrder  = array("SORT" => "ASC"),
+            $arFilter = array(
+                "ACTIVE"    => "Y",
+                "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
+            )
+        );
+        while($item = $properties->GetNext()) {
+            $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
+        }
+        // dump($data);
+        $result['ENERGY_VALUE'] = [
+            'CALCIUM' => $data['PRODUCT']['PROPERTY_CALCIUM_VALUE'],
+            'PRHOSPHORUS' => $data['PRODUCT']['PROPERTY_PRHOSPHORUS_VALUE'],
+            'ROW_ASH' => $data['PRODUCT']['PROPERTY_ROW_ASH_VALUE'],
+            'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
+            'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
+            'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
+        ];
 
         return $result;
     }

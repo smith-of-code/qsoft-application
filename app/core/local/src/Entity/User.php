@@ -139,7 +139,7 @@ class User
         $this->cUser = new CUser;
         
         // Получаем поля и свойства пользователя
-        if ($userId === null) {
+        if ($userId === null || $userId === 0) {
             global $USER;
 
             $userId = $USER->GetID();
