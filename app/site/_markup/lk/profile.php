@@ -562,7 +562,7 @@
                                         <section class="section">
                                             <form class="form form--wraped" action="" method="post">
                                                 <div class="section__box box box--gray box--rounded-sm">
-                                                    <h4 class="section__title">Персональные данные</h4>
+                                                    <h4 class="section__title section__title--closer">Персональные данные</h4>
 
                                                     <div class="section__wrapper">
                                                         <div class="profile__avatar">
@@ -590,7 +590,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="section__box-inner">
+                                                        <div class="section__box-inner section__box-inner--full">
                                                             <div class="section__box-content box box--white box--rounded-sm box--inner">
                                                                 <div class="section__box-block">
                                                                     <div class="form__row form__row--special">
@@ -796,7 +796,7 @@
                                         <section class="section">
                                             <form class="form form--wraped" action="" method="post">
                                                 <div class="section__box box box--gray box--rounded-sm">
-                                                    <h4 class="section__title">Юридические данные</h4>
+                                                    <h4 class="section__title section__title--closer">Юридические данные</h4>
 
                                                     <div class="section__box-inner">
                                                         <h5 class="box__heading box__heading--middle">Общее</h5>
@@ -1948,7 +1948,7 @@
                                         <section class="section">
                                             <form class="form form--wraped" action="" method="post">
                                                 <div class="section__box box box--gray box--rounded-sm">
-                                                    <h4 class="section__title">Наставник</h4>
+                                                    <h4 class="section__title section__title--closer">Наставник</h4>
 
                                                     <div class="section__wrapper">
                                                         <div class="profile__avatar">
@@ -1975,7 +1975,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="section__box-inner">
+                                                        <div class="section__box-inner section__box-inner--full">
                                                             <div class="section__box-content box box--white box--rounded-sm box--inner">
                                                                 <div class="section__box-block">
                                                                     <div class="form__row form__row--special">
@@ -2127,7 +2127,7 @@
                                     <div class="profile__block">
                                         <section class="section">
                                             <div class="section__box box box--gray box--rounded-sm">
-                                                <h4 class="section__title">Система лояльности</h4>
+                                                <h4 class="section__title section__title--closer">Система лояльности</h4>
 
                                                 <div class="section__box-inner">
                                                     <h5 class="box__heading box__heading--middle">Достижения в системе лояльности</h5>
@@ -2288,7 +2288,6 @@
             
                                                                                 <div class="advantage__content">
                                                                                     <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                                                    <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -2302,8 +2301,52 @@
                                                                                 </div>
             
                                                                                 <div class="advantage__content">
-                                                                                    <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                                                    <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
+                                                                                    <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+            
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+            
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+            
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
+                                                                                    <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -2332,8 +2375,98 @@
                                                                 </button>
                                                             </div>
 
-                                                            <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
-                                                                Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                                            <div class="accordeon__body" data-accordeon-content>
+                                                                <div class="advantages">
+                                                                    <ul class="advantages__list">
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
+                                                                                    <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
+                                                                                    <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -2356,9 +2489,99 @@
                                                                     </span>
                                                                 </button>
                                                             </div>
-                            
-                                                            <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
-                                                                Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+
+                                                            <div class="accordeon__body" data-accordeon-content>
+                                                                <div class="advantages">
+                                                                    <ul class="advantages__list">
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
+                                                                                    <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                                    <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="advantages__item">
+                                                                            <div class="advantage">
+                                                                                <div class="advantage__icon">
+                                                                                    <svg class="icon icon--tick-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                                    </svg>
+                                                                                </div>
+
+                                                                                <div class="advantage__content">
+                                                                                    <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
+                                                                                    <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2370,7 +2593,7 @@
                                     <div class="profile__block">
                                         <section class="section">
                                             <div class="section__box box box--gray box--rounded-sm">
-                                                <h4 class="section__title">Персональные акции</h4>
+                                                <h4 class="section__title section__title--closer">Персональные акции</h4>
 
                                                 <div class="section__box-inner">
                                                     <h5 class="box__heading box__heading--middle">Участие в персональной акции</h5>

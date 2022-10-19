@@ -52,11 +52,21 @@
 
     &--white & {
         &__item {
+            padding: rem($gap-medium) rem($gap-average);
+
             background-color: $white;
+
+            @media #{$screen-tablet} {
+                padding: rem($gap-middle) rem($gap-normal);
+            }
         }
 
         &__icon {
             color: $saltBox;
+        }
+
+        &__body {
+            margin-top: rem($gap-normal);
         }
     }
 
