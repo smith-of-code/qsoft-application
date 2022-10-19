@@ -11,51 +11,48 @@
 
 $isCurrentStepPassed = false;
 ?>
-<link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css" />
 
-<main class="page__content content">
-    <div class="content__container container">
-        <div class="registration">
-            <section class="section">
-                <ul class="steps-counter">
-                    <?php foreach ($arResult['steps'] as $step):?>
-                        <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
-                        <li
+<div class="content__container container">
+    <h1 class="content__heading content__heading--separated">Регистрация</h1>
+
+    <div class="registration">
+        <section class="section">
+            <ul class="steps-counter">
+                <?php foreach ($arResult['steps'] as $step):?>
+                    <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
+                    <li
                             class="
                                 steps-counter__item
                                 <?=$step['code'] === $arResult['currentStep'] ? 'steps-counter__item--current' : ''?>
                                 <?=!$isCurrentStepPassed ? 'steps-counter__item--passed' : ''?>
                             "
                             data-steps-item
-                        >
-                            <div
+                    >
+                        <div
                                 class="
                                     steps-counter__circle
                                     <?=$step['code'] === $arResult['currentStep'] ? 'steps-counter__circle--current' : ''?>
                                     <?=!$isCurrentStepPassed ? 'steps-counter__circle--passed' : ''?>
                                 "
                                 data-steps-indicator
-                            >
-                                <span class="steps-counter__circle-text"><?=$step['name']?></span>
-                            </div>
-                        </li>
-                    <?php endforeach;?>
-                </ul>
-            </section>
+                        >
+                            <span class="steps-counter__circle-text"><?=$step['name']?></span>
+                        </div>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </section>
 
-            <?php foreach (scandir(__DIR__ . '/steps') as $stepTemplate): ?>
-                <div
+        <?php foreach (scandir(__DIR__ . '/steps') as $stepTemplate): ?>
+            <div
                     class="step-container <?=str_replace('.php', '', $stepTemplate)?>"
-                    <?=$stepTemplate !== "$arResult[currentStep].php" ? 'style="display: none"' : ''?>
-                >
-                    <?php include "steps/$stepTemplate"; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?=$stepTemplate !== "$arResult[currentStep].php" ? 'style="display: none"' : ''?>
+            >
+                <?php include "steps/$stepTemplate"; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
-</main>
-
-<script src="/local/templates/.default/js/script.js"></script>
+</div>
 
 <script>
     var registrationData = <?=CUtil::PhpToJSObject($arResult)?>;

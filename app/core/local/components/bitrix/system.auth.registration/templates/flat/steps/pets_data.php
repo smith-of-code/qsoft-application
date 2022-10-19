@@ -90,7 +90,7 @@ if (!$arResult['pets']) {
                                             <div class="form__field-block form__field-block--input">
                                                 <div class="form__control">
                                                     <div class="select select--mitigate select--iconed" data-select>
-                                                        <select class="select__control" name="pets-<?=$index?>-type" id="pets-<?=$index?>-type" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                        <select class="select__control" name="pets-<?=$index?>-type" id="pets-<?=$index?>-type" data-select-control data-pet-kind data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                             <option><!-- пустой option для placeholder --></option>
                                                             <?php foreach ($arResult['pet_kinds'] as $petsKind):?>
                                                                 <option
@@ -98,7 +98,7 @@ if (!$arResult['pets']) {
                                                                     data-option-icon="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
                                                                     <?=$pet['type'] === $petsKind['XML_ID'] ? 'selected' : ''?>
                                                                 >
-                                                                    <?=$petsKind['VALUE']?>
+                                                                    <?=mb_ucfirst($petsKind['VALUE'])?>
                                                                 </option>
                                                             <?php endforeach;?>
                                                         </select>
@@ -121,12 +121,12 @@ if (!$arResult['pets']) {
                                                     <div class="select select--mitigate" data-select>
                                                         <select class="select__control" name="pets-<?=$index?>-gender" id="pets-<?=$index?>-gender" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
                                                             <option><!-- пустой option для placeholder --></option>
-                                                            <?php foreach ($arResult['pet_genders'] as $code => $petsGender):?>
+                                                            <?php foreach ($arResult['pet_genders'] as $petsGender):?>
                                                                 <option
                                                                     value="<?=$petsGender['XML_ID']?>"
                                                                     <?=$pet['gender'] === $petsGender['XML_ID'] ? 'selected' : ''?>
                                                                 >
-                                                                    <?=$petsGender['VALUE']?>
+                                                                    <?=mb_ucfirst($petsGender['VALUE'])?>
                                                                 </option>
                                                             <?php endforeach;?>
                                                         </select>
@@ -176,14 +176,25 @@ if (!$arResult['pets']) {
                                                 </label>
                                             </div>
 
-                                            <div class="form__field-block form__field-block--input">
+                                            <div class="form__field-block form__field-block--input" data-breed-container>
                                                 <div class="form__control">
-                                                    <div class="select select--mitigate" data-select>
-                                                        <select class="select__control" name="pets-<?=$index?>-breed" id="pets-<?=$index?>-breed" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                    <div class="select select--mitigate" data-select data-breed="empty">
+                                                        <select class="select__control" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change disabled>
                                                             <option><!-- пустой option для placeholder --></option>
-                                                            <option value="1" <?=$pet['breed'] == '1' ? 'selected' : ''?>>Лабрадор</option>
                                                         </select>
                                                     </div>
+                                                    <?php foreach($arResult['breeds'] as $kind => $breed):?>
+                                                        <div class="select select--mitigate" data-select data-breed="<?=$kind?>">
+                                                            <select class="select__control" name="pets-<?=$index?>-<?=$kind?>breed" id="pets-<?=$index?>-<?=$kind?>breed" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                                <option><!-- пустой option для placeholder --></option>
+                                                                <?php foreach ($breed as $breedId => $breedValue):?>
+                                                                    <option value="<?=$breedId?>" <?=$pet['breed'] == $breedId ? 'selected' : ''?>>
+                                                                        <?=$breedValue?>
+                                                                    </option>
+                                                                <?php endforeach;?>
+                                                            </select>
+                                                        </div>
+                                                    <?php endforeach;?>
                                                 </div>
                                             </div>
                                         </div>
@@ -302,14 +313,14 @@ if (!$arResult['pets']) {
                                         <div class="form__field-block form__field-block--input">
                                             <div class="form__control">
                                                 <div class="select select--mitigate select--iconed" data-select>
-                                                    <select class="select__control" name="pets-#ID#-type" id="pets-#ID#-type" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                    <select class="select__control" name="pets-#ID#-type" id="pets-#ID#-type" data-select-control data-pet-kind data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <?php foreach ($arResult['pet_kinds'] as $petsKind):?>
                                                             <option
                                                                 value="<?=$petsKind['XML_ID']?>"
                                                                 data-option-icon="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
                                                             >
-                                                                <?=$petsKind['VALUE']?>
+                                                                <?=mb_ucfirst($petsKind['VALUE'])?>
                                                             </option>
                                                         <?php endforeach;?>
                                                     </select>
@@ -332,9 +343,9 @@ if (!$arResult['pets']) {
                                                 <div class="select select--mitigate" data-select>
                                                     <select class="select__control" name="pets-#ID#-gender" id="pets-#ID#-gender" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
                                                         <option><!-- пустой option для placeholder --></option>
-                                                        <?php foreach ($arResult['pet_genders'] as $code => $petsGender):?>
+                                                        <?php foreach ($arResult['pet_genders'] as $petsGender):?>
                                                             <option value="<?=$petsGender['XML_ID']?>">
-                                                                <?=$petsGender['VALUE']?>
+                                                                <?=mb_ucfirst($petsGender['VALUE'])?>
                                                             </option>
                                                         <?php endforeach;?>
                                                     </select>
@@ -383,14 +394,25 @@ if (!$arResult['pets']) {
                                             </label>
                                         </div>
 
-                                        <div class="form__field-block form__field-block--input">
+                                        <div class="form__field-block form__field-block--input" data-breed-container>
                                             <div class="form__control">
-                                                <div class="select select--mitigate" data-select>
-                                                    <select class="select__control" name="pets-#ID#-breed" id="pets-#ID#-breed" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                <div class="select select--mitigate" data-select data-breed="empty">
+                                                    <select class="select__control" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change disabled>
                                                         <option><!-- пустой option для placeholder --></option>
-                                                        <option value="1">Лабрадор</option>
                                                     </select>
                                                 </div>
+                                                <?php foreach($arResult['breeds'] as $kind => $breed):?>
+                                                    <div class="select select--mitigate" data-select data-breed="<?=$kind?>">
+                                                        <select class="select__control" name="pets-#ID#-<?=$kind?>breed" id="pets-#ID#-<?=$kind?>breed" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                            <option><!-- пустой option для placeholder --></option>
+                                                            <?php foreach ($breed as $breedId => $breedValue):?>
+                                                                <option value="<?=$breedId?>">
+                                                                    <?=$breedValue?>
+                                                                </option>
+                                                            <?php endforeach;?>
+                                                        </select>
+                                                    </div>
+                                                <?php endforeach;?>
                                             </div>
                                         </div>
                                     </div>

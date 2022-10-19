@@ -9,7 +9,7 @@
 ?>
 
 <section class="section section--limited-big">
-    <h4 class="section__title">Выбор <?=$arResult['type'] === 'buyer' ? 'контакта' : 'наставника'?></h4>
+    <h4 class="section__title">Выбор <?=$arResult['type'] === 'buyer' ? 'контактного лица' : 'наставника'?></h4>
 
     <div class="registration__form form form--separated form--wraped">
         <div class="registration__box box box--hidden box--grayish box--rounded-sm">
@@ -23,7 +23,7 @@
                                     class="checkbox__input"
                                     name="without_mentor_id"
                                     id="without_mentor_id"
-                                    <?=$arResult['without_mentor_id'] ? 'checked' : ''?>
+                                    <?=$arResult['without_mentor_id'] === 'true' ? 'checked' : ''?>
                                 >
 
                                 <label for="without_mentor_id" class="checkbox__label">
@@ -33,7 +33,7 @@
                                         </svg>
                                     </span>
 
-                                    <span class="checkbox__text">Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'контакт' : 'наставника'?></span>
+                                    <span class="checkbox__text">Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'контактное лицо' : 'наставника'?></span>
                                 </label>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
                                 <label for="mentor_id" class="form__label form__label--required">
-                                    <span class="form__label-text">ID <?=$arResult['type'] === 'buyer' ? 'контакта' : 'наставника'?></span>
+                                    <span class="form__label-text">ID <?=$arResult['type'] === 'buyer' ? 'контактного лица' : 'наставника'?></span>
                                 </label>
                             </div>
 

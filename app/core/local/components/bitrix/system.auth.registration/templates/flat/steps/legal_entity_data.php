@@ -11,7 +11,7 @@
 <section class="section section--limited-big">
     <h4 class="section__title">Юридические данные</h4>
 
-    <form class="registration__form ddd form form--separated form--wraped">
+    <div class="registration__form form form--separated form--wraped">
         <div class="section__box box box--gray box--rounded-sm">
             <div class="section__box-inner">
                 <h5 class="box__heading box__heading--middle">Общее</h5>
@@ -1462,5 +1462,5 @@
                 </button>
             </div>
         </div>
-    </form>
+    </div>
 </section>

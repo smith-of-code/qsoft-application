@@ -113,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var User Наставник
+     * @var User|null Наставник
      */
-    public User $mentor;
+    public ?User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -188,7 +188,7 @@ class User
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = new self((int) $user['UF_MENTOR_ID']);
+        $this->mentor = $user['UF_MENTOR_ID'] ? new self((int) $user['UF_MENTOR_ID']) : null;
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
