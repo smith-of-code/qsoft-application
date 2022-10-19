@@ -1,0 +1,32 @@
+.faq {
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+
+        @media #{$screen-desktop} {
+            flex-direction: row;
+        }
+    }
+
+    &__questions {
+        max-width: 100%;
+
+        @media #{$screen-desktop} {
+            max-width: rem(770px);
+        }
+    }
+
+    &__setask {
+        width: 100%;
+        margin-top: rem(28px);
+
+        @media #{$screen-desktop} {
+            flex-direction: row;
+
+            max-width: rem(370px);
+            margin-top: rem(56px);
+            margin-left: rem(30px);
+        }
+    }
+}

@@ -1,0 +1,60 @@
+.setask {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: max-content;
+    padding: rem(16px);
+    
+    background: $white;
+
+    border: rem(1px) solid $alto;
+    border-radius: rem(16px);
+
+    &__image {
+        display: none;
+        
+        @media #{$screen-desktop} {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            height: rem(172px);
+            margin-bottom: rem(24px);
+
+            background-color: $athensGray;
+            border-radius: rem(16px);
+        }
+
+        &-picture {
+            width: rem(108px);
+            height: rem(108px);
+        }
+    }
+
+    &__button {
+        width: 100%;
+
+        margin-top: rem(24px);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(32px);
+        }
+    }
+
+    &__text {
+        font-weight: $font-weight-semibold;
+        text-align: center;
+
+        margin-bottom: rem(4px);
+    }
+
+    &__subtext {
+        font-weight: $font-weight-medium;
+        font-size: rem($font-size-small);
+        line-height: 22px;
+        text-align: center;
+
+        color: $saltBox; 
+    }
+}

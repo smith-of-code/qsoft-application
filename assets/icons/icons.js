@@ -62,5 +62,6 @@ import './svg/cat-smile.svg';
 import './svg/cat-happy.svg';
 import './svg/cat-winks.svg';
 import './svg/cat-glasses.svg';
+import './svg/cat-think.svg';
 
 
