@@ -43,13 +43,21 @@ class SupportEventListner
         switch ($category['SID']) {
             case self::CHANGE_OF_PERSONAL_DATA:
                 // Событие для смены персональных данных.
-                if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])) {
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
                     $this->changeUserFields($ticketValues);
                 }
                 break;
             case self::REGISTRATION:
                 // Событие для регистрации консультанта.
-                $this->registrateConsultant($ticketValues);
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->registrateConsultant($ticketValues);
+                }
                 break;
             case self::CHANGE_ROLE:
                 // Событие для смены роли.
@@ -91,7 +99,9 @@ class SupportEventListner
     public function onBeforeTicketUpdate(array $ticketValues): array
     {
         // Получаем тикет, чтобы сравнить текущий статус($ticket) с новым ($ticketValues)
-        $ticket = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])->GetNext();
+        $ticket
+            = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
+                ->GetNext();
 
         if ($this->checkStatus($ticket, $ticketValues)) {
             $this->sendEmail($ticket);
@@ -201,10 +211,7 @@ class SupportEventListner
         $fields = json_decode($ticketValues['UF_DATA'], true);
         $user = new User($ticketValues['OWNER_USER_ID']);
         $user->Update($fields['USER_INFO']);
-        $user->legalEntity->Update();
-        $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']);
-
-        LegalEntityTable::update($ticketValues['OWNER_USER_ID'], $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
+        $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
     }
 
     /**
@@ -219,7 +226,7 @@ class SupportEventListner
             ->GetList([], ['ID' => $requestStatus])
             ->GetNext();
 
-        return  $userFieldValue['XML_ID'] == self::ACCEPTED;
+        return $userFieldValue['XML_ID'] == self::ACCEPTED;
     }
 
     /**
@@ -229,13 +236,12 @@ class SupportEventListner
      */
     private function registrateConsultant(array $ticketValues): void
     {
-        if (!empty($ticketValues['UF_ACCEPT_REQUEST']) && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])) {
-            $fields = json_decode($ticketValues['UF_DATA'], true);
+        $fields = json_decode($ticketValues['UF_DATA'], true);
 
-            LegalEntityTable::add(
-                $this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID'])
-            );
-        }
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $user
+            ->legalEntity
+            ->create($this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
     }
 
     /**
