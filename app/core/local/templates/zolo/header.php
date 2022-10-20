@@ -3,15 +3,14 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init(["fx"]);
 
-\Bitrix\Main\UI\Extension::load('zolo.application');
+\Bitrix\Main\UI\Extension::load('zolo.loader');
 
 global $APPLICATION;
 ?>
 
 <script>
     window.onload = () => {
-        const application = new Zolo.Application();
-        application.run();
+        (new Zolo.Loader()).run();
     }
 </script>
 
