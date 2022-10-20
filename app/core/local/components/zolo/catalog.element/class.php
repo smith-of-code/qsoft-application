@@ -205,17 +205,18 @@ class CatalogElementComponent extends CBitrixComponent
             }
         }
 
-        $ids = array_column($offers, 'ID');
-        $prices = PriceTable::getList([
-            'filter' => ['@PRODUCT_ID' => $ids],
-        ])->fetchAll();
-        foreach ($offers as &$offer) {
-            $price = current(array_filter($prices, function ($item) use ($offer) {
-                return (int) $item['PRODUCT_ID'] === $offer['ID'];
-            }));
+        if ($ids = array_column($offers, 'ID')) {
+            $prices = PriceTable::getList([
+                'filter' => ['@PRODUCT_ID' => $ids],
+            ])->fetchAll();
+            foreach ($offers as &$offer) {
+                $price = current(array_filter($prices, function ($item) use ($offer) {
+                    return (int) $item['PRODUCT_ID'] === $offer['ID'];
+                }));
 
-            if ($price) {
-                $offer['PRICE'] = $price;
+                if ($price) {
+                    $offer['PRICE'] = $price;
+                }
             }
         }
 
@@ -331,6 +332,7 @@ class CatalogElementComponent extends CBitrixComponent
 
         while($item = $propsResult->GetNext()) {
             $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
+
             if (in_array($item['ID'], $showedPropertiesInDetail)) {
                 $properties[$item['ID']] = $item;
             }
@@ -338,7 +340,7 @@ class CatalogElementComponent extends CBitrixComponent
 
         $index = 1;
         foreach ($properties as $property) {
-            if ($index++ > 4) {
+            if ($index++ > $this->arParams['PROPERTY_COUNT_DETAIL']) {
                 break;
             }
 

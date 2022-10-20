@@ -118,7 +118,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                     <div class="product-card__wrapper">
                                         <div class="product-card__image box box--circle">
                                             <div class="product-card__box">
-                                                <img src="app/site/local/templates/.default/images/no_image.jpg" alt="Название товара" class="product-card__pic">
+                                                <img src="/local/templates/.default/images/no_image.jpg" alt="Название товара" class="product-card__pic">
                                             </div>
                                         </div>
                                     </div>
@@ -358,17 +358,23 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
         <div class="detail__information-tabs tabs tabs--accordeon tabs--red tabs--bordered" data-tabs>
             <nav class="tabs__items">
                 <ul class="tabs__list">
-                    <li class="tabs__item tabs__item--active" data-tab="block1">
-                        Описание
-                    </li>
+                    <?php if (1): ?>
+                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                            Описание
+                        </li>
+                    <?php endif; ?>
 
-                    <li class="tabs__item" data-tab="block2">
-                        Состав
-                    </li>
+                    <?php if ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE']): ?>
+                        <li class="tabs__item" data-tab="block2">
+                            Состав
+                        </li>
+                    <?php endif; ?>
 
-                    <li class="tabs__item" data-tab="block3">
-                        Рекомендации по кормлению
-                    </li>
+                    <?php if ($arResult['FEEDING_RECOMMENDATIONS']): ?>
+                        <li class="tabs__item" data-tab="block3">
+                            Рекомендации по кормлению
+                        </li>
+                    <?php endif; ?>
 
                     <li class="tabs__item" data-tab="block4">
                         Документы
@@ -442,12 +448,14 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                 </div>
                             </div>
 
+                            
+                            <?php if ($arResult['DESCRIPTION']): ?>
+                                <h5>Общее</h5>
 
-                            <h5>Общее</h5>
-
-                            <p>
-                                <?=$arResult['DESCRIPTION']?>
-                            </p>
+                                <p>
+                                    <?=$arResult['DESCRIPTION']?>
+                                </p>
+                            <?php endif; ?>
 
                             <!-- блок Детали -->
                             <?php if (!empty($arResult['PRODUCT_DETAILS'])): ?>
@@ -527,7 +535,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                     </div>
 
                     <div class="tabs__block accordeon__body" data-tab-section="block3"  data-accordeon-content>
-                        <?= $arResult['FEEDING_RECOMMENDATIONS']?>
+                        <?= $arResult['FEEDING_RECOMMENDATIONS'] ?>
                     </div>
                 </div>
 
