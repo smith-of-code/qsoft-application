@@ -58,7 +58,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $this->arResult = $this->getRegisterData();
 
         $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
-        if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]['name']) {
+        if (!$this->arResult || ($queryType && $this->arResult['type'] !== $registrationTypes[$queryType]['name'])) {
             $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [
@@ -290,13 +290,13 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'select' => ['ID'],
         ])['ID'];
 
-        // TODO PHOTO
         $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
+            'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
