@@ -42,7 +42,7 @@ class OrderService
             'ID' => $order->getId(),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => UserTable::getById($order->getUserId())->fetch(),
-            'STATUS_ID' => $order->getField('STATUS_ID'),
+            'ORDER_STATUS' => $order->getField('STATUS_ID'),
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => $order->getPrice(),
             'VOUCHER_USED' => (bool) $order->getField(['PAY_VOUCHER_NUM']),
@@ -60,7 +60,7 @@ class OrderService
     {
         $dataSource = new DataSource($productIblockId);
         return $dataSource
-            ->select(['ID', 'PREVIEW_PICTURE', 'ARTICLE.VALUE'])
+            ->select(['ID', 'PICTURE' => 'PREVIEW_PICTURE', 'VENDOR_CODE' => 'ARTICLE.VALUE'])
             ->filter($idProducts)
             ->getElements();
     }
