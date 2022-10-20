@@ -38,10 +38,11 @@ class LoyaltyService
         $loyaltyHelper = new LoyaltyProgramHelper();
 
         if ($this->user->loyaltyLevel !== '') {
+            // Получим следующий уровень - проверим, есть ли куда улучшать текущий
+            $nextLevel = $loyaltyHelper->getNextLevel($this->user->loyaltyLevel);
 
+            // Показатели для Консультантов
             if ($this->user->groups->isConsultant()) {
-
-                $nextLevel = $loyaltyHelper->getNextLevel($this->user->loyaltyLevel);
 
                 // Достижения
                 $result['CURRENT_LEVEL'] = $levels[$this->user->loyaltyLevel]['label'];
@@ -64,9 +65,18 @@ class LoyaltyService
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
                 }
 
+            // Показатели для Конечных пользователей
             } elseif ($this->user->groups->isBuyer()) {
 
                 $result['PERSONAL_DISCOUNT'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_discount'];
+
+                if (isset($nextLevel)) {
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$nextLevel]['upgrade_level_terms']['self_total'];
+                    $selfPeriodStart = DateTimeService::getStartOfMonth(($levels[$nextLevel]['upgrade_level_terms']['self_period_months'] - 1) * (-1));
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
+                    $left = $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] - $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'];
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
+                }
             }
         }
 
