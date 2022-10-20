@@ -113,7 +113,7 @@ final class ConfirmationTable extends BaseTable
             'filter' => [
                 '=UF_USER_ID' => $userId,
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['email']),
-                '=UF_TYPE' => $type,
+                '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', $type),
             ],
             'select' => ['UF_CODE'],
         ]);
