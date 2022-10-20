@@ -1,6 +1,9 @@
 vendor
 composer
 /app/core/bitrix
+/app/core/local/templates/.default/css/style.css
+/app/core/local/templates/.default/css/style.css.map
+/app/core/local/templates/.default/js/script.js
 /app/site/test
 /app/site/upload
 /app/site/c_sitemaps
@@ -47,4 +50,4 @@ exclude
 !package.json
 !package-lock.json
 /tools
-.const
+app/site/test.php

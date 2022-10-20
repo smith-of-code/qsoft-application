@@ -20,43 +20,43 @@
         <!--content-->
         <main class="page__content content">
             <div class="content__container container">
-                <h1 class="content__heading content__heading--centered">Создание нового пароля</h1>
+                <h1 class="content__heading content__heading--separated">Регистрация</h1>
 
                 <div class="registration">
                 <section class="section">
                         <ul class="steps-counter">
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--1 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Персональные данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--2 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Данные о питомцах</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--3 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Выбор наставника</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--4 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Юридические данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--5 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Установка пароля</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--current" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--current" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--6 steps-counter__circle--current" data-steps-indicator>
                                 </div>
                             </li>
                         </ul>
@@ -74,8 +74,8 @@
                                 Заявка успешно отправлена!
                             </h4>
 
-                            <p class="notification__text">
-                                Ваша заявка на восстановление пароля отправлена. Проверьте вашу электронную почту.
+                            <p class="notification__text notification__text--small">
+                                Ваша заявка на регистрацию оформлена. Проверьте, пожалуйста, электронную почту
                             </p>
                         </div>
                     </section>

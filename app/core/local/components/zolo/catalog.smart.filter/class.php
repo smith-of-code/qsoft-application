@@ -52,7 +52,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
-        $arParams["PRICE_CODE"][] = (new UserService)->getCurrent()['UF_LOYALTY_LEVEL'];
+//        $arParams["PRICE_CODE"][] = (new UserService)->getCurrent()['UF_LOYALTY_LEVEL'];
 		$arParams["PRICE_CODE"] = is_array($arParams["PRICE_CODE"])? $arParams["PRICE_CODE"]: array();
 		foreach ($arParams["PRICE_CODE"] as $k=>$v)
 		{
@@ -250,8 +250,9 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 }
             }
         }
-        if ((new UserGroupsService)->currentUserIsConsultant()) {
-            $currentUser = (new UserService)->getCurrent();
+        $currentUser = new \QSoft\Entity\User();
+
+        if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
             $items['BONUSES'] = [
                 'ID' => 'BONUSES',
                 'CODE' => 'BONUSES',

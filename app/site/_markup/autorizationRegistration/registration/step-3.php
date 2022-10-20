@@ -26,37 +26,37 @@
                     <section class="section">
                         <ul class="steps-counter">
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--1 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Персональные данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--2 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Данные о питомцах</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item steps-counter__item--current" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--current" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--3 steps-counter__circle--current" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Выбор наставника</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--4" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Юридические данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--5" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Установка пароля</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--6" data-steps-indicator>
                                 </div>
                             </li>
                         </ul>
@@ -98,6 +98,7 @@
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="input">
                                                         <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите ID наставника">
+                                                        <span class="input__control-error">Такого пользователя не существует</span>
                                                     </div>
                                                 </div>
                                             </div>

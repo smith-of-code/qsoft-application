@@ -47,10 +47,9 @@ final class CreateHlBlockPet extends BaseCreateHighloadMigration
             'LIST_COLUMN_LABEL' => ['ru' => 'Тип питомца'],
             'LIST_FILTER_LABEL' => ['ru' => 'Тип питомца'],
         ],
-        // TODO: Пока оставляем общим списком, потом вынесем в отдельный блок
         [
             'FIELD_NAME' => 'UF_BREED',
-            'USER_TYPE_ID' => 'enumeration',
+            'USER_TYPE_ID' => 'integer',
             'MULTIPLE' => 'N',
             'XML_ID' => 'UF_BREED',
             'SORT' => 100,
@@ -107,32 +106,6 @@ final class CreateHlBlockPet extends BaseCreateHighloadMigration
                 'VALUE' => 'девочка',
                 'DEF' => 'N',
                 'SORT' => 20,
-            ],
-        ],
-        'UF_BREED' => [
-            'n1' => [
-                'XML_ID' => 'BREED_SMALL',
-                'VALUE' => 'Для мелких пород',
-                'DEF' => 'N',
-                'SORT' => 10,
-            ],
-            'n2' => [
-                'XML_ID' => 'BREED_MIDDLE',
-                'VALUE' => 'Для средних пород',
-                'DEF' => 'N',
-                'SORT' => 20,
-            ],
-            'n3' => [
-                'XML_ID' => 'BREED_LARGE',
-                'VALUE' => 'Для крупных пород',
-                'DEF' => 'N',
-                'SORT' => 30,
-            ],
-            'n4' => [
-                'XML_ID' => 'BREED_ALL',
-                'VALUE' => 'Для всех пород',
-                'DEF' => 'N',
-                'SORT' => 40,
             ],
         ],
     ];

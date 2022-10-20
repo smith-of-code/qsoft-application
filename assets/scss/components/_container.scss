@@ -6,4 +6,9 @@
     margin-left: auto;
     padding-right: rem($gap-container-medium);
     padding-left: rem($gap-container-medium);
+
+    @media #{$screen-tablet} {
+        padding-right: rem($gap-normal);
+        padding-left: rem($gap-normal);
+    }
 }

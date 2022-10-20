@@ -77,6 +77,7 @@ const baseConfig = {
                     </div>
                 </div>
             </div>
+            <input type="hidden" data-dropzone-file>
             <div class="file__error" data-dz-errormessage></div>
         </div>
     `
@@ -92,6 +93,8 @@ function uploadFiles(el) {
 
     const initParams = $uploader.data(DATA_ATTRIBUTES.params);
 
+    let newUrl = $uploader.data('request-url') != null ? $uploader.data('request-url') : targetUrl;
+
     let config,
         _acceptedFiles = initParams.acceptedFiles,
         _paramName = initParams.paramName,
@@ -103,8 +106,6 @@ function uploadFiles(el) {
     acceptedFiles = (_acceptedFiles && _acceptedFiles.length) ? _acceptedFiles : baseConfig.acceptedFiles;
     paramName = (_paramName && _paramName.length) ? _paramName : baseConfig.paramName;
     maxFiles = initParams.single ? 1 : baseConfig.maxFiles;
-
-    let newUrl = (initParams.url !== null) ? initParams.url : targetUrl;
 
     function fileNameCut(line) {
         if (line.length > 12) {
@@ -134,6 +135,7 @@ function uploadFiles(el) {
                         <svg class="dropzone__previews-item-remove-icon icon icon--cross"><use xlink:href="/public/images/icons/sprite.svg#icon-cross"></use></svg>
                     </div>
                 </div>
+                <input type="hidden" data-dropzone-file>
                 <div class="dropzone__previews-item-error" data-dz-errormessage></div>
             </div>
         `;
@@ -188,10 +190,23 @@ function uploadFiles(el) {
                 }
             });
 
+            self.on('removedfile', (file) => {
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: { 'DEL_FILE_ID': file.id }
+                });
+                let delOpt = "[value='" + file.id + "']";
+                $uploader.find(delOpt).remove();
+            });
+
             self.on('success', (file, data) => {
-                // для интеграции
-                // let _data = JSON.parse(data);
-                // file.id = _data['FILE_ID'];
+                //для интеграции с бэком
+                let decData = JSON.parse(data);
+                let photoID = decData["FILE_ID"];
+                file.id = photoID;
+
+                $(file.previewElement).find('[data-dropzone-file]').val(file.id);
             });
         },
     });
