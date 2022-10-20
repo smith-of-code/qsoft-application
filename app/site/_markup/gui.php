@@ -894,6 +894,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-glasses"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: cat-think">
+                                    <svg class="icon icon--cat-think gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-think"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
