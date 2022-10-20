@@ -1,25 +1,54 @@
-<?php
-
-CModule::IncludeModule('sale');
+<?php if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) die();
 
 use	Bitrix\Main\Loader;
-use	Bitrix\Main\Localization\Loc;
-use Bitrix\Sale\Order;
-use Bitrix\Sale\Basket;
-use Bitrix\Sale\BasketBase;
-use Bitrix\Main\UserTable;
+use QSoft\Service\OrderService;
+use Bitrix\Main\Engine\Contract\Controllerable;
 
-if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
-    die();
+Loader::includeModule('iblock');
+
+class CatalogElementComponent extends CBitrixComponent implements Controllerable
+{
+    private OrderService $orderService;
+    public function configureActions()
+    {
+        return [
+            'load' => [
+                '-prefilters' => [
+                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
+                    \Bitrix\Main\Engine\ActionFilter\Authentication::class
+                ],
+            ]
+        ];
+    }
+
+    public function onPrepareComponentParams($arParams)
+    {
+        $this->orderService = OrderService::getInstance($arParams['ORDER_ID']);
+        return $arParams;
+    }
+
+    public function executeComponent()
+    {
+        $this->arResult['DETAIL'] = $this->orderService->getOrderDetail();
+        $this->arResult['ALL_PRODUCTS_ID'] = $this->orderService->getOrderProductsId();
+        $this->arResult['PRODUCTS'] = $this->loadProductsAction(
+            $this->arResult['ALL_PRODUCTS_ID'],
+            0,
+            $this->arParams['PRODUCT_LIMIT']
+        );
+        $this->includeComponentTemplate();
+    }
+
+    public function loadProductsAction($allProductsId, $offset = 0, $limit = null)
+    {
+        return $this->orderService->getProductsByIds(
+            IBLOCK_PRODUCT_OFFER,
+            array_slice($allProductsId, $offset, $limit)
+        );
+    }
 }
 
-Loc::loadMessages(__FILE__);
-
-if (!Loader::includeModule('iblock')) {
-    ShowError(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
-    return;
-}
-
+/*
 class CatalogElementComponent extends CBitrixComponent
 {
     const STATUSES = [
@@ -38,10 +67,7 @@ class CatalogElementComponent extends CBitrixComponent
     ];
 
     private bool $isError = false;
-    /**
-     * @param array $arParams
-     * @return array
-     */
+
     public function onPrepareComponentParams($arParams): array
     {
         $arParams = parent::onPrepareComponentParams($arParams);
@@ -198,3 +224,4 @@ class CatalogElementComponent extends CBitrixComponent
         return $userName;
     }
 }
+*/

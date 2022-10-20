@@ -34,7 +34,7 @@ class OrderService
         Loader::includeModule('catalog');
     }
 
-    public function getOrderDetails()
+    public function getOrderDetail()
     {
         $this->isOrderExist();
         $order = $this->order;
@@ -42,15 +42,21 @@ class OrderService
             'ID' => $order->getId(),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => UserTable::getById($order->getUserId())->fetch(),
-            'STATUS_NAME' => $order->getField('STATUS_ID'),
-            'STATUS_COLOR' => $order->getField('STATUS_ID'),
+            'STATUS_ID' => $order->getField('STATUS_ID'),
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => $order->getPrice(),
             'VOUCHER_USED' => (bool) $order->getField(['PAY_VOUCHER_NUM']),
         ];
     }
 
-    public function getOrderListFromIBlock($productIblockId, $idProducts)
+    public function getProductsByIds($productIblockId, $idProducts)
+    {
+        $products = $this->getOrderListFromIBlock($productIblockId, $idProducts);
+        $this->getOrderListFromBasket($products);
+        return $products;
+    }
+
+    private function getOrderListFromIBlock($productIblockId, $idProducts)
     {
         $dataSource = new DataSource($productIblockId);
         return $dataSource
@@ -59,7 +65,7 @@ class OrderService
             ->getElements();
     }
 
-    public function getOrderListFromBasket(&$idProducts)
+    private function getOrderListFromBasket(&$idProducts)
     {
         $this->isOrderExist();
         foreach ($idProducts as &$product) {
