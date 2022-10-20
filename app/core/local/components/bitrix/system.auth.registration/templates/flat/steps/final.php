@@ -19,7 +19,7 @@
         Заявка успешно отправлена!
     </h4>
 
-    <p class="notification__text">
+    <p class="notification__text notification__text--small">
         Ваша заявка на регистрацию оформлена. Проверьте, пожалуйста, электронную почту
     </p>
 </div>

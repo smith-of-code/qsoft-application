@@ -14,9 +14,11 @@
     }
 
     &--inlined & {
-        @media #{$screen-tablet} {
-            margin-top: 0;
-            margin-left: rem($gap-average);
+        &__col {
+            @media #{$screen-tablet} {
+                margin-top: 0;
+                margin-left: rem($gap-average);
+            }
         }
     }
 
