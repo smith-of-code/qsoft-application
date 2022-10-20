@@ -5,6 +5,7 @@ use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Iblock\Model\PropertyFeature;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -325,15 +326,26 @@ class CatalogElementComponent extends CBitrixComponent
             $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
         }
 
-        $properties = CIBlockProperty::GetList(
-            $arOrder  = array("SORT" => "ASC"),
-            $arFilter = array(
-                "ACTIVE"    => "Y",
-                "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
-            )
-        );
-        while($item = $properties->GetNext()) {
+        $propsResult = $this->getProperties();
+        $showedPropertiesInDetail = $this->getShowedInDetailPageProperties();
+
+        while($item = $propsResult->GetNext()) {
             $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
+            if (in_array($item['ID'], $showedPropertiesInDetail)) {
+                $properties[$item['ID']] = $item;
+            }
+        }
+
+        $index = 1;
+        foreach ($properties as $property) {
+            if ($index++ > 4) {
+                break;
+            }
+
+            $code = $property['CODE'];
+            if ($value = $data['PRODUCT']["PROPERTY_{$code}_VALUE"]) {
+                $result['SPECIFICATION'][$code] = $value;
+            }
         }
 
         $result['ENERGY_VALUE'] = [
@@ -346,5 +358,30 @@ class CatalogElementComponent extends CBitrixComponent
         ];
 
         return $result;
+    }
+
+    /**
+     * @return CIBlockPropertyResult
+     */
+    private function getProperties():CIBlockPropertyResult
+    {
+        return CIBlockProperty::GetList(
+            ["SORT" => "ASC"],
+            [
+                "ACTIVE"    => "Y",
+                "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
+            ]
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    private function getShowedInDetailPageProperties(): ?array
+    {
+        return PropertyFeature::getDetailPageShowPropertyCodes(
+            $this->arParams['IBLOCK_ID'],
+            ['DETAIL_PAGE_SHOW' => 'Y']
+        );
     }
 }

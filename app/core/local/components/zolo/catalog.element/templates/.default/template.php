@@ -253,25 +253,12 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 
                 <!-- Список описаний товара -->
                 <ul class="specification__description">
-                    <li class="specification__description-item">
-                        <p class="specification__description-topic">Размер породы</p>
-                        <p class="specification__description-response"><?=$arResult['BREED']?></p>
-                    </li>
-
-                    <li class="specification__description-item">
-                        <p class="specification__description-topic">Возраст</p>
-                        <p class="specification__description-response"><?=$arResult['AGE']?></p>
-                    </li>
-
-                    <li class="specification__description-item">
-                        <p class="specification__description-topic">Вкус корма</p>
-                        <p class="specification__description-response">Кролик</p>
-                    </li>
-
-                    <li class="specification__description-item">
-                        <p class="specification__description-topic">Специальные показания</p>
-                        <p class="specification__description-response">Здоровое пищеварение</p>
-                    </li>
+                    <?php foreach ($arResult['SPECIFICATION'] as $key => $value): ?>
+                        <li class="specification__description-item">
+                            <p class="specification__description-topic"><?=$arResult['PROPERTY_NAMES'][$key]?></p>
+                            <p class="specification__description-response"><?=$value?></p>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
                 <!-- Список описаний товара -->
             </div>
