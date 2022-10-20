@@ -41,6 +41,10 @@
         }
     }
 
+    &__title {
+        line-height: rem($line-height-huge);
+    }
+
     &__info {
         font-size: rem($font-size-miniature);
         line-height: ($font-size-normal / $font-size-miniature);

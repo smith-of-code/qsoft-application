@@ -45,9 +45,7 @@
         }
 
         &--closer {
-            @media #{$screen-tablet} {
-                margin-bottom: rem($gap-normal);
-            }
+            margin-bottom: 0;
         }
     }
 
@@ -78,12 +76,29 @@
             @media #{$screen-tablet} {
                 padding: rem($gap-normal);
             }
+
+            &--collapsed {
+                padding: 0;
+
+                @media #{$screen-tablet} {
+                    padding: rem($gap-normal);
+                }
+            }
         }
     }
 
     &__wrapper {
+        padding: rem($gap-average);
+
+        border-radius: rem($border-radius);
+        background-color: $white;
+
         @media #{$screen-tablet} {
             display: flex;
+
+            padding: 0;
+
+            background-color: transparent;
         }
     }
 }

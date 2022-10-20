@@ -91,4 +91,97 @@
 
         letter-spacing: 0.02em;
     }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+
+        &--mobile {
+            margin-bottom: rem(20px);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
+
+        &-button {
+            & + & {
+                @media #{$screen-tablet} {
+                    margin-left: rem($gap-normal);
+                }
+            }
+
+            &--edit {
+                display: none;
+
+                @media #{$screen-tablet} {
+                    display: flex;
+                }
+            }
+
+            &--toggle {
+                @media #{$screen-desktop} {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__period {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: ($line-height-small / $font-size-small);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: $saltBox;
+
+        &--mobile {
+            margin-bottom: rem(20px);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
+
+        &--desktop {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: flex;
+
+                margin-right: rem($gap-normal );
+            }
+
+            @media #{$screen-desktop} {
+                margin-right: 0;
+            }
+        }
+
+        &-icon {
+            $size: 20px;
+            $icon-margin: 4px;
+
+            position: relative;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($icon-margin);
+
+            @media #{$screen-tablet} {
+                $size: 24px;
+                $icon-margin: 8px;
+
+                flex-shrink: 0;
+
+                width: rem($size);
+                height: rem($size);
+                margin-right: rem($icon-margin);
+            }
+        }
+    }
 }

@@ -62,6 +62,8 @@
         }
 
         &__icon {
+            flex-shrink: 0;
+
             color: $saltBox;
         }
 
@@ -134,6 +136,16 @@
             padding-top: rem($gap-average);
 
             border-top: rem(1px) solid #d9d9d9;
+        }
+
+        &--closer {
+            margin-top: rem(20px);
+
+            color: initial;
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-normal);
+            }
         }
     }
 

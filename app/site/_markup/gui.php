@@ -824,6 +824,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: repeat">
+                                    <svg class="icon icon--repeat gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
