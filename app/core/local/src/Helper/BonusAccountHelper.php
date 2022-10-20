@@ -1,11 +1,11 @@
 <?php
 
-namespace QSoft\Service;
+namespace QSoft\Helper;
 
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
-use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\ORM\TransactionTable;
+use QSoft\Service\TransactionsHelper;
 use RuntimeException;
 
 /**
@@ -14,6 +14,10 @@ use RuntimeException;
  */
 class BonusAccountHelper
 {
+    public const BONUS_ACCOUNT_LEVEL_B1 = 'K1';
+    public const BONUS_ACCOUNT_LEVEL_B2 = 'K2';
+    public const BONUS_ACCOUNT_LEVEL_B3 = 'K3';
+
     private TransactionsHelper $transactions;
     private LoyaltyProgramHelper $loyalty;
 

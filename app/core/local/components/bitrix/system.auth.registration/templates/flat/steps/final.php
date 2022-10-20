@@ -8,4 +8,18 @@
  */
 ?>
 
-final step
+<div class="registration__notification notification">
+    <div class="notification__icon">
+        <svg class="icon icon--tick-circle">
+            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+        </svg>
+    </div>
+
+    <h4 class="notification__title">
+        Заявка успешно отправлена!
+    </h4>
+
+    <p class="notification__text notification__text--small">
+        Ваша заявка на регистрацию оформлена. Проверьте, пожалуйста, электронную почту
+    </p>
+</div>
