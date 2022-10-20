@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="g-recaptcha" data-sitekey="6LfALokiAAAAAM9E-k4KfUBG0puMAiQc7p1lafU_"></div>
+        <div class="g-recaptcha"></div>
         <div class="registration__actions registration__actions--inlined registration__actions--separated">
             <div class="registration__actions-col">
                 <button class="button button--rounded button--covered button--white-green button--full" data-change-step data-direction="previous">

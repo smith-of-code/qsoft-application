@@ -60,4 +60,5 @@ $isCurrentStepPassed = false;
 
 <script>
     var registrationData = <?=CUtil::PhpToJSObject($arResult)?>;
+    document.querySelector('.g-recaptcha').setAttribute('data-sitekey', getenv('CAPTCHA_KEY'));
 </script>
