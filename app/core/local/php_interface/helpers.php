@@ -37,3 +37,10 @@ if (!function_exists('app')) {
         return getApplication()->make($alias);
     }
 }
+
+if (!function_exists('mb_ucfirst')) {
+    function mb_ucfirst(string $string, string $encoding = 'utf8'): string
+    {
+        return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
+    }
+}

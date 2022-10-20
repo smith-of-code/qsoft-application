@@ -19,7 +19,7 @@ class DogBreedTable extends BaseTable
                 'primary' => true,
                 'autocomplete' => true,
             ]),
-            new StringField('UF_DATA', [
+            new StringField('UF_BREED_DOG', [
                 'required' => true,
             ]),
         ];

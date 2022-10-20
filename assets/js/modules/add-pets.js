@@ -71,7 +71,7 @@ export default function () {
 
         //пол
         let genderInput = element.find(`${ELEMENTS_SELECTOR.genderInput} option:selected`).text();
-        let gender = (genderInput == 'Девочка') ? 'woman' : 'man';
+        let gender = genderInput.indexOf('Девочка') !== -1 ? 'woman' : 'man';
         element.find(ELEMENTS_SELECTOR.gender).html(`<svg class="icon icon--${gender}">
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${gender}"></use>
         </svg>`);
@@ -101,6 +101,15 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.buttonAdd, function() { // переписать на отправку формы и сделать валидацию
         let template = $('#hidden-template-pet').text();
         template = template.replaceAll('#ID#', Date.now());
+        template = $(template);
+
+        const petKind = template.closest('.pet-cards__item').find('[data-pet-kind]').val();
+        template.find(`[data-breed]`).hide();
+        if (petKind) {
+            template.find(`[data-breed=${petKind}]`).show();
+        } else {
+            template.find(`[data-breed=empty]`).show();
+        }
         $(ELEMENTS_SELECTOR.list).append(template);
 
         select();

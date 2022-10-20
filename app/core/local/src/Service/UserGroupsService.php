@@ -2,7 +2,10 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\ArgumentException;
 use Bitrix\Main\GroupTable;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\UserGroupTable;
 use http\Exception\RuntimeException;
 use QSoft\Entity\User;
@@ -123,6 +126,9 @@ class UserGroupsService
     /**
      * Является ли пользователь Консультантом
      * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function isConsultant(): bool
     {
