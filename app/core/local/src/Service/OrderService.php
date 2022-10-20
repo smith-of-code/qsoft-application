@@ -2,41 +2,30 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\UserTable;
 use Bitrix\Main\Loader;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\Order;
 use Bitrix\Sale\Basket;
 use RuntimeException;
+use QSoft\Common\DataSource;
 
 class OrderService
 {
-    const STATUSES = [
-        'OD' => [
-            'NAME' => 'Доставлен',
-            'COLOR' => '#2D8859',
-        ],
-        'OP' => [
-            'NAME' => 'Размещен',
-            'COLOR' => '#3887B5',
-        ],
-        'OC' => [
-            'NAME' => 'Отменен',
-            'COLOR' => '#D82F49',
-        ],
-    ];
-    private int $orderId;
-    private ?Order $order;
+    private Order $order;
+    private BasketBase $basket;
 
     public function getInstance(int $orderId): OrderService
     {
         return new OrderService($orderId);
     }
 
-    public function __construct(int $orderId)
+    private function __construct(int $orderId)
     {
         $this->includeModules();
-        $this->orderId = $orderId;
-        $this->order = Order::load($this->orderId);
+        $this->order = Order::load($orderId);
+        $this->isOrderExist();
+        $this->basket = Basket::loadItemsForOrder($this->order);
     }
 
     private function includeModules(): void
@@ -45,33 +34,52 @@ class OrderService
         Loader::includeModule('catalog');
     }
 
-    public function getOrderDetails(): Order
+    public function getOrderDetails()
     {
         $this->isOrderExist();
-        return $this->getDetails();
-    }
-
-    private function getDetails()
-    {
         $order = $this->order;
-        $result = [
+        return [
             'ID' => $order->getId(),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => UserTable::getById($order->getUserId())->fetch(),
-            //'STATUS_NAME' =>
-            //'STATUS_PAID' =>
-            //'TOTAL_PRICE' =>
+            'STATUS_NAME' => $order->getField('STATUS_ID'),
+            'STATUS_COLOR' => $order->getField('STATUS_ID'),
+            'IS_PAID' => $order->isPaid(),
+            'TOTAL_PRICE' => $order->getPrice(),
+            'VOUCHER_USED' => (bool) $order->getField(['PAY_VOUCHER_NUM']),
         ];
     }
+
+    public function getOrderListFromIBlock($productIblockId, $idProducts)
+    {
+        $dataSource = new DataSource($productIblockId);
+        return $dataSource
+            ->select(['ID', 'PREVIEW_PICTURE', 'ARTICLE.VALUE'])
+            ->filter($idProducts)
+            ->getElements();
+    }
+
+    public function getOrderListFromBasket(&$idProducts)
+    {
+        $this->isOrderExist();
+        foreach ($idProducts as &$product) {
+            $basketItem = $this->basket->getExistsItems('catalog',$product['ID'])[0];
+            $product['QUANTITY'] = $basketItem->getQuantity();
+            $product['PRICE'] = $basketItem->getPrice();
+            $product['NAME'] = $basketItem->getField('NAME');
+            unset($product['ID']);
+        }
+    }
+
     private function isOrderExist()
     {
-        if (!$this->order) {
+        if (!isset($this->order)) {
             throw new RuntimeException('Order not found');
         }
     }
 
-    public function getOrderProducts(): BasketBase
+    public function getOrderProductsId()
     {
-        return Basket::loadItemsForOrder($this->getOrder());
+        return ['ID' => array_map(fn($product) => $product->getProductId(), $this->basket->getBasketItems())];
     }
 }
