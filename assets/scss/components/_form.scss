@@ -184,6 +184,16 @@
         width: $width;
         padding-right: rem($horizontal-gutter / 2);
         padding-left: rem($horizontal-gutter / 2);
+
+        &--right {
+            margin-left: auto;
+        }
+
+        &--definite {
+            @media #{$screen-tablet} {
+                width: auto;
+            }
+        }
     }
 
     &__field {

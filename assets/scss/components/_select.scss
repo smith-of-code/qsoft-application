@@ -115,7 +115,11 @@
                 .select2-selection__rendered {
                     line-height: rem(22px);
 
-                    padding: rem($gap-small) rem($gap-average);
+                    padding: rem($gap-small) rem(6px);
+                }
+
+                .select2-selection__rendered-item {
+                    padding: 0 rem(6px);
                 }
             }
         }
@@ -334,6 +338,19 @@
 
             .select2-selection__arrow {
                 display: none;
+            }
+        }
+    }
+
+    .select2-container--default {
+        .select2-search--inline {
+            .select2-search__field {
+                font-family: $font-family;
+                font-size: rem($font-size-small);
+                font-weight: $font-weight-medium;
+                line-height: 22px;
+
+                margin-left: 0;
             }
         }
     }
