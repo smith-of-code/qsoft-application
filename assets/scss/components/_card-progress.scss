@@ -12,6 +12,10 @@
         padding: rem($gap-normal) rem($gap-medium);
     }
 
+    &--unbordered {
+        border: none;
+    }
+
     &__inner {
         display: flex;
         align-items: center;

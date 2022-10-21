@@ -236,4 +236,12 @@
     &__requirement {
         margin-top: rem($gap-average);
     }
+
+    &__consultant {
+        margin-bottom: rem($gap-big);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(30px);
+        }
+    }
 }

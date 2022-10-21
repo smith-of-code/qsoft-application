@@ -85,6 +85,27 @@
                 }
             }
         }
+
+        &-row {
+            @media #{$screen-tablet} {
+                display: flex;
+            }
+        }
+
+        &-col {
+            @media #{$screen-tablet} {
+                width: 50%;
+            }
+
+            & + & {
+                margin-top: rem($gap-medium);
+
+                @media #{$screen-tablet} {
+                    margin-top: 0;
+                    margin-left: rem($gap-medium);
+                }
+            }
+        }
     }
 
     &__wrapper {

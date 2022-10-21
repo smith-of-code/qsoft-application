@@ -26,5 +26,9 @@
         @media #{$screen-tablet} {
             flex-basis: percentage(1 / 2);
         }
+
+        &--full {
+            flex-basis: 100%;
+        }
     }
 }

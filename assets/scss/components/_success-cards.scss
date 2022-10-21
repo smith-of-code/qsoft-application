@@ -9,6 +9,10 @@
         margin: 0 rem(-10px);
     }
 
+    &--full {
+        height: 100%;
+    }
+
     &__item {
         & + & {
             margin-top: rem($gap-average);
@@ -25,6 +29,10 @@
 
         @media #{$screen-desktop} {
             padding: 0 rem(10px);
+        }
+
+        &--full {
+            width: 100%;
         }
     }
 }

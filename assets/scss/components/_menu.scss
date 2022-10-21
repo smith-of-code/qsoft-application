@@ -86,6 +86,8 @@
 
             @include text-miniature;
 
+            line-height: $line-height-small;
+
             display: flex;
             align-items: center;
             justify-content: center;

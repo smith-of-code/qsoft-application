@@ -830,6 +830,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: crown">
+                                    <svg class="icon icon--crown gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">

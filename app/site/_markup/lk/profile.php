@@ -2444,7 +2444,7 @@
                                                             <div class="cards-progress">
                                                                 <ul class="cards-progress__list">
                                                                     <li class="cards-progress__item">
-                                                                        <div class="card-progress">
+                                                                        <div class="card-progress card-progress--unbordered">
                                                                             <div class="card-progress__inner">
                                                                                 <p class="card-progress__title">
                                                                                     Удержание уровня по личным покупкам
@@ -2501,7 +2501,7 @@
 
                                                                     </li>
                                                                     <li class="cards-progress__item">
-                                                                        <div class="card-progress">
+                                                                        <div class="card-progress card-progress--unbordered">
                                                                             <div class="card-progress__inner card-progress__inner--columed">
                                                                                 <div class="card-progress__image">
                                                                                     <svg class="card-progress__image-pic icon icon--cat-cheerful">
