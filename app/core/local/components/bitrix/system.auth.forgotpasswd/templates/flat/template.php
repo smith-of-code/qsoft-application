@@ -26,6 +26,7 @@
                 </div>
             </div>
 
+            <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>" style="margin-top: 20px;"></div>
             <div class="registration__actions">
                 <div class="registration__actions-col">
                     <button class="button button--rounded button--covered button--red button--full" data-send>
@@ -64,3 +65,5 @@
         </div>
     </section>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
