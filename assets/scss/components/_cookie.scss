@@ -1,0 +1,109 @@
+.cookie {
+    position: fixed;
+    z-index: $z-index-popup;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    padding: rem($gap-big) 0;
+
+    border-radius: rem($border-radius-big);
+    background: $white;
+
+    @media #{$screen-desktop} {
+        padding: rem(70px) 0;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: column;
+
+        @media #{$screen-tablet} {
+            align-items: center;
+            flex-direction: row;
+        }
+    }
+
+    &__col {
+        margin-bottom: rem(24px);
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @media #{$screen-tablet} {
+            margin-bottom: 0;
+            margin-right: rem(60px);
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &__image {
+        $size: 60px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        margin-left: auto;
+        margin-right: auto;
+
+        @media #{$screen-tablet} {
+            $size: 80px;
+
+            width: rem($size);
+        }
+        
+        @media #{$screen-desktop} {
+            $size: 100px;
+
+            width: rem($size);
+        }
+    }
+
+    &__text {
+        @include text-average($font-weight-medium);
+
+        text-align: center;
+
+        color: $black;
+
+        @media #{$screen-desktop} {
+            text-align: left;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+
+        width: 100%;
+
+        @media #{$screen-tablet} {
+            width: rem(236px);
+        }
+
+        &-button {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-semibold;
+            line-height: $line-height-small;
+
+            height: rem(36px);
+            margin-bottom: rem(24px);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-normal);
+                font-weight: $font-weight-bold;
+                
+                height: rem(44px);
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

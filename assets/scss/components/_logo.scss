@@ -1,6 +1,11 @@
 .logo {
     width: rem(148px);
-    height: rem(41px);
+    height: rem(40px);
+
+    @media #{$screen-tablet} {
+        width: rem(149px);
+        height: rem(42px);
+    }
 
     @media #{$screen-desktop} {
         width: rem(166px);
