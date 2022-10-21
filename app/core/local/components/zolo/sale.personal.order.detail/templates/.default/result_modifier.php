@@ -4,10 +4,10 @@ use \Bitrix\Sale\Internals\StatusTable;
 use \Bitrix\Main\ORM\Query\Query;
 
 //Формирование имени для свойства заказа - "Кем заказан"
-$arResult['DETAIL']['CREATED_BY'] = formUserName($arResult['DETAIL']['CREATED_BY']);
+$arResult['ORDER_DETAILS']['CREATED_BY'] = formUserName($arResult['ORDER_DETAILS']['CREATED_BY']);
 
 //Получение названия статуса заказа по краткому обозначению (по ID)
-$arResult['DETAIL']['ORDER_STATUS'] = getStatusName($arResult['DETAIL']['ORDER_STATUS']);
+$arResult['ORDER_DETAILS']['ORDER_STATUS'] = getStatusName($arResult['ORDER_DETAILS']['ORDER_STATUS']);
 
 //Получение пути к картинке товара
 foreach($arResult['PRODUCTS'] as &$product) {
