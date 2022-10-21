@@ -11,21 +11,21 @@ use Bitrix\Iblock\Model\PropertyFeature;
 
 class NewPropertiesForCatalogProduct extends Migration
 {
+    // свойства для показа на деталке
     private const ON_DETAIL_PAGE = [
         'SPECIAL_INDICATIONS',
         'FEED_TASTE',
         'MATERIAL',
         'BREED',
         'AGE',
-    ];
-            
+    ];     
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $iblockId = IBLOCK_PRODUCT;
         $this->addProperties($iblockId);
@@ -37,13 +37,18 @@ class NewPropertiesForCatalogProduct extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         $iblockId = IBLOCK_PRODUCT;
         $this->deleteProperties($iblockId);
     }
 
-    private function addProperties($iblockId)
+    /**
+     * @param int $iblockId
+     * 
+     * @return void
+     */
+    private function addProperties(int $iblockId): void
     {
         $properties = $this->preparePropertiesFieldsForAdd($iblockId);
 
@@ -63,18 +68,23 @@ class NewPropertiesForCatalogProduct extends Migration
         }
     }
 
-    private function updateProperties($iblockId)
+    /**
+     * @param int $iblockId
+     * 
+     * @return void
+     */
+    private function updateProperties(int $iblockId): void
     {
         $properties = $this->preparePropertiesFieldsForUpdate($iblockId);
 
         $propertiesId = $this->getPropertiesIdByCodes($iblockId);
 
         foreach ($properties as $propertyFields) {
-            $id = (new CIBlockProperty())->update($propertiesId[$propertyFields['CODE']], $propertyFields);
+            (new CIBlockProperty())->update($propertiesId[$propertyFields['CODE']], $propertyFields);
 
             if (in_array($propertyFields['CODE'], self::ON_DETAIL_PAGE)) {
                 PropertyFeature::setFeatures(
-                    $id, 
+                    $propertyFields['ID'], 
                     [
                         "FEATURE_ID" => "DETAIL_PAGE_SHOW",
                         "IS_ENABLED" => "Y",
@@ -85,7 +95,12 @@ class NewPropertiesForCatalogProduct extends Migration
         }
     }
 
-    private function deleteProperties($iblockId)
+    /**
+     * @param int $iblockId
+     * 
+     * @return void
+     */
+    private function deleteProperties(int $iblockId):void
     {
         $properties = $this->preparePropertiesFieldsForAdd($iblockId);
 
@@ -96,27 +111,29 @@ class NewPropertiesForCatalogProduct extends Migration
         }
     }
 
+    /**
+     * @return [type]
+     */
     private function getPropertiesIdByCodes()
     {
         $properties = $this->preparePropertiesFieldsForAdd($this->arParams['IBLOCK_ID']);
+
         foreach ($properties as $property) {
-            $properiesResult[] = CIBlockProperty::GetList(
+            $ids[] = CIBlockProperty::GetList(
                 ["SORT" => "ASC"],
                 [
                     "ACTIVE"    => "Y",
                     "CODE" => $property['CODE'],
                 ]
-            )->GetNext();
-        }
-
-
-        foreach ($properiesResult as $property) {
-            $ids[] = $property['ID'];
+            )->GetNext()['Id'];
         }
 
         return $ids ?? [];
     }
 
+    /**
+     * @return void
+     */
     protected function includeIBlockModule(): void
     {
         if (!\CModule::IncludeModule('iblock')) {
@@ -128,7 +145,12 @@ class NewPropertiesForCatalogProduct extends Migration
         }
     }
 
-    private function preparePropertiesFieldsForAdd($iblockId)
+    /**
+     * @param int $iblockId
+     * 
+     * @return array
+     */
+    private function preparePropertiesFieldsForAdd(int $iblockId): array
     {
         return [
             [
@@ -384,7 +406,12 @@ class NewPropertiesForCatalogProduct extends Migration
         ];
     }
 
-    private function preparePropertiesFieldsForUpdate($iblockId)
+    /**
+     * @param int $iblockId
+     * 
+     * @return array
+     */
+    private function preparePropertiesFieldsForUpdate(int $iblockId): array
     {
         return [
             [

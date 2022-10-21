@@ -327,7 +327,10 @@ class CatalogElementComponent extends CBitrixComponent
             $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
         }
 
+        // Объект CIBlockPropertyResult
         $propsResult = $this->getProperties();
+
+        // id элементов, у которых выставлен параметр "Показывать на детальной странице.
         $showedPropertiesInDetail = $this->getShowedInDetailPageProperties();
 
         while($item = $propsResult->GetNext()) {
@@ -374,7 +377,7 @@ class CatalogElementComponent extends CBitrixComponent
                 "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
             ]
         );
-    }
+    }   
 
     /**
      * @return array|null

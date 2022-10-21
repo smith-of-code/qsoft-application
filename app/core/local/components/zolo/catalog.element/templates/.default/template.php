@@ -8,7 +8,7 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
  * @var array $templateData
  */
 
-global $APPLICATION;
+global $APPLICATION, $USER;
 
 if ($arParams['SET_TITLE'] === 'Y') {
     $APPLICATION->SetTitle($arResult['NAME']);
@@ -21,12 +21,6 @@ if ($arParams['SET_META_KEYWORDS'] === 'Y') {
 if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
 }
-?>
-
-<?php
-// dump($arResult);
-// dump($arParams);
-// dump($templateData);
 ?>
 <!--content-->
 <!-- хлебные крошки -->
@@ -70,6 +64,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <div class="swiper-wrapper" data-card-favourite-block>
 
                     <?php if (!empty($arResult['PHOTOS'])): ?>
+
                         <?php foreach ($arResult['PHOTOS'] as $value): ?>
                             <?php foreach ($value as $photo): ?>
                                 <div class="swiper-slide slider__slide">
@@ -99,7 +94,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                 </div>
                             <?php endforeach; ?>
                         <?php endforeach; ?>
+
                     <?php else: ?>
+
                         <div class="swiper-slide slider__slide">
                             <article class="product-card product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
@@ -125,6 +122,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                 </div>
                             </article>
                         </div>
+
                     <?php endif; ?>
 
                 </div>
@@ -167,7 +165,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <?php endforeach; ?>
                 <!-- Артикулы -->
 
-                <!-- Блок селекта фассовки -->
+                <!-- Блок селекта фассовки большой вариант-->
                 <div class="specification__packs packs">
                     <p class="specification__category">Фасовка</p>
                     <ul class="packs__list">
@@ -268,6 +266,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
             <div class="detail__card-order cart">
                 <h4 class="cart__heading">Ваш заказ</h4>
 
+                <!-- Блок селекта фассовки малый вариант-->
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
                     <div class="select select--mini" data-select>
@@ -288,23 +287,29 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                         </select>
                     </div>
                 </div>
+                <!-- Блок селекта фассовки малый вариант-->
 
-                <div class="cart__price price"  style="display: none;">
-                    <p class="price__main">1 545 ₽</p>
-                    <div class="price__calculation">
-                        <p class="price__calculation-total">1 420 ₽</p>
-                        <p class="price__calculation-accumulation">14 ББ</p>
-                    </div>
-                </div>
+                <?php if ($USER->isAuthorized()): ?>
 
-                <!-- Если не авторизован -->
-                <div class="cart__price price">
-                    <div class="price__calculation" >
-                        <p class="price__calculation-total price__calculation-total--red">1 420 ₽</p>
+                    <div class="cart__price price">
                         <p class="price__main">1 545 ₽</p>
+                        <div class="price__calculation">
+                            <p class="price__calculation-total">1 420 ₽</p>
+                            <p class="price__calculation-accumulation">14 ББ</p>
+                        </div>
                     </div>
-                </div>
 
+                <?php else: ?>
+
+                    <!-- Если не авторизован -->
+                    <div class="cart__price price">
+                        <div class="price__calculation" >
+                            <p class="price__calculation-total price__calculation-total--red">1 420 ₽</p>
+                            <p class="price__main">1 545 ₽</p>
+                        </div>
+                    </div>
+
+                <?php endif; ?>
                 <div class="cart__quantity quantity" data-quantity>
                     <div class="quantity__button" data-quantity-button>
                         <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
