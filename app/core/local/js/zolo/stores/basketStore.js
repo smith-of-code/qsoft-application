@@ -1,8 +1,10 @@
 import {defineStore} from 'ui.vue3.pinia';
 
-export const useBasketStore = defineStore('main', {
+export const useBasketStore = defineStore('basket', {
     state: () => ({
         items: [],
+        itemsCount: undefined,
+        basketPrice: undefined,
         loading: false
     }),
     getters: {
@@ -14,13 +16,15 @@ export const useBasketStore = defineStore('main', {
         addItem(payload) {
             items.push(payload);
         },
-        async fetchBasket() {
-            this.posts = [];
+        async fetchBasketTotals() {
             this.loading = true;
 
             try {
-                this.posts = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {})
-                    .then((response) => response.json());
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {})
+                    .then((response) => response.data);
+
+                this.itemsCount = response.itemsCount;
+                this.basketPrice = response.basketPrice;
             } finally {
                 this.loading = false;
             }

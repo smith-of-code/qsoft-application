@@ -5,23 +5,20 @@ import applicationsToRender from './applicationsToRender';
 export class Loader {
     run(): void {
         const pinia = createPinia();
-        // window.store = store;
 
         for (const applicationRoot in applicationsToRender) {
             this.renderApplication(applicationRoot, applicationsToRender[applicationRoot], pinia);
         }
     }
 
-    renderApplication(root: string, component: object, pinia): void {
+    renderApplication(root, component, pinia): void {
         const rootElement = document.querySelector(root)
-
-        // console.log('rootElement', {...rootElement});
 
         if (rootElement) {
             const app = BitrixVue.createApp(component);
 
-            app.mount(rootElement);
             app.use(pinia);
+            app.mount(rootElement);
         }
 
     }

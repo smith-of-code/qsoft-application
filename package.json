@@ -5,7 +5,7 @@
     "main": "script.js",
     "scripts": {
         "start": "webpack --mode=development --progress --watch",
-        "build": "webpack --mode=production"
+        "build": "webpack --mode=production && cd app/core/local/js/ && ../../../../bitrix_cli build"
     },
     "author": "Manerova Olga",
     "license": "ISC",
