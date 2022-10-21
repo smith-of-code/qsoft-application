@@ -1,4 +1,10 @@
 .card-cart {
+    &:hover & {
+        &__title {
+            color: $brickRed;
+        }
+    }
+
     &__link {
         @include position-stretching(absolute);
     }
@@ -19,6 +25,7 @@
 
     &__image {
         position: relative;
+        z-index: -1;
 
         overflow: hidden;
         flex-shrink: 0;
@@ -52,6 +59,7 @@
 
         margin-bottom: rem($gap-mini);
 
+        transition: color $transition-duration $transition-function;
         letter-spacing: 0.02em;
 
         color: $tuna;
@@ -107,6 +115,8 @@
     }
 
     &__counter {
+        z-index: 1;
+
         margin-bottom: rem($gap-average);
 
         @media #{$screen-desktop} {
@@ -120,6 +130,11 @@
 
             @media #{$screen-desktop} {
                 width: rem(108px);
+            }
+
+            &__total {
+                flex-grow: 1;
+                justify-content: center;
             }
 
             & .button {
@@ -202,7 +217,7 @@
 
         & .button {
             &__icon {
-                $size: 20px;
+                $size: 25px;
 
                 width: rem($size);
                 height: rem($size);

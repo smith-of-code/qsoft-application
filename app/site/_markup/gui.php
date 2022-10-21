@@ -6798,13 +6798,13 @@
 
                     <!-- Карточки товаров в корзине -->
                     <div class="gui__block">
-                        <h2 class="gui__title"></h2>
+                        <h2 class="gui__title">Карточки товаров в корзине</h2>
 
                         <div class="gui__block">
 
                             <div class="cards-cart">
                                 <ul class="cards-cart__list">
-                                    <li class="cards-cart__item">
+                                    <li class="cards-cart__item" data-remove-item>
 
                                         <article class="card-cart">
                                             <a href="#" class="card-cart__link"></a>
@@ -6883,7 +6883,14 @@
                                                                     </div>
     
                                                                     <div class="quantity__total">
-                                                                        <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
                                                                     </div>
     
                                                                     <div class="quantity__increase">
@@ -6912,11 +6919,11 @@
                                                         </div>
                                                         
                                                         <div class="card-cart__total product-price">
-                                                            <p class="product-price__item product-price__item--old">
-                                                                18 462 ₽
-                                                            </p>
                                                             <p class="product-price__item product-price__item--new">
                                                                 14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
                                                             </p>
                                                         </div>
                                                     </div>
@@ -6924,15 +6931,15 @@
                                                 </div>
 
                                                 <div class="card-cart__actions">
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В избранное" data-tippy-placement="bottom-end">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
                                                             </svg>
                                                         </span>
                                                     </button>
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
                                                             </svg>
@@ -6944,7 +6951,7 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-cart__item">
+                                    <li class="cards-cart__item" data-remove-item>
 
                                         <article class="card-cart">
                                             <a href="#" class="card-cart__link"></a>
@@ -7000,7 +7007,14 @@
                                                                     </div>
     
                                                                     <div class="quantity__total">
-                                                                        <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
                                                                     </div>
     
                                                                     <div class="quantity__increase">
@@ -7038,15 +7052,15 @@
                                                 </div>
 
                                                 <div class="card-cart__actions">
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В избранное" data-tippy-placement="bottom-end">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
                                                             </svg>
                                                         </span>
                                                     </button>
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
                                                             </svg>
@@ -7058,7 +7072,7 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-cart__item">
+                                    <li class="cards-cart__item" data-remove-item>
 
                                         <article class="card-cart">
                                             <a href="#" class="card-cart__link"></a>
@@ -7137,7 +7151,14 @@
                                                                     </div>
     
                                                                     <div class="quantity__total">
-                                                                        <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
                                                                     </div>
     
                                                                     <div class="quantity__increase">
@@ -7166,11 +7187,11 @@
                                                         </div>
                                                         
                                                         <div class="card-cart__total product-price">
-                                                            <p class="product-price__item product-price__item--old">
-                                                                18 462 ₽
-                                                            </p>
                                                             <p class="product-price__item product-price__item--new">
                                                                 14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
                                                             </p>
                                                         </div>
                                                     </div>
@@ -7178,15 +7199,15 @@
                                                 </div>
 
                                                 <div class="card-cart__actions">
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В избранное" data-tippy-placement="bottom-end">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
                                                             </svg>
                                                         </span>
                                                     </button>
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
                                                             </svg>
@@ -7198,7 +7219,7 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-cart__item">
+                                    <li class="cards-cart__item" data-remove-item>
 
                                         <article class="card-cart">
                                             <a href="#" class="card-cart__link"></a>
@@ -7277,7 +7298,14 @@
                                                                     </div>
     
                                                                     <div class="quantity__total">
-                                                                        <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
                                                                     </div>
     
                                                                     <div class="quantity__increase">
@@ -7306,11 +7334,11 @@
                                                         </div>
                                                         
                                                         <div class="card-cart__total product-price">
-                                                            <p class="product-price__item product-price__item--old">
-                                                                18 462 ₽
-                                                            </p>
                                                             <p class="product-price__item product-price__item--new">
                                                                 14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
                                                             </p>
                                                         </div>
                                                     </div>
@@ -7318,15 +7346,15 @@
                                                 </div>
 
                                                 <div class="card-cart__actions">
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В избранное" data-tippy-placement="bottom-end">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
                                                             </svg>
                                                         </span>
                                                     </button>
-                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red">
-                                                        <span class="button__icon button__icon--big">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
                                                             <svg class="icon">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
                                                             </svg>
@@ -7340,8 +7368,6 @@
                                     </li>
                                 </ul>
                             </div>
-
-                            
 
                         </div>
                     </div>
