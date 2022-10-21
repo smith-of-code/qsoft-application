@@ -13,6 +13,11 @@ Loc::loadMessages(__FILE__);
 
 final class PickupPointTable extends BaseTable
 {
+    public const CITIES = [
+        'moscow' => 'PICKUP_POINT_CITY_MOSCOW',
+        'spb' => 'PICKUP_POINT_CITY_SPB',
+    ];
+
     protected static array $decorators = [
         'UF_CITY' => EnumDecorator::class,
     ];

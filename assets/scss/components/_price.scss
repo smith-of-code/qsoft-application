@@ -11,6 +11,10 @@
         display: flex;
         align-items: center;
 
+        &--column {
+            flex-direction: column
+        }
+
         &-total {
             font-size: rem($font-size-medium);
             font-weight: $font-weight-bold;
@@ -23,6 +27,11 @@
                 line-height: rem($line-height-small);
 
                 margin-right: rem($gap-small);
+            }
+
+            &--has-icon {
+                display: flex;
+                align-items: center;
             }
 
             &--red {
@@ -47,6 +56,17 @@
 
                 padding: 0 rem($gap-average);
             }
+        }
+
+        &-picture {
+            margin-right: rem($gap-mini);
+        }
+
+        &-icon {
+            $size: 28px;
+
+            width: rem($size);
+            height: rem($size);
         }
     }
 
