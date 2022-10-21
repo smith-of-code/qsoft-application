@@ -3,6 +3,7 @@
 namespace QSoft\Entity;
 
 use Carbon\Carbon;
+use CCatalogGroup;
 use CFile;
 use CUser;
 use CUserFieldEnum;
@@ -59,6 +60,10 @@ class User
      */
     public string $login;
     /**
+     * @var int|null ID цены бонусов для товаров по уровню лояльности
+     */
+    public ?int $catalogGroupId = null;
+    /**
      * @var bool Флаг активности
      */
     public bool $active;
@@ -82,6 +87,10 @@ class User
      * @var string Пол
      */
     public string $gender;
+    /**
+     * @var string Город
+     */
+    public string $city;
     /**
      * @var Carbon Дата рождения
      */
@@ -179,6 +188,7 @@ class User
         $this->secondName = $user['SECOND_NAME'];
         $this->email = $user['EMAIL'];
         $this->gender = $user['PERSONAL_GENDER'];
+        $this->city = $user['PERSONAL_CITY'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
         $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
@@ -200,6 +210,10 @@ class User
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
+
+        if ($this->groups->isConsultant()) {
+            $this->catalogGroupId = CCatalogGroup::GetList(['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
+        }
     }
 
     /**

@@ -10,6 +10,8 @@ use RuntimeException;
 
 class OrderService
 {
+    public const DELIVERY_OFFSET = 2; // days
+
     private int $orderId;
     private ?Order $order;
 
