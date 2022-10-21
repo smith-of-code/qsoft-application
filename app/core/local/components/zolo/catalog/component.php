@@ -33,11 +33,18 @@ $arComponentVariables = array(
 	"ELEMENT_CODE",
 	"action",
 );
-\Bitrix\Main\Loader::includeModule('iblock');
+
+$IblockModuleIsIncluded = false;
+
+if (\Bitrix\Main\Loader::includeModule('iblock')) {
+	$IblockModuleIsIncluded = true;
+}
+
+
 $arSortDirs = array("asc", "desc");
 $arSortFields = CIBlockParameters::GetElementSortFields(
-    array('ID', 'SORT', 'NAME'),
-    array('KEY_LOWERCASE' => 'Y')
+	array('ID', 'SORT', 'NAME'),
+	array('KEY_LOWERCASE' => 'Y')
 );
 
 if(!empty($_REQUEST["sort_field"]) && isset($arSortFields[$_REQUEST["sort_field"]]))
@@ -59,8 +66,7 @@ if($arParams["SEF_MODE"] == "Y")
 	$arVariables = array();
 
 	$engine = new CComponentEngine($this);
-	if (\Bitrix\Main\Loader::includeModule('iblock'))
-	{
+	if ($IblockModuleIsIncluded) {
 		$engine->addGreedyPart("#SECTION_CODE_PATH#");
 		$engine->addGreedyPart("#SMART_FILTER_PATH#");
 		$engine->setResolveCallback(array("CIBlockFindTools", "resolveComponentEngine"));
@@ -100,7 +106,7 @@ if($arParams["SEF_MODE"] == "Y")
 			$b404 |= !isset($arVariables["SECTION_CODE"]);
 	}
 
-	if($b404 && CModule::IncludeModule('iblock'))
+	if($b404 && $IblockModuleIsIncluded)
 	{
 		$folder404 = str_replace("\\", "/", $arParams["SEF_FOLDER"]);
 		if ($folder404 != "/")

@@ -1,8 +1,8 @@
 <?php
 
 use Bitrix\Main;
-use	Bitrix\Main\Loader;
-use	Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Iblock\Model\PropertyFeature;
@@ -138,7 +138,6 @@ class CatalogElementComponent extends CBitrixComponent
                 }
             }
             $this->arResult['BASKET'] = $basketInfo;
-
             $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
