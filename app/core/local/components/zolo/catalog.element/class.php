@@ -6,6 +6,7 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Iblock\Model\PropertyFeature;
+use Bitrix\Iblock\Component\Element;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -19,7 +20,7 @@ if (!Loader::includeModule('iblock'))
     return;
 }
 
-class CatalogElementComponent extends CBitrixComponent
+class CatalogElementComponent extends Element
 {
     private bool $isError = false;
     /**
@@ -117,6 +118,10 @@ class CatalogElementComponent extends CBitrixComponent
                     0,
                     ['SECTION_BUTTONS' => true, 'SESSID' => false]
                 );
+
+                $action = $this->prepareAction();
+                $this->setAction($action);
+                $this->doAction();
 
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];

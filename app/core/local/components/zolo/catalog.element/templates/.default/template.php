@@ -22,32 +22,19 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
 }
 ?>
-<!--content-->
-<!-- хлебные крошки -->
-<div class="breadcrumbs">
-    <ul class="breadcrumbs__list">
-
-        <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__link">Главная</a>
-        </li>
-        <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__link">Каталог товаров</a>
-        </li>
-
-        <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__link">Товары для собак</a>
-        </li>
-
-        <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__link">Сухие корма для собак</a>
-        </li>
-        <li class="breadcrumbs__item breadcrumbs__item--active">
-            <a class="breadcrumbs__link">AmeAppetite для мелких пород собак со вкусом сочного кролика</a>
-        </li>
-    </ul>
-</div>
-<!-- хлебные крошки -->
-
+<?php
+    $APPLICATION->IncludeComponent(
+        "bitrix:breadcrumb", 
+        "breadcrump_zolo", 
+        [
+            "PATH" => "",
+            "SITE_ID" => "",
+            "START_FROM" => "0",
+            "COMPONENT_TEMPLATE" => "breadcrump_zolo",
+        ],
+        false
+    );
+?>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
@@ -1348,4 +1335,3 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     </div>
 </div>
 <!-- Каталог товаров -->
-<!--content-->
