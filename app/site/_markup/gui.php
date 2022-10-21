@@ -8505,6 +8505,125 @@
                         </div>
                     </div>
                     <!-- /Попап cookie -->
+                    
+                    <!-- Карточки подборок -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки подборок</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-compilation">
+                                <ul class="cards-compilation__list">
+                                    <li class="cards-compilation__item">
+
+                                        <article class="card-compilation card-compilation--green">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <img
+                                                    src="https://placeimg.com/470/470/animals"
+                                                    alt="изображение подборки"
+                                                    class="card-compilation__banner"
+                                                />
+
+                                                <!-- плашка -->
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+
+                                                    <p class="card-compilation__text">
+                                                        совмещая работу и заботу о питомцах
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item">
+
+                                        <article class="card-compilation card-compilation--grey">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <img
+                                                    src="https://placeimg.com/470/470/animals"
+                                                    alt="изображение подборки"
+                                                    class="card-compilation__banner"
+                                                />
+
+                                                <!-- плашка -->
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        совмещая работу и заботу о питомцах
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item">
+
+                                        <article class="card-compilation card-compilation--purple">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <img
+                                                    src="https://placeimg.com/470/470/animals"
+                                                    alt="изображение подборки"
+                                                    class="card-compilation__banner"
+                                                />
+
+                                                <!-- плашка -->
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item">
+
+                                        <article class="card-compilation card-compilation--purple">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <img
+                                                    src="https://placeimg.com/470/470/animals"
+                                                    alt="изображение подборки"
+                                                    class="card-compilation__banner"
+                                                />
+
+                                                <!-- плашка -->
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки подборок -->
                 </main>
             </div>
         </div>

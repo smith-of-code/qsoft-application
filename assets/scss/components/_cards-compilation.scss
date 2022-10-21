@@ -1,0 +1,35 @@
+.cards-compilation {
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-medium) 0 0;
+
+        @media #{$screen-tablet} {
+            margin: rem(-20px) rem(-10px) 0;
+        }
+
+        @media #{$screen-desktop} {
+            margin: rem(-30px) rem(-15px) 0;
+        }
+    }
+
+    &__item {
+        flex-basis: 100%;
+
+        margin-top: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 2);
+
+            margin-top: rem(20px);
+            padding: 0 rem(10px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(30px);
+            padding: 0 rem(15px);
+        }
+    }
+}
