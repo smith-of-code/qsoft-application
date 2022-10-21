@@ -38,14 +38,13 @@ $IblockModuleIsIncluded = false;
 
 if (\Bitrix\Main\Loader::includeModule('iblock')) {
 	$IblockModuleIsIncluded = true;
+
+	$arSortDirs = array("asc", "desc");
+	$arSortFields = CIBlockParameters::GetElementSortFields(
+		array('ID', 'SORT', 'NAME'),
+		array('KEY_LOWERCASE' => 'Y')
+	);
 }
-
-
-$arSortDirs = array("asc", "desc");
-$arSortFields = CIBlockParameters::GetElementSortFields(
-	array('ID', 'SORT', 'NAME'),
-	array('KEY_LOWERCASE' => 'Y')
-);
 
 if(!empty($_REQUEST["sort_field"]) && isset($arSortFields[$_REQUEST["sort_field"]]))
 {
