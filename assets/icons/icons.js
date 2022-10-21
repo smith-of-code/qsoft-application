@@ -33,6 +33,7 @@ import './svg/viber.svg';
 import './svg/heart.svg';
 import './svg/heart-fill.svg';
 import './svg/arrow-left.svg';
+import './svg/arrow-left-thin.svg';
 import './svg/angle-left.svg';
 import './svg/user.svg';
 import './svg/search.svg';
@@ -53,6 +54,7 @@ import './svg/chemistry.svg';
 import './svg/cup.svg';
 import './svg/repeat.svg';
 import './svg/crown.svg';
+import './svg/return.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

@@ -79,6 +79,10 @@
                 width: rem($size);
                 height: rem($size);
             }
+
+            &--active {
+                color: $brickRed;
+            }
         }
 
         &__counter {

@@ -35,6 +35,21 @@
         }
     }
 
+    &--content & {
+        &__select {
+            @media #{$screen-tablet} {
+                width: rem(190px);
+            }
+        }
+
+        &--sort {
+            @media #{$screen-tablet} {
+                width: rem(230px);
+                margin-left: auto;
+            }
+        }
+    }
+
     &__wrapper {
         display: none;
 
