@@ -2,6 +2,10 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("История заказов");
 ?>
+<?$APPLICATION->IncludeComponent("zolo:sale.personal.order.sort",
+    "",
+    []
+);?>
 <?$APPLICATION->IncludeComponent("zolo:sale.personal.order.list","",Array(
         "PATH_TO_DETAIL" => "/personal/order/#ID#",
         "PATH_TO_CANCEL" => "/personal/order/#ID#",
