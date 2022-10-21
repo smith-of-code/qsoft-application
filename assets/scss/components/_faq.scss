@@ -1,0 +1,39 @@
+.faq {
+
+    &__wrapper {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+
+        @media #{$screen-tablet} {
+            flex-direction: row;
+        }
+    }
+
+    &__questions {
+        max-width: 100%;
+
+        @media #{$screen-tablet} {
+            max-width: rem(770px);
+        }
+    }
+
+    &__setask {
+        flex-shrink: 0;
+
+        width: 100%;
+        margin-top: rem(28px);
+    
+        @media #{$screen-tablet} {
+            flex-direction: row;
+
+            max-width: rem(300px);
+            margin-top: rem(50px);
+            margin-left: rem(30px);
+        }
+
+        @media #{$screen-desktop} {
+            max-width: rem(370px);
+        }
+    }
+}

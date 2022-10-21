@@ -1,0 +1,11 @@
+.cards-order {
+    &__item {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(20px);
+        }
+
+        @include resetting-vertical-indentation-of-last;
+    }
+}

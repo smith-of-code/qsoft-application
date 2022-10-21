@@ -2,6 +2,8 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\ORM\Data\AddResult;
+use Bitrix\Main\ORM\Data\UpdateResult;
 use QSoft\Entity\User;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\Helper\HLPropertyHelper;
@@ -28,6 +30,30 @@ class LegalEntityService
         if ($legalEntity['UF_DOCUMENTS'] != '') {
             $legalEntity['DOCUMENTS'] = json_decode($legalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR);
         }
+
+        return $legalEntity;
+    }
+
+    /**
+     * @param array $fields
+     * 
+     * @return UpdateResult
+     */
+    public function update(array $fields): UpdateResult
+    {
+        $legalEntity = LegalEntityTable::update($this->user->id, $fields);
+
+        return $legalEntity;
+    }
+
+    /**
+     * @param array $fields
+     * 
+     * @return AddResult
+     */
+    public function create(array $fields): AddResult
+    {
+        $legalEntity = LegalEntityTable::add($fields);
 
         return $legalEntity;
     }
