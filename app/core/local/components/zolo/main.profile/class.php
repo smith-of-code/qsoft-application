@@ -33,7 +33,12 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
     {
         $this->errorCollection = new ErrorCollection();
 
-        $this->userId = $GLOBALS['USER']->GetID();
+        if ($userId = $GLOBALS['USER']->GetID()) {
+            $this->userId = $userId;
+        } else {
+            LocalRedirect('/');
+        }
+
         $this->checkModules();
 
         $this->user = new User($this->userId);
