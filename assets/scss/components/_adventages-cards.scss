@@ -1,0 +1,22 @@
+.adventages-cards {
+    &__list{
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-medium) rem(-$gap-small) 0;
+
+        @media #{$screen-desktop} {
+            margin: rem(-30px) rem(-15px) 0;
+        }
+    }
+
+    &__item{
+        margin-top: rem($gap-medium);
+        padding: 0 rem($gap-small);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(30px);
+            padding: 0 rem(15px);
+        }
+    }
+}

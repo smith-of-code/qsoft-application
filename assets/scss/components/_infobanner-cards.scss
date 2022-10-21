@@ -1,0 +1,35 @@
+.infobanner-cards {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-small) rem(-$gap-small) 0;
+
+        @media #{$screen-tablet} {
+            margin: rem(-22px) rem(-$gap-small) 0;
+        }
+
+        @media #{$screen-desktop} {
+            margin: rem(-$gap-medium) rem(-15px) 0;
+        }
+    }
+
+    &__item {
+        flex-basis: percentage(1 / 1);
+
+        margin-top: rem($gap-small);
+        padding: 0 rem($gap-small);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 3);
+
+            margin-top: rem(22px);
+            padding: 0 rem($gap-small);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem($gap-medium);
+            padding: 0 rem(15px);
+        }
+    }
+}

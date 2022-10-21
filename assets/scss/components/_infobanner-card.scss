@@ -1,0 +1,118 @@
+.infobanner-card {
+    position: relative;
+
+    height: 100%;
+    padding: rem($gap-normal);
+
+    transition: box-shadow $transition-duration $transition-function;
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-medium);
+    }
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-big);
+    }
+    
+    &:hover {
+        box-shadow: 0px rem(12px) rem(24px) rgba(0, 0, 0, 0.16);
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        
+        height: 100%;
+    }
+
+    &__head {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-medium);
+        }
+    
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-normal);
+        }
+    }
+
+    &__content {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(10px);
+        }
+    
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-normal);
+        }
+    }
+
+    &__footer {
+        margin-top: auto;
+    }
+
+    &__title {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-medium);
+            line-height: 22px;
+
+            margin-bottom: rem(6px);
+        }
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-average);
+            line-height: $line-height-middle;
+
+            margin-bottom: rem($gap-average);
+        }
+    }
+
+    &__description {
+        font-size: rem($font-size-small);
+
+        color: $saltBox;
+    }
+
+    &__link {
+        @include position-stretching($position: absolute, $z-index: 1);
+    }
+
+    &__image {
+        $size: 88px;
+
+        width: rem($size);
+        height: rem($size);
+
+        @media #{$screen-tablet} {
+            $size: 82px;
+
+            width: rem($size);
+            height: rem($size)
+        }
+
+        @media #{$screen-desktop} {
+            $size: 124px;
+
+            width: rem($size);
+            height: rem($size)
+        }
+    }
+
+    &__button {
+        &-icon {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+
+            color: $brickRed;
+        }
+    }
+}

@@ -46,6 +46,8 @@ import './svg/protection.svg';
 import './svg/diploma.svg';
 import './svg/diagnosis.svg';
 import './svg/chemistry.svg';
+import './svg/arrow-right-light.svg';
+import './svg/check-mark.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';
