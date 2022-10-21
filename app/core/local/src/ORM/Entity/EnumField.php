@@ -7,6 +7,7 @@ use Bitrix\Main\Entity\EnumField as BaseEnumField;
 use Bitrix\Main\Loader;
 use CUserFieldEnum;
 use CUserTypeEntity;
+use QSoft\Helper\HlBlockHelper;
 use RuntimeException;
 
 class EnumField extends BaseEnumField

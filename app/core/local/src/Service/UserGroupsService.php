@@ -2,9 +2,14 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\ArgumentException;
 use Bitrix\Main\GroupTable;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\UserGroupTable;
+use http\Exception\RuntimeException;
 use QSoft\Entity\User;
+use QSoft\Helper\UserGroupHelper;
 
 class UserGroupsService
 {
@@ -15,9 +20,7 @@ class UserGroupsService
     private array $groups;
 
     public const USER_GROUP_BUYER = 'buyer';
-    public const USER_GROUP_CONSULTANT_1 = 'consultant_1';
-    public const USER_GROUP_CONSULTANT_2 = 'consultant_2';
-    public const USER_GROUP_CONSULTANT_3 = 'consultant_3';
+    public const USER_GROUP_CONSULTANT = 'consultant';
 
     /**
      * UserGroupsService constructor.
@@ -26,7 +29,6 @@ class UserGroupsService
     public function __construct(User $user) {
         $this->user = $user;
         $this->groups = [];
-        $this->allGroups = [];
     }
 
     /**
@@ -42,12 +44,69 @@ class UserGroupsService
             $groupsRes = UserGroupTable::getList([
                 'filter' => ['USER_ID' => $this->user->id],
                 'select' => ['GROUP_ID','GROUP_CODE'=>'GROUP.STRING_ID'],
+                'cache' => ['ttl' => 86400], // Кешируем на 1 сутки
             ]);
             while ($group = $groupsRes->fetch()) {
                 $this->groups[$group['GROUP_CODE']] = $group['GROUP_ID'];
             }
         }
         return $this->groups;
+    }
+
+    /**
+     * Добавляет пользователя в группу
+     * @param int $groupCode Символьный код группы (STRING_ID)
+     * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function addToGroup(int $groupCode) : bool
+    {
+        // Получим группы, если они ещё не были запрошены
+        $allGroups = UserGroupHelper::getAllUserGroups();
+        $this->getUserGroups();
+
+        if (! isset($this->allGroups[$groupCode])) {
+            throw new RuntimeException('User group does not exist');
+        }
+
+        // Добавим в группу
+        UserGroupTable::add([
+            'GROUP_ID' => $allGroups[$groupCode],
+            'USER_ID' => $this->user->id
+        ]);
+        $this->groups[$groupCode] = $allGroups[$groupCode];
+
+        return true;
+    }
+
+    /**
+     * Удаляет пользователя из группы
+     * @param int $groupCode Символьный код группы (STRING_ID)
+     * @return bool
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function removeFromGroup(int $groupCode) : bool
+    {
+        // Получим группы, если они ещё не были запрошены
+        $allGroups = UserGroupHelper::getAllUserGroups();
+        $this->getUserGroups();
+
+        if (! isset($allGroups[$groupCode])) {
+            throw new RuntimeException('User group does not exist');
+        }
+
+        // Удалим из группы
+        UserGroupTable::delete([
+            'GROUP_ID' => $allGroups[$groupCode],
+            'USER_ID' => $this->user->id
+        ]);
+        unset($this->groups[$groupCode]);
+
+        return true;
     }
 
     /**
@@ -67,12 +126,13 @@ class UserGroupsService
     /**
      * Является ли пользователь Консультантом
      * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function isConsultant(): bool
     {
-        return $this->isInAGroup(self::USER_GROUP_CONSULTANT_1)
-            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_2)
-            || $this->isInAGroup(self::USER_GROUP_CONSULTANT_3);
+        return $this->isInAGroup(self::USER_GROUP_CONSULTANT);
     }
 
     /**

@@ -1,0 +1,25 @@
+.dots {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &__item {
+        flex-shrink: 0;
+
+        width: rem(6px);
+        height: rem(6px);
+        margin-left: rem($gap-small);
+
+        border-radius: 50%;
+        background-color: $white;
+
+        @media #{$screen-desktop} {
+            width: rem(8px);
+            height: rem(8px);
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

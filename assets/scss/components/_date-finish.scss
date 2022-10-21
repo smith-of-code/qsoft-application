@@ -1,0 +1,47 @@
+.date-finish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: rem(2px) rem($gap-small);
+
+    border: rem(1px) solid $alto;
+    border-radius: rem($border-radius-big);
+    background-color: $white;
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-mini) rem($gap-average);
+    }
+
+    &__icon {
+        flex-shrink: 0;
+
+        width: rem(16px);
+        height: rem(16px);
+        margin-right: rem($gap-mini);
+
+        color: #292d32;
+
+        @media #{$screen-desktop} {
+            width: rem(20px);
+            height: rem(20px);
+            margin-right: rem($gap-small);
+        }
+    }
+
+    &__text {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+
+        color: $saltBox;
+
+        &--desktop {
+            display: none;
+
+            @media #{$screen-desktop} {
+                display: inline;
+            }
+        }
+    }
+}

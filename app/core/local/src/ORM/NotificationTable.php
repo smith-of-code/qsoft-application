@@ -33,7 +33,7 @@ final class NotificationTable extends BaseTable
 
     public static function getTableName(): string
     {
-        return 'transaction';
+        return 'notification';
     }
 
     /**

@@ -1,0 +1,21 @@
+.multi-progress {
+    overflow: hidden;
+
+    width: 100%;
+    height: rem(16px);
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+
+    &__filler {
+        height: percentage(1 / 2);
+
+        &--green {
+            background-color: $lochinvar;
+        }
+
+        &--purple {
+            background-color: $wisteria;
+        }
+    }
+}

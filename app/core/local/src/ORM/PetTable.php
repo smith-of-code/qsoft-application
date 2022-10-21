@@ -14,9 +14,23 @@ Loc::loadMessages(__FILE__);
 
 final class PetTable extends BaseTable
 {
+    public const KINDS = [
+        'dog' => 'KIND_DOG',
+        'cat' => 'KIND_CAT',
+    ];
+
+    // TODO: Логика пород поменяется
+    public const BREEDS = [
+        'test' => 'test',
+    ];
+
+    public const GENDERS = [
+        'male' => 'GENDER_MALE',
+        'female' => 'GENDER_FEMALE',
+    ];
+
     protected static array $decorators = [
         'UF_KIND' => EnumDecorator::class,
-        'UF_BREED' => EnumDecorator::class,
         'UF_GENDER' => EnumDecorator::class,
     ];
 
@@ -48,10 +62,10 @@ final class PetTable extends BaseTable
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_KIND_FIELD'),
             ], self::getTableName()),
-            new EnumField('UF_BREED', [
+            new IntegerField('UF_BREED', [
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_BREED_FIELD'),
-            ], self::getTableName()),
+            ]),
             new DateField('UF_BIRTHDATE', [
                 'required' => true,
                 'title' => Loc::getMessage('PET_ENTITY_UF_BIRTHDATE_FIELD'),
