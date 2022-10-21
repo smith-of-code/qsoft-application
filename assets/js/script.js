@@ -41,6 +41,7 @@
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
  import editProfile from './modules/edit-profile'; 
+ import cookie from './modules/cookie';
 
 
  const app = {
@@ -74,7 +75,7 @@
         filter();
         swiper();
         editProfile();
-
+        cookie();
     },
 
     load() {

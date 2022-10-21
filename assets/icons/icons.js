@@ -65,9 +65,13 @@ import './svg/cat.svg';
 import './svg/cat-sad.svg';
 import './svg/cat-cheerful.svg';
 import './svg/cat-serious.svg';
+import './svg/credit-paid.svg';
+import './svg/credit-not-paid.svg';
+import './svg/cart-card.svg';
 import './svg/cat-smile.svg';
 import './svg/cat-happy.svg';
 import './svg/cat-winks.svg';
 import './svg/cat-glasses.svg';
+import './svg/cat-think.svg';
 
 

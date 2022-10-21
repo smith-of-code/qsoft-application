@@ -88,7 +88,7 @@ final class ConfirmationTable extends BaseTable
             'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=UF_USER_ID' => $userId,
-                '=UF_CHANNEL' => self::CHANNELS['sms'],
+                '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['sms']),
                 '>UF_CREATED_AT' => (new DateTime)->add('-' . self::ACTIVE_TIME . ' seconds'),
             ],
             'select' => ['UF_CODE'],
@@ -112,8 +112,8 @@ final class ConfirmationTable extends BaseTable
             'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=UF_USER_ID' => $userId,
-                '=UF_CHANNEL' => self::CHANNELS['email'],
-                '=UF_TYPE' => $type,
+                '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['email']),
+                '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', $type),
             ],
             'select' => ['UF_CODE'],
         ]);

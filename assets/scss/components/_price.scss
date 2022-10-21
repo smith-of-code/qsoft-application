@@ -35,6 +35,11 @@
                 margin-right: rem($gap-small);
             }
 
+            &--has-icon {
+                display: flex;
+                align-items: center;
+            }
+
             &--red {
                 color: $brickRed;
             }
@@ -57,6 +62,17 @@
 
                 padding: 0 rem($gap-average);
             }
+        }
+
+        &-picture {
+            margin-right: rem($gap-mini);
+        }
+
+        &-icon {
+            $size: 28px;
+
+            width: rem($size);
+            height: rem($size);
         }
     }
 

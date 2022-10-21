@@ -1,0 +1,66 @@
+.setask {
+    display: flex;
+    flex-direction: column;
+
+    padding: rem($gap-medium);
+    
+    background-color: $white;
+
+    @media #{$screen-tablet} {
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-average);
+    }
+
+    @media #{$screen-desktop} {
+        position: sticky;
+        top: rem(160px);
+    }
+    
+    &__image {
+        display: none;
+        
+        @media #{$screen-tablet} {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+
+            height: rem(172px);
+            margin-bottom: rem($gap-normal);
+
+            background-color: $athensGray;
+            border-radius: rem($border-radius-average);
+        }
+
+        &-picture {
+            width: rem(108px);
+            height: rem(108px);
+        }
+    }
+
+    &__button {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-top: rem($gap-big);
+        }
+    }
+
+    &__text {
+        font-weight: $font-weight-semibold;
+    
+        margin-bottom: rem($gap-mini);
+
+        text-align: center;
+    }
+
+    &__subtext {
+        font-weight: $font-weight-medium;
+        font-size: rem($font-size-small);
+        line-height: 22px;
+
+        text-align: center;
+
+        color: $saltBox; 
+    }
+}
