@@ -17,6 +17,25 @@
         }
     }
 
+    &#{&}--middle {
+        .select2-results {
+            padding: rem(16px) 0;
+        }
+
+        .select2-container {
+            .select2-selection {
+                &::after {
+                    right: rem($gap-medium);
+
+                    width: rem(16px);
+                    height: rem(16px);
+
+                    color: $saltBox;
+                }
+            }
+        }
+    }
+
     &#{&}--mini {
         font-size: rem($font-size-miniature);
 
@@ -79,11 +98,36 @@
         }
     }
 
+    &#{&}--middle {
+        font-size: rem($font-size-small);
+
+        .select2-container--default {
+            .select2-selection--single {
+                height: rem(36px);
+
+                .select2-selection__rendered {
+                    line-height: rem(22px);
+
+                    padding: rem(7px) rem($gap-medium);
+                }
+            }
+        }
+    }
+
     &#{&}--borderless {
         .select2-container--default {
             .select2-selection--single {
-                background-color: transparent;
                 border: none;
+                background-color: transparent;
+            }
+        }
+    }
+
+    &#{&}--simple {
+        .select2-container--default {
+            .select2-selection--single {
+                border: none;
+                background-color: $white;
             }
         }
     }
@@ -162,6 +206,10 @@
                         background-position: 50% 50%;
                         background-size: cover;
                     }
+                }
+
+                .select2-selection__placeholder .select__item {
+                    display: inline-block;
                 }
             }
         }
@@ -357,5 +405,9 @@
                 height: rem($size);
             }
         }
+    }
+
+    &__color {
+        display: flex;
     }
 }

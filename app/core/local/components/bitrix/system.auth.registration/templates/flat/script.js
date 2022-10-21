@@ -5,6 +5,7 @@ class CSystemAuthRegistrationComponent {
   }
 
   initPage() {
+      this.checkBreedSelects();
       $('.legal_entity').hide();
   }
 
@@ -19,6 +20,7 @@ class CSystemAuthRegistrationComponent {
       $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
+      $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
   }
 
     changeLegalEntity() {
@@ -66,11 +68,14 @@ class CSystemAuthRegistrationComponent {
                     return;
                 }
 
-                if ($(item).attr('type') === 'hidden') {
+                if ($(item).attr('type') === 'hidden' || !$(item).attr('name')) {
                     return;
                 }
 
                 if ($(item).attr('name').startsWith('pets')) {
+                    if ($(item).attr('name').indexOf('breed') !== -1 && $(item).closest('[data-breed]').css('display') === 'none') {
+                        return;
+                    }
                     if (!$(item).val()) {
                         $(item).addClass('input__control--error');
                         return;
@@ -142,6 +147,10 @@ class CSystemAuthRegistrationComponent {
             },
         });
 
+        if (!response.data || response.data.status === 'error') {
+            return;
+        }
+
         registrationData = response.data;
 
         let elements;
@@ -183,6 +192,19 @@ class CSystemAuthRegistrationComponent {
         $(`.${registrationData.currentStep}`).show();
     }
 
+    checkBreedSelects() {
+      $('[data-breed-container]').each((index, item) => {
+          const petKind = $(item).closest('.pet-cards__item').find('[data-pet-kind]').val();
+
+          $(item).find(`[data-breed]`).hide();
+          if (petKind) {
+              $(item).find(`[data-breed=${petKind}]`).show();
+          } else {
+              $(item).find(`[data-breed=empty]`).show();
+          }
+      });
+    }
+
   async sendCode() {
       const phone = $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '');
 
@@ -203,7 +225,9 @@ class CSystemAuthRegistrationComponent {
           }
       } catch (e) {
           $(this).parent().find('input[name=phone]').addClass('input__control--error');
-          $(this).parent().find('div.input').append(`<span class="input__control-error">${e.message}</span>`)
+          if (e.message) {
+              $(this).parent().find('div.input').append(`<span class="input__control-error">${e.message}</span>`)
+          }
           return;
       }
 
@@ -226,7 +250,8 @@ class CSystemAuthRegistrationComponent {
           }
       } catch (e) {
           input.addClass('input__control--error');
-          input.parent().append('<span class="input__control-error">Неверный код</span>');
+          input.parent().append('<span class="input__control-error">Неверный или просроченный код</span>');
+          return;
       }
 
       $.fancybox.close({ src: '#approve-number' });

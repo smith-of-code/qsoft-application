@@ -1,0 +1,75 @@
+.info-slot {
+    &__name {
+        @include text-miniature($font-weight-medium);
+        
+        display: none;
+
+        margin-bottom: rem($gap-mini);
+
+        @media #{$screen-desktop} {
+            display: block;
+        }
+    }
+
+    &__value {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px / $font-size-small);
+
+        position: relative;
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+
+        &--marked,
+        &--icon {
+            font-size: rem($font-size-miniature);
+            line-height: (22px / $font-size-miniature);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-small);
+                line-height: (22px / $font-size-small);
+            }
+        }
+
+        &--marked {
+            padding-left: rem($gap-medium);
+
+            &::before {
+                $size: 8px;
+
+                position: absolute;
+                top: rem(7px);
+                left: 0;
+
+                width: rem($size);
+                height: rem($size);
+
+                content: "";
+
+                border-radius: 50%;
+            }
+        }
+
+        &--icon {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__icon {
+        display: inline-flex;
+
+        margin-right: rem($gap-mini);
+        
+        &-mark {
+            $size: 20px;
+            
+            display: inline-block;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+}

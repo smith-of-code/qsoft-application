@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>"</div>
+    <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>"></div>
     <div class="registration__actions registration__actions--inlined registration__actions--separated">
         <div class="registration__actions-col">
             <button class="button button--rounded button--covered button--white-green button--full" data-change-step data-direction="previous">

@@ -1,40 +1,9 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-				</div><!--end .bx-content -->
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 
-				<!-- region Sidebar -->
-				<?if (!$needSidebar):?>
-					<div class="sidebar col-md-3 col-sm-4">
-						<?$APPLICATION->IncludeComponent(
-							"bitrix:main.include",
-							"",
-							Array(
-								"AREA_FILE_SHOW" => "sect",
-								"AREA_FILE_SUFFIX" => "sidebar",
-								"AREA_FILE_RECURSIVE" => "Y",
-								"EDIT_MODE" => "html",
-							),
-							false,
-							Array('HIDE_ICONS' => 'Y')
-						);?>
-					</div>
-				<?endif?>
-				<!--endregion -->
-
-			</div><!--end row-->
-			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include",
-				"",
-				Array(
-					"AREA_FILE_SHOW" => "sect",
-					"AREA_FILE_SUFFIX" => "bottom",
-					"AREA_FILE_RECURSIVE" => "N",
-					"EDIT_MODE" => "html",
-				),
-				false,
-				Array('HIDE_ICONS' => 'Y')
-			);?>
-		</div><!--end .container.bx-content-section-->
-	</div><!--end .workarea-->
+        </main>
+    </div>
+</div>
+<!--content-->
 
 <!--Футер-->
 <footer class="page__footer footer">
@@ -234,27 +203,6 @@
 </footer>
 <!--/Футер-->
 
-</div> <!-- //bx-wrapper -->
-
-
-<script>
-	BX.ready(function(){
-		var upButton = document.querySelector('[data-role="eshopUpButton"]');
-		BX.bind(upButton, "click", function(){
-			var windowScroll = BX.GetWindowScrollPos();
-			(new BX.easing({
-				duration : 500,
-				start : { scroll : windowScroll.scrollTop },
-				finish : { scroll : 0 },
-				transition : BX.easing.makeEaseOut(BX.easing.transitions.quart),
-				step : function(state){
-					window.scrollTo(0, state.scroll);
-				},
-				complete: function() {
-				}
-			})).animate();
-		})
-	});
-</script>
 </body>
+
 </html>

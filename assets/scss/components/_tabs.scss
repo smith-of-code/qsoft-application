@@ -1,6 +1,41 @@
 .tabs {
     transition: $transition-duration $transition-function;
 
+    &--accordeon & {
+        &__items {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
+
+        &__accordeon {
+            @media #{$screen-tablet} {
+                padding: 0 !important;
+
+                border: none !important;
+            }
+
+
+            &-header {
+                @media #{$screen-tablet} {
+                    display: none;
+                }
+            }
+        }
+
+        &__block {
+            color: $tuna;
+
+            &--active {
+                @media #{$screen-tablet} {
+                    display: block !important;
+                }
+            }
+        }
+    }
+
     &--small & {
         &__item {
             font-size: rem($font-size-small);
@@ -22,8 +57,16 @@
 
     &--red & {
         &__item {
+            padding-right: rem($gap-medium);
+            padding-left: rem($gap-medium);
+
             color: $saltBox;
             background-color: $white;
+
+            @media #{$screen-desktop} {
+                padding-right: rem($gap-big);
+                padding-left: rem($gap-big);
+            }
 
             &--active {
                 color: $white;

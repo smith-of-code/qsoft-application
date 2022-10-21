@@ -10,14 +10,15 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\PetHelper;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
 use QSoft\Service\UserGroupsService;
-use QSoft\Service\UserService;
 
 Loc::loadMessages(__FILE__);
 
@@ -57,16 +58,21 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $this->arResult = $this->getRegisterData();
 
         $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
-        if (!$this->arResult || $this->arResult['type'] !== $registrationTypes[$queryType]['name']) {
+        if (!$this->arResult || ($queryType && $this->arResult['type'] !== $registrationTypes[$queryType]['name'])) {
             $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [
                 'type' => $registrationType['name'],
                 'pet_kinds' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_KIND'),
                 'pet_genders' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_GENDER'),
+                'breeds' => (new PetHelper)->getBreeds(),
                 'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
                 'currentStep' => $registrationType['steps'][0]['code'],
+                'default_pet' => [
+                    'type' => 'dog',
+                    'gender' => 'man',
+                ],
             ];
         }
 
@@ -80,48 +86,63 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'name' => 'buyer',
                 'steps' => [
                     [
+                        'index' => 1,
                         'code' => 'personal_data',
                         'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
                     ],
                     [
+                        'index' => 3,
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
                     [
+                        'index' => 2,
                         'code' => 'choose_mentor',
                         'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
                     ],
                     [
+                        'index' => 5,
                         'code' => 'set_password',
                         'name' => Loc::getMessage('SET_PASSWORD_STEP'),
                     ],
-                    ['code' => 'final'],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
                 ],
             ],
             'consultant' => [
                 'name' => 'consultant',
                 'steps' => [
                     [
+                        'index' => 1,
                         'code' => 'personal_data',
                         'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
                     ],
                     [
+                        'index' => 2,
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
                     [
+                        'index' => 3,
                         'code' => 'choose_mentor',
                         'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
                     ],
                     [
+                        'index' => 4,
                         'code' => 'legal_entity_data',
                         'name' => Loc::getMessage('LEGAL_ENTITY_DATA_STEP'),
                     ],
                     [
+                        'index' => 5,
                         'code' => 'set_password',
                         'name' => Loc::getMessage('SET_PASSWORD_STEP'),
                     ],
-                    ['code' => 'final'],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
                 ],
             ],
         ];
@@ -136,7 +157,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         );
 
         if ($confirmResult) {
-            (new UserService)->activate($this->arParams['USER_ID']);
+            (new User($this->arParams['USER_ID']))->activate();
         }
 
         LocalRedirect('/');
@@ -184,14 +205,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
-                throw new InvalidArgumentException('User with this email already exist');
+                return ['status' => 'error', 'message' => 'User with this email already exist'];
             } else if ($field === 'mentor_id' && $value) {
                 try {
-                    if (!(new UserGroupsService)->isConsultant($value)) {
+                    if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
-                } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
-                    throw new InvalidArgumentException('Mentor not found');
+                } catch (\Exception $e) {
+                    return ['status' => 'error', 'message' => 'Mentor not found'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
@@ -269,13 +290,13 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'select' => ['ID'],
         ])['ID'];
 
-        // TODO PHOTO, legal entity
         $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
+            'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
