@@ -40,6 +40,7 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
+ import editProfile from './modules/edit-profile'; 
 
 
  const app = {
@@ -72,6 +73,7 @@
         addFavourite();
         filter();
         swiper();
+        editProfile();
 
     },
 

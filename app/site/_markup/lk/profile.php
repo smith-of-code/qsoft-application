@@ -560,15 +560,15 @@
 
                                     <div class="accordeon">
                                         <!--Персональные данные-->
-                                        <div class="profile__block" data-accordeon>
+                                        <div class="profile__block" data-accordeon data-profile-block>
                                             <section class="section">
-                                                <form class="form form--wraped form--separated" action="" method="post">
+                                                <form class="form form--wraped form--separated" action="" method="post" data-profile-form>
                                                     <div class="section__box box box--gray box--rounded-sm">
-                                                        <div class="accordeon__header section__header" data-accordeon-toggle>
+                                                        <div class="accordeon__header section__header">
                                                             <h4 class="section__title section__title--closer">Персональные данные</h4>
 
                                                             <div class="profile__actions">
-                                                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red">
+                                                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" data-profile-edit>
                                                                     <span class="button__icon">
                                                                         <svg class="icon icon--edit">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -577,7 +577,7 @@
                                                                     <span class="button__text">Редактировать</span>
                                                                 </button>
             
-                                                                <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                                <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white"data-accordeon-toggle >
                                                                     <span class="accordeon__toggle-icon button__icon">
                                                                         <svg class="icon icon--arrow-down">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
@@ -589,7 +589,7 @@
 
                                                         <div class="accordeon__body accordeon__body--closer" data-accordeon-content>
                                                             <div class="profile__actions profile__actions--mobile">
-                                                                <button type="button" class="profile__actions-button button button--simple button--red">
+                                                                <button type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
                                                                     <span class="button__icon">
                                                                         <svg class="icon icon--edit">
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -606,15 +606,32 @@
                                                                         <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
 
                                                                         <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
-                                                                            <div class="dropzone__message dz-message needsclick">
+                                                                            <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
                                                                                     <svg class="dropzone__message-button-icon icon icon--camera">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
                                                                                     </svg>
                                                                                 </div>
-                                                                            </div>
 
-                                                                            <div class="dropzone__previews dz-previews" data-uploader-previews>
+                                                                                <div class="profile__toggle">
+                                                                                    <button type="button" class="dropzone__button button button--medium button--rounded button--outlined button--green">
+                                                                                        <span class="button__icon">
+                                                                                            <svg class="icon icon--import">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text">Загрузить фото</span>
+                                                                                    </button>
+                                                                                </div>
+
+                                                                                <div class="profile__toggle dropzone__message-caption needsclick">
+                                                                                    <h6 class="dropzone__message-title">Требования к фото:</h6>
+                                                                                    <ul class="dropzone__message-list">
+                                                                                        <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
+                                                                                        <li class="dropzone__message-item">размер 240 Х 320 px</li>
+                                                                                        <li class="dropzone__message-item">вес не более 1МБ</li>
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -627,53 +644,71 @@
 
                                                                 <div class="section__box-inner section__box-inner--full">
                                                                     <div class="section__box-content section__box-content--collapsed box box--white box--rounded-sm box--inner">
-                                                                        <div class="section__box-block">
-                                                                            <div class="form__row form__row--special">
-                                                                                <div class="form__col">
-                                                                                    <div class="form__field">
-                                                                                        <div class="form__field-block form__field-block--label">
-                                                                                            <label for="text-required" class="form__label form__label--required">
-                                                                                                <span class="form__label-text">Фамилия</span>
-                                                                                            </label>
-                                                                                        </div>
+                                                                        <div class="form__row form__row--special">
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="form__field-block form__field-block--label">
+                                                                                        <label for="text-required" class="profile__label form__label form__label--required">
+                                                                                            <span class="form__label-text">Фамилия</span>
+                                                                                        </label>
+                                                                                    </div>
 
-                                                                                        <div class="form__field-block form__field-block--input">
-                                                                                            <div class="input">
-                                                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите фамилию">
-                                                                                            </div>
+                                                                                    <div class="form__field-block form__field-block--input">
+                                                                                        <div class="input">
+                                                                                            <input type="text" value="Достоевская" class="input__control" name="text-required" id="text-required" placeholder="Введите фамилию" readonly data-profile-readonly>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
 
-                                                                                <div class="form__col">
-                                                                                    <div class="form__field">
-                                                                                        <div class="form__field-block form__field-block--label">
-                                                                                            <label for="text-required" class="form__label form__label--required">
-                                                                                                <span class="form__label-text">Имя</span>
-                                                                                            </label>
-                                                                                        </div>
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="form__field-block form__field-block--label">
+                                                                                        <label for="text-required" class="profile__label form__label form__label--required">
+                                                                                            <span class="form__label-text">Имя</span>
+                                                                                        </label>
+                                                                                    </div>
 
-                                                                                        <div class="form__field-block form__field-block--input">
-                                                                                            <div class="input">
-                                                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите имя">
-                                                                                            </div>
+                                                                                    <div class="form__field-block form__field-block--input">
+                                                                                        <div class="input">
+                                                                                            <input type="text" value="Екатерина" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly data-profile-readonly>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
 
-                                                                                <div class="form__col">
-                                                                                    <div class="form__field">
-                                                                                        <div class="form__field-block form__field-block--label">
-                                                                                            <label for="text-required" class="form__label form__label--required">
-                                                                                                <span class="form__label-text">Отчество</span>
-                                                                                            </label>
-                                                                                        </div>
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="form__field-block form__field-block--label">
+                                                                                        <label for="text-required" class="profile__label form__label form__label--required">
+                                                                                            <span class="form__label-text">Отчество</span>
+                                                                                        </label>
+                                                                                    </div>
 
-                                                                                        <div class="form__field-block form__field-block--input">
-                                                                                            <div class="input">
-                                                                                                <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите отчество">
-                                                                                            </div>
+                                                                                    <div class="form__field-block form__field-block--input">
+                                                                                        <div class="input">
+                                                                                            <input type="text" value="Федоровна" class="input__control" name="text-required" id="text-required" placeholder="Введите отчество" readonly data-profile-readonly>
                                                                                         </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile__toggle form__row form__row--centered">
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="checkbox">
+                                                                                        <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check">
+                                    
+                                                                                        <label for="check" class="checkbox__label">
+                                                                                            <span class="checkbox__icon">
+                                                                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                                                                </use></svg>
+                                                                                            </span>
+                                    
+                                                                                            <span class="checkbox__text">У меня нет отчества</span>
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -683,14 +718,14 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="select33" class="form__label form__label--required">
+                                                                                        <label for="select33" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">Пол</span>
                                                                                         </label>
                                                                                     </div>
                                     
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
-                                                                                            <div class="select select--mitigate" data-select>
+                                                                                            <div class="profile__toggle-select select select--mitigate" data-select>
                                                                                                 <select class="select__control" name="select33" id="select33" data-select-control data-placeholder="Выберите пол">
                                                                                                     <option><!-- пустой option для placeholder --></option>
                                                                                                     <option value="1">Женский</option>
@@ -705,7 +740,7 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="birthdate" class="form__label form__label--required">
+                                                                                        <label for="birthdate" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">Дата рождения</span>
                                                                                         </label>
                                                                                     </div>
@@ -720,6 +755,7 @@
                                                                                                 data-mask-date 
                                                                                                 data-inputmask-alias="datetime"
                                                                                                 data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                readonly data-profile-readonly
                                                                                             >
                                                                                             <span class="input__icon">
                                                                                                 <svg class="icon icon--calendar">
@@ -736,14 +772,14 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="text-required" class="form__label form__label--required">
+                                                                                        <label for="text-required" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">E-mail</span>
                                                                                         </label>
                                                                                     </div>
 
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="input">
-                                                                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email">
+                                                                                            <input type="text" class="input__control" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email"  readonly data-profile-readonly>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -752,24 +788,16 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="text-required" class="form__label form__label--required">
+                                                                                        <label for="text-required" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">Телефон</span>
                                                                                         </label>
                                                                                     </div>
 
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="input">
-                                                                                            <input type="tel" class="input__control" name="text-required" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                                                                            <input type="tel" class="input__control" name="text-required" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text"  readonly data-profile-readonly>
                                                                                         </div>
                                                                                     </div>
-
-                                                                                    <button type="button" 
-                                                                                            class="form__field-button button button--simple button--red button--underlined button--tiny"
-                                                                                            data-fancybox data-modal-type="modal"
-                                                                                            data-src="#approve-number"
-                                                                                    >
-                                                                                        Отправить проверочный код
-                                                                                    </button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -778,14 +806,14 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="select22" class="form__label form__label--required">
+                                                                                        <label for="select22" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">Населенный пункт</span>
                                                                                         </label>
                                                                                     </div>
                                     
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
-                                                                                            <div class="select select--mitigate" data-select>
+                                                                                            <div class="profile__toggle-select select select--mitigate" data-select>
                                                                                                 <select class="select__control" name="select22" data-select-control data-placeholder="Выберите город">
                                                                                                     <option><!-- пустой option для placeholder --></option>
                                                                                                     <option value="1">Москва</option>
@@ -802,14 +830,14 @@
                                                                             <div class="form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="select22" class="form__label form__label--required">
+                                                                                        <label for="select22" class="profile__label form__label form__label--required">
                                                                                             <span class="form__label-text">Пункт выдачи заказов</span>
                                                                                         </label>
                                                                                     </div>
                                     
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
-                                                                                            <div class="select select--mitigate" data-select>
+                                                                                            <div class="profile__toggle-select select select--mitigate" data-select>
                                                                                                 <select class="select__control" name="select22" data-select-control data-placeholder="Выберите город">
                                                                                                     <option><!-- пустой option для placeholder --></option>
                                                                                                     <option value="1">Москва</option>
@@ -823,7 +851,97 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
+                                                                        <div class="profile__toggle profile__toggle--inline form__row">
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="form__field-block form__field-block--label">
+                                                                                        <label for="password" class="form__label form__label--required">
+                                                                                            <span class="form__label-text">Пароль</span>
+                                                                                        </label>
+                                                                                    </div>
+                                            
+                                                                                    <div class="form__field-block form__field-block--input" data-password-block>
+                                                                                        <div class="input input--iconed">
+                                                                                            <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
+                                                                                            <span class="input__icon input__icon-password" data-password-toggle>
+                                                                                                <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
+                                                                                                </svg>
+                                                                                                <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                            
+                                            
+                                                                            <div class="form__col">
+                                                                                <div class="form__field">
+                                                                                    <div class="form__field-block form__field-block--label">
+                                                                                        <label for="password" class="form__label form__label--required">
+                                                                                            <span class="form__label-text">Подтвердить пароль</span>
+                                                                                        </label>
+                                                                                    </div>
+                                            
+                                                                                    <div class="form__field-block form__field-block--input" data-password-block>
+                                                                                        <div class="input input--iconed">
+                                                                                            <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
+                                                                                            <span class="input__icon input__icon-password" data-password-toggle>
+                                                                                                <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
+                                                                                                </svg>
+                                                                                                <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile__toggle profile__requirement requirement requirement--inlined box box--gray box--circle">
+                                                                            <div class="requirement__col">
+                                                                                <p class="requirement__text">
+                                                                                    Требования к паролю:
+                                                                                </p>
+                                                                            </div>
+                                            
+                                                                            <div class="requirement__col requirement__col--right">
+                                                                                <ul class="requirement__list">
+                                                                                    <li class="requirement__item">
+                                                                                        Использование только латинских букв, символов и цифр
+                                                                                    </li>
+                                                                                    <li class="requirement__item">
+                                                                                        Не менее 8 символов
+                                                                                    </li>
+                                                                                    <li class="requirement__item">
+                                                                                        Не менее одной заглавной буквы
+                                                                                    </li>
+                                                                                    <li class="requirement__item">
+                                                                                        Не менее одной строчной буквы
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile__toggle profile__toggle--inline section__actions">
+                                                                <div class="section__actions-col">
+                                                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" data-profile-form-cancel>
+                                                                        <span class="button__text">Отменить изменения</span>
+                                                                    </button>
+                                                                </div>
+                                
+                                                                <div class="section__actions-col">
+                                                                    <button type="submit" class="button button--rounded button--covered button--green button--full">
+                                                                        <span class="button__text">Сохранить изменения</span>
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3610,38 +3728,6 @@
                         </div>
                     </article>
                     <!--/Сменить наставника-->
-
-                    <!--Подтверждение номера-->
-                    <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
-                        <div class="modal__content">
-                            <header class="modal__section modal__section--header">
-                                <p class="heading heading--small">Подтверждение номера</p>
-                            </header>
-
-                            <section class="modal__section modal__section--content">
-                                <p class="modal__section-text">
-                                    На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
-                                </p>
-
-                                <div class="form__row">
-                                    <div class="form__col">
-                                        <div class="form__field">
-                                            <div class="form__field-block form__field-block--input">
-                                                <div class="input input--tiny input--centered">
-                                                    <input type="text" class="input__control" name="tel" id="tel" value="3233">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p class="modal__section-notice">
-                                    Телефон подтвержден
-                                </p>
-                            </section>
-                        </div>
-                    </article>
-                    <!--/Подтверждение номера-->
                 </main>
             </div>
         </div>
