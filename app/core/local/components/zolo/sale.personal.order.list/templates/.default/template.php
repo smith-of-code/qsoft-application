@@ -22,7 +22,51 @@ else {
 			ShowError($error);
 		}
 	}
-
-    echo $arResult["NAV_STRING"];
 }
 
+?>
+<a href="" id="showMore">Еще</a>
+<div id="items"> </div>
+<script>
+    let offset = <?=$arResult['OFFSET'] ?? 1?>;
+    let size = <?=$arParams['ORDERS_PER_PAGE']?>;
+    showMore.onclick = function (e) {
+        console.log('TT');
+        e.preventDefault();
+        BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'load', {
+            mode: 'class',
+            data: {
+                offset: offset,
+                limit: size
+            }
+        }).then(function (response) {
+            let orders = JSON.parse(response.data);
+
+            console.log("ok", orders);
+            add(orders);
+            offset = orders.offset;
+            if (orders.last) {
+                showMore.innerHTML = 'Заказы закончились';
+            }
+        }, function (response) {
+            console.log("err", response.errors);
+        });
+    }
+
+    function add(items) {
+        let s = 'ORDER: ';
+        items.orders.forEach(function (order, i) {
+            let item = order.ORDER;
+                (Object.keys(item)).forEach(function (key,v, row) {
+                    s += key + ' - ' + item[key]  + '<br>';
+                    if (key == 'PROPERTIES') {
+                        (Object.keys(item[key])).forEach(function (prop,v, row) {
+                            s += '&nbsp;&nbsp;&nbsp;&nbsp;' +  prop + ' - ' + item[key][prop]  + '<br>';
+                        });
+                    }
+                });
+                s += '<br>';
+        });
+        document.getElementById('items').innerHTML += s;
+    }
+</script>

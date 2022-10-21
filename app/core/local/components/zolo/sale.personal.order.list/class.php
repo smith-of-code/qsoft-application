@@ -18,7 +18,10 @@ use Bitrix\Sale\Internals\OrderPropsValueTable;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-class CBitrixPersonalOrderListComponent extends CBitrixComponent
+/**
+ *
+ */
+class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main\Engine\Contract\Controllerable
 {
 	const E_SALE_MODULE_NOT_INSTALLED 		= 10000;
 	const E_CANNOT_COPY_ORDER_NOT_FOUND		= 10001;
@@ -26,6 +29,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 	const E_CATALOG_MODULE_NOT_INSTALLED	= 10003;
 	const E_NOT_AUTHORIZED					= 10004;
 
+    const DEFAULT_LIMIT = 20;
 	/**
 	 * Fatal error list. Any fatal error makes useless further execution of a component code.
 	 * In most cases, there will be only one error in a list according to the scheme "one shot - one dead body"
@@ -125,6 +129,16 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 		'DATE_UPDATE'
 	);
 
+    /**
+     * @var bool
+     */
+    private $isLastPage = false;
+
+    /**
+     * @var int
+     */
+    private $page = 1;
+
 	public function __construct($component = null)
 	{
 		parent::__construct($component);
@@ -136,7 +150,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 		Localization\Loc::loadMessages(__FILE__);
 	}
 
-	/**
+    /**
 	 * Function checks if required modules installed. If not, throws an exception
 	 * @throws Main\SystemException
 	 * @return void
@@ -798,6 +812,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 	 */
 	protected function obtainDataOrders()
 	{
+
 		$listOrders = array();
 		$orderIdList = array();
 		$listOrderBasket = array();
@@ -848,114 +863,48 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 			$getListParams['order'] = array($this->sortBy => $this->sortOrder);
 		}
 
-		if (isset($this->arParams['CONTEXT_SITE_ID']) && $this->arParams['CONTEXT_SITE_ID'] > 0)
-		{
-			$code = \Bitrix\Sale\TradingPlatform\Landing\Landing::getCodeBySiteId($this->arParams['CONTEXT_SITE_ID']);
-			$platformId = \Bitrix\Sale\TradingPlatform\Landing\Landing::getInstanceByCode($code)->getId();
-			if ((int)$platformId > 0)
-			{
-				$getListParams['runtime'][] = new Main\ORM\Fields\Relations\Reference(
-					'TRADING_BINDING',
-					'\Bitrix\Sale\TradingPlatform\OrderTable',
-					array(
-						'=this.ID' => 'ref.ORDER_ID',
-						'=ref.TRADING_PLATFORM_ID' => new Main\DB\SqlExpression('?i', $platformId)
-					),
-					array(
-						"join_type" => 'inner'
-					)
-				);
-				$getListParams['runtime'][] = new Main\ORM\Fields\Relations\Reference(
-					'TRADING',
-					'\Bitrix\Sale\TradingPlatformTable',
-					array(
-						'=this.TRADING_BINDING.TRADING_PLATFORM_ID' => 'ref.ID',
-						'=ref.CLASS' => new Main\DB\SqlExpression('?', "\\".Sale\TradingPlatform\Landing\Landing::class)
-					),
-					array(
-						"join_type" => 'inner'
-					)
-				);
-			}
-		}
-
-		$usePageNavigation = true;
-
-		$totalPages = 0;
-		$totalCount = 0;
-
 		$orderClassName = $this->registry->getOrderClassName();
 
-		\CPageOption::SetOptionString("main", "nav_page_in_session", "N");
-		$navyParams = \CDBResult::GetNavParams();
+        $this->page = empty($_REQUEST['offset']) ? 1 : (int)$_REQUEST['offset'];
+        $size = empty($_REQUEST['limit'])
+            ? ((int)$this->arParams["ORDERS_PER_PAGE"] > 0) ? (int)$this->arParams["ORDERS_PER_PAGE"] : self::DEFAULT_LIMIT
+            : (int)$_REQUEST['limit'];
 
-		if ($navyParams['SHOW_ALL'])
-		{
-			$usePageNavigation = false;
-		}
-		else
-		{
-			$navyParams['PAGEN'] = (int)$navyParams['PAGEN'];
-			$navyParams['SIZEN'] = (int)$navyParams['SIZEN'];
-			if (isset($this->arParams["ORDERS_PER_PAGE"]) && intval($this->arParams["ORDERS_PER_PAGE"]) > 0)
-			{
-				$navyParams['SIZEN'] = $this->arParams["ORDERS_PER_PAGE"];
-			}
+        $countParams = [
+            "filter"=>$getListParams['filter'],
+            "select"=> [new Main\ORM\Fields\ExpressionField('CNT', 'COUNT(1)')]
+        ];
 
-			$getListParams['limit'] = $navyParams['SIZEN'];
-			$getListParams['offset'] = $navyParams['SIZEN']*($navyParams['PAGEN']-1);
+        if (!empty($getListParams['runtime']))
+        {
+            $countParams["runtime"] = $getListParams['runtime'];
+        }
 
-			$countParams = [
-				"filter"=>$getListParams['filter'],
-				"select"=> [new Main\ORM\Fields\ExpressionField('CNT', 'COUNT(1)')]
-			];
+        /** @var Main\DB\Result $countQuery */
+        $countQuery = $orderClassName::getList($countParams);
 
-			if (!empty($getListParams['runtime']))
-			{
-				$countParams["runtime"] = $getListParams['runtime'];
-			}
+        $totalCount = $countQuery->fetch();
+        $totalCount = (int)$totalCount['CNT'];
+        unset($countQuery);
 
-			/** @var Main\DB\Result $countQuery */
-			$countQuery = $orderClassName::getList($countParams);
+        if ($totalCount > 0)
+        {
+            $totalPages = ceil($totalCount/$size);
+            if ($this->page >= $totalPages) {
+                $this->isLastPage = true;
+                $this->page = $totalPages;
+            }
 
-			$totalCount = $countQuery->fetch();
-			$totalCount = (int)$totalCount['CNT'];
-			unset($countQuery);
-
-			if ($totalCount > 0)
-			{
-				$totalPages = ceil($totalCount/$navyParams['SIZEN']);
-
-				if ($navyParams['PAGEN'] > $totalPages)
-					$navyParams['PAGEN'] = $totalPages;
-
-				$getListParams['limit'] = $navyParams['SIZEN'];
-				$getListParams['offset'] = $navyParams['SIZEN']*($navyParams['PAGEN']-1);
-			}
-			else
-			{
-				$navyParams['PAGEN'] = 1;
-				$getListParams['limit'] = $navyParams['SIZEN'];
-				$getListParams['offset'] = 0;
-			}
-		}
+            $getListParams['limit'] = $size;
+            $getListParams['offset'] = (string)$size*($this->page - 1);
+        }
+        else
+        {
+            $getListParams['limit'] =(string)$size;
+            $getListParams['offset'] = 0;
+        }
 
 		$this->dbQueryResult['ORDERS'] = new \CDBResult($orderClassName::getList($getListParams));
-
-		if ($usePageNavigation)
-		{
-			$this->dbQueryResult['ORDERS']->NavStart($getListParams['limit'], $navyParams['SHOW_ALL'], $navyParams['PAGEN']);
-			$this->dbQueryResult['ORDERS']->NavRecordCount = $totalCount;
-			$this->dbQueryResult['ORDERS']->NavPageCount = $totalPages;
-			$this->dbQueryResult['ORDERS']->NavPageNomer = $navyParams['PAGEN'];
-		}
-		else
-		{
-			if ((int)($this->arParams["ORDERS_PER_PAGE"]))
-			{
-				$this->dbQueryResult['ORDERS']->NavStart($this->arParams["ORDERS_PER_PAGE"], false);
-			}
-		}
 
 		if (empty($this->dbQueryResult['ORDERS']))
 		{
@@ -1058,21 +1007,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 			$payment["PSA_ACTION_FILE"] =  htmlspecialcharsbx($this->arParams["PATH_TO_PAYMENT"]).'?ORDER_ID='.urlencode(urlencode($listOrders[$payment["ORDER_ID"]]['ACCOUNT_NUMBER'])).'&PAYMENT_ID='.$payment['ACCOUNT_NUMBER'];
 			$paymentList[$payment['ID']] = $payment;
 			$paymentIdList[] = $payment['ID'];
-		}
-
-		$checkList = CheckManager::collectInfo(
-			array(
-				"PAYMENT_ID" => $paymentIdList,
-				"ENTITY_REGISTRY_TYPE" => Sale\Registry::REGISTRY_TYPE_ORDER
-			)
-		);
-
-		if (!empty($checkList))
-		{
-			foreach ($checkList as $check)
-			{
-				$paymentList[$check['PAYMENT_ID']]['CHECK_DATA'][] = $check;
-			}
 		}
 
 		foreach ($paymentList as $payment)
@@ -1257,6 +1191,8 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 		$arResult['SORT_TYPE'] = $this->sortBy;
 
 		$arResult["RETURN_URL"] = (new Sale\PaySystem\Context())->getUrl();
+
+        $arResult["OFFSET"] = $this->setLoadPage();
 
 		$this->arResult = $arResult;
 	}
@@ -1456,4 +1392,48 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 
 		return implode('|', $cacheId);
 	}
+
+    /**
+     * @return string[][][]
+     */
+    public function configureActions()
+    {
+        return [
+            'load' => [
+                '-prefilters' => [
+                    Main\Engine\ActionFilter\Csrf::class,
+                    Main\Engine\ActionFilter\Authentication::class
+                ],
+            ]
+        ];
+    }
+
+    /**
+     * AJAX - Загрузка следующей страницы списка
+     * @return false|string
+     * @throws Main\SystemException
+     */
+    public function loadAction()
+    {
+        $this->checkRequiredModules();
+        $this->setRegistry();
+        $this->processRequest();
+        $this->obtainData();
+        $this->formatResult();
+
+        return json_encode([
+            'orders' => $this->arResult["ORDERS"],
+            'last' => $this->isLastPage,
+            'offset' => ($this->page + 1)
+        ]);
+    }
+
+    /**
+     * Стартовое значение для страницы пагинации
+     * @return int
+     */
+    private function setLoadPage()
+    {
+        return $this->page + 1;
+    }
 }
