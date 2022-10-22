@@ -836,6 +836,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: danger">
+                                    <svg class="icon icon--danger gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
