@@ -42,10 +42,18 @@ import './svg/login.svg';
 import './svg/clock.svg';
 import './svg/sort.svg';
 import './svg/filter.svg';
+import './svg/receipts.svg';
+import './svg/profile.svg';
+import './svg/chart-square.svg';
+import './svg/calculator.svg';
 import './svg/protection.svg';
 import './svg/diploma.svg';
 import './svg/diagnosis.svg';
 import './svg/chemistry.svg';
+import './svg/cup.svg';
+import './svg/repeat.svg';
+import './svg/crown.svg';
+import './svg/danger.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

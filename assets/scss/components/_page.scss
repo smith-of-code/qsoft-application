@@ -58,6 +58,20 @@
         }
     }
 
+    &__content--breadcrumbs & {
+        &__heading {
+            margin-top: rem($gap-normal);
+    
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-big);
+            }
+    
+            @media #{$screen-desktop} {
+                margin-top: rem(48px);
+            }
+        }
+    }
+
     &__footer {
         flex-shrink: 0;
     }

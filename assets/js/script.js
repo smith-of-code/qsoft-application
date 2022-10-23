@@ -40,7 +40,9 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
-import cookie from './modules/cookie';
+ import editProfile from './modules/edit-profile'; 
+ import cookie from './modules/cookie';
+ import identic from './modules/identic';
 
 
  const app = {
@@ -73,8 +75,9 @@ import cookie from './modules/cookie';
         addFavourite();
         filter();
         swiper();
+        editProfile();
         cookie();
-
+        identic();
     },
 
     load() {

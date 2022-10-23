@@ -789,9 +789,57 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: receipts">
+                                    <svg class="icon icon--receipts gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: profile">
+                                    <svg class="icon icon--profile gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: chart-square">
+                                    <svg class="icon icon--chart-square gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: calculator">
+                                    <svg class="icon icon--calculator gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: attention">
                                     <svg class="icon icon--attention gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cup">
+                                    <svg class="icon icon--cup gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: repeat">
+                                    <svg class="icon icon--repeat gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: crown">
+                                    <svg class="icon icon--crown gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: danger">
+                                    <svg class="icon icon--danger gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -7326,7 +7374,7 @@
 
                                                         <li class="card-order__item">
                                                             <div class="card-order__price price">
-                                                                <div class="price__calculation price__calculation--column">
+                                                                <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
                                                                             <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
@@ -7618,7 +7666,7 @@
 
                                                         <li class="card-order__item">
                                                             <div class="card-order__price price">
-                                                                <div class="price__calculation price__calculation--column">
+                                                                <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
                                                                             <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
@@ -7910,7 +7958,7 @@
 
                                                         <li class="card-order__item">
                                                             <div class="card-order__price price">
-                                                                <div class="price__calculation price__calculation--column">
+                                                                <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
                                                                             <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
@@ -8214,7 +8262,7 @@
 
                                                         <li class="card-order__item">
                                                             <div class="card-order__price price">
-                                                                <div class="price__calculation price__calculation--column">
+                                                                <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
                                                                         <span class="price__calculation-picture">
                                                                             <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">

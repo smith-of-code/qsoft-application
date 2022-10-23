@@ -1,0 +1,11 @@
+.advantages {
+    &__item {
+        padding: rem($gap-medium) 0;
+
+        border-bottom: rem(1px) solid $alto;
+
+        &:first-child {
+            border-top: rem(1px) solid $alto;
+        }
+    }
+}

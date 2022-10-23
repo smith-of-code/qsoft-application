@@ -9,6 +9,99 @@
         padding: rem(40px) rem(100px);
     }
 
+    &--private {
+        padding: 0;
+    }
+
+    &--private & {
+        &__list {
+            align-items: flex-start;
+            flex-direction: column;
+
+            padding: rem(18px) rem($gap-mini);
+
+            border: rem(1px) solid $alto;
+            border-radius: rem($border-radius-average);
+
+            @media #{$screen-tablet} {
+                padding: rem(22px) rem($gap-small);
+            }
+        }
+
+        &__item {
+            @include text-middle ($font-weight-medium);
+            @include resetting-vertical-indentation-of-first;
+
+            width: 100%;
+            margin: 0;
+            margin-top: rem($gap-small);
+            padding: rem(6px) rem(20px);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(6px);
+                padding: rem(6px) rem($gap-medium);
+            }
+
+            &:hover {
+                border-radius: rem($gap-average);
+                background-color: $athensGray;
+            }
+
+            &--active {
+                border-radius: rem($gap-average);
+                background-color: $athensGray;
+            }
+        }
+
+        &__link {
+            display: flex;
+            align-items: center;
+
+            text-decoration: none;
+
+            color: $tuna;
+        }
+
+        &__icon {
+            $size: 20px;
+
+            flex-shrink: 0;
+
+            display: block;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-small);
+
+            @media #{$screen-tablet} {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+
+        &__counter {
+            $size: 20px;
+
+            @include text-miniature;
+
+            line-height: $line-height-small;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: rem($size);
+            height: rem($size);
+            margin-left: rem($gap-small);
+
+            color: $white;
+            border-radius: 50%;
+            background-color: $tuna;
+        }
+    }
+
     &__header {
         display: flex;
         flex-direction: column;

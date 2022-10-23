@@ -1,0 +1,37 @@
+.advantage {
+    display: flex;
+
+    &__icon {
+        $size: 16px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+        margin-right: rem($gap-small);
+
+        color: $seaGreen;
+
+        @media #{$screen-tablet} {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-average);
+        }
+    }
+
+    &__title {
+        color: $tuna;
+    }
+
+    &__subtitle {
+        font-size: rem($font-size-miniature);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-miniature / $font-size-miniature);
+
+        margin-top: rem($gap-mini);
+
+        color: $saltBox;
+    }
+}

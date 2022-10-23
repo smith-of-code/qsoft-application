@@ -161,7 +161,9 @@
         position: relative;
 
         &--fixed {
-            max-width: rem(330px);
+            @media #{$screen-tablet} {
+                max-width: rem(330px);
+            }
         }
 
         &-block {
