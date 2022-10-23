@@ -22,4 +22,36 @@
             }
         }
     }
+
+    &__main {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-big);
+        }
+
+        &--separated {
+            margin-top: rem($gap-big);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(35px);
+            }
+
+            @media #{$screen-desktop} {
+                margin-top: rem(56px);
+            }
+        }
+    }
+
+    &__filter {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(30px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-normal);
+        }
+    }
 }

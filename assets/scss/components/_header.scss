@@ -11,6 +11,9 @@
     &--main & {
         &__row {
             &--nav {
+                padding-top: rem(20px);
+                padding-bottom: rem(20px);
+
                 background-color: $white;
 
                 &::before {
@@ -59,8 +62,8 @@
             background-color: $white;
 
             @media #{$screen-tablet} {
-                padding-top: rem(30px);
-                padding-bottom: rem(30px);
+                padding-top: rem(28px);
+                padding-bottom: rem(28px);
             }
 
             @media #{$screen-desktop} {
@@ -73,8 +76,8 @@
 
             display: none;
 
-            padding-top: rem(20px);
-            padding-bottom: rem(20px);
+            padding-top: rem(10px);
+            padding-bottom: rem(10px);
 
             background-color: $athensGray;
 

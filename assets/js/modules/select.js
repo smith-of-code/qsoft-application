@@ -15,25 +15,19 @@ export default function () {
         };
 
         function formatState (state) {
-            let icon = $(state.element).data('option-icon');
-            let result;
+            let before = $(state.element).data('option-before') ? $(state.element).data('option-before') : '';
+            let after = $(state.element).data('option-after') ? $(state.element).data('option-after') : '';
 
-            if (icon) {
-                result = $(`
-                    <span class="select__item">
-                        <svg class="select__item-icon icon icon--cat">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>
-                        </svg>
-
-                        ${state.text}
-                    </span>
-                `);
-            } else {
-                result = state.text;
-            }
+            let result = $(`
+                <span class="select__item">
+                    ${before}
+                    ${state.text}
+                    ${after}
+                </span>
+            `);
 
             return result;
-          };
+        };
 
         const scrollOptions = {
             autohidemode: "leave",
@@ -59,6 +53,19 @@ export default function () {
                     const $selectList = $selectContainer.find('.select2-results__options');
 
                     $selectList.niceScroll(scrollOptions);
+                })
+                .on('select2:close', function() {
+                    const select = $(this);
+                    const multiple = select.attr('multiple');
+
+                    if (typeof multiple !== 'undefined' && multiple !== false) {
+                        select.closest('[data-select]').find('.select2-selection__rendered').html(()=>{
+                            let counter = select.select2('data').length;
+                            if (counter > 0) {
+                                return `<li class="select2-selection__rendered-item">Выбрано: ${counter}<li>`;
+                            }
+                        });
+                    }
                 });
         });
     }

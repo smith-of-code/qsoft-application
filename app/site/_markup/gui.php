@@ -12,7 +12,7 @@
     <body class="page">
 
         <!--header-->
-        <header class="page__header header header--main">
+        <header class="page__header page__header--main header--main">
             <div class="header__row header__row--main">
                 <div class="container">
                     <div class="header__wrapper">
@@ -529,6 +529,8 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Ненумерованные списки</h2>
 
+                        <h3 style="margin-top: 50px;">Простой</h3>
+
                         <ul>
                             <li>Возможность быстро проявить себя</li>
 
@@ -537,6 +539,18 @@
                             <li>Причастность к конечному результату работы компании</li>
 
                             <li>Разнообразный опыт</li>
+                        </ul>
+
+                        <h3 style="margin-top: 50px;">Цветной</h3>
+
+                        <ul class="list">
+                            <li class="list__item">Возможность быстро проявить себя</li>
+
+                            <li class="list__item">Более свободное отношение к графику работы, отсутствие строгих <a href="#">корпоративных правил</a></li>
+
+                            <li class="list__item">Причастность к конечному результату работы компании</li>
+
+                            <li class="list__item">Разнообразный опыт</li>
                         </ul>
                     </div>
                     <!--/Ненумерованные списки-->
@@ -577,6 +591,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: trash">
+                                    <svg class="icon icon--trash gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: rotate">
                                     <svg class="icon icon--rotate gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-rotate"></use>
@@ -610,6 +630,12 @@
                                 <li class="icons__item" title="Icon: arrow-right">
                                     <svg class="icon icon--right gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: arrow-left-thin">
+                                    <svg class="icon icon--right gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left-thin"></use>
                                     </svg>
                                 </li>
 
@@ -769,6 +795,30 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: receipts">
+                                    <svg class="icon icon--receipts gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: profile">
+                                    <svg class="icon icon--profile gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: chart-square">
+                                    <svg class="icon icon--chart-square gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: calculator">
+                                    <svg class="icon icon--calculator gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: attention">
                                     <svg class="icon icon--attention gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
@@ -786,9 +836,65 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: cup">
+                                    <svg class="icon icon--cup gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cup"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: repeat">
+                                    <svg class="icon icon--repeat gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: crown">
+                                    <svg class="icon icon--crown gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: return">
+                                    <svg class="icon icon--return gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-return"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: danger">
+                                    <svg class="icon icon--danger gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
-                            <ul class="icons__list">
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: chemistry">
+                                    <svg class="icon icon--chemistry gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diagnosis">
+                                    <svg class="icon icon--diagnosis gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: diploma">
+                                    <svg class="icon icon--diploma gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: protection">
+                                    <svg class="icon icon--protection gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
                                 <li class="icons__item" title="Icon: cat">
                                     <svg class="icon icon--cat gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
@@ -830,6 +936,24 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: credit-paid">
+                                    <svg class="icon icon--credit-paid gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: credit-not-paid">
+                                    <svg class="icon icon--credit-not-paid gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-not-paid"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cart-card">
+                                    <svg class="icon icon--cart-card gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                    </svg>
+                                </li>
                                 
                                 <li class="icons__item" title="Icon: cat-smile">
                                     <svg class="icon icon--cat-smile gui__icon">
@@ -846,6 +970,32 @@
                                 <li class="icons__item" title="Icon: cat-sad">
                                     <svg class="icon icon--cat-sad gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-sad"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-winks">
+                                    <svg class="icon icon--cat-winks gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-winks"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-glasses">
+                                    <svg class="icon icon--cat-glasses gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-glasses"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cat-think">
+                                    <svg class="icon icon--cat-think gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-think"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <ul class="icons__list gui__block">
+                                <li class="icons__item" title="Icon: pdf">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -1945,7 +2095,7 @@
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="form__control">
-                                                <div class="select select--mitigate select--small" data-select>
+                                                <div class="select select--mitigate select--small select--limited" data-select>
                                                     <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <option value="1">Надёжный</option>
@@ -1982,6 +2132,62 @@
                                                         <option value="4" disabled>Недоступный</option>
                                                         <option value="5">Открытый</option>
                                                         <option value="6">Открытый</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="select select--middle select--simple" data-select>
+                                                    <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--white"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Белый
+                                                        </option>
+                                                        <option value="2" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--pink"></span></span>' data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                            Розовый
+                                                        </option>
+                                                        <option value="3" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--blue"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Синий
+                                                        </option>
+                                                        <option value="4" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--green"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                            Зеленый
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__row">
+                                <div class="form__col">
+                                    <div class="form__field">
+                                        <div class="form__field-block form__field-block--input">
+                                            <div class="form__control">
+                                                <div class="specification__select select select--middle" data-select>
+                                                    <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                                                        <option><!-- пустой option для placeholder --></option>
+                                                        <option value="1" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для всех пород
+                                                        </option>
+                                                        <option value="2" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                                        Для мелких пород
+                                                        </option>
+                                                        <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для средних пород
+                                                        </option>
+                                                        <option value="4" data-option-after='<span class="stock">нет в наличии</span>' disabled>
+                                                        Для крупных пород
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -2600,6 +2806,7 @@
                     <!--Варианты фасовки-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты фасовки</h2>
+                        <h3 style="margin-top: 50px;">Простые</h3>
                         <div class="packs">
                             <ul class="packs__list">
                                 <li class="packs__item">
@@ -2680,12 +2887,96 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Обведенные</h3>
+                        <div class="packs">
+                            <ul class="packs__list">
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="r111" checked>
+                                            <label for="r111">
+                                                <div class="pack__item">600 г</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="r222">
+                                            <label for="r222">
+                                                <div class="pack__item">1 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="r333">
+                                            <label for="r333">
+                                                <div class="pack__item">3 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="r444">
+                                            <label for="r444">
+                                                <div class="pack__item">5 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="r555">
+                                            <label for="r555">
+                                                <div class="pack__item">7 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="r666" disabled>
+                                            <label for="r666">
+                                                <div class="pack__item pack__item--disabled">10 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="r777" disabled>
+                                            <label for="r777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты фасовки-->
 
                     <!--Варианты цветов-->
                     <div class="gui__block">
                         <h2 class="gui__title">Варианты цветов</h2>
+
+                        <h3 style="margin-top: 50px;">Маленькие</h3>
                         <div class="colors">
                             <ul class="colors__list">
                                 <li class="colors__item">
@@ -2755,8 +3046,254 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Большие</h3>
+
+                        <div class="colors colors--big">
+                            <ul class="colors__list">
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--white"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                            <label for="radio">
+                                                <div class="color__item color__item--big color__item--pink"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
+                                            <label for="radio2">
+                                                <div class="color__item color__item--big color__item--blue"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
+                                            <label for="radio3">
+                                                <div class="color__item color__item--big color__item--green"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
+                                            <label for="radio4">
+                                                <div class="color__item color__item--big color__item--yellow"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color color--disabled">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5" disabled>
+                                            <label for="radio5">
+                                                <div class="color__item color__item--big color__item--red"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты цветов-->
+
+                    <!--Документы-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Документы</h2>
+
+                        <div class="documents">
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о государственной регистрации</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Заключение ветеринарной комиссии</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Часто задаваемые вопросы</span>
+                                            <span class="document__text-size">(1.2 Mb)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="documents__item">
+                                <div class="document">
+                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                        <div class="document__icon">
+                                            <svg class="icon icon--pdf">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="document__text">
+                                            <span class="document__text-name">Сертификат о безопасности</span>
+                                            <span class="document__text-size">(630 KB)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Документы-->
+
+                    <!--Особенности-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Особенности</h2>
+
+                        <div class="features">
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--chemistry">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Сбалансированная формула</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--protection">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Профилактика здоровья ежедневно</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diagnosis">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+
+                            <div class="features__item">
+                                <div class="feature">
+                                    <div class="feature__icon">
+                                        <svg class="icon icon--diploma">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="feature__text">Гипоаллергенные ингредиенты</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Особенности-->
+
+                    <!--Состав-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Состав</h2>
+
+                        <div class="nutritionals">
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Протеин, %</span>
+                                    <span class="nutritional__size">20 - 30</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Жир, %</span>
+                                    <span class="nutritional__size">15 - 16</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая клетчатка,%</span>
+                                    <span class="nutritional__size">3 - 3.5</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Кальций, %</span>
+                                    <span class="nutritional__size">22 - 29</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Фосфор, %</span>
+                                    <span class="nutritional__size">0.8 - 1</span>
+                                </div>
+                            </div>
+
+                            <div class="nutritionals__item">
+                                <div class="nutritional">
+                                    <span class="nutritional__name">Сырая зола, %</span>
+                                    <span class="nutritional__size">22 - 30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Состав-->
 
                     <!--Загрузчик-->
                     <div class="gui__block">
@@ -4675,8 +5212,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4700,8 +5237,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2" data-option-icon="dog" selected>Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>'>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' selected>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -4870,8 +5407,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -4895,8 +5432,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat" selected>Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -5075,8 +5612,8 @@
                                                     <div class="pet-card__delete">
                                                         <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
                                                             <span class="button__icon">
-                                                                <svg class="icon icon--basket">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                <svg class="icon icon--trash">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -5100,8 +5637,8 @@
                                                                         <div class="select select--mitigate select--iconed" data-select>
                                                                             <select class="select__control" name="type" id="type-#ID#" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                                 <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                                <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                                <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -7368,10 +7905,1254 @@
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                     <!-- /Карточки товаров в корзине -->
+
+                    <!-- Карточка заказа -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточка заказа</h2>
+
+                        <h3 style="margin-top: 40px;">Цельные</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-order">
+                                <ul class="cards-order__list">
+                                    
+                                    <li class="cards-order__item">
+                                        <article class="card-order card-order--green">
+                                            <div class="card-order__inner">
+                                                <header class="card-order__header">
+                                                    <ul class="card-order__list">
+                                                        <li class="card-order__item">
+                                                            <h2 class="card-order__title">
+                                                                Заказ от 02.08.2022
+                                                            </h2>
+                                                            <p class="card-order__subtitle">
+                                                                №543268
+                                                            </p>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--span">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Кем заказан
+                                                                </p>
+                                                                <p class="info-slot__value">
+                                                                    Дубровская А.Ф.
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--delivery">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус заказа
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--marked">
+                                                                    Доставлен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--pay">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус оплаты
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    Оплачен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item">
+                                                            <div class="card-order__price price">
+                                                                <div class="price__calculation price__calculation--columned">
+                                                                    <p class="price__calculation-total price__calculation-total--has-icon">
+                                                                        <span class="price__calculation-picture">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
+                                                                    </p>
+                                                                    <p class="price__calculation-accumulation">119 ББ</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </header>
+
+                                                <div class="card-order__content">
+                                                    <div class="accordeon__item box" data-accordeon>
+                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                            <h6 class="accordeon__title">Состав заказа</h6>
+
+                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                    <svg class="icon icon--arrow-down">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+
+                                                        </div>
+
+                                                        <div class="accordeon__body" data-accordeon-content>
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    
+                                    <li class="cards-order__item">
+                                        <article class="card-order card-order--blue">
+                                            <div class="card-order__inner">
+                                                <header class="card-order__header">
+                                                    <ul class="card-order__list">
+                                                        <li class="card-order__item">
+                                                            <h2 class="card-order__title">
+                                                                Заказ от 02.08.2022
+                                                            </h2>
+                                                            <p class="card-order__subtitle">
+                                                                №543268
+                                                            </p>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--span">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Кем заказан
+                                                                </p>
+                                                                <p class="info-slot__value">
+                                                                    Дубровская А.Ф.
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--delivery">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус заказа
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--marked">
+                                                                    Размещен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--pay">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус оплаты
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    Оплачен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item">
+                                                            <div class="card-order__price price">
+                                                                <div class="price__calculation price__calculation--columned">
+                                                                    <p class="price__calculation-total price__calculation-total--has-icon">
+                                                                        <span class="price__calculation-picture">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
+                                                                    </p>
+                                                                    <p class="price__calculation-accumulation">119 ББ</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </header>
+
+                                                <div class="card-order__content">
+                                                    <div class="accordeon__item box" data-accordeon>
+                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                            <h6 class="accordeon__title">Состав заказа</h6>
+
+                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                    <svg class="icon icon--arrow-down">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+
+                                                        </div>
+
+                                                        <div class="accordeon__body" data-accordeon-content>
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    
+                                    <li class="cards-order__item">
+                                        <article class="card-order card-order--red">
+                                            <div class="card-order__inner">
+                                                <header class="card-order__header">
+                                                    <ul class="card-order__list">
+                                                        <li class="card-order__item">
+                                                            <h2 class="card-order__title">
+                                                                Заказ от 02.08.2022
+                                                            </h2>
+                                                            <p class="card-order__subtitle">
+                                                                №543268
+                                                            </p>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--span">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Кем заказан
+                                                                </p>
+                                                                <p class="info-slot__value">
+                                                                    Дубровская А.Ф.
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--delivery">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус заказа
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--marked">
+                                                                    Отменен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--pay">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус оплаты
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-not-paid"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    Не оплачен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item">
+                                                            <div class="card-order__price price">
+                                                                <div class="price__calculation price__calculation--columned">
+                                                                    <p class="price__calculation-total price__calculation-total--has-icon">
+                                                                        <span class="price__calculation-picture">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
+                                                                    </p>
+                                                                    <p class="price__calculation-accumulation">119 ББ</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </header>
+
+                                                <div class="card-order__content">
+                                                    <div class="accordeon__item box" data-accordeon>
+                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                            <h6 class="accordeon__title">Состав заказа</h6>
+
+                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                    <svg class="icon icon--arrow-down">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+
+                                                        </div>
+
+                                                        <div class="accordeon__body" data-accordeon-content>
+                                                            
+                                                            <div class="table-list">
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Разделенные</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-order">
+                                <ul class="cards-order__list">
+                                    
+                                    <li class="cards-order__item">
+                                        <article class="card-order card-order--green card-order--divided">
+                                            <div class="card-order__inner">
+                                                <header class="card-order__header">
+                                                    <ul class="card-order__list">
+                                                        <li class="card-order__item">
+                                                            <h2 class="card-order__title">
+                                                                Заказ от 02.08.2022
+                                                            </h2>
+                                                            <p class="card-order__subtitle">
+                                                                №543268
+                                                            </p>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--span">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Кем заказан
+                                                                </p>
+                                                                <p class="info-slot__value">
+                                                                    Дубровская А.Ф.
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--delivery">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус заказа
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--marked">
+                                                                    Доставлен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item card-order__item--pay">
+                                                            <div class="info-slot">
+                                                                <p class="info-slot__name">
+                                                                    Статус оплаты
+                                                                </p>
+                                                                <p class="info-slot__value info-slot__value--icon">
+                                                                    <span class="info-slot__icon">
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                    Оплачен
+                                                                </p>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="card-order__item">
+                                                            <div class="card-order__price price">
+                                                                <div class="price__calculation price__calculation--columned">
+                                                                    <p class="price__calculation-total price__calculation-total--has-icon">
+                                                                        <span class="price__calculation-picture">
+                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="price__calculation-value">
+                                                                            11 904 ₽
+                                                                        </span>
+                                                                    </p>
+                                                                    <p class="price__calculation-accumulation">119 ББ</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="card-order__action">
+                                                        <button type="button" class="card-order__button button button--medium button--rounded-big button--covered button--green">
+                                                            <span class="button__icon button__icon--right">
+                                                                <svg class="icon icon--rotate">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-rotate"></use>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="button__text">Повторить заказ</span>
+                                                        </button>
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-order__content">
+                                                    <div class="accordeon__item box" data-accordeon>
+                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                            <h6 class="accordeon__title">Состав заказа</h6>
+
+                                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
+                                                                <span class="accordeon__toggle-icon button__icon">
+                                                                    <svg class="icon icon--arrow-down">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="accordeon__body" data-accordeon-content>
+                                                            
+                                                            <div class="table-list">
+
+                                                                <div class="table-list__head">
+                                                                    <div class="table-list__cell">
+                                                                        <p class="table-list__name">
+                                                                            Наименование
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Цена
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Количество
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="table-list__cell table-list__cell--desktop">
+                                                                        <p class="table-list__name">
+                                                                            Сумма баллов
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <ul class="table-list__list">
+
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+                                                                    <li class="table-list__item">
+
+                                                                        <article class="product-line">
+                                                                            <div class="product-line__inner">
+                                                                                <div class="product-line__info">
+                                                                                    <div class="product-line__image">
+                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                    </div>
+                                                                                    <div class="product-line__wrapper">
+                                                                                        <h2 class="product-line__title">
+                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                        </h2>
+                                                                                        <p class="product-line__subtitle">
+                                                                                            Арт. СХ-С-956027
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-line__characteristic">
+                                                                                    <ul class="product-line__list">
+                                                                                        <li class="product-line__params product-line__params--span">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Цена:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    1 097 ₽
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Количество:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    4
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                        <li class="product-line__params product-line__params--bold">
+                                                                                            <p class="product-line__text">
+                                                                                                <span class="product-line__params-name">
+                                                                                                    Сумма баллов:
+                                                                                                </span>
+                                                                                                <span class="product-line__params-value">
+                                                                                                    436 ББ
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </li> 
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </article>
+
+                                                                    </li>
+
+                                                                </ul>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- /Карточка заказа -->
+
+                    <!-- Попап cookie -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Попап cookie</h2>
+
+                        <div class="gui__block">
+                            <div class="cookie" style="position: relative;" data-cookie>
+                                <div class="container">
+                                    <div class="cookie__row">
+                                        <div class="cookie__col">
+                                            <div class="cookie__image">
+                                                <img class="cookie__image-picture" src="/local/templates/.default/images/cookies.png" alt="cookie">
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__text">
+                                                Мы используем файлы cookie для Вашего удобства пользования сайтом. Продолжая использовать наш сайт, Вы даете согласие на обработку файлов cookie
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__actions">
+                                                <a href="#" class="cookie__actions-button cookie__actions-accept button button--rounded button--outlined button--red" data-cookie-more>
+                                                    Узнать больше
+                                                </a>
+                                                <button type="button" class="cookie__actions-button cookie__actions-more button button--rounded button--covered button--red" data-cookie-accept>
+                                                    Принять
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Попап cookie -->
                 </main>
             </div>
         </div>
@@ -7381,7 +9162,7 @@
         <footer class="page__footer footer">
             <div class="footer__container container">
                 <nav class="footer__nav">
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--dogs">
                         <li class="footer__item footer__item--heading">
                             Для собак
                         </li>
@@ -7411,7 +9192,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--cats">
                         <li class="footer__item footer__item--heading">
                             Для кошек
                         </li>
@@ -7441,7 +9222,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--customers">
                         <li class="footer__item footer__item--heading">
                             Покупателям
                         </li>
@@ -7466,7 +9247,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--company">
                         <li class="footer__item footer__item--heading">
                             Компания AmeAppetite
                         </li>
@@ -7486,7 +9267,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--contacts">
                         <li class="footer__item footer__item--heading">
                             Контакты
                         </li>
@@ -7504,13 +9285,13 @@
                             Москва, Проспект Мира, 87
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--info">
                         <li class="footer__item footer__item--heading">
                             Правовая информация
                         </li>
                         <li class="footer__item">
                             <a href="#" class="footer__link">
-                                Правила компании
+                            Условия использования Сайта
                             </a>
                         </li>
                         <li class="footer__item">
@@ -7570,6 +9351,11 @@
                     <p class="footer__copyright">
                         &copy; AmeAppetite, 2022
                     </p>
+                    <div class="footer__logo logo">
+                        <a target="_blank" class="logo__link" href="https://qsoft.ru">
+                            <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -7594,6 +9380,11 @@
     .gui__icon {
         width: 30px;
         height: 30px;
+    }
+
+    .gui__icon--big {
+        width: 60px;
+        height: 60px;
     }
 
     .gui__example {

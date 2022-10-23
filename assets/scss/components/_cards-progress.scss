@@ -8,10 +8,13 @@
     }
 
     &__list {
+        display: flex;
+        flex-direction: column;
+
         margin: rem(-$gap-average) rem(-$gap-small) 0;
 
         @media #{$screen-tablet} {
-            display: flex;
+            flex-direction: row;
             flex-wrap: wrap;
         }
     }
@@ -22,6 +25,10 @@
 
         @media #{$screen-tablet} {
             flex-basis: percentage(1 / 2);
+        }
+
+        &--full {
+            flex-basis: 100%;
         }
     }
 }

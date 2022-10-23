@@ -3,7 +3,7 @@
 use QSoft\Migrate\Traits\AddUserFieldsTrait;
 use QSoft\Migration\Migration;
 
-class AddFieldCheckGroupsForUsers extends Migration
+class AddFieldLoyaltyLevelForUsers extends Migration
 {
     use AddUserFieldsTrait;
 

@@ -8,6 +8,7 @@ use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
+use QSoft\ORM\Decorators\CreatedAtDecorator;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\Entity\EnumField;
 
@@ -15,8 +16,15 @@ Loc::loadMessages(__FILE__);
 
 final class LegalEntityTable extends BaseTable
 {
+    public const STATUSES = [
+        'ip' => 'STATUS_IP',
+        'ltc' => 'STATUS_JURIDICAL',
+        'self_employed' => 'STATUS_SELF_EMPLOYED',
+    ];
+
     protected static array $decorators = [
         'UF_STATUS' => EnumDecorator::class,
+        'UF_CREATED_AT' => CreatedAtDecorator::class,
     ];
 
     public static function getTableName(): string

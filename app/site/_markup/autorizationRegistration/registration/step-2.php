@@ -26,37 +26,37 @@
                     <section class="section">
                         <ul class="steps-counter">
                             <li class="steps-counter__item steps-counter__item--passed" data-steps-item>
-                                <div class="steps-counter__circle steps-counter__circle--passed" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--1 steps-counter__circle--passed" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Персональные данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item  steps-counter__item--current" data-steps-item>
-                                <div class="steps-counter__circle  steps-counter__circle--current" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--2 steps-counter__circle--current" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Данные о питомцах</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--3" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Выбор наставника</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--4" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Юридические данные</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--5" data-steps-indicator>
                                     <span class="steps-counter__circle-text">Установка пароля</span>
                                 </div>
                             </li>
 
                             <li class="steps-counter__item" data-steps-item>
-                                <div class="steps-counter__circle" data-steps-indicator>
+                                <div class="steps-counter__circle steps-counter__circle--6" data-steps-indicator>
                                 </div>
                             </li>
                         </ul>
@@ -140,8 +140,8 @@
                                                                     <div class="select select--mitigate select--iconed" data-select>
                                                                         <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                             <option><!-- пустой option для placeholder --></option>
-                                                                            <option value="1" data-option-icon="cat">Кошка</option>
-                                                                            <option value="2"data-pets-card data-option-icon="dog" selected>Собака</option>
+                                                                            <option value="1" data-pets-species="cat" data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' >Кошка</option>
+                                                                            <option value="2" data-pets-species="dog" data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card selected>Собака</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -335,8 +335,8 @@
                                                                     <div class="select select--mitigate select--iconed" data-select>
                                                                         <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                             <option><!-- пустой option для placeholder --></option>
-                                                                            <option value="1" data-option-icon="cat" selected>Кошка</option>
-                                                                            <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                            <option value="1" data-pets-species="cat"  data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                            <option value="2" data-pets-species="dog"  data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -540,8 +540,8 @@
                                                                     <div class="select select--mitigate select--iconed" data-select>
                                                                         <select class="select__control" name="type" id="type-#ID#" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                                             <option><!-- пустой option для placeholder --></option>
-                                                                            <option value="1" data-option-icon="cat">Кошка</option>
-                                                                            <option value="2"data-pets-card data-option-icon="dog">Собака</option>
+                                                                            <option value="1" data-pets-species="cat"  data-option-before='<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use></svg>' selected>Кошка</option>
+                                                                            <option value="2" data-pets-species="dog"  data-option-before='<svg class="select__item-icon icon icon--dog"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use></svg>' data-pets-card>Собака</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>

@@ -3,11 +3,16 @@
 namespace QSoft\Events;
 
 use QSoft\Entity\User;
+use QSoft\Helper\BonusAccountHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
 use RuntimeException;
 
 class UserEventsListener
 {
 
+    /**
+     * @throws \Exception
+     */
     public static function OnBeforeUserUpdate(array $fields)
     {
         // Пользователь, для которого вносятся изменения
@@ -29,8 +34,18 @@ class UserEventsListener
                 ) {
                     throw new RuntimeException('Invalid mentor ID');
                 }
-                $userMentor->bonusAccount->addReferralBonuses();
+                (new BonusAccountHelper())->addReferralBonuses($userMentor);
             }
+        }
+    }
+
+    public static function OnBeforeUserAdd(array &$fields)
+    {
+        if (!$fields['UF_LOYALTY_LEVEL']) {
+            $fields['UF_LOYALTY_LEVEL'] = LoyaltyProgramHelper::LOYALTY_LEVEL_K1;
+        }
+        if (!$fields['UF_PERSONAL_DISCOUNT_LEVEL']) {
+            $fields['UF_PERSONAL_DISCOUNT_LEVEL'] = BonusAccountHelper::BONUS_ACCOUNT_LEVEL_B1;
         }
     }
 }

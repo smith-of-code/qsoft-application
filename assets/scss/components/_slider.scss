@@ -106,11 +106,11 @@
 
         &__button {
             &--prev {
-                transform: translateX(rem($gap-mini));
+                transform: translateX(rem($gap-small));
             }
 
             &--next {
-                transform: translateX(rem(-$gap-mini));
+                transform: translateX(rem(-$gap-small));
 
                 & .button {
                     &__icon {

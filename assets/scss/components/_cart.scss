@@ -1,0 +1,40 @@
+.cart {
+    padding: rem($gap-normal);
+
+    border-radius: rem($border-radius-average);
+    background-color: $athensGray;
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-small) rem($gap-normal);
+    }
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-normal) rem(20px);
+    }
+
+    &__heading {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-medium);
+        }
+    }
+
+    &__price {
+        margin-bottom: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(22px);
+        }
+    }
+
+    &__packs,
+    &__breed,
+    &__colors {
+        margin-bottom: rem($gap-medium);
+
+        @media #{$screen-desktop} {
+            display: none;
+        }
+    }
+}

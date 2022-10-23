@@ -1,0 +1,46 @@
+.feature {
+    display: flex;
+    align-items: center;
+
+    @media #{$screen-tablet} {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    @media #{$screen-desktop} {
+        flex-direction: row;
+
+        text-align: left;
+    }
+
+    &__icon {
+        $size: 36px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+        margin-right: rem($gap-small);
+
+        color: $brickRed;
+
+        @media #{$screen-tablet} {
+            $size: 56px;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: 0;
+            margin-bottom: rem($gap-small);
+        }
+
+        @media #{$screen-desktop} {
+            margin-right: rem($gap-small);
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        @include text-middle;
+    }
+}
