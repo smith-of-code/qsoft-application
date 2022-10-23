@@ -42,4 +42,16 @@
             }
         }
     }
+
+    &__filter {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(30px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-normal);
+        }
+    }
 }

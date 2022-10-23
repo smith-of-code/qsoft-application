@@ -633,6 +633,12 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: arrow-left-thin">
+                                    <svg class="icon icon--right gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left-thin"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: import">
                                     <svg class="icon icon--import gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -834,6 +840,12 @@
                                 <li class="icons__item" title="Icon: crown">
                                     <svg class="icon icon--crown gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: return">
+                                    <svg class="icon icon--return gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-return"></use>
                                     </svg>
                                 </li>
 
@@ -2071,7 +2083,7 @@
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="form__control">
-                                                <div class="select select--mitigate select--small" data-select>
+                                                <div class="select select--mitigate select--small select--limited" data-select>
                                                     <select class="select__control" name="select3" id="select3" data-select-control data-placeholder="Селект">
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <option value="1">Надёжный</option>

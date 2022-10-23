@@ -487,7 +487,7 @@
                                     <ul class="menu__list">
                                         <li class="menu__item menu__item--active">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="menu__icon menu__icon--active">
                                                     <svg class="icon icon--profile gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
                                                     </svg>
