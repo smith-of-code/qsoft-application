@@ -59,7 +59,7 @@ class SupportEventListner
                 }
                 break;
             case self::CHANGE_ROLE:
-                // Событие для смены роли консультанта.
+                // Событие для смены роли на консультанта.
                 if (
                     !empty($ticketValues['UF_ACCEPT_REQUEST'])
                     && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
