@@ -2,7 +2,6 @@
 
 namespace QSoft\Events;
 
-use QSoft\ORM\LegalEntityTable;
 use Bitrix\Main\Mail\Event as EmailEvent;
 use Bitrix\Main\Sms\Event as SmsEvent;
 use \CTicketDictionary;
@@ -60,7 +59,13 @@ class SupportEventListner
                 }
                 break;
             case self::CHANGE_ROLE:
-                // Событие для смены роли.
+                // Событие для смены роли консультанта.
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->changeRole($ticketValues);
+                }
                 break;
             case self::SUPPORT:
                 // Событие для техподдержки.
@@ -245,12 +250,35 @@ class SupportEventListner
     }
 
     /**
+     * @param array $formValues
+     * 
+     * @return void
+     */
+    private function changeRole(array $ticketValues): void
+    {
+        $fields = json_decode($ticketValues['UF_DATA'], true);
+
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $groups = $user->groups;
+
+        $user
+            ->legalEntity
+            ->create($this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
+        if (!$groups->isConsultant()) {
+            $groups->addToGroup($groups->USER_GROUP_CONSULTANT);
+        }
+        if ($groups->isBuyer()) {
+            $groups->removeFromGroup($groups->USER_GROUP_BUYER);
+        }
+    }
+
+    /**
      * @param mixed $formValues
      * @param mixed $userId
      * 
      * @return array
      */
-    private function prepareProps(array$formValues, int $userId): array
+    private function prepareProps(array $formValues, int $userId): array
     {
         if (!$userId) {
             return [];
@@ -274,7 +302,12 @@ class SupportEventListner
         return $props;
     }
 
-    private function prepareFieldsByMessage($ticketValues): array
+    /**
+     * @param array $ticketValues
+     * 
+     * @return array
+     */
+    private function prepareFieldsByMessage(array $ticketValues): array
     {
         $protocol = $this->getProtocol();
 
