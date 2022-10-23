@@ -824,6 +824,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
                                     </svg>
                                 </li>
+                                
+                                <li class="icons__item" title="Icon: personal-action">
+                                    <svg class="icon icon--personal-action gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
+                                    </svg>
+                                </li>
+                                
+                                <li class="icons__item" title="Icon: non-returnable">
+                                    <svg class="icon icon--non-returnable gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
+                                    </svg>
+                                </li>
 
                                 <li class="icons__item" title="Icon: cup">
                                     <svg class="icon icon--cup gui__icon">
@@ -7321,6 +7333,582 @@
                     </div>
                     <!-- /Карточки-акций -->
 
+                    <!-- Карточки товаров в корзине -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки товаров в корзине</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-cart">
+                                <ul class="cards-cart__list">
+                                    <li class="cards-cart__item" data-remove-item>
+
+                                        <article class="card-cart">
+                                            <a href="#" class="card-cart__link"></a>
+
+                                            <div class="card-cart__inner">
+                                                <header class="card-cart__header">
+                                                    <div class="card-cart__image">
+                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="card-cart__image-picture">
+                                                    </div>
+                                                    <div class="card-cart__info">
+                                                        <h2 class="card-cart__title">
+                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                        </h2>
+                                                        <p class="card-cart__subtitle">
+                                                            Арт. СХ-С-956027
+                                                        </p>
+
+                                                        <ul class="card-cart__types types">
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    Для средних пород
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+
+                                                        <ul class="card-cart__status product-status">
+                                                            <li class="product-status__item product-status__item--red">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--personal-action product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Персональная акция
+                                                                </p>
+                                                            </li>
+                                                            <li class="product-status__item product-status__item--blue">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--non-returnable product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Невозвратный товар
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-cart__wrapper">
+
+                                                    <div class="card-cart__block">
+                                                        <div class="card-cart__counter">
+    
+                                                            <div class="quantity quantity--active" data-quantity>
+                                                                <div class="quantity__actions">
+                                                                    <div class="quantity__decrease">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+    
+                                                                    <div class="quantity__total">
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
+                                                                    </div>
+    
+                                                                    <div class="quantity__increase">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                        <div class="card-cart__price">
+                                                            <p class="card-cart__price-item">
+                                                                <span class="card-cart__price-value">
+                                                                    1542 ₽
+                                                                </span>
+                                                                <span class="card-cart__price-sufix">
+                                                                    за шт
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="card-cart__total product-price">
+                                                            <p class="product-price__item product-price__item--new">
+                                                                14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-cart__actions">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-cart__item" data-remove-item>
+
+                                        <article class="card-cart">
+                                            <a href="#" class="card-cart__link"></a>
+
+                                            <div class="card-cart__inner">
+                                                <header class="card-cart__header">
+                                                    <div class="card-cart__image">
+                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="card-cart__image-picture">
+                                                    </div>
+                                                    <div class="card-cart__info">
+                                                        <h2 class="card-cart__title">
+                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                        </h2>
+                                                        <p class="card-cart__subtitle">
+                                                            Арт. СХ-С-956027
+                                                        </p>
+
+                                                        <ul class="card-cart__types types">
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    Для средних пород
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-cart__wrapper">
+
+                                                    <div class="card-cart__block">
+                                                        <div class="card-cart__counter">
+    
+                                                            <div class="quantity quantity--active" data-quantity>
+                                                                <div class="quantity__actions">
+                                                                    <div class="quantity__decrease">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+    
+                                                                    <div class="quantity__total">
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
+                                                                    </div>
+    
+                                                                    <div class="quantity__increase">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                        <div class="card-cart__price">
+                                                            <p class="card-cart__price-item">
+                                                                <span class="card-cart__price-value">
+                                                                    1542 ₽
+                                                                </span>
+                                                                <span class="card-cart__price-sufix">
+                                                                    за шт
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="card-cart__total product-price">
+                                                            <p class="product-price__item">
+                                                                18 462 ₽
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-cart__actions">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-cart__item" data-remove-item>
+
+                                        <article class="card-cart">
+                                            <a href="#" class="card-cart__link"></a>
+
+                                            <div class="card-cart__inner">
+                                                <header class="card-cart__header">
+                                                    <div class="card-cart__image">
+                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="card-cart__image-picture">
+                                                    </div>
+                                                    <div class="card-cart__info">
+                                                        <h2 class="card-cart__title">
+                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                        </h2>
+                                                        <p class="card-cart__subtitle">
+                                                            Арт. СХ-С-956027
+                                                        </p>
+
+                                                        <ul class="card-cart__types types">
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    Для средних пород
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+
+                                                        <ul class="card-cart__status product-status">
+                                                            <li class="product-status__item product-status__item--red">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--personal-action product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Персональная акция
+                                                                </p>
+                                                            </li>
+                                                            <li class="product-status__item product-status__item--blue">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--non-returnable product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Невозвратный товар
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-cart__wrapper">
+
+                                                    <div class="card-cart__block">
+                                                        <div class="card-cart__counter">
+    
+                                                            <div class="quantity quantity--active" data-quantity>
+                                                                <div class="quantity__actions">
+                                                                    <div class="quantity__decrease">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+    
+                                                                    <div class="quantity__total">
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
+                                                                    </div>
+    
+                                                                    <div class="quantity__increase">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                        <div class="card-cart__price">
+                                                            <p class="card-cart__price-item">
+                                                                <span class="card-cart__price-value">
+                                                                    1542 ₽
+                                                                </span>
+                                                                <span class="card-cart__price-sufix">
+                                                                    за шт
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="card-cart__total product-price">
+                                                            <p class="product-price__item product-price__item--new">
+                                                                14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-cart__actions">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-cart__item" data-remove-item>
+
+                                        <article class="card-cart">
+                                            <a href="#" class="card-cart__link"></a>
+
+                                            <div class="card-cart__inner">
+                                                <header class="card-cart__header">
+                                                    <div class="card-cart__image">
+                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="card-cart__image-picture">
+                                                    </div>
+                                                    <div class="card-cart__info">
+                                                        <h2 class="card-cart__title">
+                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                        </h2>
+                                                        <p class="card-cart__subtitle">
+                                                            Арт. СХ-С-956027
+                                                        </p>
+
+                                                        <ul class="card-cart__types types">
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    Для средних пород
+                                                                </p>
+                                                            </li>
+                                                            <li class="types__item">
+                                                                <p class="types__value">
+                                                                    600 г
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+
+                                                        <ul class="card-cart__status product-status">
+                                                            <li class="product-status__item product-status__item--red">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--personal-action product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Персональная акция
+                                                                </p>
+                                                            </li>
+                                                            <li class="product-status__item product-status__item--blue">
+                                                                <span class="product-status__icon">
+                                                                    <svg class="icon icon--non-returnable product-status__icon-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
+                                                                    </svg>
+                                                                </span>
+                                                                <p class="product-status__name">
+                                                                    Невозвратный товар
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </header>
+
+                                                <div class="card-cart__wrapper">
+
+                                                    <div class="card-cart__block">
+                                                        <div class="card-cart__counter">
+    
+                                                            <div class="quantity quantity--active" data-quantity>
+                                                                <div class="quantity__actions">
+                                                                    <div class="quantity__decrease">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+    
+                                                                    <div class="quantity__total">
+                                                                        <span
+                                                                            class="quantity__total-sum"
+                                                                            data-quantity-sum="1"
+                                                                            data-quantity-min="1"
+                                                                            data-quantity-max="15"
+                                                                        >
+                                                                            1
+                                                                        </span>
+                                                                    </div>
+    
+                                                                    <div class="quantity__increase">
+                                                                        <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                        <div class="card-cart__price">
+                                                            <p class="card-cart__price-item">
+                                                                <span class="card-cart__price-value">
+                                                                    1542 ₽
+                                                                </span>
+                                                                <span class="card-cart__price-sufix">
+                                                                    за шт
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="card-cart__total product-price">
+                                                            <p class="product-price__item product-price__item--new">
+                                                                14 388 ₽
+                                                            </p>
+                                                            <p class="product-price__item product-price__item--old">
+                                                                18 462 ₽
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-cart__actions">
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <span class="button__icon">
+                                                            <svg class="icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки товаров в корзине -->
+
                     <!-- Карточка заказа -->
                     <div class="gui__block">
                         <h2 class="gui__title">Карточка заказа</h2>
@@ -8523,12 +9111,12 @@
                                             </div>
                                         </article>
                                     </li>
-
                                 </ul>
                             </div>
 
                         </div>
                     </div>
+
                     <!-- /Карточка заказа -->
 
                     <!-- Попап cookie -->

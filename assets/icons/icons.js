@@ -59,6 +59,8 @@ import './svg/danger.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';
+import './svg/personal-action.svg';
+import './svg/non-returnable.svg';
 
 import './svg/dog.svg';
 import './svg/pet.svg';
