@@ -1,8 +1,11 @@
 .adventages-card {
+    position: relative;
+
+    overflow: hidden;
+
     height: 100%;
     padding: rem(8px) rem(8px) rem(22px) rem(8px);
 
-    border-bottom: rem(4px) solid $black;
     border-radius: rem($border-radius-average);
     background-color: $white;
 
@@ -10,8 +13,19 @@
         padding: rem(20px) rem(20px) rem(38px) rem(20px);
     }
 
-    &--blue {
-        border-color: $onahau;
+    &::before {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        height: rem(4px);
+
+        content: "";
+    }
+
+    &--blue::before {
+        background-color: $onahau;
     }
 
     &--blue  & {
@@ -22,8 +36,8 @@
         } 
     }
 
-    &--gold {
-        border-color: $drover;
+    &--gold::before {
+        background-color: $drover;
     }
 
     &--gold  & {
@@ -34,8 +48,8 @@
         } 
     }
 
-    &--wisteria {
-        border-color: $lavenderGray;
+    &--wisteria::before {
+        background-color: $lavenderGray;
     }
 
     &--wisteria  & {
@@ -46,8 +60,8 @@
         } 
     }
 
-    &--piper {
-        border-color: $caramel;
+    &--piper::before {
+        background-color: $caramel;
     }
 
     &--piper  & {
