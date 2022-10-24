@@ -692,6 +692,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
                                     </svg>
                                 </li>
+                                
+                                <li class="icons__item" title="Icon: tick-circle-bold">
+                                    <svg class="icon icon--tick-circle-bold gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle-bold"></use>
+                                    </svg>
+                                </li>
 
                                 <li class="icons__item" title="Icon: close-square">
                                     <svg class="icon icon--close-square gui__icon">
@@ -9153,6 +9159,115 @@
                         </div>
                     </div>
                     <!-- /Попап cookie -->
+
+                    <!-- Карточки Статусы -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки Статусы</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-notify">
+                                <ul class="cards-notify__list">
+                                    <li class="cards-notify__item">
+
+                                        <article class="card-notify card-notify--green">
+                                            <a href="#" class="card-notify__link"></a>
+                                        
+                                            <div class="card-notify__inner">
+                                            
+                                                <header class="card-notify__header">
+                                                    <div class="card-notify__mark">
+                                                        <svg class="card-notify__mark-icon icon icon--notification">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <p class="card-notify__title">
+                                                        Статус заявки изменился
+                                                    </p>
+                                                </header>
+
+                                                <div class="card-notify__message">
+                                                    <p class="card-notify__text">
+                                                        Поздравляем! Вы перевыполнили план по удержанию статуса уровня к2 в этом месяце
+                                                    </p>
+                                                </div>
+
+                                                <footer class="card-notify__footer">
+                                                    <time class="card-notify__send" datetime="2022-07-27 13:24">
+                                                        <span class="card-notify__send-status">Отправлено</span>
+                                                        <span class="card-notify__send-date">27.07.2022</span>
+                                                        <span class="card-notify__send-time">13:24</span>
+                                                    </time>
+
+                                                    <div class="card-notify__status">
+                                                        <span class="card-notify__status-mark">
+                                                            <svg class="card-notify__status-icon icon icon--tick-circle-bold">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle-bold"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <p class="card-notify__status-text">
+                                                            Прочитано
+                                                        </p>
+                                                    </div>
+                                                </footer>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-notify__item">
+
+                                        <article class="card-notify card-notify--orange">
+                                            <a href="#" class="card-notify__link"></a>
+                                        
+                                            <div class="card-notify__inner">
+                                            
+                                                <header class="card-notify__header">
+                                                    <div class="card-notify__mark">
+                                                        <svg class="card-notify__mark-icon icon icon--notification">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <p class="card-notify__title">
+                                                        Статус заявки изменился
+                                                    </p>
+                                                </header>
+
+                                                <div class="card-notify__message">
+                                                    <p class="card-notify__text">
+                                                        Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставнике, Вы можете в Профиле личного кабинета
+                                                    </p>
+                                                </div>
+
+                                                <footer class="card-notify__footer">
+                                                    <time class="card-notify__send" datetime="2022-07-27 13:24">
+                                                        <span class="card-notify__send-status">Отправлено</span>
+                                                        <span class="card-notify__send-date">27.07.2022</span>
+                                                        <span class="card-notify__send-time">13:24</span>
+                                                    </time>
+
+                                                    <div class="card-notify__status">
+                                                        <span class="card-notify__status-mark">
+                                                            <svg class="card-notify__status-icon icon icon--attention">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <p class="card-notify__status-text">
+                                                            Ждет прочтения
+                                                        </p>
+                                                    </div>
+                                                </footer>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки Статусы -->
                 </main>
             </div>
         </div>
