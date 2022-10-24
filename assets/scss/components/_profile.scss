@@ -8,6 +8,13 @@
     }
 
     &__block {
+        .file__delete {
+            display: none;
+        }
+        .file__upload {
+            display: block;
+        }
+
         & + & {
             margin-top: rem($gap-average);
 
@@ -15,11 +22,24 @@
                 margin-top: rem(30px);
             }
         }
+
+        &--edit {
+            .file__delete {
+                display: block;
+            }
+            .file__upload {
+                display: none;
+            }
+        }
     }
 
     &__block--edit & {
         &__dropzone {
-            pointer-events: auto;
+            display: block;
+        }
+
+        &__avatar-box {
+            display: none;
         }
 
         &__label {
@@ -44,6 +64,10 @@
                     display: block;
                 }
             }
+        }
+
+        &__notification {
+            display: none;
         }
     }
 
@@ -94,14 +118,7 @@
     }
 
     &__dropzone {
-        margin-bottom: rem($gap-average);
-
-        pointer-events: none;
-
-        @media #{$screen-tablet} {
-            margin-right: rem($gap-medium);
-            margin-bottom: 0;
-        }
+        display: none;
     }
 
     &__info {
@@ -114,7 +131,58 @@
         margin-bottom: rem($gap-average);
 
         @media #{$screen-tablet} {
+            margin-right: rem($gap-medium);
             margin-bottom: 0;
+        }
+
+        &-box {
+            position: relative;
+
+            flex-shrink: 0;
+
+            width: 100%;
+
+            overflow: hidden;
+
+            border-radius: rem($border-radius-average);
+
+            @media #{$screen-tablet} {
+                width: rem(148px);
+                height: rem(195px);
+            }
+
+            &::before {
+                $image-width: rem(295px);
+                $image-height: rem(205px);
+
+                display: block;
+
+                padding-top: percentage($image-height / $image-width);
+
+                content: '';
+
+                @media #{$screen-tablet} {
+                    $image-width: rem(148px);
+                    $image-height: rem(195px);
+
+                    padding-top: percentage($image-height / $image-width);
+                }
+            }
+        }
+
+        &-image {
+            @include position-stretching;
+
+            background-color: $white;
+
+            &-pic {
+                @include position-stretching;
+
+                width: 100%;
+                height: 100%;
+
+                object-fit: cover;
+            }
         }
     }
 
@@ -147,7 +215,7 @@
         &--mobile {
             margin-bottom: rem(20px);
 
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: none;
             }
         }
@@ -162,7 +230,7 @@
             &--edit {
                 display: none;
 
-                @media #{$screen-tablet} {
+                @media #{$screen-desktop} {
                     display: flex;
                 }
             }
@@ -197,13 +265,9 @@
         &--desktop {
             display: none;
 
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: flex;
 
-                margin-right: rem($gap-normal );
-            }
-
-            @media #{$screen-desktop} {
                 margin-right: 0;
             }
         }
@@ -242,6 +306,43 @@
 
         @media #{$screen-tablet} {
             margin-bottom: rem(30px);
+        }
+    }
+
+    &__notification {
+        display: flex;
+        align-items: center;
+
+        &--pushed {
+            margin-top: rem(16px);
+        }
+
+        &-icon {
+            $size: 24px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-small);
+
+            color: $brickRed;
+        }
+
+        &-text {
+            color: $saltBox;
+        }
+    }
+
+    &__accordeon {
+        &-header {
+            cursor: default;
+        }
+
+        &-body  {
+            @media #{$screen-desktop} {
+                display: block !important;
+            }
         }
     }
 }

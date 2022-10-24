@@ -53,6 +53,7 @@ import './svg/chemistry.svg';
 import './svg/cup.svg';
 import './svg/repeat.svg';
 import './svg/crown.svg';
+import './svg/danger.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

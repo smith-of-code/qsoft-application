@@ -1,3 +1,5 @@
+import validation from './validation';
+
 const ELEMENTS_SELECTOR = {
     button: '[data-profile-edit]',
     block: '[data-profile-block]',
@@ -6,36 +8,29 @@ const ELEMENTS_SELECTOR = {
     cancel: '[data-profile-form-cancel]',
 };
 
-function toggleEdit(element, type='add') {
-    let block = element.closest(ELEMENTS_SELECTOR.block);
-
-    if (type == 'remove') {
-        block.removeClass('profile__block--edit');
-    } else {
-        block.addClass('profile__block--edit');
-    }
-
-    block.find(ELEMENTS_SELECTOR.readonly).attr('readonly', (index, attr) => {
-        return attr == 'readonly' ? null : 'readonly';
-    });
-}
-
 export default function () {
-    
     $(document).on('click', ELEMENTS_SELECTOR.button, function () {
-        toggleEdit($(this));
-    });
+        let block = $(this).closest(ELEMENTS_SELECTOR.block);
 
-    $(document).on('submit', ELEMENTS_SELECTOR.form, function(e) {
-        e.preventDefault();
+        block.addClass('profile__block--edit');
 
-        toggleEdit($(this), 'remove');
+        block.find(ELEMENTS_SELECTOR.readonly).attr('readonly', (index, attr) => {
+            return attr == 'readonly' ? null : 'readonly';
+        });
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.cancel, function(e) {
         e.preventDefault();
 
-        toggleEdit($(this), 'remove');
+        location.reload();
     });
 
+    validate();
+}
+
+function validate() {
+    let forms = $('[data-validation="profile"]');
+    forms.each((id, elem)=>{
+        $(elem).validate();
+    });
 }

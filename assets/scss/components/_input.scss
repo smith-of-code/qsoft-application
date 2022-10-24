@@ -112,6 +112,24 @@
             outline: none;
         }
 
+        &:disabled {
+            color: #dddddd;
+            border-color: #dddddd;
+
+            &::placeholder {
+                color: #dddddd;
+            }
+        }
+
+        &--disabled {
+            color: #dddddd;
+            border-color: #dddddd;
+
+            &::placeholder {
+                color: #dddddd;
+            }
+        }
+
         &--error {
             border-color: $brickRed !important;
 
