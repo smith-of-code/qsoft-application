@@ -33,11 +33,29 @@ export default function(){
                     value: current,
                     slide: function (event, ui) {
                         let $card = $(event.target).closest('.card-counting');
-                        $card.find('.card-counting__value-count').text(ui.value);
+                        let $input = $card.find('.card-counting__value-count');
+
+                        $input.val(ui.value).css('width', `${$input.val().length + 1}ch`);
                     },
                     create: function (event, ui) {
                         let $card = $(event.target).closest('.card-counting');
-                        $card.find('.card-counting__value-count').text(this.dataset.current);
+                        $card.find('.card-counting__value-count').val(this.dataset.current);
+
+                        $card.on('input', ELEMENTS_SELECTOR.rangeMin, function () {
+                            minVal = +$(this).val().trim();
+
+                            if (minVal < min) {
+                                minVal = min;
+                            }
+        
+                            if (minVal > max) {
+                                minVal = max;
+                            }
+
+                            $card.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+
+                            slider.slider('option','value', minVal);
+                        });
                     },
                 };
                 break;

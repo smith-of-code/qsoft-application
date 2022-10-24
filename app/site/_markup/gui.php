@@ -7251,13 +7251,17 @@
 
                                         <div class="card-counting">
                                             <div class="card-counting__inner">
-                                                <p class="card-counting__value">
+                                                <div class="card-counting__value">
                                                     <!-- скрипт выводит значение data-current в value-count -->
-                                                    <span class="card-counting__value-count"></span>
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
                                                     <span class="card-counting__value-suffix">
                                                         ₽
                                                     </span>
-                                                </p>
+                                                </div>
 
                                                 <div class="card-counting__range range" data-range>
                                                     <div
@@ -7282,21 +7286,25 @@
 
                                         <div class="card-counting">
                                             <div class="card-counting__inner">
-                                                <p class="card-counting__value">
+                                                <div class="card-counting__value">
                                                     <!-- скрипт выводит значение data-current в value-count -->
-                                                    <span class="card-counting__value-count"></span>
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
                                                     <span class="card-counting__value-suffix"></span>
-                                                </p>
+                                                </div>
 
                                                 <div class="card-counting__range range" data-range>
                                                     <div
                                                         class="range-slider"
                                                         data-range-slider
                                                         data-type="min"
-                                                        data-min="1"
-                                                        data-current="5"
-                                                        data-max="10"
-                                                        data-step="1"
+                                                        data-min="10000"
+                                                        data-current="50000"
+                                                        data-max="10000000"
+                                                        data-step="10000"
                                                     ></div>   
                                                 </div>
 
@@ -7311,13 +7319,17 @@
 
                                         <div class="card-counting">
                                             <div class="card-counting__inner">
-                                                <p class="card-counting__value">
+                                                <div class="card-counting__value">
                                                     <!-- скрипт выводит значение data-current в value-count -->
-                                                    <span class="card-counting__value-count"></span>
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
                                                     <span class="card-counting__value-suffix">
                                                         ББ
                                                     </span>
-                                                </p>
+                                                </div>
 
                                                 <div class="card-counting__range range" data-range>
                                                     <div
@@ -7353,13 +7365,17 @@
 
                                         <div class="card-counting card-counting--extra">
                                             <div class="card-counting__inner">
-                                                <p class="card-counting__value">
+                                                <div class="card-counting__value">
                                                     <!-- скрипт выводит значение data-current в value-count -->
-                                                    <span class="card-counting__value-count"></span>
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
                                                     <span class="card-counting__value-suffix">
                                                         ₽
                                                     </span>
-                                                </p>
+                                                </div>
 
                                                 <div class="card-counting__range range" data-range>
                                                     <div
@@ -7384,11 +7400,15 @@
 
                                         <div class="card-counting card-counting--extra">
                                             <div class="card-counting__inner">
-                                                <p class="card-counting__value">
+                                                <div class="card-counting__value">
                                                     <!-- скрипт выводит значение data-current в value-count -->
-                                                    <span class="card-counting__value-count"></span>
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
                                                     <span class="card-counting__value-suffix"></span>
-                                                </p>
+                                                </div>
 
                                                 <div class="card-counting__range range" data-range>
                                                     <div

@@ -23,9 +23,11 @@
         font-weight: $font-weight-bold;
         line-height: ($line-height-medium / $font-size-medium);
 
-        margin-bottom: rem($gap-medium);
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
 
-        text-align: center;
+        margin-bottom: rem($gap-medium);
 
         color: $tuna;
 
@@ -33,6 +35,15 @@
             font-size: rem($font-size-average);
             font-weight: $font-weight-semibold;
             line-height: ($line-height-average / $font-size-average);
+        }
+
+        &-count {
+            max-width: 10ch;
+
+            text-align: center;
+
+            border: none;
+            background: none;
         }
     }
 
