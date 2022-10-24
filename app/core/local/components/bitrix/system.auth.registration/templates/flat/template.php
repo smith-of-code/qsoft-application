@@ -8,7 +8,7 @@
  * @var array $arResult
  * @var CBitrixComponentTemplate $this
  */
-
+$arResult['currentStep'] = 'pets_data';
 $isCurrentStepPassed = false;
 ?>
 

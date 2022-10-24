@@ -135,6 +135,10 @@ class CSystemAuthRegistrationComponent {
             });
         }
 
+        if (data.currentStep === 'pets_data' && !data.pets?.length) {
+            return;
+        }
+
         if ($(`.${registrationData.currentStep} .input__control--error`).length) {
             return;
         }
