@@ -11,8 +11,14 @@
         display: flex;
         align-items: center;
 
-        &--column {
+        &--columned {
             flex-direction: column
+        }
+
+        &--columned & {
+            &-total {
+                margin-right: 0
+            }
         }
 
         &-total {

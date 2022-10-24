@@ -1,0 +1,227 @@
+.card-cart {
+    &:hover & {
+        &__title {
+            color: $brickRed;
+        }
+    }
+
+    &__link {
+        @include position-stretching(absolute);
+    }
+
+    &__inner {
+        @media #{$screen-desktop} {
+            display: flex;
+        }
+    }
+
+    &__header {
+        display: flex;
+
+        @media #{$screen-desktop} {
+            max-width: percentage(362px / 770px);
+        }
+    }
+
+    &__image {
+        position: relative;
+        z-index: -1;
+
+        overflow: hidden;
+        flex-shrink: 0;
+
+        width: rem(90px);
+        height: rem(100px);
+        margin-right: rem($gap-medium);
+
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-middle);
+
+        @media #{$screen-desktop} {
+            width: rem(56px);
+            height: rem(56px);
+        }
+
+        &-picture {
+            @include position-stretching(absolute);
+
+            width: 100%;
+            height: 100%;
+
+            @include object-fit(cover);
+        }
+    }
+
+    &__title {
+        @include text-miniature($font-weight-medium);
+
+        @include text-truncate-by-row(3);
+
+        margin-bottom: rem($gap-mini);
+
+        transition: color $transition-duration $transition-function;
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+
+        @media #{$screen-desktop} {
+            @include text-truncate-by-row(2);
+        }
+    }
+
+    &__subtitle {
+        @include text-miniature($font-weight-medium);
+
+        margin-bottom: rem($gap-mini);
+
+        letter-spacing: 0.02em;
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-small);
+        }
+    }
+
+    &__types {
+        margin-bottom: rem($gap-average);
+    }
+
+    &__status {
+        margin-bottom: rem($gap-average);
+    }
+
+    &__wrapper {
+        max-width: calc(100% - 90px - #{$gap-medium});
+        margin-left: auto;
+
+        @media #{$screen-desktop} {
+            flex-grow: 1;
+
+            max-width: none;
+            margin-left: initial;
+        }
+    }
+
+    &__block {
+        @media #{$screen-desktop} {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            max-width: rem(292px);
+            margin: 0 auto;
+        }
+    }
+
+    &__counter {
+        z-index: 1;
+
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-desktop} {
+            order: 2;
+
+            margin-bottom: 0;
+        }
+
+        & .quantity {
+            width: rem(90px);
+
+            @media #{$screen-desktop} {
+                width: rem(108px);
+            }
+
+            &__total {
+                flex-grow: 1;
+                justify-content: center;
+            }
+
+            & .button {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+
+                @media #{$screen-desktop} {
+                    width: rem(32px);
+                    height: rem(28px);
+                }
+            }
+        }
+    }
+
+    &__price {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-desktop} {
+            order: 1;
+
+            margin-bottom: 0;
+        }
+
+        &-item {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: (22px / $font-size-small);
+
+            letter-spacing: 0.02em;
+
+            color: $saltBox;
+        }
+
+        &-sufix {
+            @media #{$screen-desktop} {
+                display: none;
+            }
+        }
+    }
+
+    &__total {
+        @media #{$screen-desktop} {
+            order: 3;
+        }
+    }
+
+    &__actions {
+        position: absolute;
+        right: 0;
+        bottom: rem($gap-medium);
+
+        display: flex;
+
+        @media #{$screen-desktop} {
+            top: rem($gap-normal);
+            bottom: initial;
+
+            flex-direction: column;
+            order: 4;
+        }
+
+        &-item {
+            margin-left: rem($gap-normal);
+
+            @media #{$screen-desktop} {
+                margin-top: rem($gap-medium);
+                margin-left: 0;
+            }
+           
+            &:first-child {
+                margin-left: 0;
+
+                @media #{$screen-desktop} {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        & .button {
+            &__icon {
+                $size: 25px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+    }
+}
