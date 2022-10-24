@@ -2,7 +2,6 @@
 
 namespace QSoft\Helper;
 
-use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
@@ -15,10 +14,6 @@ use RuntimeException;
  */
 class BonusAccountHelper
 {
-    public const BONUS_ACCOUNT_LEVEL_B1 = 'K1';
-    public const BONUS_ACCOUNT_LEVEL_B2 = 'K2';
-    public const BONUS_ACCOUNT_LEVEL_B3 = 'K3';
-
     private TransactionsHelper $transactions;
     private LoyaltyProgramHelper $loyalty;
 

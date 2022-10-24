@@ -43,11 +43,13 @@ class UserEventsListener
 
     public static function OnBeforeUserAdd(array &$fields)
     {
-        if (!$fields['UF_LOYALTY_LEVEL']) {
-            $fields['UF_LOYALTY_LEVEL'] = LoyaltyProgramHelper::LOYALTY_LEVEL_K1;
+        $loyalty = new LoyaltyProgramHelper();
+        $levelsIDs = $loyalty->getLevelsIDs();
+        if (! $fields['UF_LOYALTY_LEVEL']) {
+            $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[LoyaltyProgramHelper::LOYALTY_LEVEL_K1];
         }
-        if (!$fields['UF_PERSONAL_DISCOUNT_LEVEL']) {
-            $fields['UF_PERSONAL_DISCOUNT_LEVEL'] = BonusAccountHelper::BONUS_ACCOUNT_LEVEL_B1;
+        if (! $fields['UF_PERSONAL_DISCOUNT_LEVEL']) {
+            $fields['UF_PERSONAL_DISCOUNT_LEVEL'] = $levelsIDs[LoyaltyProgramHelper::LOYALTY_LEVEL_B1];
         }
     }
 }
