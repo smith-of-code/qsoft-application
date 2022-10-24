@@ -1,0 +1,102 @@
+.participant {
+    &__header {
+        flex-wrap: wrap;
+
+        @media #{$screen-desktop} {
+            flex-wrap: nowrap;
+        }
+    }
+
+    &__row {
+        @include resetting-vertical-indentation-of-first;
+
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+        margin-top: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            margin-top: 0;
+        }
+
+        &--separated {
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            @media #{$screen-tablet} {
+                flex-wrap: nowrap;
+            }
+        }
+
+        &--toggle {
+            justify-content: space-between;
+
+            margin-top: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__col {
+        &--avatar {
+            flex-shrink: 0;
+
+            margin-right: rem(20px);
+
+            @media #{$screen-desktop} {
+                margin-right: rem($gap-medium);
+            }
+        }
+
+        &--separated {
+            width: 100%;
+            margin-top: rem($gap-small);
+
+            @media #{$screen-tablet} {
+                width: auto;
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__info {
+        &-name {
+            @include text-miniature($font-weight-medium);
+
+            display: block;
+
+            margin-bottom: rem($gap-mini);
+
+            color: $saltBox;
+
+            @media #{$screen-desktop} {
+                display: none;
+            }
+        }
+
+        &-value {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: (22px / $font-size-small);
+
+            &--accent {
+                @media #{$screen-desktop} {
+                    font-weight: $font-weight-semibold;
+                }
+            }
+        }
+    }
+
+    &__show {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-semibold;
+        line-height: (22px / $font-size-small);
+
+        @media #{$screen-desktop} {
+            display: none;
+        }
+    }
+}
