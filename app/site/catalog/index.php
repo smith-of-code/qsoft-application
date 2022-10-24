@@ -1,8 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
+<main class="page__catalog catalog">
 <?$APPLICATION->IncludeComponent(
-	"zolo:catalog", 
+	"zolo:catalog",
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
@@ -277,4 +278,5 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	),
 	false
 );?>
+</main>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
