@@ -32,6 +32,7 @@
     &__text {
         @include text-miniature($font-weight-medium);
 
+        white-space: nowrap;
         letter-spacing: 0.02em;
 
         color: $saltBox;

@@ -3,8 +3,16 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init(["fx"]);
 
+\Bitrix\Main\UI\Extension::load('zolo.loader');
+
 global $APPLICATION;
 ?>
+
+<script>
+    window.onload = () => {
+        (new Zolo.Loader()).run();
+    }
+</script>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -15,7 +23,8 @@ global $APPLICATION;
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css" />
-    <?$APPLICATION->ShowHead()?>
+    <script src="/local/templates/.default/js/script.js"></script>
+    <?php $APPLICATION->ShowHead()?>
 </head>
 
 <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
@@ -480,18 +489,25 @@ global $APPLICATION;
                         </div>
                         <!--/Для неавторизованного пользователя-->
 
-                        <div class="personal__item">
-                            <button type="button" class="button button--simple button--red button--vertical">
-                                            <span class="button__icon button__icon--mixed">
-                                                <svg class="icon icon--basket">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                                </svg>
+                        <?$APPLICATION->IncludeComponent(
+                            'zolo:sale.basket.basket.line',
+                            '',
+                            [
+                                "PATH_TO_BASKET" => SITE_DIR."personal/cart/",
+                                "PATH_TO_PERSONAL" => SITE_DIR."personal/",
+                                "SHOW_PERSONAL_LINK" => "N",
+                                "SHOW_NUM_PRODUCTS" => "Y",
+                                "SHOW_TOTAL_PRICE" => "Y",
+                                "SHOW_PRODUCTS" => "N",
+                                "POSITION_FIXED" =>"N",
+                                "PATH_TO_REGISTER" => SITE_DIR."login/",
+                                "PATH_TO_PROFILE" => SITE_DIR."personal/"
+                            ],
+                            false,
+                            array()
+                        );?>
 
-                                                <span class="button__icon-counter button__icon-counter--dark">12</span>
-                                            </span>
-                                <span class="personal__button-text button__text">16 842 ₽</span>
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>
