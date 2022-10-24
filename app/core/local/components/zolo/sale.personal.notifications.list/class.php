@@ -5,8 +5,12 @@ use QSoft\Entity\User;
 
 <?php
 
-class NotificationListComponent extends CBitrixComponent
+class NotificationListComponent extends CBitrixComponent implements \Bitrix\Main\Engine\Contract\Controllerable
 {
+    public function configureActions()
+    {
+        return [];
+    }
     private const NOTIFICATIONS_LIMIT = 1;
     public function executeComponent()
     {
@@ -19,7 +23,13 @@ class NotificationListComponent extends CBitrixComponent
         $user = new User();
         $notificationTable = $user->notification->getDataClass();
         $notifications = $notificationTable::getList([
-                'select' => ['NAME'=> 'TYPE_NAME.VALUE', 'STATUS' => 'STATUS_NAME.VALUE', 'MESSAGE' => 'UF_MESSAGE', 'LINK' => 'UF_LINK'],
+                'select' => [
+                    'NAME'=> 'TYPE_NAME.VALUE',
+                    'STATUS' => 'STATUS_NAME.VALUE',
+                    'TEXT' => 'UF_MESSAGE',
+                    'LINK' => 'UF_LINK',
+                    'DATE' => 'UF_DATE_TIME',
+                ],
                 'filter' => ['UF_USER_ID' => $user->id],
                 'offset' => $offset,
                 'limit' => self::NOTIFICATIONS_LIMIT,
@@ -30,4 +40,6 @@ class NotificationListComponent extends CBitrixComponent
             'OFFSET' => $offset + count($notifications),
         ];
     }
+
+
 }
