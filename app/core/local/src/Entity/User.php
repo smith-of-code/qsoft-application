@@ -5,6 +5,7 @@ namespace QSoft\Entity;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
+use CModule;
 use CUser;
 use CUserFieldEnum;
 
@@ -211,7 +212,7 @@ class User
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
 
-        if ($this->groups->isConsultant()) {
+        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
             $this->catalogGroupId = CCatalogGroup::GetList(['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
         }
     }

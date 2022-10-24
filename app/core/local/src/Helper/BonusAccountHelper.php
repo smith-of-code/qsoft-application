@@ -5,7 +5,6 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\TransactionTable;
-use QSoft\Service\TransactionsHelper;
 use RuntimeException;
 
 /**
@@ -64,6 +63,29 @@ class BonusAccountHelper
             ]);
         }
         return false;
+    }
+
+    public function addOrderBonuses(User $user, float $amount): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
+        }
+
+        $this->transactions->add(
+            $user->id,
+            TransactionTable::TYPES['purchase'],
+            TransactionTable::SOURCES['personal'],
+            TransactionTable::MEASURES['points'],
+            $amount,
+        );
+
+        return $user->update([
+            'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
+            'UF_LOYALTY_CHECK_DATE' => new DateTime,
+        ]);
     }
 
     /**

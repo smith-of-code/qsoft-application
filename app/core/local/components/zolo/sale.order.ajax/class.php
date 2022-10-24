@@ -1,6 +1,7 @@
 <?php
 
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Controller\PhoneAuth;
@@ -21,6 +22,7 @@ use Bitrix\Sale\Services\Company;
 use Bitrix\Sale\Shipment;
 use Bitrix\Main\UserTable;
 use QSoft\Entity\User;
+use QSoft\Helper\OrderHelper;
 use QSoft\Service\OrderService;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
@@ -40,7 +42,7 @@ if (!Loader::includeModule("sale"))
 	return;
 }
 
-class SaleOrderAjax extends \CBitrixComponent
+class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 {
 	const AUTH_BLOCK = 'AUTH';
 	const REGION_BLOCK = 'REGION';
@@ -504,6 +506,22 @@ class SaleOrderAjax extends \CBitrixComponent
 
 		return $arParams;
 	}
+
+    public function configureActions(): array
+    {
+        return [
+            'createOrder' => [],
+        ];
+    }
+
+    public function createOrderAction(array $data): array
+    {
+        global $USER;
+
+        $orderId = (new OrderHelper)->createOrder($USER->GetID(), $data);
+
+        return ['status' => 'success', 'id' => $orderId];
+    }
 
 	/**
 	 * Returns array of order properties from request

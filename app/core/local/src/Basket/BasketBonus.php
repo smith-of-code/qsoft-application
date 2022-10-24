@@ -37,7 +37,7 @@ class BasketBonus
     public function getUserBonusSum(User $user): int
     {
         $bonus = 0;
-        $propLevel = self::LEVEL_PROPS[$user->loyalty->getLoyaltyLevel()];
+        $propLevel = self::LEVEL_PROPS[$user->loyaltyLevel];
 
         $offersBonuses = $this->loadBasketBonusesByUserLevel($user);
 
