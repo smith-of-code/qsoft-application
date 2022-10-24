@@ -8519,7 +8519,7 @@
                                     <li class="it-work__item">
                                         <h6 class="it-work__item-text">Вы покупаете нашу продукцию</h6>
                                         <span class="it-work__count">
-                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
                                         </span>
                                     </li>
 
@@ -8528,7 +8528,7 @@
                                             Ваш питомец доволен и Вы довольны
                                         </h6>
                                         <span class="it-work__count">
-                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-2.png" alt="how-it-work-step-1">
                                         </span>
                                     </li>
 
@@ -8537,7 +8537,7 @@
                                             Вы рекомендуете нашу продукцию своим друзьям
                                         </h6>
                                         <span class="it-work__count">
-                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-3.png" alt="how-it-work-step-1">
                                         </span>
                                     </li>
 
@@ -8546,7 +8546,7 @@
                                             Ваши друзья рекомендуют нашу продукцию своим коллегам
                                         </h6>
                                         <span class="it-work__count">
-                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-4.png" alt="how-it-work-step-1">
                                         </span>
                                     </li>
 
@@ -8555,7 +8555,7 @@
                                             Вы получаете вознаграждение за свою рекомендацию и начинаете работать как партнер AmeAppetite
                                         </h6>
                                         <span class="it-work__count">
-                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-5.png" alt="how-it-work-step-1">
                                         </span>
                                     </li>
                                 </ul>
