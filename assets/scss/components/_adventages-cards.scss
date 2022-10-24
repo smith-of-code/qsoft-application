@@ -11,10 +11,18 @@
     }
 
     &__item{
+        flex-basis: percentage(1 / 2);
+
         margin-top: rem($gap-medium);
         padding: 0 rem($gap-small);
 
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 4);
+        }
+
         @media #{$screen-desktop} {
+            flex-basis: percentage(1 / 2);
+
             margin-top: rem(30px);
             padding: 0 rem(15px);
         }

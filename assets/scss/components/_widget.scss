@@ -1,4 +1,4 @@
-.infobanner-card {
+.widget {
     position: relative;
 
     height: 100%;
@@ -18,7 +18,7 @@
     }
     
     &:hover {
-        box-shadow: 0px rem(12px) rem(24px) rgba(0, 0, 0, 0.16);
+        box-shadow: $box-shadow-big;
     }
 
     &__inner {
@@ -61,14 +61,14 @@
 
         @media #{$screen-tablet} {
             font-size: rem($font-size-medium);
-            line-height: 22px;
+            line-height: (22px / $font-size-medium);
 
             margin-bottom: rem(6px);
         }
 
         @media #{$screen-desktop} {
             font-size: rem($font-size-average);
-            line-height: $line-height-middle;
+            line-height: ($line-height-middle / $font-size-average);
 
             margin-bottom: rem($gap-average);
         }

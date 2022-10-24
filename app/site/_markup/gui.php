@@ -8515,28 +8515,28 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Информационные баннеры</h2>
                         <div class="gui__block">
-                            <div class="infobanner-cards">
-                                <ul class="infobanner-cards__list">
-                                    <li class="infobanner-cards__item">
-                                        <div class="infobanner-card">
-                                            <a class="infobanner-card__link" href="#"></a>
-                                            <div class="infobanner-card__inner">
-                                                <div class="infobanner-card__head">
-                                                    <img class="infobanner-card__image" src="/local/templates/.default/images/megaphone.png">
+                            <div class="widgets">
+                                <ul class="widgets__list">
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/megaphone.png">
                                                 </div>
-                                                <div class="infobanner-card__content">
-                                                    <h4 class="infobanner-card__title">
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
                                                         Новости компании
                                                     </h4>
-                                                    <p class="infobanner-card__description">
+                                                    <p class="widget__description">
                                                         Держим вас в курсе событий
                                                     </p>
                                                 </div>
-                                                <div class="infobanner-card__footer">
+                                                <div class="widget__footer">
                                                     <button 
                                                         type="button" 
-                                                        class="infobanner-card__button button button--simple button--red">
-                                                        <span class="infobanner-card__button-icon button__icon button__icon--right">
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
                                                             <svg class="icon icon--arrow">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                             </svg>
@@ -8547,26 +8547,26 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="infobanner-cards__item">
-                                        <div class="infobanner-card">
-                                            <a class="infobanner-card__link" href="#"></a>
-                                            <div class="infobanner-card__inner">
-                                                <div class="infobanner-card__head">
-                                                    <img class="infobanner-card__image" src="/local/templates/.default/images/calendar.png">
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/calendar.png">
                                                 </div>
-                                                <div class="infobanner-card__content">
-                                                    <h4 class="infobanner-card__title">
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
                                                         Календарь мероприятий
                                                     </h4>
-                                                    <p class="infobanner-card__description">
+                                                    <p class="widget__description">
                                                         Расписание встреч и мастер-классов
                                                     </p>
                                                 </div>
-                                                <div class="infobanner-card__footer">
+                                                <div class="widget__footer">
                                                     <button 
                                                         type="button" 
-                                                        class="infobanner-card__button button button--simple button--red">
-                                                        <span class="infobanner-card__button-icon button__icon button__icon--right">
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
                                                             <svg class="icon icon--arrow">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                             </svg>
@@ -8577,26 +8577,26 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="infobanner-cards__item">
-                                        <div class="infobanner-card">
-                                            <a class="infobanner-card__link" href="#"></a>
-                                            <div class="infobanner-card__inner">
-                                                <div class="infobanner-card__head">
-                                                    <img class="infobanner-card__image" src="/local/templates/.default/images/college-graduation.png">
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/college-graduation.png">
                                                 </div>
-                                                <div class="infobanner-card__content">
-                                                    <h4 class="infobanner-card__title">
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
                                                         Советы экспертов
                                                     </h4>
-                                                    <p class="infobanner-card__description">
+                                                    <p class="widget__description">
                                                         Больше заботы о ваших питомцах
                                                     </p>
                                                 </div>
-                                                <div class="infobanner-card__footer">
+                                                <div class="widget__footer">
                                                     <button 
                                                         type="button"
-                                                        class="infobanner-card__button button button--simple button--red">
-                                                        <span class="infobanner-card__button-icon button__icon button__icon--right">
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
                                                             <svg class="icon icon--arrow">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                             </svg>

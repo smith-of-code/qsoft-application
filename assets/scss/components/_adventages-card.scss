@@ -1,19 +1,12 @@
 .adventages-card {
-    width: rem(148px);
-    min-height: rem(108px);
+    height: 100%;
     padding: rem(8px) rem(8px) rem(22px) rem(8px);
 
-    border-bottom: rem(8px) solid $black;
+    border-bottom: rem(4px) solid $black;
     border-radius: rem($border-radius-average);
     background-color: $white;
 
-    @media #{$screen-tablet} {
-        width: rem(156px);
-    }
-
     @media #{$screen-desktop} {
-        width: rem(235px);
-        min-height: rem(160px);
         padding: rem(20px) rem(20px) rem(38px) rem(20px);
     }
 
