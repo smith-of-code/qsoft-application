@@ -18,7 +18,7 @@ $strReturn .= '<ul class="breadcrumbs__list">';
         } else {
             if (!$arParam['UNEXIST_URL']) {
                 $strReturn .= '<li class="breadcrumbs__item">';
-                $strReturn .=   '<a href="#" class="breadcrumbs__link">';
+                $strReturn .=   '<a href="' . $item['LINK'] . '" class="breadcrumbs__link">';
                 $strReturn .=       $item["TITLE"];
                 $strReturn .=   '</a>';
                 $strReturn .= '</li>';

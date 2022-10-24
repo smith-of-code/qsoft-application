@@ -24,13 +24,12 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 ?>
 <?php
     $APPLICATION->IncludeComponent(
-        "bitrix:breadcrumb", 
-        "breadcrump_zolo", 
+        'bitrix:breadcrumb', 
+        '', 
         [
-            "PATH" => "",
-            "SITE_ID" => "",
-            "START_FROM" => "0",
-            "COMPONENT_TEMPLATE" => "breadcrump_zolo",
+            'PATH' => '',
+            'SITE_ID' => '',
+            'START_FROM' => '0',
         ],
         false
     );

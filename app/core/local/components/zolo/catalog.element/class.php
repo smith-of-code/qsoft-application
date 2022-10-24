@@ -211,7 +211,7 @@ class CatalogElementComponent extends Element
 
         if ($ids = array_column($offers, 'ID')) {
             $prices = PriceTable::getList([
-                'filter' => ['@PRODUCT_ID' => $ids],
+                'filter' => ['=PRODUCT_ID' => $ids],
             ])->fetchAll();
             foreach ($offers as &$offer) {
                 $price = current(array_filter($prices, function ($item) use ($offer) {
