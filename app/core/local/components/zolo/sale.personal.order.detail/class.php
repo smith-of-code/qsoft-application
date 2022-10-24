@@ -5,12 +5,15 @@ use Bitrix\Sale\Order;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\UserTable;
 use Bitrix\IBlock\Iblock;
+use	Bitrix\Main\Localization\Loc;
 
 Loader::includeModule('iblock');
 Loader::includeModule('sale');
+Loc::loadMessages(__FILE__);
 
 class CatalogElementComponent extends CBitrixComponent implements Controllerable
 {
+    private const PRODUCT_LIMIT = 2;
     public function configureActions()
     {
         return [
@@ -25,28 +28,34 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
 
     public function onPrepareComponentParams($arParams)
     {
-        return $arParams;
+        return parent::onPrepareComponentParams($arParams);
     }
 
     public function executeComponent()
     {
-        $orderId = $this->arParams['ORDER_ID'];
-        $this->arResult['ALL_PRODUCTS_ID'] = $this->getAllProductsId($orderId);
-        $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($orderId);
-        $this->arResult['PRODUCTS'] = $this->loadProducts($orderId, $this->arResult['ALL_PRODUCTS_ID'], 0, $this->arParams['LIMIT']);
-        $this->arResult['OFFSET'] = $this->arResult['LIMIT'] = $this->arParams['LIMIT'];
-        $this->includeComponentTemplate();
+        try {
+            $order = Order::load($this->arParams['ORDER_ID']);
+            if(is_null($order)) throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
+            $orderId = $this->arParams['ORDER_ID'];
+            $this->arResult['ALL_PRODUCTS_ID'] = $this->getAllProductsId($orderId);
+            $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);
+            $this->arResult['PRODUCTS'] = $this->loadProducts($orderId, $this->arResult['ALL_PRODUCTS_ID'], 0);
+            $this->arResult['OFFSET'] = count($this->arResult['PRODUCTS']);
+            $this->includeComponentTemplate();
+        } catch (Throwable $e) {
+            ShowError($e->getMessage());
+        }
     }
 
-    public function loadProductsAction($orderId, $allProductsId, $offset, $limit)
+    public function loadProductsAction($orderId, $allProductsId, $offset)
     {
-        $result['PRODUCTS'] = $this->loadProducts($orderId, $allProductsId, $offset, $limit);
+        $result['PRODUCTS'] = $this->loadProducts($orderId, $allProductsId, $offset);
         $result['OFFSET'] = $offset + count($result['PRODUCTS']);
         return $result;
     }
 
-    private function loadProducts($orderId, $allProductsId, $offset, $limit) {
-        $orderItems = $this->getOrderListFromBasket($orderId, array_slice($allProductsId, $offset, $limit));
+    private function loadProducts($orderId, $allProductsId, $offset) {
+        $orderItems = $this->getOrderListFromBasket($orderId, array_slice($allProductsId, $offset, self::PRODUCT_LIMIT));
         $productItems = $this->getOrderListFromIBlock(array_keys($orderItems));
         return array_map(fn($e) => array_merge($orderItems[$e], $productItems[$e]), array_keys($orderItems));
     }
@@ -89,9 +98,8 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         return $result;
     }
 
-    private function getOrderDetails($orderId): array
+    private function getOrderDetails($order): array
     {
-        $order = Order::load($orderId);
         return [
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),

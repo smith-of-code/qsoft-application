@@ -14,11 +14,11 @@
     <div>
         <? foreach ($arResult['PRODUCTS'] as $product) :?>
         товар:</br>
-        Название - <?=$product['NAME']?></br>
-        Цена - <?=$product['PRICE']?></br>
-        Количество - <?=$product['QUANTITY']?></br>
-        Артикул - <?=$product['ARTICLE']?></br>
-        Картинка - <?=$product['PICTURE']?></br>
+        Название - <?=$product['NAME']?><br>
+        Цена - <?=$product['PRICE']?><br>
+        Количество - <?=$product['QUANTITY']?><br>
+        Артикул - <?=$product['ARTICLE']?><br>
+        Картинка - <?=$product['PICTURE']?><br>
         <?endforeach;?>
     </div>
 </div>
@@ -27,7 +27,6 @@
 
 <script>
     const allProductsId = <?=json_encode($arResult['ALL_PRODUCTS_ID'])?>;
-    const limit = <?=$arResult['LIMIT']?>;
     const orderId = <?=$arParams['ORDER_ID']?>;
     let offset = <?=$arResult['OFFSET']?>;
 
@@ -37,15 +36,12 @@
             data: {
                 allProductsId: allProductsId,
                 offset: offset,
-                limit: limit,
                 orderId: orderId
             }
         }).then(function (response) {
-            
             console.log(response);
             offset = response['data']['OFFSET'];
             attach(response['data']['PRODUCTS']);
-
         }, function (response) {
             alert("Ошибка при вызове метода компонента-контроллера")
         });
