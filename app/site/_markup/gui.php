@@ -8504,7 +8504,65 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Попап cookie -->
+                    <!-- Попап cookie -->
+                    <!-- Как это рабоатет -->
+                    <div class="gui__block">
+                        <h2 class="gui__block">Как это рабоатет</h2>
+
+                        <div class="gui__block">
+                            <div class="it-work">
+                                <h3 class="it-work__title">
+                                    Как это работает
+                                </h3>
+
+                                <ul class="it-work__list">
+                                    <li class="it-work__item">
+                                        <h6 class="it-work__item-text">Вы покупаете нашу продукцию</h6>
+                                        <span class="it-work__count">
+                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                        </span>
+                                    </li>
+
+                                    <li class="it-work__item">
+                                        <h6 class="it-work__item-text">
+                                            Ваш питомец доволен и Вы довольны
+                                        </h6>
+                                        <span class="it-work__count">
+                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                        </span>
+                                    </li>
+
+                                    <li class="it-work__item">
+                                        <h6 class="it-work__item-text">
+                                            Вы рекомендуете нашу продукцию своим друзьям
+                                        </h6>
+                                        <span class="it-work__count">
+                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                        </span>
+                                    </li>
+
+                                    <li class="it-work__item">
+                                        <h6 class="it-work__item-text">
+                                            Ваши друзья рекомендуют нашу продукцию своим коллегам
+                                        </h6>
+                                        <span class="it-work__count">
+                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                        </span>
+                                    </li>
+
+                                    <li class="it-work__item">
+                                        <h6 class="it-work__item-text">
+                                            Вы получаете вознаграждение за свою рекомендацию и начинаете работать как партнер AmeAppetite
+                                        </h6>
+                                        <span class="it-work__count">
+                                                <img src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Как это рабоатет -->
                 </main>
             </div>
         </div>
