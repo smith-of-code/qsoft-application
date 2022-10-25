@@ -186,7 +186,7 @@ class LoyaltyProgramHelper
         return false;
     }
 
-    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): float
+    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): array
     {
         $transactions = TransactionTable::getList([
             'filter' => [
@@ -199,29 +199,18 @@ class LoyaltyProgramHelper
                     ['<UF_CREATED_AT' => $to],
                 ],
             ],
-            'select' => ['ID', 'UF_AMOUNT'],
+            'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
         ])->fetchAll();
 
-        return array_sum(array_column($transactions, 'UF_AMOUNT'));
-    }
+        $result = [];
 
-    public function getGroupBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): float
-    {
-        $transactions = TransactionTable::getList([
-            'filter' => [
-                '=UF_USER_ID' => $userId,
-                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']),
-                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
-                [
-                    'LOGIC' => 'AND',
-                    ['>UF_CREATED_AT' => $from],
-                    ['<UF_CREATED_AT' => $to],
-                ],
-            ],
-            'select' => ['ID', 'UF_AMOUNT'],
-        ])->fetchAll();
+        $typeFieldValues = HlBlockHelper::getEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
+        $typeFieldMap = array_combine(array_column($typeFieldValues, 'ID'), array_column($typeFieldValues, 'XML_ID'));
+        foreach ($transactions as $transaction) {
+            $result[$typeFieldMap[$transaction['UF_TYPE']]] += (float)$transaction['UF_AMOUNT'];
+        }
 
-        return array_sum(array_column($transactions, 'UF_AMOUNT'));
+        return $result;
     }
 
     /**
