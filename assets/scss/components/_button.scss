@@ -91,6 +91,19 @@
         height: rem($size-huge);
     }
 
+    &--back {
+        font-size: rem($font-size-mini);
+    }
+
+    &--back & {
+        &__icon {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+
     &--square {
         border-radius: rem($border-radius-small);
     }

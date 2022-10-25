@@ -11,7 +11,7 @@
 
     &--squared & {
         &__control {
-            border-radius: $border-radius-small;
+            border-radius: rem($border-radius-small);
         }
     }
 
@@ -110,6 +110,24 @@
         &:focus {
             border-color: $alto;
             outline: none;
+        }
+
+        &:disabled {
+            color: #dddddd;
+            border-color: #dddddd;
+
+            &::placeholder {
+                color: #dddddd;
+            }
+        }
+
+        &--disabled {
+            color: #dddddd;
+            border-color: #dddddd;
+
+            &::placeholder {
+                color: #dddddd;
+            }
         }
 
         &--error {

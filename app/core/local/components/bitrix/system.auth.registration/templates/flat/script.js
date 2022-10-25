@@ -269,8 +269,8 @@ class CSystemAuthRegistrationComponent {
           case password !== confirmPassword:
           case password.length < 8:
           case password.match(/[А-я]+/i):
-          case !password.match(/[a-z]+/i):
-          case !password.match(/[A-Z]+/i):
+          case password.toUpperCase() === password:
+          case password.toLowerCase() === password:
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
               return;
