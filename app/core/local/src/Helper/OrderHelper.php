@@ -10,6 +10,7 @@ use Bitrix\Sale\Delivery\Services\Manager as DeliveryServicesManager;
 use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
 use Bitrix\Sale\PropertyValue;
 use QSoft\Entity\User;
+use QSoft\ORM\NotificationTable;
 
 class OrderHelper
 {
@@ -22,6 +23,8 @@ class OrderHelper
 
     public function createOrder(int $userId, array $data)
     {
+        $user = new User($userId);
+
         $order = Order::create(SITE_ID, $userId);
         $order->setPersonTypeId(1); // TODO: Cut hardcode
 
@@ -66,12 +69,19 @@ class OrderHelper
             }
         }
 
+        if ($data['order_bonuses']) {
+            $this->bonusAccountHelper->addOrderBonuses($user, $data['order_bonuses']);
+        }
+
+        if ($data['bonuses_subtract']) {
+            $data['bonuses_subtract'] = (float)$data['bonuses_subtract'];
+            $this->bonusAccountHelper->subtractOrderBonuses($user, $data['bonuses_subtract']);
+        }
+
         $order->doFinalAction(true);
         $orderId = $order->save()->getId();
 
-        if ($data['order_bonuses']) {
-            $this->bonusAccountHelper->addOrderBonuses(new User($userId), $data['order_bonuses']);
-        }
+        $user->notification->sendNotification(NotificationTable::TYPES['order_created'], '', '');
 
         return $orderId;
     }

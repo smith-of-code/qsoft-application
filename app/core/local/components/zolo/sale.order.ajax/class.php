@@ -184,7 +184,8 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		$siteId = $this->getSiteId();
 
 		$this->arResult = [
-			'PERSON_TYPE' => [],
+            'BONUSES_SUBTRACT' => ((float) $_REQUEST['BONUSES_SUBTRACT']) ?: .0,
+            'PERSON_TYPE' => [],
 			'PAY_SYSTEM' => [],
 			'ORDER_PROP' => [],
 			'DELIVERY' => [],
@@ -3503,7 +3504,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
             $arResult['ORDER_BONUSES_FORMATED'] = SaleFormatCurrency($arResult['BONUSES'], $this->order->getCurrency());
         }
 
-		$arResult['ORDER_PRICE'] = $basket->getPrice();
+		$arResult['ORDER_PRICE'] = $basket->getPrice() - $arResult['BONUSES_SUBTRACT'];
 		$arResult['ORDER_PRICE_FORMATED'] = SaleFormatCurrency($arResult['ORDER_PRICE'], $this->order->getCurrency());
 
         $arResult['ORDER_TAX'] = $arResult['ORDER_PRICE'] * .2;

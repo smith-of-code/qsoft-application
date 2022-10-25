@@ -213,7 +213,7 @@ class User
         $this->pets = new PetService($this);
 
         if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
-            $this->catalogGroupId = CCatalogGroup::GetList(['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
+            $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
         }
     }
 

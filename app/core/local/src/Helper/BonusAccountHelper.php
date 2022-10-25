@@ -126,4 +126,22 @@ class BonusAccountHelper
         }
         return false;
     }
+
+    public function subtractOrderBonuses(User $user, float $amount): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
+        }
+        if ($user->bonusPoints < $amount) {
+            throw new RuntimeException('У пользователя недостаточно бонусов');
+        }
+
+        return $user->update([
+            'UF_BONUS_POINTS' => $user->bonusPoints - $amount,
+            'UF_LOYALTY_CHECK_DATE' => new DateTime,
+        ]);
+    }
 }

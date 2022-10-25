@@ -18,7 +18,9 @@ class SaleOrderAjaxComponent {
 
         $(`.form`).find('input, select').each((index, item) => {
             if ($(item).attr('type') !== 'hidden' && !$(item).val()) {
-                $(item).addClass('input__control--error');
+                if ($(item).attr('name') !== 'comment') {
+                    $(item).addClass('input__control--error');
+                }
                 return;
             }
             data[$(item).attr('name') ?? $(item).attr('id')] = $(item).val();

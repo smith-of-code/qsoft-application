@@ -50,6 +50,7 @@ else:?>
         <input type="text" placeholder="Email" id="email" value="<?=$arResult['USER']['EMAIL']?>" />
         <input type="text" placeholder="Комментарий" id="comment" value="" />
         <input type="hidden" id="order_bonuses" value="<?=$arResult['ORDER_BONUSES']?>" />
+        <input type="hidden" id="bonuses_subtract" value="<?=$arResult['BONUSES_SUBTRACT']?>" />
         <div>
             <p>Количество товаров - <?=$arResult['BASKET_POSITIONS']?></p>
             <p>Сумма НДС - <?=$arResult['ORDER_TAX']?></p>
