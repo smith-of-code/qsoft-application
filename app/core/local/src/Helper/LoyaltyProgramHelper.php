@@ -5,8 +5,11 @@ namespace QSoft\Helper;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Type\DateTime;
 use Exception;
 use QSoft\Entity\User;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\TransactionTable;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -192,6 +195,44 @@ class LoyaltyProgramHelper
     {
         $levels = $this->getLoyaltyLevels();
         return (int) $levels[$level]['benefits']['referral_size'] ?? null;
+    }
+
+    public function getLoyaltyStatusByPeriod(int $userId, DateTime $from, DateTime $to): array
+    {
+        $user = new User($userId);
+        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+
+        $result = [
+            'self' => [
+                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['self_total'],
+                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'current_value' => .0,
+            ],
+            'team' => [
+                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'],
+                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'current_value' => .0,
+            ],
+        ];
+
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
+            ],
+        ])->fetchAll();
+
+        $sourceFieldSelfId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']);
+        foreach ($transactions as $transaction) {
+            $result[$transaction['UF_SOURCE'] === $sourceFieldSelfId ? 'self' : 'team']['current_value'] += $transaction['UF_AMOUNT'];
+        }
+
+        return $result;
     }
 
     /**
