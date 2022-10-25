@@ -24,8 +24,10 @@
         content: "";
     }
 
-    &--blue::before {
-        background-color: $onahau;
+    &--blue {
+        &::before {
+            background-color: $onahau;
+        }     
     }
 
     &--blue  & {
@@ -36,8 +38,10 @@
         } 
     }
 
-    &--gold::before {
-        background-color: $drover;
+    &--gold {
+        &::before {
+            background-color: $drover;
+        } 
     }
 
     &--gold  & {
@@ -48,8 +52,10 @@
         } 
     }
 
-    &--wisteria::before {
-        background-color: $lavenderGray;
+    &--wisteria {
+        &::before {
+            background-color: $lavenderGray;
+        }  
     }
 
     &--wisteria  & {
@@ -60,8 +66,10 @@
         } 
     }
 
-    &--piper::before {
-        background-color: $caramel;
+    &--piper {
+        &::before {
+            background-color: $caramel;
+        } 
     }
 
     &--piper  & {
