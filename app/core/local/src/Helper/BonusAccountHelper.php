@@ -5,7 +5,7 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\TransactionTable;
-use QSoft\Service\TransactionsHelper;
+use QSoft\Helper\TransactionsHelper;
 use RuntimeException;
 
 /**

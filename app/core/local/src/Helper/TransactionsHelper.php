@@ -1,6 +1,6 @@
 <?php
 
-namespace QSoft\Service;
+namespace QSoft\Helper;
 
 use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
