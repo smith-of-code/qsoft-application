@@ -27,13 +27,23 @@
         $color: #378a5f;
 
         &__content {
-            padding: rem(20px) rem($gap-medium) rem(36px);
+            min-height: rem(98px);
+            padding: rem(20px) rem($gap-medium);
 
             background-color: $color;
+
+            @media #{$screen-tablet} {
+                min-height: rem(108px);
+            }
         }
 
         &__title {
             margin-bottom: rem($gap-mini);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-average);
+                line-height: (22px / $font-size-average);
+            }
         }
     }
     
@@ -48,12 +58,24 @@
             padding: rem($gap-medium);
 
             background-color: $color;
+
+            @media #{$screen-tablet} {
+                display: flex;
+                align-items: center;
+
+                min-height: rem(108px);
+            }
         }
 
         &__text {
             @include text-small($font-weight-medium);
 
             color: #19191c;
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-normal);
+                line-height: ($line-height-normal / $font-size-normal);
+            }
         }
     }
 
@@ -65,11 +87,24 @@
         $color: $wisteria;
 
         &__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding-top: rem(13px);
+            padding-bottom: rem(13px);
+
             background-color: $color;
         }
 
         &__title {
+            font-weight: $font-weight-semibold;
+
             text-align: center;
+
+            @media #{$screen-tablet} {
+                line-height: (18px / $font-size-normal);
+            }
         }
     }
 
@@ -92,12 +127,43 @@
         @include object-fit(cover);
     }
 
+    &__tag {
+        position: absolute;
+        top: rem($gap-small);
+        right: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            top: rem($gap-average);
+            right: rem($gap-average);
+        }
+
+        & .sale {
+            padding: rem($gap-small);
+
+            &__text {
+                font-size: rem($font-size-normal);
+                line-height: ($line-height-small / $font-size-normal);
+
+                color: $athensGray;
+
+                @media #{$screen-tablet} {
+                    font-size: rem($font-size-average);
+                    line-height: ($line-height-normal / $font-size-average);
+                }
+            }
+        }
+    }
+
     &__content {
         align-self: flex-end;
 
         width: 100%;
         min-height: rem(48px);
-        padding: rem($gap-medium) rem($gap-medium) rem($gap-normal);
+        padding: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            min-height: rem(60px);
+        }
     }
 
     &__title {
@@ -106,11 +172,27 @@
         line-height: (22px / $font-size-small);
 
         color: $white;
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-normal);
+            line-height: (22px / $font-size-normal);
+        }
     }
 
     &__text {
-        @include text-miniature($font-weight-semibold);
+        @include text-miniature($font-weight-medium);
 
         color: $white;
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-normal);
+            line-height: ($line-height-small / $font-size-normal);
+        }
+
+        &-accent {
+            font-weight: $font-weight-bold;
+
+            color: $brickRed;
+        }
     }
 }

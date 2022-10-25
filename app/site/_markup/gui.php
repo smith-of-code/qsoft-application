@@ -8514,7 +8514,7 @@
 
                             <div class="cards-compilation">
                                 <ul class="cards-compilation__list">
-                                    <li class="cards-compilation__item">
+                                    <li class="cards-compilation__item cards-compilation__item--extra">
 
                                         <article class="card-compilation card-compilation--green">
                                             <a href="#" class="card-compilation__link"></a>
@@ -8522,12 +8522,16 @@
                                             <div class="card-compilation__inner">
 
                                                 <img
-                                                    src="https://placeimg.com/470/470/animals"
+                                                    src="https://fakeimg.pl/500x350/"
                                                     alt="изображение подборки"
                                                     class="card-compilation__banner"
                                                 />
 
-                                                <!-- плашка -->
+                                                <div class="card-compilation__tag tag tag--green">
+                                                    <p class="tag__text">
+                                                        AmeБизнес
+                                                    </p>
+                                                </div>
 
                                                 <div class="card-compilation__content">
                                                     <h2 class="card-compilation__title">
@@ -8543,7 +8547,7 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-compilation__item">
+                                    <li class="cards-compilation__item cards-compilation__item--extra">
 
                                         <article class="card-compilation card-compilation--grey">
                                             <a href="#" class="card-compilation__link"></a>
@@ -8551,16 +8555,23 @@
                                             <div class="card-compilation__inner">
 
                                                 <img
-                                                    src="https://placeimg.com/470/470/animals"
+                                                    src="https://fakeimg.pl/500x350/"
                                                     alt="изображение подборки"
                                                     class="card-compilation__banner"
                                                 />
 
-                                                <!-- плашка -->
+                                                <div class="card-compilation__tag sale">
+                                                    <p class="sale__text">
+                                                        -25%
+                                                    </p>
+                                                </div>
 
                                                 <div class="card-compilation__content">
                                                     <p class="card-compilation__text">
-                                                        совмещая работу и заботу о питомцах
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород!
                                                     </p>
                                                 </div>
 
@@ -8576,12 +8587,16 @@
                                             <div class="card-compilation__inner">
 
                                                 <img
-                                                    src="https://placeimg.com/470/470/animals"
+                                                    src="https://fakeimg.pl/500x350/"
                                                     alt="изображение подборки"
                                                     class="card-compilation__banner"
                                                 />
 
-                                                <!-- плашка -->
+                                                <div class="card-compilation__tag tag tag--purple">
+                                                    <p class="tag__text">
+                                                        Подборка
+                                                    </p>
+                                                </div>
 
                                                 <div class="card-compilation__content">
                                                     <h2 class="card-compilation__title">
@@ -8601,12 +8616,16 @@
                                             <div class="card-compilation__inner">
 
                                                 <img
-                                                    src="https://placeimg.com/470/470/animals"
+                                                    src="https://fakeimg.pl/500x350/"
                                                     alt="изображение подборки"
                                                     class="card-compilation__banner"
                                                 />
 
-                                                <!-- плашка -->
+                                                <div class="card-compilation__tag tag tag--purple">
+                                                    <p class="tag__text">
+                                                        Подборка
+                                                    </p>
+                                                </div>
 
                                                 <div class="card-compilation__content">
                                                     <h2 class="card-compilation__title">
