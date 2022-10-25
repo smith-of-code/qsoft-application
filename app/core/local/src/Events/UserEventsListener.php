@@ -4,7 +4,7 @@ namespace QSoft\Events;
 
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
-use QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use RuntimeException;
 
 class UserEventsListener
@@ -19,13 +19,13 @@ class UserEventsListener
         $user = new User($fields['ID']);
 
         if ($user->groups->isConsultant()) {
-
+            
             // Если задан корректный ID Консультанта,
             // а также он был изменен и не является ID самого пользователя
             if (is_numeric($fields['UF_MENTOR_ID'])
                 && (int) $fields['UF_MENTOR_ID'] > 0
-                && $user->mentor !== $fields['UF_MENTOR_ID']
-                && $user->id !== $fields['UF_MENTOR_ID']
+                && $user->mentor !== (int) $fields['UF_MENTOR_ID']
+                && $user->id !== (int) $fields['UF_MENTOR_ID']
             ) {
                 // Получим нового юзера-наставника
                 $userMentor = new User($fields['UF_MENTOR_ID']);
@@ -43,13 +43,12 @@ class UserEventsListener
 
     public static function OnBeforeUserAdd(array &$fields)
     {
-        $loyalty = new LoyaltyProgramHelper();
+        // Назначаем уровень в программе лояльности
+        $loyalty = new BuyerLoyaltyProgramHelper();
+        $firstLevel = $loyalty->getLowestLevel();
         $levelsIDs = $loyalty->getLevelsIDs();
         if (! $fields['UF_LOYALTY_LEVEL']) {
-            $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[LoyaltyProgramHelper::LOYALTY_LEVEL_K1];
-        }
-        if (! $fields['UF_PERSONAL_DISCOUNT_LEVEL']) {
-            $fields['UF_PERSONAL_DISCOUNT_LEVEL'] = $levelsIDs[LoyaltyProgramHelper::LOYALTY_LEVEL_B1];
+            $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[$firstLevel];
         }
     }
 }

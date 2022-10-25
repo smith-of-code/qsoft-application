@@ -21,7 +21,7 @@ use QSoft\Helper\LoyaltyProgramHelper;
  */
 return [
     'consultant' => [
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K1 => [
+        'K1' => [
             'label' => 'K1', // Название для вывода в публичной части
             'level' => 1, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -45,7 +45,7 @@ return [
                 ],
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K2 => [
+        'K2' => [
             'label' => 'K2', // Название для вывода в публичной части
             'level' => 2, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -78,7 +78,7 @@ return [
                 'upgrade_level_bonuses' => 100, // Бонус (ББ) за переход на этот уровень
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K3 => [
+        'K3' => [
             'label' => 'K3', // Название для вывода в публичной части
             'level' => 3, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -113,13 +113,13 @@ return [
         ]
     ],
     'customer' => [
-        LoyaltyProgramHelper::LOYALTY_LEVEL_B1 => [
+        'B1' => [
             'level' => 1, // Уровень (значение для сортировки уровней)
             'benefits' => [
                 'personal_discount' => 2, // Персональная скидка на все товары (%)
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_B2 => [
+        'B2' => [
             'level' => 2, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
                 'self_total' => 3000.0, // Сумма личных покупок за период (руб)
@@ -133,7 +133,7 @@ return [
                 'personal_discount' => 3, // Персональная скидка на все товары (%)
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_B3 => [
+        'B3' => [
             'level' => 3, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
                 'self_total' => 5000.0, // Сумма личных покупок за период (руб)

@@ -5,6 +5,7 @@ namespace QSoft\Service;
 use Bitrix\Catalog\Product\Price;
 use Bitrix\Main\Loader;
 use CCatalogGroup;
+use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
 
 /**
@@ -24,11 +25,14 @@ class OffersService
     {
         Loader::includeModule('sale');
 
+        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $loyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
+
         $prices = Price::getList([
             'filter' => [
                 '=PRODUCT_ID' => $offerId,
             ],
-            'limit' => LoyaltyProgramHelper::LOYALTY_LEVELS_AMOUNT_K,
+            'limit' => count($loyaltyLevels),
         ]);
 
         $existingPrices = [];
@@ -36,10 +40,10 @@ class OffersService
             $existingPrices[$price['CATALOG_GROUP_ID']] = $price;
         }
 
-        $loyaltyLevels = LoyaltyService::getLoyaltyLevels();
+
         $priceTypes = CCatalogGroup::GetList([], ['=NAME' => array_keys($loyaltyLevels)]);
         while ($priceType = $priceTypes->Fetch()) {
-            $params = $loyaltyLevels[$priceType['NAME']]['personal_bonuses_by_price'];
+            $params = $loyaltyLevels[$priceType['NAME']]['benefits']['personal_bonuses_for_stock'];
             $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
 
             if ($existingPrices[$priceType['ID']]) {

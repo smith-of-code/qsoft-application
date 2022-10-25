@@ -197,12 +197,7 @@ class User
         $this->groups = new UserGroupsService($this);
 
         //Задаем уровень в программе лояльности в зависимости от группы пользователя
-        $this->loyaltyLevel = '';
-        if ($this->groups->isBuyer()) {
-            $this->loyaltyLevel = $user['UF_PERSONAL_DISCOUNT_LEVEL'] ?? '';
-        } elseif ($this->groups->isConsultant()) {
-            $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
-        }
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'];
         $this->loyalty = new LoyaltyService($this);
         
         $this->notification = new NotificationService($this);

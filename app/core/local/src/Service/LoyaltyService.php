@@ -2,8 +2,11 @@
 
 namespace QSoft\Service;
 
+use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
+use QSoft\Helper\BuyerLoyaltyProgramHelper;
+use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
 
 /**
@@ -33,13 +36,31 @@ class LoyaltyService
     {
         $result = [];
 
-        $levels = LoyaltyProgramHelper::getConfiguration();
+        if ($this->user->groups->isConsultant()) {
+            $loyaltyHelper = new ConsultantLoyaltyProgramHelper();
+        } elseif ($this->user->groups->isBuyer()) {
+            $loyaltyHelper = new BuyerLoyaltyProgramHelper();
+        }
+
+        if (! isset($loyaltyHelper)) {
+            throw new RuntimeException('Пользователь не является участником программы лояльности');
+        }
+
+        $levels = $loyaltyHelper->getLoyaltyLevels();
         $bonusesHelper = new BonusAccountHelper();
-        $loyaltyHelper = new LoyaltyProgramHelper();
 
         if ($this->user->loyaltyLevel !== '') {
-            // Получим следующий уровень - проверим, есть ли куда улучшать текущий
-            $nextLevel = $loyaltyHelper->getNextLevel($this->user->loyaltyLevel);
+            // Проверим, есть ли куда улучшать текущий уровень
+            $upgradable = false;
+            $sortedLevels = $loyaltyHelper->getSortedLevels();
+            foreach ($sortedLevels as $index => $xmlId) {
+                if ($xmlId === $this->user->loyaltyLevel) {
+                    $nextLevel = next($sortedLevels);
+                    break;
+                }
+                next($sortedLevels);
+            }
+            reset($sortedLevels);
 
             // Показатели для Консультантов
             if ($this->user->groups->isConsultant()) {
@@ -57,7 +78,7 @@ class LoyaltyService
                 $result['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
 
                 // Получим необходимые данные по затратам для повышения на следующий уровень
-                if (isset($nextLevel)) {
+                if (isset($nextLevel) && $nextLevel !== false) {
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$nextLevel]['upgrade_level_terms']['self_total'];
                     $selfPeriodStart = DateTimeService::getStartOfQuarter((intdiv($levels[$nextLevel]['upgrade_level_terms']['self_period_months'], 3) - 1) * (-1));
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
@@ -70,7 +91,7 @@ class LoyaltyService
 
                 $result['PERSONAL_DISCOUNT'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_discount'];
 
-                if (isset($nextLevel)) {
+                if (isset($nextLevel) && $nextLevel !== false) {
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] = $levels[$nextLevel]['upgrade_level_terms']['self_total'];
                     $selfPeriodStart = DateTimeService::getStartOfMonth(($levels[$nextLevel]['upgrade_level_terms']['self_period_months'] - 1) * (-1));
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
@@ -79,7 +100,6 @@ class LoyaltyService
                 }
             }
         }
-
         return $result;
     }
 }

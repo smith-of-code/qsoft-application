@@ -15,12 +15,14 @@ use RuntimeException;
 class BonusAccountHelper
 {
     private TransactionsHelper $transactions;
-    private LoyaltyProgramHelper $loyalty;
+    private ConsultantLoyaltyProgramHelper $consultantLoyalty;
+    private BuyerLoyaltyProgramHelper $buyerLoyalty;
 
     public function __construct()
     {
         $this->transactions = new TransactionsHelper();
-        $this->loyalty = new LoyaltyProgramHelper();
+        $this->consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $this->buyerLoyalty = new BuyerLoyaltyProgramHelper();
     }
 
     /**
@@ -42,11 +44,11 @@ class BonusAccountHelper
         }
 
         // Получаем количество баллов для начисления
-        $amount = $this->loyalty->getReferralBonus($user->loyaltyLevel);
+        $amount = $this->consultantLoyalty->getReferralBonus($user->loyaltyLevel);
 
         if (isset($amount)) {
             // Добавляем транзакцию
-            $this->transactions->add(
+            $result = $this->transactions->add(
                 $user->id,
                 TransactionTable::TYPES['referral'],
                 TransactionTable::SOURCES['personal'],
@@ -54,10 +56,13 @@ class BonusAccountHelper
                 $amount
             );
 
-            // Обновляем количество баллов пользователя
-            return $user->update([
-                'UF_BONUS_POINTS' => $user->bonusPoints + $amount
-            ]);
+            if ($result->isSuccess()) {
+                // Обновляем количество баллов пользователя
+                return $user->update([
+                    'UF_BONUS_POINTS' => $user->bonusPoints + $amount
+                ]);
+            }
+            return false;
         }
         return false;
     }
@@ -81,7 +86,7 @@ class BonusAccountHelper
         }
 
         // Получаем количество баллов для начисления
-        $amount = $this->loyalty->getReferralBonus($user->loyaltyLevel);
+        $amount = $this->consultantLoyalty->getReferralBonus($user->loyaltyLevel);
 
         if (isset($amount)) {
             // Добавляем транзакцию
@@ -116,7 +121,7 @@ class BonusAccountHelper
         return TransactionTable::getList([
             'select' => ['ID', 'UF_AMOUNT'],
             'filter' => $filter,
-            'cache' => ['ttl' => 7776000] // кешируем на 3 месяца
+            'cache' => ['ttl' => 604800] // кешируем на 1 неделю
         ])->fetchAll();
     }
 
