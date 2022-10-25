@@ -9009,9 +9009,9 @@
                     <div class="gui__block">
                         <h2 class="gui__title">Карточки Участников</h2>
 
-                        <div class="accordeon">
-                            <div class="participant accordeon__item box box--rounded-sm box--hovering" data-accordeon>
-                                <div class="participant__header accordeon__header" data-accordeon-toggle>
+                        <div class="accordeon accordeon--separated">
+                            <div class="participant accordeon__item" data-accordeon>
+                                <div class="participant__header accordeon__header box box--rounded-sm" data-accordeon-toggle>
                                     <div class="participant__row">
                                         <div class="participant__col participant__col--avatar">
                                             <div class="participant__avatar avatar">
@@ -9020,37 +9020,37 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="participant__col">
+                                        <div class="participant__col participant__col--name">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">ФИО</span>
-                                                <span class="participant__info-value participant__info-value--accent">Достоевская-Васильева А.М.</span>
+                                                <span class="participant__info-value participant__info-value--truncate participant__info-value--accent">Достоевская-Васильева А.М.</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="participant__row participant__row--separated">
-                                        <div class="participant__col">
+                                        <div class="participant__col participant__col--id">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">ID</span>
                                                 <span class="participant__info-value">1012376</span>
                                             </div>
                                         </div>
 
-                                        <div class="participant__col">
+                                        <div class="participant__col participant__col--level">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">Уровень</span>
                                                 <span class="participant__info-value">к2</span>
                                             </div>
                                         </div>
 
-                                        <div class="participant__col">
+                                        <div class="participant__col participant__col--date">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">На сайте с</span>
                                                 <span class="participant__info-value">01.12.2022</span>
                                             </div>
                                         </div>
 
-                                        <div class="participant__col participant__col--separated">
+                                        <div class="participant__col participant__col--tel participant__col--separated">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">Телефон</span>
                                                 <span class="participant__info-value">8 (901) 123-45-67</span>
@@ -9059,10 +9059,10 @@
                                     </div>
 
                                     <div class="participant__row">
-                                        <div class="participant__col">
+                                        <div class="participant__col participant__col--email">
                                             <div class="participant__info">
                                                 <span class="participant__info-name">Email</span>
-                                                <span class="participant__info-value">dostaevskaya-vasileva1995@yandex.ru</span>
+                                                <span class="participant__info-value participant__info-value--truncate">dostaevskaya-vasileva1995@yandex.ru</span>
                                             </div>
                                         </div>
                                     </div>
@@ -9079,8 +9079,44 @@
                                     </div>
                                 </div>
 
-                                <div class="accordeon__body accordeon__body--bordered" data-accordeon-content>
-                                    Вы можете приобрести нашу продукцию через наших партнеров - консультантов AmeAppetite в авторизованных дистрибьютерских центрах, либо зарегистрировавшись на нашем сайте. Дополнительно после регистрации Вы получите скидку на весь ассортимент товаров, а также доступ к специальным предложениям. Зарегистрируйтесь сейчас и экономьте на каждой покупке!
+                                <div class="accordeon__body" data-accordeon-content>
+                                    <div class="participant__section">
+                                        <h5 class="participant__section-title">
+                                            Плановые показатели
+                                        </h5>
+
+                                        <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <nav class="tabs__items">
+                                                <ul class="tabs__list">
+                                                    <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                        Личные
+                                                    </li>
+            
+                                                    <li class="tabs__item" data-tab="block2">
+                                                        Групповые
+                                                    </li>
+                                                </ul>
+                                            </nav>
+            
+                                            <div class="tabs__body" style="margin-top: 10px; margin-bottom: 20px">
+                                                <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                    Личные
+                                                </div>
+            
+                                                <div class="tabs__block" data-tab-section="block2">
+                                                    Групповые
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="participant__section">
+                                        <h5 class="participant__section-title">
+                                            Продажи
+                                        </h5>
+
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>

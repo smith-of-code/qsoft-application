@@ -41,6 +41,20 @@
     }
 
     &__col {
+        @media #{$screen-desktop} {
+            margin-right: rem($gap-average);
+        }
+
+        &--separated {
+            width: 100%;
+            margin-top: rem($gap-small);
+
+            @media #{$screen-tablet} {
+                width: auto;
+                margin-top: 0;
+            }
+        }
+
         &--avatar {
             flex-shrink: 0;
 
@@ -51,13 +65,41 @@
             }
         }
 
-        &--separated {
-            width: 100%;
-            margin-top: rem($gap-small);
+        &--name {
+            @media #{$screen-desktop} {
+                width: rem(152px);
+            }
+        }
 
-            @media #{$screen-tablet} {
-                width: auto;
-                margin-top: 0;
+        &--id {
+            @media #{$screen-desktop} {
+                width: rem(60px);
+            }
+        }
+
+        &--level {
+            @media #{$screen-desktop} {
+                width: rem(60px);
+
+                text-align: center;
+            }
+        }
+
+        &--date {
+            @media #{$screen-desktop} {
+                width: rem(74px);
+            }
+        }
+
+        &--tel {
+            @media #{$screen-desktop} {
+                width: rem(124px);
+            }
+        }
+
+        &--email {
+            @media #{$screen-desktop} {
+                width: rem(204px);
             }
         }
     }
@@ -85,6 +127,12 @@
             &--accent {
                 @media #{$screen-desktop} {
                     font-weight: $font-weight-semibold;
+                }
+            }
+
+            &--truncate {
+                @media #{$screen-desktop} {
+                    @include text-ellips;
                 }
             }
         }
