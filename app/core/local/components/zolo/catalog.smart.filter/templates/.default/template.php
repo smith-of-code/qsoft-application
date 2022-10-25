@@ -39,6 +39,7 @@ if (isset($templateData['TEMPLATE_THEME']))
                 </div>
                 <div class="<?=$templateData["TEMPLATE_CLASS"]?>">
                     <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" class="form">
+
                         <div class="filter__row">
                             <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
                                 <!-- TODO: Интегрировать верстку списка разделов (аккордеон) -->
@@ -74,6 +75,135 @@ if (isset($templateData['TEMPLATE_THEME']))
                             </div>
                         </div>
 
+                        <?php foreach($arResult["HIDDEN"] as $arItem):?>
+                            <input type="hidden" name="<?= $arItem["CONTROL_NAME"]?>" id="<?= $arItem["CONTROL_ID"]?>" value="<?= $arItem["HTML_VALUE"]?>" />
+                        <?php endforeach;?>
+
+                        <?php foreach($arResult["ITEMS"] as $key=>$arItem):
+
+                            dump($arItem);
+
+                            if (empty($arItem["VALUES"]))
+                                continue;
+
+                            if ($arItem["DISPLAY_TYPE"] == "A" && ( $arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"] <= 0))
+                                continue;
+
+                            if (isset($arItem['PRICE'])) {
+                                $key = $arItem["ENCODED_ID"];
+                                $arItem["DISPLAY_TYPE"] = 'A';
+                                if ($arItem['CODE'] === 'BASE')
+                                    $arItem['NAME'] = 'Цена, ₽';
+                                if ($arItem['CODE'] === 'BONUSES')
+                                    $arItem['NAME'] = 'Баллы, ББ';
+                            }
+                            ?>
+
+                        <div class="filter__row">
+                            <?php
+							switch ($arItem["DISPLAY_TYPE"])
+							{
+
+                                case "A":
+                                    // Показываем ползунок и поля ввода "От" и "До"
+                                    ?>
+
+                                    <div class="filter__range range" data-range>
+                                        <div class="range__header">
+                                            <p class="range__heading heading heading--small"><?=$arItem["NAME"]?></p>
+                                        </div>
+                                        <div class="range-slider"
+                                             data-range-slider data-min="<?= floor($arItem["VALUES"]["MIN"]["VALUE"])?>"
+                                             data-max="<?= ceil($arItem["VALUES"]["MAX"]["VALUE"])?>"
+                                             data-step="1"
+                                        ></div>
+                                        <div class="range__group">
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="min">
+                                                        от
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number"
+                                                               data-range-min="min"
+                                                               value="<?= floor($arItem["VALUES"]["MIN"]["VALUE"])?>"
+                                                               id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"
+                                                               name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
+                                                               class="range__input input__control"
+                                                               onkeyup="smartFilter.keyup(this)"
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="range__group-field form__field">
+                                                <div class="form__field-block form__field-block--input">
+                                                    <label class="form__field-label" for="max">
+                                                        до
+                                                    </label>
+                                                    <div class="input input--mini input--prefix">
+                                                        <input type="number"
+                                                               data-range-max="max"
+                                                               value="<?= ceil($arItem["VALUES"]["MAX"]["VALUE"])?>"
+                                                               id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"
+                                                               name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
+                                                               class="range__input input__control"
+                                                               onkeyup="smartFilter.keyup(this)"
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                    break;
+                                case "F":
+                                default:
+                                    if (count($arItem["VALUES"]) == 1): // Показываем переключатель, если всего 1 вариант значения
+                                    ?>
+
+                                        <div class="filter__options">
+                                            <div class="switchers">
+                                                <ul class="switchers__list">
+                                                    <?php foreach($arItem["VALUES"] as $val => $ar):?>
+                                                    <li class="switchers__item">
+                                                        <div class="filter__swither switcher" name="switcher1">
+                                                            <input type="checkbox"
+                                                                   class="switcher__input"
+                                                                   id="<?= $ar["CONTROL_ID"] ?>"
+                                                                   value="<?= $ar["HTML_VALUE"] ?>"
+                                                                   name="<?= $ar["CONTROL_NAME"] ?>"
+                                                                   <? echo $ar["CHECKED"]? 'checked="checked"': '' ?>
+                                                                   <? echo $ar["DISABLED"] ? 'disabled': '' ?>
+                                                                   onclick="smartFilter.click(this)"
+                                                            >
+                                                            <label for="<?= $ar["CONTROL_ID"] ?>" class="filter__swither-label switcher__label" data-role="label_<?=$ar["CONTROL_ID"]?>">
+                                                                <span class="switcher__text switcher__text--left"><?= $arItem["NAME"] ?></span>
+                                                                <span class="switcher__icon"></span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    <?php elseif (count($arItem["VALUES"]) > 1): // Показываем список чекбоксов, если вариантов значений несколько ?>
+
+
+
+                                    <?php
+                                    endif;
+                                    break;
+                            }
+                            ?>
+                        </div>
+
+                        <?php endforeach;?>
+
+
+
+                        <!-- ПЕРЕКЛЮЧАТЕЛИ -->
                         <div class="filter__row">
                             <div class="filter__options">
                                 <div class="switchers">
@@ -101,69 +231,7 @@ if (isset($templateData['TEMPLATE_THEME']))
                                 </div>
                             </div>
                         </div>
-
-                        <div class="filter__row">
-                            <div class="filter__range range" data-range>
-                                <div class="range__header">
-                                    <p class="range__heading heading heading--small">Цена, ₽ </p>
-                                </div>
-                                <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div>
-                                <div class="range__group">
-                                    <div class="range__group-field form__field">
-                                        <div class="form__field-block form__field-block--input">
-                                            <label class="form__field-label" for="min">
-                                                от
-                                            </label>
-                                            <div class="input input--mini input--prefix">
-                                                <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="range__group-field form__field">
-                                        <div class="form__field-block form__field-block--input">
-                                            <label class="form__field-label" for="max">
-                                                до
-                                            </label>
-                                            <div class="input input--mini input--prefix">
-                                                <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="filter__range range" data-range>
-                                <div class="range__header">
-                                    <p class="range__heading heading heading--small">Баллы, ББ</p>
-                                </div>
-                                <div class="range-slider" data-range-slider data-min="1000" data-max="9000" data-step="1"></div>
-                                <div class="range__group">
-                                    <div class="range__group-field form__field">
-                                        <div class="form__field-block form__field-block--input">
-                                            <label class="form__field-label" for="min">
-                                                от
-                                            </label>
-                                            <div class="input input--mini input--prefix">
-                                                <input type="number" data-range-min="min" value="1000" name="min" class="range__input input__control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="range__group-field form__field">
-                                        <div class="form__field-block form__field-block--input">
-                                            <label class="form__field-label" for="max">
-                                                до
-                                            </label>
-                                            <div class="input input--mini input--prefix">
-                                                <input type="number" data-range-max="max" value="9000" name="max" class="range__input input__control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <!-- СПИСКИ ЧЕКБОКСОВ -->
                         <div class="filter__row">
                             <div class="filter__header">
                                 <p class="filter__heading heading heading--small">Размер питомца</p>
@@ -812,7 +880,14 @@ if (isset($templateData['TEMPLATE_THEME']))
                         </div>
 
                         <div class="filter__action">
-                            <button type="button" class="button button--rounded-big button--covered button--green button--full">Применить</button>
+                            <input
+                                    class="button button--rounded-big button--covered button--green button--full"
+                                    type="submit"
+                                    id="set_filter"
+                                    name="set_filter"
+                                    value="Применить"
+                            />
+
                         </div>
                     </form>
                 </div>
@@ -1457,7 +1532,7 @@ if (isset($templateData['TEMPLATE_THEME']))
 				<?
 				}
 				?>
-			</div><!--//row-->
+			</div>
 
 			<div class="row">
 				<div class="col smart-filter-button-box">
