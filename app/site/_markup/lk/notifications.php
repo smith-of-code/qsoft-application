@@ -476,18 +476,29 @@
         <!--content-->
         <div class="page__content content">
             <div class="container">
-                <main class="page__private private">
+                <main class="page__private page__private--notification private">
 
-                    <h1 class="page__heading">Личный кабинет</h1>
+                    <div class="page__breadcrumbs breadcrumbs">
+                        <ul class="breadcrumbs__list">
+                            <li class="breadcrumbs__item">
+                                <a href="#" class="breadcrumbs__link">Главная</a>
+                            </li>
+                            <li class="breadcrumbs__item breadcrumbs__item--active">
+                                <a class="breadcrumbs__link">Уведомления</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h1 class="page__heading page__heading--notification">Личный кабинет</h1>
 
                     <div class="content__main">
                         <div class="private__row">
                             <div class="private__col private__col--limited">
                                 <nav class="private__menu menu menu--private">
                                     <ul class="menu__list">
-                                        <li class="menu__item menu__item--active">
+                                        <li class="menu__item">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon menu__icon--active">
+                                                <span class="menu__icon">
                                                     <svg class="icon icon--profile gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
                                                     </svg>
@@ -537,9 +548,9 @@
                                             </a>
                                         </li>
 
-                                        <li class="menu__item">
+                                        <li class="menu__item menu__item--active">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="menu__icon menu__icon--active">
                                                     <svg class="icon icon--notification gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
                                                     </svg>
