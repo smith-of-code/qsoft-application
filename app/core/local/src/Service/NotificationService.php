@@ -2,17 +2,19 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\Loader;
+use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Entity;
 use Bitrix\Main\ORM\Query\Join;
 use QSoft\Entity\User;
 use QSoft\ORM\NotificationTable;
-use Bitrix\Highloadblock\HighloadblockTable;
-
-use \Bitrix\Main\ORM\Fields;
+use \Bitrix\Main\ORM\Fields\IntegerField;
+use \Bitrix\Main\ORM\Fields\StringField;
 use \Bitrix\Main\ORM\Fields\Relations\Reference;
 use \Bitrix\Main\ORM\Fields\Relations\OneToMany;
+use \Bitrix\Main\Entity\ExpressionField;
 
-
+Loader::includeModule('highloadblock');
 
 class NotificationService
 {
@@ -33,29 +35,24 @@ class NotificationService
         ])->getSelectedRowsCount();
     }
 
-    public function getDataClass()
+    /**
+     * @return DataManager|string
+     */
+    public static function getDataClass(): string
     {
-        \Bitrix\Main\Loader::includeModule('highloadblock');
-
-        $hlEntity = HighloadBlockTable::compileEntity(HIGHLOAD_BLOCK_HLNOTIFICATION);
+        $hlEntity = NotificationTable::getEntity();
 
         $propsEnumEntity = Entity::compileEntity('PROPS',
             [
-                (new Fields\IntegerField('ID'))
+                (new IntegerField('ID'))
                     ->configurePrimary(),
 
-                (new Fields\StringField('VALUE')),
+                (new StringField('VALUE')),
 
                 (new Reference(
                     'NOTIFICATION_STATUS',
                     $hlEntity,
                     Join::on('this.ID', 'ref.UF_STATUS')
-                )),
-
-                (new Reference(
-                    'NOTIFICATION_TYPE',
-                    $hlEntity,
-                    Join::on('this.ID', 'ref.UF_TYPE')
                 )),
             ],
             [
@@ -69,10 +66,22 @@ class NotificationService
                 $propsEnumEntity,
                 'NOTIFICATION_STATUS'
             )),
-            (new OneToMany(
-                'TYPE_NAME',
-                $propsEnumEntity,
-                'NOTIFICATION_TYPE'
+            (new ExpressionField(
+                'DATE',
+                'DATE_FORMAT(%s, GET_FORMAT(DATE,\'EUR\'))',
+                ['UF_DATE_TIME']
+            )),
+            (new ExpressionField(
+                'TIME',
+                'DATE_FORMAT(%s, GET_FORMAT(TIME,\'ISO\'))',
+                ['UF_DATE_TIME']
+            )),
+
+            //Поле для фильтрации вывода уведомлений пользователя за последние X дней: DATE_DIFF <= X дней'
+            (new ExpressionField(
+                'DATE_DIFF',
+                'DATEDIFF(CURDATE(), %s)',
+                ['UF_DATE_TIME']
             ))
         ];
 
