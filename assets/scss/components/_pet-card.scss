@@ -129,6 +129,7 @@
 
     &__actions {
         display: flex;
+        flex-direction: row-reverse;
         align-items: center;
         justify-content: space-around;
 
@@ -137,6 +138,7 @@
         border-top: rem(1px) solid $alto;
 
         @media #{$screen-tablet} {
+            flex-direction: row;
             justify-content: flex-start;
 
             margin-top: 0;
@@ -148,6 +150,8 @@
         &-button {
             width: 100%;
             padding: rem($gap-average) 0;
+
+            color: $saltBox !important;
 
             @media #{$screen-tablet} {
                 width: auto;
@@ -167,13 +171,13 @@
     &__delete {
         width: 50%;
 
-        border-left: rem(1px) solid $alto;
+        border-right: rem(1px) solid $alto;
 
         @media #{$screen-tablet} {
             width: auto;
             margin-left: rem($gap-medium);
 
-            border-left: none;
+            border-right: none;
         }
     }
 

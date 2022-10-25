@@ -51,3 +51,13 @@ exclude
 !package-lock.json
 /tools
 app/site/test.php
+app/core/local/**/*.bundle.js
+app/core/local/**/*.bundle.js.map
+app/core/local/**/*.bundle.css
+app/core/local/**/*.bundle.css.map
+app/core/local/templates/.default/images/detail-slide.png
+app/core/local/templates/.default/images/main-slider-desktop.jpg
+app/core/local/templates/.default/images/main-slider-mobile.jpg
+app/core/local/templates/.default/images/main-slider-tablet.jpg
+app/core/local/templates/.default/images/video-slide.webm
+app/core/local/templates/.default/js/script.js

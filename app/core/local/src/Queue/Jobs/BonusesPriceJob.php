@@ -2,7 +2,6 @@
 
 namespace QSoft\Queue\Jobs;
 
-use QSoft\Service\BonusAccountService;
 use QSoft\Service\OffersService;
 
 class BonusesPriceJob extends BaseJob
@@ -16,6 +15,9 @@ class BonusesPriceJob extends BaseJob
         return 'bonuses-price';
     }
 
+    /**
+     * @throws \Bitrix\Main\LoaderException
+     */
     protected function process($data)
     {
         OffersService::setOfferBonusesPrices($data['offerId'], $data['priceValue']);

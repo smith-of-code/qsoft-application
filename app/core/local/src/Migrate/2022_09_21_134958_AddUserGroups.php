@@ -14,5 +14,11 @@ class AddUserGroups extends Migration
             'ACTIVE' => 'Y',
             'C_SORT' => 400,
         ],
+        [
+            'NAME' => 'Консультант',
+            'STRING_ID' => 'consultant',
+            'ACTIVE' => 'Y',
+            'C_SORT' => 400,
+        ]
     ];
 }
