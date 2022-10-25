@@ -1,0 +1,27 @@
+.about {
+    &__hero {
+        &-box {
+            padding: rem(16px);
+
+            @media #{$screen-desktop} {
+                padding: rem(24px);
+            }
+        }
+
+        &-title {
+            margin-bottom: rem(12px);
+        }
+
+        &-description {
+
+        }
+
+        &-images {
+            margin-bottom: rem(12px);
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem(32px);
+            }
+        }
+    }
+}
