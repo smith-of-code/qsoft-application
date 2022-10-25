@@ -5,8 +5,11 @@ namespace QSoft\Helper;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Type\DateTime;
 use Exception;
 use QSoft\Entity\User;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\TransactionTable;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -181,6 +184,44 @@ class LoyaltyProgramHelper
             return true;
         }
         return false;
+    }
+
+    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): float
+    {
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
+            ],
+            'select' => ['ID', 'UF_AMOUNT'],
+        ])->fetchAll();
+
+        return array_sum(array_column($transactions, 'UF_AMOUNT'));
+    }
+
+    public function getGroupBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): float
+    {
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']),
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
+            ],
+            'select' => ['ID', 'UF_AMOUNT'],
+        ])->fetchAll();
+
+        return array_sum(array_column($transactions, 'UF_AMOUNT'));
     }
 
     /**
