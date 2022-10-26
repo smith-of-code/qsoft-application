@@ -72,7 +72,10 @@ else
                 <div class="catalog__sort">
                     <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
                         <div class="select__group">
-                            <form id="sort_selector" action="<?= $APPLICATION->GetCurPageParam('', ['sort']); ?>" method="get">
+                            <form id="sort_selector"
+                                  action="<?= $APPLICATION->GetCurPageParam('', ['sort']);?>"
+                                  method="get"
+                                  class="form">
                                 <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
                                     <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'sort' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
                                     <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
@@ -93,20 +96,18 @@ else
 
                     <div class="catalog__toggle">
                         <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
-                                                <span class="button__icon button__icon--right button__icon--medium">
-                                                    <svg class="icon icon--filter">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
-                                                    </svg>
-                                                </span>
+                            <span class="button__icon button__icon--right button__icon--medium">
+                                <svg class="icon icon--filter">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                                </svg>
+                            </span>
                             <span class="button__text">Фильтр</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="catalog__products">
-                <div class="product-cards product-cards--catalog">
-                    <?
+            <?
                     $intSectionID = $APPLICATION->IncludeComponent(
                         "zolo:catalog.section",
                         "",
@@ -238,8 +239,6 @@ else
 
                     $GLOBALS['CATALOG_CURRENT_SECTION_ID'] = $intSectionID;
                     ?>
-                </div>
-            </div>
         </div>
     </div>
 </div>
