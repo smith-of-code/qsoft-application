@@ -147,4 +147,14 @@
             display: none;
         }
     }
+
+    &__section {
+        &-title {
+            margin-bottom: rem($gap-medium);
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem(20px);
+            }
+        }
+    }
 }
