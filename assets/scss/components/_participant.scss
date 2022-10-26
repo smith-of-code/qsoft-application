@@ -45,6 +45,10 @@
                 &--email {
                     width: percentage(204px / 870px);
                 }
+
+                &--pet {
+                    width: percentage(68px / 870px);
+                }
             }
         }
     }
@@ -59,6 +63,8 @@
 
     &__header {
         flex-wrap: wrap;
+
+        cursor: default;
 
         @media #{$screen-desktop} {
             flex-wrap: nowrap;
@@ -160,6 +166,12 @@
                 width: rem(204px);
             }
         }
+
+        &--pets {
+            @media #{$screen-desktop} {
+                width: rem(68px);
+            }
+        }
     }
 
     &__info {
@@ -193,6 +205,35 @@
                     @include text-ellips;
                 }
             }
+        }
+
+        &-pets {
+            display: flex;
+            align-items: center;
+        }
+
+        &-pet {
+            $size: 28px;
+
+            width: rem($size);
+            height: rem($size);
+
+            color: $tuna;
+
+            & + & {
+                margin-left: rem($gap-average);
+            }
+        }
+
+        &-show {
+            position: relative;
+            z-index: 10;
+
+            overflow-x: visible;
+
+            width: max-content;
+
+            background-color: #d2d2d2;
         }
     }
 
