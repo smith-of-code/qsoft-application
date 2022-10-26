@@ -88,11 +88,18 @@ class SupportEventListner
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
                 ->GetNext();
+            
+        $this->sendEmail(
+            $this->prepareFieldsToMessageAddingTicket($ticket),
+            self::TICKET_CREATION_EVENT,
+            $ticket['SITE_ID']
+        );
 
         if (
             $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
             || $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
         ) {
+            
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
@@ -125,7 +132,7 @@ class SupportEventListner
                 ->GetNext();
 
         if ($this->checkStatus($ticket, $ticketValues)) {
-            $this->sendEmail($ticket);
+            $this->sendEmail($this->prepareFieldsToMessageAcceptionTicket($ticket), self::TICKET_ACCEPTION_EVENT, $ticket['SITE_ID']);
 
             $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
             
@@ -165,6 +172,7 @@ class SupportEventListner
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -173,27 +181,49 @@ class SupportEventListner
      * 
      * @return void
      */
-    private function sendEmail(array $ticket): void
+    private function sendEmail(array $cFields, string $EventName, $siteId): void
+    {
+
+        $send =EmailEvent::send([
+            "EVENT_NAME" => $EventName,
+            "LID" => $siteId,
+            "C_FIELDS" => $cFields
+        ]);
+        dump($send);
+    }
+
+    private function prepareFieldsToMessageAcceptionTicket(array $ticket)
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
         $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
 
-        EmailEvent::send([
-            "EVENT_NAME" => self::TICKET_ACCEPTION_EVENT,
-            // Константа SITE_ID в админке передает значение "ru", 
-            // что  не подходит для отправки письма, нужен "s1", его можно получить из тикета.
-            "LID" => $ticket['SITE_ID'],
-            "C_FIELDS" => [
-                "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-                "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
-                "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
-                "TICKET_STATUS" => $status['VALUE'], // статус заявки
-                "TICKET_TYPE" => $category['DESCR'], // статус заявки
-                "TICKET_NUMBER" => $ticket['ID'], // номер тикета
-                "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
-                "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
-            ]
-        ]);
+        return [
+            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
+            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "TICKET_STATUS" => $status['VALUE'], // статус заявки
+            "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
+            "TICKET_NUMBER" => $ticket['ID'], // номер тикета
+            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+        ];
+    }
+
+    private function prepareFieldsToMessageAddingTicket(array $ticket)
+    {
+        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
+
+        return [
+            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
+            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "TICKET_STATUS" => $status['VALUE'], // статус заявки
+            "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
+            "TICKET_NUMBER" => $ticket['ID'], // номер тикета
+            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+        ];
     }
 
     /**
