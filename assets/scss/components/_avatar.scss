@@ -25,6 +25,11 @@
         }
     }
 
+    &--accent {
+        outline: rem(2px) solid $brickRed;
+        box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
+    }
+
     &__box {
         @include position-stretching;
     }

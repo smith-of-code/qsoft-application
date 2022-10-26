@@ -1,4 +1,62 @@
 .participant {
+    &__head {
+        display: none;
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-miniature);
+            line-height: ($line-height-miniature / $font-size-miniature);
+
+            display: flex;
+            align-items: center;
+
+            margin-bottom: rem($gap-small);
+
+            color: $saltBox;
+
+            &-item {
+                & + & {
+                    margin-left: rem(10px);
+                }
+
+                &--name {
+                    width: percentage(152px / 870px);
+
+                    margin-left: rem(85px);
+                }
+
+                &--id {
+                    width: percentage(60px / 870px);
+                }
+
+                &--level {
+                    width: percentage(60px / 870px);
+
+                    text-align: center;
+                }
+
+                &--date {
+                    width: percentage(74px / 870px);
+                }
+
+                &--tel {
+                    width: percentage(124px / 870px);
+                }
+
+                &--email {
+                    width: percentage(204px / 870px);
+                }
+            }
+        }
+    }
+
+    &__item {
+        & + & {
+            @media #{$screen-desktop} {
+                margin-top: rem($gap-mini);
+            }
+        }
+    }
+
     &__header {
         flex-wrap: wrap;
 
@@ -149,6 +207,14 @@
     }
 
     &__section {
+        & + & {
+            margin-top: rem($gap-normal);
+
+            @media #{$screen-desktop} {
+                margin-top: rem($gap-big);
+            }
+        }
+
         &-title {
             margin-bottom: rem($gap-medium);
 
@@ -156,5 +222,9 @@
                 margin-bottom: rem(20px);
             }
         }
+    }
+
+    &__block {
+        margin-top: rem($gap-medium);
     }
 }
