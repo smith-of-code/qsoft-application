@@ -56,5 +56,11 @@
                 width: rem(471px);
             }
         }
-    }  
+    }
+    
+    &__header {
+        @media #{$screen-tablet} {
+            margin-bottom: rem(32px);
+        }
+    }
 }

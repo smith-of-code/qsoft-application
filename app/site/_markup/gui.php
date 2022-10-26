@@ -8512,7 +8512,7 @@
                         <div class="gui__block">
                             <div class="work-steps">
                                 <div class="work-steps__box section__box box box--gray">
-                                    <div class="section__header">
+                                    <div class="work-steps__header section__header">
                                         <h3 class="section__title section__title--closer">Как это рабоатет</h3>
                                     </div>
                                     <div class="section__wrapper">
