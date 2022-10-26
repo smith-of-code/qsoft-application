@@ -21,4 +21,25 @@
     &--violet{
         background-color: $wisteria;
     }
+
+    &--green {
+        background-color: $seaGreen;
+    }
+
+    &--blue {
+        background-color: $bostonBlue;
+    }
+    
+    &--orange {
+        background-color: $piper;
+    }
+
+    &--secondary {
+        padding: rem(6px) rem($gap-average);
+
+        letter-spacing: 0.04em;
+
+        border: rem(1px) solid $white;
+        border-radius: rem(34px);
+    }
 }

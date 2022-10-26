@@ -9446,6 +9446,297 @@
                         </div>
                     </div>
                     <!-- /Карточки Статусы -->
+
+                    <!-- Карточки советов -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки советов</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-article">
+                                <ul class="cards-article__list">
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--green">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--green">
+                                                    Ame бизнес
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--blue">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--blue">
+                                                    Собаки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--orange">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--orange">
+                                                    Кошки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--violet">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--violet">
+                                                    Интересное
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--green">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--green">
+                                                    Ame бизнес
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-article__item">
+
+                                        <article class="card-article card-article--orange">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--orange">
+                                                    Кошки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки советов -->
+                    
+                    <!-- Карточки акций -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки акций</h2>
+
+                        <div class="gui__block">
+                            <div class="cards-sale">
+                                <ul class="cards-sale__list">
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--grey">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород!
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки акций -->
                 </main>
             </div>
         </div>
