@@ -17,7 +17,7 @@
         Название - <?=$product['NAME']?><br>
         Цена - <?=$product['PRICE']?><br>
         Количество - <?=$product['QUANTITY']?><br>
-        Артикул - <?=$product['ARTICLE']?><br>
+        Артикул - <?=$product['VENDOR_CODE']?><br>
         Картинка - <?=$product['PICTURE']?><br>
         <?endforeach;?>
     </div>
@@ -26,7 +26,6 @@
 <button id="button" onclick="loadProducts()">Показать еще</button>
 
 <script>
-    const allProductsId = <?=json_encode($arResult['ALL_PRODUCTS_ID'])?>;
     const orderId = <?=$arParams['ORDER_ID']?>;
     let offset = <?=$arResult['OFFSET']?>;
 
@@ -34,7 +33,6 @@
         BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
             mode: 'class',
             data: {
-                allProductsId: allProductsId,
                 offset: offset,
                 orderId: orderId
             }
@@ -43,6 +41,7 @@
             offset = response['data']['OFFSET'];
             attach(response['data']['PRODUCTS']);
         }, function (response) {
+            console.log(response);
             alert("Ошибка при вызове метода компонента-контроллера")
         });
     }
