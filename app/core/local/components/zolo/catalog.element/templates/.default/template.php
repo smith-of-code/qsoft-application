@@ -182,9 +182,10 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                         <ul class="colors__list">
                             <?  foreach ($arResult['COLORS'] as $offerId => $color) :?>
                             <li class="colors__item">
-                                <div class="color">
+                                <div class="color <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'color--disabled'?>">
                                     <div class="radio">
                                         <input type="radio" class="color__input radio__input" name="radio_color" value="color_<?=$offerId?>" id="radio<?=$offerId?>"
+                                            <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'disabled'?>
                                         >
                                         <label for="radio<?=$offerId?>">
                                             <div class="color__item color__item--big color__item--<?=$color?>"></div>
@@ -217,19 +218,21 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <h4 class="cart__heading">Ваш заказ</h4>
 
                 <!-- Блок селекта фассовки малый вариант-->
-                <? if (!empty($arResult['PACKAGINGS'])) :?>
+                <? if (empty($arResult['PACKAGINGS'])) :?>
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
                     <div class="select select--mini" data-select>
                         <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите фасовку" data-option>
                             <option><!-- пустой option для placeholder --></option>
-                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :?>
-                            <option value="<?=$offerId?>" data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                <?= array_first($package)?>
+                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :
+                                $isAvailable = $arResult['AVAILABLE'][$offerId];
+                                ?>
+                            <option value="<?=$offerId?>"
+                                    data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'
+                                <?= !$isAvailable ? 'disabled' : ''?>
+                            >
+                                <?= $package?>
                             </option>
-<!--                            <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>-->
-<!--                                5 кг-->
-<!--                            </option>-->
                             <? endforeach;?>
                         </select>
                     </div>
@@ -240,18 +243,15 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                     <div class="select select--middle select--simple" data-select>
                         <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
                             <option><!-- пустой option для placeholder --></option>
-                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $color) :?>
+                            <?  foreach ($arResult['COLORS'] as $offerId => $color) :
+                                $isAvailable = $arResult['AVAILABLE'][$offerId];
+                            ?>
                             <option value="<?=$offerId?>"
                                     data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$color?>"></span></span>'
-                                    data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                Белый
-                                <?php // TODO color names
-                                // TODO avaliability?>
+                                    data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
+                                <?= ($arResult['COLOR_NAMES'][$color]) ??  '' ?>
                             </option>
                             <? endforeach;?>
-<!--                            <option value="3" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--blue"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>-->
-<!--                                Синий-->
-<!--                            </option>-->
                         </select>
                     </div>
                 </div>

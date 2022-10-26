@@ -7,6 +7,7 @@ use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Iblock\Model\PropertyFeature;
 use Bitrix\Iblock\Component\Element;
+use QSoft\Helper\ColorHelper;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -317,11 +318,13 @@ class CatalogElementComponent extends Element
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
+            'COLOR_NAMES' => ColorHelper::getColorNames(),
         ];
 
         foreach ($data['OFFERS'] as $offer) {
             $result['PRICES'][$offer['ID']] = $offer['PRICE'];
             $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
+
             $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
             $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
@@ -401,5 +404,28 @@ class CatalogElementComponent extends Element
             $this->arParams['IBLOCK_ID'],
             ['DETAIL_PAGE_SHOW' => 'Y']
         );
+    }
+
+
+    /**
+     * @return array|null
+     */
+    private function getOfferDetailPageProperties(): ?array //  TODO проверку добавить
+    {
+        $detailShowOfferProps = PropertyFeature::getDetailPageShowPropertyCodes(
+            IBLOCK_PRODUCT_OFFER
+        );
+        $props = \Bitrix\Iblock\PropertyTable::getList([
+            'filter' => [
+                'id' => $detailShowOfferProps,
+            ],
+            'select' => ['ID', 'CODE']
+        ]);
+
+        $result = [];
+        while ($item = $props->fetch()) {
+            $result[$item['ID']] = $item['CODE'];
+        }
+        return $result;
     }
 }
