@@ -8510,56 +8510,85 @@
                         <h2 class="gui__block">Как это рабоатет</h2>
 
                         <div class="gui__block">
-                            <div class="it-work">
-                                <h3 class="it-work__title">
-                                    Как это работает
-                                </h3>
+                            <div class="work-steps">
+                                <div class="work-steps__box section__box box box--gray">
+                                    <div class="section__header">
+                                        <h3 class="section__title section__title--closer">Как это рабоатет</h3>
+                                    </div>
+                                    <div class="section__wrapper">
+                                        <ul class="work-steps__list">
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--red">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-1.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">Вы покупаете нашу продукцию</h6>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-                                <ul class="it-work__list">
-                                    <li class="it-work__item">
-                                        <h6 class="it-work__item-text">Вы покупаете нашу продукцию</h6>
-                                        <span class="it-work__count">
-                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-1.png" alt="how-it-work-step-1">
-                                        </span>
-                                    </li>
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--piper">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-2.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Ваш питомец доволен и Вы довольны
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                               
+                                              
+                                            </li>
 
-                                    <li class="it-work__item">
-                                        <h6 class="it-work__item-text">
-                                            Ваш питомец доволен и Вы довольны
-                                        </h6>
-                                        <span class="it-work__count">
-                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-2.png" alt="how-it-work-step-1">
-                                        </span>
-                                    </li>
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--gold">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-3.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Вы рекомендуете нашу продукцию своим друзьям
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-                                    <li class="it-work__item">
-                                        <h6 class="it-work__item-text">
-                                            Вы рекомендуете нашу продукцию своим друзьям
-                                        </h6>
-                                        <span class="it-work__count">
-                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-3.png" alt="how-it-work-step-1">
-                                        </span>
-                                    </li>
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--green">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-4.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Ваши друзья рекомендуют нашу продукцию своим коллегам
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                
 
-                                    <li class="it-work__item">
-                                        <h6 class="it-work__item-text">
-                                            Ваши друзья рекомендуют нашу продукцию своим коллегам
-                                        </h6>
-                                        <span class="it-work__count">
-                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-4.png" alt="how-it-work-step-1">
-                                        </span>
-                                    </li>
+                                            </li>
 
-                                    <li class="it-work__item">
-                                        <h6 class="it-work__item-text">
-                                            Вы получаете вознаграждение за свою рекомендацию и начинаете работать как партнер AmeAppetite
-                                        </h6>
-                                        <span class="it-work__count">
-                                                <img class="it-work__count-picture" src="/local/templates/.default/images/hexagon-step-5.png" alt="how-it-work-step-1">
-                                        </span>
-                                    </li>
-                                </ul>
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--blue">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-5.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Вы получаете вознаграждение за свою рекомендацию и начинаете работать как партнер AmeAppetite
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
+                          
+                           
                         </div>
                     </div>
                     <!-- Как это рабоатет -->

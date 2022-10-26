@@ -1,0 +1,60 @@
+.work-steps {
+
+    &__box {
+        padding: rem($gap-medium);
+
+        @media #{$screen-desktop} {
+            padding: rem(46px) rem(48px) rem(59px) rem(48px);
+        }
+    }
+    
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin-top: rem(-18px);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(-30px);
+        }
+    }
+
+    &__item {
+        width: 100%;
+        margin-top: rem(36px);
+        
+        @media #{$screen-tablet} {
+            margin-top: rem(30px);
+            margin-right: rem(50px);
+        }
+
+        &:nth-child(1) {
+            @media #{$screen-tablet} {
+                width: rem(303px);
+            }
+        }
+
+        &:nth-child(2) {
+            @media #{$screen-tablet} {
+                width: rem(241px);
+            }
+        }
+
+        &:nth-child(3) {
+            @media #{$screen-tablet} {
+                width: rem(269px);
+            }
+        }
+        &:nth-child(4) {
+            @media #{$screen-tablet} {
+                width: rem(303px); 
+            }
+        }
+
+        &:nth-child(5) {
+            @media #{$screen-tablet} {
+                width: rem(471px);
+            }
+        }
+    }  
+}
