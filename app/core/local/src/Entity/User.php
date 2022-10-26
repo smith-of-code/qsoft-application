@@ -7,6 +7,8 @@ use CFile;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Entity\Mutators\UserPropertiesMutator;
+use QSoft\Service\BonusAccountService;
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
@@ -14,6 +16,7 @@ use QSoft\Service\OrderAmountService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
+use ReflectionProperty;
 use RuntimeException;
 
 class User
@@ -50,6 +53,8 @@ class User
      * @var PetService Объект для работы с питомцами пользователя
      */
     public PetService $pets;
+    public BonusAccountService $bonusAccount;
+
     /**
      * @var int ID пользователя
      */
@@ -137,6 +142,31 @@ class User
         'UF_LOYALTY_LEVEL',
     ];
 
+    protected static array $protectedFields = [
+        'id', 'login'
+    ];
+
+    protected static array $bitrixFieldsToObjectPropertiesMapping = [
+        'ID' => 'id',
+        'LOGIN' => 'login',
+        'ACTIVE' => 'active',
+        'NAME' => 'name',
+        'LAST_NAME' => 'lastName',
+        'SECOND_NAME' => 'secondName',
+        'EMAIL' => 'email',
+        'PERSONAL_GENDER' => 'gender',
+        'PERSONAL_BIRTHDAY' => 'birthday',
+        'PERSONAL_PHOTO' => 'photo',
+        'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
+        'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
+        'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
+        'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
+        'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => 'agreeToReceiveInformationAboutPromotions',
+        'UF_MENTOR_ID' => 'mentor',
+        'UF_BONUS_POINTS' => 'bonusPoints',
+        'UF_LOYALTY_CHECK_DATE' => 'loyaltyCheckDate'
+    ];
+
     /**
      * User constructor.
      * @param int|null $userId ID пользователя
@@ -170,27 +200,7 @@ class User
             }
         }
 
-        // Стандартные поля
-        $this->id = $user['ID'];
-        $this->login = $user['LOGIN'];
-        $this->active = $user['ACTIVE'] === 'Y';
-        $this->name = $user['NAME'];
-        $this->lastName = $user['LAST_NAME'];
-        $this->secondName = $user['SECOND_NAME'];
-        $this->email = $user['EMAIL'];
-        $this->gender = $user['PERSONAL_GENDER'];
-        $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
-        $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
-        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
-
-        // Пользовательские поля
-        $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
-        $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
-        $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
-        $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = empty($user['UF_MENTOR_ID']) ? null : new self((int) $user['UF_MENTOR_ID']);
-        $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
-        $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
+        $this->setObjectProperties($user);
 
         //Задаем необходимые связанные объекты
         $this->legalEntity = new LegalEntityService($this);
@@ -200,6 +210,7 @@ class User
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
+        $this->bonusAccount = new BonusAccountService($this);
     }
 
     /**
@@ -208,8 +219,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => 'Y'])) {
-            $this->active = true;
+        if ($this->update(['ACTIVE' => true])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;
@@ -225,12 +235,32 @@ class User
     }
 
     /**
-     * Обновляет поля пользователя
-     * @param array $fields
+     * Обновляет поля пользователя битрикс и свойства объекта
+     * @param array $bitrixFields
      * @return bool
      */
-    public function update(array $fields): bool
+    public function update(array $bitrixFields): bool
     {
-        return $this->cUser->Update($this->id, $fields);
+        $this->setObjectProperties($bitrixFields);
+
+        return $this->cUser->Update($this->id, $bitrixFields);
+    }
+
+    protected function setObjectProperties(array $bitrixFields): void
+    {
+        $mutator = UserPropertiesMutator::class;
+
+        foreach ($bitrixFields as $bitrixFieldName => $bitrixFieldValue) {
+            $objectPropertyName = self::$bitrixFieldsToObjectPropertiesMapping[$bitrixFieldName];
+
+            $objectPropertyValue = $bitrixFieldValue;
+
+            $mutationMethod = 'read' . ucfirst($objectPropertyName);
+            if (method_exists($mutator, $mutationMethod)) {
+                $objectPropertyValue = call_user_func([$mutator, $mutationMethod], $objectPropertyValue);
+            }
+
+            $this->$objectPropertyName = $objectPropertyValue;
+        }
     }
 }

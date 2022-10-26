@@ -10,14 +10,10 @@ use QSoft\Helper\BasketHelper;
 
 class BasketBonus
 {
-    const LEVEL_PROPS = [
-        'K1' => 'BONUSES_K1',
-        'K2' => 'BONUSES_K2',
-        'K3' => 'BONUSES_K3'
-    ];
+    private const BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX = 'BONUSES_';
 
     /**
-     * @var BasketBase корзина пользователя
+     * @var BasketBase Корзина пользователя
      */
     private BasketBase $basket;
 
@@ -32,12 +28,19 @@ class BasketBonus
 
     /**
      * @param User $user
-     * @return int сумма бонусов товаров по уровyю пользователя
+     * @return int Сумма бонусов товаров по уровню пользователя
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
      */
     public function getUserBonusSum(User $user): int
     {
+        if (!$user->groups->isConsultant() || empty($user->loyaltyLevel)) {
+            return 0;
+        }
+
         $bonus = 0;
-        $propLevel = self::LEVEL_PROPS[$user->loyalty->getLoyaltyLevel()];
+        $propLevel = self::BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX . $user->loyaltyLevel;
 
         $offersBonuses = $this->loadBasketBonusesByUserLevel($user);
 
@@ -50,22 +53,18 @@ class BasketBonus
 
     /**
      * @param User $user
-     * @return array бонусы по уровня пользователя по товарам
+     * @return array Бонусы по уровню пользователя по товарам
      */
     public function loadBasketBonusesByUserLevel(User $user): array
     {
         $result = [];
-        if (!isset($this->basket)) {
-            $this->loadBasket();
+
+        $propLevel = self::BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX . $user->loyaltyLevel;
+
+        if ($propLevel) {
+            $result = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
         }
 
-        if ($user->groups->isConsultant()) {
-            $propLevel = self::LEVEL_PROPS[$user->loyalty->getLoyaltyLevel()];
-
-            if ($propLevel) {
-                $result = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
-            }
-        }
         return $result;
     }
 
@@ -76,10 +75,4 @@ class BasketBonus
     {
         $this->basket = $basket;
     }
-
-    public function loadBasket(): void
-    {
-        $this->basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);;
-    }
-
 }
