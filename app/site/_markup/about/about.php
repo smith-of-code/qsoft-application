@@ -514,9 +514,35 @@
                             </section>
 
                             <section class="about__appreciate section">
-                                <h3 class="section__title section__title--closer">
-                                    Мы ценим
-                                </h3>
+                                <div class="section__box box">
+                                    <h3 class="section__title section__title--closer">
+                                        Мы ценим
+                                    </h3>
+
+                                    <ul class="about__appreciate-list">
+                                        <li class="about__appreciate-item">
+                                            <div class="about__appreciate-card">
+                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
+                                                <p class="about__appreciate-text">Честность</p>
+                                            </div>
+                                        </li>
+
+                                        <li class="about__appreciate-item">
+                                            <div class="about__appreciate-card">
+                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
+                                                <p class="about__appreciate-text">Честность</p>
+                                            </div>
+                                        </li>
+
+                                        <li class="about__appreciate-item">
+                                            <div class="about__appreciate-card">
+                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/foot.svg" alt="solidarity">
+                                                <p class="about__appreciate-text">Честность</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                               
                             </section>
                         </div>
                     </div>
