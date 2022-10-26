@@ -6,17 +6,17 @@ use Carbon\Carbon;
 
 class UserPropertiesMutator
 {
-    public function readBirthday(string $fieldValue): Carbon
+    public function readBirthday(?string $fieldValue): Carbon
     {
         return Carbon::createFromTimestamp(MakeTimeStamp($fieldValue));
     }
 
-    public function readPhoto(string $fieldValue)
+    public function readPhoto(?string $fieldValue)
     {
         return $fieldValue ?? 0;
     }
 
-    public function readLoyaltyLevel(string $fieldValue): string
+    public function readLoyaltyLevel(?string $fieldValue): string
     {
         return $fieldValue ?? '';
     }

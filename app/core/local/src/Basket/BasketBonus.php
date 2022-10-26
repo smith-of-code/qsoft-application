@@ -2,6 +2,9 @@
 
 namespace QSoft\Basket;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\Fuser;
@@ -27,11 +30,19 @@ class BasketBonus
     }
 
     /**
+     * @param BasketBase $basket
+     */
+    public function setBasket(BasketBase $basket): void
+    {
+        $this->basket = $basket;
+    }
+
+    /**
      * @param User $user
      * @return int Сумма бонусов товаров по уровню пользователя
-     * @throws \Bitrix\Main\ArgumentException
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws \Bitrix\Main\SystemException
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function getBasketItemsBonusSum(User $user): int
     {
@@ -39,40 +50,16 @@ class BasketBonus
             return 0;
         }
 
-        $bonus = 0;
         $propLevel = self::BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX . $user->loyaltyLevel;
 
-        $offersBonuses = $this->loadBasketBonusesByUserLevel($user);
+        $offerPropertiesByBasketItems = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
 
-        foreach ($offersBonuses as $bonusItem) {
-            $bonus += (int)$bonusItem[$propLevel];
+        $bonus = 0;
+
+        foreach ($offerPropertiesByBasketItems as $basketItemId => $offerProperties) {
+            $bonus += (int)$offerProperties[$propLevel] * $this->basket->getItemById($basketItemId)->getQuantity();
         }
 
         return $bonus;
-    }
-
-    /**
-     * @param User $user
-     * @return array Бонусы по уровню пользователя по товарам
-     */
-    public function loadBasketBonusesByUserLevel(User $user): array
-    {
-        $result = [];
-
-        $propLevel = self::BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX . $user->loyaltyLevel;
-
-        if ($propLevel) {
-            $result = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param BasketBase $basket
-     */
-    public function setBasket(BasketBase $basket): void
-    {
-        $this->basket = $basket;
     }
 }

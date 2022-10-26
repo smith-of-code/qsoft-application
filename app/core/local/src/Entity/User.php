@@ -255,6 +255,16 @@ class User
 
             $objectPropertyValue = $bitrixFieldValue;
 
+            if (property_exists(self::class, $objectPropertyName)) {
+                switch ((new ReflectionProperty(self::class, $objectPropertyName))->getType()->getName()) {
+                    case 'int':
+                        $objectPropertyValue = (int)$objectPropertyValue;
+                        break;
+                    case 'bool':
+                        $objectPropertyValue = (bool)$objectPropertyValue;
+                }
+            }
+
             $mutationMethod = 'read' . ucfirst($objectPropertyName);
             if (method_exists($mutator, $mutationMethod)) {
                 $objectPropertyValue = call_user_func([$mutator, $mutationMethod], $objectPropertyValue);

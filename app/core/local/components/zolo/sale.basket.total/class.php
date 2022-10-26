@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Sale\Order;
 use QSoft\Basket\BasketBonus;
 use QSoft\Entity\User;
 use QSoft\Service\BonusAccountService;
@@ -16,28 +17,31 @@ class SaleBasketTotal extends CBitrixComponent
     public function executeComponent()
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        $basket->refresh(Basket\RefreshFactory::create(Basket\RefreshFactory::TYPE_FULL));
+
+        $basket->refresh();
+
+        $order = Order::create(SITE_ID, Fuser::getId());
+        $order->setPersonTypeId(1);
+        $order->setBasket($basket);
+
+        $discounts = $order->getDiscount();
+        $discountResult = $discounts->getApplyResult();
 
         $this->arResult = [
             'BASKET_COUNT' => $basket->count(),
-            'BASKET_PRICE' => $basket->getPrice(),
-            'BASKET_TOTAL_VAT' => $basket->getVatSum(),
-//            'TOTAL_DISCOUNT' => $basket->
+            'BASKET_PRICE' => $order->getPrice(),
+            'BASKET_TOTAL_VAT' => $order->getVatSum(),
+            'TOTAL_DISCOUNT' => $order->getDiscountPrice(),
+            'DISCOUNT_RESULT' => $discountResult
         ];
 
         if (currentUser() && currentUser()->groups->isConsultant()) {
             $this->loadBonusesBlock($basket);
         }
 
-        $discounts = \Bitrix\Sale\Discount::buildFromBasket($basket, new \Bitrix\Sale\Discount\Context\Fuser($basket->getFUserId(true)));
-
-        $discounts->calculate();
-
-        $result = $discounts->getApplyResult(true);
-
 //        $prices = $result['PRICES']['BASKET'];
 
-        dump($result);
+        dump($this->arResult);
 
 //        dump($this->arResult);
     }
