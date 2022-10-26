@@ -1,10 +1,12 @@
 <?php
 
 use Bitrix\Main;
-use	Bitrix\Main\Loader;
-use	Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Iblock\Model\PropertyFeature;
+use Bitrix\Iblock\Component\Element;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -18,7 +20,7 @@ if (!Loader::includeModule('iblock'))
     return;
 }
 
-class CatalogElementComponent extends CBitrixComponent
+class CatalogElementComponent extends Element
 {
     private bool $isError = false;
     /**
@@ -63,6 +65,10 @@ class CatalogElementComponent extends CBitrixComponent
             }
 
             if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
+                throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+            }
+
+            if (!Loader::includeModule('sale') || !Loader::includeModule('catalog')) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
@@ -112,6 +118,10 @@ class CatalogElementComponent extends CBitrixComponent
                     0,
                     ['SECTION_BUTTONS' => true, 'SESSID' => false]
                 );
+
+                $action = $this->prepareAction();
+                $this->setAction($action);
+                $this->doAction();
 
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
@@ -199,17 +209,18 @@ class CatalogElementComponent extends CBitrixComponent
             }
         }
 
-        $ids = array_column($offers, 'ID');
-        $prices = PriceTable::getList([
-            'filter' => ['@PRODUCT_ID' => $ids],
-        ])->fetchAll();
-        foreach ($offers as &$offer) {
-            $price = current(array_filter($prices, function ($item) use ($offer) {
-                return (int) $item['PRODUCT_ID'] === $offer['ID'];
-            }));
+        if ($ids = array_column($offers, 'ID')) {
+            $prices = PriceTable::getList([
+                'filter' => ['=PRODUCT_ID' => $ids],
+            ])->fetchAll();
+            foreach ($offers as &$offer) {
+                $price = current(array_filter($prices, function ($item) use ($offer) {
+                    return (int) $item['PRODUCT_ID'] === $offer['ID'];
+                }));
 
-            if ($price) {
-                $offer['PRICE'] = $price;
+                if ($price) {
+                    $offer['PRICE'] = $price;
+                }
             }
         }
 
@@ -237,6 +248,9 @@ class CatalogElementComponent extends CBitrixComponent
         }
         if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
             $result[] = $item['PROPERTY_VIDEO_VALUE'];
+        }
+        if (isset($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
+            $result = array_merge($item['PROPERTY_IMAGES_VALUE'], $result);
         }
         if (isset($item['PROPERTY_DOCUMENTS_VALUE']) && $item['PROPERTY_DOCUMENTS_VALUE']) {
             $result = array_merge($item['PROPERTY_DOCUMENTS_VALUE'], $result);
@@ -292,6 +306,7 @@ class CatalogElementComponent extends CBitrixComponent
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
             'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
+            'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
         ];
@@ -316,6 +331,66 @@ class CatalogElementComponent extends CBitrixComponent
             $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
         }
 
+        // Объект CIBlockPropertyResult
+        $propsResult = $this->getProperties();
+
+        // id элементов, у которых выставлен параметр "Показывать на детальной странице.
+        $showedPropertiesInDetail = $this->getShowedInDetailPageProperties();
+
+        while($item = $propsResult->GetNext()) {
+            $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
+
+            if (in_array($item['ID'], $showedPropertiesInDetail)) {
+                $properties[$item['ID']] = $item;
+            }
+        }
+
+        $index = 1;
+        foreach ($properties as $property) {
+            if ($index++ > $this->arParams['PROPERTY_COUNT_DETAIL']) {
+                break;
+            }
+
+            $code = $property['CODE'];
+            if ($value = $data['PRODUCT']["PROPERTY_{$code}_VALUE"]) {
+                $result['SPECIFICATION'][$code] = $value;
+            }
+        }
+
+        $result['ENERGY_VALUE'] = [
+            'CALCIUM' => $data['PRODUCT']['PROPERTY_CALCIUM_VALUE'],
+            'PRHOSPHORUS' => $data['PRODUCT']['PROPERTY_PRHOSPHORUS_VALUE'],
+            'ROW_ASH' => $data['PRODUCT']['PROPERTY_ROW_ASH_VALUE'],
+            'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
+            'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
+            'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
+        ];
+
         return $result;
+    }
+
+    /**
+     * @return CIBlockPropertyResult
+     */
+    private function getProperties():CIBlockPropertyResult
+    {
+        return CIBlockProperty::GetList(
+            ["SORT" => "ASC"],
+            [
+                "ACTIVE"    => "Y",
+                "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
+            ]
+        );
+    }   
+
+    /**
+     * @return array|null
+     */
+    private function getShowedInDetailPageProperties(): ?array
+    {
+        return PropertyFeature::getDetailPageShowPropertyCodes(
+            $this->arParams['IBLOCK_ID'],
+            ['DETAIL_PAGE_SHOW' => 'Y']
+        );
     }
 }

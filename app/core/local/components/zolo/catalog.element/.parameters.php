@@ -51,6 +51,12 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
         ],
         'CACHE_TIME' => ['DEFAULT' => 36000000],
+        'PROPERTY_COUNT_DETAIL' => [
+            'PARENT' => 'DATA_SOURCE',
+            'NAME' => Loc::getMessage('PROPERTY_COUNT_DETAIL'),
+            'TYPE' => 'STRING',
+            'DEFAULT' => '4',
+        ],
         'SET_BROWSER_TITLE' => [
             'PARENT' => 'ADDITIONAL_SETTINGS',
             'NAME' => Loc::getMessage('PARAMETER_SET_BROWSER_TITLE'),
