@@ -1,37 +1,58 @@
 .about {
+
     &__hero {
         &-box {
-            padding: rem(16px);
+            padding: rem($gap-medium);
 
             @media #{$screen-desktop} {
-                padding: rem(24px);
+                padding: rem($gap-normal);
             }
         }
 
         &-title {
-            margin-bottom: rem(12px);
+            margin-bottom: rem($gap-average);
         }
 
         &-images {
-            margin-bottom: rem(12px);
+            margin-bottom: rem($gap-average);
 
             @media #{$screen-desktop} {
-                margin-bottom: rem(32px);
+                margin-bottom: rem($gap-big);
             }
         }
     }
 
     &__appreciate {
+        &-header {
+            margin-bottom: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-big);
+            }
+        }
+
         &-list {
             display: flex;
+            flex-direction: column;
 
-            margin: 0 rem(-15px);
+            @media #{$screen-tablet} {
+                flex-direction: row;
+
+                margin: 0 rem(-15px);
+            }
         }
 
         &-item {
-            flex-basis: percentage(1 / 3);
+            flex-basis: percentage(1 / 1);
 
-            padding: 0 rem(15px);
+            margin-top: rem(16px);
+
+            @media #{$screen-tablet} {
+                flex-basis: percentage(1 / 3);
+
+                margin-top: 0;
+                padding: 0 rem(15px);
+            }
         }
 
         &-card {
@@ -40,14 +61,287 @@
             justify-content: center;
             flex-direction: column;
 
-            padding: rem(32px) 0;
+            padding: rem($gap-big) 0;
 
-            background: #D0EDFE;
-            border-radius: rem(16px);
+            border-radius: rem($border-radius-average);
+
+            &--blue {
+                color: $bostonBlue;
+                background-color: $onahau;
+            }
+
+            &--green {
+                color: $seaGreen;
+                background-color: $tara;
+            }
+
+            &--eggwhite {
+                color: $buddhaGold;
+                background-color: $eggWhite;
+            }
+        }
+        
+        &-text {
+            font-weight: $font-weight-semibold;
+            font-size: rem($font-size-normal);
+            line-height: ($line-height-normal/$font-size-normal);
         }
 
         &-icon {
+            margin-bottom: rem($gap-average);
+        }
+    }
+
+    &__goals {
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+
+            margin: 0 rem(-15px);
+
+            @media #{$screen-desktop} {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+
+        &-item {
+            flex-basis: percentage(1 / 1);
+            padding: 0 rem(15px);
+            margin-top: rem(30px);
+
+            @media #{$screen-desktop} {
+                flex-basis: percentage(1 / 2);
+            }
+         
+            &--full {
+                flex-basis: percentage(1 / 1); 
+            }
+        }
+
+        &-card {
+            display: flex;
+            flex-direction: column;
+
+            height: 100%;
+
+            border-radius: rem($border-radius-average);
+            background: $athensGray;
+
+            @media #{$screen-tablet} {
+                flex-direction: row;
+            }
+
+            &--full  {
+                @media #{$screen-tablet} {
+                    flex-direction: column;
+                }
+
+                @media #{$screen-desktop} {
+                    flex-direction: row;
+                }
+            }
+
+            &--full & {
+                &-wrapper {
+                    @media #{$screen-tablet} {
+                        max-width: 100%;
+                    }
+
+                    @media #{$screen-desktop} {
+                        max-width: rem(588px);
+                    }
+                }
+            }
+
+            &-wrapper {
+                display: flex;
+                flex-shrink: 0;
+
+                width: 100%;
+
+                @media #{$screen-tablet} {
+                    max-width: rem(258px);
+                }
+            }
+
+            &-picture {
+                width: 100%;
+            }
+
+            &-images {
+                width: 100%;
+            }
+
+            &-content {
+                padding: rem(12px) rem(8px) rem(16px) rem(8px);
+
+                @media #{$screen-tablet} {
+                    padding: rem(38px) rem(20px) rem(38px) rem(24px);
+                }
+            }
+
+            &-title {
+                margin-bottom: rem(8px);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem(12px);
+                }
+            }
+
+            &-text {
+                font-weight: $font-weight-medium;
+                font-size: rem($font-size-small);
+                line-height: ($line-height-small/$font-size-small);
+
+                @media #{$screen-tablet} {
+                    font-size: rem($font-size-normal);
+                    line-height: ($line-height-normal/$font-size-normal);
+                }
+            }
+        }
+    }
+
+    &__advantages {
+
+        &-top {
+            display: flex;
+            flex-direction: column;
+
+            @media #{$screen-desktop} {
+                flex-direction: row;
+            }
+        }
+
+        &-wrapper {
             margin-bottom: rem(12px);
+          
+            @media #{$screen-tablet} {
+                flex-basis: percentage(1 / 1);
+                margin-bottom: 0;
+            }
+
+            @media #{$screen-desktop} {
+                flex-basis: percentage(1 / 2);
+            }
+        }
+
+        &-picture {
+            width: 100%;
+        }
+
+        &-images {
+            width: 100%;
+        }
+
+        &-content {
+            flex-basis: percentage(1 / 2);
+           
+
+            @media #{$screen-tablet} {
+                padding: rem(16px);
+            }
+
+            @media #{$screen-desktop} {
+                padding: rem(56px) rem(30px) 0 rem(48px);
+            }
+        }
+
+        &-title {
+            margin-bottom: rem(12px);
+        }
+
+        &-text {
+            margin-bottom: rem(16px);
+        }
+
+        &-list {
+            display: flex;
+
+            margin: 0 rem(-4px);
+
+            @media #{$screen-tablet} {
+                margin: 0 rem(-12px);
+            }
+        }
+
+        &-item {
+            flex-basis: percentage(1 / 3);
+
+            padding: 0 rem(4px);
+
+            @media #{$screen-tablet} {
+                padding: 0 rem(12px);
+            }
+        }
+
+        &-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            padding: rem(24px) rem(10px);
+
+            border-radius: rem(16px);
+            background: $white;
+
+            &-icon {
+                $size: 42px; 
+
+                width: rem($size);
+                height: rem($size);
+                margin-bottom: rem(4px);
+
+                @media #{$screen-tablet} {
+                    $size: 42px;
+
+                    width: rem($size);
+                    height: rem($size);
+                    margin-bottom: rem(8px);
+                }
+            }
+
+            &-text {
+                font-weight: $font-weight-medium;
+                font-size: rem($font-size-miniature);
+                line-height: ($line-height-miniature/$font-size-miniature);
+
+                text-align: center;
+                
+                @media #{$screen-tablet} {
+                    font-size: rem($font-size-normal);
+                    line-height: ($line-height-normal/$font-size-normal);
+                }
+            }
+        }
+    }
+
+    &__cert {
+        &-box {
+            padding: rem(16px);
+
+            @media #{$screen-tablet} {
+                padding: 0;
+            }
+        }
+
+        &-list {
+            @media #{$screen-tablet} {
+                margin: 0 rem(-15px);
+            }
+        }
+
+        &-item {
+            flex-basis: percentage( 1 / 4);
+
+            margin-top: rem(16px);
+            
+
+            @media #{$screen-tablet} {
+                padding: 0 rem(15px);
+            }
         }
     }
 }

@@ -515,34 +515,273 @@
 
                             <section class="about__appreciate section">
                                 <div class="section__box box">
-                                    <h3 class="section__title section__title--closer">
-                                        Мы ценим
-                                    </h3>
-
+                                    <div class="section__header about__appreciate-header">
+                                        <h3 class="section__title section__title--closer">
+                                            Мы ценим
+                                        </h3>
+                                    </div>
+                                    
                                     <ul class="about__appreciate-list">
                                         <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card">
+                                            <div class="about__appreciate-card about__appreciate-card--blue">
                                                 <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
                                                 <p class="about__appreciate-text">Честность</p>
                                             </div>
                                         </li>
 
                                         <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card">
+                                            <div class="about__appreciate-card about__appreciate-card--green">
                                                 <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
-                                                <p class="about__appreciate-text">Честность</p>
+                                                <p class="about__appreciate-text">Ответсвенность</p>
                                             </div>
                                         </li>
 
                                         <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card">
+                                            <div class="about__appreciate-card about__appreciate-card--eggwhite">
                                                 <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/foot.svg" alt="solidarity">
-                                                <p class="about__appreciate-text">Честность</p>
+                                                <p class="about__appreciate-text">Персональный подход</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                                
+                            </section>
+
+                            <section class="about__goals section">
+                                <div class="section__box box">
+                                    <ul class="about__goals-list">
+                                        <li class="about__goals-item">
+                                            <div class="about__goals-card">
+                                                <div class="about__goals-card-wrapper">
+                                                    <picture class="about__goals-card-picture">
+                                                        <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
+                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-1.png" alt="">
+                                                    </picture>
+                                                </div>
+                                           
+                                                <div class="about__goals-card-content">
+                                                    <h4 class="about__goals-card-title">
+                                                        Дарим пользу
+                                                    </h4>
+                                                    <p class="about__goals-card-text">
+                                                        Наша продукция понравится Вашим питомцам, и Вы захотите ее рекомендовать.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="about__goals-item">
+                                            <div class="about__goals-card">
+                                                <div class="about__goals-card-wrapper">
+                                                    <picture class="about__goals-card-picture">
+                                                        <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
+                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-2.png" alt="">
+                                                    </picture>
+                                                </div>
+                                                
+                                                <div class="about__goals-card-content">
+                                                    <h4 class="about__goals-card-title">
+                                                        Растем вместе
+                                                    </h4>
+                                                    <p class="about__goals-card-text">
+                                                        Мы ценим наших партнеров и готовы прислушиваться к Вашему мнению, ведь на нем строится наше дело.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="about__goals-item about__goals-item--full">
+                                            <div class="about__goals-card about__goals-card--full">
+                                                <div class="about__goals-card-wrapper">
+                                                    <picture class="about__goals-card-picture">
+                                                        <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
+                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-3.png" alt="">
+                                                    </picture>
+                                                </div>
+                                               
+                                                <div class="about__goals-card-content">
+                                                    <h4 class="about__goals-card-title">
+                                                        Стремимся к успеху
+                                                    </h4>
+                                                    <p class="about__goals-card-text">
+                                                        Мы строим бизнес так, чтобы дать возможность нашим партнерам рекомендовать качественную продукцию и получать стабильный доход. Мы не экономим на качестве, мы не тратим деньги на рекламу.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <section class="about__advantages section">
+                                <div class="about__advantages-box section__box box box--gray box--rounded-sm">
+                                    <div class="about__advantages-top">
+                                       <div class="about__advantages-wrapper">
+                                            <picture class="about__advantages-picture">
+                                                <source srcset="/local/templates/.default/images/about-adventages-mobile.png" media="(max-width: 767px)" />
+                                                <img class="about__advantages-images" src="/local/templates/.default/images/about-adventages.png" alt="">
+                                            </picture>
+                                       </div>
+                                       <div class="about__advantages-content">
+                                            <h3 class="about__advantages-title section__title section__title--closer">
+                                                Наша продукция – это то, чем хочется делиться
+                                            </h3>
+                                            <p class="about__advantages-text">
+                                                Мы выбираем только качественную продукцию, которую не стыдно порекомендовать маме, лучшему другу или коллегам в офисе.
+                                                Наша цель - объединить людей, которые любят животных и стремятся дать лучшее нашим меньшим братьям, ведь они нам доверяют. 
+                                                Поэтому мы предлагаем широкий ассортимент сухих и влажных кормов Premium и Super Premium класса, а также современные и качественные аксессуары по привлекательной цене.
+                                            </p>
+                                            <ul class="about__advantages-list">
+                                                <li class="about__advantages-item">
+                                                    <div class="about__advantages-card">
+                                                        <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-happy.svg" alt="">
+                                                        <p class="about__advantages-card-text">На любой вкус</p>
+                                                    </div>
+                                                </li>
+
+                                                <li class="about__advantages-item">
+                                                    <div class="about__advantages-card">
+                                                        <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-vet.svg" alt="">
+                                                        <p class="about__advantages-card-text">На любой вкус</p>
+                                                    </div>
+                                                </li>
+
+                                                <li class="about__advantages-item">
+                                                    <div class="about__advantages-card">
+                                                        <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-dog.svg" alt="">
+                                                        <p class="about__advantages-card-text">На любой вкус</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                       </div>
+                                    </div>
+                                    <div class="about__advantages-bottom"></div>
+                                </div>
+                            </section>
+
+                            <section class="about__cert section">
+                                <div class="about__cert-box section__box box">
+                                    <div class=" section__header">
+                                        <h3 class="about__cert-title section__title section__title--closer">
+                                            Сертификаты, подтверждающие качество нашей продукции
+                                        </h3>
+                                    </div>
+
+                                    <div class="about__cert-list documents">
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Сертификат о государственной регистрации</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Заключение ветеринарной комиссии</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Часто задаваемые вопросы</span>
+                                                        <span class="document__text-size">(1.2 Mb)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Сертификат о безопасности</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Сертификат о безопасности</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Сертификат о безопасности</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="about__cert-item documents__item">
+                                            <div class="document document--column">
+                                                <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                                    <div class="document__icon">
+                                                        <svg class="icon icon--pdf">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="document__text">
+                                                        <span class="document__text-name">Сертификат о безопасности</span>
+                                                        <span class="document__text-size">(630 KB)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </section>
                         </div>
                     </div>
