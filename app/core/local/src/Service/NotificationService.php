@@ -5,6 +5,7 @@ namespace QSoft\Service;
 use Bitrix\Main\Loader;
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Entity;
+use Bitrix\Main\ORM\Objectify\EntityObject;
 use Bitrix\Main\ORM\Query\Join;
 use QSoft\Entity\User;
 use QSoft\ORM\NotificationTable;
@@ -90,5 +91,39 @@ class NotificationService
         }
 
         return $hlEntity->getDataClass();
+    }
+
+    /**
+     * @return EntityObject|false
+     */
+    public function getById(int $notificationId)
+    {
+        $notification = NotificationTable::getList([
+            'select' => ['ID', 'UF_STATUS'],
+            'filter' => [
+                'UF_USER_ID' => $this->user->id,
+                'ID' => $notificationId,
+            ],
+        ])->fetchObject();
+        return $notification && $notification->isFilled('ID') ? $notification : false;
+    }
+
+    public function getPropValueById(int $propertyId): string
+    {
+        $propsEnumEntity = Entity::compileEntity('PROPS',
+            [
+                (new IntegerField('ID'))
+                    ->configurePrimary(),
+                (new StringField('VALUE')),
+            ],
+            [
+                'namespace' => 'NotificationsListEnumEntity',
+                'table_name' => 'b_user_field_enum',
+            ]);
+
+        return $propsEnumEntity->getDataClass()::getRow([
+            'select' => ['ID', 'VALUE'],
+            'filter' => ['ID' => $propertyId]
+        ])['VALUE'];
     }
 }
