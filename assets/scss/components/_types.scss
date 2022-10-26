@@ -1,0 +1,25 @@
+.types {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: rem(-$gap-mini);
+
+    &__item {
+        display: inline-block;
+
+        margin-top: rem($gap-mini);
+        margin-right: rem($gap-small);
+        padding: rem(2px) rem(6px);
+
+        border-radius: rem($border-radius-small);
+        background-color: $athensGray;
+    }
+
+    &__value {
+        @include text-miniature($font-weight-medium);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+    }
+}

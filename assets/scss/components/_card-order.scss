@@ -7,6 +7,7 @@
 
     &::before {
         position: absolute;
+        z-index: 1;
         top: 0;
         right: 0;
         left: 0;
@@ -79,6 +80,8 @@
     }
 
     &__header {
+        position: relative;
+
         padding: rem($gap-medium) rem($gap-medium) rem($gap-average);
 
         background-color: $athensGray;
@@ -136,6 +139,8 @@
         }
 
         &:nth-child(5) {
+            z-index: 1;
+
             order: 5;
         }
 
@@ -238,7 +243,7 @@
 
         & .accordeon {
             &__item {
-                padding: rem($gap-mini) rem($gap-medium);
+                padding: rem($gap-medium);
     
                 border-radius: rem($border-radius-middle);
                 background-color: $white;
@@ -270,5 +275,14 @@
                 }
             }
         }
+    }
+
+    &__link {
+        @include position-stretching;
+    }
+
+    &__return {
+        margin-top: rem($gap-medium);
+        margin-left: auto;
     }
 }
