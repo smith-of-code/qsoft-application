@@ -12,7 +12,6 @@ use QSoft\Migration\Migration;
 class AddingNewTypeAndTemplateEmailEvent extends Migration
 {
     private const TICKET_CREATION_EVENT = 'TICKET_CREATION_EVENT';
-    private const TICKET_NEW_FOR_TECHSUPPORT = 'TICKET_NEW_FOR_TECHSUPPORT';
 
     /**
      * @return void
@@ -47,8 +46,8 @@ class AddingNewTypeAndTemplateEmailEvent extends Migration
             'ACTIVE'=> 'Y',
             'EVENT_NAME' => self::TICKET_CREATION_EVENT,
             'LID' => SITE_ID,
-            'EMAIL_FROM' => '#DEFAULT_EMAIL_FROM#',
-            'EMAIL_TO' => '#DEFAULT_EMAIL_FROM#',
+            'EMAIL_FROM' => '#MESSAGE_SENDER#',
+            'EMAIL_TO' => '#MESSAGE_TAKER#',
             'SUBJECT' => 'Статус вашей заявки.',
             'BODY_TYPE' => 'html',
             'MESSAGE' => '

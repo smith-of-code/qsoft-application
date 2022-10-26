@@ -45,7 +45,7 @@ class newMailMessageTemplate extends Migration
             'ACTIVE'=> 'Y',
             'EVENT_NAME' => self::TICKET_ACCEPTION_EVENT,
             'LID' => SITE_ID,
-            'EMAIL_FROM' => '#DEFAULT_EMAIL_FROM#',
+            'EMAIL_FROM' => '#MESSAGE_SENDER#',
             'EMAIL_TO' => '#MESSAGE_TAKER#',
             'SUBJECT' => 'Статус вашей заявки.',
             'BODY_TYPE' => 'html',

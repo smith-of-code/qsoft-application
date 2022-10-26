@@ -3,6 +3,7 @@
 namespace QSoft\Events;
 
 use Bitrix\Main\Mail\Event as EmailEvent;
+use CSite;
 use \CTicketDictionary;
 use \CUserFieldEnum;
 use DateTime;
@@ -25,7 +26,6 @@ class SupportEventListner
     // Название символьного кода почтового события.
     private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
     // Название символьного кода смс события.
-    private const TICKET_ACCEPTION_EVENT_SMS = 'TICKET_ACCEPTION_EVENT_SMS';
     private const TICKET_CREATION_EVENT = 'TICKET_CREATION_EVENT';
 
     /**
@@ -183,13 +183,11 @@ class SupportEventListner
      */
     private function sendEmail(array $cFields, string $EventName, $siteId): void
     {
-
-        $send =EmailEvent::send([
+        EmailEvent::send([
             "EVENT_NAME" => $EventName,
             "LID" => $siteId,
             "C_FIELDS" => $cFields
         ]);
-        dump($send);
     }
 
     private function prepareFieldsToMessageAcceptionTicket(array $ticket)
@@ -213,11 +211,13 @@ class SupportEventListner
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
         $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
+        $rsSites = CSite::GetByID(SITE_ID)->Fetch();
+        $siteEmail = $rsSites['EMAIL'];
 
         return [
             "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
-            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "MESSAGE_SENDER" => $siteEmail, // почта отправителя
+            "MESSAGE_TAKER" => $ticket['RESPONSIBLE_EMAIL'], // почта получателя
             "TICKET_STATUS" => $status['VALUE'], // статус заявки
             "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
             "TICKET_NUMBER" => $ticket['ID'], // номер тикета
