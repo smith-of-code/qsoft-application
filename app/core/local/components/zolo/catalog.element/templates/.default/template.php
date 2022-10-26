@@ -33,6 +33,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
         ],
         false
     );
+
+
+//    dump("tpl", $arResult);
 ?>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
@@ -152,87 +155,48 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <!-- Артикулы -->
 
                 <!-- Блок селекта фассовки большой вариант-->
-                <div class="specification__packs packs">
-                    <p class="specification__category">Фасовка</p>
-                    <ul class="packs__list">
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="radio111" checked>
-                                    <label for="radio111">
-                                        <div class="pack__item">600 г</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
+                <? if (!empty($arResult['PACKAGINGS'])) :?>
+                    <div class="specification__packs packs">
+                        <p class="specification__category">Фасовка</p>
+                        <ul class="packs__list">
+                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :?>
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio_pack" value="<?=$offerId?>" id="radio<?=$offerId?>"
+                                                  <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'disabled'?>
+                                            >
+                                            <label for="radio<?=$offerId?>">
+                                                <div class="pack__item <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'pack__item--disabled'?>" ><?= $package?></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            <? endforeach; ?>
 
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="radio222">
-                                    <label for="radio222">
-                                        <div class="pack__item">1 кг</div>
-                                    </label>
+                        </ul>
+                    </div>
+                <? elseif (!empty($arResult['COLORS'])): ?>
+                    <div class="specification__colors colors colors--big">
+                        <p class="specification__category">Цвет</p>
+                        <ul class="colors__list">
+                            <?  foreach ($arResult['COLORS'] as $offerId => $color) :?>
+                            <li class="colors__item">
+                                <div class="color">
+                                    <div class="radio">
+                                        <input type="radio" class="color__input radio__input" name="radio_color" value="color_<?=$offerId?>" id="radio<?=$offerId?>"
+                                        >
+                                        <label for="radio<?=$offerId?>">
+                                            <div class="color__item color__item--big color__item--<?=$color?>"></div>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                            <? endforeach; ?>
+                        </ul>
+                    </div>
+                <? endif; ?>
 
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="radio333">
-                                    <label for="radio333">
-                                        <div class="pack__item">3 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="radio444">
-                                    <label for="radio444">
-                                        <div class="pack__item">5 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="radio555">
-                                    <label for="radio555">
-                                        <div class="pack__item">7 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered" data-tippy-content="нет в наличии">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="radio666" disabled>
-                                    <label for="radio666">
-                                        <div class="pack__item pack__item--disabled">10 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered" data-tippy-content="нет в наличии">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="radio777" disabled>
-                                    <label for="radio777">
-                                        <div class="pack__item pack__item--disabled">15 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
                 <!-- Блок селекта фассовки -->
 
                 <!-- Список описаний товара -->
@@ -253,26 +217,45 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <h4 class="cart__heading">Ваш заказ</h4>
 
                 <!-- Блок селекта фассовки малый вариант-->
+                <? if (!empty($arResult['PACKAGINGS'])) :?>
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
                     <div class="select select--mini" data-select>
                         <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите фасовку" data-option>
                             <option><!-- пустой option для placeholder --></option>
-                            <option value="1" data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                600 г
+                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :?>
+                            <option value="<?=$offerId?>" data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                <?= array_first($package)?>
                             </option>
-                            <option value="2" data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                1 кг
-                            </option>
-                            <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>
-                                5 кг
-                            </option>
-                            <option value="4" data-option-after='<span class="stock">нет в наличии</span>' disabled>
-                                7 кг
-                            </option>
+<!--                            <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>-->
+<!--                                5 кг-->
+<!--                            </option>-->
+                            <? endforeach;?>
                         </select>
                     </div>
                 </div>
+                <? elseif (!empty($arResult['COLORS'])): ?>
+                <div class="cart__colors">
+                    <p class="specification__category">Цвет</p>
+                    <div class="select select--middle select--simple" data-select>
+                        <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
+                            <option><!-- пустой option для placeholder --></option>
+                            <?  foreach ($arResult['PACKAGINGS'] as $offerId => $color) :?>
+                            <option value="<?=$offerId?>"
+                                    data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$color?>"></span></span>'
+                                    data-option-after='<span class="stock stock--yes">в наличии</span>'>
+                                Белый
+                                <?php // TODO color names
+                                // TODO avaliability?>
+                            </option>
+                            <? endforeach;?>
+<!--                            <option value="3" data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--blue"></span></span>' data-option-after='<span class="stock">нет в наличии</span>' disabled>-->
+<!--                                Синий-->
+<!--                            </option>-->
+                        </select>
+                    </div>
+                </div>
+                <? endif; ?>
                 <!-- Блок селекта фассовки малый вариант-->
 
                 <?php if ($USER->isAuthorized()): ?>

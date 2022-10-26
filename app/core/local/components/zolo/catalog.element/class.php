@@ -23,6 +23,7 @@ if (!Loader::includeModule('iblock'))
 class CatalogElementComponent extends Element
 {
     private bool $isError = false;
+
     /**
      * @param array $arParams
      * @return array
@@ -59,6 +60,7 @@ class CatalogElementComponent extends Element
 
     public function executeComponent()
     {
+        $this->checkModules();
         try {
             if ($this->isError) {
                 return;
@@ -102,9 +104,6 @@ class CatalogElementComponent extends Element
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
                 $this->arResult['DOCUMENTS'] = array_merge($sectionDocuments, $product['PROPERTY_DOCUMENTS_VALUE'] ?? []);
 
-                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
-                $this->arResult['OFFERS'] = $offers;
-
                 $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
                 $fileIterator = CFile::GetList([], $itemFilter);
                 while ($file = $fileIterator->Fetch()) {
@@ -119,9 +118,13 @@ class CatalogElementComponent extends Element
                     ['SECTION_BUTTONS' => true, 'SESSID' => false]
                 );
 
-                $action = $this->prepareAction();
-                $this->setAction($action);
-                $this->doAction();
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
+                $this->arResult['OFFERS'] = $offers;
+
+//                $action = $this->prepareAction();
+//                $this->setAction($action);
+//                $this->doAction();
+
 
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
@@ -142,6 +145,7 @@ class CatalogElementComponent extends Element
                     $basketInfo[$basket['PRODUCT_ID']] = $basket;
                 }
             }
+
             $this->arResult['BASKET'] = $basketInfo;
             $this->arResult = $this->transformData($this->arResult);
 
@@ -150,6 +154,7 @@ class CatalogElementComponent extends Element
             ShowError($e->getMessage());
         }
     }
+
 
     private function getProduct(array $arSelect): array
     {
@@ -189,7 +194,11 @@ class CatalogElementComponent extends Element
 
     private function getOffers(int $productId, array $arSelect, array &$fileIds): array
     {
-        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+        $filter = [
+            'ACTIVE' => 'Y'
+        ];
+
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter , ['IBLOCK_ID']);
         $offers = [];
         if (!empty($offersResult) && !empty(current($offersResult))) {
             $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
@@ -200,9 +209,8 @@ class CatalogElementComponent extends Element
                 $keys = $this->getPropertyKeys($properties);
                 $arSelect = array_merge($arSelect, $keys);
 
-                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], $arSelect);
+                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter, array_merge($arSelect, ['CATALOG_AVAILABLE']));
                 $offers = array_merge($offers, current($currentOffers));
-
                 foreach (current($currentOffers) as $offer) {
                     $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
                 }
@@ -304,7 +312,7 @@ class CatalogElementComponent extends Element
             'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
             'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
-            'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'IS_TREAT' => $data['PRODUCT']['PROPERTY_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
@@ -325,6 +333,7 @@ class CatalogElementComponent extends Element
                 }
             }
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
+            $result['AVAILABLE'][$offer['ID']] = $offer['CATALOG_AVAILABLE'] == 'Y';
         }
 
         foreach ($data['DOCUMENTS'] as $documentId) {
