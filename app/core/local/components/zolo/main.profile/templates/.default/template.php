@@ -286,7 +286,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                         <div class="form__field">
                                                                             <div class="form__field-block form__field-block--label">
                                                                                 <label for="select22" class="profile__label form__label form__label--required">
-                                                                                    <span class="form__label-text">PERSONAL_CITY</span>
+                                                                                    <span class="form__label-text">Населенный пункт</span>
                                                                                 </label>
                                                                             </div>
                             
@@ -1309,8 +1309,10 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                                             <div class="pet-cards">
                                                 <ul class="pet-cards__list" data-pets-list>
-                                                    <?php $index = 0;?>
-                                                    <?php foreach ($arResult['PETS_INFO'] as $pet) : ?>
+                                                    <?php
+                                                    foreach ($arResult['PETS_INFO'] as $pet):
+                                                    $breedType = $pet['UF_KIND'] == 2013 ? 'DOG_BREED' : 'CAT_BREED';
+                                                    ?>
 
                                                         <!--Карточка питомца-->
                                                         <li class="pet-cards__item">
@@ -1319,28 +1321,36 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                     <div class="pet-card__content">
                                                                         <div class="pet-card__avatar" data-pets-type>
                                                                             <svg class="icon icon--dog">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                                                                <?php if ($pet['UF_KIND'] == 2013): ?>
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog"></use>
+                                                                                <?php else: ?>
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
+                                                                                <?php endif; ?>
                                                                             </svg>
                                                                         </div>
 
                                                                         <div class="pet-card__info">
                                                                             <div class="pet-card__name" data-pets-name>
-                                                                                Мухтар Бесстрашный
+                                                                                <?=$pet['UF_NAME']?>
                                                                             </div>
 
                                                                             <div class="pet-card__breed" data-pets-breed>
-                                                                                Лабрадор
+                                                                                <?=$arResult['SELECT_OPTIONS'][$breedType][$pet['UF_BREED']] ?? 'нет породы'?>
                                                                             </div>
 
                                                                             <div class="pet-card__info-record">
                                                                                 <div class="pet-card__gender" data-pets-gender>
                                                                                     <svg class="icon icon--man">
-                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                                                                        <?php if ($pet['UF_GENDER'] == 2016): ?>
+                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-man"></use>
+                                                                                        <?php else: ?>
+                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
+                                                                                        <?php endif; ?>
                                                                                     </svg>
                                                                                 </div>
 
                                                                                 <div class="pet-card__date" data-pets-date>
-                                                                                    09.10.2017
+                                                                                    <?=$pet['UF_BIRTHDATE']?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1375,18 +1385,25 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                             <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="pet-card-select1" class="form__label">
+                                                                                        <label for="UF_KIND" class="form__label">
                                                                                             <span class="form__label-text">Тип питомца</span>
                                                                                         </label>
                                                                                     </div>
-
+                                                                                    <!-- TODO: Доработать логику -->
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
                                                                                             <div class="select select--mitigate select--iconed" data-select>
-                                                                                                <select class="select__control" name="type" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1" data-option-icon="cat">Кошка</option>
-                                                                                                    <option value="2" data-option-icon="dog" selected>Собака</option>
+                                                                                                <select class="select__control" name="UF_KIND" id="pet-card-select1" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                                                                    <option <?=$pet['UF_KIND'] == '' ? 'selected' : ''?>><!-- пустой option для placeholder --></option>
+                                                                                                    <?php foreach ($arResult['SELECT_OPTIONS']['PET_KIND'] as $key => $petType): ?>
+                                                                                                        <option
+                                                                                                            value="<?=$key?>"
+                                                                                                            data-option-icon="<?=$key == 2013 ? 'dog': 'cat'?>"
+                                                                                                            <?=$pet['UF_KIND'] == $key ? 'selected' : ''?>
+                                                                                                        >
+                                                                                                            <?=$petType?>
+                                                                                                        </option>
+                                                                                                    <?php endforeach; ?>
                                                                                                 </select>
                                                                                             </div>
                                                                                         </div>
@@ -1397,7 +1414,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                             <div class="pet-card__col pet-card__col--1-3 form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="pet-card-select11" class="form__label">
+                                                                                        <label for="UF_GENDER" class="form__label">
                                                                                             <span class="form__label-text">Пол</span>
                                                                                         </label>
                                                                                     </div>
@@ -1405,10 +1422,16 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
                                                                                             <div class="select select--mitigate" data-select>
-                                                                                                <select class="select__control" name="gender" id="pet-card-select11" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1" selected>Мальчик</option>
-                                                                                                    <option value="2">Девочка</option>
+                                                                                                <select class="UF_GENDER" name="gender" id="pet-card-select11" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
+                                                                                                    <option <?=$pet['UF_GENDER'] == '' ? 'selected' : ''?>><!-- пустой option для placeholder --></option>
+                                                                                                    <?php foreach ($arResult['SELECT_OPTIONS']['PET_GENDER'] as $key => $gender): ?>
+                                                                                                        <option
+                                                                                                            value="<?=$key?>"
+                                                                                                            <?=$pet['UF_GENDER'] == $key ? 'selected' : ''?>
+                                                                                                        >
+                                                                                                            <?=$gender?>
+                                                                                                        </option>
+                                                                                                    <?php endforeach; ?>
                                                                                                 </select>
                                                                                             </div>
                                                                                         </div>
@@ -1419,7 +1442,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                             <div class="pet-card__col pet-card__col--1-3 form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="birthdate3" class="form__label">
+                                                                                        <label for="UF_BIRTHDATE" class="form__label">
                                                                                             <span class="form__label-text">Дата рождения</span>
                                                                                         </label>
                                                                                     </div>
@@ -1428,7 +1451,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                                         <div class="input input--iconed">
                                                                                             <input inputmode="numeric"
                                                                                                 class="input__control"
-                                                                                                name="birthdate"
+                                                                                                name="UF_BIRTHDATE"
                                                                                                 id="birthdate3"
                                                                                                 placeholder="ДД.ММ.ГГГГ"
                                                                                                 data-mask-date 
@@ -1436,7 +1459,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                                                 data-inputmask-inputformat="dd.mm.yyyy"
                                                                                                 data-pets-date-input
                                                                                                 data-pets-change
-                                                                                                value="09.10.2017"
+                                                                                                value="<?=$pet['UF_BIRTHDATE']?>"
                                                                                             >
                                                                                             <span class="input__icon">
                                                                                                 <svg class="icon icon--calendar">
@@ -1451,7 +1474,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                             <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="pet-card-select111" class="form__label">
+                                                                                        <label for="UF_BREED" class="form__label">
                                                                                             <span class="form__label-text">Порода</span>
                                                                                         </label>
                                                                                     </div>
@@ -1459,15 +1482,16 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="form__control">
                                                                                             <div class="select select--mitigate" data-select>
-                                                                                                <select class="select__control" name="breed" id="pet-card-select111" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1" selected>Лабрадор</option>
-                                                                                                    <option value="2">Пудель</option>
-                                                                                                    <option value="3">Болонка</option>
-                                                                                                    <option value="4">Мопс</option>
-                                                                                                    <option value="5">Китайская хохлатая</option>
-                                                                                                    <option value="6">Кавалер кинг чарльз спаниель</option>
-                                                                                                    <option value="7">Дог</option>
+                                                                                                <select class="select__control" name="UF_BREED" id="pet-card-select111" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
+                                                                                                    <option <?=$pet['UF_BREED'] == '' ? 'selected' : ''?>><!-- пустой option для placeholder --></option>
+                                                                                                    <?php  foreach ($arResult['SELECT_OPTIONS'][$breedType] as $key => $gender): ?>
+                                                                                                        <option
+                                                                                                            value="<?=$key?>"
+                                                                                                            <?=$pet['UF_BREED'] == $key ? 'selected' : ''?>
+                                                                                                        >
+                                                                                                            <?=$gender?>
+                                                                                                        </option>
+                                                                                                    <?php endforeach; ?>
                                                                                                 </select>
                                                                                             </div>
                                                                                         </div>
@@ -1478,14 +1502,14 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                                             <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                                                                 <div class="form__field">
                                                                                     <div class="form__field-block form__field-block--label">
-                                                                                        <label for="text19" class="form__label">
+                                                                                        <label for="UF_NAME" class="form__label">
                                                                                             <span class="form__label-text">Кличка</span>
                                                                                         </label>
                                                                                     </div>
 
                                                                                     <div class="form__field-block form__field-block--input">
                                                                                         <div class="input">
-                                                                                            <input value="Мухтар Бесстрашный" type="text" class="input__control" name="nickname" id="text19" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                                                            <input value="<?=$pet['UF_NAME']?>" type="text" class="input__control" name="UF_NAME" id="text19" placeholder="Выбрать" data-pets-name-input data-pets-change>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -1507,204 +1531,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                         </li>
                                                         <!--/Карточка питомца-->
                                                         
-                                                    <?php $index++;
-                                                    endforeach;?>
-
-                                                    <li class="pet-cards__item">
-                                                        <!--Карточка питомца-->
-                                                        <article class="pet-card" data-pets-card>
-                                                            <div class="pet-card__main box box--circle" data-pets-main>
-                                                                <div class="pet-card__content">
-                                                                    <div class="pet-card__avatar" data-pets-type>
-                                                                        <svg class="icon icon--cat">
-                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat"></use>
-                                                                        </svg>
-                                                                    </div>
-
-                                                                    <div class="pet-card__info">
-                                                                        <div class="pet-card__name" data-pets-name>
-                                                                            Мурка
-                                                                        </div>
-
-                                                                        <div class="pet-card__breed" data-pets-breed>
-                                                                            Русская голубая
-                                                                        </div>
-
-                                                                        <div class="pet-card__info-record">
-                                                                            <div class="pet-card__gender" data-pets-gender>
-                                                                                <svg class="icon icon--woman">
-                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-woman"></use>
-                                                                                </svg>
-                                                                            </div>
-
-                                                                            <div class="pet-card__date" data-pets-date>
-                                                                                09.11.2011
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="pet-card__actions">
-                                                                    <div class="pet-card__modify">
-                                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Редактировать" data-pets-modify>
-                                                                            <span class="button__icon">
-                                                                                <svg class="icon icon--edit">
-                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-
-                                                                    <div class="pet-card__delete">
-                                                                        <button type="button" class="pet-card__actions-button button button--iconed button--simple button--red" data-tippy-content="Удалить" data-pets-delete>
-                                                                            <span class="button__icon">
-                                                                                <svg class="icon icon--trash">
-                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-trash"></use>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
-                                                                <form class="form" action="" method="post" data-validation="add-pets" data-pets-form>
-                                                                    <div class="pet-card__row form__row">
-                                                                        <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
-                                                                            <div class="form__field">
-                                                                                <div class="form__field-block form__field-block--label">
-                                                                                    <label for="pet-card-select2" class="form__label">
-                                                                                        <span class="form__label-text">Тип питомца</span>
-                                                                                    </label>
-                                                                                </div>
-                                        
-                                                                                <div class="form__field-block form__field-block--input">
-                                                                                    <div class="form__control">
-                                                                                        <div class="select select--mitigate select--iconed" data-select>
-                                                                                            <select class="select__control" name="type" id="pet-card-select2" data-select-control data-placeholder="Выбрать" data-pets-type-input data-pets-change>
-                                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                                <option value="1" data-option-icon="cat" selected>Кошка</option>
-                                                                                                <option value="2"data-pets-card data-option-icon="dog">Собака</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
-                                                                            <div class="form__field">
-                                                                                <div class="form__field-block form__field-block--label">
-                                                                                    <label for="pet-card-select22" class="form__label">
-                                                                                        <span class="form__label-text">Пол</span>
-                                                                                    </label>
-                                                                                </div>
-
-                                                                                <div class="form__field-block form__field-block--input">
-                                                                                    <div class="form__control">
-                                                                                        <div class="select select--mitigate" data-select>
-                                                                                            <select class="select__control" name="gender" id="pet-card-select22" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
-                                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                                <option value="1">Мальчик</option>
-                                                                                                <option value="2" selected>Девочка</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="pet-card__col pet-card__col--1-3 form__col">
-                                                                            <div class="form__field">
-                                                                                <div class="form__field-block form__field-block--label">
-                                                                                    <label for="birthdate4" class="form__label">
-                                                                                        <span class="form__label-text">Дата рождения</span>
-                                                                                    </label>
-                                                                                </div>
-
-                                                                                <div class="form__field-block form__field-block--input">
-                                                                                    <div class="input input--iconed">
-                                                                                        <input inputmode="numeric"
-                                                                                            class="input__control"
-                                                                                            name="birthdate"
-                                                                                            id="birthdate4"
-                                                                                            placeholder="ДД.ММ.ГГГГ"
-                                                                                            data-mask-date 
-                                                                                            data-inputmask-alias="datetime"
-                                                                                            data-inputmask-inputformat="dd.mm.yyyy"
-                                                                                            data-pets-date-input
-                                                                                            data-pets-change
-                                                                                            value="09.11.2011"
-                                                                                        >
-                                                                                        <span class="input__icon">
-                                                                                            <svg class="icon icon--calendar">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
-                                                                            <div class="form__field">
-                                                                                <div class="form__field-block form__field-block--label">
-                                                                                    <label for="pet-card-select222" class="form__label">
-                                                                                        <span class="form__label-text">Порода</span>
-                                                                                    </label>
-                                                                                </div>
-
-                                                                                <div class="form__field-block form__field-block--input">
-                                                                                    <div class="form__control">
-                                                                                        <div class="select select--mitigate" data-select>
-                                                                                            <select class="select__control" name="breed" id="pet-card-select222" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
-                                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                                <option value="1">Лабрадор</option>
-                                                                                                <option value="2">Пудель</option>
-                                                                                                <option value="3">Болонка</option>
-                                                                                                <option value="4">Мопс</option>
-                                                                                                <option value="5">Китайская хохлатая</option>
-                                                                                                <option value="6">Кавалер кинг чарльз спаниель</option>
-                                                                                                <option value="7">Дог</option>
-                                                                                                <option value="8" selected>Русская голубая</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
-                                                                            <div class="form__field">
-                                                                                <div class="form__field-block form__field-block--label">
-                                                                                    <label for="text199" class="form__label">
-                                                                                        <span class="form__label-text">Кличка</span>
-                                                                                    </label>
-                                                                                </div>
-
-                                                                                <div class="form__field-block form__field-block--input">
-                                                                                    <div class="input">
-                                                                                        <input type="text" value="Мурка" class="input__control" name="nickname" id="text199" placeholder="Выбрать" data-pets-name-input data-pets-change>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="pet-card__buttons">
-                                                                        <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full" data-pets-save>
-                                                                            Сохранить изменения
-                                                                        </button>
-
-                                                                        <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
-                                                                            Отменить изменения
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </article>
-                                                        <!--/Карточка питомца-->
-                                                    </li>
+                                                    <?php endforeach; ?>
                                                 </ul>
 
                                                 <div class="pet-cards__adding">
@@ -1718,6 +1545,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                     </button>
                                                 </div>
 
+                                                <!-- TODO: Определиться с реализацией -->
                                                 <!--/Шаблон карточки для добавления на страницу-->
                                                 <script id="hidden-template-pet" type="text/x-custom-template">
                                                     <li class="pet-cards__item">
@@ -1964,12 +1792,12 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                                                         <div class="profile__avatar">
                                                             <div class="profile__avatar-box">
                                                                 <div class="profile__avatar-image">
-                                                                    <img src="<?=$arResult['USER_INFO']['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                                    <img src="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
                                                                 </div>
                                                             </div>
 
                                                             <div class="profile__info">
-                                                                <span class="profile__id">ID 12657678</span>
+                                                                <span class="profile__id">ID <?=$arResult['MENTOR_INFO']['ID']?></span>
                                                             </div>
                                                         </div>
 
@@ -1987,7 +1815,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
 
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="input">
-                                                                                        <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите фамилию" readonly>
+                                                                                        <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['LAST_NAME']?>" name="text-required" id="text-required" placeholder="Введите фамилию" readonly>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2003,7 +1831,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
 
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="input">
-                                                                                        <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly>
+                                                                                        <input type="text" value="<?=$arResult['MENTOR_INFO']['NAME']?>" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2019,7 +1847,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
 
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="input">
-                                                                                        <input type="text" class="input__control" name="text-required" id="text-required" placeholder="Введите отчество" readonly>
+                                                                                        <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2038,7 +1866,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
 
                                                                             <div class="form__field-block form__field-block--input">
                                                                                 <div class="input">
-                                                                                    <input type="text" class="input__control" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                                                    <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -2054,7 +1882,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
 
                                                                             <div class="form__field-block form__field-block--input">
                                                                                 <div class="input">
-                                                                                    <input type="tel" class="input__control" name="text-required" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                                                    <input type="tel" class="input__control" name="text-required" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
                                                                                 </div>
                                                                             </div>
 
@@ -2076,7 +1904,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                             
                                                                             <div class="form__field-block form__field-block--input">
                                                                                 <div class="input">
-                                                                                    <input type="text" class="input__control" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                                                    <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -2092,7 +1920,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                             
                                                                             <div class="form__field-block form__field-block--input">
                                                                                 <div class="input">
-                                                                                    <input type="text" class="input__control" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                                                    <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
