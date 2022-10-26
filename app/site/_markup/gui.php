@@ -830,7 +830,19 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
                                     </svg>
                                 </li>
-                                
+
+                                <li class="icons__item" title="Icon: arrow-right-light">
+                                    <svg class="icon icon--arrow gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: check-mark">
+                                    <svg class="icon icon--check-mark gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: personal-action">
                                     <svg class="icon icon--personal-action gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
@@ -9159,6 +9171,172 @@
                         </div>
                     </div>
                     <!-- /Попап cookie -->
+
+                    <!-- Информационные баннеры -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Информационные баннеры</h2>
+                        <div class="gui__block">
+                            <div class="widgets">
+                                <ul class="widgets__list">
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/megaphone.png">
+                                                </div>
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
+                                                        Новости компании
+                                                    </h4>
+                                                    <p class="widget__description">
+                                                        Держим вас в курсе событий
+                                                    </p>
+                                                </div>
+                                                <div class="widget__footer">
+                                                    <button 
+                                                        type="button" 
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
+                                                            <svg class="icon icon--arrow">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="button__text">Смотреть</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/calendar.png">
+                                                </div>
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
+                                                        Календарь мероприятий
+                                                    </h4>
+                                                    <p class="widget__description">
+                                                        Расписание встреч и мастер-классов
+                                                    </p>
+                                                </div>
+                                                <div class="widget__footer">
+                                                    <button 
+                                                        type="button" 
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
+                                                            <svg class="icon icon--arrow">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="button__text">Смотреть</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="widgets__item">
+                                        <div class="widget">
+                                            <a class="widget__link" href="#"></a>
+                                            <div class="widget__inner">
+                                                <div class="widget__head">
+                                                    <img class="widget__image" src="/local/templates/.default/images/college-graduation.png">
+                                                </div>
+                                                <div class="widget__content">
+                                                    <h4 class="widget__title">
+                                                        Советы экспертов
+                                                    </h4>
+                                                    <p class="widget__description">
+                                                        Больше заботы о ваших питомцах
+                                                    </p>
+                                                </div>
+                                                <div class="widget__footer">
+                                                    <button 
+                                                        type="button"
+                                                        class="widget__button button button--simple button--red">
+                                                        <span class="widget__button-icon button__icon button__icon--right">
+                                                            <svg class="icon icon--arrow">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="button__text">Смотреть</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Информационные баннеры -->
+
+                    <!-- Карточки преимуществ -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки преимуществ</h2>
+
+                        <div class="gui__block">
+                            <div class="adventages-cards">
+                                <ul class="adventages-cards__list">
+                                    <li class="adventages-cards__item">
+                                        <div class="adventages-card adventages-card--blue">
+                                            <div class="adventages-card__image">
+                                                <svg class="adventages-card__image-icon icon icon--check-mark">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                </svg>
+                                            </div>
+                                            <p class="adventages-card__text">
+                                                Без ГМО и вредных добавок
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                    <li class="adventages-cards__item">
+                                        <div class="adventages-card adventages-card--gold">
+                                            <div class="adventages-card__image">
+                                                <svg class="adventages-card__image-icon icon icon--check-mark">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                </svg>
+                                            </div>
+                                            <p class="adventages-card__text">
+                                                Сбалансированная формула
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                    <li class="adventages-cards__item">
+                                        <div class="adventages-card adventages-card--wisteria">
+                                            <div class="adventages-card__image">
+                                                <svg class="adventages-card__image-icon icon icon--check-mark">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                </svg>
+                                            </div>
+                                            <p class="adventages-card__text">
+                                                Комплекс витаминов и минералов
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                    <li class="adventages-cards__item">
+                                        <div class="adventages-card adventages-card--piper">
+                                            <div class="adventages-card__image">
+                                                <svg class="adventages-card__image-icon icon icon--check-mark">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                </svg>
+                                            </div>
+                                            <p class="adventages-card__text">
+                                                Не менее 25% мяса
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карточки преимуществ -->
 
                     <!-- Карточки Статусы -->
                     <div class="gui__block">
