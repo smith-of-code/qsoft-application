@@ -28,8 +28,8 @@ class newMailMessageTemplate extends Migration {
 #TIME_SEND# - дата отправки
 #MESSAGE_SENDER# - почта поддержки
 #MESSAGE_TAKER# - почта получателя
-#TICKED_STATUS# - Статус обращения Принято/Отклонено
-#TICKED_NUMBER# - номер обращения
+#TICKET_STATUS# - Статус обращения Принято/Отклонено
+#TICKET_NUMBER# - номер обращения
 #OWNER_NAME# - ФИО клиента
 #RESPONSIBLE_NAME# - имя сотрудника техподдержки',
         ];
