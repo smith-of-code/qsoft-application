@@ -23,10 +23,20 @@
         min-height: rem(343px);
     }
 
-    &--big & {
+    &--medium {
+        min-height: rem(298px);
+    }
+
+    &--small {
+        min-height: rem(204px);
+    }
+
+    &--green & {
         &__content {
             min-height: rem(98px);
             padding: rem(20px) rem($gap-medium);
+
+            background-color: #378a5f;
 
             @media #{$screen-tablet} {
                 min-height: rem(108px);
@@ -43,14 +53,12 @@
         }
     }
 
-    &--medium {
-        min-height: rem(298px);
-    }
-
-    &--medium & {
+    &--grey & {
         &__content {
             padding: rem($gap-medium);
 
+            background-color: #f2f1f4;
+            
             @media #{$screen-tablet} {
                 display: flex;
                 align-items: center;
@@ -62,6 +70,8 @@
         &__text {
             @include text-small($font-weight-medium);
 
+            color: #19191c;
+            
             @media #{$screen-tablet} {
                 font-size: rem($font-size-normal);
                 line-height: ($line-height-normal / $font-size-normal);
@@ -69,11 +79,7 @@
         }
     }
 
-    &--small {
-        min-height: rem(204px);
-    }
-
-    &--small & {
+    &--purple & {
         &__content {
             display: flex;
             align-items: center;
@@ -81,6 +87,8 @@
 
             padding-top: rem(13px);
             padding-bottom: rem(13px);
+
+            background-color: $wisteria;
         }
 
         &__title {
@@ -91,28 +99,6 @@
             @media #{$screen-tablet} {
                 line-height: (18px / $font-size-normal);
             }
-        }
-    }
-
-    &--green & {
-        &__content {
-            background-color: #378a5f;
-        }
-    }
-
-    &--grey & {
-        &__content {
-            background-color: #f2f1f4;
-        }
-
-        &__text {
-            color: #19191c;
-        }
-    }
-
-    &--purple & {
-        &__content {
-            background-color: $wisteria;
         }
     }
 
@@ -199,6 +185,8 @@
         font-weight: $font-weight-bold;
         line-height: (22px / $font-size-small);
 
+        @include text-truncate-by-row(1);
+
         color: $white;
 
         @media #{$screen-tablet} {
@@ -209,6 +197,8 @@
 
     &__text {
         @include text-miniature($font-weight-medium);
+
+        @include text-truncate-by-row(3);
 
         color: $white;
 
