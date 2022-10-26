@@ -6446,10 +6446,8 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale sale">
-                                                        <p class="sale__text">
-                                                            -50%
-                                                        </p>
+                                                    <div class="card-banner__sale label label--primary label--red">
+                                                        -50%
                                                     </div>
                                                 </div>
                                             </article>
@@ -6476,10 +6474,8 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale sale">
-                                                        <p class="sale__text">
-                                                            -50%
-                                                        </p>
+                                                    <div class="card-banner__sale label label--primary label--red">
+                                                        -50%
                                                     </div>
                                                 </div>
                                             </article>
@@ -8514,23 +8510,23 @@
 
                             <div class="cards-compilation">
                                 <ul class="cards-compilation__list">
-                                    <li class="cards-compilation__item cards-compilation__item--extra">
+                                    <li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra">
 
-                                        <article class="card-compilation card-compilation--green">
+                                        <article class="card-compilation card-compilation--big card-compilation--green">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
 
-                                                <img
-                                                    src="https://fakeimg.pl/500x350/"
-                                                    alt="изображение подборки"
-                                                    class="card-compilation__banner"
-                                                />
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
 
-                                                <div class="card-compilation__tag tag tag--green">
-                                                    <p class="tag__text">
-                                                        AmeБизнес
-                                                    </p>
+                                                <div class="card-compilation__label label label--secondary label--green">
+                                                    AmeБизнес
                                                 </div>
 
                                                 <div class="card-compilation__content">
@@ -8547,23 +8543,23 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-compilation__item cards-compilation__item--extra">
+                                    <li class="cards-compilation__item cards-compilation__item--sale cards-compilation__item--extra">
 
-                                        <article class="card-compilation card-compilation--grey">
+                                        <article class="card-compilation card-compilation--medium card-compilation--grey">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
 
-                                                <img
-                                                    src="https://fakeimg.pl/500x350/"
-                                                    alt="изображение подборки"
-                                                    class="card-compilation__banner"
-                                                />
-
-                                                <div class="card-compilation__tag sale">
-                                                    <p class="sale__text">
-                                                        -25%
-                                                    </p>
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
                                                 </div>
 
                                                 <div class="card-compilation__content">
@@ -8579,23 +8575,23 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-compilation__item">
+                                    <li class="cards-compilation__item cards-compilation__item--compilation">
 
-                                        <article class="card-compilation card-compilation--purple">
+                                        <article class="card-compilation card-compilation--small card-compilation--purple">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
 
-                                                <img
-                                                    src="https://fakeimg.pl/500x350/"
-                                                    alt="изображение подборки"
-                                                    class="card-compilation__banner"
-                                                />
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
 
-                                                <div class="card-compilation__tag tag tag--purple">
-                                                    <p class="tag__text">
-                                                        Подборка
-                                                    </p>
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
                                                 </div>
 
                                                 <div class="card-compilation__content">
@@ -8608,23 +8604,23 @@
                                         </article>
 
                                     </li>
-                                    <li class="cards-compilation__item">
+                                    <li class="cards-compilation__item cards-compilation__item--selection">
 
-                                        <article class="card-compilation card-compilation--purple">
+                                        <article class="card-compilation card-compilation--small card-compilation--purple">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
 
-                                                <img
-                                                    src="https://fakeimg.pl/500x350/"
-                                                    alt="изображение подборки"
-                                                    class="card-compilation__banner"
-                                                />
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
 
-                                                <div class="card-compilation__tag tag tag--purple">
-                                                    <p class="tag__text">
-                                                        Подборка
-                                                    </p>
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
                                                 </div>
 
                                                 <div class="card-compilation__content">

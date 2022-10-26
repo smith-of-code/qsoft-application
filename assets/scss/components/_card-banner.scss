@@ -61,6 +61,10 @@
     }
 
     &__sale {
+        font-size: rem($font-size-middle);
+        font-weight: $font-weight-bold;
+        line-height: (30px / $font-size-middle);
+
         align-self: flex-end;
     }
 }

@@ -14,11 +14,40 @@
         line-height: rem($line-height-small);
     }
 
-    &--pink{
+    &--pink {
         background-color: $hibiscus;
     }
 
-    &--violet{
+    &--violet {
         background-color: $wisteria;
+    }
+
+    &--green {
+        background-color: $seaGreen;
+    }
+
+    &--red {
+        background-color: $brickRed;
+    }
+
+    &--primary {
+        font-size: rem($font-size-middle);
+        font-weight: $font-weight-bold;
+        line-height: (30px / $font-size-middle);
+
+        padding: rem(10px);
+
+        letter-spacing: 0.05em;
+        
+        border-radius: rem($border-radius-middle);
+    }
+    
+    &--secondary {
+        padding: rem(6px) rem($gap-average);
+
+        letter-spacing: 0.04em;
+
+        border: rem(1px) solid $white;
+        border-radius: rem(34px);
     }
 }
