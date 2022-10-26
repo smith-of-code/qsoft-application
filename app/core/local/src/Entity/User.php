@@ -113,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var User|null Наставник
+     * @var int ID Наставника
      */
-    public ?User $mentor;
+    public int $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -135,6 +135,7 @@ class User
      */
     private const ENUM_PROPERTIES = [
         'UF_LOYALTY_LEVEL',
+        'UF_PERSONAL_DISCOUNT_LEVEL',
     ];
 
     /**
@@ -144,7 +145,7 @@ class User
     public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
-        
+
         // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
@@ -160,7 +161,7 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('User not found');
+            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение
@@ -181,21 +182,24 @@ class User
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
         $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
-        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
 
         // Пользовательские поля
         $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = empty($user['UF_MENTOR_ID']) ? null : new self((int) $user['UF_MENTOR_ID']);
+        $this->mentor = (int) $user['UF_MENTOR_ID'];
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
         $this->legalEntity = new LegalEntityService($this);
-        $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+
+        //Задаем уровень в программе лояльности в зависимости от группы пользователя
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'];
+        $this->loyalty = new LoyaltyService($this);
+        
         $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
@@ -222,6 +226,15 @@ class User
     public function getPhotoUrl(): ?string
     {
         return CFile::GetPath($this->photo);
+    }
+
+    /**
+     * Возвращает наставника текущего пользователя
+     * @return User|null
+     */
+    public function getMentor(): ?User
+    {
+        return $this->mentor > 0 ? new self((int) $this->mentor) : null;
     }
 
     /**

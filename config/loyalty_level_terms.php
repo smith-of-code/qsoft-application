@@ -1,6 +1,6 @@
 <?php
 
-use \QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
 
 /**
  * Настройки Программы лояльности
@@ -8,6 +8,10 @@ use \QSoft\Helper\LoyaltyProgramHelper;
  * Ограничения:
  * - self_period_months - Задается числом, кратным 3 (число месяцев в квартале)
  * - team_period_months - Задается числом, кратным 3 (число месяцев в квартале)
+ *
+ * Типы условий:
+ * - hold_level_terms - условия удержания данного уровня;
+ * - upgrade_level_terms - условия перехода на данный уровень;
  *
  * Виды начислений бонусных баллов:
  * - personal_bonuses_for_cost - бонусные баллы за личную покупку, от стоимости заказа после применения скидок;
@@ -17,7 +21,7 @@ use \QSoft\Helper\LoyaltyProgramHelper;
  */
 return [
     'consultant' => [
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K1 => [
+        'K1' => [
             'label' => 'K1', // Название для вывода в публичной части
             'level' => 1, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -41,7 +45,7 @@ return [
                 ],
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K2 => [
+        'K2' => [
             'label' => 'K2', // Название для вывода в публичной части
             'level' => 2, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -74,7 +78,7 @@ return [
                 'upgrade_level_bonuses' => 100, // Бонус (ББ) за переход на этот уровень
             ],
         ],
-        LoyaltyProgramHelper::LOYALTY_LEVEL_K3 => [
+        'K3' => [
             'label' => 'K3', // Название для вывода в публичной части
             'level' => 3, // Уровень (значение для сортировки уровней)
             'hold_level_terms' => [
@@ -109,18 +113,39 @@ return [
         ]
     ],
     'customer' => [
-        'reporting_period_months' => '1',
-        'terms' => [
-            '1' => [
-                'upgrade' => 3000.0
+        'B1' => [
+            'level' => 1, // Уровень (значение для сортировки уровней)
+            'benefits' => [
+                'personal_discount' => 2, // Персональная скидка на все товары (%)
             ],
-            '2' => [
-                'hold' => 3000.0,
-                'upgrade' => 5000.0
+        ],
+        'B2' => [
+            'level' => 2, // Уровень (значение для сортировки уровней)
+            'hold_level_terms' => [
+                'self_total' => 3000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
             ],
-            '3' => [
-                'hold' => 5000.0
-            ]
+            'upgrade_level_terms' => [
+                'self_total' => 3000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'personal_discount' => 3, // Персональная скидка на все товары (%)
+            ],
+        ],
+        'B3' => [
+            'level' => 3, // Уровень (значение для сортировки уровней)
+            'hold_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'upgrade_level_terms' => [
+                'self_total' => 5000.0, // Сумма личных покупок за период (руб)
+                'self_period_months' => 1,  // Количество месяцев (продолжительность периода)
+            ],
+            'benefits' => [
+                'personal_discount' => 5, // Персональная скидка на все товары (%)
+            ],
         ]
     ]
 ];
