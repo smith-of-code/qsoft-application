@@ -1,4 +1,4 @@
-<? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true);
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true);
 
 use QSoft\Entity\User;
 use \Bitrix\Main\ORM\Query\Filter\ConditionTree;
@@ -10,16 +10,11 @@ use \Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Error;
 use \Bitrix\Main\Errorable;
-?>
-
-<?php
+use QSoft\ORM\NotificationTable;
 
 class NotificationListComponent extends CBitrixComponent implements Controllerable, Errorable
 {
     private const NOTIFICATIONS_LIMIT = 2;
-    //  id свойства "прочитано" для поля "Статус" HL-таблицы уведомлений
-    //  (http://p7.zolo.vpool/bitrix/admin/userfield_edit.php?ID=2523&lang=ru)
-    private const NOTIFICATION_STATUS_READ = 2043;
     protected ErrorCollection $errorCollection;
 
     public function configureActions()
@@ -105,22 +100,22 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
 
     public function readMessageAction(int $messageId): array
     {
-        $notificationService = new NotificationService(new User());
-        if(!$notification = $notificationService->getById($messageId)) {
+        $service = new NotificationService(new User());
+        if (! $service->has($messageId)) {
             $this->errorCollection[] = new Error(Loc::getMessage('NOTIFICATION_NOT_FOUND'));
             return [];
         }
-
-        $newStatus = $notification
-            ->set('UF_STATUS', strval(self::NOTIFICATION_STATUS_READ))
-            ->save();
-
-        if($newStatus->isSuccess()) {
-            return ['status' => $notificationService->getPropValueById(self::NOTIFICATION_STATUS_READ)];
+        $newStatusXmlId = NotificationTable::STATUSES['read'];
+        $newStatusResult = NotificationTable::update(
+            $messageId,
+            ['UF_STATUS' => $newStatusXmlId]
+        );
+        if ($newStatusResult->isSuccess()) {
+            return ['status' => CUserFieldEnum::GetList([], ['XML_ID' => $newStatusXmlId])->Fetch()['VALUE']];
         } else {
-            $this->errorCollection = $newStatus->getErrorCollection();
+            $this->errorCollection = $newStatusResult->getErrorCollection();
+            return [];
         }
-        return [];
     }
 
     public function getErrors()

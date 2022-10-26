@@ -93,37 +93,15 @@ class NotificationService
         return $hlEntity->getDataClass();
     }
 
-    /**
-     * @return EntityObject|false
-     */
-    public function getById(int $notificationId)
+    public function has(int $notificationId): bool
     {
-        $notification = NotificationTable::getList([
-            'select' => ['ID', 'UF_STATUS'],
+        $result = NotificationTable::getRow([
+            'select' => ['ID'],
             'filter' => [
                 'UF_USER_ID' => $this->user->id,
                 'ID' => $notificationId,
             ],
-        ])->fetchObject();
-        return $notification && $notification->isFilled('ID') ? $notification : false;
-    }
-
-    public function getPropValueById(int $propertyId): string
-    {
-        $propsEnumEntity = Entity::compileEntity('PROPS',
-            [
-                (new IntegerField('ID'))
-                    ->configurePrimary(),
-                (new StringField('VALUE')),
-            ],
-            [
-                'namespace' => 'NotificationsListEnumEntity',
-                'table_name' => 'b_user_field_enum',
-            ]);
-
-        return $propsEnumEntity->getDataClass()::getRow([
-            'select' => ['ID', 'VALUE'],
-            'filter' => ['ID' => $propertyId]
-        ])['VALUE'];
+        ]);
+        return isset($result) && count($result) == 1;
     }
 }
