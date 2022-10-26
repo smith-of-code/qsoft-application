@@ -28,48 +28,6 @@ class BonusAccountService
         $this->user = $user;
     }
 
-//    public function getAccount()
-//    {
-//        return CSaleUserAccount::GetByUserID($this->user->id, self::CURRENCY);
-//    }
-
-//    public function createAccount(int $amount = 0): int
-//    {
-//        $result = 0;
-//
-//        if (!CSaleUserAccount::GetByUserID($this->user->id, self::CURRENCY)) {
-//            $arFields = [
-//                "USER_ID" => $this->user->id,
-//                "CURRENCY" => self::CURRENCY,
-//                "CURRENT_BUDGET" => $amount
-//            ];
-//            $result = CSaleUserAccount::Add($arFields);
-//        }
-//
-//        return $result;
-//    }
-
-//    public function payBonuses(int $amount, $orderId): bool
-//    {
-//        return CSaleUserAccount::Pay(
-//            $this->user->id,
-//            $amount,
-//            self::CURRENCY,
-//            $orderId,
-//            false
-//        );
-//    }
-//
-//    public function updateAccount(int $changeSum, $actionInfo): bool
-//    {
-//        return CSaleUserAccount::UpdateAccount(
-//            $this->user->id,
-//            $changeSum,
-//            self::CURRENCY,
-//            $actionInfo
-//        );
-//    }
-
     public function storeOrderBonuses($amount): void
     {
         $_SESSION[self::SESSION_BONUS_OFF_KEY] = $amount;
