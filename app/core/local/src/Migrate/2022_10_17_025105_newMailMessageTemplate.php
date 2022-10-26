@@ -57,14 +57,10 @@ class newMailMessageTemplate extends Migration {
                         <title>Статус вашей заявки.</title>
                     </head>
                     <body>
-                        <h2>Здравствуйте, #OWNER_NAME#.</h2>
-                        
-                        <p>Ваша заявка № #TICKED_NUMBER#  была #TICKED_STATUS#.</p>
-                        
-                        <p>С уважением, служба техподдержки #SITE_NAME#, #RESPONSIBLE_NAME#</p>
-                        
-                        <p>Письмо сформировано автоматически.</p>
-
+                        <p>
+                            Ваша заявка № #TICKET_NUMBER# на #TICKET_TYPE# #TICKET_STATUS#.
+                            За подробной информацией обращайтесь в техподдержку.
+                        </p>
                     </body>
                 </html>',
         ];

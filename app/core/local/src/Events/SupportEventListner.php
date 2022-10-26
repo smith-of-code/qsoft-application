@@ -3,11 +3,11 @@
 namespace QSoft\Events;
 
 use Bitrix\Main\Mail\Event as EmailEvent;
-use Bitrix\Main\Sms\Event as SmsEvent;
 use \CTicketDictionary;
 use \CUserFieldEnum;
 use DateTime;
 use CTicket;
+use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 
 /**
@@ -24,8 +24,9 @@ class SupportEventListner
     private const ACCEPTED = 'ACCEPTED';
     // Название символьного кода почтового события.
     private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
-    // Название символьного кода почтового события.
+    // Название символьного кода смс события.
     private const TICKET_ACCEPTION_EVENT_SMS = 'TICKET_ACCEPTION_EVENT_SMS';
+    private const TICKET_CREATION_EVENT = 'TICKET_CREATION_EVENT';
 
     /**
      * Прослушивание собития OnAfterTicketUpdate
@@ -84,6 +85,9 @@ class SupportEventListner
     public function onAfterTicketAdd(array $ticketValues): void
     {
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        $ticket
+            = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
+                ->GetNext();
 
         if (
             $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
@@ -92,6 +96,18 @@ class SupportEventListner
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
+
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+            
+            $phoneNumberToSend
+                = (new \CUser)->GetList('', '', ['ID' => $ticket['RESPONSIBLE_USER_ID']])->GetNext()['PERSONAL_PHONE'];
+
+            $message 
+                = 'Создана новая заявка на ' . $category['DESCR'] . ' № ' . $ticket['ID'] . '.';
+
+            if (!empty($phoneNumberToSend)) {
+                $this->sendSMS($message, $phoneNumberToSend);
+            }
         }
     }
 
@@ -110,7 +126,25 @@ class SupportEventListner
 
         if ($this->checkStatus($ticket, $ticketValues)) {
             $this->sendEmail($ticket);
-            $this->sendSMS($ticket);
+
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+            
+            $acceptedStatus = (new CUserFieldEnum())
+                ->GetList([], ['ID' => $ticketValues['UF_ACCEPT_REQUEST']])
+                ->GetNext();
+
+            $phoneNumberToSend
+                = (new \CUser)->GetList('', '', ['ID' => $ticket['OWNER_USER_ID']])->GetNext()['PERSONAL_PHONE'];
+
+            $message 
+                = 'Ваша заявка № '
+                    . $ticketValues['ID'] . ' на '
+                    . $category['DESCR'] . ' ' . ($acceptedStatus == self::ACCEPTED ? 'одобрена' : 'отклонена')
+                    . '. За подробной информацией обращайтесь в техподдержку';
+
+            if (!empty($phoneNumberToSend)) {
+                $this->sendSMS($message, $phoneNumberToSend);
+            }
         }
 
         return $ticketValues; // Обязательно возвращаем данные тикета.
@@ -142,6 +176,7 @@ class SupportEventListner
     private function sendEmail(array $ticket): void
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
 
         EmailEvent::send([
             "EVENT_NAME" => self::TICKET_ACCEPTION_EVENT,
@@ -152,8 +187,9 @@ class SupportEventListner
                 "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
                 "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
                 "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
-                "TICKED_STATUS" => $status['VALUE'], // статус заявки
-                "TICKED_NUMBER" => $ticket['ID'], // номер тикета
+                "TICKET_STATUS" => $status['VALUE'], // статус заявки
+                "TICKET_TYPE" => $category['DESCR'], // статус заявки
+                "TICKET_NUMBER" => $ticket['ID'], // номер тикета
                 "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
                 "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
             ]
@@ -166,43 +202,10 @@ class SupportEventListner
      * 
      * @return void
      */
-    private function sendSMS(array $ticket): void
+    private function sendSMS(string $message, string $phoneNumber): void
     {
-        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
-
-        $users = [
-            $ticket['OWNER_USER_ID'],
-            $ticket['RESPONSIBLE_USER_ID'],
-        ];
-
-        $user = (new \CUser)->GetList('', '', ['ID' => implode('|', $users)], ['PHONE_NUMBER']);
-
-        $owner = [];
-        $responsible = [];
-
-        while ($res = $user->GetNext()) {
-            if ($res['ID'] == $ticket['OWNER_USER_ID']) {
-                $owner = $res;
-            } else {
-                $responsible = $res;
-            }
-        }
-
-        $fields = [
-            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-            "MESSAGE_SENDER" => '+79042356440', // почта отправителя
-            "MESSAGE_TAKER" => '+79042356440', // почта получателя
-            "TICKED_STATUS" => $status['VALUE'], // статус заявки
-            "TICKED_NUMBER" => $ticket['ID'], // номер тикета
-            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
-            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
-        ];
-
-        $sms = new SmsEvent(self::TICKET_ACCEPTION_EVENT_SMS, $fields);
-
-        $sms->setSite($ticket['SITE_ID'])
-            ->setLanguage(SITE_ID)
-            ->send();
+        $smsClient = new SmsClient();
+        $smsClient->sendMessage($message, $phoneNumber);
     }
 
     /**
@@ -215,8 +218,10 @@ class SupportEventListner
     {
         $fields = json_decode($ticketValues['UF_DATA'], true);
         $user = new User($ticketValues['OWNER_USER_ID']);
-        $user->Update($fields['USER_INFO']);
-        $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+        if (!empty($fields['USER_INFO'])){
+            $user->Update($fields['USER_INFO']);
+            $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+        }
     }
 
     /**
