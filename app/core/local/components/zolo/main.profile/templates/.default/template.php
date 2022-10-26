@@ -6,8 +6,8 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 use Bitrix\Main\Localization\Loc;
 
 global $APPLICATION;
-$APPLICATION->setTitle('Личный Кабинет');dump($arResult);
-?><?=$arResult['LEGAL_ENTITY']['DOCUMENTS']['passport']['addressFact']['locality']?>
+$APPLICATION->setTitle('Личный Кабинет'); dump($arResult);
+?>
 <!--content-->
 
             <h1 class="page__heading"><?=$APPLICATION->showTitle()?></h1>
@@ -1009,7 +1009,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                     
                                                     <!-- TODO: Определить логику типа юр данных -->
                                                     <div class="section__box-inner">
-                                                        <h5 class="box__heading box__heading--middle">Самозанятый</h5>
+                                                        <h5 class="box__heading box__heading--middle"><?=$arResult['STATUS']?></h5>
                     
                                                         <div class="section__box-content box box--white box--rounded-sm box--inner">
                                                             <div class="section__box-block">
@@ -2969,6 +2969,7 @@ $APPLICATION->setTitle('Личный Кабинет');dump($arResult);
                             <!--/Неработающая функциональность-->
 
                             <!--Смена наставника/контактного лица-->
+                            <!-- TODO: что за почта -->
                             <div class="modal__section-variant" data-variant-block="change">
                                 <div class="form__row form__row--gaped">
                                     <div class="form__col">
