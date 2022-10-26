@@ -15,31 +15,39 @@ class SaleBasketTotal extends CBitrixComponent
 {
     public function executeComponent()
     {
-        if (currentUser() && currentUser()->groups->isConsultant()) {
-            $this->loadBonusAccount();
-            $this->loadBasketBonus();
-
-            $this->arResult['USER_LOYALTY_LEVEL'] = currentUser()->loyaltyLevel;;
-
-            dump($this->arResult);
-        }
-    }
-
-    public function loadBonusAccount()
-    {
-        $this->arResult['ACTIVE_BONUSES'] = currentUser()->bonusPoints;
-    }
-
-
-    public function loadBasketBonus()
-    {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        $this->arResult['BASKET_BONUS_SUM'] = (new BasketBonus($basket))
-            ->getUserBonusSum(currentUser());
+        $basket->refresh(Basket\RefreshFactory::create(Basket\RefreshFactory::TYPE_FULL));
+
+        $this->arResult = [
+            'BASKET_COUNT' => $basket->count(),
+            'BASKET_PRICE' => $basket->getPrice(),
+            'BASKET_TOTAL_VAT' => $basket->getVatSum(),
+//            'TOTAL_DISCOUNT' => $basket->
+        ];
+
+        if (currentUser() && currentUser()->groups->isConsultant()) {
+            $this->loadBonusesBlock($basket);
+        }
+
+        $discounts = \Bitrix\Sale\Discount::buildFromBasket($basket, new \Bitrix\Sale\Discount\Context\Fuser($basket->getFUserId(true)));
+
+        $discounts->calculate();
+
+        $result = $discounts->getApplyResult(true);
+
+//        $prices = $result['PRICES']['BASKET'];
+
+        dump($result);
+
+//        dump($this->arResult);
     }
 
-
-
-
-
+    public function loadBonusesBlock($basket)
+    {
+        $this->arResult = array_merge($this->arResult, [
+            'ACTIVE_BONUSES' => currentUser()->bonusPoints,
+            'BASKET_ITEMS_BONUS_SUM' => (new BasketBonus($basket))->getBasketItemsBonusSum(currentUser()),
+            'USER_LOYALTY_LEVEL' => currentUser()->loyaltyLevel
+        ]);
+    }
 }

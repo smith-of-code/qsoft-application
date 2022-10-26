@@ -33,7 +33,7 @@ class BasketBonus
      * @throws \Bitrix\Main\ObjectPropertyException
      * @throws \Bitrix\Main\SystemException
      */
-    public function getUserBonusSum(User $user): int
+    public function getBasketItemsBonusSum(User $user): int
     {
         if (!$user->groups->isConsultant() || empty($user->loyaltyLevel)) {
             return 0;
