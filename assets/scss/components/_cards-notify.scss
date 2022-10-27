@@ -1,0 +1,18 @@
+.cards-notify {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__item {
+        flex-basis: 100%;
+
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(20px);
+        }
+
+        @include resetting-vertical-indentation-of-first;
+    }
+}

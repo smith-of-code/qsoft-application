@@ -3,7 +3,7 @@
 use QSoft\Migrate\Traits\AddUserFieldsTrait;
 use QSoft\Migration\Migration;
 
-class AddFieldCheckGroupsForUsers extends Migration
+class AddFieldLoyaltyLevelForUsers extends Migration
 {
     use AddUserFieldsTrait;
 
@@ -40,6 +40,24 @@ class AddFieldCheckGroupsForUsers extends Migration
                     'VALUE' => 'K3',
                     'DEF' => 'N',
                     'SORT' => 300,
+                ],
+                'n4' => [
+                    'XML_ID' => 'B1',
+                    'VALUE' => 'B1',
+                    'DEF' => 'N',
+                    'SORT' => 400,
+                ],
+                'n5' => [
+                    'XML_ID' => 'B2',
+                    'VALUE' => 'B2',
+                    'DEF' => 'N',
+                    'SORT' => 500,
+                ],
+                'n6' => [
+                    'XML_ID' => 'B3',
+                    'VALUE' => 'B3',
+                    'DEF' => 'N',
+                    'SORT' => 600,
                 ],
             ],
             'EDIT_FORM_LABEL' => [

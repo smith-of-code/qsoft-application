@@ -182,7 +182,7 @@ class AddFieldsForUsers extends Migration
             'XML_ID' => '',
             'SORT' => '500',
             'MULTIPLE' => 'N',
-            'MANDATORY' => 'Y',
+            'MANDATORY' => 'N',
             'SHOW_FILTER' => 'N',
             'SHOW_IN_LIST' => 'Y',
             'EDIT_IN_LIST' => '',

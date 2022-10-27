@@ -35,6 +35,9 @@ $mandy: #dc445c;
 $mandy2: #df586d;
 $black: #000000;
 $codGray: #161616;
+$drover: #fdf0ac;
+$caramel: #ffd4ad;
+$lavenderGray:#ccb4d6;  
 
 
 $color-text: $tuna;
@@ -108,8 +111,11 @@ $width-container: 1170px;
 $gap-container: $gap-normal;
 $gap-container-medium: $gap-medium;
 
-$height-header-mobile: 137px;
-$height-header-desktop: 168px;
+$height-header-mobile: 136px;
+$height-header-tablet: 148px;
+
+$height-header-main-mobile: 136px;
+$height-header-main-tablet: 168px;
 
 
 // Z-indexes

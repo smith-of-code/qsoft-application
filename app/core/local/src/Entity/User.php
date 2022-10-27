@@ -6,11 +6,12 @@ use Carbon\Carbon;
 use CFile;
 use CUser;
 use CUserFieldEnum;
-use QSoft\Service\BonusAccountService;
+
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
 use RuntimeException;
@@ -22,11 +23,7 @@ class User
      */
     private CUser $cUser;
     /**
-     * @var BonusAccountService Объект для работы с бонусным счетом пользователя
-     */
-    public BonusAccountService $bonusAccount;
-    /**
-     * @var LegalEntityService Объект для работы с питомцами пользователя
+     * @var LegalEntityService Объект для работы с документами пользователя
      */
     public LegalEntityService $legalEntity;
     /**
@@ -34,7 +31,7 @@ class User
      */
     public LoyaltyService $loyalty;
     /**
-     * @var UserGroupsService Объект для работы с бонусным счетом пользователя
+     * @var UserGroupsService Объект для работы с группами (ролями) пользователя
      */
     public UserGroupsService $groups;
     /**
@@ -45,6 +42,10 @@ class User
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
+    /**
+     * @var UserDiscountsService Объект для работы со скидками и акциями пользователя
+     */
+    public UserDiscountsService $discounts;
     /**
      * @var PetService Объект для работы с питомцами пользователя
      */
@@ -70,9 +71,9 @@ class User
      */
     public string $lastName;
     /**
-     * @var string Отчество
+     * @var string|null Отчество
      */
-    public string $secondName;
+    public ?string $secondName;
     /**
      * @var string E-mail
      */
@@ -89,6 +90,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Уровень в программе лояльности
+     */
+    public string $loyaltyLevel;
 
 
     /**
@@ -108,9 +113,9 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
-     * @var User Наставник
+     * @var int ID Наставника
      */
-    public ?User $mentor;
+    public int $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -128,16 +133,19 @@ class User
     /**
      * Коды пользовательских полей типа "Список"
      */
-    private const ENUM_PROPERTIES = [];
+    private const ENUM_PROPERTIES = [
+        'UF_LOYALTY_LEVEL',
+        'UF_PERSONAL_DISCOUNT_LEVEL',
+    ];
 
     /**
      * User constructor.
      * @param int|null $userId ID пользователя
      */
     public function __construct(?int $userId = null)
-    {dump($userId);
+    {
         $this->cUser = new CUser;
-        
+
         // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
@@ -153,7 +161,7 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('User not found');
+            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение
@@ -180,17 +188,21 @@ class User
         $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
         $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
         $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = empty($user['UF_MENTOR_ID']) ? null : new self((int) $user['UF_MENTOR_ID']);
+        $this->mentor = (int) $user['UF_MENTOR_ID'];
         $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
         $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
 
         //Задаем необходимые связанные объекты
-        $this->bonusAccount = new BonusAccountService($this);
         $this->legalEntity = new LegalEntityService($this);
-        $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+
+        //Задаем уровень в программе лояльности в зависимости от группы пользователя
+        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'];
+        $this->loyalty = new LoyaltyService($this);
+        
         $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
+        $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
     }
 
@@ -214,6 +226,15 @@ class User
     public function getPhotoUrl(): ?string
     {
         return CFile::GetPath($this->photo);
+    }
+
+    /**
+     * Возвращает наставника текущего пользователя
+     * @return User|null
+     */
+    public function getMentor(): ?User
+    {
+        return $this->mentor > 0 ? new self((int) $this->mentor) : null;
     }
 
     /**
