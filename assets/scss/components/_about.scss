@@ -346,4 +346,46 @@
             }
         }
     }
+
+    &__business {
+        &-header {
+            margin-bottom: rem(16px);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem(30px);
+            }
+        }
+
+        &-steps {
+            margin-bottom: rem(8px);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem(12px);
+            }
+        }
+
+        &-node {
+            position: relative;
+            display: flex;
+
+            padding: rem(34px) rem(48px) rem(24px) rem(92px);
+
+
+            background: #F4F3F6;
+            border-radius: 16px;
+
+            &-icon {
+                $size: 32px;
+
+                position: absolute;
+                top: rem(24px);
+                left: rem(48px);
+
+                width: rem($size);
+                height: rem($size);
+
+                color: $brickRed;
+            }
+        }
+    }
 }

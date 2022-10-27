@@ -884,6 +884,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: double-quotes">
+                                    <svg class="icon icon--double-quotes gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
