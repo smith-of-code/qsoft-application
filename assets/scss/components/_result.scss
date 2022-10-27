@@ -1,0 +1,100 @@
+.result {
+    padding: rem(10px) rem($gap-average);
+
+    border-radius: rem($border-radius-middle);
+    background-color: $white;
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-average) rem($gap-normal);
+    }
+
+    &__main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        color: $tuna;
+    }
+
+    &__title {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px / $font-size-small);
+
+        margin-right: rem($gap-small);
+    }
+
+    &__total {
+        @include text-medium($font-weight-semibold);
+
+        flex-shrink: 0;
+    }
+
+    &__addition {
+        margin-top: rem($gap-small);
+    }
+
+    &__return {
+        max-width: rem(752px);
+        margin-top: rem($gap-average);
+        margin-right: rem($gap-small);
+        margin-left: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(20px);
+            margin-left: rem($gap-mini);
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: rem($gap-small);
+
+            color: $tuna;
+            border-bottom: rem(1px) solid $alto;
+
+            @media #{$screen-desktop} {
+                padding-bottom: rem($gap-average);
+            }
+
+            & + & {
+                margin-top: rem($gap-small);
+
+                @media #{$screen-desktop} {
+                    margin-top: rem($gap-medium);
+                }
+            }
+        }
+
+        &-name {
+            @include text-miniature($font-weight-medium);
+
+            margin-right: rem($gap-mini);
+        }
+
+        &-total {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-semibold;
+            line-height: ($line-height-small / $font-size-small);
+
+
+            @media #{$screen-desktop} {
+                margin-right: rem(20px);
+            }
+        }
+    }
+
+    &__products {
+        margin-top: rem($gap-small);
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-average);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(20px);
+        }
+    }
+}

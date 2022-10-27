@@ -165,6 +165,21 @@
         }
     }
 
+    &--white & {
+        &__items {
+            width: max-content;
+            padding: rem($gap-mini);
+
+            background-color: $white;
+        }
+    }
+
+    &--white#{&}--circle & {
+        &__items {
+            border-radius: rem($border-radius-big);
+        }
+    }
+
     &__list {
         display: flex;
         align-items: center;

@@ -44,6 +44,7 @@
  import editProfile from './modules/edit-profile'; 
  import cookie from './modules/cookie';
  import identic from './modules/identic';
+ import showText from './modules/show-text';
 
 
  const app = {
@@ -80,6 +81,7 @@
         editProfile();
         cookie();
         identic();
+        showText();
     },
 
     load() {
