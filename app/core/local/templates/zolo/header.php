@@ -557,5 +557,5 @@ global $APPLICATION;
 </header>
 <!--/header-->
 
-<div class="page__content content">
+<div class="page__content page__content--breadcrumbs content">
     <div class="container">

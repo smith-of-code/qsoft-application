@@ -77,10 +77,6 @@ $this->setFrameMode(true);
                         if (isset($arItem['PRICE'])) {
                             $key = $arItem["ENCODED_ID"];
                             $arItem["DISPLAY_TYPE"] = 'A';
-                            if ($arItem['CODE'] === 'BASE')
-                                $arItem['NAME'] = 'Цена, ₽';
-                            if ($arItem['CODE'] === 'BONUSES')
-                                $arItem['NAME'] = 'Баллы, ББ';
                         }
                         ?>
 

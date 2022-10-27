@@ -210,6 +210,30 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 self::$catalogIncluded = Loader::includeModule('catalog');
             if (self::$catalogIncluded)
             {
+                // Перед получением цен - исключим цены в баллах, недоступные для пользователя
+                $currentUser = new \QSoft\Entity\User();
+
+                $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
+                $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
+
+                $priceCodes = $this->arParams["PRICE_CODE"];
+                if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
+                    // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
+                    foreach ($this->arParams["PRICE_CODE"] as $index => $code) {
+                        if (in_array($code, $loyaltyLevelsXmlIds, true) && $code !== $currentUser->loyaltyLevel) {
+                            unset($priceCodes[$index]);
+                        }
+                    }
+                } else {
+                    // Убираем варианты фильтрации по баллам
+                    foreach ($this->arParams["PRICE_CODE"] as $index => $code) {
+                        if (in_array($code, $loyaltyLevelsXmlIds, true)) {
+                            unset($priceCodes[$index]);
+                        }
+                    }
+                }
+                $this->arParams["PRICE_CODE"] = $priceCodes;
+
                 $rsPrice = CCatalogGroup::GetList(
                     array('SORT' => 'ASC', 'ID' => 'ASC'),
                     array('=NAME' => $this->arParams["PRICE_CODE"]),
@@ -246,29 +270,15 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                                 ),
                             ),
                         );
+
+                        // Обновим наименования цен для отображения в фильтре
+                        if ($items[$arPrice["NAME"]]['CODE'] === 'BASE')
+                            $items[$arPrice["NAME"]]['NAME'] = 'Цена, ₽';
+                        if (in_array($items[$arPrice["NAME"]]['CODE'], $loyaltyLevelsXmlIds, true))
+                            $items[$arPrice["NAME"]]['NAME'] = 'Баллы, ББ';
                     }
                 }
             }
-        }dump(11);
-        $currentUser = new \QSoft\Entity\User();
-
-        if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
-            $items['BONUSES'] = [
-                'ID' => 'BONUSES',
-                'CODE' => 'BONUSES',
-                'NAME' => 'Баллы',
-                'PRICE' => true,
-                'VALUES' => [
-                    'MIN' => [
-                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
-                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
-                    ],
-                    "MAX" => array(
-                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
-                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
-                    ),
-                ],
-            ];
         }
 
         return $items;

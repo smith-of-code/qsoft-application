@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
 <main class="page__catalog catalog">
 <?$APPLICATION->IncludeComponent(
-	"zolo:catalog",
+	"zolo:catalog", 
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
@@ -22,7 +22,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "N",
-		'PROPERTY_COUNT_DETAIL' => 4,
+		"PROPERTY_COUNT_DETAIL" => "4",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		"CACHE_FILTER" => "Y",
@@ -34,11 +34,14 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"DETAIL_DISPLAY_NAME" => "N",
 		"USE_ELEMENT_COUNTER" => "Y",
 		"USE_FILTER" => "Y",
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "sf",
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"USE_COMPARE" => "N",
 		"PRICE_CODE" => array(
 			0 => "BASE",
+			1 => "K1",
+			2 => "K2",
+			3 => "K3",
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
