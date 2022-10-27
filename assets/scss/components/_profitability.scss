@@ -1,0 +1,28 @@
+.profitability {
+    &__section {
+        &-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: rem(18px);
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem($gap-big);
+            }
+        }
+    }
+
+    &__hint {
+        $size: 24px;
+
+        flex-shrink: 0;
+
+        width: rem($size);
+        height: rem($size);
+
+        cursor: pointer;
+
+        color: #292d32;
+    }
+}
