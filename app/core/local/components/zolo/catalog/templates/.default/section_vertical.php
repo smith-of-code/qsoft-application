@@ -36,7 +36,8 @@ else
 <div class="content__main">
     <div class="catalog__wrapper">
         <?
-        $filterParams = array(
+        /* Фильтр */
+        $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", array(
             "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
             "IBLOCK_ID" => $arParams["IBLOCK_ID"],
             "SECTION_ID" => $arCurSection['ID'],
@@ -58,10 +59,7 @@ else
             "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
             "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
             "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
-        );
-        //dump($filterParams);
-        /* Фильтр */
-        $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", $filterParams,
+        ),
             $component,
             array('HIDE_ICONS' => 'Y')
         );
