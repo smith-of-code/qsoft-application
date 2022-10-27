@@ -18,10 +18,10 @@ use Bitrix\Main\Application;
 elseif ($arParams['DISABLE_BASKET_REDIRECT'] === 'Y' && $arResult['SHOW_EMPTY_BASKET']):
 	include(Application::getDocumentRoot() . "$templateFolder/empty.php");
 else:?>
-    <form action="/checkout/" method="POST" name="ORDER_FORM" id="bx-soa-order-form" enctype="multipart/form-data">
-        <input type="text" placeholder="Фамилия" value="<?=$arResult['USER']['LAST_NAME']?>" />
-        <input type="text" placeholder="Имя" value="<?=$arResult['USER']['FIRST_NAME']?>" />
-        <select >
+    <div class="form">
+        <input type="text" id="last_name" placeholder="Фамилия" value="<?=$arResult['USER']['LAST_NAME']?>" />
+        <input type="text" id="first_name" placeholder="Имя" value="<?=$arResult['USER']['FIRST_NAME']?>" />
+        <select id="delivery_service">
             <option>Способ доставки</option>
             <?php foreach($arResult['DELIVERY'] as $delivery):?>
                 <option
@@ -30,8 +30,9 @@ else:?>
                 ><?=$delivery['NAME']?></option>
             <?php endforeach;?>
         </select>
-        <input type="text" placeholder="Дата доставки" value="Доступно с <?=$arResult['ORDER_DELIVERY_DATE']?>" disabled />
-        <select >
+        <input type="hidden" id="delivery_date" value="<?=$arResult['ORDER_DELIVERY_DATE']?>" />
+        <input type="text" id="~delivery_date" placeholder="Дата доставки" value="Доступно с <?=$arResult['ORDER_DELIVERY_DATE']?>" disabled />
+        <select id="city">
             <option>Город</option>
             <?php foreach($arResult['CITIES'] as $city):?>
                 <option
@@ -40,14 +41,16 @@ else:?>
                 ><?=$city['VALUE']?></option>
             <?php endforeach;?>
         </select>
-        <select >
+        <select id="delivery_address">
             <option>Адрес доставки</option>
             <?php foreach($arResult['ADDRESSES'] as $address):?>
                 <option value="<?=$address?>"><?=$address?></option>
             <?php endforeach;?>
         </select>
-        <input type="text" placeholder="Email" value="<?=$arResult['USER']['EMAIL']?>" />
-        <input type="text" placeholder="Комментарий" value="" />
+        <input type="text" placeholder="Email" id="email" value="<?=$arResult['USER']['EMAIL']?>" />
+        <input type="text" placeholder="Комментарий" id="comment" value="" />
+        <input type="hidden" id="order_bonuses" value="<?=$arResult['ORDER_BONUSES']?>" />
+        <input type="hidden" id="bonuses_subtract" value="<?=$arResult['BONUSES_SUBTRACT']?>" />
         <div>
             <p>Количество товаров - <?=$arResult['BASKET_POSITIONS']?></p>
             <p>Сумма НДС - <?=$arResult['ORDER_TAX']?></p>
@@ -58,5 +61,6 @@ else:?>
             <?php endif;?>
             <p>Итого к оплате - <?=$arResult['ORDER_PRICE']?></p>
         </div>
-    </form>
+        <button data-create-order>Оформить заказ</button>
+    </div>
 <?php endif;?>

@@ -1,13 +1,13 @@
 <?php
 
-namespace QSoft\Service;
+namespace QSoft\Helper;
 
 use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
-use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
 use QSoft\ORM\TransactionTable;
+use RuntimeException;
 
 class TransactionsHelper
 {
