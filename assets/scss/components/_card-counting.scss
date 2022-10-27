@@ -38,6 +38,8 @@
         }
 
         &-count {
+            font-weight: $font-weight-semibold;
+
             max-width: 10ch;
 
             text-align: center;
