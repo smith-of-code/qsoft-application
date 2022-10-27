@@ -1,0 +1,28 @@
+.private {
+    &__row {
+        @media #{$screen-desktop} {
+            display: flex;
+        }
+    }
+
+    &__col {
+        &--limited {
+            flex-shrink: 0;
+
+            margin-bottom: rem($gap-big);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem(30px);
+            }
+
+            @media #{$screen-desktop} {
+                width: rem(270px);
+                margin-right: rem(30px);
+            }
+        }
+
+        &--full {
+            flex-grow: 1;
+        }
+    }
+}

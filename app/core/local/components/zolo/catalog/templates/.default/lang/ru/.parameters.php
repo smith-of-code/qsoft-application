@@ -217,4 +217,5 @@ $MESS["CP_BC_TPL_DATA_LAYER_NAME"] = "Имя контейнера данных";
 $MESS["CP_BC_TPL_BRAND_PROPERTY"] = "Свойство брендов";
 $MESS["CP_BC_TPL_USE_RATIO_IN_RANGES"] = "Учитывать коэффициенты для диапазонов цен";
 $MESS["SEARCH_USE_SEARCH_RESULT_ORDER"] = "Результаты поиска будут выведены в порядке убывания релевантности.";
+$MESS['PROPERTY_COUNT_DETAIL'] = 'Коллическтво свойств в шапке товара';
 ?>

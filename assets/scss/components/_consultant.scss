@@ -1,0 +1,44 @@
+.consultant {
+    padding: rem($gap-normal);
+
+    @media #{$screen-tablet} {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: rem(10px) rem(40px);
+    }
+
+    &__col {
+        &--left {
+            margin-bottom: rem($gap-average);
+
+            @media #{$screen-tablet} {
+                margin-right: rem($gap-normal);
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__text {
+        @include text-middle($font-weight-semibold);
+
+        text-align: center;
+
+        @media #{$screen-tablet} {
+            text-align: left;
+        }
+
+        &-accent {
+            color: $brickRed;
+        }
+    }
+
+    &__button {
+        width: 100%;
+
+        @media #{$screen-tablet} {
+            width: initial;
+        }
+    }
+}

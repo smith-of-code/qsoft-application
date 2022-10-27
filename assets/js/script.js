@@ -21,8 +21,8 @@
  import inputPlaceholder from './modules/inputPlaceholder';
  import tabs from './modules/tabs';
  import scrollbar from './modules/scrollbar';
- import tooltip from "./modules/tooltip";
- import toggle from "./modules/toggle";
+ import tooltip from './modules/tooltip';
+ import toggle from './modules/toggle';
  import truncate from './modules/truncate';
  import dropdown from './modules/dropdown';
  import quantity from './modules/quantity';
@@ -40,6 +40,12 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
+ import cardCounting from './modules/cardCounting';
+ import removeItem from './modules/remove-item';
+ import editProfile from './modules/edit-profile'; 
+ import cookie from './modules/cookie';
+ import identic from './modules/identic';
+ import showText from './modules/show-text';
 
 
  const app = {
@@ -72,7 +78,12 @@
         addFavourite();
         filter();
         swiper();
-
+        cardCounting();
+        removeItem();
+        editProfile();
+        cookie();
+        identic();
+        showText();
     },
 
     load() {

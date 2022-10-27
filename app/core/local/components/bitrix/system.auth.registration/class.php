@@ -4,48 +4,34 @@ use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use QSoft\Entity\User;
+use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\PetHelper;
 use QSoft\ORM\ConfirmationTable;
+use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
+use QSoft\ORM\PickupPointTable;
 use QSoft\Service\ConfirmationService;
-use QSoft\Service\UserService;
+use QSoft\Service\UserGroupsService;
+
+Loc::loadMessages(__FILE__);
 
 class SystemAuthRegistrationComponent extends CBitrixComponent implements Controllerable
 {
     private const SESSION_KEY = 'registrationData';
 
-    private const REGISTRATION_TYPES = [
-        'buyer' => [
-            'name' => 'buyer',
-            'steps' => [
-                'personal_data',
-                'pets_data',
-                'choose_contact',
-                'set_password',
-                'final',
-            ],
-        ],
-        'consultant' => [
-            'name' => 'consultant',
-            'steps' => [
-                'personal_data',
-                'pets_data',
-                'choose_mentor',
-                'legal_entity_data',
-                'set_password',
-                'final',
-            ],
-        ],
-    ];
-
     private const FILE_FIELDS = [
         'photo',
         'passport',
         'tax_registration_certificate',
+        'personal_tax_registration_certificate',
+        'bank_details',
         'usn_notification',
         'ip_registration_certificate',
         'llc_charter',
@@ -63,24 +49,103 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function executeComponent()
     {
+        $registrationTypes = $this->getRegistrationTypes();
+
         if (isset($this->arParams['USER_ID']) && isset($this->arParams['CONFIRM_CODE'])) {
             $this->confirmEmail();
         }
 
         $this->arResult = $this->getRegisterData();
 
-        if (!$this->arResult) {
-            $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
-            $registrationType = self::REGISTRATION_TYPES[$queryType] ?? array_first(self::REGISTRATION_TYPES);
+        $queryType = Application::getInstance()->getContext()->getRequest()->getQuery('type');
+        if (!$this->arResult || ($queryType && $this->arResult['type'] !== $registrationTypes[$queryType]['name'])) {
+            $registrationType = $registrationTypes[$queryType] ?? array_first($registrationTypes);
 
             $this->arResult = [
                 'type' => $registrationType['name'],
+                'pet_kinds' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_KIND'),
+                'pet_genders' => HlBlockHelper::getEnumFieldValues(PetTable::getTableName(), 'UF_GENDER'),
+                'breeds' => (new PetHelper)->getBreeds(),
+                'cities' => HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY'),
                 'steps' => $registrationType['steps'],
-                'currentStep' => $registrationType['steps'][0],
+                'currentStep' => $registrationType['steps'][0]['code'],
+                'default_pet' => [
+                    'type' => 'dog',
+                    'gender' => 'man',
+                ],
             ];
         }
 
         $this->IncludeComponentTemplate();
+    }
+
+    private function getRegistrationTypes(): array
+    {
+        return [
+            'buyer' => [
+                'name' => 'buyer',
+                'steps' => [
+                    [
+                        'index' => 1,
+                        'code' => 'personal_data',
+                        'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
+                    ],
+                    [
+                        'index' => 3,
+                        'code' => 'pets_data',
+                        'name' => Loc::getMessage('PETS_DATA_STEP'),
+                    ],
+                    [
+                        'index' => 2,
+                        'code' => 'choose_mentor',
+                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
+                    ],
+                    [
+                        'index' => 5,
+                        'code' => 'set_password',
+                        'name' => Loc::getMessage('SET_PASSWORD_STEP'),
+                    ],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
+                ],
+            ],
+            'consultant' => [
+                'name' => 'consultant',
+                'steps' => [
+                    [
+                        'index' => 1,
+                        'code' => 'personal_data',
+                        'name' => Loc::getMessage('PERSONAL_DATA_STEP'),
+                    ],
+                    [
+                        'index' => 2,
+                        'code' => 'pets_data',
+                        'name' => Loc::getMessage('PETS_DATA_STEP'),
+                    ],
+                    [
+                        'index' => 3,
+                        'code' => 'choose_mentor',
+                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
+                    ],
+                    [
+                        'index' => 4,
+                        'code' => 'legal_entity_data',
+                        'name' => Loc::getMessage('LEGAL_ENTITY_DATA_STEP'),
+                    ],
+                    [
+                        'index' => 5,
+                        'code' => 'set_password',
+                        'name' => Loc::getMessage('SET_PASSWORD_STEP'),
+                    ],
+                    [
+                        'index' => 6,
+                        'code' => 'final',
+                    ],
+                ],
+            ],
+        ];
     }
 
     private function confirmEmail()
@@ -92,7 +157,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         );
 
         if ($confirmResult) {
-            (new UserService)->activate($this->arParams['USER_ID']);
+            (new User($this->arParams['USER_ID']))->activate();
         }
 
         LocalRedirect('/');
@@ -128,29 +193,41 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     {
         $registrationData = $this->getRegisterData();
 
-        $registrationType = self::REGISTRATION_TYPES[$data['type']];
-        $currentStepIndex = array_search($data['currentStep'], $registrationType['steps']);
+        $registrationType = $this->getRegistrationTypes()[$data['type']];
+        $currentStepIndex = array_search($data['currentStep'], array_column($registrationType['steps'], 'code'));
         if ($direction === 'next') {
-            $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1];
+            $data['currentStep'] = $registrationType['steps'][$currentStepIndex + 1]['code'];
         } else {
-            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1];
+            $registrationData['currentStep'] = $registrationType['steps'][$currentStepIndex - 1]['code'];
 
             return $this->setRegisterData($registrationData);
         }
 
-        foreach ($data as $field => $value) {
+        foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
-                throw new InvalidArgumentException('User with this email already exist');
-            }
-            if ($field === 'mentor_id') {
+                return ['status' => 'error', 'message' => 'User with this email already exist'];
+            } else if ($field === 'mentor_id' && $value) {
                 try {
-                    UserTable::getById($value);
-                } catch (ObjectPropertyException|ArgumentException|SystemException $e) {
-                    throw new InvalidArgumentException('User not found');
+                    if (!(new UserGroupsService(new User($value)))->isConsultant()) {
+                        throw new InvalidArgumentException('Mentor not found');
+                    }
+                } catch (\Exception $e) {
+                    return ['status' => 'error', 'message' => 'Mentor not found'];
                 }
-            }
-            if (in_array($field, self::FILE_FIELDS)) {
-                // TODO: Хз ещё в каком виду будут приходить файлы
+            } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
+                if (!empty($value['files'])) {
+                    $value = $value['files'];
+                } else {
+                    $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
+                    $filePath = "/upload/register/$field" . uniqid() . $value['name'];
+                    file_put_contents("$_SERVER[DOCUMENT_ROOT]$filePath", $file);
+                    $arFile = CFile::MakeFileArray("$_SERVER[DOCUMENT_ROOT]$filePath");
+                    $fileId = CFile::SaveFile($arFile, "$_SERVER[DOCUMENT_ROOT]$filePath");
+                    $value = [
+                        'id' => $fileId,
+                        'src' => $filePath,
+                    ];
+                }
             }
         }
 
@@ -184,10 +261,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user->Update($result['ID'], ['ACTIVE' => 'N']);
         $user->Logout();
 
-        $this->setRegisterData(array_merge($this->getRegisterData(), [
+        $this->setRegisterData([
             'password' => $password,
             'user_id' => $result['ID'],
-        ]));
+        ]);
 
         (new ConfirmationService)->sendSmsConfirmation($result['ID']);
 
@@ -213,15 +290,15 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'select' => ['ID'],
         ])['ID'];
 
-        // TODO PHOTO, legal entity
         $user->Update($registrationData['user_id'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
-            'PERSONAL_BIRTHDAY' => new Date($data['birthday']),
+            'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
+            'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
             'PERSONAL_GENDER' => $data['gender'],
-            'PERSONAL_CITY' => $data['city'],
+            'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
             'UF_MENTOR_ID' => $data['mentor_id'],
             'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],
@@ -243,18 +320,105 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $registrationData['password'],
         );
 
-        foreach ($data['pets'] as $pet) {
-            PetTable::add([
+//        foreach ($data['pets'] as $pet) {
+//            PetTable::add([
+//                'UF_USER_ID' => $registrationData['user_id'],
+//                'UF_NAME' => $pet['name'],
+//                'UF_KIND' => $pet['type'],
+//                'UF_BREED' => $pet['breed'],
+//                'UF_GENDER' => $pet['gender'],
+//                'UF_BIRTHDATE' => new Date($pet['birthdate']),
+//            ]);
+//        }
+
+        if ($data['status']) {
+            $documents = [
+                'nationality' => $data['nationality'],
+                'passport_series' => $data['passport_series'],
+                'passport_number' => $data['passport_number'],
+                'who_got' => $data['who_got'],
+                'getting_date' => $data['getting_date'],
+                'passport' => $data['passport'],
+                'register_locality' => $data['register_locality'],
+                'register_street' => $data['register_street'],
+                'register_house' => $data['register_house'],
+                'register_apartment' => $data['register_apartment'],
+                'register_postal_code' => $data['register_postal_code'],
+                'living_locality' => $data['living_locality'] ?? $data['register_locality'],
+                'living_street' => $data['living_street'] ?? $data['register_street'],
+                'living_house' => $data['living_house'] ?? $data['register_house'],
+                'living_apartment' => $data['living_apartment'] ?? $data['register_apartment'],
+                'living_postal_code' => $data['living_postal_code'] ?? $data['register_postal_code'],
+            ];
+
+            if ($data['status'] === 'self_employed') {
+                $documents += [
+                    'tin' => $data['tin'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                    'personal_tax_registration_certificate' => $data['personal_tax_registration_certificate'],
+                ];
+            } else if ($data['status'] === 'ltc') {
+                $documents += [
+                    'ltc_full_name' => $data['ltc_full_name'],
+                    'ltc_short_name' => $data['ltc_short_name'],
+                    'ogrn' => $data['ogrn'],
+                    'tin' => $data['tin'],
+                    'nds_payer' => $data['nds_payer_ltc'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'usn_notification' => $data['usn_notification'],
+                    'kpp' => $data['kpp'],
+                    'llc_charter' => $data['llc_charter'],
+                    'llc_members' => $data['llc_members'],
+                    'ceo_appointment' => $data['ceo_appointment'],
+                    'llc_registration_certificate' => $data['llc_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                    'ltc_locality' => $data['ltc_locality'],
+                    'ltc_street' => $data['ltc_street'],
+                    'ltc_address_1' => $data['ltc_address_1'],
+                    'ltc_address_2' => $data['ltc_address_2'],
+                    'ltc_postal_code' => $data['ltc_postal_code'],
+                ];
+
+                if ($data['need_proxy']) {
+                    $documents['procuration'] = $data['procuration'];
+                }
+            } else if ($data['status'] === 'ip') {
+                $documents += [
+                    'ip_name' => $data['ip_name'],
+                    'tin' => $data['tin'],
+                    'nds_payer' => $data['nds_payer_ip'],
+                    'tax_registration_certificate' => $data['tax_registration_certificate'],
+                    'usn_notification' => $data['usn_notification'],
+                    'ogrnip' => $data['ogrnip'],
+                    'ip_registration_certificate' => $data['ip_registration_certificate'],
+                    'bank_name' => $data['bank_name'],
+                    'bic' => $data['bic'],
+                    'checking_account' => $data['checking_account'],
+                    'correspondent_account' => $data['correspondent_account'],
+                    'bank_details' => $data['bank_details'],
+                ];
+            }
+
+            LegalEntityTable::add([
                 'UF_USER_ID' => $registrationData['user_id'],
-                'UF_NAME' => $pet['name'],
-                'UF_KIND' => $pet['kind'],
-                'UF_BREED' => $pet['breed'],
-                'UF_GENDER' => $pet['gender'],
-                'UF_BIRTHDATE' => new Date($pet['birthday']),
+                'UF_STATUS' => LegalEntityTable::STATUSES[$data['status']],
+                'UF_IS_ACTIVE' => true,
+                'UF_DOCUMENTS' => json_encode($documents, JSON_UNESCAPED_UNICODE),
             ]);
         }
 
-        (new ConfirmationService)->sendEmailConfirmation($registrationData['user_id']);
+        (new ConfirmationService)->sendEmailConfirmation((int) $registrationData['user_id']);
+
+        $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 
         return ['status' => 'success'];
     }

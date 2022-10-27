@@ -7,6 +7,7 @@ use QSoft\Events\UserEventsListener;
 /**
 * Main module events
 */
+AddEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 AddEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
 /**
