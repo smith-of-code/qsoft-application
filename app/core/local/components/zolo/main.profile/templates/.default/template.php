@@ -6,7 +6,7 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 use Bitrix\Main\Localization\Loc;
 
 global $APPLICATION;
-$APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
+$APPLICATION->setTitle('Личный Кабинет'); dump($arResult);
 ?>
 <!--content-->
 
@@ -18,12 +18,15 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
         $APPLICATION->IncludeComponent(
             'zolo:personal.main.profile.navigation_menu',
             '',
+            [
+                'USER_GROUP' => $arResult['USER_GROUP_XML']
+            ]
         );
         ?>
 
         <div class="private__col private__col--full">
             <div class="profile">
-                <?php if ($arResult['USER_GROUP_XML'] == 'BUYER'): ?>
+                <?php if ($arResult['USER_INFO']['USER_GROUP_XML'] == 'BUYER'): ?>
                     <div class="profile__consultant consultant box box--gray box--rounded-sm">
                         <div class="consultant__col consultant__col--left">
                             <p class="consultant__text">Стань консультантом и получи все привилегии <span class="consultant__text-accent">AmeБизнес</span></p>
@@ -94,9 +97,8 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                                                 </div>
 
                                                 <!--dropzone-->
-                                                <!-- TODO: Определиться с реализацией -->
                                                 <div class="profile__dropzone dropzone dropzone--image dropzone--simple" data-uploader>
-                                                    <input type="file" name="uploadFiles[]" multiple class="dropzone__control js-required">
+                                                    <input type="file" name="PERSONAL_PHOTO_URL" multiple class="dropzone__control js-required">
 
                                                     <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
                                                         <div class="dropzone__message dropzone__message--simple dz-message needsclick">
@@ -192,7 +194,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                                                         <div class="form__col">
                                                             <div class="form__field">
                                                                 <div class="checkbox">
-                                                                    <input type="checkbox" class="checkbox__input" name="check[]" value="s" id="check" data-identic-change data-validate-dependent-change>
+                                                                    <input type="checkbox" class="checkbox__input" name="check[]" value="<?=$arResult['USER_INFO']['UF_NO_SECOND_NAME'] ?>" <?=$arResult['USER_INFO']['UF_NO_SECOND_NAME'] ? 'checked' : '' ?> id="check" data-identic-change data-validate-dependent-change>
                 
                                                                     <label for="check" class="checkbox__label">
                                                                         <span class="checkbox__icon">
@@ -1764,6 +1766,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                     <!--/Данные о питомцах-->
 
                     <!--Наставник-->
+                    <?php $mentor = $arResult['MENTOR_INFO']; ?>
                     <div class="profile__block" data-accordeon>
                         <section class="section">
                             <form class="form form--wraped form--separated" action="" method="post">
@@ -1812,12 +1815,12 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                                             <div class="profile__avatar">
                                                 <div class="profile__avatar-box">
                                                     <div class="profile__avatar-image">
-                                                        <img src="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                        <img src="<?=$mentor['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
                                                     </div>
                                                 </div>
 
                                                 <div class="profile__info">
-                                                    <span class="profile__id">ID <?=$arResult['MENTOR_INFO']['ID']?></span>
+                                                    <span class="profile__id">ID <?=$mentor['ID']?></span>
                                                 </div>
                                             </div>
 
@@ -1835,7 +1838,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
 
                                                                     <div class="form__field-block form__field-block--input">
                                                                         <div class="input">
-                                                                            <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['LAST_NAME']?>" name="text-required" id="text-required" placeholder="Введите фамилию" readonly>
+                                                                            <input type="text" class="input__control" value="<?=$mentor['LAST_NAME']?>" name="text-required" id="text-required" placeholder="Введите фамилию" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1851,7 +1854,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
 
                                                                     <div class="form__field-block form__field-block--input">
                                                                         <div class="input">
-                                                                            <input type="text" value="<?=$arResult['MENTOR_INFO']['NAME']?>" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly>
+                                                                            <input type="text" value="<?=$mentor['NAME']?>" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1867,7 +1870,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
 
                                                                     <div class="form__field-block form__field-block--input">
                                                                         <div class="input">
-                                                                            <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly>
+                                                                            <input type="text" class="input__control" value="<?=$mentor['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1886,7 +1889,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                                        <input type="text" class="input__control" value="<?=$mentor['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1902,7 +1905,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="tel" class="input__control" name="text-required" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                                        <input type="tel" class="input__control" name="text-required" value="<?=$mentor['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
                                                                     </div>
                                                                 </div>
 
@@ -1924,7 +1927,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                                        <input type="text" class="input__control" value="<?=$mentor['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1940,7 +1943,7 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
                 
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="input">
-                                                                        <input type="text" class="input__control" value="<?=$arResult['MENTOR_INFO']['']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                                        <input type="text" class="input__control" value="<?=$arResult['SELECT_OPTIONS']['PICK_POINT'][$mentor['UF_PICKUP_POINT_ID']]?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3591,14 +3594,14 @@ $APPLICATION->setTitle('Личный Кабинет'); //dump($arResult);
     <div style="background: grey; margin: 5px;">
         Контактные данные наставника
         <div style="background: whitesmoke; margin:5px">
-            Фамилия: <input type="text" value="<?=$arResult['MENTOR_INFO']['LAST_NAME']?>" required>
-            Имя: <input type="text" value="<?=$arResult['MENTOR_INFO']['NAME']?>" required>
-            Отчество: <input type="text" value="<?=$arResult['MENTOR_INFO']['SECOND_NAME']?>"><br>
-            Email: <input type="text" value="<?=$arResult['MENTOR_INFO']['EMAIL']?>" required>
-            Телефон: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_PHONE']?>" required><br>
-            Населенный пункт: <input type="text" value="<?=$arResult['MENTOR_INFO']['PERSONAL_CITY']?>" required>
-            Пункт выдачи заказов: <input type="text" value="<?=$arResult['MENTOR_INFO']['']?>" required><br>
-            Фото: <img src="<?=$arResult['MENTOR_INFO']['PERSONAL_PHOTO_URL']?>"><br>
+            Фамилия: <input type="text" value="<?=$mentor['LAST_NAME']?>" required>
+            Имя: <input type="text" value="<?=$mentor['NAME']?>" required>
+            Отчество: <input type="text" value="<?=$mentor['SECOND_NAME']?>"><br>
+            Email: <input type="text" value="<?=$mentor['EMAIL']?>" required>
+            Телефон: <input type="text" value="<?=$mentor['PERSONAL_PHONE']?>" required><br>
+            Населенный пункт: <input type="text" value="<?=$mentor['PERSONAL_CITY']?>" required>
+            Пункт выдачи заказов: <input type="text" value="<?=$mentor['']?>" required><br>
+            Фото: <img src="<?=$mentor['PERSONAL_PHOTO_URL']?>"><br>
         </div>
     </div>
     <div style="background: grey; margin: 5px;">Система лояльности</div>

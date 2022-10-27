@@ -84,9 +84,18 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
             }
         }
         $this->arResult['PETS_INFO'] = $this->user->pets->getAll();
-        $this->arResult['MENTOR_INFO'] = $this->user->mentor;
+        $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
         //Персональные акции
+    }
+
+    private function getMentorInfo()
+    {
+        $mentoInfo = CUser::GetByID($this->user->mentor->id)->Fetch();
+        $mentoInfo['PERSONAL_PHOTO_URL'] = $this->user->mentor->getPhotoUrl();
+
+
+        return $mentoInfo;
     }
 
 

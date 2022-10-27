@@ -41,31 +41,33 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <li class="menu__item <?=($arParams['INCOMES_CALCULATOR_URL'] === $currentUrl) ? 'menu__item--active' : ''?>">
-                <a href="<?=$arParams['INCOMES_CALCULATOR_URL']?>" class="menu__link">
-                    <span class="menu__icon">
-                        <svg class="icon icon--calculator gui__icon">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
-                        </svg>
-                    </span>
-                    <span class="menu__text">
-                        Калькулятор доходности
-                    </span>
-                </a>
-            </li>
+            <?php if ($arParams['USER_GROUP'] == 'CONSULTANT'): ?>
+                <li class="menu__item <?=($arParams['INCOMES_CALCULATOR_URL'] === $currentUrl) ? 'menu__item--active' : ''?>">
+                    <a href="<?=$arParams['INCOMES_CALCULATOR_URL']?>" class="menu__link">
+                        <span class="menu__icon">
+                            <svg class="icon icon--calculator gui__icon">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
+                            </svg>
+                        </span>
+                        <span class="menu__text">
+                            Калькулятор доходности
+                        </span>
+                    </a>
+                </li>
 
-            <li class="menu__item <?=($arParams['SALES_REPORT_URL'] === $currentUrl) ? 'menu__item--active' : ''?>">
-                <a href="<?=$arParams['SALES_REPORT_URL']?>" class="menu__link">
-                    <span class="menu__icon">
-                        <svg class="icon icon--chart-square gui__icon">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
-                        </svg>
-                    </span>
-                    <span class="menu__text">
-                        Отчетность по объемам продаж
-                    </span>
-                </a>
-            </li>
+                <li class="menu__item <?=($arParams['SALES_REPORT_URL'] === $currentUrl) ? 'menu__item--active' : ''?>">
+                    <a href="<?=$arParams['SALES_REPORT_URL']?>" class="menu__link">
+                        <span class="menu__icon">
+                            <svg class="icon icon--chart-square gui__icon">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
+                            </svg>
+                        </span>
+                        <span class="menu__text">
+                            Отчетность по объемам продаж
+                        </span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li class="menu__item <?=($arParams['NOTIFICATIONS_URL'] === $currentUrl) ? 'menu__item--active' : ''?>">
                 <a href="<?=$arParams['NOTIFICATIONS_URL']?>" class="menu__link">
