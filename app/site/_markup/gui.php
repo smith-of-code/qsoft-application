@@ -6446,7 +6446,7 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale label label--primary label--red">
+                                                    <div class="card-banner__sale label label--primary label--big label--red">
                                                         -50%
                                                     </div>
                                                 </div>
@@ -6474,7 +6474,7 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale label label--primary label--red">
+                                                    <div class="card-banner__sale label label--primary label--big label--red">
                                                         -50%
                                                     </div>
                                                 </div>
@@ -8577,7 +8577,7 @@
                                     </li>
                                     <li class="cards-compilation__item cards-compilation__item--compilation">
 
-                                        <article class="card-compilation card-compilation--small card-compilation--purple">
+                                        <article class="card-compilation card-compilation--small card-compilation--violet">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -8606,7 +8606,7 @@
                                     </li>
                                     <li class="cards-compilation__item cards-compilation__item--selection">
 
-                                        <article class="card-compilation card-compilation--small card-compilation--purple">
+                                        <article class="card-compilation card-compilation--small card-compilation--violet">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">

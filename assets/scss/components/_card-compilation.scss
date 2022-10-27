@@ -29,6 +29,10 @@
 
     &--small {
         min-height: rem(204px);
+
+        @media #{$screen-tablet} {
+            min-height: rem(220px);
+        }
     }
 
     &--green & {
@@ -40,6 +44,11 @@
 
             @media #{$screen-tablet} {
                 min-height: rem(108px);
+                padding: rem(21px) rem($gap-medium);
+            }
+
+            @media #{$screen-desktop} {
+                padding: rem($gap-normal);
             }
         }
 
@@ -68,7 +77,9 @@
         }
 
         &__text {
-            @include text-small($font-weight-medium);
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-small / $font-size-small);
 
             color: #19191c;
             
@@ -79,7 +90,7 @@
         }
     }
 
-    &--purple & {
+    &--violet & {
         &__content {
             display: flex;
             align-items: center;
@@ -140,32 +151,10 @@
             right: rem($gap-average);
         }
 
-        &.label {
-            &--secondary {
-                font-size: rem($font-size-miniature);
-                font-weight: $font-weight-semibold;
-                line-height: ($line-height-tiny / $font-size-miniature);
-
-                @media #{$screen-tablet} {
-                    font-size: rem($font-size-mini);
-                    line-height: ($line-height-miniature / $font-size-mini);
-                }
-            }
-
-            &--primary {
-                font-size: rem($font-size-normal);
-                line-height: ($line-height-small / $font-size-normal);
-                
-                padding: rem($gap-small);
-
-                letter-spacing: 0.02em;
-
-                color: $athensGray;
-
-                @media #{$screen-tablet} {
-                    font-size: rem($font-size-average);
-                    line-height: ($line-height-normal / $font-size-average);
-                }
+        &.label--violet {
+            @media #{$screen-desktop} {
+                top: rem($gap-small);
+                right: rem($gap-small);
             }
         }
     }
