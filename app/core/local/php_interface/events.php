@@ -3,6 +3,7 @@
 use QSoft\Events\OfferEventsListener;
 use QSoft\Events\SupportEventListner;
 use QSoft\Events\UserEventsListener;
+use QSoft\Events\OrderEventsListener;
 
 /**
 * Main module events
@@ -30,3 +31,8 @@ AddEventHandler('support', 'OnAfterTicketAdd', [new SupportEventListner(), 'onAf
 /**
  * техподдержка конец.
 */
+
+/**
+ * Sale module events
+ */
+AddEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'OnSaleStatusOrder']);

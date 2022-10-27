@@ -23,4 +23,22 @@ class NotificationService
             ],
         ])->getSelectedRowsCount();
     }
+
+    public function sendNotification(string $title, string $message, string $link, string $type = ''): bool
+    {
+/*
+        if (!in_array($type, NotificationTable::TYPES)) {
+            throw new \RuntimeException('Unknown notification type');
+        }
+*/
+        return NotificationTable::add([
+            'UF_TITLE' => $title,
+            'UF_USER_ID' => $this->user->id,
+            'UF_TYPE' => $type,
+            'UF_STATUS' => NotificationTable::STATUSES['unread'],
+            'UF_MESSAGE' => $message,
+            'UF_LINK' => $link,
+        ])->isSuccess();
+    }
+
 }
