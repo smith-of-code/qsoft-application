@@ -867,7 +867,10 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
         $this->page = empty($_REQUEST['offset']) ? 1 : (int)$_REQUEST['offset'];
         $size = empty($_REQUEST['limit'])
-            ? ((int)$this->arParams["ORDERS_PER_PAGE"] > 0) ? (int)$this->arParams["ORDERS_PER_PAGE"] : self::DEFAULT_LIMIT
+            ? (((int)$this->arParams["ORDERS_PER_PAGE"] > 0)
+					? (int)$this->arParams["ORDERS_PER_PAGE"]
+					: self::DEFAULT_LIMIT
+				)
             : (int)$_REQUEST['limit'];
 
         $countParams = [
@@ -983,7 +986,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			{
 				$shipment["TRACKING_URL"] = $trackingManager->getTrackingUrl($shipment["DELIVERY_ID"], $shipment["TRACKING_NUMBER"]);
 			}
-			$listOrderShipment[$shipment['ORDER_ID']][] = $shipment;
+			$listOrderShipment[$shipment['ORDER_ID']] = $shipment;
 		}
 
 		$paymentClassName = $this->registry->getPaymentClassName();
@@ -995,7 +998,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$paymentIdList = array();
 		$paymentList = array();
-
+		dump($orderIdList);
 		while ($payment = $listPayments->fetch())
 		{
 			$paySystemFields = $this->dbResult['PAYSYS'][$payment['PAY_SYSTEM_ID']];
@@ -1008,7 +1011,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			$paymentList[$payment['ID']] = $payment;
 			$paymentIdList[] = $payment['ID'];
 		}
-
+		
 		foreach ($paymentList as $payment)
 		{
 			$listOrderPayment[$payment['ORDER_ID']][] = $payment;
