@@ -559,4 +559,3 @@ global $APPLICATION;
 
 <div class="page__content content">
     <div class="container">
-        <main class="page__main main">
