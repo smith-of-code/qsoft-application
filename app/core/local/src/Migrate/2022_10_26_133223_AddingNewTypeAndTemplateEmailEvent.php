@@ -20,7 +20,7 @@ class AddingNewTypeAndTemplateEmailEvent extends Migration
     public function up(): void
     {
         $eventType = [
-                'LID' => SITE_ID,
+                'LID' => 'ru',
                 'EVENT_NAME' => self::TICKET_CREATION_EVENT,
                 'NAME' => 'Отправка данных о заказе',
                 // Предотвращаем пробелы в инпуте в начале строк
