@@ -494,11 +494,11 @@
                     <div class="content__main">
                         <div class="private__row">
                             <div class="private__col private__col--limited">
-                                <nav class="private__menu menu menu--private">
-                                    <ul class="menu__list">
-                                        <li class="menu__item">
+                                <nav class="private__menu notifications__menu notifications__menu--private menu menu--private">
+                                    <ul class="menu__list notifications__menu-list">
+                                        <li class="menu__item notifications__menu-item">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="notifications__menu-icon menu__icon">
                                                     <svg class="icon icon--profile gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
                                                     </svg>
@@ -509,9 +509,9 @@
                                             </a>
                                         </li>
 
-                                        <li class="menu__item">
+                                        <li class="menu__item notifications__menu-item">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="notifications__menu-icon menu__icon">
                                                     <svg class="icon icon--receipts gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
                                                     </svg>
@@ -522,9 +522,9 @@
                                             </a>
                                         </li>
 
-                                        <li class="menu__item">
+                                        <li class="menu__item notifications__menu-item">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="menu__icon notifications__menu-icon">
                                                     <svg class="icon icon--calculator gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
                                                     </svg>
@@ -535,9 +535,9 @@
                                             </a>
                                         </li>
 
-                                        <li class="menu__item">
+                                        <li class="menu__item notifications__menu-item">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon">
+                                                <span class="menu__icon notifications__menu-icon">
                                                     <svg class="icon icon--chart-square gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
                                                     </svg>
@@ -548,9 +548,9 @@
                                             </a>
                                         </li>
 
-                                        <li class="menu__item menu__item--active">
+                                        <li class="menu__item notifications__menu-item menu__item--active">
                                             <a href="#" class="menu__link">
-                                                <span class="menu__icon menu__icon--active">
+                                                <span class="notifications__menu-icon menu__icon menu__icon--active">
                                                     <svg class="icon icon--notification gui__icon">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
                                                     </svg>
