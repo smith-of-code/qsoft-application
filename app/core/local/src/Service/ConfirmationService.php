@@ -6,8 +6,6 @@ use Bitrix\Main\Authentication\Context;
 use Bitrix\Main\Authentication\ShortCode;
 use Bitrix\Main\Mail\Event;
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\UserTable;
-use InvalidArgumentException;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 use QSoft\ORM\ConfirmationTable;

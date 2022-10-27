@@ -249,7 +249,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                     }
                 }
             }
-        }
+        }dump(11);
         $currentUser = new \QSoft\Entity\User();
 
         if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {

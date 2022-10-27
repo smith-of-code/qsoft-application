@@ -16,11 +16,16 @@ class DataSource
         $this->parameters['limit'] = $limit;
     }
 
+    public function __call($name, $opt)
+    {
+        $this->parameters[$name] = $opt[0];
+        return $this;
+    }
+
     public function getElements($offset = 0)
     {   
         $this->parameters['offset'] = $offset;
-        $result = $this->getData();
-        return $result;
+        return $this->getData();
     }
 
     private function getData()

@@ -1,0 +1,10 @@
+.questions {
+
+    &__item {
+        margin-bottom: rem(40px);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

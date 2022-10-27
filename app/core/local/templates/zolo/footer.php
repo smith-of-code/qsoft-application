@@ -1,6 +1,4 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
-
-        </main>
     </div>
 </div>
 <!--content-->
@@ -203,7 +201,6 @@
 </footer>
 <!--/Футер-->
 
-<script src="/local/templates/.default/js/script.js"></script>
 </body>
 
 </html>

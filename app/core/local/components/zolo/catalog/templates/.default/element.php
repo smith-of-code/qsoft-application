@@ -49,6 +49,7 @@ else
 			'CACHE_TYPE' => $arParams['CACHE_TYPE'],
 			'CACHE_TIME' => $arParams['CACHE_TIME'],
 			'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
+			'PROPERTY_COUNT_DETAIL' => 4,
 			'SET_TITLE' => $arParams['SET_TITLE'],
 			'SET_LAST_MODIFIED' => $arParams['SET_LAST_MODIFIED'],
 			'MESSAGE_404' => $arParams['~MESSAGE_404'],
