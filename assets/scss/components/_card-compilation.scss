@@ -19,6 +19,10 @@
         box-shadow: 0 rem(8px) rem(12px) rgba($black, .08);
     }
 
+    &--gigantic {
+        min-height: rem(470px);
+    }
+
     &--big {
         min-height: rem(343px);
     }
@@ -29,6 +33,10 @@
 
     &--small {
         min-height: rem(204px);
+
+        @media #{$screen-tablet} {
+            min-height: rem(220px);
+        }
     }
 
     &--green & {
@@ -40,6 +48,11 @@
 
             @media #{$screen-tablet} {
                 min-height: rem(108px);
+                padding: rem(21px) rem($gap-medium);
+            }
+
+            @media #{$screen-desktop} {
+                padding: rem($gap-normal);
             }
         }
 
@@ -68,7 +81,9 @@
         }
 
         &__text {
-            @include text-small($font-weight-medium);
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-small / $font-size-small);
 
             color: #19191c;
             
@@ -79,7 +94,7 @@
         }
     }
 
-    &--purple & {
+    &--violet & {
         &__content {
             display: flex;
             align-items: center;
@@ -103,7 +118,29 @@
     }
 
     &--sale & {
-        
+        &__banner {
+            &::before {
+                display: block;
+
+                padding-bottom: percentage(343px / 358px);
+
+                content: "";
+
+                @media #{$screen-tablet} {
+                    padding-bottom: percentage(358px / 570px);
+                }
+            }
+        }
+
+        &__label {
+            top: rem($gap-average);
+            right: rem($gap-average);
+        }
+
+        &__content {
+            min-height: rem(112px);
+            padding: rem($gap-medium);
+        }
     }
 
     &__link {
@@ -144,32 +181,10 @@
             right: rem($gap-average);
         }
 
-        &.label {
-            &--secondary {
-                font-size: rem($font-size-miniature);
-                font-weight: $font-weight-semibold;
-                line-height: ($line-height-tiny / $font-size-miniature);
-
-                @media #{$screen-tablet} {
-                    font-size: rem($font-size-mini);
-                    line-height: ($line-height-miniature / $font-size-mini);
-                }
-            }
-
-            &--primary {
-                font-size: rem($font-size-normal);
-                line-height: ($line-height-small / $font-size-normal);
-                
-                padding: rem($gap-small);
-
-                letter-spacing: 0.02em;
-
-                color: $athensGray;
-
-                @media #{$screen-tablet} {
-                    font-size: rem($font-size-average);
-                    line-height: ($line-height-normal / $font-size-average);
-                }
+        &.label--violet {
+            @media #{$screen-desktop} {
+                top: rem($gap-small);
+                right: rem($gap-small);
             }
         }
     }
@@ -189,7 +204,7 @@
         font-weight: $font-weight-bold;
         line-height: (22px / $font-size-small);
 
-        @include text-ellips;
+        @include text-truncate-by-row(1);
 
         color: $white;
 

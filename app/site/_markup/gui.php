@@ -9702,7 +9702,7 @@
                                 <ul class="cards-sale__list">
                                     <li class="cards-sale__item">
 
-                                        <article class="card-compilation card-compilation--sale card-compilation--grey">
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -9724,7 +9724,104 @@
                                                         <span class="card-compilation__text-accent">
                                                             Скидка
                                                         </span>
-                                                        на аксессуары для собак средних и маленьких пород!
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
                                                     </p>
                                                 </div>
 
