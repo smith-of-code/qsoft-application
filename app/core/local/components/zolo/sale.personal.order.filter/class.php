@@ -36,30 +36,22 @@ class SalePersonalOrderFilterComponent extends CBitrixComponent
 
     protected function initFilter()
     {
-
-        if ($this->getStatuses(["STATUS_ID" => ["F", "OD"]])) {
-            $this->arResult['STATUS']['DELIVERED'] = 'Доставлен';
-        }
-
-
-        if ($this->getStatuses(["STATUS_ID" => ["OC"]])) {
-            $this->arResult['STATUS']['CANCELED'] = 'Отменен';
-        }
-
-
-        if ($this->getStatuses(["!STATUS_ID" => ["F", "OC",]])) {
-            $this->arResult['STATUS']['POSTED'] = 'Размещен';
+        $orders = \Bitrix\Sale\Order::getList([
+            'filter' => [
+                'USER_ID' => $GLOBALS['USER']->GetID()
+            ],
+            'select' => ['STATUS_ID'],
+        ]);
+        while ($order = $orders->fetch()) {
+            if (in_array($order['STATUS_ID'], ['F', 'OD'])) {
+                $this->arResult['STATUS']['DELIVERED'] = 'Доставлен';
+            } elseif ($order['STATUS_ID'] == 'OC') {
+                $this->arResult['STATUS']['CANCELED'] = 'Отменен';
+            } else {
+                $this->arResult['STATUS']['POSTED'] = 'Размещен';
+            }
         }
 
         $this->arResult['PAYMENT'] = $this->paymentStatus;
-    }
-
-    protected function getStatuses(array $filter)
-    {
-        $userFilter = array_merge(["USER_ID" => $GLOBALS['USER']->GetID()], $filter);
-
-        return \Bitrix\Sale\Order::getList([
-            'filter' => $userFilter,
-        ])->fetch();
     }
 }
