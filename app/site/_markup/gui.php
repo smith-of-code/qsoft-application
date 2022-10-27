@@ -430,6 +430,24 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: call">
+                                    <svg class="icon icon--call gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: location">
+                                    <svg class="icon icon--location gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: sms">
+                                    <svg class="icon icon--sms gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">

@@ -60,6 +60,9 @@ import './svg/crown.svg';
 import './svg/return.svg';
 import './svg/danger.svg';
 import './svg/double-quotes.svg';
+import './svg/call.svg';
+import './svg/location.svg';
+import './svg/sms.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';
