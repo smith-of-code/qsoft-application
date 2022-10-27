@@ -41,7 +41,7 @@ export default function(){
                         let $card = $(event.target).closest('.card-counting');
                         $card.find('.card-counting__value-count').val(this.dataset.current);
 
-                        $card.on('input', ELEMENTS_SELECTOR.rangeMin, function () {
+                        $card.on('change', ELEMENTS_SELECTOR.rangeMin, function () {
                             minVal = +$(this).val().trim();
 
                             if (minVal < min) {
@@ -52,7 +52,9 @@ export default function(){
                                 minVal = max;
                             }
 
-                            $card.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+                            $card.find(ELEMENTS_SELECTOR.rangeMin)
+                                .val(minVal)
+                                .css('width', `${minVal.toString().length + 1}ch`);
 
                             slider.slider('option','value', minVal);
                         });

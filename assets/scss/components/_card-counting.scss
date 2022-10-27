@@ -42,8 +42,14 @@
 
             text-align: center;
 
-            border: none;
+            border: rem(1) solid transparent;
+            border-radius: rem($border-radius-middle);
             background: none;
+
+            &:focus {
+                border-color: $alto;
+                outline: none;
+            }
         }
     }
 
