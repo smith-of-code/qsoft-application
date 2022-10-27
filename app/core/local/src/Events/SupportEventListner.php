@@ -95,11 +95,7 @@ class SupportEventListner
             $ticket['SITE_ID']
         );
 
-        if (
-            $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
-            || $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
-        ) {
-            
+        if ($category['SID'] != self::SUPPORT) {
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
