@@ -1,17 +1,20 @@
-<? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true);
+<?php
+if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
 
-use QSoft\Entity\User;
-use \Bitrix\Main\ORM\Query\Filter\ConditionTree;
-use \Bitrix\Main\ORM\Query\Query;
+use Bitrix\Main\Errorable;
+use Bitrix\Main\ErrorCollection;
+use Bitrix\Main\Localization\Loc;
+use \QSoft\Entity\User;
 use \Bitrix\Main\Engine\Contract\Controllerable;
 use \Bitrix\Main\Engine\ActionFilter;
-?>
+use QSoft\ORM\NotificationTable;
 
-<?php
-
-class NotificationListComponent extends CBitrixComponent implements Controllerable
+class NotificationListComponent extends CBitrixComponent implements Controllerable, Errorable
 {
     private const NOTIFICATIONS_LIMIT = 2;
+    protected ErrorCollection $errorCollection;
 
     public function configureActions()
     {
@@ -19,73 +22,54 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
             'loadNotifications' => [
                 '-prefilters' => [
                     ActionFilter\Csrf::class,
-                    ]
                 ]
-            ];
+            ]
+        ];
+    }
+
+    public function onPrepareComponentParams($arParams)
+    {
+        $this->errorCollection = new ErrorCollection();
     }
 
     public function executeComponent()
     {
-        $this->arResult = $this->loadNotificationsAction();
+        $this->arResult = $this->loadNotificationsAction([], 0, self::NOTIFICATIONS_LIMIT);
         $this->includeComponentTemplate();
     }
 
-    public function loadNotificationsAction(array $parameters = []): array
+    public function loadNotificationsAction(array $filter, int $offset, int $limit): array
     {
-        self::prepareParameters($parameters);
-        return self::loadNotificationsData($parameters, self::createFilter($parameters));
-    }
-
-    private static function loadNotificationsData(array $parameters, ConditionTree $filter): array
-    {
-        $notificationTable = (new User())->notification::getDataClass();
-        $notifications = $notificationTable::getList([
-                'select' => [
-                    'TITLE' => 'UF_TITLE',
-                    'STATUS' => 'STATUS_NAME.VALUE',
-                    'TEXT' => 'UF_MESSAGE',
-                    'LINK' => 'UF_LINK',
-                    'DATE',
-                    'TIME',
-                ],
-                'filter' => $filter,
-                'offset' => $parameters['offset'],
-                'limit' => $parameters['limit'],
-                'order' => ["UF_DATE_TIME" => "desc"]
-            ]
-        )->fetchAll();
+        $notifications = (new User())->notification->getNotifications($filter, $offset, $limit);
         return [
             'NOTIFICATIONS' => $notifications,
-            'OFFSET' => $parameters['offset'] + count($notifications),
+            'OFFSET' => $offset + count($notifications),
         ];
     }
 
-    private static function prepareParameters(array &$parameters): void
+    public function readMessageAction(int $notificationId): array
     {
-        if(empty($parameters)) {
-            $parameters['offset'] = 0;
-            $parameters['limit'] = self::NOTIFICATIONS_LIMIT;
-            return;
+        $service = (new User())->notification;
+        if (! $service->has($notificationId)) {
+            $this->errorCollection[] = new Error(Loc::getMessage('NOTIFICATION_NOT_FOUND'));
+            return [];
         }
-        if(!$parameters['offset']) {
-            $parameters['limit'] = max($parameters['size'], self::NOTIFICATIONS_LIMIT);
+        $readResult = $service->read($notificationId);
+        if ($readResult->isSuccess()) {
+            return ['status' => $service->getStatusValueById($readResult->getData()['UF_STATUS'])];
         } else {
-            $parameters['limit'] = self::NOTIFICATIONS_LIMIT;
+            $this->errorCollection[] = $readResult->getErrorCollection();
+            return [];
         }
     }
 
-    private static function createFilter(array $filterParameters): ConditionTree
+    public function getErrors()
     {
-        $filter = Query::filter();
-        if($filterParameters['filter']['day_interval']) {
-            $filter->where('DATE_DIFF', '<=', $filterParameters['filter']['day_interval']);
-        }
-        if($filterParameters['filter']['status']) {
-            $filter->where('STATUS', $filterParameters['filter']['status']);
-        }
+        return $this->errorCollection->toArray();
+    }
 
-        $filter->where('UF_USER_ID', (new User())->id);
-
-        return $filter;
+    public function getErrorByCode($code)
+    {
+        return $this->errorCollection->getErrorByCode($code);
     }
 }
