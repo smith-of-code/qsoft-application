@@ -209,6 +209,8 @@
             display: flex;
             flex-direction: column;
 
+            margin-bottom: rem(30px);
+
             @media #{$screen-desktop} {
                 flex-direction: row;
             }
