@@ -88,6 +88,7 @@ class CatalogElementComponent extends Element
                     'ID',
                     'NAME',
                     'CODE',
+                    'SORT',
                     'DETAIL_PAGE_URL',
                     'PREVIEW_PICTURE',
                     'DETAIL_PICTURE',
@@ -97,10 +98,13 @@ class CatalogElementComponent extends Element
                     'PREVIEW_TEXT_TYPE',
                 ];
 
+                $fileIds = [];
                 $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
 
                 $fileIds = $this->getFilesByItem($product);
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds); // TODO filesids
+                $this->arResult['OFFERS'] = $offers;
 
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
                 $this->arResult['DOCUMENTS'] = array_merge($sectionDocuments, $product['PROPERTY_DOCUMENTS_VALUE'] ?? []);
@@ -118,14 +122,6 @@ class CatalogElementComponent extends Element
                     0,
                     ['SECTION_BUTTONS' => true, 'SESSID' => false]
                 );
-
-                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
-                $this->arResult['OFFERS'] = $offers;
-
-//                $action = $this->prepareAction();
-//                $this->setAction($action);
-//                $this->doAction();
-
 
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
@@ -218,6 +214,10 @@ class CatalogElementComponent extends Element
             }
         }
 
+        usort($offers, function ($a, $b) {
+            return $a['SORT'] > $b['SORT'];
+        });
+
         if ($ids = array_column($offers, 'ID')) {
             $prices = PriceTable::getList([
                 'filter' => ['=PRODUCT_ID' => $ids],
@@ -254,9 +254,6 @@ class CatalogElementComponent extends Element
         }
         if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
             $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
-        }
-        if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
-            $result[] = $item['PROPERTY_VIDEO_VALUE'];
         }
         if (isset($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
             $result = array_merge($item['PROPERTY_IMAGES_VALUE'], $result);
@@ -296,6 +293,8 @@ class CatalogElementComponent extends Element
     private function transformData(array $data): array
     {
         $result = [
+            'ID' => $data['PRODUCT']['ID'],
+            'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
             'DISCOUNT_LABELS' => [],
@@ -305,7 +304,8 @@ class CatalogElementComponent extends Element
             'BESTSELLERS' => [],
             'PACKAGINGS' => [],
             'PHOTOS' => [],
-            'PRODUCT_IMAGE' => [$data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']]['SRC']],
+            'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
+            'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
             'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
             'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
@@ -319,11 +319,16 @@ class CatalogElementComponent extends Element
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
             'COLOR_NAMES' => ColorHelper::getColorNames(),
+            'OFFERS' => $data['OFFERS'], // TODO format if necessary
+            'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
         ];
 
         foreach ($data['OFFERS'] as $offer) {
+            $result['SORT'][] = $offer['ID'];
             $result['PRICES'][$offer['ID']] = $offer['PRICE'];
-            $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
+
+            $result['DISCOUNT_LABELS'][$offer['ID']]['NAME'] = $offer['PROPERTY_DISCOUNT_LABEL_VALUE'];
+            $result['DISCOUNT_LABELS'][$offer['ID']]['COLOR'] = $this->getDiscountLabelColor($offer['PROPERTY_DISCOUNT_LABEL_VALUE']);
 
             $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
             $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
@@ -332,7 +337,7 @@ class CatalogElementComponent extends Element
             $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
-                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item]['SRC'];
+                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
                 }
             }
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
@@ -340,7 +345,7 @@ class CatalogElementComponent extends Element
         }
 
         foreach ($data['DOCUMENTS'] as $documentId) {
-            $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
+            $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId];
         }
 
         // Объект CIBlockPropertyResult
@@ -427,5 +432,14 @@ class CatalogElementComponent extends Element
             $result[$item['ID']] = $item['CODE'];
         }
         return $result;
+    }
+
+    private function getDiscountLabelColor($typeName) {
+        $color = [
+            'Сезонное предложение' => 'violet',
+            'Ограниченное предложение' => 'pink'
+        ];
+
+        return $color[$typeName] ?? 'violet';
     }
 }
