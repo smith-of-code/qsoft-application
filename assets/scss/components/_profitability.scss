@@ -25,4 +25,40 @@
 
         color: #292d32;
     }
+
+    &__row {
+        & + & {
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-desktop} {
+                margin-top: rem($gap-normal);
+            }
+        }
+    }
+
+    &__level {
+        &-header {
+            padding: rem($gap-medium) rem($gap-normal);
+
+            @media #{$screen-desktop} {
+                padding-bottom: rem(14px);
+            }
+        }
+
+        &-title {
+            margin-bottom: rem($gap-small);
+
+            color: $tuna;
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem($gap-normal);
+            }
+        }
+    }
+
+    &__tabs {
+        &-body {
+            margin-top: rem($gap-big);
+        }
+    }
 }
