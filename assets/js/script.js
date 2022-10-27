@@ -40,6 +40,7 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
+ import cardCounting from './modules/cardCounting';
  import removeItem from './modules/remove-item';
  import editProfile from './modules/edit-profile'; 
  import cookie from './modules/cookie';
@@ -77,6 +78,7 @@
         addFavourite();
         filter();
         swiper();
+        cardCounting();
         removeItem();
         editProfile();
         cookie();
