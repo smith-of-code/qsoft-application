@@ -61,4 +61,129 @@
             margin-top: rem($gap-big);
         }
     }
+
+    &__calculation {
+        &-cards {
+            margin-bottom: rem($gap-medium);
+        }
+
+        &-result {
+            display: flex;
+            flex-direction: column;
+
+            padding-top: rem($gap-average);
+
+            border-top: rem(1px) solid $alto;
+
+            @media #{$screen-tablet} {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        &-annotation {
+            @include text-tiny($font-weight-medium);
+
+            order: 1;
+
+            max-width: rem(420px);
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                order: initial;
+
+                margin-top: 0;
+            }
+
+            @media #{$screen-desktop} {
+                @include text-miniature;
+            }
+        }
+
+        &-total {
+            display: inline-block;
+            align-self: flex-end;
+
+            padding: rem($gap-medium);
+
+            text-align: center;
+
+            border-radius: rem($border-radius-average);
+            background-color: $white;
+
+            &-sum {
+                font-size: rem($font-size-middle);
+                font-weight: $font-weight-bold;
+                line-height: ($line-height-middle / $font-size-middle);
+
+                width: rem(178px);
+
+                color: $brickRed;
+            }
+        }
+
+        &-groups {
+            margin-bottom: rem($gap-medium);
+        }
+
+        &-button {
+            @include text-miniature;
+        }
+    }
+
+    &__consultants {
+        padding: rem($gap-medium) rem($gap-normal);
+        margin-top: rem($gap-big);
+
+        border-radius: rem($border-radius-average);
+        background-color: $white;
+
+        @media #{$screen-desktop} {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: rem($gap-medium);
+        }
+
+        &-col {
+            & + & {
+                margin-top: rem($gap-medium);
+
+                @media #{$screen-desktop} {
+                    margin-top: 0;
+                }
+            }
+
+            &--inlined {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                @media #{$screen-desktop} {
+                    justify-content: flex-end;
+                }
+            }
+        }
+
+        &-switcher {
+            max-width: rem(420px);
+        }
+
+        &-quantity {
+            width: rem(192px);
+
+            @media #{$screen-desktop} {
+                margin-right: rem($gap-medium);
+            }
+        }
+    }
+
+    &__computing {
+        margin-top: rem($gap-big);
+    }
+
+    &__groups {
+        margin-top: rem($gap-medium);
+    }
 }

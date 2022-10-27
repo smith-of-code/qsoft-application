@@ -281,98 +281,532 @@
 
                                                     <div class="profitability__tabs-body tabs__body">
                                                         <div class="tabs__block tabs__block--active" data-tab-section="k1">
-                                                            <div class="section__box-inner">
-                                                                <h5 class="box__heading box__heading--middle">Личные покупки</h5>
+                                                            <form class="form">
+                                                                <div class="section__box-inner">
+                                                                    <h5 class="box__heading box__heading--middle">Личные покупки</h5>
 
-                                                                <div class="cards-counting cards-counting--double">
-                                                                    <ul class="cards-counting__list">
-                                                                        <li class="cards-counting__item">
-                                    
-                                                                            <div class="card-counting card-counting--extra">
-                                                                                <div class="card-counting__inner">
-                                                                                    <div class="card-counting__value">
-                                                                                        <!-- скрипт выводит значение data-current в value-count -->
-                                                                                        <input
-                                                                                            type="number"
-                                                                                            class="card-counting__value-count"
-                                                                                            data-range-min
-                                                                                        />
-                                                                                        <span class="card-counting__value-suffix">
-                                                                                            ₽
-                                                                                        </span>
+                                                                    <div class="profitability__calculation">
+                                                                        <div class="profitability__calculation-cards cards-counting cards-counting--double">
+                                                                            <ul class="cards-counting__list">
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting card-counting--extra">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ₽
+                                                                                                </span>
+                                                                                            </div>
+                                            
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1000"
+                                                                                                    data-current="15000"
+                                                                                                    data-max="30000"
+                                                                                                    data-step="1000"
+                                                                                                ></div>
+                                                                                            </div>
+
+                                                                                            <p class="card-counting__name">
+                                                                                                Сумма личных покупок
+                                                                                            </p>
+                                                                                        </div>
                                                                                     </div>
-                                    
-                                                                                    <div class="card-counting__range range" data-range>
-                                                                                        <div
-                                                                                            class="range-slider"
-                                                                                            data-range-slider
-                                                                                            data-type="min"
-                                                                                            data-min="1000"
-                                                                                            data-current="15000"
-                                                                                            data-max="30000"
-                                                                                            data-step="1000"
-                                                                                        ></div>
+                                                                                </li>
+
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting card-counting--extra">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ББ
+                                                                                                </span>
+                                                                                            </div>
+                                            
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1"
+                                                                                                    data-current="5"
+                                                                                                    data-max="10"
+                                                                                                    data-step="1"
+                                                                                                ></div>
+                                                                                            </div>
+                                            
+                                                                                            <p class="card-counting__name">
+                                                                                                Сумма личных баллов
+                                                                                            </p>
+                                                                                        </div>
                                                                                     </div>
-                                    
-                                                                                    <p class="card-counting__name">
-                                                                                        Сумма личных покупок
-                                                                                    </p>
-                                                                                </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <div class="profitability__calculation-result">
+                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма личных покупок за 1 отчетный период для Консультанта К2 составляет 15 000 руб.</p>
+
+                                                                            <div class="profitability__calculation-total">
+                                                                                <p class="profitability__calculation-total-sum">
+                                                                                    = 300 ББ
+                                                                                </p>
                                                                             </div>
-                                    
-                                                                        </li>
-                                                                        <li class="cards-counting__item">
-                                                                            <div class="card-counting card-counting--extra">
-                                                                                <div class="card-counting__inner">
-                                                                                    <div class="card-counting__value">
-                                                                                        <!-- скрипт выводит значение data-current в value-count -->
-                                                                                        <input
-                                                                                            type="number"
-                                                                                            class="card-counting__value-count"
-                                                                                            data-range-min
-                                                                                        />
-                                                                                        <span class="card-counting__value-suffix">
-                                                                                            ББ
-                                                                                        </span>
-                                                                                    </div>
-                                    
-                                                                                    <div class="card-counting__range range" data-range>
-                                                                                        <div
-                                                                                            class="range-slider"
-                                                                                            data-range-slider
-                                                                                            data-type="min"
-                                                                                            data-min="1"
-                                                                                            data-current="5"
-                                                                                            data-max="10"
-                                                                                            data-step="1"
-                                                                                        ></div>
-                                                                                    </div>
-                                    
-                                                                                    <p class="card-counting__name">
-                                                                                        Сумма личных баллов
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+
+                                                                <div class="section__box-inner">
+                                                                    <h5 class="box__heading box__heading--middle">Доход от зарегистрированных покупателей в моей группе</h5>
+
+                                                                    <div class="profitability__calculation">
+                                                                        <div class="cards-counting">
+                                                                            <ul class="cards-counting__list">
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix"></span>
+                                                                                            </div>
+
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1"
+                                                                                                    data-current="5"
+                                                                                                    data-max="10"
+                                                                                                    data-step="1"
+                                                                                                ></div>
+                                                                                            </div>
+
+                                                                                            <p class="card-counting__name">
+                                                                                                Количество покупателей
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ₽
+                                                                                                </span>
+                                                                                            </div>
+                                            
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1000"
+                                                                                                    data-current="15000"
+                                                                                                    data-max="30000"
+                                                                                                    data-step="1000"
+                                                                                                ></div>
+                                                                                            </div>
+                                            
+                                                                                            <p class="card-counting__name">
+                                                                                                Средняя сумма покупок 1 покупателя
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ББ
+                                                                                                </span>
+                                                                                            </div>
+                                            
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="0"
+                                                                                                    data-current="100"
+                                                                                                    data-max="1000"
+                                                                                                    data-step="10"
+                                                                                                ></div>   
+                                                                                            </div>
+                                            
+                                                                                            <p class="card-counting__name">
+                                                                                                Средняя сумма баллов 1 покупателя
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                            
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="section__box-inner">
+                                                                    <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
+
+                                                                    <div class="profitability__calculation">
+                                                                        <div class="profitability__calculation-cards cards-counting">
+                                                                            <ul class="cards-counting__list">
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix"></span>
+                                                                                            </div>
+
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1"
+                                                                                                    data-current="3"
+                                                                                                    data-max="10"
+                                                                                                    data-step="1"
+                                                                                                ></div>
+                                                                                            </div>
+
+                                                                                            <p class="card-counting__name">
+                                                                                                Количество консультантов
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ₽
+                                                                                                </span>
+                                                                                            </div>
+
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="1000"
+                                                                                                    data-current="0"
+                                                                                                    data-max="30000"
+                                                                                                    data-step="1000"
+                                                                                                ></div>
+                                                                                            </div>
+
+                                                                                            <p class="card-counting__name">
+                                                                                                Средняя сумма покупок 1 консультанта
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+                                                                                <li class="cards-counting__item">
+                                                                                    <div class="card-counting">
+                                                                                        <div class="card-counting__inner">
+                                                                                            <div class="card-counting__value">
+                                                                                                <!-- скрипт выводит значение data-current в value-count -->
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    class="card-counting__value-count"
+                                                                                                    data-range-min
+                                                                                                />
+                                                                                                <span class="card-counting__value-suffix">
+                                                                                                    ББ
+                                                                                                </span>
+                                                                                            </div>
+
+                                                                                            <div class="card-counting__range range" data-range>
+                                                                                                <div
+                                                                                                    class="range-slider"
+                                                                                                    data-range-slider
+                                                                                                    data-type="min"
+                                                                                                    data-min="0"
+                                                                                                    data-current="0"
+                                                                                                    data-max="1000"
+                                                                                                    data-step="10"
+                                                                                                ></div>   
+                                                                                            </div>
+
+                                                                                            <p class="card-counting__name">
+                                                                                                Средняя сумма баллов 1 консультанта
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <div class="profitability__calculation-groups">
+                                                                            <button type="button" class="profitability__calculation-button button button--medium button--rounded button--outlined button--mixed button--full">
+                                                                                <span class="button__icon button__icon--medium">
+                                                                                    <svg class="icon icon--add-circle">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <span class="button__text button__text--full">Создать группу консультантов с выбранными параметрами</span>
+                                                                            </button>
+
+                                                                            <div class="profitability__groups groups">
+                                                                                <ul class="groups__list">
+                                                                                    <li class="groups__item">
+                                                                                        <div class="group">
+                                                                                            <div class="group__users">
+                                                                                                <div class="group__users-icon">
+                                                                                                    <svg class="icon icon--users">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                                                                                    </svg>
+                                                                                                </div>
+                                                                                                <span class="group__users-counter counter">10</span>
+                                                                                            </div>
+
+                                                                                            <div class="group__symbol">
+                                                                                                <svg class="icon icon--cross">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
+                                                                                                </svg>
+                                                                                            </div>
+
+                                                                                            <div class="group__sum price price--inlined">
+                                                                                                <div class="price__calculation">
+                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
+                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="group__delete">
+                                                                                                <svg class="group__delete-icon icon icon--close-square">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+
+                                                                                    <li class="groups__item">
+                                                                                        <div class="group">
+                                                                                            <div class="group__users">
+                                                                                                <div class="group__users-icon">
+                                                                                                    <svg class="icon icon--users">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                                                                                    </svg>
+                                                                                                </div>
+                                                                                                <span class="group__users-counter counter">10</span>
+                                                                                            </div>
+
+                                                                                            <div class="group__symbol">
+                                                                                                <svg class="icon icon--cross">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
+                                                                                                </svg>
+                                                                                            </div>
+
+                                                                                            <div class="group__sum price price--inlined">
+                                                                                                <div class="price__calculation">
+                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
+                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="group__delete">
+                                                                                                <svg class="group__delete-icon icon icon--close-square">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+
+                                                                                    <li class="groups__item">
+                                                                                        <div class="group">
+                                                                                            <div class="group__users">
+                                                                                                <div class="group__users-icon">
+                                                                                                    <svg class="icon icon--users">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                                                                                    </svg>
+                                                                                                </div>
+                                                                                                <span class="group__users-counter counter">10</span>
+                                                                                            </div>
+
+                                                                                            <div class="group__symbol">
+                                                                                                <svg class="icon icon--cross">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
+                                                                                                </svg>
+                                                                                            </div>
+
+                                                                                            <div class="group__sum price price--inlined">
+                                                                                                <div class="price__calculation">
+                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
+                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="group__delete">
+                                                                                                <svg class="group__delete-icon icon icon--close-square">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profitability__calculation-result">
+                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма групповых покупок за 1 отчетный период для Консультанта К2 составляет 21 000 руб.
+                                                                                </p>
+
+                                                                            <div class="profitability__calculation-total">
+                                                                                <p class="profitability__calculation-total-sum">
+                                                                                    = 944 ББ
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profitability__consultants">
+                                                                    <div class="profitability__consultants-col">
+                                                                        <div class="profitability__consultants-switcher switcher" name="switcher3">
+                                                                            <input type="checkbox" class="switcher__input" name="switch2" id="switch3" checked>
+                                                                            <label for="switch3" class="switcher__label">
+                                                                                <span class="switcher__icon"></span>
+                                                                                <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profitability__consultants-col profitability__consultants-col--inlined">
+                                                                        <div class="profitability__consultants-quantity quantity" data-quantity>
+                                                                            <div class="quantity__button" data-quantity-button>
+                                                                                <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                                    <span class="button__icon">
+                                                                                        <svg class="icon icon--basket">
+                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                    <span class="button__text">В корзину</span>
+                                                                                </button>
+                                                                            </div>
+                                                
+                                                                            <div class="quantity__actions">
+                                                                                <div class="quantity__decrease">
+                                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                                        <span class="button__icon button__icon--small">
+                                                                                            <svg class="icon icon--minus">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                    </button>
+                                                                                </div>
+                                                
+                                                                                <div class="quantity__total">
+                                                                                    <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                                </div>
+                                                
+                                                                                <div class="quantity__increase">
+                                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                                        <span class="button__icon button__icon--small">
+                                                                                            <svg class="icon icon--plus">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profitability__hint">
+                                                                            <svg class="icon icon--question-circle">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                                            </svg>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full">
+                                                                    <span class="button__text">Рассчитать</span>
+                                                                </button>
+                                                            </form>
                                                         </div>
-                    
+
                                                         <div class="tabs__block" data-tab-section="k2">
-                                                            Состав
+                                                            Аналогично Уровень К1
                                                         </div>
-                    
+
                                                         <div class="tabs__block" data-tab-section="k3">
-                                                            Рекомендации по кормлению
-                                                        </div>
-                    
-                                                        <div class="tabs__block" data-tab-section="block4">
-                                                            Документы
+                                                            Аналогично Уровень К1
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </section>
+
+                                    <section class="profitability__section section">
+                                        <div class="section__box box box--gray box--rounded-sm">
+                                            <div class="profitability__section-header section__header">
+                                                <h4 class="section__title section__title--closer">Результат расчета Вашего потенциального дохода</h4>
+
+                                                <div class="profitability__hint">
+                                                    <svg class="icon icon--question-circle">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                            Диаграмма
                                         </div>
                                     </section>
                                 </div>

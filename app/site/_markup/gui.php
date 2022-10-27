@@ -430,6 +430,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: users">
+                                    <svg class="icon icon--users gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cross">
+                                    <svg class="icon icon--cross gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
