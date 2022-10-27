@@ -1,0 +1,45 @@
+.avatar {
+    position: relative;
+
+    overflow: hidden;
+
+    width: rem(60px);
+
+    border-radius: 50%;
+    outline: rem(2px) solid $alto;
+    outline-offset: rem(2px);
+
+    @media #{$screen-desktop} {
+        width: rem(52px);
+    }
+
+    &::before {
+        display: block;
+
+        padding-top: percentage(60px / 60px);
+
+        content: '';
+
+        @media #{$screen-desktop} {
+            padding-top: percentage(52px / 52px);
+        }
+    }
+
+    &--accent {
+        outline: rem(2px) solid $brickRed;
+        box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
+    }
+
+    &__box {
+        @include position-stretching;
+    }
+
+    &__picture {
+        @include position-stretching;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+}
