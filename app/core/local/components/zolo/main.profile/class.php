@@ -96,15 +96,28 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
 
         if ($this->user->groups->isBuyer()) {
             $this->arResult['USER_GROUP'] = 'Покупатель';
+            $this->arResult['USER_GROUP_XML'] = 'BUYER';
         } elseif ($this->user->groups->isConsultant()) {
             $this->arResult['USER_GROUP'] = 'Консультант';
+            $this->arResult['USER_GROUP_XML'] = 'CONSULTANT';
         }
 
         if (!empty($arUserInfo['PERSONAL_PHOTO'])) {
             $arUserInfo['PERSONAL_PHOTO_URL'] = $this->user->getPhotoUrl();
         }
 
+        if (!empty($arUserInfo['UF_LOYALTY_LEVEL'])) {
+            $arUserInfo['UF_LOYALTY_LEVEL_NAME'] = $this->getLoyaltyLevelName($arUserInfo['UF_LOYALTY_LEVEL']);
+        }
+
         return $arUserInfo;
+    }
+
+    private function getLoyaltyLevelName($loyaltyLevelId)
+    {
+        return (new CUserFieldEnum())
+            ->GetList([], ['ID' => $loyaltyLevelId])
+            ->GetNext()['VALUE'];
     }
 
     /**
@@ -127,15 +140,16 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
         }
 
         //Статусы юр лица для консультантов
-        $petGenders = LegalEntityTable::getFieldValues(['UF_STATUS'])['UF_STATUS'];
-        foreach ($petGenders as $petGender) {
-            $selects['STATUS'][$petGender['ID']] = $petGender['VALUE'];
+        $entityStatuses = LegalEntityTable::getFieldValues(['UF_STATUS'])['UF_STATUS'];
+        foreach ($entityStatuses as $status) {
+            $selects['STATUS'][$status['ID']] = $status['VALUE'];
         }
 
         //Типы питомцев
-        $petGenders = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
-        foreach ($petGenders as $petGender) {
-            $selects['PET_KIND'][$petGender['ID']] = $petGender['VALUE'];
+        $petTypes = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
+        foreach ($petTypes as $petType) {
+            $selects['PET_KIND'][$petType['ID']] = $petType['VALUE'];
+            $selects['PET_KIND_XML'][$petType['ID']] = $petType['XML_ID'];
         }
 
         //Породы кошек
@@ -144,7 +158,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
             'select' => ['*'],
         ]);
         while ($fields = $hlBlock->Fetch()) {
-            $selects['CAT_BREED'][$fields['ID']] = $fields['UF_BREED_CAT'];
+            $selects['KIND_CAT_BREED'][$fields['ID']] = $fields['UF_BREED_CAT'];
         }
 
         //Породы собак
@@ -153,13 +167,14 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
             'select' => ['*'],
         ]);
         while ($enumFields = $hlBlock->Fetch()) {
-            $selects['DOG_BREED'][$enumFields['ID']] = $enumFields['UF_BREED_DOG'];
+            $selects['KIND_DOG_BREED'][$enumFields['ID']] = $enumFields['UF_BREED_DOG'];
         }
 
         //Пол питомцев
         $petGenders = PetTable::getFieldValues(['UF_GENDER'])['UF_GENDER'];
         foreach ($petGenders as $petGender) {
             $selects['PET_GENDER'][$petGender['ID']] = $petGender['VALUE'];
+            $selects['PET_GENDER_XML'][$petGender['ID']] = $petGender['XML_ID'];
         }
 
         return $selects;
