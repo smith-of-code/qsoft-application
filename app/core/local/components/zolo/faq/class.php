@@ -48,6 +48,8 @@ class FaqComponent extends CBitrixComponent
             }
         }
 
+        uasort($questionsByGroups, fn($groupA, $groupB) => $groupA['SORT'] <=> $groupB['SORT']);
+
         return $questionsByGroups;
     }
 
@@ -59,8 +61,6 @@ class FaqComponent extends CBitrixComponent
         foreach ($groupPropertyValues as $groupPropertyValue) {
             $groups[$groupPropertyValue['ID']] = $groupPropertyValue;
         }
-
-        uasort($groups, fn($groupA, $groupB) => $groupA['SORT'] <=> $groupB['SORT']);
 
         return $groups;
     }
