@@ -8693,7 +8693,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Попап cookie -->
+                    <!-- /Попап cookie -->
 
                     <!-- Как это рабоатет -->
                     <div class="gui__block">
@@ -9055,7 +9055,6 @@
 
                         </div>
                     </div>
-
                     <!-- /Карточки Статусы -->
 
                     <!-- Карточки советов -->
@@ -9067,7 +9066,6 @@
                             <div class="cards-article">
                                 <ul class="cards-article__list">
                                     <li class="cards-article__item">
-
                                         <article class="card-article card-article--green box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9098,14 +9096,13 @@
                                                         10.08.2022
                                                     </time>
 
+
                                                 </div>
 
                                             </div>
                                         </article>
-
                                     </li>
                                     <li class="cards-article__item">
-
                                         <article class="card-article card-article--blue box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9143,10 +9140,8 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                     <li class="cards-article__item">
-
                                         <article class="card-article card-article--orange box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9181,10 +9176,8 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                     <li class="cards-article__item">
-
                                         <article class="card-article card-article--violet box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9219,10 +9212,8 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                     <li class="cards-article__item">
-
                                         <article class="card-article card-article--green box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9257,10 +9248,9 @@
 
                                             </div>
                                         </article>
-
                                     </li>
-                                    <li class="cards-article__item">
 
+                                    <li class="cards-article__item">
                                         <article class="card-article card-article--orange box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
@@ -9295,15 +9285,13 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                     <!-- /Карточки советов -->
-                    
+
                     <!-- Карточки акций -->
                     <div class="gui__block">
                         <h2 class="gui__title">Карточки акций</h2>
@@ -9445,6 +9433,145 @@
                         </div>
                     </div>
                     <!-- /Карточки акций -->
+
+                    
+                    <!-- Карточки подборок -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки подборок</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-compilation">
+                                <ul class="cards-compilation__list">
+                                    <li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra">
+
+                                        <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--green">
+                                                    AmeБизнес
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+
+                                                    <p class="card-compilation__text">
+                                                        совмещая работу и заботу о питомцах
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--sale cards-compilation__item--extra">
+
+                                        <article class="card-compilation card-compilation--medium card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород!
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--compilation">
+
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--selection">
+
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки подборок -->
 
                     <!-- Карточки Участников -->
                     <div class="gui__block">
