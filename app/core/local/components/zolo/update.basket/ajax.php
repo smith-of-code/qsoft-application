@@ -43,7 +43,13 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
             $this->deleteBasketItem($basket, $id);
         }
 
+        $basket->refresh();
+
+        dump('beforeSave');
+
         $basketSaveResult = $basket->save();
+
+//        dd('basketSaved');
 
         return [
             'warnings' => $basketSaveResult->getWarnings(),

@@ -20,7 +20,7 @@ class SaleBasketTotal extends CBitrixComponent
 
         $basket->refresh();
 
-        $order = Order::create(SITE_ID, Fuser::getId());
+        $order = Order::create(SITE_ID, currentUser()->id);
         $order->setPersonTypeId(1);
         $order->setBasket($basket);
 
@@ -39,11 +39,11 @@ class SaleBasketTotal extends CBitrixComponent
             $this->loadBonusesBlock($basket);
         }
 
-//        $prices = $result['PRICES']['BASKET'];
-
-        dump($this->arResult);
-
-//        dump($this->arResult);
+        dump([
+            '$this->arResult' => $this->arResult,
+            '$order->getDiscountPrice()' => $order->getDiscountPrice(),
+            '$order->getDiscount()' => $order->getDiscount()
+        ]);
     }
 
     public function loadBonusesBlock($basket)

@@ -15,13 +15,9 @@ class ProductProvider extends CatalogProvider
     {
         $products = parent::getProductData($products);
 
-//        dump($products);
-
         $basketItemsByOffers = [];
 
         $productsData = $products->getData()[SaleProviderBase::SUMMMARY_PRODUCT_LIST];
-
-//        dump($productsData);
 
         foreach ($productsData as $offerId => $offer) {
             foreach ($offer[SaleProviderBase::FLAT_PRICE_LIST] as $basketItemId => $basketItem) {
@@ -37,6 +33,8 @@ class ProductProvider extends CatalogProvider
             $priceTypes[] = $userPriceCode;
         }
 
+        dump($priceTypes);
+
         $dbPrices = PriceTable::getList([
             'filter' => [
                 '=PRODUCT_ID' => array_keys($basketItemsByOffers),
@@ -49,27 +47,41 @@ class ProductProvider extends CatalogProvider
             $basketItem = &$productsData[$price['PRODUCT_ID']][SaleProviderBase::FLAT_PRICE_LIST][$basketItemsByOffers[$price['PRODUCT_ID']]];
 
             if (isset($userPriceCode) && $price['PRICE_CODE'] === $userPriceCode) {
-                $basketItem['BASE_PRICE'] = $price['PRICE'];
+//                $basketItem['BASE_PRICE'] = $price['PRICE'];
                 $basketItem['PRICE'] = $price['PRICE'];
                 $basketItem['PRICE_TYPE_ID'] = $price['CATALOG_GROUP_ID'];
                 $basketItem['PRODUCT_PRICE_ID'] = $price['ID'];
                 $basketItem['NOTES'] = $price['PRICE_TYPE_NAME'];
-            } elseif (!isset($userPriceCode)) {
+            } elseif ($price['PRICE_CODE'] === 'BASE') {
                 $basketItem['BASE_PRICE'] = $price['PRICE'];
-                $basketItem['PRICE'] = $price['PRICE'];
-                $basketItem['PRICE_TYPE_ID'] = $price['CATALOG_GROUP_ID'];
-                $basketItem['PRODUCT_PRICE_ID'] = $price['ID'];
-                $basketItem['NOTES'] = $price['PRICE_TYPE_NAME'];
             }
 
             unset($basketItem);
         }
 
+        $productsData = $this->calculateDiscountPrice($productsData);
+
+//        dd($productsData);
+
         $products->setData([SaleProviderBase::SUMMMARY_PRODUCT_LIST => $productsData]);
 
-//        dd($products);
+        dump([
+            '$products' => $products,
+            'bt' => debug_backtrace()
+        ]);
 
         return $products;
+    }
+
+    protected function calculateDiscountPrice(array $productsData): array
+    {
+        foreach ($productsData as &$offer) {
+            foreach ($offer[SaleProviderBase::FLAT_PRICE_LIST] as &$basketItem) {
+                $basketItem['DISCOUNT_PRICE'] = $basketItem['BASE_PRICE'] - $basketItem['PRICE'];
+            }
+        }
+
+        return $productsData;
     }
 
     public function getCatalogData(array $products)

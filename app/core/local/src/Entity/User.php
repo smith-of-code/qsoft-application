@@ -118,6 +118,10 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
+     * @var int $mentorId
+     */
+    public int $mentorId;
+    /**
      * @var User|null Наставник
      */
     public ?User $mentor;
@@ -162,7 +166,7 @@ class User
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
         'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
         'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => 'agreeToReceiveInformationAboutPromotions',
-        'UF_MENTOR_ID' => 'mentor',
+        'UF_MENTOR_ID' => 'mentorId',
         'UF_BONUS_POINTS' => 'bonusPoints',
         'UF_LOYALTY_CHECK_DATE' => 'loyaltyCheckDate'
     ];
@@ -232,6 +236,19 @@ class User
     public function getPhotoUrl(): ?string
     {
         return CFile::GetPath($this->photo);
+    }
+
+    public function getMentor(): ?User
+    {
+        if (!isset($this->mentor)) {
+            if (empty($this->mentorId)) {
+                return null;
+            }
+
+            $this->mentor = new User($this->mentorId);
+        }
+
+        return $this->mentor;
     }
 
     /**
