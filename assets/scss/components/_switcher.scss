@@ -45,6 +45,14 @@
             margin-right: rem($margin);
             margin-left: 0;
         }
+
+        &--small {
+            @include text-tiny($font-weight-medium);
+
+            @media #{$screen-desktop} {
+                @include text-miniature;
+            }
+        }
     }
 
     &__icon {

@@ -332,6 +332,11 @@ $arComponentParameters = array(
 			"DEFAULT" => "N",
 			"REFRESH" => "Y",
 		),
+		'PROPERTY_COUNT_DETAIL' => [
+			'NAME' => getMessage('PROPERTY_COUNT_DETAIL'),
+			'TYPE' => 'STRING',
+			'DEFAULT' => '4',
+		],
 		"SHOW_TOP_ELEMENTS" => array(
 			"PARENT" => "TOP_SETTINGS",
 			"NAME" => GetMessage("NC_P_SHOW_TOP_ELEMENTS"),

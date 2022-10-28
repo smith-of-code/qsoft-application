@@ -1,4 +1,15 @@
 @font-face {
+    $file-name: "#{$font-family-custom}-Regular";
+
+    font-family: $font-family-custom;
+    font-weight: $font-weight-regular;
+    font-style: normal;
+
+    src: url("#{$font-path}#{$file-name}.woff2") format("woff2"),
+         url("#{$font-path}#{$file-name}.woff") format("woff");
+}
+
+@font-face {
     $file-name: "#{$font-family-custom}-Medium";
 
     font-family: $font-family-custom;
@@ -8,7 +19,6 @@
     src: url("#{$font-path}#{$file-name}.woff2") format("woff2"),
          url("#{$font-path}#{$file-name}.woff") format("woff");
 }
-
 
 @font-face {
     $file-name: "#{$font-family-custom}-SemiBold";
