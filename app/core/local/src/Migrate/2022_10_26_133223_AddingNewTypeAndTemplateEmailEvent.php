@@ -9,9 +9,9 @@
 use Bitrix\Main\SystemException;
 use QSoft\Migration\Migration;
 
-class newMailMessageTemplate extends Migration
+class AddingNewTypeAndTemplateEmailEvent extends Migration
 {
-    private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
+    private const TICKET_CREATION_EVENT = 'TICKET_CREATION_EVENT';
 
     /**
      * @return void
@@ -20,8 +20,8 @@ class newMailMessageTemplate extends Migration
     public function up(): void
     {
         $eventType = [
-                'LID' => SITE_ID,
-                'EVENT_NAME' => self::TICKET_ACCEPTION_EVENT,
+                'LID' => 'ru',
+                'EVENT_NAME' => self::TICKET_CREATION_EVENT,
                 'NAME' => 'Отправка данных о заказе',
                 // Предотвращаем пробелы в инпуте в начале строк
                 'DESCRIPTION' => '
@@ -29,6 +29,7 @@ class newMailMessageTemplate extends Migration
 #MESSAGE_SENDER# - почта поддержки
 #MESSAGE_TAKER# - почта получателя
 #TICKET_STATUS# - Статус обращения Принято/Отклонено
+#TICKET_CATEGORY# - Категория обращения в родительном падеже
 #TICKET_NUMBER# - номер обращения
 #OWNER_NAME# - ФИО клиента
 #RESPONSIBLE_NAME# - имя сотрудника техподдержки',
@@ -41,9 +42,9 @@ class newMailMessageTemplate extends Migration
             throw new SystemException($eventTypeObject->LAST_ERROR);
         }
 
-        $eventMailTemplate = [
+        $eventMailTemplae = [
             'ACTIVE'=> 'Y',
-            'EVENT_NAME' => self::TICKET_ACCEPTION_EVENT,
+            'EVENT_NAME' => self::TICKET_CREATION_EVENT,
             'LID' => SITE_ID,
             'EMAIL_FROM' => '#MESSAGE_SENDER#',
             'EMAIL_TO' => '#MESSAGE_TAKER#',
@@ -54,23 +55,26 @@ class newMailMessageTemplate extends Migration
                 <html lang="ru">
                     <head>
                         <meta charset="utf-8">
-                        <title>Статус вашей заявки.</title>
+                        <title>Создана заявка</title>
                     </head>
                     <body>
                         <p>
-                            Ваша заявка № #TICKET_NUMBER# на #TICKET_TYPE# #TICKET_STATUS#.
-                            За подробной информацией обращайтесь в техподдержку.
+                            Создана новая заявка на #TICKET_CATEGORY# № #TICKET_NUMBER#
                         </p>
                     </body>
                 </html>',
         ];
 
         $eventMessageObject = new CEventMessage;
-        $dbRes = $eventMessageObject->Add($eventMailTemplate);
+        $dbRes = $eventMessageObject->Add($eventMailTemplae);
          
         if(!$dbRes){
             throw new SystemException($eventMessageObject->LAST_ERROR);
         }
+
+        $id = $this->getMessageTemplateId(self::TICKET_CREATION_EVENT);
+
+        $eventMessageObject->Update($id, ['ACTIVE' => 'N']);
     }
 
     /**
@@ -83,25 +87,36 @@ class newMailMessageTemplate extends Migration
     {
         $eventMessageObject = new CEventMessage();
 
-        $evenMessage = $eventMessageObject->GetList([], [], ['EVENT_NAME' => self::TICKET_ACCEPTION_EVENT]);
+        $id = $this->getMessageTemplateId(self::TICKET_CREATION_EVENT);
 
-        if(!$evenMessage){
+        if(!$id){
             throw new SystemException($eventMessageObject->LAST_ERROR);
         } else {
-            while ($mes = $evenMessage->GetNext()) {
-                $eventMessageObject->Delete($mes['ID']);
-            }
+            $eventMessageObject->Delete($id);
         }
 
         $eventTypeObject = new CEventType();
 
         // Не стандартный getList
-        $evenTypeName = $eventTypeObject->GetList(['EVENT_NAME' => self::TICKET_ACCEPTION_EVENT])->GetNext();
+        $evenTypeName = $eventTypeObject->GetList(['EVENT_NAME' => self::TICKET_CREATION_EVENT])->GetNext();
 
         if(!$evenTypeName){
             throw new SystemException($eventTypeObject->LAST_ERROR);
         } else {
             $eventTypeObject->Delete($$evenTypeName);
+            $id = $this->getMessageTemplateId(self::TICKET_CREATION_EVENT);
+    
+            $eventMessageObject->Update($id, ['ACTIVE' => 'Y']);
         }
+    }
+
+    private function getMessageTemplateId(string $eventName)
+    {
+        $eventMessageObject = new CEventMessage();
+
+        $evenMessage 
+            = $eventMessageObject->GetList([], [], ['EVENT_NAME' => $eventName])->GetNext();
+
+        return $evenMessage['ID'];
     }
 }
