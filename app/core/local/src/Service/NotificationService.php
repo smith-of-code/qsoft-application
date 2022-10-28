@@ -2,20 +2,17 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Main\Loader;
-use Bitrix\Main\ORM\Data\DataManager;
+use Bitrix\Main\ORM\Data\UpdateResult;
 use Bitrix\Main\ORM\Entity;
-use Bitrix\Main\ORM\Objectify\EntityObject;
+use Bitrix\Main\ORM\Query\Filter\ConditionTree;
 use Bitrix\Main\ORM\Query\Join;
+use Bitrix\Main\ORM\Query\Query;
 use QSoft\Entity\User;
 use QSoft\ORM\NotificationTable;
 use \Bitrix\Main\ORM\Fields\IntegerField;
 use \Bitrix\Main\ORM\Fields\StringField;
 use \Bitrix\Main\ORM\Fields\Relations\Reference;
-use \Bitrix\Main\ORM\Fields\Relations\OneToMany;
-use \Bitrix\Main\Entity\ExpressionField;
-
-Loader::includeModule('highloadblock');
+use \Bitrix\Main\ORM\Fields\ExpressionField;
 
 class NotificationService
 {
@@ -36,61 +33,71 @@ class NotificationService
         ])->getSelectedRowsCount();
     }
 
-    /**
-     * @return DataManager|string
-     */
-    public function getDataClass(): string
+    public function getNotifications(array $filter, int $offset = null, int $limit = null): array
     {
-        $hlEntity = NotificationTable::getEntity();
+        return NotificationTable::getList([
+            'select' => [
+                'ID',
+                'TITLE' => 'UF_TITLE',
+                'MESSAGE' => 'UF_MESSAGE',
+                'LINK' => 'UF_LINK',
+                'STATUS' => 'STATUS_NAME.VALUE',
+                'DATE',
+                'TIME',
+            ],
+            'filter' => self::createCondition($filter),
+            'offset' => $offset,
+            'limit' => $limit,
+            'order' => ["UF_DATE_TIME" => "desc"],
+            'runtime' => [
+                (new Reference(
+                    'STATUS_NAME',
+                    self::getUserFieldEnumTable(),
+                    Join::on('this.UF_STATUS', 'ref.ID')
+                )),
+                (new ExpressionField(
+                    'DATE',
+                    'DATE_FORMAT(%s, GET_FORMAT(DATE,\'EUR\'))',
+                    ['UF_DATE_TIME']
+                )),
+                (new ExpressionField(
+                    'TIME',
+                    'DATE_FORMAT(%s, GET_FORMAT(TIME,\'ISO\'))',
+                    ['UF_DATE_TIME']
+                )),
+                //Поле для фильтрации вывода уведомлений пользователя за последние X дней: DATE_DIFF <= X дней'
+                (new ExpressionField(
+                    'DATE_DIFF',
+                    'DATEDIFF(CURDATE(), %s)',
+                    ['UF_DATE_TIME']
+                ))
+            ],
+        ])->fetchAll();
+    }
 
-        $propsEnumEntity = Entity::compileEntity('PROPS',
+    private static function getUserFieldEnumTable(): string
+    {
+        return Entity::compileEntity('PROPS',
             [
                 (new IntegerField('ID'))
                     ->configurePrimary(),
-
                 (new StringField('VALUE')),
-
-                (new Reference(
-                    'NOTIFICATION_STATUS',
-                    $hlEntity,
-                    Join::on('this.ID', 'ref.UF_STATUS')
-                )),
             ],
-            [
-                'namespace' => 'NotificationsListEnumEntity',
-                'table_name' => 'b_user_field_enum',
-            ]);
+            ['table_name' => 'b_user_field_enum',]
+        )->getDataClass();
+    }
 
-        $manyToOneFields = [
-            (new OneToMany(
-                'STATUS_NAME',
-                $propsEnumEntity,
-                'NOTIFICATION_STATUS'
-            )),
-            (new ExpressionField(
-                'DATE',
-                'DATE_FORMAT(%s, GET_FORMAT(DATE,\'EUR\'))',
-                ['UF_DATE_TIME']
-            )),
-            (new ExpressionField(
-                'TIME',
-                'DATE_FORMAT(%s, GET_FORMAT(TIME,\'ISO\'))',
-                ['UF_DATE_TIME']
-            )),
-
-            //Поле для фильтрации вывода уведомлений пользователя за последние X дней: DATE_DIFF <= X дней'
-            (new ExpressionField(
-                'DATE_DIFF',
-                'DATEDIFF(CURDATE(), %s)',
-                ['UF_DATE_TIME']
-            ))
-        ];
-
-        foreach ($manyToOneFields as $field) {
-            $hlEntity->addField($field);
+    private function createCondition(array $filter): ConditionTree
+    {
+        $condition = Query::filter();
+        if ($filter['period']) {
+            //Уведомление будет выбрано, если после его создания прошло меньше или столько же дней, сколько в $filter['day_interval']
+            $condition->where('DATE_DIFF', '<=', $filter['period']);
         }
-
-        return $hlEntity->getDataClass();
+        if ($filter['status']) {
+            $condition->where('STATUS', $filter['status']);
+        }
+        return $condition->where('UF_USER_ID', $this->user->id);
     }
 
     public function has(int $notificationId): bool
@@ -103,5 +110,18 @@ class NotificationService
             ],
         ]);
         return isset($result) && count($result) == 1;
+    }
+
+    public function read(int $notificationId): UpdateResult
+    {
+        return NotificationTable::update(
+            $notificationId,
+            ['UF_STATUS' => NotificationTable::STATUSES['read']]
+        );
+    }
+
+    public function getStatusValueById(int $statusId)
+    {
+        return \CUserFieldEnum::GetList([], ['ID' => $statusId])->GetNext()['VALUE'];
     }
 }
