@@ -1,39 +1,62 @@
-<?php
-if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
-    die();
-}
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
 
-/**
- * @var array $arParams
- * @var array $arResult
- */
-dump($arResult);
+<h3>Детали заказа</h3>
+<? $details = $arResult['ORDER_DETAILS'];?>
+Номер заказа - <?=$details['ORDER_ID']?></br>
+Дата создания заказа - <?= $details['CREATED_AT']?></br>
+Кем создан - <?=$details['CREATED_BY']?></br>
+Статус заказа - <?=$details['ORDER_STATUS']?></br>
+Статус оплаты - <?=$details['IS_PAID'] ? 'Оплачен' : 'Неоплачен'?></br>
+Стоимость заказа - <?=$details['TOTAL_PRICE']?></br>
+Акция - <?=$details['VOUCHER_USED'] ? "Да" : "Нет"?>
 
-function color()
-{
-    return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
-}
-?>
-
-<div>
-    <p>Заказ от <?=$arResult['CREATED_AT']?></p>
-    <p>#<?=$arResult['ID']?></p>
-    <p>Кем заказан: <?=$arResult['CREATED_BY']?></p>
-    <p>Статус заказа: <?=$arResult['STATUS_NAME']?> (<?=$arResult['STATUS_COLOR']?>)</p>
-    <p>Статус оплаты: <?=$arResult['IS_PAID'] ? 'Не' : ''?> оплачен</p>
-    <p>Персональная акция: <?=$arResult['VOUCHER_USED'] ? 'Да' : 'Нет'?></p>
-    <p>Общая сумма: <?=$arResult['TOTAL_PRICE']?></p>
-
+<div id="productList">
     <div>
-        <p>Итемы:</p>
-        <?php foreach ($arResult['ITEMS'] as $item): ?>
-            <article style="background-color: <?=color()?>">
-                <p>Название: <?=$item['NAME']?></p>
-                <p>Артикул: <?=$item['ARTICLE']?></p>
-                <p>Цена: <?=$item['PRICE']?></p>
-                <p>Количество: <?=$item['QUANTITY']?></p>
-                <p>Пикча: <?=$item['PICTURE']['SRC']?></p>
-            </article>
-        <?php endforeach; ?>
+        <? foreach ($arResult['PRODUCTS'] as $product) :?>
+        товар:</br>
+        Название - <?=$product['NAME']?><br>
+        Цена - <?=$product['PRICE']?><br>
+        Количество - <?=$product['QUANTITY']?><br>
+        Артикул - <?=$product['VENDOR_CODE']?><br>
+        Картинка - <?=$product['PICTURE']?><br>
+        <?endforeach;?>
     </div>
 </div>
+
+<button id="button" onclick="loadProducts()">Показать еще</button>
+
+<script>
+    const orderId = <?=$arParams['ORDER_ID']?>;
+    let offset = <?=$arResult['OFFSET']?>;
+
+    function loadProducts() {
+        BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
+            mode: 'class',
+            data: {
+                offset: offset,
+                orderId: orderId
+            }
+        }).then(function (response) {
+            console.log(response);
+            offset = response['data']['OFFSET'];
+            attach(response['data']['PRODUCTS']);
+        }, function (response) {
+            console.log(response);
+            alert("Ошибка при вызове метода компонента-контроллера")
+        });
+    }
+
+    function attach(products) {
+        for (let i = 0; i < Object.keys(products).length; i++) {
+            let div = document.createElement('div');
+            div.innerHTML += "товар:" + "<br>";
+            div.innerHTML += "Название" + " - " + products[i]['NAME'] + "<br>";
+            div.innerHTML += "Цена" + " - " + products[i]['PRICE'] + "<br>";
+            div.innerHTML += "Количество" + " - " + products[i]['QUANTITY'] + "<br>";
+            div.innerHTML += "Артикул" + " - " + products[i]['VENDOR_CODE'] + "<br>";
+            div.innerHTML += "Картинка" + " - " + products[i]['PICTURE'] + "<br>";
+            document.getElementById("productList").appendChild(div);
+        }
+    }
+
+</script>

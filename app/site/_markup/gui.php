@@ -11,467 +11,7 @@
 
     <body class="page">
 
-        <!--header-->
-        <header class="page__header page__header--main header--main">
-            <div class="header__row header__row--main">
-                <div class="container">
-                    <div class="header__wrapper">
-                        <div class="header__block header__block--logo">
-                            <div class="logo">
-                                <a class="logo__link" href="#">
-                                    <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
-                                </a>
-                            </div>
-                        </div>
-
-                        <!--Каталог-->
-                        <div class="header__block header__block--catalog catalog">
-                            <div class="header__catalog">
-                                <div class="dropdown dropdown--menu" data-dropdown>
-                                    <!--кнопка основная-->
-                                    <div class="header__catalog-button header__catalog-button--main">
-                                        <button type="button" class="button button--big button--square button--covered button--red button--heavy" data-dropdown-button>
-                                            <span class="button__icon">
-                                                <svg class="icon icon--burger">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
-                                                </svg>
-                                            </span>
-                                            <span class="button__text">Каталог</span>
-                                        </button>
-                                    </div>
-                                    <!--/кнопка основная-->
-
-                                    <!--кнопка на МВ-->
-                                    <div class="header__catalog-button header__catalog-button--hidden">
-                                        <button type="button" class="button button--covered button--square button--small button--red button--burger" data-dropdown-button>
-                                            <span class="button__icon button__icon--medium">
-                                                <svg class="icon icon--burger">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <!--/кнопка на МВ-->
-
-                                    <!--дропдаун каталога-->
-                                    <div class="menu dropdown__box box box--shading" data-dropdown-block>
-                                        <div class="dropdown__close" data-dropdown-close>
-                                            <svg class="dropdown__close-icon icon icon--close-square">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
-                                            </svg>
-                                        </div>
-
-                                        <div class="menu__header">
-                                            <div class="menu__header-logo logo logo--small">
-                                                <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
-                                            </div>
-                                            <div class="menu__header-profile">
-                                                <button type="button" class="button button--huge button--rounded button--outlined button--green button--full">
-                                                    <span class="button__icon button__icon--right">
-                                                        <svg class="icon icon--user">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="button__text">Войти в профиль</span>
-                                                </button>
-                                            </div>
-
-                                            <p class="menu__header-title">Каталог товаров</p>
-                                        </div>
-
-                                        <div class="menu__content">
-                                            <div class="menu__row">
-                                                <div class="menu__col">
-                                                    <ul class="menu__list">
-                                                        <li class="menu__item menu__item--heading">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Для собак</a>
-                                                        </li>
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <div class="menu__image">
-                                                        <img src="/local/templates/.default/images/dog.png" alt="Каталог для собак" class="menu__image-pic">
-                                                    </div>
-                                                </div>
-                                                <div class="menu__col menu__col--right">
-                                                    <ul class="menu__list">
-                                                        <li class="menu__item menu__item--heading">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Для кошек</a>
-                                                        </li>
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Сухой корм</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Влажный корм</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Лакомства</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Аксессуары</a>
-                                                        </li>
-
-                                                        <li class="menu__item">
-                                                            <a href="#" class="menu__item-link button button--simple button--red">Советы экспертов</a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <div class="menu__image">
-                                                        <img src="/local/templates/.default/images/cat.png" alt="Каталог для кошек" class="menu__image-pic">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="menu__division">
-                                            <ul class="menu__list">
-                                                <li class="menu__item menu__item--small">
-                                                    <a href="#" class="menu__item-link button button--simple button--red">AmeБизнес</a>
-                                                </li>
-
-                                                <li class="menu__item menu__item--small">
-                                                    <a href="#" class="menu__item-link button button--simple button--red">FAQ</a>
-                                                </li>
-
-                                                <li class="menu__item menu__item--small">
-                                                    <a href="#" class="menu__item-link button button--simple button--red">Новости</a>
-                                                </li>
-
-                                                <li class="menu__item menu__item--small">
-                                                    <a href="#" class="menu__item-link button button--simple button--red">Акции</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!--/дропдаун каталога-->
-                                </div>
-                            </div>
-                        </div>
-                        <!--Каталог-->
-
-                        <!--Поиск-->
-                        <div class="header__block header__block--search search">
-                            <div class="header__search header__search--tablet">
-                                <button type="button" class="button button--iconed button--simple button--red"
-                                        data-fancybox data-modal-type="modal"
-                                        data-src="#search"
-                                >
-                                    <span class="button__icon button__icon--mixed">
-                                        <svg class="icon icon--search">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                        </svg>
-                                    </span>
-                                </button>
-
-                                <!--Попап поиска-->
-                                <article id="search" class="modal modal--whole" style="display: none">
-                                    <div class="modal__content">
-                                        <header class="modal__section modal__section--header">
-                                            <h4 class="heading heading--average">Поиск</h4>
-                                        </header>
-
-                                        <section class="modal__section modal__section--content">
-                                            <div class="form__row">
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="header__search-input input input--small input--buttoned input--squared">
-                                                                <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
-                                                                <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
-                                                                    <span class="button__icon button__icon--medium">
-                                                                        <svg class="icon icon--search">
-                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                                                        </svg>
-                                                                    </span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </article>
-                                <!--/Попап поиска-->
-                            </div>
-
-                            <div class="header__search header__search--desktop">
-                                <div class="form__field">
-                                    <div class="form__field-block form__field-block--input">
-                                        <div class="header__search-input input input--small input--buttoned input--squared">
-                                            <input type="text" class="header__search-input-control input__control" name="text" id="text5" placeholder="Я ищу...">
-                                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
-                                                <span class="button__icon button__icon--medium">
-                                                    <svg class="icon icon--search">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!--/Поиск-->
-
-                        <div class="header__block header__block--personal personal">
-                            <div class="personal__elements">
-                                <div class="personal__item personal__item--hidden">
-                                    <div class="dropdown dropdown--long" data-dropdown>
-                                        <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
-                                            <span class="button__icon button__icon--mixed">
-                                                <svg class="icon icon--notification">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                </svg>
-
-                                                <span class="button__icon-counter button__icon-counter--red">10</span>
-                                            </span>
-
-                                            <span class="personal__button-text button__text">Уведомления</span>
-                                        </button>
-
-                                        <!--выпадающий список уведомлений-->
-                                        <div class="notice dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
-                                            <div class="notice__content" data-scrollbar>
-                                                <ul class="notice__list">
-                                                    <li class="notice__item">
-                                                        <!--Статус-->
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                        <!--Статус-->
-                                                    </li>
-
-                                                    <li class="notice__item">
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                    </li>
-
-                                                    <li class="notice__item">
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                    </li>
-
-                                                    <li class="notice__item">
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                    </li>
-
-                                                    <li class="notice__item">
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                    </li>
-
-                                                    <li class="notice__item">
-                                                        <article class="status">
-                                                            <a href="#" class="status__link"></a>
-                                                            <div class="status__header">
-                                                                <svg class="status__header-icon icon icon--notification">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                                                </svg>
-
-                                                                <p class="status__header-heading heading heading--tiny">Статус заявки изменился</p>
-                                                            </div>
-
-                                                            <p class="status__info">Ваша заявка на смену наставника была рассмотрена и одобрена. Узнать информацию о своем новом наставни...</p>
-
-                                                            <div class="status__footer">
-                                                                <span class="status__date">10.12.2022</span>
-                                                                <span class="status__time"> 12:45</span>
-                                                            </div>
-                                                        </article>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="notice__action">
-                                                <a href="#" class="button button--rounded-big button--bold button--outlined button--green button--full">Показать все</a>
-                                            </div>
-                                        </div>
-                                        <!--выпадающий список уведомлений-->
-                                    </div>
-                                </div>
-
-                                <div class="personal__item personal__item--hidden">
-                                    <button type="button" class="button button--simple button--red button--vertical">
-                                        <span class="button__icon button__icon--mixed">
-                                            <svg class="icon icon--user">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="personal__button-text button__text">Профиль</span>
-                                    </button>
-                                </div>
-
-                                <!--Для неавторизованного пользователя (скрыто по умолчанию)-->
-                                <div class="personal__item personal__item--hidden" style="display: none">
-                                    <button type="button" class="button button--simple button--red button--vertical">
-                                        <span class="button__icon button__icon--mixed">
-                                            <svg class="icon icon--login">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="personal__button-text button__text">Войти</span>
-                                    </button>
-                                </div>
-                                <!--/Для неавторизованного пользователя-->
-
-                                <div class="personal__item personal__item--basket">
-                                    <button type="button" class="button button--simple button--red button--vertical">
-                                        <span class="button__icon button__icon--mixed">
-                                            <svg class="icon icon--basket">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                            </svg>
-
-                                            <span class="button__icon-counter button__icon-counter--dark">12</span>
-                                        </span>
-                                        <span class="personal__button-text button__text">16 842 ₽</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--нижнее меню-->
-            <div class="header__row header__row--nav">
-                <div class="container">
-                    <div class="header__wrapper">
-                        <nav class="navigation">
-                            <ul class="navigation__list">
-                                <li class="navigation__item">
-                                    <a href="#" class="navigation__button button button--simple button--red">
-                                        <span class="button__text">AmeБизнес</span>
-                                    </a>
-                                </li>
-
-                                <li class="navigation__item">
-                                    <a href="#" class="navigation__button button button--simple button--red">
-                                        <span class="button__text">FAQ</span>
-                                    </a>
-                                </li>
-
-                                <li class="navigation__item">
-                                    <a href="#" class="navigation__button button button--simple button--red">
-                                        <span class="button__text">Новости</span>
-                                    </a>
-                                </li>
-
-                                <li class="navigation__item">
-                                    <a href="#" type="button" class="navigation__button button button--simple button--dark-red">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--discount">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Акции</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <!--/нижнее меню-->
-        </header>
-        <!--/header-->
+        <? include_once("./include/header-main.php"); ?>
 
         <!--content-->
         <div class="page__content content">
@@ -882,6 +422,24 @@
                                 <li class="icons__item" title="Icon: danger">
                                     <svg class="icon icon--danger gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: question-circle">
+                                    <svg class="icon icon--question-circle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: users">
+                                    <svg class="icon icon--users gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cross">
+                                    <svg class="icon icon--cross gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
                                     </svg>
                                 </li>
                             </ul>
@@ -5171,6 +4729,41 @@
                     </div>
                     <!--/Сортировка-->
 
+                    <!-- Попап cookie -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Попап cookie</h2>
+
+                        <div class="gui__block">
+                            <div class="cookie" style="position: relative;" data-cookie>
+                                <div class="container">
+                                    <div class="cookie__row">
+                                        <div class="cookie__col">
+                                            <div class="cookie__image">
+                                                <img class="cookie__image-picture" src="/local/templates/.default/images/cookies.png" alt="cookie">
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__text">
+                                                Мы используем файлы cookie для Вашего удобства пользования сайтом. Продолжая использовать наш сайт, Вы даете согласие на обработку файлов cookie
+                                            </div>
+                                        </div>
+                                        <div class="cookie__col">
+                                            <div class="cookie__actions">
+                                                <a href="#" class="cookie__actions-button cookie__actions-accept button button--rounded button--outlined button--red" data-cookie-more>
+                                                    Узнать больше
+                                                </a>
+                                                <button type="button" class="cookie__actions-button cookie__actions-more button button--rounded button--covered button--red" data-cookie-accept>
+                                                    Принять
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Попап cookie -->
+
                     <!--Данные о питомцах-->
                     <div class="gui__block">
                         <h2 class="gui__title">Данные о питомцах</h2>
@@ -6504,269 +6097,6 @@
                     </div>
                     <!--/Карточки товара-->
 
-                    <!--Слайдер-->
-                    <div class="gui__block">
-                        <h2 class="gui__title">Слайдеры</h2>
-
-                        <div class="gui__slider">
-                            <h3 style="margin-top: 40px">Слайдер на главной</h3>
-
-                            <div class="slider slider--main" data-carousel="main">
-                                <div class="swiper-container" data-carousel-container>
-                                    <div class="swiper-wrapper">
-
-                                        <div class="swiper-slide slider__slide">
-                                            <div class="slider__image">
-                                                <picture>
-                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
-                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
-                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
-                                                </picture>
-                                            </div>
-
-                                            <article class="slider__card card-banner">
-                                                <a href="#" class="card-banner__link"></a>
-                                                <div class="card-banner__inner">
-                                                    <h2 class="card-banner__title">
-                                                        Это точно понравится вам и вашим питомцам:
-                                                    </h2>
-                                                    <p class="card-banner__text">
-                                                        Скидка на популярные товары для собак в июне
-                                                    </p>
-
-                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
-
-                                                    <div class="card-banner__sale sale">
-                                                        <p class="sale__text">
-                                                            -50%
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <div class="swiper-slide slider__slide">
-                                            <div class="slider__image">
-                                                <picture>
-                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
-                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
-                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
-                                                </picture>
-                                            </div>
-
-                                            <article class="slider__card card-banner">
-                                                <a href="#" class="card-banner__link"></a>
-                                                <div class="card-banner__inner">
-                                                    <h2 class="card-banner__title">
-                                                        Это точно понравится вам и вашим питомцам:
-                                                    </h2>
-                                                    <p class="card-banner__text">
-                                                        Скидка на популярные товары для собак в июне
-                                                    </p>
-
-                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
-
-                                                    <div class="card-banner__sale sale">
-                                                        <p class="sale__text">
-                                                            -50%
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="swiper-pagination pagination" data-carousel-pagination></div>
-
-                                    <div class="slider__buttons">
-                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
-                                            <button type="button" class="slider__button slider__button--prev">
-                                                <svg class="slider__button-icon icon icon--arrow">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
-                                            <button type="button" class="slider__button slider__button--next">
-                                                <svg class="slider__button-icon icon icon--arrow">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h3 style="margin-top: 40px">Слайдер на деталке</h3>
-                            
-                            <div class="slider slider--product" data-carousel="product">
-                                <div class="swiper-container" data-carousel-container>
-                                    <div class="swiper-wrapper">
-
-                                        <div class="swiper-slide slider__slide">
-                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                                <div class="product-card__header">
-                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                                    <div class="product-card__favourite">
-                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                            <span class="button__icon button__icon--big">
-                                                                <svg class="icon icon--heart">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <div class="swiper-slide slider__slide">
-                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                                <div class="product-card__header">
-                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                                    <div class="product-card__favourite">
-                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                            <span class="button__icon button__icon--big">
-                                                                <svg class="icon icon--heart">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <div class="swiper-slide slider__slide">
-                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                                <div class="product-card__header">
-                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                                    <div class="product-card__favourite">
-                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                            <span class="button__icon button__icon--big">
-                                                                <svg class="icon icon--heart">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <img src="https://fakeimg.pl/366x312/" alt="Название товара" class="product-card__pic">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <div class="swiper-slide slider__slide">
-                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                                <div class="product-card__header">
-                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                                    <div class="product-card__favourite">
-                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                            <span class="button__icon button__icon--big">
-                                                                <svg class="icon icon--heart">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <video src="/local/templates/.default/images/video-slide.webm" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <div class="swiper-slide slider__slide">
-                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                                <div class="product-card__header">
-                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                                    <div class="product-card__favourite">
-                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                            <span class="button__icon button__icon--big">
-                                                                <svg class="icon icon--heart">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="slider__buttons">
-                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
-                                            <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
-                                                <span class="button__icon">
-                                                    <svg class="icon icon--basket">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        
-                                        <div class="swiper-pagination pagination pagination--image" data-carousel-pagination></div>
-                                        
-                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
-                                            <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
-                                                <span class="button__icon">
-                                                    <svg class="icon icon--basket">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <!--/Слайдер-->
-
                     <!-- Карточки прогресса -->
                     <div class="gui__block">
                         <h2 class="gui__title">Карточки прогресса</h2>
@@ -7350,6 +6680,201 @@
                         </div>
                     </div>
                     <!-- /Карточки-акций -->
+
+                    <!-- Карточки подсчета -->
+                    <div class="gui__block" style="padding: 16px; background: #f4f3f6;">
+                        <h2 class="gui__title">Карточки подсчета</h2>
+
+                        <h3 style="margin-top: 40px;">3 шт.</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-counting">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="10000"
+                                                        data-current="50000"
+                                                        data-max="10000000"
+                                                        data-step="10000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ББ
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="0"
+                                                        data-current="100"
+                                                        data-max="1000"
+                                                        data-step="10"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Средняя сумма баллов 1 покупателя
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">2 шт.</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-counting cards-counting--double">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1"
+                                                        data-current="5"
+                                                        data-max="10"
+                                                        data-step="1"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки подсчета -->
 
                     <!-- Карточки товаров в корзине -->
                     <div class="gui__block">
@@ -8813,7 +8338,6 @@
                                             </div>
                                         </article>
                                     </li>
-
                                 </ul>
                             </div>
 
@@ -9134,7 +8658,6 @@
 
                         </div>
                     </div>
-
                     <!-- /Карточка заказа -->
 
                     <!-- Попап cookie -->
@@ -9170,7 +8693,95 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Попап cookie -->
+                    <!-- Попап cookie -->
+
+                    <!-- Как это рабоатет -->
+                    <div class="gui__block">
+                        <h2 class="gui__block">Как это рабоатет</h2>
+
+                        <div class="gui__block">
+                            <div class="work-steps">
+                                <div class="work-steps__box section__box box box--gray">
+                                    <div class="work-steps__header section__header">
+                                        <h3 class="section__title section__title--closer">Как это рабоатет</h3>
+                                    </div>
+                                    <div class="section__wrapper">
+                                        <ul class="work-steps__list">
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--red">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-1.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">Вы покупаете нашу продукцию</h6>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--piper">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-2.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Ваш питомец доволен и Вы довольны
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                               
+                                              
+                                            </li>
+
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--gold">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-3.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Вы рекомендуете нашу продукцию своим друзьям
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--green">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-4.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Ваши друзья рекомендуют нашу продукцию своим коллегам
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </li>
+
+                                            <li class="work-steps__item">
+                                                <div class="work-step work-step--blue">
+                                                    <span class="work-step__count">
+                                                        <img class="work-step__count-picture" src="/local/templates/.default/images/hexagon-step-5.png" alt="how-work-steps-step-1">
+                                                    </span>
+                                                    <div class="work-step__wrapper">
+                                                        <h6 class="work-step__text">
+                                                            Вы получаете вознаграждение за свою рекомендацию и начинаете работать как партнер AmeAppetite
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                           
+                        </div>
+                    </div>
+                    <!-- Как это рабоатет -->
 
                     <!-- Информационные баннеры -->
                     <div class="gui__block">
@@ -9438,13 +9049,13 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
                     </div>
+
                     <!-- /Карточки Статусы -->
 
                     <!-- Карточки советов -->
@@ -9834,213 +9445,7727 @@
                         </div>
                     </div>
                     <!-- /Карточки акций -->
+
+                    <!-- Карточки Участников -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки Участников</h2>
+
+                        <div class="accordeon accordeon--separated" style="max-width: 870px;">
+                            <div class="participant">
+                                <div class="participant__head">
+                                    <div class="participant__head-item participant__head-item--name">ФИО</div>
+                                    <div class="participant__head-item participant__head-item--id">ID</div>
+                                    <div class="participant__head-item participant__head-item--level">Уровень</div>
+                                    <div class="participant__head-item participant__head-item--date">На сайте с</div>
+                                    <div class="participant__head-item participant__head-item--tel">Телефон</div>
+                                    <div class="participant__head-item participant__head-item--email">Email</div>
+                                </div>
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--level">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Уровень</span>
+                                                    <span class="participant__info-value">к2</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle" data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar avatar--accent">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--level">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Уровень</span>
+                                                    <span class="participant__info-value">к2</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle" data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--level">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Уровень</span>
+                                                    <span class="participant__info-value">к2</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle"  data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 40px">С питомцами</h3>
+
+                        <div class="accordeon accordeon--separated" style="max-width: 870px;">
+                            <div class="participant">
+                                <div class="participant__head">
+                                    <div class="participant__head-item participant__head-item--name">ФИО</div>
+                                    <div class="participant__head-item participant__head-item--id">ID</div>
+                                    <div class="participant__head-item participant__head-item--pet">Питомец</div>
+                                    <div class="participant__head-item participant__head-item--date">На сайте с</div>
+                                    <div class="participant__head-item participant__head-item--tel">Телефон</div>
+                                    <div class="participant__head-item participant__head-item--email">Email</div>
+                                </div>
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--pets">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Питомец</span>
+                                                    <div class="participant__info-pets">
+                                                        <div class="participant__info-pet participant__info-pet--cat">
+                                                            <svg class="icon icon--cat">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-seating"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="participant__info-pet participant__info-pet--dog">
+                                                            <svg class="icon icon--dog">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-dog-seating"></use>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle" data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar avatar--accent">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--pets">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Питомец</span>
+                                                    <div class="participant__info-pets">
+                                                        <div class="participant__info-pet participant__info-pet--cat">
+                                                            <svg class="icon icon--cat">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-seating"></use>
+                                                            </svg>
+                                                        </div>
+                                                        <!-- <p class="participant__info-pet">нет</p> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle"  data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+
+                                <!--Карточка участника-->
+                                <div class="participant__item accordeon__item" data-accordeon>
+                                    <div class="participant__header accordeon__header box box--rounded-sm">
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--avatar">
+                                                <div class="participant__avatar avatar">
+                                                    <div class="avatar__box">
+                                                        <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="participant__col participant__col--name">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ФИО</span>
+                                                    <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>Достоевская-Васильева А.М.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--separated">
+                                            <div class="participant__col participant__col--id">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">ID</span>
+                                                    <span class="participant__info-value">1012376</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--pets">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Питомец</span>
+                                                    <div class="participant__info-pets">
+                                                        <p class="participant__info-value">нет</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--date">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">На сайте с</span>
+                                                    <span class="participant__info-value">01.12.2022</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="participant__col participant__col--tel participant__col--separated">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Телефон</span>
+                                                    <span class="participant__info-value">8 (901) 123-45-67</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row">
+                                            <div class="participant__col participant__col--email">
+                                                <div class="participant__info">
+                                                    <span class="participant__info-name">Email</span>
+                                                    <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>dostaevskaya-vasileva1995@yandex.ru</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__row participant__row--toggle"  data-accordeon-toggle>
+                                            <p class="participant__show">Подробнее</p>
+                                            <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordeon__body" data-accordeon-content>
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Плановые показатели
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб личные-->
+
+                                                    <!--Таб групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__progress cards-progress">
+                                                                <ul class="cards-progress__list">
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Удержание уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-serious">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Осталось еще немного
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--red">
+                                                                                                124 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                        
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Осталось 56 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия повышения уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="cards-progress__item">
+                                                                        <div class="card-progress card-progress--unbordered">
+                                                                            <div class="card-progress__inner">
+                                                                                <p class="card-progress__title">
+                                                                                    Повышения уровня по личным покупкам
+                                                                                </p>
+                                                                                <div class="card-progress__mark">
+                                                                                    <svg class="card-progress__icon icon icon--cat-smile">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-smile"></use>
+                                                                                    </svg>
+                                                                                    <span class="card-progress__mark-text">
+                                                                                        Цель достигнута
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="card-progress__wrapper">
+                                                                                    <div class="card-progress__progress progress-bar">
+                                                                                        <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                                                    </div>
+                                                                                    <div class="card-progress__bottom">
+                                                                                        <div class="card-progress__amount amount">
+                                                                                            <p class="amount__target amount__target--green">
+                                                                                                175 000 ₽
+                                                                                            </p>
+                                                                                            <p class="amount__total">
+                                                                                                из 175 000 ₽
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="card-progress__status">
+                                                                                            <p class="card-progress__text">
+                                                                                                Выполнено
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-progress__warning warning">
+                                                                                    <div class="warning__mark">
+                                                                                        <button type="button" class="button button--iconed button--simple button--red" data-fancybox="" data-modal-type="modal" data-src="#conditions">
+                                                                                            <span class="button__icon">
+                                                                                                <svg class="icon icon--basket warning__icon">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <p class="warning__text">
+                                                                                        Условия удержания уровня
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant__section">
+                                            <h5 class="participant__section-title">
+                                                Продажи
+                                            </h5>
+
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                                <nav class="tabs__items">
+                                                    <ul class="tabs__list">
+                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                            Личные
+                                                        </li>
+                
+                                                        <li class="tabs__item" data-tab="block2">
+                                                            Групповые
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                                <div class="tabs__body">
+                                                    <!--Таб Личные-->
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                        <div class="participant__block">
+                                                            <!--Результаты-->
+                                                            <div class="results">
+                                                                <ul class="results__list">
+                                                                    <li class="results__item">
+                                                                        <!--Результат-->
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма всех личных заказов</p>
+                                                                                <p class="result__total">568 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/Результат-->
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                <p class="result__total">268 429 ₽</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                <p class="result__total">679 ББ</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                <p class="result__total">12</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                <p class="result__total">4</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+
+                                                                                    <div data-toggle-visibility-block style="display: none;">
+                                                                                        <!--Возвраты-->
+                                                                                        <div class="result__return">
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                <p class="result__return-total">1</p>
+                                                                                            </div>
+                                                                                            <div class="result__return-item">
+                                                                                                <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                <p class="result__return-total">3</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--/Возвраты-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Дата последнего личного заказа</p>
+                                                                                <p class="result__total">09.07.2022</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="results__item">
+                                                                        <div class="result">
+                                                                            <div class="result__main">
+                                                                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                <p class="result__total">21</p>
+                                                                            </div>
+                                                                            <div class="result__addition">
+                                                                                <div data-toggle-visibility-container>
+                                                                                    <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                        <span class="button__icon button__icon--mini button__icon--right">
+                                                                                            <svg class="icon icon--arrow-up">
+                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                        <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                    </button>
+                                                                                    <!--Таблица товаров-->
+                                                                                    <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                        <div class="table-list__head">
+                                                                                            <div class="table-list__cell">
+                                                                                                <p class="table-list__name">
+                                                                                                    Наименование
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Цена
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Количество
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="table-list__cell table-list__cell--desktop">
+                                                                                                <p class="table-list__name">
+                                                                                                    Сумма
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+
+                                                                                            <li class="table-list__item">
+                                                                                                <article class="product-line">
+                                                                                                    <div class="product-line__inner">
+                                                                                                        <div class="product-line__info">
+                                                                                                            <div class="product-line__image">
+                                                                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                            </div>
+                                                                                                            <div class="product-line__wrapper">
+                                                                                                                <h2 class="product-line__title">
+                                                                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                </h2>
+                                                                                                                <p class="product-line__subtitle">
+                                                                                                                    Арт. СХ-С-956027
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="product-line__characteristic">
+                                                                                                            <ul class="product-line__list">
+                                                                                                                <li class="product-line__params product-line__params--span">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Цена:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            1 097 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Количество:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                                <li class="product-line__params product-line__params--bold">
+                                                                                                                    <p class="product-line__text">
+                                                                                                                        <span class="product-line__params-name">
+                                                                                                                            Сумма:
+                                                                                                                        </span>
+                                                                                                                        <span class="product-line__params-value">
+                                                                                                                            4 388 ₽
+                                                                                                                        </span>
+                                                                                                                    </p>
+                                                                                                                </li> 
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <!--/Таблица товаров-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!--Результаты-->
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Личные-->
+
+                                                    <!--Таб Групповые-->
+                                                    <div class="tabs__block" data-tab-section="block2">
+                                                        <div class="participant__block">
+                                                            <div class="participant__block">
+                                                                <!--Результаты-->
+                                                                <div class="results">
+                                                                    <ul class="results__list">
+                                                                        <li class="results__item">
+                                                                            <!--Результат-->
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма всех личных заказов</p>
+                                                                                    <p class="result__total">568 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--/Результат-->
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                                                                    <p class="result__total">268 429 ₽</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Сумма личных баллов за текущий период</p>
+                                                                                    <p class="result__total">679 ББ</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                                                                    <p class="result__total">12</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                                                                    <p class="result__total">4</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+
+                                                                                        <div data-toggle-visibility-block style="display: none;">
+                                                                                            <!--Возвраты-->
+                                                                                            <div class="result__return">
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество полных возвратов</p>
+                                                                                                    <p class="result__return-total">1</p>
+                                                                                                </div>
+                                                                                                <div class="result__return-item">
+                                                                                                    <p class="result__return-name">Количество частичных возвратов</p>
+                                                                                                    <p class="result__return-total">3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--/Возвраты-->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Дата последнего личного заказа</p>
+                                                                                    <p class="result__total">09.07.2022</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="results__item">
+                                                                            <div class="result">
+                                                                                <div class="result__main">
+                                                                                    <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                                                                    <p class="result__total">21</p>
+                                                                                </div>
+                                                                                <div class="result__addition">
+                                                                                    <div data-toggle-visibility-container>
+                                                                                        <button type="button" class="button button--simple button--gray button--small" data-toggle-visibility-action="hide">
+                                                                                            <span class="button__icon button__icon--mini button__icon--right">
+                                                                                                <svg class="icon icon--arrow-up">
+                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                                                                </svg>
+                                                                                            </span>
+                                                                                            <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать детализацию&quot;, &quot;hide&quot;:&quot;Скрыть детализацию&quot;}">Показать детализацию</span>
+                                                                                        </button>
+                                                                                        <!--Таблица товаров-->
+                                                                                        <div class="result__products table-list" data-toggle-visibility-block style="display: none;">
+                                                                                            <div class="table-list__head">
+                                                                                                <div class="table-list__cell">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Наименование
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Цена
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Количество
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                <div class="table-list__cell table-list__cell--desktop">
+                                                                                                    <p class="table-list__name">
+                                                                                                        Сумма
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <ul class="table-list__list table-list__list--limited" data-scrollbar>
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+
+                                                                                                <li class="table-list__item">
+                                                                                                    <article class="product-line">
+                                                                                                        <div class="product-line__inner">
+                                                                                                            <div class="product-line__info">
+                                                                                                                <div class="product-line__image">
+                                                                                                                    <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                                                </div>
+                                                                                                                <div class="product-line__wrapper">
+                                                                                                                    <h2 class="product-line__title">
+                                                                                                                        AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                                                                    </h2>
+                                                                                                                    <p class="product-line__subtitle">
+                                                                                                                        Арт. СХ-С-956027
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="product-line__characteristic">
+                                                                                                                <ul class="product-line__list">
+                                                                                                                    <li class="product-line__params product-line__params--span">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Цена:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                1 097 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Количество:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                    <li class="product-line__params product-line__params--bold">
+                                                                                                                        <p class="product-line__text">
+                                                                                                                            <span class="product-line__params-name">
+                                                                                                                                Сумма:
+                                                                                                                            </span>
+                                                                                                                            <span class="product-line__params-value">
+                                                                                                                                4 388 ₽
+                                                                                                                            </span>
+                                                                                                                        </p>
+                                                                                                                    </li> 
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </article>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--/Таблица товаров-->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!--Результаты-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/Таб Групповые-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/Карточка участника-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки Участников -->
+
+                    <!--Слайдер-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Слайдеры</h2>
+
+                        <div class="gui__slider">
+                            <h3 style="margin-top: 40px">Слайдер на главной</h3>
+
+                            <div class="slider slider--main" data-carousel="main">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <div class="slider__image">
+                                                <picture>
+                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
+                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
+                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
+                                                </picture>
+                                            </div>
+
+                                            <article class="slider__card card-banner">
+                                                <a href="#" class="card-banner__link"></a>
+                                                <div class="card-banner__inner">
+                                                    <h2 class="card-banner__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-banner__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-banner__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <div class="slider__image">
+                                                <picture>
+                                                    <source media="(min-width: 1440px)" srcset="/local/templates/.default/images/main-slider-desktop.jpg">
+                                                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/main-slider-tablet.jpg">
+                                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg" alt="Слайд на главной" class="slider__image-picture">
+                                                </picture>
+                                            </div>
+
+                                            <article class="slider__card card-banner">
+                                                <a href="#" class="card-banner__link"></a>
+                                                <div class="card-banner__inner">
+                                                    <h2 class="card-banner__title">
+                                                        Это точно понравится вам и вашим питомцам:
+                                                    </h2>
+                                                    <p class="card-banner__text">
+                                                        Скидка на популярные товары для собак в июне
+                                                    </p>
+
+                                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
+
+                                                    <div class="card-banner__sale sale">
+                                                        <p class="sale__text">
+                                                            -50%
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="swiper-pagination pagination" data-carousel-pagination></div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next">
+                                                <svg class="slider__button-icon icon icon--arrow">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 style="margin-top: 40px">Слайдер на деталке</h3>
+                            
+                            <div class="slider slider--product" data-carousel="product">
+                                <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <video src="/local/templates/.default/images/video-slide.webm" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="product-card__wrapper">
+                                                        <div class="product-card__image box box--circle">
+                                                            <div class="product-card__box">
+                                                                <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="slider__buttons">
+                                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
+                                            <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
+                                                <span class="button__icon">
+                                                    <svg class="icon icon--basket">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="swiper-pagination pagination pagination--image" data-carousel-pagination></div>
+                                        
+                                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
+                                            <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
+                                                <span class="button__icon">
+                                                    <svg class="icon icon--basket">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--/Слайдер-->
                 </main>
             </div>
         </div>
         <!--content-->
 
-        <!--Футер-->
-        <footer class="page__footer footer">
-            <div class="footer__container container">
-                <nav class="footer__nav">
-                    <ul class="footer__list footer__list--dogs">
-                        <li class="footer__item footer__item--heading">
-                            Для собак
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Сухой корм
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Влажный корм
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Лакомства
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Аксессуары
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Советы экспертов
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="footer__list footer__list--cats">
-                        <li class="footer__item footer__item--heading">
-                            Для кошек
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Сухой корм
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Влажный корм
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Лакомства
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Аксессуары
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Советы экспертов
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="footer__list footer__list--customers">
-                        <li class="footer__item footer__item--heading">
-                            Покупателям
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Акции
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Оплата и доставка
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                FAQ
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Обратиться в поддержку
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="footer__list footer__list--company">
-                        <li class="footer__item footer__item--heading">
-                            Компания AmeAppetite
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                AmeБизнес
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Новости
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Мероприятия
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="footer__list footer__list--contacts">
-                        <li class="footer__item footer__item--heading">
-                            Контакты
-                        </li>
-                        <li class="footer__item">
-                            <a href="tel:88001234567" class="footer__link">
-                                8 (800) 123-45-67
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="mailto:dogcathappy@ame.ru" class="footer__link">
-                                dogcathappy@ame.ru
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            Москва, Проспект Мира, 87
-                        </li>
-                    </ul>
-                    <ul class="footer__list footer__list--info">
-                        <li class="footer__item footer__item--heading">
-                            Правовая информация
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                            Условия использования Сайта
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Положение об обработке персональных данных
-                            </a>
-                        </li>
-                        <li class="footer__item">
-                            <a href="#" class="footer__link">
-                                Правила поведения в компании
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="footer__social social">
-                    <ul class="social__list">
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <svg class="icon icon--social">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <svg class="icon icon--social">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <svg class="icon icon--social">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <svg class="icon icon--social">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social__item">
-                            <a href="#" class="social__link">
-                                <svg class="icon icon--social">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="footer__bottom">
-                    <p class="footer__copyright">
-                        &copy; AmeAppetite, 2022
-                    </p>
-                    <div class="footer__logo logo">
-                        <a target="_blank" class="logo__link" href="https://qsoft.ru">
-                            <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!--/Футер-->
+        <? include_once("./include/footer.php"); ?>
 
         <script src="/local/templates/.default/js/script.js"></script>
     </body>
