@@ -194,6 +194,7 @@ else {
 
                                 <!-- Карточка заказа -->
                                 <?php foreach ($arResult['ORDERS'] as $order): ?>
+                                    <?php $paid = $order['ORDER']['PAYED'] == 'Y'; ?>
                                     <li class="cards-order__item">
                                         <article class="card-order card-order--green">
                                             <div class="card-order__inner">
@@ -215,7 +216,7 @@ else {
                                                                     Кем заказан
                                                                 </p>
                                                                 <p class="info-slot__value">
-                                                                    Дубровская А.Ф.
+                                                                    <?=$order['ORDER']['FIO'] ?>
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -238,11 +239,11 @@ else {
                                                                 </p>
                                                                 <p class="info-slot__value info-slot__value--icon">
                                                                     <span class="info-slot__icon">
-                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark">
-                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
+                                                                        <svg class="icon icon--credit-not-paid info-slot__icon-mark"> 
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-<?=$paid ? 'paid' : 'not-paid' ?>"></use>
                                                                         </svg>
                                                                     </span>
-                                                                    Оплачен
+                                                                    <?=$paid ? 'Оплачен' : 'Не оплачен' ?>
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -257,7 +258,7 @@ else {
                                                                             </svg>
                                                                         </span>
                                                                         <span class="price__calculation-value">
-                                                                            <?=number_format($order['ORDER']['PRICE'], 0, '.', ' ')  ?> ₽
+                                                                            <?=$order['ORDER']['FORMATED_PRICE']?>
                                                                         </span>
                                                                     </p>
                                                                     <p class="price__calculation-accumulation">119 ББ</p>
@@ -310,171 +311,63 @@ else {
 
                                                                 <ul class="table-list__list">
 
-                                                                    <li class="table-list__item">
+                                                                    <?php foreach ($order['BASKET_ITEMS'] as $product): ?>
+                                                                        <li class="table-list__item">
 
-                                                                        <article class="product-line">
-                                                                            <div class="product-line__inner">
-                                                                                <div class="product-line__info">
-                                                                                    <div class="product-line__image">
-                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
-                                                                                    </div>
-                                                                                    <div class="product-line__wrapper">
-                                                                                        <h2 class="product-line__title">
-                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
-                                                                                        </h2>
-                                                                                        <p class="product-line__subtitle">
-                                                                                            Арт. СХ-С-956027
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="product-line__characteristic">
-                                                                                    <ul class="product-line__list">
-                                                                                        <li class="product-line__params product-line__params--span">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Цена:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    1 097 ₽
-                                                                                                </span>
+                                                                            <article class="product-line">
+                                                                                <div class="product-line__inner">
+                                                                                    <div class="product-line__info">
+                                                                                        <div class="product-line__image">
+                                                                                            <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                        </div>
+                                                                                        <div class="product-line__wrapper">
+                                                                                            <h2 class="product-line__title">
+                                                                                                <?=$product['NAME']?>
+                                                                                            </h2>
+                                                                                            <p class="product-line__subtitle">
+                                                                                                Арт. СХ-С-956027
                                                                                             </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Количество:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    4
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params product-line__params--bold">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Сумма баллов:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    436 ББ
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </article>
-
-                                                                    </li>
-                                                                    <li class="table-list__item">
-
-                                                                        <article class="product-line">
-                                                                            <div class="product-line__inner">
-                                                                                <div class="product-line__info">
-                                                                                    <div class="product-line__image">
-                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="product-line__wrapper">
-                                                                                        <h2 class="product-line__title">
-                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
-                                                                                        </h2>
-                                                                                        <p class="product-line__subtitle">
-                                                                                            Арт. СХ-С-956027
-                                                                                        </p>
+                                                                                    <div class="product-line__characteristic">
+                                                                                        <ul class="product-line__list">
+                                                                                            <li class="product-line__params product-line__params--span">
+                                                                                                <p class="product-line__text">
+                                                                                                    <span class="product-line__params-name">
+                                                                                                        Цена:
+                                                                                                    </span>
+                                                                                                    <span class="product-line__params-value">
+                                                                                                <?=number_format($product['PRICE'], 2, '.', ' ')?> ₽
+                                                                                                    </span>
+                                                                                                </p>
+                                                                                            </li> 
+                                                                                            <li class="product-line__params">
+                                                                                                <p class="product-line__text">
+                                                                                                    <span class="product-line__params-name">
+                                                                                                        Количество:
+                                                                                                    </span>
+                                                                                                    <span class="product-line__params-value">
+                                                                                                <?=$product['QUANTITY']?>
+                                                                                                    </span>
+                                                                                                </p>
+                                                                                            </li> 
+                                                                                            <li class="product-line__params product-line__params--bold">
+                                                                                                <p class="product-line__text">
+                                                                                                    <span class="product-line__params-name">
+                                                                                                        Сумма баллов:
+                                                                                                    </span>
+                                                                                                    <span class="product-line__params-value">
+                                                                                                        436 ББ
+                                                                                                    </span>
+                                                                                                </p>
+                                                                                            </li> 
+                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="product-line__characteristic">
-                                                                                    <ul class="product-line__list">
-                                                                                        <li class="product-line__params product-line__params--span">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Цена:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    1 097 ₽
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Количество:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    4
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params product-line__params--bold">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Сумма баллов:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    436 ББ
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </article>
+                                                                            </article>
 
-                                                                    </li>
-                                                                    <li class="table-list__item">
-
-                                                                        <article class="product-line">
-                                                                            <div class="product-line__inner">
-                                                                                <div class="product-line__info">
-                                                                                    <div class="product-line__image">
-                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
-                                                                                    </div>
-                                                                                    <div class="product-line__wrapper">
-                                                                                        <h2 class="product-line__title">
-                                                                                            AmeAppetite для мелких и средних пород собак со вкусом кролика
-                                                                                        </h2>
-                                                                                        <p class="product-line__subtitle">
-                                                                                            Арт. СХ-С-956027
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="product-line__characteristic">
-                                                                                    <ul class="product-line__list">
-                                                                                        <li class="product-line__params product-line__params--span">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Цена:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    1 097 ₽
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Количество:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    4
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                        <li class="product-line__params product-line__params--bold">
-                                                                                            <p class="product-line__text">
-                                                                                                <span class="product-line__params-name">
-                                                                                                    Сумма баллов:
-                                                                                                </span>
-                                                                                                <span class="product-line__params-value">
-                                                                                                    436 ББ
-                                                                                                </span>
-                                                                                            </p>
-                                                                                        </li> 
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </article>
-
-                                                                    </li>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
 
                                                                 </ul>
                                                             </div>

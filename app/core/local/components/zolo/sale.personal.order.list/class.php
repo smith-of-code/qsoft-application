@@ -818,6 +818,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$listOrderBasket = array();
 		$listOrderShipment = array();
 		$listOrderPayment = array();
+		$orderUserIdList = [];
 
 		$select = array(
 				'ID',
@@ -906,7 +907,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             $getListParams['limit'] =(string)$size;
             $getListParams['offset'] = 0;
         }
-
 		$this->dbQueryResult['ORDERS'] = new \CDBResult($orderClassName::getList($getListParams));
 
 		if (empty($this->dbQueryResult['ORDERS']))
@@ -926,15 +926,23 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 			$listOrders[$arOrder["ID"]] = $arOrder;
 			$orderIdList[] = $arOrder["ID"];
+			$orderUserIdList[$arOrder["ID"]] = $arOrder["USER_ID"];
 		}
 
 		$orderProps = $this->loadOrdersProperties($orderIdList);
+		$orderUsers = $this->getUsersByOrders($orderUserIdList);
 
 		foreach ($orderProps as $orderPropId => $props) {
-            $listOrders[$orderPropId]['PROPERTIES'] =  $props;
+            $listOrders[$orderPropId]['PROPERTIES'] = $props;
+            $listOrders[$orderPropId]['FIO'] = $orderUsers[$orderPropId];
         }
 
 		$basketClassName = $this->registry->getBasketClassName();
+
+		// dump($basketClassName::loadItemsForOrder(21));
+
+
+
 		/** @var Main\DB\Result $listBaskets */
 		$listBaskets = $basketClassName::getList(array(
 			'select' => array("*"),
@@ -946,9 +954,19 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		{
 			if (CSaleBasketHelper::isSetItem($basket))
 				continue;
-
 			$listOrderBasket[$basket['ORDER_ID']][$basket['ID']] = $basket;
+			$productIds[] = $basket['PRODUCT_ID'];
 		}
+
+		$ids = [ "390", "562", "600",];
+
+		$product = CCatalogProduct::GetList([], ['IBLOCK_ID' => 134, 'ID' => $productIds], false, false, []);
+
+		while ($row = $product->Fetch()) {
+			dump($row);
+		}
+
+		// dump($product);
 
 		$trackingManager = Sale\Delivery\Tracking\Manager::getInstance();
 
@@ -998,7 +1016,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$paymentIdList = array();
 		$paymentList = array();
-		dump($orderIdList);
+
 		while ($payment = $listPayments->fetch())
 		{
 			$paySystemFields = $this->dbResult['PAYSYS'][$payment['PAY_SYSTEM_ID']];
@@ -1047,6 +1065,41 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 				"PAYMENT" => $listOrderPayment[$orderId],
 			);
 		}
+	}
+
+	private function getUsersByOrders(?array $orderUserIdList): array
+	{
+		if (!$orderUserIdList) {
+			return [];
+		}
+
+		$dbResult = CUser::GetList(
+			'',
+			'',
+			['ID' => implode('|', $orderUserIdList)],
+			false,
+			[]
+		);
+
+		while ($user = $dbResult->Fetch()) {
+			$users[$user['ID']] = $user;
+		}
+
+		foreach ($orderUserIdList as $orderId => $userId) {
+			$user = $users[$userId];
+			$result[$orderId] = $this->userFIOFormat($user['NAME'] , $user['SECOND_NAME'] , $user['LAST_NAME']);
+		}
+
+		return $result ?? [];
+	}
+
+	// TODO: Перенести в хелпер
+	private function userFIOFormat(string $firstName, ?string $secondName = '', ?string $lastName = '')
+	{
+		$secondName = mb_substr(mb_convert_case($secondName, MB_CASE_TITLE, 'UTF-8'), 0, 1) ?? '';
+		$firstName = mb_substr(mb_convert_case($firstName, MB_CASE_TITLE, 'UTF-8'), 0, 1) ?? '';
+
+		return $lastName . ' ' . $firstName . ' ' . $secondName;
 	}
 
     /**
