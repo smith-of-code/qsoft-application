@@ -61,6 +61,15 @@
     }
 
     &__sale {
+        font-size: rem($font-size-middle);
+        line-height: (30px / $font-size-middle);
+
         align-self: flex-end;
+        
+        padding: rem(10px);
+
+        letter-spacing: 0.05em;
+
+        color: $white;
     }
 }

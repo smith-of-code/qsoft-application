@@ -7,14 +7,6 @@
     width: 100%;
     height: 100%;
 
-    transition: box-shadow $transition-duration $transition-function;
-
-    border-radius: rem($border-radius-average);
-
-    &:hover {
-        box-shadow: $box-shadow-big;
-    }
-
     &:active {
         box-shadow: 0 rem(8px) rem(12px) rgba($black, .08);
     }
@@ -91,6 +83,13 @@
     }
 
     &--violet & {
+        &__label {
+            @media #{$screen-desktop} {
+                top: rem($gap-small);
+                right: rem($gap-small);
+            }
+        }
+
         &__content {
             display: flex;
             align-items: center;
@@ -149,13 +148,6 @@
         @media #{$screen-tablet} {
             top: rem($gap-average);
             right: rem($gap-average);
-        }
-
-        &.label--violet {
-            @media #{$screen-desktop} {
-                top: rem($gap-small);
-                right: rem($gap-small);
-            }
         }
     }
 

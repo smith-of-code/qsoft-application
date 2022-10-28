@@ -6446,7 +6446,7 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale label label--primary label--big label--red">
+                                                    <div class="card-banner__sale label label--primary label--red">
                                                         -50%
                                                     </div>
                                                 </div>
@@ -6474,7 +6474,7 @@
 
                                                     <div class="card-banner__pagination swiper-pagination pagination pagination--default" data-carousel-pagination></div>
 
-                                                    <div class="card-banner__sale label label--primary label--big label--red">
+                                                    <div class="card-banner__sale label label--primary label--red">
                                                         -50%
                                                     </div>
                                                 </div>
@@ -8512,7 +8512,7 @@
                                 <ul class="cards-compilation__list">
                                     <li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra">
 
-                                        <article class="card-compilation card-compilation--big card-compilation--green">
+                                        <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -8545,7 +8545,7 @@
                                     </li>
                                     <li class="cards-compilation__item cards-compilation__item--sale cards-compilation__item--extra">
 
-                                        <article class="card-compilation card-compilation--medium card-compilation--grey">
+                                        <article class="card-compilation card-compilation--medium card-compilation--grey box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -8577,7 +8577,7 @@
                                     </li>
                                     <li class="cards-compilation__item cards-compilation__item--compilation">
 
-                                        <article class="card-compilation card-compilation--small card-compilation--violet">
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -8606,7 +8606,7 @@
                                     </li>
                                     <li class="cards-compilation__item cards-compilation__item--selection">
 
-                                        <article class="card-compilation card-compilation--small card-compilation--violet">
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
