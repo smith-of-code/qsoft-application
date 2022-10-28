@@ -21,6 +21,7 @@ final class CreateHlBlockFaq extends BaseCreateHighloadMigration
             'USER_TYPE_ID' => 'enumeration',
             'MULTIPLE' => 'N',
             'XML_ID' => 'UF_GROUP',
+            'MANDATORY' => 'Y',
             'SORT' => 100,
             'EDIT_FORM_LABEL' => ['ru' => 'Группа'],
             'LIST_COLUMN_LABEL' => ['ru' => 'Группа'],
@@ -51,6 +52,7 @@ final class CreateHlBlockFaq extends BaseCreateHighloadMigration
             'SETTINGS' => [
                 'SIZE' => 50,
                 'ROWS' => 10,
+                'MAX_LENGTH' => 2047,
             ],
         ],
     ];
