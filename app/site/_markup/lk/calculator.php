@@ -619,7 +619,7 @@
                                                                 <div class="section__box-inner">
                                                                     <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
 
-                                                                    <div class="profitability__calculation">
+                                                                    <div class="profitability__calculation" data-group>
                                                                         <div class="profitability__calculation-cards cards-counting">
                                                                             <ul class="cards-counting__list">
                                                                                 <li class="cards-counting__item">
@@ -849,10 +849,10 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="profitability__consultants">
+                                                                <div class="profitability__consultants" data-consultants>
                                                                     <div class="profitability__consultants-col">
                                                                         <div class="profitability__consultants-switcher switcher" name="switcher3">
-                                                                            <input type="checkbox" class="switcher__input" name="switch2" id="switch3" checked>
+                                                                            <input type="checkbox" class="switcher__input" name="switch2" id="switch3" data-consultants-switcher>
                                                                             <label for="switch3" class="switcher__label">
                                                                                 <span class="switcher__icon"></span>
                                                                                 <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
@@ -861,7 +861,7 @@
                                                                     </div>
 
                                                                     <div class="profitability__consultants-col profitability__consultants-col--inlined">
-                                                                        <div class="profitability__consultants-quantity quantity quantity--active" data-quantity>
+                                                                        <div class="profitability__consultants-quantity profitability__consultants-quantity--hidden quantity quantity--active" data-quantity data-consultants-quantity>
                                                                             <div class="quantity__actions">
                                                                                 <div class="quantity__decrease">
                                                                                     <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>

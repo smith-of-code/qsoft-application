@@ -171,6 +171,10 @@
         }
 
         &-quantity {
+            &--hidden {
+                visibility: hidden;
+            }
+
             width: rem(192px);
 
             @media #{$screen-desktop} {
