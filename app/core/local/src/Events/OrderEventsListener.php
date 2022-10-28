@@ -4,17 +4,22 @@ namespace QSoft\Events;
 
 use QSoft\Entity\User;
 use QSoft\Service\NotificationService;
+use \Bitrix\Sale\Internals\StatusLangTable;
+
 
 class OrderEventsListener
 {
-    public static function OnSaleStatusOrder(int $orderId, int $statusId): void
+    public static function OnSaleStatusOrder(int $orderId, string $statusId): void
     {
-        $statusValue = "Значение статуса заказа"; //получить значение статуса заказа по $statusId, $orderId
+        $statusName = StatusLangTable::getRowById(['STATUS_ID' => $statusId, 'LID' => 'ru'])['NAME'];
+        $title = "Ваш заказ №" . $orderId . " " . $statusName;
+        $message = "тестовое сообщение";
+        $link = "Тестовая ссылка на страницу заказа";
         $service = new NotificationService(new User());
         $service->sendNotification(
-            $statusValue,
-            "тестовое сообщение",
-        "Тестовая ссылка"
+            $title,
+            $message,
+            $link,
         );
     }
 }
