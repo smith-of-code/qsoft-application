@@ -6,16 +6,8 @@
     width: 100%;
     height: 100%;
 
-    transition: box-shadow $transition-duration $transition-function;
-
-    border-radius: rem($border-radius-average);
-
-    &:hover {
-        box-shadow: $box-shadow-big;
-    }
-
     &:active {
-        box-shadow: 0 rem(8px) rem(12px) rgba($black, .08);;
+        box-shadow: 0 rem(8px) rem(12px) rgba($black, .08);
     }
 
     &::after {
@@ -92,19 +84,17 @@
     }
 
     &__label {
+        font-size: rem($font-size-mini);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-miniature / $font-size-mini);
+
         position: absolute;
         top: rem($gap-average);
         right: rem($gap-average);
 
-        &.label {
-            font-size: rem($font-size-mini);
-            font-weight: $font-weight-semibold;
-            line-height: ($line-height-miniature / $font-size-mini);
+        letter-spacing: 0.04em;
 
-            letter-spacing: 0.04em;
-
-            color: $white;
-        }
+        color: $white;
     }
 
     &__content {

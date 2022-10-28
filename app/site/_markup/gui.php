@@ -9457,7 +9457,7 @@
                                 <ul class="cards-article__list">
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--green">
+                                        <article class="card-article card-article--green box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9495,7 +9495,7 @@
                                     </li>
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--blue">
+                                        <article class="card-article card-article--blue box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9536,7 +9536,7 @@
                                     </li>
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--orange">
+                                        <article class="card-article card-article--orange box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9574,7 +9574,7 @@
                                     </li>
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--violet">
+                                        <article class="card-article card-article--violet box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9612,7 +9612,7 @@
                                     </li>
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--green">
+                                        <article class="card-article card-article--green box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9650,7 +9650,7 @@
                                     </li>
                                     <li class="cards-article__item">
 
-                                        <article class="card-article card-article--orange">
+                                        <article class="card-article card-article--orange box box--hovering box--circle">
                                             <a href="#" class="card-article__link"></a>
 
                                             <div class="card-article__inner">
@@ -9702,7 +9702,7 @@
                                 <ul class="cards-sale__list">
                                     <li class="cards-sale__item">
 
-                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -9734,7 +9734,7 @@
                                     </li>
                                     <li class="cards-sale__item">
 
-                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -9767,7 +9767,7 @@
                                     </li>
                                     <li class="cards-sale__item">
 
-                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
@@ -9799,7 +9799,7 @@
                                     </li>
                                     <li class="cards-sale__item">
 
-                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey">
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
                                             <a href="#" class="card-compilation__link"></a>
                                         
                                             <div class="card-compilation__inner">
