@@ -36,19 +36,24 @@ const OPTIONS = {
 
 
 export default function inputMaskInit($container) {
-    if (!($container instanceof $)){
-        $container = $(document);
+    function inputMaskInit($container) {
+        if (!($container instanceof $)){
+            $container = $(document);
+        }
+
+        Inputmask(MASKS.phoneMask).mask($container.find(ELEMENTS_SELECTOR.phoneMask));
+        Inputmask(MASKS.dateMask).mask($container.find(ELEMENTS_SELECTOR.dateMask));
+        Inputmask(MASKS.emailMask).mask($container.find(ELEMENTS_SELECTOR.emailMask));
+        Inputmask(MASKS.seriaMask).mask($container.find(ELEMENTS_SELECTOR.seriaMask));
+        Inputmask(MASKS.numberMask).mask($container.find(ELEMENTS_SELECTOR.numberMask));
+        Inputmask(MASKS.kppMask).mask($container.find(ELEMENTS_SELECTOR.kppMask));
+        Inputmask(MASKS.innMask).mask($container.find(ELEMENTS_SELECTOR.innMask));
+        Inputmask(MASKS.shortInnMask).mask($container.find(ELEMENTS_SELECTOR.shortInnMask));
+        Inputmask(MASKS.ogrnipMask).mask($container.find(ELEMENTS_SELECTOR.ogrnipMask));
+        Inputmask(MASKS.ogrnMask).mask($container.find(ELEMENTS_SELECTOR.ogrnMask));
+        Inputmask(MASKS.bikMask).mask($container.find(ELEMENTS_SELECTOR.bikMask));
     }
 
-    Inputmask(MASKS.phoneMask).mask($container.find(ELEMENTS_SELECTOR.phoneMask));
-    Inputmask(MASKS.dateMask).mask($container.find(ELEMENTS_SELECTOR.dateMask));
-    Inputmask(MASKS.emailMask).mask($container.find(ELEMENTS_SELECTOR.emailMask));
-    Inputmask(MASKS.seriaMask).mask($container.find(ELEMENTS_SELECTOR.seriaMask));
-    Inputmask(MASKS.numberMask).mask($container.find(ELEMENTS_SELECTOR.numberMask));
-    Inputmask(MASKS.kppMask).mask($container.find(ELEMENTS_SELECTOR.kppMask));
-    Inputmask(MASKS.innMask).mask($container.find(ELEMENTS_SELECTOR.innMask));
-    Inputmask(MASKS.shortInnMask).mask($container.find(ELEMENTS_SELECTOR.shortInnMask));
-    Inputmask(MASKS.ogrnipMask).mask($container.find(ELEMENTS_SELECTOR.ogrnipMask));
-    Inputmask(MASKS.ogrnMask).mask($container.find(ELEMENTS_SELECTOR.ogrnMask));
-    Inputmask(MASKS.bikMask).mask($container.find(ELEMENTS_SELECTOR.bikMask));
+    inputMaskInit($container);
+    window.inputMaskInit = inputMaskInit;
 }

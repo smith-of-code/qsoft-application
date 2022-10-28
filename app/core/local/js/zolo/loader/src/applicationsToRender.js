@@ -1,5 +1,7 @@
-import {MiniBasket} from '../../components/miniBasket/src/component'
+import { MiniBasket } from '../../components/miniBasket/src/component';
+import { Pets } from '../../components/pets/src/component';
 
 export default {
-    '#miniBasket': MiniBasket
+    '#miniBasket': MiniBasket,
+    '#pets': Pets,
 };

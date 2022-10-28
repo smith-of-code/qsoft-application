@@ -1,9 +1,9 @@
-import {BitrixVue} from 'ui.vue3';
-import {createPinia} from 'ui.vue3.pinia';
+import { BitrixVue } from 'ui.vue3';
+import { createPinia } from 'ui.vue3.pinia';
 import applicationsToRender from './applicationsToRender';
 
 export class Loader {
-    run(): void {
+    run() {
         const pinia = createPinia();
 
         for (const applicationRoot in applicationsToRender) {
@@ -11,15 +11,22 @@ export class Loader {
         }
     }
 
-    renderApplication(root, component, pinia): void {
-        const rootElement = document.querySelector(root)
-
+    renderApplication(root, component, pinia) {
+        const rootElement = document.querySelector(root);
         if (rootElement) {
-            const app = BitrixVue.createApp(component);
-
+            let props = {};
+            for (const attribute of rootElement.attributes) {
+                if (attribute.name.startsWith('prop-')) {
+                    try {
+                        props[attribute.name.substring(5)] = JSON.parse(attribute.value);
+                    } catch (error) {
+                        props[attribute.name.substring(5)] = attribute.value;
+                    }
+                }
+            }
+            const app = BitrixVue.createApp(component, props);
             app.use(pinia);
             app.mount(rootElement);
         }
-
     }
 }

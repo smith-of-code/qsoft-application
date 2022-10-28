@@ -5,7 +5,6 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\Contract\Controllerable;
-use Bitrix\Main\Errorable;
 use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
@@ -14,18 +13,20 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
-use Bitrix\Highloadblock\HighloadBlockTable as HL;
 use QSoft\Entity\User;
+use QSoft\Helper\PetHelper;
 use QSoft\ORM\CatBreedTable;
 use QSoft\ORM\DogBreedTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 
-class MainProfileComponent extends CBitrixComponent implements Controllerable, Errorable
+class MainProfileComponent extends CBitrixComponent implements Controllerable
 {
     private int $userId;
     private User $user;
+
+    private PetHelper $petHelper;
 
     protected ErrorCollection $errorCollection;
 
@@ -42,6 +43,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
         $this->checkModules();
 
         $this->user = new User($this->userId);
+
+        $this->petHelper = new PetHelper;
     }
 
     public function executeComponent()
@@ -83,7 +86,12 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
                 }
             }
         }
-        $this->arResult['PETS_INFO'] = $this->user->pets->getAll();
+
+        $this->arResult['pets'] = $this->petHelper->getUserPets($this->user->id);
+        $this->arResult['pet_genders'] = $this->petHelper->getGenders();
+        $this->arResult['pet_breeds'] = $this->petHelper->getBreeds();
+        $this->arResult['pet_kinds'] = $this->petHelper->getKinds();
+
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
         //Персональные акции
@@ -260,72 +268,31 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
         //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
     }
 
-    protected function preparePetForSaving(array $pet): array
+    public function addPetAction(array $pet): array
     {
-        global $USER;
-
-        $props['UF_USER_ID'] = $USER->GetID();
-        $props['UF_NAME'] = $pet['UF_NAME'];
-        $props['UF_GENDER'] = $pet['UF_GENDER'];
-        $props['UF_KIND'] = $pet['UF_KIND'];
-        $props['UF_BIRTHDATE'] = new date($pet['UF_BIRTHDATE'], 'd.m.Y');
-
-        $kinds = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
-        foreach ($kinds as $kind) {
-            if ($pet['UF_KIND'] == $kind['ID']) {
-                $petType = $kind['XML_ID'];
-
-                if ($petType == 'KIND_CAT') {
-                    $props['UF_BREED'] = $pet['UF_CAT_BREED'];
-                } elseif ($petType == 'KIND_DOG') {
-                    $props['UF_BREED'] = $pet['UF_DOG_BREED'];
-                }
-            }
-        }
-
-        return $props;
-    }
-
-    public function addPetAction(array $pet): ?array
-    {
-        $preparedPet = $this->preparePetForSaving($pet);
-
-        return [
-            'pet-id' => PetTable::add($preparedPet)->getId()
-        ];
+        return ['id' => PetTable::add($this->preparePetForSaving($pet))->getId()];
     }
 
     public function changePetAction(array $pet)
     {
-        global $USER;
-
-        if (!$this->canUserChangePet($USER->GetID(), $pet['ID'])) {
-            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
-
-            return null;
-        }
-
-        $preparedPet = $this->preparePetForSaving($pet);
-
-        PetTable::update($pet['ID'], $preparedPet);
+        PetTable::update($pet['id'], $this->preparePetForSaving($pet));
     }
 
     public function deletePetAction(int $petId)
     {
-        global $USER;
-
-        if (!$this->canUserChangePet($USER->GetID(), $petId)) {
-            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
-
-            return null;
-        }
-
         PetTable::delete($petId);
     }
 
-    protected function canUserChangePet(int $userId, int $petId): bool
+    protected function preparePetForSaving(array $pet): array
     {
-        return (bool)(new User($userId))->pets->get($petId);
+        return [
+            'UF_USER_ID' => $this->userId,
+            'UF_NAME' => $pet['name'],
+            'UF_BIRTHDATE' => new Date($pet['birthdate']),
+            'UF_GENDER' => $pet['gender']['id'],
+            'UF_BREED' => $pet['breed']['id'],
+            'UF_KIND' => $pet['kind']['id'],
+        ];
     }
 
     //TODO смена ментора
