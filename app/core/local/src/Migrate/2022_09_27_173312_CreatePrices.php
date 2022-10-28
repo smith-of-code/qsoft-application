@@ -12,8 +12,8 @@ final class CreatePrices extends BaseCreatePriceMigration
             'SORT' => 110,
             'XML_ID' => 'PRICE_K1',
             'USER_LANG' => [
-                'ru' => 'Цена для уровня K1',
-                'en' => 'Price for level K1',
+                'ru' => 'Баллы для уровня K1',
+                'en' => 'Points for level K1',
             ],
         ],
         [
@@ -21,8 +21,8 @@ final class CreatePrices extends BaseCreatePriceMigration
             'SORT' => 120,
             'XML_ID' => 'PRICE_K2',
             'USER_LANG' => [
-                'ru' => 'Цена для уровня K2',
-                'en' => 'Price for level K2',
+                'ru' => 'Баллы для уровня K2',
+                'en' => 'Points for level K2',
             ],
         ],
         [
@@ -30,8 +30,8 @@ final class CreatePrices extends BaseCreatePriceMigration
             'SORT' => 130,
             'XML_ID' => 'PRICE_K3',
             'USER_LANG' => [
-                'ru' => 'Цена для уровня K3',
-                'en' => 'Price for level K3',
+                'ru' => 'Баллы для уровня K3',
+                'en' => 'Points for level K3',
             ],
         ],
     ];

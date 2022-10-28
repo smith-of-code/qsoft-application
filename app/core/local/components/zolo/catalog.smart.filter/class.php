@@ -310,6 +310,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
+		// Добавим параметр "Со скидкой"
         $items['WITH_DISCOUNT'] = [
             'CODE' => 'WITH_DISCOUNT',
             'NAME' => 'Со скидкой',
@@ -331,6 +332,50 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 ]
             ],
         ];
+
+        /* Выполним пересортировку элементов фильтра в нужном порядке */
+
+        // Порядок сортировки элементов фильтра
+        $preparedSortingOrder = [
+            'IS_BESTSELLER',
+            'WITH_DISCOUNT',
+            'BASE',
+            'K2',
+            'AGE',
+            'BREED',
+            'PACKAGING',
+            'MATERIAL',
+            'APPOINTMENT',
+            'LINE',
+            'FEED_TASTE',
+            'SPECIAL_INDICATIONS',
+            'COLOR',
+        ];
+
+        // Устанавливаем соответствие CODE => index, чтобы не потерять ключи элементов
+        $elementsCodes = [];
+        foreach ($items as $key => $item) {
+            $elementsCodes[$item['CODE']] = $key;
+        }
+        // Сортируем коды в нужном порядке
+        $sortedElementCodes = [];
+        foreach ($preparedSortingOrder as $code) {
+            if(isset($elementsCodes[$code])) {
+                $sortedElementCodes[$code] = $elementsCodes[$code];
+            }
+        }
+        // В конце добавляем коды элементов, не указанные в массиве сортировки
+        foreach ($elementsCodes as $code => $key) {
+            if(! isset($preparedSortingOrder[$code])) {
+                $sortedElementCodes[$code] = $key;
+            }
+        }
+        // Перезаполняем $items в новом порядке
+        $sortedItems = [];
+        foreach ($sortedElementCodes as $code => $key) {
+            $sortedItems[$key] = $items[$key];
+        }
+        $items = $sortedItems;
 
 		return $items;
 	}

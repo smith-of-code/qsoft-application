@@ -117,7 +117,8 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Материал',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'MATERIAL',
-            'SMART_FILTER' => 'N',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
         ],
         [
             'NAME' => 'Возраст',
@@ -177,14 +178,14 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             ],
         ],
         [
-            'NAME' => 'Назначение',
+            'NAME' => 'Назначение лакомства',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'APPOINTMENT',
             'SMART_FILTER' => 'Y',
             'DISPLAY_TYPE' => 'F',
         ],
         [
-            'NAME' => 'Линейка',
+            'NAME' => 'Линейка товара',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'LINE',
             'SMART_FILTER' => 'Y',
