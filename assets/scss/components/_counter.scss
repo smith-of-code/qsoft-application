@@ -1,0 +1,18 @@
+.counter {
+    $size: 20px;
+
+    @include text-miniature;
+
+    line-height: $line-height-small;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: rem($size);
+    height: rem($size);
+
+    color: $white;
+    border-radius: 50%;
+    background-color: $tuna;
+}
