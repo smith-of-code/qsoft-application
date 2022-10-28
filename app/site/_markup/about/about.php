@@ -12,7 +12,7 @@
     <body class="page">
 
         <!--header-->
-        <? include_once("../include/header-main.php"); ?>
+        <? include_once("../include/header.php"); ?>
         <!--/header-->
 
         <!--content-->
@@ -40,7 +40,7 @@
                                     <div class="about__hero-images">
                                         <img class="about__hero-images-picture" src="/local/templates/.default/images/about-hero.png" alt="hero-img">
                                     </div>
-                                    <h3 class="about__hero-title section__title section__title--closer">
+                                    <h3 class="about__hero-title section__title">
                                         AmeAppetite <br>
                                         Заботимся мы — счастливее вы!
                                     </h3>
@@ -58,94 +58,96 @@
                             <section class="about__appreciate section">
                                 <div class="section__box box">
                                     <div class="section__header about__appreciate-header">
-                                        <h3 class="section__title section__title--closer">
+                                        <h3 class="section__title">
                                             Мы ценим
                                         </h3>
                                     </div>
-                                    
-                                    <ul class="about__appreciate-list">
-                                        <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card about__appreciate-card--blue">
-                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
-                                                <p class="about__appreciate-text">Честность</p>
-                                            </div>
-                                        </li>
+                                    <div class="appreciates">
+                                        <ul class="appreciates__list">
+                                            <li class="appreciates__item">
+                                                <div class="appreciate-card appreciate-card--blue">
+                                                    <img class="appreciate__card-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
+                                                    <p class="appreciate__card-text">Честность</p>
+                                                </div>
+                                            </li>
 
-                                        <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card about__appreciate-card--green">
-                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
-                                                <p class="about__appreciate-text">Ответсвенность</p>
-                                            </div>
-                                        </li>
+                                            <li class="appreciates__item">
+                                                <div class="appreciate-card appreciate-card--green">
+                                                    <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
+                                                    <p class="appreciate-card__text">Ответсвенность</p>
+                                                </div>
+                                            </li>
 
-                                        <li class="about__appreciate-item">
-                                            <div class="about__appreciate-card about__appreciate-card--eggwhite">
-                                                <img class="about__appreciate-icon" src="/local/templates/.default/images/icons/foot.svg" alt="solidarity">
-                                                <p class="about__appreciate-text">Персональный подход</p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            <li class="appreciates__item">
+                                                <div class="appreciate-card appreciate-card--eggwhite">
+                                                    <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/foot.svg" alt="solidarity">
+                                                    <p class="appreciate-card__text">Персональный подход</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                 </div>
                                
                             </section>
 
                             <section class="about__goals section">
                                 <div class="section__box box">
-                                    <ul class="about__goals-list">
-                                        <li class="about__goals-item">
-                                            <div class="about__goals-card">
-                                                <div class="about__goals-card-wrapper">
-                                                    <picture class="about__goals-card-picture">
+                                    <ul class="goals-cards__list">
+                                        <li class="goals-cards__item">
+                                            <div class="goals-card">
+                                                <div class="goals-card__wrapper">
+                                                    <picture class="goals-card__picture">
                                                         <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-1.png" alt="">
+                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-1.png" alt="">
                                                     </picture>
                                                 </div>
                                            
-                                                <div class="about__goals-card-content">
-                                                    <h4 class="about__goals-card-title">
+                                                <div class="goals-card__content">
+                                                    <h4 class="goals-card__title">
                                                         Дарим пользу
                                                     </h4>
-                                                    <p class="about__goals-card-text">
+                                                    <p class="goals-card__text">
                                                         Наша продукция понравится Вашим питомцам, и Вы захотите ее рекомендовать.
                                                     </p>
                                                 </div>
                                             </div>
                                         </li>
 
-                                        <li class="about__goals-item">
-                                            <div class="about__goals-card">
-                                                <div class="about__goals-card-wrapper">
-                                                    <picture class="about__goals-card-picture">
+                                        <li class="goals-cards__item">
+                                            <div class="goals-card">
+                                                <div class="goals-card__wrapper">
+                                                    <picture class="goals-card__picture goals-card__picture--big">
                                                         <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-2.png" alt="">
+                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2.png" alt="">
                                                     </picture>
                                                 </div>
                                                 
-                                                <div class="about__goals-card-content">
-                                                    <h4 class="about__goals-card-title">
+                                                <div class="goals-card__content">
+                                                    <h4 class="goals-card__title">
                                                         Растем вместе
                                                     </h4>
-                                                    <p class="about__goals-card-text">
+                                                    <p class="goals-card__text">
                                                         Мы ценим наших партнеров и готовы прислушиваться к Вашему мнению, ведь на нем строится наше дело.
                                                     </p>
                                                 </div>
                                             </div>
                                         </li>
 
-                                        <li class="about__goals-item about__goals-item--full">
-                                            <div class="about__goals-card about__goals-card--full">
-                                                <div class="about__goals-card-wrapper">
-                                                    <picture class="about__goals-card-picture">
+                                        <li class="goals-cards__item goals-cards__item--full">
+                                            <div class="goals-card goals-card--full">
+                                                <div class="goals-card__wrapper">
+                                                    <picture class="goals-card__picture">
                                                         <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="about__goals-card-images" src="/local/templates/.default/images/about-goal-3.png" alt="">
+                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3.png" alt="">
                                                     </picture>
                                                 </div>
                                                
-                                                <div class="about__goals-card-content">
-                                                    <h4 class="about__goals-card-title">
+                                                <div class="goals-card__content">
+                                                    <h4 class="goals-card__title">
                                                         Стремимся к успеху
                                                     </h4>
-                                                    <p class="about__goals-card-text">
+                                                    <p class="goals-card__text">
                                                         Мы строим бизнес так, чтобы дать возможность нашим партнерам рекомендовать качественную продукцию и получать стабильный доход. Мы не экономим на качестве, мы не тратим деньги на рекламу.
                                                     </p>
                                                 </div>
@@ -172,28 +174,31 @@
                                             Наша цель - объединить людей, которые любят животных и стремятся дать лучшее нашим меньшим братьям, ведь они нам доверяют. 
                                             Поэтому мы предлагаем широкий ассортимент сухих и влажных кормов Premium и Super Premium класса, а также современные и качественные аксессуары по привлекательной цене.
                                         </p>
-                                        <ul class="about__advantages-list">
-                                            <li class="about__advantages-item">
-                                                <div class="about__advantages-card">
-                                                    <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-happy.svg" alt="">
-                                                    <p class="about__advantages-card-text">На любой вкус</p>
-                                                </div>
-                                            </li>
+                                        <div class="cards-preference">
+                                            <ul class="cards-preference__list">
+                                                <li class="cards-preference__item">
+                                                    <div class="card-preference">
+                                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-happy.svg" alt="">
+                                                        <p class="card-preference__text">На любой вкус</p>
+                                                    </div>
+                                                </li>
 
-                                            <li class="about__advantages-item">
-                                                <div class="about__advantages-card">
-                                                    <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-vet.svg" alt="">
-                                                    <p class="about__advantages-card-text">На любой вкус</p>
-                                                </div>
-                                            </li>
+                                                <li class="cards-preference__item">
+                                                    <div class="card-preference">
+                                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-vet.svg" alt="">
+                                                        <p class="card-preference__text">На любой вкус</p>
+                                                    </div>
+                                                </li>
 
-                                            <li class="about__advantages-item">
-                                                <div class="about__advantages-card">
-                                                    <img class="about__advantages-card-icon" src="/local/templates/.default/images/icons/about-dog.svg" alt="">
-                                                    <p class="about__advantages-card-text">На любой вкус</p>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                <li class="cards-preference__item">
+                                                    <div class="card-preference">
+                                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-dog.svg" alt="">
+                                                        <p class="card-preference__text">На любой вкус</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
                                     </div>   
                                 </div>
                                 <div class="about__advantages-bottom section__box box">
@@ -391,7 +396,9 @@
                                     <div class="about__business-steps work-steps">
                                         <div class="work-steps__box section__box box box--gray">
                                             <div class="work-steps__header section__header">
-                                                <h3 class="section__title section__title--closer">Как это рабоатет</h3>
+                                                <h3 class="section__title section__title--closer">
+                                                    Как это рабоатет
+                                                </h3>
                                             </div>
                                             <ul class="work-steps__list">
                                                 <li class="work-steps__item">
@@ -465,12 +472,14 @@
                                     </div>
 
                                     <div class="about__business-node">
-                                        <svg class="about__business-node-icon" class="icon icon--double-quotes">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
-                                        </svg>
-                                        <p class="about__business-node-text">
-                                            Мы хотим дать возможность нашим покупателям стать нашими настоящими партнерами, чтобы о качестве нашей продукции рассказывали не мы сами в кричащих рекламных роликах, а Вы – честные потребители.
-                                        </p>
+                                        <div class="quote">
+                                            <svg class="quote__icon" class="icon icon--double-quotes">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
+                                            </svg>
+                                            <p class="quote__text">
+                                                Мы хотим дать возможность нашим покупателям стать нашими настоящими партнерами, чтобы о качестве нашей продукции рассказывали не мы сами в кричащих рекламных роликах, а Вы – честные потребители.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div> 
                             </section>
@@ -484,11 +493,9 @@
 
                             <section class="about__howbecome section">
                                 <div class="about__howbecome-box section__box box">
-                                    <div class="about__howbecome-header section__header">
-                                        <h3 class="about__howbecome-title section__title section__title--closer">
-                                            Как стать консультантом
-                                        </h3>
-                                    </div>
+                                    <h3 class="section__title">
+                                        Как стать консультантом
+                                    </h3>
                                     <div class="about__howbecome-list">
                                         <div class="about__howbecome-row">
                                             <div class="about__howbecome-col">
@@ -569,27 +576,32 @@
                                         </div>
                                     </div>
 
-                                    <div class="about__howbecome-banner">
-                                        <p class="about__howbecome-banner-text">
-                                            Получите все привилегии <br> AmeБизнес, став консультантом
-                                        </p>
-                                        <a href="#" class="about__howbecome-banner-link button button--rounded button--covered button--red">
-                                            Стать консультантом
-                                        </a>
+                                    <div class="about__howbecome-banner banner">
+                                        <div class="banner__image">
+                                            <img class="banner__image-picture" src="/local/templates/.default/images/howbecome-banner.png" alt="">
+                                        </div>
+                                        <div class="banner__inner">
+                                            <p class="banner__text">
+                                                Получите все привилегии <br> AmeБизнес, став консультантом
+                                            </p>
+                                            <a href="#" class="banner__link button button--rounded button--covered button--red">
+                                                Стать консультантом
+                                            </a>
+                                        </div>
                                     </div>
                                 </div> 
                             </section>
 
                             <section class="about__contacts section">
                                 <div class="about__contacts-header section__header">
-                                    <h2 class="about__contacts-title section__title">
+                                    <h2 class="section__title">
                                         Контакты
                                     </h2>
                                 </div>
                                    
                                 <div class="about__contacts-box section__box box box--gray box--rounded-sm">
                                     <div class="about__contacts-content">
-                                        <h3 class="section__title">
+                                        <h3 class="about__contacts-name">
                                             ООО «ЭКО-Золопродукт»
                                         </h3>
 
@@ -645,43 +657,46 @@
                                                 Мы в социальных сетях:
                                             </h5>
 
-                                            <ul class="about__contacts-social-list">
-                                                <li class="about__contacts-social-item">
-                                                    <a class="about__contacts-social-link" href="#">
-                                                        <svg class="about__contacts-social-icon icon icon--social">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                                <li class="about__contacts-social-item">
-                                                    <a class="about__contacts-social-link" href="#">
-                                                        <svg class="about__contacts-social-icon icon icon--social">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                                <li class="about__contacts-social-item">
-                                                    <a class="about__contacts-social-link" href="#">
-                                                        <svg class="about__contacts-social-icon icon icon--social">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                                <li class="about__contacts-social-item">
-                                                    <a class="about__contacts-social-link" href="#">
-                                                        <svg class="about__contacts-social-icon icon icon--social">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                                <li class="about__contacts-social-item">
-                                                    <a class="about__contacts-social-link" href="#">
-                                                        <svg class="about__contacts-social-icon icon icon--social">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <div class="socials">
+                                                <ul class="socials__list">
+                                                    <li class="socials__item">
+                                                        <a class="socials__link" href="#">
+                                                            <svg class="socials__icon icon icon--social">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials__item">
+                                                        <a class="socials__link" href="#">
+                                                            <svg class="socials__icon icon icon--social">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials__item">
+                                                        <a class="socials__link" href="#">
+                                                            <svg class="socials__icon icon icon--social">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials__item">
+                                                        <a class="socials__link" href="#">
+                                                            <svg class="socials__icon icon icon--social">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials__item">
+                                                        <a class="socials__link" href="#">
+                                                            <svg class="socials__icon icon icon--social">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                           
                                            
                                         </div>
                                     </div>
