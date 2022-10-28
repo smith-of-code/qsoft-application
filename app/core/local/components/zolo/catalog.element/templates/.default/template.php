@@ -39,7 +39,7 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 //    dump("tpl", $arResult);
 ?>
 <?php
-$offerId = $arResult['OFFER_FIRST'];
+$offerId = 721;//$arResult['OFFER_FIRST'];
 ?>
 
 <!-- Каталог товаров -->
@@ -86,34 +86,6 @@ $offerId = $arResult['OFFER_FIRST'];
                             </article>
                         </div>
                         <? endforeach; ?>
-                        <? if (!empty($arResult['PRODUCT_VIDEO'])) : ?>
-                        <div class="swiper-slide slider__slide">
-                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                <div class="product-card__header">
-                                    <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
-                                        <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
-                                    <? endif; ?>
-                                    <div class="product-card__favourite">
-                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                        <span class="button__icon button__icon--big">
-                                            <svg class="icon icon--heart">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                            </svg>
-                                        </span>
-                                        </button>
-                                    </div>
-
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <? endif; ?>
                     <? else : ?>
                     <div class="swiper-slide slider__slide">
                         <article class="product-card product-card--slide box box--circle box--hovering box--border">
@@ -142,6 +114,34 @@ $offerId = $arResult['OFFER_FIRST'];
                             </div>
                         </article>
                     </div>
+                    <? endif; ?>
+                    <? if (!empty($arResult['PRODUCT_VIDEO'])) : ?>
+                        <div class="swiper-slide slider__slide">
+                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                <div class="product-card__header">
+                                    <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
+                                        <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
+                                    <? endif; ?>
+                                    <div class="product-card__favourite">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                        <span class="button__icon button__icon--big">
+                                            <svg class="icon icon--heart">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                            </svg>
+                                        </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
                     <? endif; ?>
                 </div>
 
