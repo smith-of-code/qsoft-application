@@ -215,7 +215,14 @@ class CatalogElementComponent extends Element
         }
 
         usort($offers, function ($a, $b) {
-            return $a['SORT'] > $b['SORT'];
+            if ($a['CATALOG_AVAILABLE'] == $b['CATALOG_AVAILABLE']) {
+                return  $a['SORT'] > $b['SORT'];
+            } else if ($a['CATALOG_AVAILABLE'] == 'Y') {
+                return false;
+            } else {
+                return true;
+            }
+
         });
 
         if ($ids = array_column($offers, 'ID')) {

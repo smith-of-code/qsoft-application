@@ -35,22 +35,23 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     );
 
 
-
 //    dump("tpl", $arResult);
 ?>
 <?php
-$offerId = 721;//$arResult['OFFER_FIRST'];
+$offerId = $arResult['OFFER_FIRST'];
 ?>
 
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
+
         <div class="detail__card-specification detail__card-specification--mobile specification">
             <p class="specification__title"><?= $arResult['TITLE']?></p>
             <?php foreach ($arResult['ARTICLES'] as $articul): ?>
                 <p class="specification__article">Арт. <?= $articul?></p>
             <?php endforeach; ?>
         </div>
+
 
         <!--  Слайдер  в картинками ТП -->
         <div class="detail__card-slider slider slider--product" data-carousel="product">
@@ -178,11 +179,13 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
             <!-- Основная информация -->
             <div class="detail__card-specification specification">
                 <p class="specification__title specification__title--hidden"><?= $arResult['TITLE']?></p><!-- Название -->
+                <div id="detailArticles"></div>
                 <!-- Артикулы -->
                 <?php foreach ($arResult['ARTICLES'] as $articul): ?>
                     <p class="specification__article specification__article--hidden">Арт. <?=$articul?></p>
                 <?php endforeach; ?>
                 <!-- Артикулы -->
+
 
                 <!-- Блок селекта фассовки большой вариант-->
                 <? if (!empty($arResult['PACKAGINGS'])) :?>
@@ -190,10 +193,12 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                         <p class="specification__category">Фасовка</p>
                         <ul class="packs__list">
                             <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :?>
+                                <? if ($package) :?>
                                 <li class="packs__item">
                                     <div class="pack pack--bordered">
                                         <div class="radio">
                                             <input type="radio" class="pack__input radio__input" name="radio_pack" value="<?=$offerId?>" id="radio<?=$offerId?>"
+
                                                   <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'disabled'?>
                                             >
                                             <label for="radio<?=$offerId?>">
@@ -202,6 +207,7 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                                         </div>
                                     </div>
                                 </li>
+                                <? endif; ?>
                             <? endforeach; ?>
 
                         </ul>
@@ -211,6 +217,7 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                         <p class="specification__category">Цвет</p>
                         <ul class="colors__list">
                             <?  foreach ($arResult['COLORS'] as $offerId => $color) :?>
+                            <? if ($color) :?>
                             <li class="colors__item">
                                 <div class="color <?= ($arResult['AVAILABLE'][$offerId]) ? '' : 'color--disabled'?>">
                                     <div class="radio">
@@ -223,6 +230,7 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                                     </div>
                                 </div>
                             </li>
+                            <? endif; ?>
                             <? endforeach; ?>
                         </ul>
                     </div>
@@ -248,7 +256,7 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                 <h4 class="cart__heading">Ваш заказ</h4>
 
                 <!-- Блок селекта фассовки малый вариант-->
-                <? if (empty($arResult['PACKAGINGS'])) :?>
+                <? if (!empty($arResult['PACKAGINGS'])) :?>
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
                     <div class="select select--mini" data-select>
@@ -257,12 +265,14 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                             <?  foreach ($arResult['PACKAGINGS'] as $offerId => $package) :
                                 $isAvailable = $arResult['AVAILABLE'][$offerId];
                                 ?>
-                            <option value="<?=$offerId?>"
-                                    data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'
-                                <?= !$isAvailable ? 'disabled' : ''?>
-                            >
-                                <?= $package?>
-                            </option>
+                                <? if ($package) :?>
+                                <option value="<?=$offerId?>"
+                                        data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'
+                                    <?= !$isAvailable ? 'disabled' : ''?>
+                                >
+                                    <?= $package?>
+                                </option>
+                                <? endif; ?>
                             <? endforeach;?>
                         </select>
                     </div>
@@ -276,11 +286,13 @@ $offerId = 721;//$arResult['OFFER_FIRST'];
                             <?  foreach ($arResult['COLORS'] as $offerId => $color) :
                                 $isAvailable = $arResult['AVAILABLE'][$offerId];
                             ?>
-                            <option value="<?=$offerId?>"
-                                    data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$color?>"></span></span>'
-                                    data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
-                                <?= ($arResult['COLOR_NAMES'][$color]) ??  '' ?>
-                            </option>
+                            <? if ($color) :?>
+                                <option value="<?=$offerId?>"
+                                        data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$color?>"></span></span>'
+                                        data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
+                                    <?= ($arResult['COLOR_NAMES'][$color]) ??  '' ?>
+                                </option>
+                            <? endif; ?>
                             <? endforeach;?>
                         </select>
                     </div>
