@@ -5,7 +5,7 @@
         }
     }
 
-    &__filter {
+    &__period {
         margin-bottom: rem($gap-medium);
 
         @media #{$screen-desktop} {
@@ -50,6 +50,18 @@
             @media #{$screen-desktop} {
                 width: rem(190px);
             }
+        }
+    }
+
+    &__tabs-items {
+        margin-bottom: rem($gap-medium);
+    }
+
+    &__filter {
+        margin-bottom: rem($gap-medium);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(20px);
         }
     }
 }
