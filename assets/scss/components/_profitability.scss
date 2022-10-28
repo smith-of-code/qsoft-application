@@ -186,4 +186,28 @@
     &__groups {
         margin-top: rem($gap-medium);
     }
+
+    &__tooltip {
+        &-title {
+            font-weight: $font-weight-bold;
+        }
+
+        &-list {
+            margin-top: rem(16px);
+        }
+
+        &-item {
+            display: flex;
+        }
+
+        &-icon {
+            $size: 20px;
+
+            flex-shrink: 0;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem(10px);
+        }
+    }
 }

@@ -101,10 +101,69 @@
                                             <div class="profitability__section-header section__header">
                                                 <h4 class="section__title section__title--closer">Ваш путь успеха</h4>
 
-                                                <div class="profitability__hint">
+                                                <div class="profitability__hint" data-tippy-html>
                                                     <svg class="icon icon--question-circle">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                                     </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Для перехода на уровень К2 необходимо выполнить следующие условия:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Совершение личных покупок на общую сумму 10 000 рублей с учетом примененных скидок за 1 квартал</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Совершение покупок Вашей группой на общую сумму 10 000 рублей с учетом всех примененных скидок за 1 квартал</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Для к2-->
+                                                    <!-- <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Для перехода на уровень К2 необходимо выполнить следующие условия:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Совершение личных покупок на общую сумму 50 000 рублей с учетом примененных скидок за 2 квартала (6 последовательных месяца)</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Совершение покупок Вашей группой на общую сумму 100 000 рублей с учетом примененных скидок за 2 квартала (6 последовательных месяца)</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div> -->
+                                                    <!--Для к2-->
+
+                                                    <!--Для к3-->
+                                                    <!-- <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Поздравляем! Вы достигли максимального уровня</p>
+                                                        </div>
+                                                    </div> -->
+                                                    <!--Для к3-->
+
                                                 </div>
                                             </div>
 
@@ -251,10 +310,86 @@
                                             <div class="profitability__section-header section__header">
                                                 <h4 class="section__title section__title--closer">Калькулятор Вашего дохода</h4>
 
-                                                <div class="profitability__hint">
+                                                <div class="profitability__hint" data-tippy-html>
                                                     <svg class="icon icon--question-circle">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                                     </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Условия выполнения плана на уровне К1:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Приобретение стартового набора Консультанта;</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Совершение покупок Вашей группой на общую сумму 5 000 рублей с учетом всех примененных скидок</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                <!--к2-->
+                                                <!-- <div style="display: none;" data-tippy-template>
+                                                    <div class="profitability__tooltip">
+                                                        <p class="profitability__tooltip-title">Условия выполнения плана на уровне К2:</p>
+
+                                                        <ul class="profitability__tooltip-list">
+                                                            <li class="profitability__tooltip-item">
+                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                </svg>
+
+                                                                <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 5 000 рублей с учетом всех примененных скидок;</p>
+                                                            </li>
+
+                                                            <li class="profitability__tooltip-item">
+                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                </svg>
+
+                                                                <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 7 000 рублей с учетом всех примененных скидок</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div> -->
+                                                <!--к2-->
+
+                                                <!--к3-->
+                                                <!-- <div style="display: none;" data-tippy-template>
+                                                    <div class="profitability__tooltip">
+                                                        <p class="profitability__tooltip-title">Условия выполнения плана на уровне К3:</p>
+
+                                                        <ul class="profitability__tooltip-list">
+                                                            <li class="profitability__tooltip-item">
+                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                </svg>
+
+                                                                <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 10 000 рублей с учетом всех примененных скидок;</p>
+                                                            </li>
+
+                                                            <li class="profitability__tooltip-item">
+                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                </svg>
+
+                                                                <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 20 000 рублей с учетом всех примененных скидок</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div> -->
+                                                <!--к3-->
                                                 </div>
                                             </div>
 
@@ -726,18 +861,7 @@
                                                                     </div>
 
                                                                     <div class="profitability__consultants-col profitability__consultants-col--inlined">
-                                                                        <div class="profitability__consultants-quantity quantity" data-quantity>
-                                                                            <div class="quantity__button" data-quantity-button>
-                                                                                <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
-                                                                                    <span class="button__icon">
-                                                                                        <svg class="icon icon--basket">
-                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                                                                        </svg>
-                                                                                    </span>
-                                                                                    <span class="button__text">В корзину</span>
-                                                                                </button>
-                                                                            </div>
-                                                
+                                                                        <div class="profitability__consultants-quantity quantity quantity--active" data-quantity>
                                                                             <div class="quantity__actions">
                                                                                 <div class="quantity__decrease">
                                                                                     <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
@@ -750,7 +874,9 @@
                                                                                 </div>
                                                 
                                                                                 <div class="quantity__total">
-                                                                                    <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                                                                    <span class="quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
+                                                                                        1
+                                                                                    </span>
                                                                                 </div>
                                                 
                                                                                 <div class="quantity__increase">
