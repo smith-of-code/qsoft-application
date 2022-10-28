@@ -23,14 +23,14 @@ use Bitrix\Main\Localization\Loc;
     <div class="content__main">
         <div class="faq__wrapper">
             <section class="faq__questions questions">
-                <?php foreach ($arResult['GROUPS'] as $key => $group) : ?>
+                <?php foreach ($arResult['GROUPS'] as $group) : ?>
                 <div class="questions__item">
                     <div class="question">
-                        <h3 class="question__theme"><?=$group?></h3>
+                        <h3 class="question__theme"><?=$group['VALUE']?></h3>
 
                         <div class="question__accordeon accordeon">
                             <?php $i = 1;
-                            foreach ($arResult['QUESTIONS'][$key] as $question) : ?>
+                            foreach ($group['questions'] as $question) : ?>
                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                 <div class="accordeon__header" data-accordeon-toggle>
                                     <h5 class="question__accordeon-title accordeon__title">

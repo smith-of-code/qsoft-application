@@ -16,7 +16,7 @@ class FaqComponent extends CBitrixComponent
     {
         try {
             $this->checkModules();
-            $this->getResult();
+            $this->arResult['GROUPS'] = $this->getGroupedQuestions();
             $this->includeComponentTemplate();
         } catch (Exception $e) {
             ShowError($e->getMessage());
@@ -34,22 +34,42 @@ class FaqComponent extends CBitrixComponent
         }
     }
 
-    public function getResult()
+    public function getGroupedQuestions(): array
     {
+        $groups = $this->getGroups();
+        $questions = $this->getQuestions();
+
+        $questionsByGroups = [];
+        foreach ($questions as $question) {
+            if (isset($questionsByGroups[$question['UF_GROUP']])) {
+                $questionsByGroups[$question['UF_GROUP']]['questions'][] = $question;
+            } else {
+                $questionsByGroups[$question['UF_GROUP']] = array_merge($groups[$question['UF_GROUP']], ['questions' => [$question]]);
+            }
+        }
+
+        return $questionsByGroups;
+    }
+
+    protected function getGroups(): array
+    {
+        $groupPropertyValues = FaqTable::getFieldValues(['UF_GROUP'])['UF_GROUP'];
+
         $groups = [];
-
-        $group = FaqTable::getFieldValues(['UF_GROUP'])['UF_GROUP'];
-        foreach ($group as $row) {
-            $groups[$row['ID']] = $row['VALUE'];
+        foreach ($groupPropertyValues as $groupPropertyValue) {
+            $groups[$groupPropertyValue['ID']] = $groupPropertyValue;
         }
 
-        $hlBlock = FaqTable::getList([
+        uasort($groups, fn($groupA, $groupB) => $groupA['SORT'] <=> $groupB['SORT']);
+
+        return $groups;
+    }
+
+    protected function getQuestions(): array
+    {
+        return FaqTable::getList([
             'order' => ['ID' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($fields = $hlBlock->Fetch()) {
-            $this->arResult['GROUPS'][$fields['UF_GROUP']] = $groups[$fields['UF_GROUP']];
-            $this->arResult['QUESTIONS'][$fields['UF_GROUP']][$fields['ID']] = $fields;
-        }
+            'select' => ['ID', 'UF_GROUP', 'UF_QUESTION', 'UF_ANSWER'],
+        ])->fetchAll();
     }
 }
