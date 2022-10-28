@@ -59,6 +59,9 @@ import './svg/repeat.svg';
 import './svg/crown.svg';
 import './svg/return.svg';
 import './svg/danger.svg';
+import './svg/question-circle.svg';
+import './svg/users.svg';
+import './svg/cross.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

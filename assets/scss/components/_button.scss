@@ -285,7 +285,7 @@
     }
 
     &--outlined {
-        background-color: transparent;
+        background-color: $white;
         background-clip: padding-box;
     }
 
@@ -319,6 +319,24 @@
         &:focus {
             color: $mandy2;
             border-color: $mandy2;
+            background-color: $white;
+        }
+    }
+
+    &--outlined#{&}--mixed{
+        color: $saltBox;
+        border-color: $alto;
+        background-color: $white;
+
+        &:hover {
+            color: $brickRed;
+            border-color: $alto;
+            background-color: $white;
+        }
+
+        &:focus {
+            color: $mandy2;
+            border-color: $alto;
             background-color: $white;
         }
     }
@@ -508,6 +526,13 @@
 
                 color: $brickRed;
             }
+        }
+
+        &--full {
+            overflow: visible;
+
+            text-align: left;
+            white-space: normal;
         }
     }
 
