@@ -1,3 +1,4 @@
+
 function nextNotifications() {
     limit = BASE_LIMIT;
     loadNotifications();
@@ -62,7 +63,7 @@ function attach(notifications) {
         div.innerHTML += "Уведомление:" + "<br>";
         div.innerHTML += "ID" + " - " + notifications[i]['ID'] + "<br>";
         div.innerHTML += "Заголовок" + " - " + notifications[i]['TITLE'] + "<br>";
-        div.innerHTML += "Текст уведомления" + " - " + notifications[i]['TEXT'] + "<br>";
+        div.innerHTML += "Текст уведомления" + " - " + notifications[i]['MESSAGE'] + "<br>";
         div.innerHTML += "Дата создания уведомления" + " - " + notifications[i]['DATE'] + "<br>";
         div.innerHTML += "Время отправки уведомления" + " - " + notifications[i]['TIME'] + "<br>";
         //div.innerHTML += "Статус уведомления" + " - " + notifications[i]['STATUS'] + "<br>";

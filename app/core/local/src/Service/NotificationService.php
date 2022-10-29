@@ -2,7 +2,7 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Main\Loader;
+use Bitrix\Main\ORM\Data\UpdateResult;
 use Bitrix\Main\ORM\Entity;
 use Bitrix\Main\ORM\Query\Filter\ConditionTree;
 use Bitrix\Main\ORM\Query\Join;
@@ -13,9 +13,6 @@ use \Bitrix\Main\ORM\Fields\IntegerField;
 use \Bitrix\Main\ORM\Fields\StringField;
 use \Bitrix\Main\ORM\Fields\Relations\Reference;
 use \Bitrix\Main\ORM\Fields\ExpressionField;
-use \Bitrix\Main\ORM\Data\UpdateResult;
-
-Loader::includeModule('highloadblock');
 
 class NotificationService
 {

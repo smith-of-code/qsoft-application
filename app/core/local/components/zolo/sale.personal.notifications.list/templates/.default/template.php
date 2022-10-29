@@ -2,6 +2,9 @@
 if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
 
 <script>
+    window.onload = function () {
+        attach(<?=json_encode($arResult['NOTIFICATIONS']);?>)
+    }
     let offset = <?=$arResult['OFFSET']?>;
     let filter = {'period': 30};
     let limit = offset;
@@ -13,17 +16,7 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
 <h4><a href="http://p7.zolo.vpool/bitrix/admin/highloadblock_rows_list.php?ENTITY_ID=709&lang=ru" target="_blank">Таблица с уведомлениями в Административной части</a></h4>
 
 <div id="notificationList">
-    <div>
-        <? foreach ($arResult['NOTIFICATIONS'] as $notification) :?>
-            Уведомление:</br>
-            Заголовок - <?=$notification['TITLE']?><br>
-            Текст уведомления - <?=$notification['TEXT']?><br>
-            Дата создания уведомления - <?=$notification['DATE']?><br>
-            Время отправки уведомления - <?=$notification['TIME']?><br>
-            Статус уведомления - <?=$notification['STATUS']?><br>
-            Ссылка - <?=$notification['LINK']?><br>
-        <?endforeach;?>
-    </div>
+
 </div>
 
 <button id="button" onclick="nextNotifications()">Показать еще</button>
