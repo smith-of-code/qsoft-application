@@ -95,7 +95,7 @@
                             </div>
 
                             <div class="private__col private__col--full">
-                                <div class="profitability">
+                                <div class="profitability" data-calculator>
                                     <section class="profitability__section section">
                                         <div class="section__box box box--gray box--rounded-sm">
                                             <div class="profitability__section-header section__header">
@@ -310,7 +310,53 @@
                                             <div class="profitability__section-header section__header">
                                                 <h4 class="section__title section__title--closer">Калькулятор Вашего дохода</h4>
 
-                                                <div class="profitability__hint" data-tippy-html>
+                                                <script>
+                                                    let bigData = {
+                                                        level: [
+                                                            {
+                                                                maxPointsPersonal: 1000,
+                                                                minPointsPersonal: 1,
+                                                                stepPointsPersonal: 1,
+                                                                maxPointsGroup: 1000,
+                                                                minPointsGroup: 1,
+                                                                stepPointsGroup: 1,
+                                                                standardPersonal: 100,
+                                                                standardGroup: 200,
+                                                                // percent: 7,
+                                                            },
+                                                            {
+                                                                maxPointsPersonal: 2000,
+                                                                minPointsPersonal: 2,
+                                                                stepPointsPersonal: 2,
+                                                                maxPointsGroup: 2000,
+                                                                minPointsGroup: 2,
+                                                                stepPointsGroup: 2,
+                                                                standardPersonal: 100,
+                                                                standardGroup: 200,
+                                                                // percent: 10,
+                                                            },
+                                                            {
+                                                                maxPointsPersonal: 3000,
+                                                                minPointsPersonal: 3,
+                                                                stepPointsPersonal: 3,
+                                                                maxPointsGroup: 4000,
+                                                                minPointsGroup: 4,
+                                                                stepPointsGroup: 4,
+                                                                standardPersonal: 100,
+                                                                standardGroup: 200,
+                                                                // percent: 12,
+                                                            },
+                                                        ],
+                                                        currentLevel: 1,
+                                                        personalRub: 100,
+                                                        personalPoints: 1,
+                                                        groupRub: 200,
+                                                        groupPoints: 1,
+                                                    };
+                                                </script>
+
+                                                <!--к1-->
+                                                <div class="profitability__hint" data-tippy-html data-calculator-level-hidden="1">
                                                     <svg class="icon icon--question-circle">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                                     </svg>
@@ -338,59 +384,72 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-
-                                                <!--к2-->
-                                                <!-- <div style="display: none;" data-tippy-template>
-                                                    <div class="profitability__tooltip">
-                                                        <p class="profitability__tooltip-title">Условия выполнения плана на уровне К2:</p>
-
-                                                        <ul class="profitability__tooltip-list">
-                                                            <li class="profitability__tooltip-item">
-                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
-                                                                </svg>
-
-                                                                <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 5 000 рублей с учетом всех примененных скидок;</p>
-                                                            </li>
-
-                                                            <li class="profitability__tooltip-item">
-                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
-                                                                </svg>
-
-                                                                <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 7 000 рублей с учетом всех примененных скидок</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div> -->
-                                                <!--к2-->
-
-                                                <!--к3-->
-                                                <!-- <div style="display: none;" data-tippy-template>
-                                                    <div class="profitability__tooltip">
-                                                        <p class="profitability__tooltip-title">Условия выполнения плана на уровне К3:</p>
-
-                                                        <ul class="profitability__tooltip-list">
-                                                            <li class="profitability__tooltip-item">
-                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
-                                                                </svg>
-
-                                                                <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 10 000 рублей с учетом всех примененных скидок;</p>
-                                                            </li>
-
-                                                            <li class="profitability__tooltip-item">
-                                                                <svg class="profitability__tooltip-icon icon icon--check-mark">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
-                                                                </svg>
-
-                                                                <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 20 000 рублей с учетом всех примененных скидок</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div> -->
-                                                <!--к3-->
                                                 </div>
+                                                <!--к1-->
+
+                                                <!--к2-->
+                                                <div class="profitability__hint" style="display: none;" data-tippy-html data-calculator-level-hidden="2">
+                                                    <svg class="icon icon--question-circle">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                    </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Условия выполнения плана на уровне К2:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 5 000 рублей с учетом всех примененных скидок;</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 7 000 рублей с учетом всех примененных скидок</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--к2-->
+
+                                                <!--к3-->
+                                                <div class="profitability__hint" style="display: none;" data-tippy-html data-calculator-level-hidden="3">
+                                                    <svg class="icon icon--question-circle">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                    </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Условия выполнения плана на уровне К3:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на 10 000 рублей с учетом всех примененных скидок;</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму 20 000 рублей с учетом всех примененных скидок</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--к3-->
                                             </div>
 
                                             <div class="profitability__level">
@@ -411,6 +470,10 @@
                                                                     Уровень К3
                                                                 </li>
                                                             </ul>
+
+                                                            <input type="radio" name="radioButton" value="1" data-calculator-level checked>
+                                                            <input type="radio" name="radioButton" value="2" data-calculator-level>
+                                                            <input type="radio" name="radioButton" value="3" data-calculator-level>
                                                         </nav>
                                                     </div>
 
@@ -420,18 +483,19 @@
                                                                 <div class="section__box-inner">
                                                                     <h5 class="box__heading box__heading--middle">Личные покупки</h5>
 
-                                                                    <div class="profitability__calculation">
+                                                                    <div class="profitability__calculation" data-calculator-range="personal">
                                                                         <div class="profitability__calculation-cards cards-counting cards-counting--double">
                                                                             <ul class="cards-counting__list">
                                                                                 <li class="cards-counting__item">
-                                                                                    <div class="card-counting card-counting--extra">
-                                                                                        <div class="card-counting__inner">
+                                                                                    <div class="card-counting card-counting--extra" >
+                                                                                        <div class="card-counting__inner" >
                                                                                             <div class="card-counting__value">
                                                                                                 <!-- скрипт выводит значение data-current в value-count -->
                                                                                                 <input
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-rub
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ₽
@@ -443,10 +507,10 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="1000"
-                                                                                                    data-current="15000"
-                                                                                                    data-max="30000"
-                                                                                                    data-step="1000"
+                                                                                                    data-min="100"
+                                                                                                    data-current="100"
+                                                                                                    data-max="100000"
+                                                                                                    data-step="100"
                                                                                                 ></div>
                                                                                             </div>
 
@@ -466,6 +530,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-point
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ББ
@@ -478,9 +543,10 @@
                                                                                                     data-range-slider
                                                                                                     data-type="min"
                                                                                                     data-min="1"
-                                                                                                    data-current="5"
-                                                                                                    data-max="10"
+                                                                                                    data-current="1"
+                                                                                                    data-max="1000"
                                                                                                     data-step="1"
+                                                                                                    data-calculator-range-points
                                                                                                 ></div>
                                                                                             </div>
                                             
@@ -494,11 +560,15 @@
                                                                         </div>
 
                                                                         <div class="profitability__calculation-result">
-                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма личных покупок за 1 отчетный период для Консультанта К2 составляет 15 000 руб.</p>
+                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма личных покупок за 1 отчетный период для Консультанта 
+                                                                                <span data-calculator-level-hidden="1">К1 составляет 5 000 руб.</span>
+                                                                                <span style="display: none" data-calculator-level-hidden="2">К2 составляет 15 000 руб.</span>
+                                                                                <span style="display: none" data-calculator-level-hidden="3">К3 составляет 30 000 руб.</span>
+                                                                            </p>
 
                                                                             <div class="profitability__calculation-total">
                                                                                 <p class="profitability__calculation-total-sum">
-                                                                                    = 300 ББ
+                                                                                    = <span data-calculator-personal-points-sum>1</span> ББ
                                                                                 </p>
                                                                             </div>
                                                                         </div>
@@ -508,7 +578,7 @@
                                                                 <div class="section__box-inner">
                                                                     <h5 class="box__heading box__heading--middle">Доход от зарегистрированных покупателей в моей группе</h5>
 
-                                                                    <div class="profitability__calculation">
+                                                                    <div class="profitability__calculation" data-calculator-range="group">
                                                                         <div class="cards-counting">
                                                                             <ul class="cards-counting__list">
                                                                                 <li class="cards-counting__item">
@@ -552,6 +622,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-rub
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ₽
@@ -563,10 +634,10 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="1000"
-                                                                                                    data-current="15000"
-                                                                                                    data-max="30000"
-                                                                                                    data-step="1000"
+                                                                                                    data-min="200"
+                                                                                                    data-current="200"
+                                                                                                    data-max="100000"
+                                                                                                    data-step="200"
                                                                                                 ></div>
                                                                                             </div>
                                             
@@ -586,6 +657,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-point
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ББ
@@ -597,10 +669,11 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="100"
-                                                                                                    data-max="1000"
-                                                                                                    data-step="10"
+                                                                                                    data-min="1"
+                                                                                                    data-current="1"
+                                                                                                    data-max="500"
+                                                                                                    data-step="1"
+                                                                                                    data-calculator-range-points
                                                                                                 ></div>   
                                                                                             </div>
                                             
@@ -837,7 +910,10 @@
                                                                         </div>
 
                                                                         <div class="profitability__calculation-result">
-                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма групповых покупок за 1 отчетный период для Консультанта К2 составляет 21 000 руб.
+                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма групповых покупок за 1 отчетный период для Консультанта 
+                                                                                <span data-calculator-level-hidden="1">К1 составляет 0 руб.</span>
+                                                                                <span style="display: none;" data-calculator-level-hidden="2">К2 составляет 21 000 руб.</span>
+                                                                                <span style="display: none;" data-calculator-level-hidden="3">К3 составляет 60 000 руб.</span>
                                                                                 </p>
 
                                                                             <div class="profitability__calculation-total">
