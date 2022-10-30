@@ -315,10 +315,10 @@
                                                         level: [
                                                             {
                                                                 maxPointsPersonal: 1000,
-                                                                minPointsPersonal: 1,
+                                                                minPointsPersonal: 0,
                                                                 stepPointsPersonal: 1,
-                                                                maxPointsGroup: 1000,
-                                                                minPointsGroup: 1,
+                                                                maxPointsGroup: 500,
+                                                                minPointsGroup: 0,
                                                                 stepPointsGroup: 1,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
@@ -326,10 +326,10 @@
                                                             },
                                                             {
                                                                 maxPointsPersonal: 2000,
-                                                                minPointsPersonal: 2,
+                                                                minPointsPersonal: 0,
                                                                 stepPointsPersonal: 2,
-                                                                maxPointsGroup: 2000,
-                                                                minPointsGroup: 2,
+                                                                maxPointsGroup: 1000,
+                                                                minPointsGroup: 0,
                                                                 stepPointsGroup: 2,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
@@ -337,10 +337,10 @@
                                                             },
                                                             {
                                                                 maxPointsPersonal: 3000,
-                                                                minPointsPersonal: 3,
+                                                                minPointsPersonal: 0,
                                                                 stepPointsPersonal: 3,
-                                                                maxPointsGroup: 4000,
-                                                                minPointsGroup: 4,
+                                                                maxPointsGroup: 2000,
+                                                                minPointsGroup: 0,
                                                                 stepPointsGroup: 4,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
@@ -348,10 +348,18 @@
                                                             },
                                                         ],
                                                         currentLevel: 1,
-                                                        personalRub: 100,
-                                                        personalPoints: 1,
-                                                        groupRub: 200,
-                                                        groupPoints: 1,
+
+                                                        personalRub: 0,
+                                                        personalPoints: 0,
+
+                                                        groupBuyer: 1,
+                                                        groupRub: 0,
+                                                        groupPoints: 0,
+
+                                                        consultant: 1,
+                                                        consultantRub: 0,
+                                                        consultantPoints: 0,
+                                                        consultantArr: [],
                                                     };
                                                 </script>
 
@@ -507,8 +515,8 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="100"
-                                                                                                    data-current="100"
+                                                                                                    data-min="0"
+                                                                                                    data-current="0"
                                                                                                     data-max="100000"
                                                                                                     data-step="100"
                                                                                                 ></div>
@@ -542,8 +550,8 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="1"
-                                                                                                    data-current="1"
+                                                                                                    data-min="0"
+                                                                                                    data-current="0"
                                                                                                     data-max="1000"
                                                                                                     data-step="1"
                                                                                                     data-calculator-range-points
@@ -568,7 +576,7 @@
 
                                                                             <div class="profitability__calculation-total">
                                                                                 <p class="profitability__calculation-total-sum">
-                                                                                    = <span data-calculator-personal-points-sum>1</span> ББ
+                                                                                    = <span data-calculator-personal-points-sum>0</span> ББ
                                                                                 </p>
                                                                             </div>
                                                                         </div>
@@ -590,6 +598,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-quantity="buyer"
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix"></span>
                                                                                             </div>
@@ -600,8 +609,8 @@
                                                                                                     data-range-slider
                                                                                                     data-type="min"
                                                                                                     data-min="1"
-                                                                                                    data-current="5"
-                                                                                                    data-max="10"
+                                                                                                    data-current="1"
+                                                                                                    data-max="999"
                                                                                                     data-step="1"
                                                                                                 ></div>
                                                                                             </div>
@@ -634,8 +643,8 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="200"
-                                                                                                    data-current="200"
+                                                                                                    data-min="0"
+                                                                                                    data-current="0"
                                                                                                     data-max="100000"
                                                                                                     data-step="200"
                                                                                                 ></div>
@@ -669,8 +678,8 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="1"
-                                                                                                    data-current="1"
+                                                                                                    data-min="0"
+                                                                                                    data-current="0"
                                                                                                     data-max="500"
                                                                                                     data-step="1"
                                                                                                     data-calculator-range-points
@@ -692,7 +701,7 @@
                                                                 <div class="section__box-inner">
                                                                     <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
 
-                                                                    <div class="profitability__calculation" data-group>
+                                                                    <div class="profitability__calculation" data-calculator-consultant data-calculator-range="consultant">
                                                                         <div class="profitability__calculation-cards cards-counting">
                                                                             <ul class="cards-counting__list">
                                                                                 <li class="cards-counting__item">
@@ -704,6 +713,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-quantity="consultant"
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix"></span>
                                                                                             </div>
@@ -714,8 +724,8 @@
                                                                                                     data-range-slider
                                                                                                     data-type="min"
                                                                                                     data-min="1"
-                                                                                                    data-current="3"
-                                                                                                    data-max="10"
+                                                                                                    data-current="1"
+                                                                                                    data-max="999"
                                                                                                     data-step="1"
                                                                                                 ></div>
                                                                                             </div>
@@ -736,6 +746,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-rub
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ₽
@@ -747,10 +758,10 @@
                                                                                                     class="range-slider"
                                                                                                     data-range-slider
                                                                                                     data-type="min"
-                                                                                                    data-min="1000"
+                                                                                                    data-min="0"
                                                                                                     data-current="0"
-                                                                                                    data-max="30000"
-                                                                                                    data-step="1000"
+                                                                                                    data-max="100000"
+                                                                                                    data-step="200"
                                                                                                 ></div>
                                                                                             </div>
 
@@ -770,6 +781,7 @@
                                                                                                     type="number"
                                                                                                     class="card-counting__value-count"
                                                                                                     data-range-min
+                                                                                                    data-calculator-range-input-point
                                                                                                 />
                                                                                                 <span class="card-counting__value-suffix">
                                                                                                     ББ
@@ -783,8 +795,9 @@
                                                                                                     data-type="min"
                                                                                                     data-min="0"
                                                                                                     data-current="0"
-                                                                                                    data-max="1000"
-                                                                                                    data-step="10"
+                                                                                                    data-max="500"
+                                                                                                    data-step="1"
+                                                                                                    data-calculator-range-points
                                                                                                 ></div>   
                                                                                             </div>
 
@@ -799,7 +812,7 @@
                                                                         </div>
 
                                                                         <div class="profitability__calculation-groups">
-                                                                            <button type="button" class="profitability__calculation-button button button--medium button--rounded button--outlined button--mixed button--full">
+                                                                            <button type="button" class="profitability__calculation-button button button--medium button--rounded button--outlined button--mixed button--full" data-calculator-consultant-add>
                                                                                 <span class="button__icon button__icon--medium">
                                                                                     <svg class="icon icon--add-circle">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
@@ -809,102 +822,7 @@
                                                                             </button>
 
                                                                             <div class="profitability__groups groups">
-                                                                                <ul class="groups__list">
-                                                                                    <li class="groups__item">
-                                                                                        <div class="group">
-                                                                                            <div class="group__users">
-                                                                                                <div class="group__users-icon">
-                                                                                                    <svg class="icon icon--users">
-                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
-                                                                                                    </svg>
-                                                                                                </div>
-                                                                                                <span class="group__users-counter counter">10</span>
-                                                                                            </div>
-
-                                                                                            <div class="group__symbol">
-                                                                                                <svg class="icon icon--cross">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
-                                                                                                </svg>
-                                                                                            </div>
-
-                                                                                            <div class="group__sum price price--inlined">
-                                                                                                <div class="price__calculation">
-                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
-                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                            <div class="group__delete">
-                                                                                                <svg class="group__delete-icon icon icon--close-square">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
-                                                                                                </svg>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-
-                                                                                    <li class="groups__item">
-                                                                                        <div class="group">
-                                                                                            <div class="group__users">
-                                                                                                <div class="group__users-icon">
-                                                                                                    <svg class="icon icon--users">
-                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
-                                                                                                    </svg>
-                                                                                                </div>
-                                                                                                <span class="group__users-counter counter">10</span>
-                                                                                            </div>
-
-                                                                                            <div class="group__symbol">
-                                                                                                <svg class="icon icon--cross">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
-                                                                                                </svg>
-                                                                                            </div>
-
-                                                                                            <div class="group__sum price price--inlined">
-                                                                                                <div class="price__calculation">
-                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
-                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                            <div class="group__delete">
-                                                                                                <svg class="group__delete-icon icon icon--close-square">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
-                                                                                                </svg>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-
-                                                                                    <li class="groups__item">
-                                                                                        <div class="group">
-                                                                                            <div class="group__users">
-                                                                                                <div class="group__users-icon">
-                                                                                                    <svg class="icon icon--users">
-                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
-                                                                                                    </svg>
-                                                                                                </div>
-                                                                                                <span class="group__users-counter counter">10</span>
-                                                                                            </div>
-
-                                                                                            <div class="group__symbol">
-                                                                                                <svg class="icon icon--cross">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
-                                                                                                </svg>
-                                                                                            </div>
-
-                                                                                            <div class="group__sum price price--inlined">
-                                                                                                <div class="price__calculation">
-                                                                                                    <p class="price__calculation-total">1 420 ₽</p>
-                                                                                                    <p class="price__calculation-accumulation">14 ББ</p>
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                            <div class="group__delete">
-                                                                                                <svg class="group__delete-icon icon icon--close-square">
-                                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
-                                                                                                </svg>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
+                                                                                <ul class="groups__list" data-calculator-consultant-wrapper>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -918,7 +836,7 @@
 
                                                                             <div class="profitability__calculation-total">
                                                                                 <p class="profitability__calculation-total-sum">
-                                                                                    = 944 ББ
+                                                                                    = <span data-calculator-group-points-sum>0</span> ББ
                                                                                 </p>
                                                                             </div>
                                                                         </div>

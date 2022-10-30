@@ -45,6 +45,8 @@ export default function(){
 
                         $card.on('change changeRange', ELEMENTS_SELECTOR.rangeMin, function () {
                             minVal = +$(this).val().trim();
+                            minVal = Math.floor(minVal);
+
                             let min = slider.slider('option', 'min');
                             let max = slider.slider('option', 'max');
 
