@@ -40,10 +40,12 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
+ import cardCounting from './modules/cardCounting';
  import removeItem from './modules/remove-item';
  import editProfile from './modules/edit-profile'; 
  import cookie from './modules/cookie';
  import identic from './modules/identic';
+ import showText from './modules/show-text';
 
 
  const app = {
@@ -76,10 +78,12 @@
         addFavourite();
         filter();
         swiper();
+        cardCounting();
         removeItem();
         editProfile();
         cookie();
         identic();
+        showText();
     },
 
     load() {

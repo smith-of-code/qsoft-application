@@ -59,6 +59,9 @@ import './svg/repeat.svg';
 import './svg/crown.svg';
 import './svg/return.svg';
 import './svg/danger.svg';
+import './svg/question-circle.svg';
+import './svg/users.svg';
+import './svg/cross.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';
@@ -81,5 +84,7 @@ import './svg/cat-happy.svg';
 import './svg/cat-winks.svg';
 import './svg/cat-glasses.svg';
 import './svg/cat-think.svg';
+import './svg/dog-seating.svg';
+import './svg/cat-seating.svg';
 
 

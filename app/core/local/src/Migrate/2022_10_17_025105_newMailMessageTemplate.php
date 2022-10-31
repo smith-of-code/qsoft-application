@@ -9,8 +9,8 @@
 use Bitrix\Main\SystemException;
 use QSoft\Migration\Migration;
 
-class newMailMessageTemplate extends Migration {
-
+class newMailMessageTemplate extends Migration
+{
     private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
 
     /**
@@ -28,8 +28,8 @@ class newMailMessageTemplate extends Migration {
 #TIME_SEND# - дата отправки
 #MESSAGE_SENDER# - почта поддержки
 #MESSAGE_TAKER# - почта получателя
-#TICKED_STATUS# - Статус обращения Принято/Отклонено
-#TICKED_NUMBER# - номер обращения
+#TICKET_STATUS# - Статус обращения Принято/Отклонено
+#TICKET_NUMBER# - номер обращения
 #OWNER_NAME# - ФИО клиента
 #RESPONSIBLE_NAME# - имя сотрудника техподдержки',
         ];
@@ -41,12 +41,12 @@ class newMailMessageTemplate extends Migration {
             throw new SystemException($eventTypeObject->LAST_ERROR);
         }
 
-        $eventMailTemplae = [
+        $eventMailTemplate = [
             'ACTIVE'=> 'Y',
             'EVENT_NAME' => self::TICKET_ACCEPTION_EVENT,
             'LID' => SITE_ID,
-            'EMAIL_FROM' => '#DEFAULT_EMAIL_FROM#',
-            'EMAIL_TO' => '#DEFAULT_EMAIL_FROM#',
+            'EMAIL_FROM' => '#MESSAGE_SENDER#',
+            'EMAIL_TO' => '#MESSAGE_TAKER#',
             'SUBJECT' => 'Статус вашей заявки.',
             'BODY_TYPE' => 'html',
             'MESSAGE' => '
@@ -57,20 +57,16 @@ class newMailMessageTemplate extends Migration {
                         <title>Статус вашей заявки.</title>
                     </head>
                     <body>
-                        <h2>Здравствуйте, #OWNER_NAME#.</h2>
-                        
-                        <p>Ваша заявка № #TICKED_NUMBER#  была #TICKED_STATUS#.</p>
-                        
-                        <p>С уважением, служба техподдержки #SITE_NAME#, #RESPONSIBLE_NAME#</p>
-                        
-                        <p>Письмо сформировано автоматически.</p>
-
+                        <p>
+                            Ваша заявка № #TICKET_NUMBER# на #TICKET_TYPE# #TICKET_STATUS#.
+                            За подробной информацией обращайтесь в техподдержку.
+                        </p>
                     </body>
                 </html>',
         ];
 
         $eventMessageObject = new CEventMessage;
-        $dbRes = $eventMessageObject->Add($eventMailTemplae);
+        $dbRes = $eventMessageObject->Add($eventMailTemplate);
          
         if(!$dbRes){
             throw new SystemException($eventMessageObject->LAST_ERROR);
@@ -83,7 +79,7 @@ class newMailMessageTemplate extends Migration {
      * @return void
      * @throws SystemException
      */
-    public function down()
+    public function down(): void
     {
         $eventMessageObject = new CEventMessage();
 

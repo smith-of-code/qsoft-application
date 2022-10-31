@@ -1,8 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
+<main class="page__catalog catalog">
 <?$APPLICATION->IncludeComponent(
-	"zolo:catalog", 
+	"zolo:catalog",
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
@@ -21,6 +22,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "N",
+		'PROPERTY_COUNT_DETAIL' => 4,
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		"CACHE_FILTER" => "Y",
@@ -277,4 +279,5 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	),
 	false
 );?>
+</main>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
