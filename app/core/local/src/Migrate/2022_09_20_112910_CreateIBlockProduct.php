@@ -2,9 +2,12 @@
 
 use Bitrix\Iblock\PropertyIndex\Manager;
 use QSoft\Migrate\BaseCreateIBlockMigration;
+use QSoft\Seeder\CategorySeeder;
 
 final class CreateIBlockProduct extends BaseCreateIBlockMigration
 {
+    protected ?string $seeder = CategorySeeder::class;
+
     protected array $iBlockInfo = [
         'LID' => 's1',
         'IBLOCK_TYPE_ID' => 'catalog',
@@ -16,14 +19,14 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         'VERSION' => 2,
         'RIGHTS_MODE' => 'S',
         'GROUP_ID' => [
+            1 => 'X',
             2 => 'R',
-            6 => 'W',
-            8 => '',
             5 => '',
+            6 => 'W',
+            7 => '',
+            8 => '',
             9 => 'W',
             10 => '',
-            7 => '',
-            1 => 'X',
         ],
         'FIELDS' => [
             'IBLOCK_SECTION' => [
