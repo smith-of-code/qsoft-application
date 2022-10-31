@@ -40,6 +40,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                     <!--Персональные данные-->
                     <div
                         id="personalData"
+                        class="profile__block"
                         prop-user-info='<?=phpToVueObject($arResult['personal_data'])?>'
                         prop-genders='<?=phpToVueObject($arResult['user_genders'])?>'
                         prop-cities='<?=phpToVueObject($arResult['cities'])?>'
@@ -50,6 +51,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                     <!--Юридические данные-->
                     <div
                         id="legalEntity"
+                        class="profile__block"
                         prop-legal-entity='<?=phpToVueObject($arResult['legal_entity'])?>'
                         prop-types='<?=phpToVueObject($arResult['legal_entity_types'])?>'
                     ></div>
@@ -58,6 +60,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                     <!--Данные о питомцах-->
                     <div
                         id="pets"
+                        class="profile__block"
                         prop-pets='<?=phpToVueObject($arResult['pets'])?>'
                         prop-genders='<?=phpToVueObject($arResult['pet_genders'])?>'
                         prop-breeds='<?=phpToVueObject($arResult['pet_breeds'])?>'
