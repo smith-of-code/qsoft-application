@@ -1,11 +1,10 @@
 
 <?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
 
-$arResult = $_REQUEST['data'];
-
+$arResult = $_REQUEST['data']['orders'];
 ?>
 <!-- Карточка заказа -->
-<?php foreach ($arResult['orders'] as $order): ?>
+<?php foreach ($arResult['ORDERS'] as $order): ?>
     <?php $paid = $order['ORDER']['PAYED'] == 'Y'; ?>
     <li class="cards-order__item">
         <article class="card-order card-order--green">

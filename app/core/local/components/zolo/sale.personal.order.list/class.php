@@ -1573,7 +1573,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         $this->formatResult();
 
         return json_encode([
-            'orders' => $this->arResult["ORDERS"],
+            'orders' => $this->arResult,
             'last' => $this->isLastPage,
             'offset' => ($this->page + 1)
         ]);
@@ -1592,15 +1592,8 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         $this->obtainData();
         $this->formatResult();
         return json_encode([
-            'orders' => $this->arResult["ORDERS"],
+            'orders' => $this->arResult,
             'last' => $this->isLastPage,
-            'test' => $filter,
-            'test2' => $this->filter,
-            'test3' => $_SESSION,
-            'test4' => $_REQUEST,
-            'test5' => $this->arParams,
-            'test5' => $this->options,
-			'test6' => $this->filter
         ]);
     }
 

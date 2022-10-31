@@ -8,7 +8,7 @@ $APPLICATION->SetTitle("История заказов");
         "PATH_TO_BASKET" => "/personal/cart/",
         "PATH_TO_COPY" => "/personal/cart/",
         "PATH_TO_PAYMENT" => "/personal/order/payment/",
-        "ORDERS_PER_PAGE" => 2,
+        "ORDERS_PER_PAGE" => 5,
         "SET_TITLE" => "Y",
         "SAVE_IN_SESSION" => "Y",
         "NAV_TEMPLATE" => "",

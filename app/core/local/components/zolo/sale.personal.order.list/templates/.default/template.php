@@ -23,7 +23,7 @@ else {
 }
 ?>
 
-<h1 class="page__heading">Личный кабинет</h1>
+<h1 class="page__heading"><?=$APPLICATION->showTitle() ?></h1>
 
 <div class="content__main">
     <div class="private__row">
@@ -360,24 +360,9 @@ else {
         });
     }
 
-    function setData(data) {
-        $.ajax({
-            method: 'POST',
-            data: {
-                data:data
-            },
-            url: '/ajax/order_list.php',
-            success: function (data) {
-                $('#order_list').append(data)
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
-    }
-
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
+
     showMore.onclick = function (e) {
         console.log('TT');
         e.preventDefault();
@@ -391,13 +376,30 @@ else {
             let orders = JSON.parse(response.data);
 
             console.log("ok", orders);
-            setData(orders);
             offset = orders.offset;
             if (orders.last) {
                 showMore.innerHTML = 'Заказы закончились';
+            } else {
+                setData(orders);
             }
         }, function (response) {
             console.log("err", response.errors);
+        });
+    }
+
+    function setData(data) {
+        $.ajax({
+            method: 'POST',
+            data: {
+                data: data
+            },
+            url: '/ajax/order_list.php',
+            success: function (data) {
+                $('#order_list').append(data)
+            },
+            error: function (error) {
+                console.log(error);
+            },
         });
     }
 </script>
