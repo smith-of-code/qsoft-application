@@ -141,7 +141,7 @@ $this->setFrameMode(true);
                                 break;
                             case "F":
                             default:
-                                if (count($arItem["VALUES"]) == 1): // Показываем переключатель, если всего 1 вариант значения
+                                if ($arItem["CODE"] == "IS_BESTSELLER" || $arItem["CODE"] == "WITH_DISCOUNT"): // Показываем переключатель
                                 ?>
 
                                     <div class="filter__options">
@@ -169,7 +169,7 @@ $this->setFrameMode(true);
                                             </ul>
                                         </div>
                                     </div>
-                                <?php elseif (count($arItem["VALUES"]) > 1): // Показываем список чекбоксов, если вариантов значений несколько ?>
+                                <?php elseif (count($arItem["VALUES"]) >= 1): // Показываем список чекбоксов, если вариантов значений несколько ?>
 
                                     <div class="filter__header">
                                         <p class="filter__heading heading heading--small"><?= $arItem["NAME"] ?></p>
