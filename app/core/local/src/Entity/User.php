@@ -8,6 +8,7 @@ use CFile;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Service\ConfirmationService;
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
@@ -39,6 +40,10 @@ class User
      * @var NotificationService Объект для работы с уведомлениями
      */
     public NotificationService $notification;
+    /**
+     * @var ConfirmationService Объект для работы с подтверждениями
+     */
+    public ConfirmationService $confirmation;
     /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
@@ -208,6 +213,7 @@ class User
         $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
         $this->notification = new NotificationService($this);
+        $this->confirmation = new ConfirmationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);

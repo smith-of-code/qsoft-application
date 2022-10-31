@@ -17,8 +17,7 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
 
     public function executeComponent()
     {
-        $confirmResult = (new ConfirmationService)->verifyEmailCode(
-            $this->arParams['USER_ID'],
+        $confirmResult = (new User($this->arParams['USER_ID']))->confirmation->verifyEmailCode(
             $this->arParams['CONFIRM_CODE'],
             ConfirmationTable::TYPES['reset_password'],
         );

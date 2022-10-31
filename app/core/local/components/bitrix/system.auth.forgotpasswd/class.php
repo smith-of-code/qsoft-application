@@ -5,6 +5,7 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\UserTable;
+use QSoft\Entity\User;
 use QSoft\Service\ConfirmationService;
 
 class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Controllerable
@@ -54,7 +55,7 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
             ];
         }
 
-        (new ConfirmationService)->sendResetPasswordEmail($user['ID']);
+        (new User($user['ID']))->confirmation->sendResetPasswordEmail();
 
         return ['status' => 'success'];
     }

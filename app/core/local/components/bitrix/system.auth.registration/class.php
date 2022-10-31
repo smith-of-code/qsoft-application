@@ -150,14 +150,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     private function confirmEmail()
     {
-        $confirmResult = (new ConfirmationService)->verifyEmailCode(
-            $this->arParams['USER_ID'],
+        $user = new User($this->arParams['USER_ID']);
+        $confirmResult = $user->confirmation->verifyEmailCode(
             $this->arParams['CONFIRM_CODE'],
             ConfirmationTable::TYPES['confirm_email'],
         );
 
         if ($confirmResult) {
-            (new User($this->arParams['USER_ID']))->activate();
+            $user->activate();
         }
 
         LocalRedirect('/');
@@ -266,14 +266,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'user_id' => $result['ID'],
         ]);
 
-        (new ConfirmationService)->sendSmsConfirmation($result['ID']);
+        (new User($result['ID']))->confirmation->sendSmsConfirmation();
 
         return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
     {
-        $verifyResult = (new ConfirmationService)->verifySmsCode($this->getRegisterData()['user_id'], $code);
+        $verifyResult = (new User($this->getRegisterData()['user_id']))->confirmation->verifySmsCode($code);
 
         return ['status' => $verifyResult ? 'success' : 'error'];
     }
@@ -417,7 +417,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ]);
         }
 
-        (new ConfirmationService)->sendEmailConfirmation((int) $registrationData['user_id']);
+        (new User($registrationData['user_id']))->confirmation->sendEmailConfirmation();
 
         $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 

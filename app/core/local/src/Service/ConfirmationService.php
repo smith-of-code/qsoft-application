@@ -16,21 +16,21 @@ class ConfirmationService
 {
     public const CODE_LENGTH = 6;
 
+    private User $user;
     private SmsClient $smsClient;
 
-    public function __construct()
+    public function __construct(User $user)
     {
+        $this->user = $user;
         $this->smsClient = new SmsClient;
     }
 
-    public function sendSmsConfirmation(int $userId): void
+    public function sendSmsConfirmation(): void
     {
-        $user = new User($userId);
-
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $user->id,
+            'UF_USER_ID' => $this->user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['sms'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_phone'],
             'UF_CODE' => $code,
@@ -41,18 +41,16 @@ class ConfirmationService
                 Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
                 $code
             ),
-            $user->login
+            $this->user->login
         );
     }
 
-    public function sendEmailConfirmation(int $userId): void
+    public function sendEmailConfirmation(): void
     {
-        $user = new User($userId);
-
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $user->id,
+            'UF_USER_ID' => $this->user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
@@ -62,21 +60,19 @@ class ConfirmationService
             'EVENT_NAME' => 'NEW_USER_CONFIRM',
             'LID' => SITE_ID,
             'C_FIELDS' => [
-                'EMAIL' => $user->email,
-                'USER_ID' => $user->id,
+                'EMAIL' => $this->user->email,
+                'USER_ID' => $this->user->id,
                 'CONFIRM_CODE' => $code,
             ],
         ]);
     }
 
-    public function sendResetPasswordEmail(int $userId): void
+    public function sendResetPasswordEmail(): void
     {
-        $user = new User($userId);
-
-        $code = $this->generateCodeOTP($user->id);
+        $code = $this->generateCodeOTP($this->user->id);
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $user->id,
+            'UF_USER_ID' => $this->user->id,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
@@ -86,23 +82,23 @@ class ConfirmationService
             'EVENT_NAME' => 'USER_PASS_REQUEST',
             'LID' => SITE_ID,
             'C_FIELDS' => [
-                'EMAIL' => $user->email,
-                'USER_ID' => $user->id,
+                'EMAIL' => $this->user->email,
+                'USER_ID' => $this->user->id,
                 'CONFIRM_CODE' => $code,
             ],
         ]);
     }
 
-    public function verifySmsCode(int $userId, string $code): bool
+    public function verifySmsCode(string $code): bool
     {
-        $actualCode = ConfirmationTable::getActiveSmsCode($userId);
+        $actualCode = ConfirmationTable::getActiveSmsCode($this->user->id);
 
         return $actualCode && $actualCode === $code;
     }
 
-    public function verifyEmailCode(int $userId, string $code, string $type): bool
+    public function verifyEmailCode(string $code, string $type): bool
     {
-        $actualCode = ConfirmationTable::getActiveEmailCode($userId, $type);
+        $actualCode = ConfirmationTable::getActiveEmailCode($this->user->id, $type);
 
         return $actualCode && $actualCode === $code;
     }

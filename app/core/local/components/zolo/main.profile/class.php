@@ -13,6 +13,7 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
+use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
@@ -130,6 +131,12 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             'savePersonalData' => [
                 'prefilters' => []
             ],
+            'sendCode' => [
+                'prefilters' => []
+            ],
+            'verifyCode' => [
+                'prefilters' => []
+            ],
             'saveLegalEntityData' => [
                 'prefilters' => []
             ],
@@ -148,6 +155,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     public function savePersonalDataAction(array $userInfo): array
     {
         $fields = [
+            'LOGIN' => $userInfo['phone'],
             'NAME' => $userInfo['first_name'],
             'LAST_NAME' => $userInfo['last_name'],
             'SECOND_NAME' => $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'],
@@ -170,6 +178,22 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         }
 
         return ['status' => $updateResult ? 'success' : 'error'];
+    }
+
+    public function sendCodeAction(string $phoneNumber): array
+    {
+        if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
+            throw new InvalidArgumentException('Invalid phone number');
+        }
+
+        $this->user->confirmation->sendSmsConfirmation();
+
+        return ['status' => 'success'];
+    }
+
+    public function verifyCodeAction(string $code): array
+    {
+        return ['status' => $this->user->confirmation->verifySmsCode($code) ? 'success' : 'error'];
     }
 
     public function saveLegalEntityDataAction($data): array

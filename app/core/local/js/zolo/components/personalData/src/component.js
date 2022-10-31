@@ -5,6 +5,8 @@ export const PersonalData = {
         return {
             mutableUserInfo: {},
             editing: false,
+            phoneError: false,
+            verifyError: false,
         };
     },
 
@@ -51,7 +53,12 @@ export const PersonalData = {
         },
         saveUserInfo() {
             // TODO validate
+            if (this.userInfo.phone !== this.mutableUserInfo.phone) {
+                this.phoneError = true;
+                return;
+            }
 
+            this.phoneError = false;
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
             this.mutableUserInfo.gender = $('#gender').val();
             this.mutableUserInfo.city = $('#city').val();
@@ -59,6 +66,43 @@ export const PersonalData = {
 
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
             this.cancelEditing();
+        },
+        sendCode() {
+            const phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
+            console.log('PHONE', phone);
+
+            this.phoneError = false;
+            if (!phone || phone.match(/_+/i)) {
+                this.phoneError = true;
+                return;
+            }
+
+            try {
+                const response = this.personalDataStore.sendCode(phone);
+
+                if (!response.data || response.data.status === 'error') {
+                    throw new Error(response.data.message);
+                }
+            } catch (e) {
+                this.phoneError = e.message ? e.message : true;
+                return;
+            }
+
+            $.fancybox.open({ src: '#approve-number' });
+        },
+        verifyCode() {
+            try {
+                const response = this.personalDataStore.verifyCode($('input[name=verify_code]').val());
+
+                if (!response.data || response.data.status === 'error') {
+                    throw new Error();
+                }
+            } catch (e) {
+                this.verifyError = true;
+                return;
+            }
+
+            $.fancybox.close({ src: '#approve-number' });
         },
     },
 
@@ -359,11 +403,25 @@ export const PersonalData = {
                                                                 placeholder="+7 (___) ___-__-__" 
                                                                 data-phone 
                                                                 inputmode="text"  
+                                                                :class="{ 'input__control--error': phoneError }"
                                                                 :readonly="!editing"
-                                                                v-model="mutableUserInfo.phone" 
+                                                                v-model="mutableUserInfo.phone"
                                                             >
+                                                            
+                                                            <span v-if="typeof phoneError === 'string'" class="input__control-error">
+                                                                {{ phoneError }}
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <button
+                                                        type="button"
+                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                                        data-src="#approve-number"
+                                                        @click="sendCode"
+                                                    >
+                                                        Отправить проверочный код
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -534,6 +592,45 @@ export const PersonalData = {
                     </div>
                 </form>
             </section>
+            
+            <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
+                <div class="modal__content">
+                    <header class="modal__section modal__section--header">
+                        <p class="heading heading--small">Подтверждение номера</p>
+                    </header>
+            
+                    <section class="modal__section modal__section--content">
+                        <p class="modal__section-text">
+                            На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
+                        </p>
+            
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input input--tiny input--centered">
+                                            <input
+                                                type="text"
+                                                maxlength="6"
+                                                class="input__control"
+                                                name="verify_code"
+                                                id="verify_code"
+                                                :class="{ 'input__control--error': verifyError }"
+                                            >
+                                        
+                                            <span v-if="verifyError" class="input__control-error">Неверный или просроченный код</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <button class="button button--rounded button--covered button--red button--full" style="margin-top: 25px;" @click="verifyCode">
+                            <span class="button__text">Далее</span>
+                        </button>
+                    </section>
+                </div>
+            </article>
         </div>
     `,
 };
