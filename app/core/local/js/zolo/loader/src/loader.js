@@ -17,10 +17,13 @@ export class Loader {
             let props = {};
             for (const attribute of rootElement.attributes) {
                 if (attribute.name.startsWith('prop-')) {
+                    let attributeName = attribute.name
+                        .substring(5)
+                        .replace(/-./g, x => x[1].toUpperCase());
                     try {
-                        props[attribute.name.substring(5)] = JSON.parse(attribute.value);
+                        props[attributeName] = JSON.parse(attribute.value);
                     } catch (error) {
-                        props[attribute.name.substring(5)] = attribute.value;
+                        props[attributeName] = attribute.value;
                     }
                 }
             }

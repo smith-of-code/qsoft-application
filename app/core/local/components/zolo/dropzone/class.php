@@ -43,8 +43,7 @@ class DropzoneComponent extends CBitrixComponent
                 }
             }
 
-//            if ($this->myRequest->isAjaxRequest() && !empty($this->myRequest->getFileList())) {
-            if (!empty($this->myRequest->getFileList())) {
+            if ($this->myRequest->isAjaxRequest() && !empty($this->myRequest->getFileList())) {
                 $this->getUploadFileID();
             }
 
@@ -78,9 +77,8 @@ class DropzoneComponent extends CBitrixComponent
 
         $arFile = $this->myRequest->getFile($this->arParams['NAME']);
 
-        $pathValue = $path ?? $this->arParams['PATH'] ?? "$_SERVER[DOCUMENT_ROOT]/upload/files";
-
         if (!empty($arFile)) {
+            $pathValue = $path ?? $this->arParams['PATH'] ?? "$_SERVER[DOCUMENT_ROOT]/upload/files";
             $fid = CFile::SaveFile($arFile, $pathValue);
 
             $APPLICATION->RestartBuffer();

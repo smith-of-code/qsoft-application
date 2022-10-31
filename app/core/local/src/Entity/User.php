@@ -2,6 +2,7 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Security\Password;
 use Carbon\Carbon;
 use CFile;
 use CUser;
@@ -74,6 +75,14 @@ class User
      * @var string|null Отчество
      */
     public ?string $secondName;
+    /**
+     * @var string Город
+     */
+    public string $city;
+    /**
+     * @var int
+     */
+    public int $pickupPointId;
     /**
      * @var string E-mail
      */
@@ -177,6 +186,8 @@ class User
         $this->name = $user['NAME'];
         $this->lastName = $user['LAST_NAME'];
         $this->secondName = $user['SECOND_NAME'];
+        $this->city = $user['PERSONAL_CITY'];
+        $this->pickupPointId = $user['UF_PICKUP_POINT_ID'];
         $this->email = $user['EMAIL'];
         $this->gender = $user['PERSONAL_GENDER'];
         $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
@@ -224,6 +235,24 @@ class User
         return CFile::GetPath($this->photo);
     }
 
+    public function getPersonalData(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->name,
+            'last_name' => $this->lastName,
+            'second_name' => $this->secondName,
+            'gender' => $this->gender,
+            'photo' => $this->getPhotoUrl(),
+            'loyalty_level' => $this->loyaltyLevel,
+            'birthdate' => $this->birthday->format('d.m.Y'),
+            'email' => $this->email,
+            'phone' => $this->login,
+            'city' => $this->city,
+            'pickup_point_id' => $this->pickupPointId,
+        ];
+    }
+
     /**
      * Обновляет поля пользователя
      * @param array $fields
@@ -232,5 +261,24 @@ class User
     public function update(array $fields): bool
     {
         return $this->cUser->Update($this->id, $fields);
+    }
+
+    public function changePassword(string $password, string $confirmPassword): bool
+    {
+        $checkWord = md5(uniqid().\CMain::GetServerUniqID());
+        $checkWordHash = Password::hash($checkWord);
+
+        global $DB;
+        $DB->Query(<<<SQL
+            update b_user set 
+              CHECKWORD = '$checkWordHash',
+              CHECKWORD_TIME = now(),
+              TIMESTAMP_X = TIMESTAMP_X
+            where ID = '$this->id'
+        SQL);
+
+        $result = (new CUser)->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
+
+        return $result['TYPE'] === 'OK';
     }
 }

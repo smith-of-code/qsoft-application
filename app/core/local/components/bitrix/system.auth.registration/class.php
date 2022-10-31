@@ -349,6 +349,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'living_house' => $data['living_house'] ?? $data['register_house'],
                 'living_apartment' => $data['living_apartment'] ?? $data['register_apartment'],
                 'living_postal_code' => $data['living_postal_code'] ?? $data['register_postal_code'],
+                'without_living' => (bool) $data['living_locality'],
             ];
 
             if ($data['status'] === 'self_employed') {

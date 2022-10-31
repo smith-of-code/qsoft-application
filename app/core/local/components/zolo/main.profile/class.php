@@ -4,8 +4,8 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 }
 
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Context;
 use Bitrix\Main\Engine\Contract\Controllerable;
-use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
@@ -14,42 +14,52 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
+use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
-use QSoft\ORM\CatBreedTable;
-use QSoft\ORM\DogBreedTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 
 class MainProfileComponent extends CBitrixComponent implements Controllerable
 {
-    private int $userId;
+    private ?int $userId;
     private User $user;
 
     private PetHelper $petHelper;
 
-    protected ErrorCollection $errorCollection;
-
-    public function onPrepareComponentParams($arParams)
+    public function __construct($component = null)
     {
-        $this->errorCollection = new ErrorCollection();
+        $this->checkModules();
 
-        if ($userId = $GLOBALS['USER']->GetID()) {
-            $this->userId = $userId;
-        } else {
+        if (!$this->userId = $GLOBALS['USER']->GetID()) {
             LocalRedirect('/');
         }
-
-        $this->checkModules();
 
         $this->user = new User($this->userId);
 
         $this->petHelper = new PetHelper;
+
+        parent::__construct($component);
     }
 
     public function executeComponent()
     {
         try {
+            $request = Context::getCurrent()->getRequest();
+            if ($request->isAjaxRequest() && !empty($request->getFileList())) {
+                global $APPLICATION;
+
+                $arFile = array_first($request->getFileList()->toArray());
+                if (!empty($arFile)) {
+                    $pathValue = $path ?? $this->arParams['PATH'] ?? "$_SERVER[DOCUMENT_ROOT]/upload/files";
+                    $fid = CFile::SaveFile($arFile, $pathValue);
+
+                    $APPLICATION->RestartBuffer();
+                    echo json_encode(['FILE_ID' => $fid]);
+                    die();
+                }
+            }
+
             $this->getResult();
             $this->includeComponentTemplate();
         } catch (Exception $e) {
@@ -74,17 +84,25 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function getResult()
     {
-        $this->arResult['SELECT_OPTIONS'] = $this->getSelects();
+        $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
+        $this->arResult['personal_data'] = $this->user->getPersonalData();
+        $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
 
-        $this->arResult['USER_INFO'] = $this->getUser();
+        $pickupPoints = PickupPointTable::getList([
+            'order' => ['UF_NAME' => 'ASC'],
+            'select' => ['ID', 'UF_NAME'],
+        ])->fetchAll();
+        $this->arResult['pickup_points'] = array_combine(
+            array_column($pickupPoints, 'ID'),
+            array_column($pickupPoints, 'UF_NAME'),
+        );
 
-        if ($this->arResult['USER_GROUP'] == 'Консультант') {
-            $this->arResult['LEGAL_ENTITY'] = $this->user->legalEntity->get();
-            foreach ($this->arResult['SELECT_OPTIONS']['STATUS'] as $key => $value) {
-                if ($key == $this->arResult['LEGAL_ENTITY']['UF_STATUS']) {
-                    $this->arResult['STATUS'] = $value;
-                }
-            }
+        if ($this->user->groups->isConsultant()) {
+            $this->arResult['legal_entity'] = $this->user->legalEntity->getData();
+            $this->arResult['legal_entity_types'] = HlBlockHelper::getPreparedEnumFieldValues(
+                LegalEntityTable::getTableName(),
+                'UF_STATUS'
+            );
         }
 
         $this->arResult['pets'] = $this->petHelper->getUserPets($this->user->id);
@@ -106,101 +124,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         return $mentoInfo;
     }
 
-
-    private function getUser()
-    {
-        $arUserInfo = CUser::GetByID($this->userId)->Fetch();
-
-        if ($this->user->groups->isBuyer()) {
-            $this->arResult['USER_GROUP'] = 'Покупатель';
-            $this->arResult['USER_GROUP_XML'] = 'BUYER';
-        } elseif ($this->user->groups->isConsultant()) {
-            $this->arResult['USER_GROUP'] = 'Консультант';
-            $this->arResult['USER_GROUP_XML'] = 'CONSULTANT';
-        }
-
-        if (!empty($arUserInfo['PERSONAL_PHOTO'])) {
-            $arUserInfo['PERSONAL_PHOTO_URL'] = $this->user->getPhotoUrl();
-        }
-
-        if (!empty($arUserInfo['UF_LOYALTY_LEVEL'])) {
-            $arUserInfo['UF_LOYALTY_LEVEL_NAME'] = $this->getLoyaltyLevelName($arUserInfo['UF_LOYALTY_LEVEL']);
-        }
-
-        return $arUserInfo;
-    }
-
-    private function getLoyaltyLevelName($loyaltyLevelId)
-    {
-        return (new CUserFieldEnum())
-            ->GetList([], ['ID' => $loyaltyLevelId])
-            ->GetNext()['VALUE'];
-    }
-
-    /**
-     * @throws ObjectPropertyException
-     * @throws ArgumentException
-     * @throws SystemException
-     */
-    private function getSelects(): array
-    {
-        //Пол пользователя
-        $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
-
-        //Пункты выдачи заказов
-        $hlBlock = PickupPointTable::getList([
-            'order' => ['UF_NAME' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($fields = $hlBlock->Fetch()) {
-            $selects['PICK_POINT'][$fields['ID']] = $fields['UF_NAME'];
-        }
-
-        //Статусы юр лица для консультантов
-        $entityStatuses = LegalEntityTable::getFieldValues(['UF_STATUS'])['UF_STATUS'];
-        foreach ($entityStatuses as $status) {
-            $selects['STATUS'][$status['ID']] = $status['VALUE'];
-        }
-
-        //Типы питомцев
-        $petTypes = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
-        foreach ($petTypes as $petType) {
-            $selects['PET_KIND'][$petType['ID']] = $petType['VALUE'];
-            $selects['PET_KIND_XML'][$petType['ID']] = $petType['XML_ID'];
-        }
-
-        //Породы кошек
-        $hlBlock = CatBreedTable::getList([
-            'order' => ['UF_BREED_CAT' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($fields = $hlBlock->Fetch()) {
-            $selects['KIND_CAT_BREED'][$fields['ID']] = $fields['UF_BREED_CAT'];
-        }
-
-        //Породы собак
-        $hlBlock = DogBreedTable::getList([
-            'order' => ['UF_BREED_DOG' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($enumFields = $hlBlock->Fetch()) {
-            $selects['KIND_DOG_BREED'][$enumFields['ID']] = $enumFields['UF_BREED_DOG'];
-        }
-
-        //Пол питомцев
-        $petGenders = PetTable::getFieldValues(['UF_GENDER'])['UF_GENDER'];
-        foreach ($petGenders as $petGender) {
-            $selects['PET_GENDER'][$petGender['ID']] = $petGender['VALUE'];
-            $selects['PET_GENDER_XML'][$petGender['ID']] = $petGender['XML_ID'];
-        }
-
-        return $selects;
-    }
-
     public function configureActions(): array
     {
         return [
-            'userInfoUpdate' => [
+            'savePersonalData' => [
                 'prefilters' => []
             ],
             'legalEntityUpdate' => [
@@ -216,31 +143,33 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
                 'prefilters' => []
             ],
         ];
-
     }
 
-    public function userInfoUpdateAction(array $userInfo)
+    public function savePersonalDataAction(array $userInfo): array
     {
-        //TODO:Загрузка фоток
-        $props = [];
-
-        foreach ($userInfo as $userInfoRow) {
-            $props[$userInfoRow['name']] = $userInfoRow['value'];
-        }
-
         $fields = [
-            'NAME' => $props['NAME'],
-            'LAST_NAME' => $props['LAST_NAME'],
-            'SECOND_NAME' => $props['SECOND_NAME'],
-            'PERSONAL_GENDER' => $props['PERSONAL_GENDER'],
-            'PERSONAL_BIRTHDAY' => $props['PERSONAL_BIRTHDAY'],
-            'EMAIL' => $props['EMAIL'],
-            'PERSONAL_PHONE' => $props['PERSONAL_PHONE'],
-            'PERSONAL_CITY' => $props['PERSONAL_CITY'],
-            'UF_PICKUP_POINT_ID' => $props['UF_PICKUP_POINT_ID']
+            'NAME' => $userInfo['first_name'],
+            'LAST_NAME' => $userInfo['last_name'],
+            'SECOND_NAME' => $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'],
+            'PERSONAL_GENDER' => $userInfo['gender'],
+            'PERSONAL_BIRTHDAY' => $userInfo['birthdate'],
+            'EMAIL' => $userInfo['email'],
+            'PERSONAL_PHONE' => $userInfo['phone'],
+            'PERSONAL_CITY' => $userInfo['city'],
+            'UF_PICKUP_POINT_ID' => $userInfo['pickup_point'],
         ];
 
-        (new User($GLOBALS['USER']->GetID()))->update($fields);
+        if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
+            $fields['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+        }
+
+        $updateResult = $this->user->update($fields);
+
+        if ($updateResult && $userInfo['password'] && $userInfo['confirm_password']) {
+            $updateResult = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
+        }
+
+        return ['status' => $updateResult ? 'success' : 'error'];
     }
 
     public function legalEntityUpdateAction($form)
@@ -297,14 +226,4 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     //TODO смена ментора
     //TODO модерация
-
-    public function getErrors()
-    {
-        $this->errorCollection->toArray();
-    }
-
-    public function getErrorByCode($code)
-    {
-        $this->errorCollection->getErrorByCode($code);
-    }
 }
