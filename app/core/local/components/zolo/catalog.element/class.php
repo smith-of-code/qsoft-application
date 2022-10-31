@@ -326,7 +326,7 @@ class CatalogElementComponent extends Element
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
             'COLOR_NAMES' => ColorHelper::getColorNames(),
-            'OFFERS' => $data['OFFERS'], // TODO format if necessary
+            'OFFERS' => $data['OFFERS'], // TODO format
             'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
         ];
 
@@ -337,11 +337,24 @@ class CatalogElementComponent extends Element
             $result['DISCOUNT_LABELS'][$offer['ID']]['NAME'] = $offer['PROPERTY_DISCOUNT_LABEL_VALUE'];
             $result['DISCOUNT_LABELS'][$offer['ID']]['COLOR'] = $this->getDiscountLabelColor($offer['PROPERTY_DISCOUNT_LABEL_VALUE']);
 
-            $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+            if ($offer['PROPERTY_COLOR_VALUE']) {
+                $result['COLORS'][] = [
+                    'offerId' => $offer['ID'],
+                    'color'=> $offer['PROPERTY_COLOR_VALUE']
+                ];
+            }
+
             $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
             $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
-            $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
+
+            if($offer['PROPERTY_PACKAGING_VALUE']) {
+                $result['PACKAGINGS'][] = [
+                    'offerId' => $offer['ID'],
+                    'package'=> $offer['PROPERTY_PACKAGING_VALUE']
+                ];
+            }
+
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
                     $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
