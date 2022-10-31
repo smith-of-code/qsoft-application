@@ -1,0 +1,115 @@
+.detail-news {
+    &__content {
+        max-width: rem(770px);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    &__date {
+        font-size: rem($font-size-mini);
+        font-weight: $font-weight-medium;
+        line-height: ($line-height-small/$font-size-mini);
+    
+        color: $saltBox;
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-normal);
+            line-height: ($line-height-normal/$font-size-normal);
+        }
+    }
+
+    &__title {
+        margin-bottom: rem($gap-small);
+    }
+
+    &__header {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(20px);
+        }
+    }
+
+    &__image {
+        position: relative;
+
+        overflow: hidden;
+
+        margin-bottom: rem(24px);
+
+        &::before {
+            $image-width: 342px;
+            $image-height:  164px;
+
+            display: block;
+
+            padding-top: percentage($image-height / $image-width);
+
+            content: "";
+
+            @media #{$screen-desktop} {
+                $image-width: 770px;
+                $image-height: 280px;
+
+                padding-top: percentage($image-height / $image-width);
+            }
+        }
+
+        &--main {
+            &::before {
+                $image-width: 342px;
+                $image-height: 224px;
+    
+                display: block;
+    
+                padding-top: percentage($image-height / $image-width);
+    
+                content: "";
+    
+                @media #{$screen-desktop} {
+                    $image-width: 770px;
+                    $image-height: 320px;
+    
+                    padding-top: percentage($image-height / $image-width);
+                }
+            }  
+        }
+
+        &-picture {
+            @include position-stretching(absolute);
+
+            width: 100%;
+            height: 100%;
+
+            @include object-fit(cover);
+        }
+    }
+
+    &__subtitle {
+        margin-bottom: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(20px);
+        }
+    }
+
+    &__text {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-big);
+        }
+    }
+
+    &__list {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem($gap-big);
+        }
+        
+        &-title {
+            margin-bottom: rem($gap-small);
+        }
+    }
+}
