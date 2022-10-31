@@ -4,6 +4,7 @@ const ELEMENTS_SELECTOR = {
     decrease: '[data-quantity-decrease]',
     increase: '[data-quantity-increase]',
     sum: '[data-quantity-sum]',
+    max: '[data-quantity-max]',
 };
 
 export default function changeTotal() {
@@ -11,11 +12,20 @@ export default function changeTotal() {
         let quantityBlock = element.closest(ELEMENTS_SELECTOR.quantity);
         let sumBlock = quantityBlock.find(ELEMENTS_SELECTOR.sum);
         let sum = sumBlock.data('quantity-sum');
+        let min = sumBlock.data('quantity-min');
 
-        if (calculation == '+') {
-            sum++;
+        if (min) {
+            if (calculation == '-' && sum > min) {
+                sum--;
+            } else if (calculation == '+') {
+                sum++;
+            }
         } else {
-            sum--;
+            if (calculation == '+') {
+                sum++;
+            } else {
+                sum--;
+            }
         }
 
         sumBlock.data('quantity-sum', sum);
@@ -31,9 +41,11 @@ export default function changeTotal() {
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.increase, function () {
+        let quantityBlock = $(this).closest(ELEMENTS_SELECTOR.quantity);
+        let max = quantityBlock.find(ELEMENTS_SELECTOR.max).data('quantity-max') || 10;
         let sum = changeSum($(this));
 
-        if (sum == 10) {
+        if (sum == max) {
             $(this).prop('disabled', true);
             $(this).addClass('button--disabled');
         }

@@ -4,7 +4,9 @@ namespace QSoft\Helper;
 
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
+use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
+use QSoft\Service\DateTimeService;
 use RuntimeException;
 
 /**
@@ -13,17 +15,15 @@ use RuntimeException;
  */
 class BonusAccountHelper
 {
-    public const BONUS_ACCOUNT_LEVEL_B1 = 'K1';
-    public const BONUS_ACCOUNT_LEVEL_B2 = 'K2';
-    public const BONUS_ACCOUNT_LEVEL_B3 = 'K3';
-
     private TransactionsHelper $transactions;
-    private LoyaltyProgramHelper $loyalty;
+    private ConsultantLoyaltyProgramHelper $consultantLoyalty;
+    private BuyerLoyaltyProgramHelper $buyerLoyalty;
 
     public function __construct()
     {
         $this->transactions = new TransactionsHelper();
-        $this->loyalty = new LoyaltyProgramHelper();
+        $this->consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $this->buyerLoyalty = new BuyerLoyaltyProgramHelper();
     }
 
     /**
@@ -39,16 +39,17 @@ class BonusAccountHelper
         }
 
         // Начисление баллов доступно только для Консультанта
+        // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         // Получаем количество баллов для начисления
-        $amount = $this->loyalty->getReferralBonus($user->loyaltyLevel);
+        $amount = $this->consultantLoyalty->getReferralBonus($user->loyaltyLevel);
 
         if (isset($amount)) {
             // Добавляем транзакцию
-            $this->transactions->add(
+            $result = $this->transactions->add(
                 $user->id,
                 TransactionTable::TYPES['referral'],
                 TransactionTable::SOURCES['personal'],
@@ -56,11 +57,13 @@ class BonusAccountHelper
                 $amount
             );
 
-            // Обновляем количество баллов пользователя
-            return $user->update([
-                'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
-                'UF_LOYALTY_CHECK_DATE' => new DateTime,
-            ]);
+            if ($result->isSuccess()) {
+                // Обновляем количество баллов пользователя
+                return $user->update([
+                    'UF_BONUS_POINTS' => $user->bonusPoints + $amount
+                ]);
+            }
+            return false;
         }
         return false;
     }
@@ -101,12 +104,13 @@ class BonusAccountHelper
         }
 
         // Начисление баллов доступно только для Консультанта
+        // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         // Получаем количество баллов для начисления
-        $amount = $this->loyalty->getReferralBonus($user->loyaltyLevel);
+        $amount = $this->consultantLoyalty->getReferralBonus($user->loyaltyLevel);
 
         if (isset($amount)) {
             // Добавляем транзакцию
@@ -120,8 +124,7 @@ class BonusAccountHelper
 
             // Обновляем количество баллов пользователя
             return $user->update([
-                'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
-                'UF_LOYALTY_CHECK_DATE' => new DateTime,
+                'UF_BONUS_POINTS' => $user->bonusPoints + $amount
             ]);
         }
         return false;
@@ -143,5 +146,43 @@ class BonusAccountHelper
             'UF_BONUS_POINTS' => $user->bonusPoints - $amount,
             'UF_LOYALTY_CHECK_DATE' => new DateTime,
         ]);
+    }
+
+    /**
+     * Получение транзакций с баллами за текущий квартал
+     */
+    public function getBonusesTransactionsForCurrentQuarter(User $user)
+    {
+        $filter = [
+            '=UF_USER_ID' => $user->id,
+            '>=UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime(DateTimeService::getStartOfQuarter(0)),
+            '=UF_MEASURE' => EnumDecorator::prepareField(TransactionTable::MEASURES['points'])
+        ];
+
+        // Получаем транзакции пользователя за последний квартал
+        return TransactionTable::getList([
+            'select' => ['ID', 'UF_AMOUNT'],
+            'filter' => $filter,
+            'cache' => ['ttl' => 604800] // кешируем на 1 неделю
+        ])->fetchAll();
+    }
+
+    /**
+     * Расчет количества накопленных баллов за текущий квартал
+     * @param User $user
+     * @return int Количество накопленных баллов
+     */
+    public function getTotalBonusesForCurrentQuarter(User $user) : int
+    {
+        $transactions = $this->getBonusesTransactionsForCurrentQuarter($user);
+
+        // Суммируем стоимость транзакций в баллах
+        $total = 0;
+        foreach ($transactions as $transaction) {
+            if ((int) $transaction['UF_AMOUNT'] > 0) {
+                $total += (int) $transaction['UF_AMOUNT'];
+            }
+        }
+        return $total;
     }
 }

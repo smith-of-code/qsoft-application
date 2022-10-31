@@ -53,6 +53,19 @@ export default function () {
                     const $selectList = $selectContainer.find('.select2-results__options');
 
                     $selectList.niceScroll(scrollOptions);
+                })
+                .on('select2:close', function() {
+                    const select = $(this);
+                    const multiple = select.attr('multiple');
+
+                    if (typeof multiple !== 'undefined' && multiple !== false) {
+                        select.closest('[data-select]').find('.select2-selection__rendered').html(()=>{
+                            let counter = select.select2('data').length;
+                            if (counter > 0) {
+                                return `<li class="select2-selection__rendered-item">Выбрано: ${counter}<li>`;
+                            }
+                        });
+                    }
                 });
         });
     }

@@ -41,6 +41,24 @@ class AddFieldLoyaltyLevelForUsers extends Migration
                     'DEF' => 'N',
                     'SORT' => 300,
                 ],
+                'n4' => [
+                    'XML_ID' => 'B1',
+                    'VALUE' => 'B1',
+                    'DEF' => 'N',
+                    'SORT' => 400,
+                ],
+                'n5' => [
+                    'XML_ID' => 'B2',
+                    'VALUE' => 'B2',
+                    'DEF' => 'N',
+                    'SORT' => 500,
+                ],
+                'n6' => [
+                    'XML_ID' => 'B3',
+                    'VALUE' => 'B3',
+                    'DEF' => 'N',
+                    'SORT' => 600,
+                ],
             ],
             'EDIT_FORM_LABEL' => [
                 'ru' => 'Уровень в системе лояльности',

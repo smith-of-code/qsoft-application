@@ -2,8 +2,14 @@
 
 namespace QSoft\Service;
 
+use	Bitrix\Main\Loader;
+use Bitrix\Iblock\Iblock;
+use Bitrix\Main\ORM\Data\DataManager;
+use Bitrix\Main\ORM\Fields\Relations\Reference;
+use Bitrix\Sale\Internals\BasketTable;
 use CFile;
 use CIBlockElement;
+use Bitrix\Main\ORM\Query\Join;
 
 class ProductService
 {
@@ -53,5 +59,27 @@ class ProductService
         }
 
         return $offers;
+    }
+
+    /**
+     * @return DataManager|string
+     */
+    public static function getProductOfferDataClass(): string
+    {
+        self::includeModules();
+        $basketProductIdRef = new Reference('BASKET',
+            BasketTable::class,
+            Join::on('this.ID', 'ref.PRODUCT_ID'));
+        $offerProductEntity = IBlock::wakeUp(IBLOCK_PRODUCT_OFFER)
+            ->getEntityDataClass()
+            ::getEntity();
+        $offerProductEntity->addField($basketProductIdRef);
+        return $offerProductEntity->getDataClass();
+    }
+
+    private static function includeModules(): void
+    {
+        Loader::includeModule('iblock');
+        Loader::includeModule('sale');
     }
 }

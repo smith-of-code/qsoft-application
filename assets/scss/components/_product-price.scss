@@ -1,0 +1,23 @@
+.product-price {
+    &__item {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-small / $font-size-small);
+
+        letter-spacing: 0.02em;
+
+        color: $tuna;
+
+        &--old {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-small / $font-size-mini);
+
+            text-decoration: line-through;
+        }
+    
+        &--new {
+            color: $brickRed;
+        }
+    }
+}

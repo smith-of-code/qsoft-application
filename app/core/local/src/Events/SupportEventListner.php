@@ -2,13 +2,13 @@
 
 namespace QSoft\Events;
 
-use QSoft\ORM\LegalEntityTable;
 use Bitrix\Main\Mail\Event as EmailEvent;
-use Bitrix\Main\Sms\Event as SmsEvent;
+use CSite;
 use \CTicketDictionary;
 use \CUserFieldEnum;
 use DateTime;
 use CTicket;
+use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 
 /**
@@ -25,8 +25,8 @@ class SupportEventListner
     private const ACCEPTED = 'ACCEPTED';
     // Название символьного кода почтового события.
     private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
-    // Название символьного кода почтового события.
-    private const TICKET_ACCEPTION_EVENT_SMS = 'TICKET_ACCEPTION_EVENT_SMS';
+    // Название символьного кода смс события.
+    private const TICKET_CREATION_EVENT = 'TICKET_CREATION_EVENT';
 
     /**
      * Прослушивание собития OnAfterTicketUpdate
@@ -60,7 +60,13 @@ class SupportEventListner
                 }
                 break;
             case self::CHANGE_ROLE:
-                // Событие для смены роли.
+                // Событие для смены роли на консультанта.
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->changeRole($ticketValues);
+                }
                 break;
             case self::SUPPORT:
                 // Событие для техподдержки.
@@ -79,14 +85,32 @@ class SupportEventListner
     public function onAfterTicketAdd(array $ticketValues): void
     {
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        $ticket
+            = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
+                ->GetNext();
+            
+        $this->sendEmail(
+            $this->prepareFieldsToMessageAddingTicket($ticket),
+            self::TICKET_CREATION_EVENT,
+            $ticket['SITE_ID']
+        );
 
-        if (
-            $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
-            || $category['SID'] == self::CHANGE_OF_PERSONAL_DATA
-        ) {
+        if ($category['SID'] != self::SUPPORT) {
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
+
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+            
+            $phoneNumberToSend
+                = (new \CUser)->GetList('', '', ['ID' => $ticket['RESPONSIBLE_USER_ID']])->GetNext()['PERSONAL_PHONE'];
+
+            $message 
+                = 'Создана новая заявка на ' . $category['DESCR'] . ' № ' . $ticket['ID'] . '.';
+
+            if (!empty($phoneNumberToSend)) {
+                $this->sendSMS($message, $phoneNumberToSend);
+            }
         }
     }
 
@@ -104,8 +128,26 @@ class SupportEventListner
                 ->GetNext();
 
         if ($this->checkStatus($ticket, $ticketValues)) {
-            $this->sendEmail($ticket);
-            $this->sendSMS($ticket);
+            $this->sendEmail($this->prepareFieldsToMessageAcceptionTicket($ticket), self::TICKET_ACCEPTION_EVENT, $ticket['SITE_ID']);
+
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+            
+            $acceptedStatus = (new CUserFieldEnum())
+                ->GetList([], ['ID' => $ticketValues['UF_ACCEPT_REQUEST']])
+                ->GetNext();
+
+            $phoneNumberToSend
+                = (new \CUser)->GetList('', '', ['ID' => $ticket['OWNER_USER_ID']])->GetNext()['PERSONAL_PHONE'];
+
+            $message 
+                = 'Ваша заявка № '
+                    . $ticketValues['ID'] . ' на '
+                    . $category['DESCR'] . ' ' . ($acceptedStatus == self::ACCEPTED ? 'одобрена' : 'отклонена')
+                    . '. За подробной информацией обращайтесь в техподдержку';
+
+            if (!empty($phoneNumberToSend)) {
+                $this->sendSMS($message, $phoneNumberToSend);
+            }
         }
 
         return $ticketValues; // Обязательно возвращаем данные тикета.
@@ -126,6 +168,7 @@ class SupportEventListner
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -134,25 +177,49 @@ class SupportEventListner
      * 
      * @return void
      */
-    private function sendEmail(array $ticket): void
+    private function sendEmail(array $cFields, string $EventName, $siteId): void
+    {
+        EmailEvent::send([
+            "EVENT_NAME" => $EventName,
+            "LID" => $siteId,
+            "C_FIELDS" => $cFields
+        ]);
+    }
+
+    private function prepareFieldsToMessageAcceptionTicket(array $ticket)
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
 
-        EmailEvent::send([
-            "EVENT_NAME" => self::TICKET_ACCEPTION_EVENT,
-            // Константа SITE_ID в админке передает значение "ru", 
-            // что  не подходит для отправки письма, нужен "s1", его можно получить из тикета.
-            "LID" => $ticket['SITE_ID'],
-            "C_FIELDS" => [
-                "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-                "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
-                "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
-                "TICKED_STATUS" => $status['VALUE'], // статус заявки
-                "TICKED_NUMBER" => $ticket['ID'], // номер тикета
-                "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
-                "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
-            ]
-        ]);
+        return [
+            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+            "MESSAGE_SENDER" => $ticket['RESPONSIBLE_EMAIL'], // почта отправителя
+            "MESSAGE_TAKER" => $ticket['OWNER_EMAIL'], // почта получателя
+            "TICKET_STATUS" => $status['VALUE'], // статус заявки
+            "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
+            "TICKET_NUMBER" => $ticket['ID'], // номер тикета
+            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+        ];
+    }
+
+    private function prepareFieldsToMessageAddingTicket(array $ticket)
+    {
+        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
+        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
+        $rsSites = CSite::GetByID(SITE_ID)->Fetch();
+        $siteEmail = $rsSites['EMAIL'];
+
+        return [
+            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
+            "MESSAGE_SENDER" => $siteEmail, // почта отправителя
+            "MESSAGE_TAKER" => $ticket['RESPONSIBLE_EMAIL'], // почта получателя
+            "TICKET_STATUS" => $status['VALUE'], // статус заявки
+            "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
+            "TICKET_NUMBER" => $ticket['ID'], // номер тикета
+            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+        ];
     }
 
     /**
@@ -161,43 +228,10 @@ class SupportEventListner
      * 
      * @return void
      */
-    private function sendSMS(array $ticket): void
+    private function sendSMS(string $message, string $phoneNumber): void
     {
-        $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
-
-        $users = [
-            $ticket['OWNER_USER_ID'],
-            $ticket['RESPONSIBLE_USER_ID'],
-        ];
-
-        $user = (new \CUser)->GetList('', '', ['ID' => implode('|', $users)], ['PHONE_NUMBER']);
-
-        $owner = [];
-        $responsible = [];
-
-        while ($res = $user->GetNext()) {
-            if ($res['ID'] == $ticket['OWNER_USER_ID']) {
-                $owner = $res;
-            } else {
-                $responsible = $res;
-            }
-        }
-
-        $fields = [
-            "TIME_SEND" => date("Y.m.d H:i:s"), // дата отправки
-            "MESSAGE_SENDER" => '+79042356440', // почта отправителя
-            "MESSAGE_TAKER" => '+79042356440', // почта получателя
-            "TICKED_STATUS" => $status['VALUE'], // статус заявки
-            "TICKED_NUMBER" => $ticket['ID'], // номер тикета
-            "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
-            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
-        ];
-
-        $sms = new SmsEvent(self::TICKET_ACCEPTION_EVENT_SMS, $fields);
-
-        $sms->setSite($ticket['SITE_ID'])
-            ->setLanguage(SITE_ID)
-            ->send();
+        $smsClient = new SmsClient();
+        $smsClient->sendMessage($message, $phoneNumber);
     }
 
     /**
@@ -210,8 +244,10 @@ class SupportEventListner
     {
         $fields = json_decode($ticketValues['UF_DATA'], true);
         $user = new User($ticketValues['OWNER_USER_ID']);
-        $user->Update($fields['USER_INFO']);
-        $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+        if (!empty($fields['USER_INFO'])){
+            $user->Update($fields['USER_INFO']);
+            $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+        }
     }
 
     /**
@@ -245,12 +281,35 @@ class SupportEventListner
     }
 
     /**
+     * @param array $formValues
+     * 
+     * @return void
+     */
+    private function changeRole(array $ticketValues): void
+    {
+        $fields = json_decode($ticketValues['UF_DATA'], true);
+
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $groups = $user->groups;
+
+        $user
+            ->legalEntity
+            ->create($this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
+        if (!$groups->isConsultant()) {
+            $groups->addToGroup($groups->USER_GROUP_CONSULTANT);
+        }
+        if ($groups->isBuyer()) {
+            $groups->removeFromGroup($groups->USER_GROUP_BUYER);
+        }
+    }
+
+    /**
      * @param mixed $formValues
      * @param mixed $userId
      * 
      * @return array
      */
-    private function prepareProps(array$formValues, int $userId): array
+    private function prepareProps(array $formValues, int $userId): array
     {
         if (!$userId) {
             return [];
@@ -274,7 +333,12 @@ class SupportEventListner
         return $props;
     }
 
-    private function prepareFieldsByMessage($ticketValues): array
+    /**
+     * @param array $ticketValues
+     * 
+     * @return array
+     */
+    private function prepareFieldsByMessage(array $ticketValues): array
     {
         $protocol = $this->getProtocol();
 
