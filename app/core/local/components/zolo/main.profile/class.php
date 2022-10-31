@@ -130,7 +130,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             'savePersonalData' => [
                 'prefilters' => []
             ],
-            'legalEntityUpdate' => [
+            'saveLegalEntityData' => [
                 'prefilters' => []
             ],
             'addPet' => [
@@ -172,29 +172,16 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         return ['status' => $updateResult ? 'success' : 'error'];
     }
 
-    public function legalEntityUpdateAction($form)
+    public function saveLegalEntityDataAction($data): array
     {
-        //TODO:Загрузка кучи сканов
-        $docs = [];
+        $result = LegalEntityTable::update($data['id'], [
+            'UF_USER_ID' => $data['user_id'],
+            'UF_IS_ACTIVE' => $data['active'],
+            'UF_STATUS' => $data['type']['id'],
+            'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
+        ]);
 
-        foreach ($form as $row) {
-            if ($row['name'] != 'UF_STATUS') {
-                array_set($docs, $row['name'], $row['value']);
-            } else {
-                $props["UF_STATUS"] = $row['value'];
-            }
-        }
-
-        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
-        $props['UF_CREATED_AT'] = new DateTime();
-        $props['UF_DOCUMENTS'] = json_encode($docs, JSON_UNESCAPED_UNICODE);
-        $props['UF_IS_ACTIVE'] = true;
-
-
-        LegalEntityTable::add($props);
-
-        //TODO: добавить модерацию (видимо переслать в ConfirmationTable)
-        //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
+        return ['status' => $result->isSuccess() ? 'success' : 'error'];
     }
 
     public function addPetAction(array $pet): array

@@ -32,7 +32,6 @@ export const PersonalData = {
     },
 
     created() {
-        console.log(this.userInfo, this.genders, this.cities, this.pickupPoints);
         this.initUserInfo();
     },
 
