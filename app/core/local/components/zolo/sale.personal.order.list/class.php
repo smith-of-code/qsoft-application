@@ -13,8 +13,7 @@ use Bitrix\Main,
 	Bitrix\Main\Loader,
 	Bitrix\Main\Data,
 	Bitrix\Sale,
-	Bitrix\Sale\Cashbox\CheckManager;
-use Bitrix\Sale\Internals\OrderPropsValueTable;
+	Bitrix\Sale\Internals\OrderPropsValueTable;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
@@ -339,11 +338,22 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$this->filteredByPayd = ($filter["payd"] <> '' ? $filter["payd"] : '');
 
-		$this->sortOrder = (mb_strlen($filter["order"]) != "" && $_REQUEST["order"] == "ASC" ? "ASC": "DESC");
+		$this->sortOrder = (mb_strlen($filter["order"]) != "" && $filter["order"] == "ASC" ? "ASC": "DESC");
+
+		$_REQUEST['order_check'] = [
+			$this->sortOrder,
+			mb_strlen($filter["order"]) != "",
+			$_REQUEST["order"] == "ASC"
+		];
 
 		$_REQUEST['check'] = !empty($this->filteredByStatus);
+
 		if (!empty($this->filteredByStatus)) {
 			$arFilter["@STATUS_ID"] = $this->filteredByStatus;
+		}
+
+		if (!empty($this->filteredByPayd)) {
+			$arFilter["PAYED"] = $this->filteredByPayd;
 		}
 
 		if (!empty($this->filteredByPayd)) {
@@ -448,7 +458,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 	 * @return void
 	 */
 	protected function filterStore()
-	{$_REQUEST['tester'] = 1;
+	{
 		if ($this->arParams["SAVE_IN_SESSION"] == "Y" && mb_strlen($_REQUEST["filter"]))
 		{
 			$_SESSION["spo_filter_id"] = $_REQUEST["filter_id"];
@@ -888,6 +898,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		if ($this->sortBy == 'STATUS')
 		{
+			$_REQUEST['test123'] = 1;
 			$getListParams['runtime'] = array(
 				new Main\Entity\ReferenceField(
 					'STATUS',
@@ -904,6 +915,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		}
 		else
 		{
+			$_REQUEST['test123'] = [$this->sortBy => $this->sortOrder];
 			$getListParams['order'] = array($this->sortBy => $this->sortOrder);
 		}
 
@@ -1187,7 +1199,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             $props = OrderPropsValueTable::getList([
                 'filter' => [
                     'CODE' => [
-                        'FIO',
+                        'FIO', 'POINTS'
                     ],
                     '@ORDER_ID' => $orderIdList
                 ],
