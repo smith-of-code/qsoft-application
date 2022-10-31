@@ -23,9 +23,7 @@ else {
 		}
 	}
 }
-
 ?>
-
 
 <h1 class="page__heading">Личный кабинет</h1>
 
@@ -132,11 +130,11 @@ else {
                                     <div class="form__field-block form__field-block--input">
                                         <div class="form__control">
                                             <div class="filter__select select select--mitigate select--small select--squared select--multiple" data-select>
-                                                <select class="select__control" name="select2" data-select-control data-placeholder="Статус заказа" multiple>
+                                                <select class="select__control" name="STATUS" id="STATUS" data-select-control data-placeholder="Статус заказа" multiple>
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Размещен</option>
-                                                    <option value="2">Отменен</option>
-                                                    <option value="3">Доставлен</option>
+                                                    <?php foreach ($arResult['INFO']['STATUS'] as $statusId => $status): ?>
+                                                        <option value="<?=$statusId?>"><?=$status['NAME']?></option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -149,10 +147,11 @@ else {
                                     <div class="form__field-block form__field-block--input">
                                         <div class="form__control">
                                             <div class="filter__select select select--mitigate select--small select--squared" data-select>
-                                                <select class="select__control" name="select2" data-select-control data-placeholder="Статус оплаты">
+                                                <select class="select__control" name="PAYD" id="PAYD" data-select-control data-placeholder="Статус оплаты">
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Оплачен</option>
-                                                    <option value="2">Не оплачен</option>
+                                                    <?php foreach ($arResult['INFO']['PAYD'] as $sortingKey => $title): ?>
+                                                        <option value="<?=$sortingKey?>"><?=$title?></option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -166,13 +165,14 @@ else {
                                         <div class="form__control">
                                             <div class="filter__sort select select--small select--sorting select--borderless" data-select>
                                                 <div class="select__group">
-                                                    <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
+                                                    <select class="select__control" name="SORTING" id="sort" data-select-control data-placeholder="Сортировка">
                                                         <option><!-- пустой option для placeholder --></option>
-                                                        <option value="1">По дате создания</option>
-                                                        <option value="2">По сумме заказа</option>
+                                                        <?php foreach ($arResult['INFO']['SORTING'] as $paydKey => $title): ?>
+                                                            <option value="<?=$paydKey?>"><?=$title?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
         
-                                                    <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                    <button type="button" id="SORTING" class="input__button input__button--select button button--iconed button--covered button--square button--dark asc">
                                                         <span class="button__icon button__icon--medium">
                                                             <svg class="icon icon--sort">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
@@ -190,7 +190,7 @@ else {
                 </div>
                     <section class="orders__section">
                         <div class="cards-order">
-                            <ul class="cards-order__list">
+                            <ul class="cards-order__list" id="order_list">
 
                                 <!-- Карточка заказа -->
                                 <?php foreach ($arResult['ORDERS'] as $order): ?>
@@ -311,21 +311,23 @@ else {
 
                                                                 <ul class="table-list__list">
 
-                                                                    <?php foreach ($order['BASKET_ITEMS'] as $product): ?>
+                                                                    <?php foreach ($order['BASKET_ITEMS'] as $productId => $product): ?>
+                                                                        <!-- TODO: Нужно сделать ссылку на детальную страницу товара -->
+                                                                        <!-- <?//=$product['DETAIL_PAGE_URL']?> - ссылка для детальной страницы товара -->
                                                                         <li class="table-list__item">
 
                                                                             <article class="product-line">
                                                                                 <div class="product-line__inner">
                                                                                     <div class="product-line__info">
                                                                                         <div class="product-line__image">
-                                                                                            <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                                            <img src="<?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
                                                                                         </div>
                                                                                         <div class="product-line__wrapper">
                                                                                             <h2 class="product-line__title">
                                                                                                 <?=$product['NAME']?>
                                                                                             </h2>
                                                                                             <p class="product-line__subtitle">
-                                                                                                Арт. СХ-С-956027
+                                                                                                Арт. <?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['ARTICLE']?>
                                                                                             </p>
                                                                                         </div>
                                                                                     </div>
@@ -978,8 +980,78 @@ else {
     </div>
 </div>
 
-<a href="" id="showMore">Еще</a>
+<a href="" id="click">Еще</a>
 <div id="items"> </div>
+<script>
+    $(document).ready(function () {
+        $('#PAYD').on('select2:close', function(){
+            filteringValues('payd', $(this).val());
+                
+        });
+
+        $('#STATUS').on('select2:close', function(){
+            filteringValues('status', $(this).val());
+        });
+
+        $('#SORTING').on('click', function(){
+            let orderSort = '';
+            if ($('#SORTING').hasClass('asc')) {
+                $(this).removeClass('asc');
+                $(this).addClass('desc');
+                orderSort = 'ASC';
+            } else {
+                $(this).addClass('asc');
+                $(this).removeClass('desc');
+                orderSort = 'DESC';
+            }
+            console.log(orderSort);
+            filteringValues('sorting', $('#sort').val(), orderSort);
+        });
+    });
+
+    function filteringValues(filterType, value, sort = '') {
+        let filter = {
+            by: filterType == 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
+            status: filterType == 'status' ? value: $('#STATUS').val(),
+            payd: filterType == 'payd' ? value: $('#PAYD').val(),
+            order: sort != '' ? sort: 'asc',
+        };
+        
+        console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
+
+        BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
+            mode: 'class',
+            data: {
+                filter:filter
+            }
+        }).then(function (response) {
+            let orders = JSON.parse(response.data);
+            console.log("ok", orders);
+            
+            setData(orders);
+
+        }, function (response) {
+            console.log(123, "err", response.errors);
+        });
+    }
+
+    function setData(data) {
+        $.ajax({
+            method: 'POST',
+            data: {
+                data:data
+            },
+            url: '/ajax/order_list.php',
+            success: function (data) {
+                $('#order_list').empty()
+                $('#order_list').append(data)
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+</script>
 <script>
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;

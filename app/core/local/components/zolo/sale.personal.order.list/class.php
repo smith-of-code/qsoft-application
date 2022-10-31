@@ -315,17 +315,56 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$this->options['USE_ACCOUNT_NUMBER'] = Sale\Integration\Numerator\NumeratorOrder::isUsedNumeratorForOrder();
 	}
 
+	private function prepareNewFilters(array $filter): void
+	{
+		global $USER;
+
+		$arFilter = array();
+		$arFilter["USER_ID"] = $USER->GetID();
+		$arFilter["LID"] = SITE_ID;
+
+		$orderClassName = $this->registry->getOrderClassName();
+		$tableFieldNameList = $orderClassName::getAllFields();
+
+		if (isset($filter["by"]) && strval($filter['by']) != '')
+		{
+			if (!in_array($filter['by'], $tableFieldNameList)) {
+				$filter["by"] = $this->arParams['DEFAULT_SORT'];
+			}
+		}
+
+		$this->sortBy = ($filter["by"] <> '' ? $filter["by"] : $this->arParams['DEFAULT_SORT']);
+
+		$this->filteredByStatus = (count($filter["status"]) <> 0 ? $filter["status"] : []);
+
+		$this->filteredByPayd = ($filter["payd"] <> '' ? $filter["payd"] : '');
+
+		$this->sortOrder = (mb_strlen($filter["order"]) != "" && $_REQUEST["order"] == "ASC" ? "ASC": "DESC");
+
+		$_REQUEST['check'] = !empty($this->filteredByStatus);
+		if (!empty($this->filteredByStatus)) {
+			$arFilter["@STATUS_ID"] = $this->filteredByStatus;
+		}
+
+		if (!empty($this->filteredByPayd)) {
+			$arFilter["PAYED"] = $this->filteredByPayd;
+		}
+
+		$this->filter = $arFilter;
+	}
+
 	/**
 	 * Function processes and corrects $_REQUEST. Everything about $_REQUEST lies here.
 	 * @return void
 	 */
-	protected function processRequest()
+	protected function processRequest(array $filter = [])
 	{
 		$this->requestData["COPY_ORDER"] = ($_REQUEST["COPY_ORDER"] == "Y");
 		$this->requestData["ID"] = urldecode(urldecode($this->arParams["ID"]));
 
 		if($_REQUEST["del_filter"] <> '')
 		{
+			unset($filter);
 			unset($_REQUEST["filter_id"]);
 			unset($_REQUEST["filter_date_from"]);
 			unset($_REQUEST["filter_date_to"]);
@@ -351,13 +390,19 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$orderClassName = $this->registry->getOrderClassName();
 		$tableFieldNameList = $orderClassName::getAllFields();
 
-		if (isset($_REQUEST["by"]) && strval($_REQUEST['by']) != '')
+		if (isset($filter["by"]) && strval($filter['by']) != '')
 		{
-			if (!in_array($_REQUEST['by'], $tableFieldNameList))
-				$_REQUEST["by"] = $this->arParams['DEFAULT_SORT'];
+			if (!in_array($filter['by'], $tableFieldNameList)) {
+				$filter["by"] = $this->arParams['DEFAULT_SORT'];
+			}
 		}
 
-		$this->sortBy = ($_REQUEST["by"] <> ''? $_REQUEST["by"] : $this->arParams['DEFAULT_SORT']);
+		$this->sortBy = ($filter["by"] <> '' ? $filter["by"] : $this->arParams['DEFAULT_SORT']);
+
+		$this->filteredByStatus = ($filter["status"] <> '' ? $filter["status"] : '');
+
+		$this->filteredByPayd = ($filter["by"] <> '' ? $filter["by"] : '');
+
 		$this->sortOrder = (mb_strlen($_REQUEST["order"]) != "" && $_REQUEST["order"] == "ASC" ? "ASC": "DESC");
 
 		$this->prepareFilter();
@@ -403,7 +448,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 	 * @return void
 	 */
 	protected function filterStore()
-	{
+	{$_REQUEST['tester'] = 1;
 		if ($this->arParams["SAVE_IN_SESSION"] == "Y" && mb_strlen($_REQUEST["filter"]))
 		{
 			$_SESSION["spo_filter_id"] = $_REQUEST["filter_id"];
@@ -440,6 +485,14 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			}
 		}
 
+		if (!empty($this->filteredByStatus)) {
+			$arFilter["@STATUS_ID"] = $this->filteredByStatus;
+		}
+
+		if (!empty($this->filteredByStatus)) {
+			$arFilter["PAYED"] = 'Y';
+		}
+
 		if($_REQUEST["filter_date_from"] <> '')
 		{
 			$arFilter[">=DATE_INSERT"] = trim($_REQUEST["filter_date_from"]);
@@ -460,16 +513,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 				$arFilter["<=DATE_INSERT"] = date($DB->DateFormatToPHP($this->dateFormat), mktime($arDate["HH"], $arDate["MI"], $arDate["SS"], $arDate["MM"], $arDate["DD"], $arDate["YYYY"]));
 			}
-		}
-
-		if($_REQUEST["filter_status"] <> '')
-		{
-			$arFilter["STATUS_ID"] = trim($_REQUEST["filter_status"]);
-		}
-
-		if($_REQUEST["filter_payed"] <> '')
-		{
-			$arFilter["PAYED"] = trim($_REQUEST["filter_payed"]);
 		}
 
 		if (!isset($_REQUEST['show_all']) || $_REQUEST['show_all'] == 'N')
@@ -939,8 +982,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$basketClassName = $this->registry->getBasketClassName();
 
-		// dump($basketClassName::loadItemsForOrder(21));
-
 
 
 		/** @var Main\DB\Result $listBaskets */
@@ -956,17 +997,38 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 				continue;
 			$listOrderBasket[$basket['ORDER_ID']][$basket['ID']] = $basket;
 			$productIds[] = $basket['PRODUCT_ID'];
+			$productByOrderIds[$basket['ORDER_ID']][$basket['PRODUCT_ID']] = $basket['PRODUCT_ID'];
 		}
 
-		$ids = [ "390", "562", "600",];
+		$cibegl = CIBlockElement::GetList(
+			[],
+			['ID' => array_unique($productIds)],
+			false,
+			false,
+			[
+				'*', 'PROPERTY_ARTICLE', 'PROPERTY_IMAGES',
+			]
+		);
 
-		$product = CCatalogProduct::GetList([], ['IBLOCK_ID' => 134, 'ID' => $productIds], false, false, []);
-
-		while ($row = $product->Fetch()) {
-			dump($row);
+		while ($r = $cibegl->Fetch()) {
+			$imageId = $r['PROPERTY_IMAGES_VALUE'][0];
+			$productInfo[$r['ID']] = [
+				'ARTICLE' => $r['PROPERTY_ARTICLE_VALUE'],
+				'IMAGES_ID' => $imageId,
+			];
+			$imgIds[$imageId] = $imageId;
 		}
 
-		// dump($product);
+		$images = $this->getImageUrl($imgIds ?? []);
+
+		foreach ($productByOrderIds as $orderId => $product) {
+			foreach ($product as $productId) {
+				if ($productInfo[$productId]) {
+					$productInfo[$productId]['IMAGE_SRC'] = $images[$productInfo[$productId]['IMAGES_ID']];
+				}
+				$productAdditionalInfo[$orderId][$productId] = $productInfo[$productId];
+			}
+		}
 
 		$trackingManager = Sale\Delivery\Tracking\Manager::getInstance();
 
@@ -1063,6 +1125,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 				"BASKET_ITEMS" => $listOrderBasket[$orderId],
 				"SHIPMENT" => $listOrderShipment[$orderId],
 				"PAYMENT" => $listOrderPayment[$orderId],
+				"PRODUCT_ADDITIONAL_DATA" => $productAdditionalInfo[$orderId]
 			);
 		}
 	}
@@ -1100,6 +1163,17 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$firstName = mb_substr(mb_convert_case($firstName, MB_CASE_TITLE, 'UTF-8'), 0, 1) ?? '';
 
 		return $lastName . ' ' . $firstName . ' ' . $secondName;
+	}
+
+	private function getImageUrl(array $imgIds): array
+	{
+		$bdResult = CFile::GetList([], ['@ID' => implode(',', $imgIds)]);
+
+		while ($file = $bdResult->Fetch()){
+			$urls[$file['ID']] = CFile::GetFileSRC($file);
+		}
+		
+		return $urls ?? [];
 	}
 
     /**
@@ -1153,6 +1227,15 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$arResult["INFO"]["PAY_SYSTEM"] = $this->dbResult['PAYSYS'];
 		$arResult["INFO"]["DELIVERY"] = $this->dbResult['DELIVERY'];
 		$arResult["INFO"]["DELIVERY_HANDLERS"] = $this->dbResult['DELIVERY_HANDLERS'];
+		$arResult["INFO"]["SORTING"] = [
+			'DATE' => 'По дате создания',
+			'PRICE' => 'По сумме заказа',
+		];
+		$arResult["INFO"]["PAYD"] = [
+			'Y' => 'Оплачен',
+			'N' => 'Не оплачен',
+		];
+
 
 		$arResult["CURRENT_PAGE"] = $APPLICATION->GetCurPage();
 		$arResult["NAV_STRING"] = $this->dbQueryResult['ORDERS']->GetPageNavString(Localization\Loc::getMessage("SPOL_PAGES"), $this->arParams["NAV_TEMPLATE"]);
@@ -1481,6 +1564,31 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             'orders' => $this->arResult["ORDERS"],
             'last' => $this->isLastPage,
             'offset' => ($this->page + 1)
+        ]);
+    }
+
+    /**
+     * AJAX - Фильтрация страницы
+     * @return false|string
+     * @throws Main\SystemException
+     */
+    public function reloadDataAction($filter)
+    {
+        $this->checkRequiredModules();
+        $this->setRegistry();
+        $this->prepareNewFilters($filter);
+        $this->obtainData();
+        $this->formatResult();
+        return json_encode([
+            'orders' => $this->arResult["ORDERS"],
+            'last' => $this->isLastPage,
+            'test' => $filter,
+            'test2' => $this->filter,
+            'test3' => $_SESSION,
+            'test4' => $_REQUEST,
+            'test5' => $this->arParams,
+            'test5' => $this->options,
+			'test6' => $this->filter
         ]);
     }
 
