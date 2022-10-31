@@ -75,23 +75,4 @@
     &__footer {
         flex-shrink: 0;
     }
-
-    &__heading {
-
-        &--notification {
-            display: none;
-
-            @media #{$screen-desktop} {
-                display: block;
-            }
-        }  
-    }
-
-    &__private--notification & {
-        &__breadcrumbs {
-            @media #{$screen-desktop} {
-                display: none;
-            }
-        }
-    }
 }

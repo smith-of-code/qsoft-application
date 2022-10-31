@@ -160,8 +160,7 @@
             &-control {
                 @media #{$screen-desktop} {
                     border-color: #f2f1f4;
-                    border-radius: rem($border-radius-small);
-                    background-color: $white;
+                    background-color: #f2f1f4;
     
                     &:focus {
                         border-color: #f2f1f4;
