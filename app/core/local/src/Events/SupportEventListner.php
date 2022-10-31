@@ -73,6 +73,10 @@ class SupportEventListner
             default:
                 break;
         }
+
+        //Добавить уведомление
+        $notifier = new SupportTicketUpdateNotifier($ticketValues);
+        (new User())->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**
