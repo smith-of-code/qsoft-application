@@ -171,6 +171,7 @@ class User
         'EMAIL' => 'email',
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
+        'PERSONAL_CITY' => 'city',
         'PERSONAL_PHOTO' => 'photo',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
@@ -279,6 +280,23 @@ class User
         $this->setObjectProperties($bitrixFields);
 
         return $this->cUser->Update($this->id, $bitrixFields);
+    }
+
+    public function getPersonalData(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->name,
+            'last_name' => $this->lastName,
+            'second_name' => $this->secondName,
+            'gender' => $this->gender,
+            'photo' => $this->getPhotoUrl(),
+            'loyalty_level' => $this->loyaltyLevel,
+            'birthdate' => $this->birthday->format('d.m.Y'),
+            'email' => $this->email,
+            'phone' => $this->login,
+            'city' => $this->city,
+        ];
     }
 
     protected function setObjectProperties(array $bitrixFields): void

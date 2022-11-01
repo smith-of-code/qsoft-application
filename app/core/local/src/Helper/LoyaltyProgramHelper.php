@@ -2,6 +2,7 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
@@ -37,6 +38,20 @@ class LoyaltyProgramHelper
     public function getConfiguration()
     {
         return app('config')->get($this->configPath);
+    }
+
+    public function getCurrentAccountingPeriod(): array
+    {
+        $currentDate = new Date;
+        $currentQuarter = intdiv((int) $currentDate->format('m'), 3) + 1;
+
+        $startPeriod = $currentQuarter + ($currentQuarter - 1) * 2;
+        $endPeriod = $startPeriod + 2;
+
+        return [
+            'from' => new DateTime($currentDate->format("d.$startPeriod.Y")),
+            'to' => new DateTime($currentDate->format("d.$endPeriod.Y")),
+        ];
     }
 
     /**
