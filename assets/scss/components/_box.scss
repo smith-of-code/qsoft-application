@@ -76,6 +76,8 @@
     &__heading {
         margin-bottom: rem(20px);
 
+        letter-spacing: 0.02em;
+
         @media #{$screen-tablet} {
             margin-bottom: rem($gap-normal);
         }
