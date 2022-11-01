@@ -251,6 +251,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 }
             }
         }
+
         try {
             $currentUser = new User;
         } catch (\Exception $e) {}

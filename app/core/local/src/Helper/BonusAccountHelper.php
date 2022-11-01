@@ -6,6 +6,7 @@ use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
+use QSoft\Helper\TransactionsHelper;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
