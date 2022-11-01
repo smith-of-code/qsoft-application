@@ -1,63 +1,45 @@
-
-function nextNotifications() {
-    limit = BASE_LIMIT;
-    loadNotifications();
-}
-
-function filterNotifications(status) {
-    filter['status'] = status;
-    limit = Math.max(limit, offset);
-    offset = 0;
-    loadNotifications();
-}
-
-function loadNotifications() {
-    BX.ajax.runComponentAction('zolo:sale.personal.notifications.list', 'loadNotifications', {
-        mode: 'class',
-        data: {
-            offset: offset,
-            limit: limit,
-            filter: filter
-        }
-    }).then(function (response) {
-        console.log(response);
-        if(offset === 0) {
-            replace(response['data']['NOTIFICATIONS']);
-        } else {
-            attach(response['data']['NOTIFICATIONS']);
-        }
-        offset = response['data']['OFFSET'];
-    }, function (response) {
-        //console.log(response);
-        alert("Ошибка при вызове метода компонента-контроллера")
-    });
-}
-
-//прочитать уведомление
-function readMessage() {
-    let notificationId = document.getElementById("notificationIdInput").value;
-    BX.ajax.runComponentAction('zolo:sale.personal.notifications.list', 'readMessage', {
-        mode: 'class',
-        data: {
-            notificationId: notificationId
-        }
-    }).then(function (response) {
-        console.log(response);
-        let status = document.getElementById(notificationId);
-        status.innerHTML = "Статус уведомления: " + response['data']['status'];
-    }, function (response) {
-        console.log(response);
-        alert("Ошибка при вызове метода компонента-контроллера")
-    });
-}
-
-function replace(notifications) {
-    document.getElementById("notificationList").innerHTML = '';
-    attach(notifications);
+  window.onload = function () {
+        let moreNotificationsButton = document.querySelector('.notifications__button-more');
+        moreNotificationsButton.addEventListener('click', function () {
+            limit = BASE_LIMIT;
+            BX.ajax.runComponentAction('zolo:sale.personal.notifications.list', 'loadNotifications', {
+                mode: 'class',
+                data: {
+                    offset: offset,
+                    limit: limit,
+                    filter: filter
+                }
+            }).then(function (response) {
+                console.log(response);
+                if(offset === 0) {
+                    replace(response['data']['NOTIFICATIONS']);
+                } else {
+                    attach(response['data']['NOTIFICATIONS']);
+                }
+                offset = response['data']['OFFSET'];
+            }, function (response) {
+                //console.log(response);
+                alert("Ошибка при вызове метода компонента-контроллера")
+            });
+        })
 }
 
 function attach(notifications) {
     for (let i = 0; i < Object.keys(notifications).length; i++) {
+        //установить цвет уведомления
+        let item = document.querySelector('.cards-notify__item').cloneNode(true).getElement();
+        let noteItemElement = item.querySelector('.card-notify');
+        noteItemElement.className = "";
+        let colorClass = "card-notify--" + notifications[i]['STATUS'] === "прочитано" ? "green" : "orange";
+        noteItemElement.classList.add(["cards-notify__item", colorClass]);
+        //добавить данные уведомления
+        item.querySelector('.card-notify__title').innerHTML = notifications[i]['TITLE'];
+        item.querySelector('.card-notify__message').innerHTML = notifications[i]['MESSAGE'];
+        item.querySelector('.card-notify__send-date').innerHTML = notifications[i]['DATE'];
+        item.querySelector('.card-notify__send-time').innerHTML = notifications[i]['TIME'];
+        item.querySelector('.card-notify__status-text').innerHTML = notifications[i]['STATUS'];
+        document.querySelector('.notifications__list').appendChild(item);
+        /*
         let div = document.createElement('div');
         // div.setAttribute("id", notifications[i]['ID'] + "_div");
         div.innerHTML += "Уведомление:" + "<br>";
@@ -75,5 +57,6 @@ function attach(notifications) {
         div.appendChild(notificationStatus);
 
         document.getElementById("notificationList").appendChild(div);
+         */
     }
 }
