@@ -19,6 +19,9 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 		}
 	}
 }
+
+$this->addExternalJS($this->GetFolder(). "/script.js"); 
+
 if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
 <h1 class="page__heading"><?=$APPLICATION->showTitle() ?></h1>
@@ -182,7 +185,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
-                                                        <div class="accordeon__header" data-accordeon-toggle>
+                                                        <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
                                                             <h6 class="accordeon__title">Состав заказа</h6>
 
                                                             <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
@@ -196,8 +199,8 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                         </div>
 
                                                         <div class="accordeon__body" data-accordeon-content>
-                                                            
-                                                            <div class="table-list">
+                            
+                                                            <div class="table-list" data-list-id="<?=$order['ORDER']['ID'] ?>">
                                                                 <div class="table-list__head">
                                                                     <div class="table-list__cell">
                                                                         <p class="table-list__name">
@@ -220,69 +223,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                         </p>
                                                                     </div>
                                                                 </div>
-
-                                                                <ul class="table-list__list">
-
-                                                                    <?php foreach ($order['BASKET_ITEMS'] as $productId => $product): ?>
-                                                                        <!-- <?//=$product['DETAIL_PAGE_URL']?> - ссылка для детальной страницы товара -->
-                                                                        <li class="table-list__item">
-
-                                                                            <article class="product-line">
-                                                                                <div class="product-line__inner">
-                                                                                    <div class="product-line__info">
-                                                                                        <div class="product-line__image">
-                                                                                            <img src="<?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
-                                                                                        </div>
-                                                                                        <div class="product-line__wrapper">
-                                                                                            <h2 class="product-line__title">
-                                                                                                <?=$product['NAME']?>
-                                                                                            </h2>
-                                                                                            <p class="product-line__subtitle">
-                                                                                                Арт. <?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['ARTICLE']?>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="product-line__characteristic">
-                                                                                        <ul class="product-line__list">
-                                                                                            <li class="product-line__params product-line__params--span">
-                                                                                                <p class="product-line__text">
-                                                                                                    <span class="product-line__params-name">
-                                                                                                        Цена:
-                                                                                                    </span>
-                                                                                                    <span class="product-line__params-value">
-                                                                                                <?=number_format($product['PRICE'], 2, '.', ' ')?> ₽
-                                                                                                    </span>
-                                                                                                </p>
-                                                                                            </li> 
-                                                                                            <li class="product-line__params">
-                                                                                                <p class="product-line__text">
-                                                                                                    <span class="product-line__params-name">
-                                                                                                        Количество:
-                                                                                                    </span>
-                                                                                                    <span class="product-line__params-value">
-                                                                                                <?=$product['QUANTITY']?>
-                                                                                                    </span>
-                                                                                                </p>
-                                                                                            </li> 
-                                                                                            <li class="product-line__params product-line__params--bold">
-                                                                                                <p class="product-line__text">
-                                                                                                    <span class="product-line__params-name">
-                                                                                                        Сумма баллов:
-                                                                                                    </span>
-                                                                                                    <span class="product-line__params-value">
-                                                                                                    <?=$product['POINTS'] ?? 0?> ББ
-                                                                                                    </span>
-                                                                                                </p>
-                                                                                            </li> 
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </article>
-
-                                                                        </li>
-                                                                    <?php endforeach; ?>
-
-                                                                </ul>
                                                             </div>
 
                                                         </div>
@@ -329,6 +269,13 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             console.log(orderSort);
             filteringValues('sorting', $('#sort').val(), orderSort);
         });
+
+        $('div').one('click', function () {
+            if ($(this).attr('button-id') !== undefined) {
+                getBasketData($(this).attr('button-id'));
+            }
+        });
+
     });
 
     function filteringValues(filterType, value, sort = '') {
@@ -363,10 +310,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
     showMore.onclick = function (e) {
         let filter = {
-            by: filterType == 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
-            status: filterType == 'status' ? value: $('#STATUS').val(),
-            payd: filterType == 'payd' ? value: $('#PAYD').val(),
-            order: sort != '' ? sort: 'asc',
+            by:  $('#sort').val(),
+            status:  $('#STATUS').val(),
+            payd:  $('#PAYD').val(),
+            order: $('#SORTING').hasClass('desc') ? 'desc' : 'asc',
         };
         console.log('TT');
         e.preventDefault();
@@ -383,7 +330,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             console.log("ok", orders);
             offset = orders.offset;
             if (orders.last) {
-                showMore.innerHTML = 'Заказы закончились';
+                showMore.style.cssText = 'display:none;';
             } else {
                 setData(orders);
             }
@@ -401,6 +348,46 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             url: '/ajax/order_list.php',
             success: function (data) {
                 $('#order_list').append(data)
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    function getBasketData(orderId) {
+        console.log(orderId);
+        BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'loadBasktet', {
+            mode: 'class',
+            data: {
+                orderId: orderId,
+            }
+        }).then(function (response) {
+            let basket = JSON.parse(response.data);
+
+            console.log("ok", basket.basket);
+
+            setBasketList(basket.basket, orderId);
+
+            // if (orders.last) {
+            //     showMore.innerHTML = 'Заказы закончились';
+            // } else {
+            //     setData(orders);
+            // }
+        }, function (response) {
+            console.log("err", response.errors);
+        });
+    }
+
+    function setBasketList(data, orderId) {
+        $.ajax({
+            method: 'POST',
+            data: {
+                data: data
+            },
+            url: '/ajax/order_basket_list.php',
+            success: function (data) {
+                $('div[data-list-id= ' + orderId + ']').append(data)
             },
             error: function (error) {
                 console.log(error);

@@ -1,6 +1,4 @@
-
 <?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
-
 $arResult = $_REQUEST['data']['orders'];
 ?>
 <!-- Карточка заказа -->
@@ -81,7 +79,7 @@ $arResult = $_REQUEST['data']['orders'];
 
                 <div class="card-order__content">
                     <div class="accordeon__item box" data-accordeon>
-                        <div class="accordeon__header" data-accordeon-toggle>
+                        <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
                             <h6 class="accordeon__title">Состав заказа</h6>
 
                             <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
@@ -95,8 +93,8 @@ $arResult = $_REQUEST['data']['orders'];
                         </div>
 
                         <div class="accordeon__body" data-accordeon-content>
-                            
-                            <div class="table-list">
+
+                            <div class="table-list" data-list-id="<?=$order['ORDER']['ID'] ?>">
                                 <div class="table-list__head">
                                     <div class="table-list__cell">
                                         <p class="table-list__name">
@@ -119,70 +117,6 @@ $arResult = $_REQUEST['data']['orders'];
                                         </p>
                                     </div>
                                 </div>
-
-                                <ul class="table-list__list">
-
-                                    <?php foreach ($order['BASKET_ITEMS'] as $productId => $product): ?>
-                                        <!-- TODO: Нужно сделать ссылку на детальную страницу товара -->
-                                        <!-- <?//=$product['DETAIL_PAGE_URL']?> - ссылка для детальной страницы товара -->
-                                        <li class="table-list__item">
-
-                                            <article class="product-line">
-                                                <div class="product-line__inner">
-                                                    <div class="product-line__info">
-                                                        <div class="product-line__image">
-                                                            <img src="<?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
-                                                        </div>
-                                                        <div class="product-line__wrapper">
-                                                            <h2 class="product-line__title">
-                                                                <?=$product['NAME']?>
-                                                            </h2>
-                                                            <p class="product-line__subtitle">
-                                                                Арт. <?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['ARTICLE']?>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-line__characteristic">
-                                                        <ul class="product-line__list">
-                                                            <li class="product-line__params product-line__params--span">
-                                                                <p class="product-line__text">
-                                                                    <span class="product-line__params-name">
-                                                                        Цена:
-                                                                    </span>
-                                                                    <span class="product-line__params-value">
-                                                                <?=number_format($product['PRICE'], 2, '.', ' ')?> ₽
-                                                                    </span>
-                                                                </p>
-                                                            </li> 
-                                                            <li class="product-line__params">
-                                                                <p class="product-line__text">
-                                                                    <span class="product-line__params-name">
-                                                                        Количество:
-                                                                    </span>
-                                                                    <span class="product-line__params-value">
-                                                                <?=$product['QUANTITY']?>
-                                                                    </span>
-                                                                </p>
-                                                            </li> 
-                                                            <li class="product-line__params product-line__params--bold">
-                                                                <p class="product-line__text">
-                                                                    <span class="product-line__params-name">
-                                                                        Сумма баллов:
-                                                                    </span>
-                                                                    <span class="product-line__params-value">
-                                                                        436 ББ
-                                                                    </span>
-                                                                </p>
-                                                            </li> 
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </article>
-
-                                        </li>
-                                    <?php endforeach; ?>
-
-                                </ul>
                             </div>
 
                         </div>
@@ -194,3 +128,10 @@ $arResult = $_REQUEST['data']['orders'];
     </li>
 <?php endforeach; ?>
 <!-- Карточка заказа -->
+<script>
+    $('div').one('click', function () {
+        if ($(this).attr('button-id') !== undefined) {
+            getBasketData($(this).attr('button-id'));
+        }
+    });
+</script>

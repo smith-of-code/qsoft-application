@@ -1587,6 +1587,46 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
     }
 
     /**
+     * AJAX - Загрузка корзины
+     * @return false|string
+     * @throws Main\SystemException
+     */
+    public function loadBasktetAction($orderId)
+    {
+        $this->checkRequiredModules();
+        $this->setRegistry();
+
+        return json_encode([
+            'basket' => $this->getBasketByOrderId($orderId),
+        ]);
+    }
+	
+	private function getBasketByOrderId($orderId)
+	{
+		$basketClassName = $this->registry->getBasketClassName();
+
+		/** @var Main\DB\Result $listBaskets */
+		$listBaskets = $basketClassName::getList(array(
+			'select' => array("*"),
+			'filter' => array("ORDER_ID" => $orderId),
+			'order' => array('NAME' => 'asc')
+		));
+
+		while ($basket = $listBaskets->fetch())
+		{
+			if (CSaleBasketHelper::isSetItem($basket)) {
+				continue;
+			}
+
+			$listOrderBasket[$basket['ID']] = $basket;
+			$productIds[] = $basket['PRODUCT_ID'];
+			$productByOrderIds[$basket['ORDER_ID']][$basket['PRODUCT_ID']] = $basket['PRODUCT_ID'];
+		}
+
+		return $listOrderBasket ?? [];
+	}
+
+    /**
      * AJAX - Фильтрация страницы
      * @return false|string
      * @throws Main\SystemException
