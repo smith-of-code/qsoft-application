@@ -1,6 +1,7 @@
 <?
 use Bitrix\Main\Loader;
 use Bitrix\Main\Text\Encoding;
+use QSoft\Entity\User;
 use QSoft\Service\UserGroupsService;
 use QSoft\Service\UserService;
 
