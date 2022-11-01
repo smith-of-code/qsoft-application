@@ -3,7 +3,7 @@
         font-size: rem($font-size-middle);
         line-height: ($line-height-middle/$font-size-middle);
 
-        margin-bottom: rem($gap-medium);
+        margin-bottom: rem($gap-normal);
 
         @media #{$screen-tablet} {
             display: none;

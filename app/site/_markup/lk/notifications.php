@@ -25,8 +25,8 @@
                             <li class="breadcrumbs__item">
                                 <a href="#" class="breadcrumbs__link">Главная</a>
                             </li>
-                            <li class="breadcrumbs__item">
-                                <a href="#" class="breadcrumbs__link">Уведомления</a>
+                            <li class="breadcrumbs__item breadcrumbs__item--active">
+                                <a class="breadcrumbs__link">Уведомления</a>
                             </li>
                         </ul>
                     </div>
