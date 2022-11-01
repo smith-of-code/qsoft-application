@@ -32,3 +32,5 @@ $eventManager->addEventHandler('support', 'OnAfterTicketAdd', [new SupportEventL
 /**
  * техподдержка конец.
  */
+
+$eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [\QSoft\BasketRules\LoyaltyLevelEquals::class, 'GetControlDescr']);

@@ -33,8 +33,6 @@ class ProductProvider extends CatalogProvider
             $priceTypes[] = $userPriceCode;
         }
 
-        dump($priceTypes);
-
         $dbPrices = PriceTable::getList([
             'filter' => [
                 '=PRODUCT_ID' => array_keys($basketItemsByOffers),
@@ -61,14 +59,7 @@ class ProductProvider extends CatalogProvider
 
         $productsData = $this->calculateDiscountPrice($productsData);
 
-//        dd($productsData);
-
         $products->setData([SaleProviderBase::SUMMMARY_PRODUCT_LIST => $productsData]);
-
-        dump([
-            '$products' => $products,
-            'bt' => debug_backtrace()
-        ]);
 
         return $products;
     }
