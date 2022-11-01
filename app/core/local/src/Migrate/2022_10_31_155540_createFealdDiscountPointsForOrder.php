@@ -61,10 +61,6 @@ final class createFealdDiscountPointsForOrder extends Migration
      */
     protected function includeIBlockModule(): void
     {
-        if (!\CModule::IncludeModule('iblock')) {
-            throw new \RuntimeException('Не удалось подключить модуль iblock');
-        }
-
         if (!\CModule::IncludeModule('sale')) {
             throw new \RuntimeException('Не удалось подключить модуль iblock');
         }

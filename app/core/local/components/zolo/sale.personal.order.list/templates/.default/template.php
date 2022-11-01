@@ -364,13 +364,20 @@ else {
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
 
     showMore.onclick = function (e) {
+        let filter = {
+            by: filterType == 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
+            status: filterType == 'status' ? value: $('#STATUS').val(),
+            payd: filterType == 'payd' ? value: $('#PAYD').val(),
+            order: sort != '' ? sort: 'asc',
+        };
         console.log('TT');
         e.preventDefault();
         BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'load', {
             mode: 'class',
             data: {
                 offset: offset,
-                limit: size
+                limit: size,
+                filter: filter
             }
         }).then(function (response) {
             let orders = JSON.parse(response.data);

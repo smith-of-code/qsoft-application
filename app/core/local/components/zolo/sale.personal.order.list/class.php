@@ -314,6 +314,14 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		$this->options['USE_ACCOUNT_NUMBER'] = Sale\Integration\Numerator\NumeratorOrder::isUsedNumeratorForOrder();
 	}
 
+	/**
+	 * [Description for prepareNewFilters]
+	 *
+	 * @param array $filter
+	 * 
+	 * @return void
+	 * 
+	 */
 	private function prepareNewFilters(array $filter): void
 	{
 		global $USER;
@@ -374,7 +382,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		if($_REQUEST["del_filter"] <> '')
 		{
-			unset($filter);
 			unset($_REQUEST["filter_id"]);
 			unset($_REQUEST["filter_date_from"]);
 			unset($_REQUEST["filter_date_to"]);
@@ -1564,11 +1571,11 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
      * @return false|string
      * @throws Main\SystemException
      */
-    public function loadAction()
+    public function loadAction($filter)
     {
         $this->checkRequiredModules();
         $this->setRegistry();
-        $this->processRequest();
+        $this->processRequest($filter);
         $this->obtainData();
         $this->formatResult();
 
