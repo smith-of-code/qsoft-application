@@ -166,6 +166,13 @@
     }
 
     &--white & {
+        &__list {
+            padding: 0;
+            
+            border-radius: rem($border-radius-big);
+            background-color: $white;
+        }
+
         &__items {
             width: max-content;
             padding: rem($gap-mini);

@@ -1358,12 +1358,12 @@
                                             <div class="accounting__tabs tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
                                                 <nav class="accounting__tabs-items tabs__items">
                                                     <ul class="tabs__list">
-                                                        <li class="accounting__tabs-item tabs__item tabs__item--active" data-tab="block1">
+                                                        <li class="accounting__tabs-item tabs__item tabs__item--active" data-tab="consultants">
                                                             Консультанты
                                                             <span>(6)</span>
                                                         </li>
 
-                                                        <li class="accounting__tabs-item tabs__item" data-tab="block2">
+                                                        <li class="accounting__tabs-item tabs__item" data-tab="buyers">
                                                             Покупатели
                                                             <span>(28)</span>
                                                         </li>
@@ -1372,7 +1372,7 @@
 
                                                 <div class="tabs__body">
                                                     <!--Консультанты-->
-                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="consultants">
                                                         <div class="accounting__block">
                                                             <div class="accounting__filter content__filter filter filter--content">
                                                                 <form class="form form--wraped form--separated form--wraped-small">
@@ -5155,7 +5155,7 @@
                                                     <!--/Консультанты-->
 
                                                     <!--Покупатели-->
-                                                    <div class="tabs__block" data-tab-section="block2">
+                                                    <div class="tabs__block" data-tab-section="buyers">
                                                         <div class="accounting__block">
                                                             <div class="accounting__filter content__filter filter filter--content">
                                                                 <form class="form form--wraped form--separated form--wraped-small">
