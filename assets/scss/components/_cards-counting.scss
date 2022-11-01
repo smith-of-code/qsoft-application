@@ -1,0 +1,31 @@
+.cards-counting {
+    &--double & {
+        &__item {
+            @media #{$screen-desktop} {
+                flex-basis: percentage(1 / 2);
+            }
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-average) rem(-10px) 0;
+    }
+
+    &__item {
+        flex-basis: 100%;
+
+        margin-top: rem($gap-average);
+        padding: 0 rem(10px);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 2);
+        }
+
+        @media #{$screen-desktop} {
+            flex-basis: percentage(1 / 3);
+        }
+    }
+}
