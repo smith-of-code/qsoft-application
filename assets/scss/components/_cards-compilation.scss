@@ -1,0 +1,65 @@
+.cards-compilation {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-medium) 0 0;
+
+        @media #{$screen-tablet} {
+            margin: rem(-20px) rem(-10px) 0;
+        }
+
+        @media #{$screen-desktop} {
+            $gap: 30px;
+            
+            display: grid;
+            grid-template: repeat(2, 1fr) / percentage(470px / ($width-container - $gap * 2)) percentage(270px / ($width-container - $gap * 2)) percentage(370px / ($width-container - $gap * 2));
+
+            margin: rem(-$gap) rem(-15px) 0;
+        }
+    }
+
+    &__item {
+        flex-basis: 100%;
+
+        margin-top: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 2);
+
+            margin-top: rem(20px);
+            padding: 0 rem(10px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(30px);
+            padding: 0 rem(15px);
+        }
+
+        &--business {
+            grid-row: 1 / 3;
+            grid-column: 1 / 2;
+        }
+
+        &--sale {
+            grid-row: 1 / 3;
+            grid-column: 2 / 3;
+        }
+
+        &--compilation {
+            grid-row: 1 / 2;
+            grid-column: 3 / 4;
+        }
+        
+        &--selection {
+            grid-row: 2 / 3;
+            grid-column: 3 / 4;
+        }
+
+        &--extra {
+            @media #{$screen-tablet} {
+                min-height: rem(470px);
+            }
+        }
+    }
+}
