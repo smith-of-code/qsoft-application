@@ -1907,7 +1907,202 @@ $APPLICATION->setTitle('Личный Кабинет');?>
             Фото: <img src="<?=$mentor['PERSONAL_PHOTO_URL']?>"><br>
         </div>
     </div>
-    <div style="background: grey; margin: 5px;">Система лояльности</div>
+<?php /* БЛОК СИСТЕМА ЛОЯЛЬНОСТИ */ ?>
+    <div class="loyalty_container">
+        <div style="background: grey; margin: 5px; width: 100%;">
+            <span class="block_title"><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_TITLE')?></span>
+            <span style="font-weight: bold;">
+                <?=Loc::getMessage(
+                    'PROFILE_PAGE_LOYALTY_SYSTEM_CURRENT_QUARTER',
+                    [
+                        '#QUARTER#' => \QSoft\Service\DateTimeService::getQuarterFormatted(),
+                        '#YEAR#' => \Carbon\Carbon::now()->year
+                    ]
+                )?>
+            </span>
+        </div>
+        <?php if (! empty($arResult['LOYALTY_INFO'])) :?>
+            <?php if ($arResult['USER_GROUP'] == 'Консультант') :?>
+
+                <?php /* БЛОК "ДОСТИЖЕНИЯ" */?>
+                <div style="display: flex; flex-direction: row;">
+                    <div style="display: flex; flex-direction: column; height: 100px; background-color: #daf5e8">
+                        <div><?=$arResult['LOYALTY_INFO']['CURRENT_LEVEL']?></div>
+                        <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_LEVEL')?></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; height: 100px; background-color: #fdd1d8">
+                        <div><?=$arResult['LOYALTY_INFO']['PERSONAL_DISCOUNT'] . '%'?></div>
+                        <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_DISCOUNT')?></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; height: 100px; background-color: #dccee2">
+                        <div><?=$arResult['LOYALTY_INFO']['CURRENT_AMOUNT_OF_BONUSES']?></div>
+                        <div>
+                            <?=Loc::getMessage(
+                                'PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_BONUSES',
+                                [
+                                    '#QUARTER#' => \QSoft\Service\DateTimeService::getQuarterFormatted(),
+                                    '#YEAR#' => \Carbon\Carbon::now()->year
+                                ]
+                            )?>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <?php /* БЛОК "ПЛАНОВЫЕ ПОКАЗАТЕЛИ" */ ?>
+                <div style="display: flex; flex-direction: row;">
+
+                    <?php /* КАРТОЧКА УСЛОВИЙ УДЕРЖАНИЯ УРОВНЯ */ ?>
+                    <div style="display: flex; flex-direction: column; height: 150px; background-color: #daf5e8">
+                        <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_RETENTION_PERSONAL_PURCHASES')?></div>
+                        <div>
+                            <div>
+                                <?=Loc::getMessage(
+                                    'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT',
+                                    [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES'],
+                                    ]
+                                )?>
+                            </div>
+                            <div>
+                                <?=Loc::getMessage(
+                                    'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT_PLAN',
+                                    [
+                                        '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'],
+                                    ]
+                                )?>
+                            </div>
+                            <?php if ($arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] > 0) : ?>
+                            <div>
+                                <?=Loc::getMessage(
+                                    'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_LEFT',
+                                    [
+                                        '#AMOUNT#' => $arResult['LOYALTY_INFO']['CURRENT_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'],
+                                    ]
+                                )?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <div>
+                            <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_RETENTION_TERMS')?>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php /* КАРТОЧКА УСЛОВИЙ ПОВЫШЕНИЯ УРОВНЯ */ ?>
+                    <?php if (isset($arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS'])): ?>
+                        <div style="display: flex; flex-direction: column; height: 150px; background-color: #fdd1d8">
+                            <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_ELEVATION_PERSONAL_PURCHASES')?></div>
+                            <div>
+                                <div>
+                                    <?=Loc::getMessage(
+                                        'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT',
+                                        [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'],
+                                        ]
+                                    )?>
+                                </div>
+                                <div>
+                                    <?=Loc::getMessage(
+                                        'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT_PLAN',
+                                        [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'],
+                                        ]
+                                    )?>
+                                </div>
+                                <?php if ($arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] > 0) : ?>
+                                <div>
+                                    <?=Loc::getMessage(
+                                        'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_LEFT',
+                                        [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'],
+                                        ]
+                                    )?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_ELEVATION_TERMS')?>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <?php /* Показываем карточку "Вами достигнут максимальный уровень"*/ ?>
+                        <div>
+                            <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_MAX_LEVEL_REACHED')?>
+                        </div>
+                    <?php endif; ?>
+
+                </div>
+                <br>
+                <?php /* БЛОК "ПРЕИМУЩЕСТВА АККАУНТОВ РАЗНОГО УРОВНЯ" */ ?>
+                <div style="display: flex; flex-direction: row;">
+                </div>
+            <?php elseif ($arResult['USER_GROUP'] == 'Покупатель') :?>
+
+                <div style="display: flex; flex-direction: row;">
+                    <?php /* КАРТОЧКА ПЕРСОНАЛЬНОЙ СКИДКИ */ ?>
+                    <div style="display: flex; flex-direction: column; height: 150px; background-color: #d1ddfd">
+                        <div><?=$arResult['LOYALTY_INFO']['PERSONAL_DISCOUNT'] . '%'?></div>
+                        <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_ACHIEVEMENTS_DISCOUNT')?></div>
+                    </div>
+
+                    <?php /* КАРТОЧКА УСЛОВИЙ ПОВЫШЕНИЯ УРОВНЯ */ ?>
+                    <div style="display: flex; flex-direction: column; height: 150px; background-color: #fdd1d8">
+                        <?php if (isset($arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS'])): ?>
+                            <div><?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_DISCOUNT_ELEVATION')?></div>
+                            <div>
+                                <div>
+                                    <?=Loc::getMessage(
+                                        'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT',
+                                        [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'],
+                                        ]
+                                    )?>
+                                </div>
+                                <div>
+                                    <?=Loc::getMessage(
+                                        'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_AMOUNT_PLAN',
+                                        [
+                                            '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'],
+                                        ]
+                                    )?>
+                                </div>
+                                <?php if ($arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] > 0) : ?>
+                                    <div>
+                                        <?=Loc::getMessage(
+                                            'PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_LEVEL_LEFT',
+                                            [
+                                                '#AMOUNT#' => $arResult['LOYALTY_INFO']['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'],
+                                            ]
+                                        )?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_PLAN_DISCOUNT_RETENTION_TERMS')?>
+                                <div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <?php /* Показываем карточку "Вами достигнут максимальный уровень"*/ ?>
+                            <div>
+                                <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_MAX_LEVEL_REACHED')?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+            <?php endif;?>
+        <?php else: ?>
+            <div>
+                <span class="error" style="background-color: #f5b0cc; color: white; font-weight: bold;">
+                    <?=Loc::getMessage('PROFILE_PAGE_LOYALTY_SYSTEM_NOT_PARTICIPANT')?>
+                </span>
+            </div>
+        <?php endif;?>
+    </div>
     <div style="background: grey; margin: 5px;">Персональные акции</div>
 
 

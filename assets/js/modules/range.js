@@ -8,78 +8,130 @@ const ELEMENTS_SELECTOR = {
 };
 
 export default function(){
-    $(ELEMENTS_SELECTOR.ranges).each(function(){
+    $(ELEMENTS_SELECTOR.ranges).each(function() {
         let slider = $(this).find(ELEMENTS_SELECTOR.rangeSlider),
             min = slider.data('min'),
+            current = slider.data('current'),
             max = slider.data('max'),
             step = slider.data('step'),
-            minVal = +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() : min,
-            maxVal = +$(this).find(ELEMENTS_SELECTOR.rangeMax).val()? +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() : max;
+            type = slider.data('type'),
+            minVal = '',
+            maxVal = '';
 
-        // Init
-        slider.slider({
-            range: true,
+        let params = {
             min: min,
             max: max,
             step: step,
-            values: [minVal, maxVal],
-            slide: function(event, ui) {
-                let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges)
-                $parent.find(ELEMENTS_SELECTOR.rangeMin).val(ui.values[0]);
-                $parent.find(ELEMENTS_SELECTOR.rangeMax).val(ui.values[1]);
-            },
-            create: function(event, ui) {
-                let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges)
+        };
 
-                $parent.on('change', ELEMENTS_SELECTOR.rangeMin, function(){
-                    minVal = +$(this).val().trim();
-                    maxVal = +$parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim();
+        let paramsCustom = {};       
 
-                    if (minVal < min) {
-                        minVal = min;
-                    }
+        switch (type) {
+            case 'min':
+                paramsCustom = {
+                    range: type,
+                    value: current,
+                    slide: function (event, ui) {
+                        let $card = $(event.target).closest('.card-counting');
+                        let $input = $card.find('.card-counting__value-count');
 
-                    if (minVal > max) {
-                        minVal = max;
-                    }
+                        $input.val(ui.value).css('width', `${$input.val().length + 1}ch`);
+                    },
+                    create: function (event, ui) {
+                        let $card = $(event.target).closest('.card-counting');
+                        $card.find('.card-counting__value-count').val(this.dataset.current);
 
-                    if (minVal > maxVal) {
-                        maxVal = minVal;
-                    }
+                        $card.on('change', ELEMENTS_SELECTOR.rangeMin, function () {
+                            minVal = +$(this).val().trim();
 
-                    $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
-                    $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
-
-                    slider.slider( 'option','values',[minVal,maxVal]);
-                });
+                            if (minVal < min) {
+                                minVal = min;
+                            }
         
-                $parent.on('change', ELEMENTS_SELECTOR.rangeMax, function(){
-                    maxVal = +$(this).val().trim();
-                    minVal = +$parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim();
+                            if (minVal > max) {
+                                minVal = max;
+                            }
 
-                    if (maxVal < min) {
-                        maxVal = min;
-                    }
+                            $card.find(ELEMENTS_SELECTOR.rangeMin)
+                                .val(minVal)
+                                .css('width', `${minVal.toString().length + 1}ch`);
 
-                    if (maxVal > max) {
-                        maxVal = max;
-                    }
+                            slider.slider('option','value', minVal);
+                        });
+                    },
+                };
+                break;
+            default:
+                minVal = +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() : min,
+                maxVal = +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() : max;
 
-                    if (maxVal < minVal) {
-                        minVal = maxVal;
-                    }
+                paramsCustom = {
+                    range: true,
+                    values: [minVal, maxVal],
+                    slide: function(event, ui) {
+                        let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges)
+                        $parent.find(ELEMENTS_SELECTOR.rangeMin).val(ui.values[0]);
+                        $parent.find(ELEMENTS_SELECTOR.rangeMax).val(ui.values[1]);
+                    },
+                    create: function(event, ui) {
+                        let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges)
+        
+                        $parent.on('change', ELEMENTS_SELECTOR.rangeMin, function(){
+                            minVal = +$(this).val().trim();
+                            maxVal = +$parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim();
+        
+                            if (minVal < min) {
+                                minVal = min;
+                            }
+        
+                            if (minVal > max) {
+                                minVal = max;
+                            }
+        
+                            if (minVal > maxVal) {
+                                maxVal = minVal;
+                            }
+        
+                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
+        
+                            slider.slider( 'option','values',[minVal,maxVal]);
+                        });
+                
+                        $parent.on('change', ELEMENTS_SELECTOR.rangeMax, function(){
+                            maxVal = +$(this).val().trim();
+                            minVal = +$parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim();
+        
+                            if (maxVal < min) {
+                                maxVal = min;
+                            }
+        
+                            if (maxVal > max) {
+                                maxVal = max;
+                            }
+        
+                            if (maxVal < minVal) {
+                                minVal = maxVal;
+                            }
+        
+                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
+                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
+        
+                            slider.slider( 'option','values',[minVal,maxVal]);
+                        });
+        
+                        $parent.on('change', `${ELEMENTS_SELECTOR.rangeMax}, ${ELEMENTS_SELECTOR.rangeMin}`, function (e) {
+                            let val = +$(this).val().trim();
+                            $(this).val(Math.floor(val));
+                        });
+                    },
+                };
+                break;
+        };
 
-                    $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minVal);
-                    $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxVal);
+        params = $.extend(params, paramsCustom);
 
-                    slider.slider( 'option','values',[minVal,maxVal]);
-                });
-
-                $parent.on('change', `${ELEMENTS_SELECTOR.rangeMax}, ${ELEMENTS_SELECTOR.rangeMin}`, function (e) {
-                    let val = +$(this).val().trim();
-                    $(this).val(Math.floor(val));
-                });
-            }
-        });
-    })
-}
+        // Init
+        slider.slider(params);
+    });
+};

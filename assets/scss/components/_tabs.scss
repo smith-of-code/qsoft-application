@@ -43,6 +43,18 @@
         }
     }
 
+    &#{&}--big & {
+        &__item {
+            padding-right: rem(44px);
+            padding-left: rem(44px);
+
+            @media #{$screen-desktop} {
+                padding-right: rem(49px);
+                padding-left: rem(49px);
+            }
+        }
+    }
+
     &--rounded & {
         &__item {
             border-radius: rem(20px);
@@ -156,12 +168,34 @@
         &__item {
             padding: rem(6px) rem(14px);
 
-            background-color: $athensGray;
+            background-color: $white;
 
             &--active {
                 color: $white;
                 background-color: $brickRed;
             }
+        }
+    }
+
+    &--white & {
+        &__list {
+            padding: 0;
+            
+            border-radius: rem($border-radius-big);
+            background-color: $white;
+        }
+
+        &__items {
+            width: max-content;
+            padding: rem($gap-mini);
+
+            background-color: $white;
+        }
+    }
+
+    &--white#{&}--circle & {
+        &__items {
+            border-radius: rem($border-radius-big);
         }
     }
 

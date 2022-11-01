@@ -3,11 +3,24 @@
 
     position: relative;
 
+    &#{&}--squared {
+        .select2-container--default {
+            .select2-selection--single {
+                border-radius: rem($border-radius-small);
+            }
+        }
+
+        .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+            border-bottom-left-radius: rem($border-radius-small);
+            border-bottom-right-radius: rem($border-radius-small); 
+        }
+    }
+
     &#{&}--mitigate {
         font-size: rem($font-size-small);
     }
 
-    &#{&}--small {
+    &#{&}--limited {
         .select2-dropdown {
             width: rem(320px) !important;
         }
@@ -95,6 +108,20 @@
                     padding: rem($gap-small) rem($gap-average);
                 }
             }
+
+            .select2-selection--multiple {
+                height: rem(40px);
+
+                .select2-selection__rendered {
+                    line-height: rem(22px);
+
+                    padding: rem($gap-small) rem(6px);
+                }
+
+                .select2-selection__rendered-item {
+                    padding: 0 rem(6px);
+                }
+            }
         }
     }
 
@@ -127,6 +154,16 @@
         .select2-container--default {
             .select2-selection--single {
                 border: none;
+                background-color: $white;
+            }
+        }
+    }
+
+    &#{&}--common {
+        .select2-container--default {
+            .select2-selection--single {
+                border: none;
+                border-radius: 0;
                 background-color: $white;
             }
         }
@@ -175,6 +212,65 @@
 
                 width: rem(320px) !important;
             }
+        }
+    }
+
+    &#{&}--multiple {
+        .select2-container--default {
+            .select2-selection--multiple {
+                display: flex;
+
+                .select2-selection__choice {
+                    display: flex;
+
+                    padding: 0;
+
+                    border: none;
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .select2-container--default.select2-container--focus {
+            .select2-selection--multiple {
+                border: rem(1px) solid $alto;
+            }
+        }
+
+        .select2-selection__choice__remove {
+            display: none;
+        }
+
+        .select2-selection__rendered {
+            display: flex;
+        }
+
+        .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+            border-bottom-left-radius: rem($border-radius-small);
+            border-bottom-right-radius: rem($border-radius-small); 
+        }
+    }
+
+    &#{&}--groups {
+        .select2-selection__rendered {
+            .select__item {
+                @include text-ellips;
+
+                max-width: rem(150px);
+            }
+        }
+
+        .select2-container--default {
+            .select2-dropdown {
+                right: 0;
+                left: auto;
+
+                width: rem(320px) !important;
+            }
+        }
+
+        .select2-results > .select2-results__options {
+            max-height: min-content !important;
         }
     }
 
@@ -269,6 +365,42 @@
                 line-height: rem(22px);
 
                 padding: rem(14px) rem(44px) rem(12px) rem(16px);
+
+                color: $tuna;
+            }
+
+            .select2-selection__arrow {
+                display: none;
+            }
+        }
+    }
+
+    .select2-container--default {
+        .select2-search--inline {
+            .select2-search__field {
+                font-family: $font-family;
+                font-size: rem($font-size-small);
+                font-weight: $font-weight-medium;
+                line-height: 22px;
+
+                margin-left: 0;
+            }
+        }
+    }
+
+    .select2-container--default {
+        .select2-selection--multiple {
+            padding: 0;
+
+            border: rem(1px) solid $alto;
+            background-color: $white;
+
+            .select2-selection__placeholder {
+                color: rgba($saltBox, .85);
+            }
+
+            .select2-selection__rendered {
+                line-height: rem(22px);
 
                 color: $tuna;
             }

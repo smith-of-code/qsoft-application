@@ -72,6 +72,37 @@
         }
     }
 
+    &--separated & {
+        &__item {
+            padding: 0;
+
+            background-color: transparent;
+        }
+
+        &__header {
+            padding: rem($gap-average);
+
+            background-color: $athensGray;
+
+            @media #{$screen-desktop} {
+                padding: rem($gap-small) rem($gap-average);
+            }
+        }
+
+        &__body {
+            margin-top: rem($gap-small);
+            padding: rem($gap-average);
+
+            border-radius: rem($border-radius-average);
+            background-color: $athensGray;
+
+            @media #{$screen-desktop} {
+                margin-top: rem(2px);
+                padding: rem($gap-medium);
+            }
+        }
+    }
+
     &__item {
         padding: rem(20px) rem($gap-medium);
 
@@ -145,6 +176,14 @@
 
             @media #{$screen-tablet} {
                 margin-top: rem($gap-normal);
+            }
+        }
+
+        &--separated {
+            margin-top: rem($gap-small);
+
+            @media #{$screen-desktop} {
+                margin-top: rem(2px);
             }
         }
     }

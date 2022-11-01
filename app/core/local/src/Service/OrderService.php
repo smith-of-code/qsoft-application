@@ -10,6 +10,8 @@ use RuntimeException;
 
 class OrderService
 {
+    public const DELIVERY_OFFSET = 2; // days
+
     private int $orderId;
     private ?Order $order;
 
@@ -27,7 +29,7 @@ class OrderService
 
     public function getOrder(): Order
     {
-        if (!$this->order) {
+        if (!isset($this->order)) {
             $this->order = Order::load($this->orderId);
             if (!$this->order) {
                 throw new RuntimeException('Order not found');

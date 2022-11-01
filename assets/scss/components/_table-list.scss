@@ -40,6 +40,16 @@
         color: $saltBox;
     }
 
+    &__list {
+        &--limited {
+            max-height: rem(740px);
+
+            @media #{$screen-desktop} {
+                max-height: rem(510px);
+            }
+        }
+    }
+
     &__item {
         padding: rem($gap-average) 0;
 

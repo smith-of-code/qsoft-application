@@ -38,7 +38,7 @@
             padding: rem(6px) rem(20px);
 
             @media #{$screen-tablet} {
-                margin-top: rem(6px);
+                margin-top: rem(12px);
                 padding: rem(6px) rem($gap-medium);
             }
 
@@ -78,6 +78,10 @@
 
                 width: rem($size);
                 height: rem($size);
+            }
+
+            &--active {
+                color: $brickRed;
             }
         }
 

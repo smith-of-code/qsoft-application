@@ -1,0 +1,30 @@
+.cards-article {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        margin: rem(-$gap-normal) rem(-$gap-average) 0;
+
+        @media #{$screen-desktop} {
+            margin: rem(-30px) rem(-15px) 0;
+        }
+    }
+
+    &__item {
+        flex-basis: 100%;
+
+        margin-top: rem($gap-normal);
+        padding: 0 rem($gap-average);
+
+        @media #{$screen-tablet} {
+            flex-basis: percentage(1 / 2);
+        }
+
+        @media #{$screen-desktop} {
+            flex-basis: percentage(1 / 3);
+
+            margin-top: rem(30px);
+            padding: 0 rem(15px);
+        }
+    }
+}

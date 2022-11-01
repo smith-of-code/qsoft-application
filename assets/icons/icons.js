@@ -33,6 +33,7 @@ import './svg/viber.svg';
 import './svg/heart.svg';
 import './svg/heart-fill.svg';
 import './svg/arrow-left.svg';
+import './svg/arrow-left-thin.svg';
 import './svg/angle-left.svg';
 import './svg/user.svg';
 import './svg/search.svg';
@@ -50,13 +51,22 @@ import './svg/protection.svg';
 import './svg/diploma.svg';
 import './svg/diagnosis.svg';
 import './svg/chemistry.svg';
+import './svg/arrow-right-light.svg';
+import './svg/check-mark.svg';
+import './svg/tick-circle-bold.svg';
 import './svg/cup.svg';
 import './svg/repeat.svg';
 import './svg/crown.svg';
+import './svg/return.svg';
 import './svg/danger.svg';
+import './svg/question-circle.svg';
+import './svg/users.svg';
+import './svg/cross.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';
+import './svg/personal-action.svg';
+import './svg/non-returnable.svg';
 
 import './svg/dog.svg';
 import './svg/pet.svg';
@@ -74,5 +84,7 @@ import './svg/cat-happy.svg';
 import './svg/cat-winks.svg';
 import './svg/cat-glasses.svg';
 import './svg/cat-think.svg';
+import './svg/dog-seating.svg';
+import './svg/cat-seating.svg';
 
 

@@ -488,7 +488,7 @@
                         </ul>
                     </div>
 
-                    <h1 class="page__heading">FAQ</h1>
+                    <h1 class="page__heading faq__heading">FAQ</h1>
 
                     <div class="content__main">
                         <div class="faq__wrapper">
@@ -500,7 +500,10 @@
                                         <div class="question__accordeon accordeon">
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+                                                    <h5 class="question__accordeon-title accordeon__title">
+                                                        <span class="question__accordeon-number">1.</span>
+                                                        Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -519,7 +522,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">2.</span>
+                                                        Взимается ли плата за регистрацию?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -537,7 +543,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">3.</span>
+                                                        Что такое логин?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -563,7 +572,10 @@
                                         <div class="question__accordeon accordeon">
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+                                                    <h5 class="question__accordeon-title accordeon__title">
+                                                        <span class="question__accordeon-number">1.</span>
+                                                        Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -582,7 +594,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">2.</span>
+                                                        Взимается ли плата за регистрацию?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -600,7 +615,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">3.</span>
+                                                        Что такое логин?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -626,7 +644,10 @@
                                         <div class="question__accordeon accordeon">
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+                                                    <h5 class="question__accordeon-title accordeon__title">
+                                                        <span class="question__accordeon-number">1.</span>
+                                                        Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -645,7 +666,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">2.</span>
+                                                        Взимается ли плата за регистрацию?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -663,7 +687,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">3.</span>
+                                                        Что такое логин?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -689,7 +716,10 @@
                                         <div class="question__accordeon accordeon">
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">1. Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?</h5>
+                                                    <h5 class="question__accordeon-title accordeon__title">
+                                                        <span class="question__accordeon-number">1.</span>
+                                                        Обязательно ли регистрироваться на сайте, чтобы заказать продукцию AmeAppetite?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white" >
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -708,7 +738,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">2. Взимается ли плата за регистрацию?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">2.</span>
+                                                        Взимается ли плата за регистрацию?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -726,7 +759,10 @@
 
                                             <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
                                                 <div class="accordeon__header" data-accordeon-toggle>
-                                                    <h5 class="accordeon__title">3. Что такое логин?</h5>
+                                                    <h5 class="accordeon__title question__accordeon-title">
+                                                        <span class="question__accordeon-number">3.</span>
+                                                        Что такое логин?
+                                                    </h5>
 
                                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                         <span class="accordeon__toggle-icon button__icon">
@@ -1226,7 +1262,7 @@
         <footer class="page__footer footer">
             <div class="footer__container container">
                 <nav class="footer__nav">
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--dogs">
                         <li class="footer__item footer__item--heading">
                             Для собак
                         </li>
@@ -1256,7 +1292,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--cats">
                         <li class="footer__item footer__item--heading">
                             Для кошек
                         </li>
@@ -1286,7 +1322,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--customers">
                         <li class="footer__item footer__item--heading">
                             Покупателям
                         </li>
@@ -1311,7 +1347,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--company">
                         <li class="footer__item footer__item--heading">
                             Компания AmeAppetite
                         </li>
@@ -1331,7 +1367,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--contacts">
                         <li class="footer__item footer__item--heading">
                             Контакты
                         </li>
@@ -1349,13 +1385,13 @@
                             Москва, Проспект Мира, 87
                         </li>
                     </ul>
-                    <ul class="footer__list">
+                    <ul class="footer__list footer__list--info">
                         <li class="footer__item footer__item--heading">
                             Правовая информация
                         </li>
                         <li class="footer__item">
                             <a href="#" class="footer__link">
-                                Правила компании
+                            Условия использования Сайта
                             </a>
                         </li>
                         <li class="footer__item">
@@ -1415,6 +1451,11 @@
                     <p class="footer__copyright">
                         &copy; AmeAppetite, 2022
                     </p>
+                    <div class="footer__logo logo">
+                        <a target="_blank" class="logo__link" href="https://qsoft.ru">
+                            <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>

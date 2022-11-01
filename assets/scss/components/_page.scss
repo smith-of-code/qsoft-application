@@ -75,16 +75,4 @@
     &__footer {
         flex-shrink: 0;
     }
-
-    &__heading {
-        margin-top: rem($gap-big);
-
-        @media #{$screen-tablet} {
-            margin-top: rem($gap-big);
-        }
-
-        @media #{$screen-desktop} {
-            margin-top: rem(48px);
-        }
-    }
 }

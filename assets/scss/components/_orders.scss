@@ -1,0 +1,20 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+
+    &__transition {
+        margin-bottom: rem($gap-medium);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-normal);
+        }
+    }
+
+    &__button {
+        margin-top: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(20px);
+        }
+    }
+}
