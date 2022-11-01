@@ -22,19 +22,6 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
 }
 ?>
-<?php
-    $APPLICATION->IncludeComponent(
-        'bitrix:breadcrumb', 
-        '', 
-        [
-            'PATH' => '',
-            'SITE_ID' => '',
-            'START_FROM' => '0',
-        ],
-        false
-    );
-?>
-<!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
         <div class="detail__card-specification detail__card-specification--mobile specification">
@@ -1333,4 +1320,3 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
         </div>
     </div>
 </div>
-<!-- Каталог товаров -->

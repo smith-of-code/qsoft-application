@@ -20,94 +20,99 @@ else
 	$basketAction = isset($arParams['SECTION_ADD_TO_BASKET_ACTION']) ? $arParams['SECTION_ADD_TO_BASKET_ACTION'] : '';
 }
 ?>
-<div class="breadcrumbs">
-    <ul class="breadcrumbs__list">
-        <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__link">Главная</a>
-        </li>
-        <li class="breadcrumbs__item breadcrumbs__item--active">
-            <a class="breadcrumbs__link">Каталог товаров</a>
-        </li>
-    </ul>
-</div>
 
-<h1 class="page__heading">Каталог товаров</h1>
+<main class="page__catalog catalog">
+    <?php
+    /* ЦЕПОЧКА НАВИГАЦИИ РАЗДЕЛА КАТАЛОГА */
+    $APPLICATION->IncludeComponent(
+        'bitrix:breadcrumb',
+        '',
+        [
+            'PATH' => '',
+            'SITE_ID' => '',
+            'START_FROM' => '0',
+        ],
+        false
+    );
+    ?>
 
-<div class="content__main">
-    <div class="catalog__wrapper">
-        <?
-        /* Фильтр */
-        $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", array(
-            "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-            "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-            "SECTION_ID" => $arCurSection['ID'],
-            "FILTER_NAME" => $arParams["FILTER_NAME"],
-            "PRICE_CODE" => $arParams["~PRICE_CODE"],
-            "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-            "CACHE_TIME" => $arParams["CACHE_TIME"],
-            "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-            "SAVE_IN_SESSION" => "N",
-            "XML_EXPORT" => "N",
-            "SECTION_TITLE" => "NAME",
-            "SECTION_DESCRIPTION" => "DESCRIPTION",
-            'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
-            "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
-            'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
-            'CURRENCY_ID' => $arParams['CURRENCY_ID'],
-            "SEF_MODE" => $arParams["SEF_MODE"],
-            "SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
-            "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
-            "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
-            "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
-        ),
-            $component,
-            array('HIDE_ICONS' => 'Y')
-        );
-        ?>
+    <h1 class="page__heading">Каталог товаров</h1>
 
-        <div class="catalog__main">
-            <div class="catalog__panel">
-                <p class="catalog__results">Найдено <span class="catalog__results-count">19 </span>товаров</p>
+    <div class="content__main">
+        <div class="catalog__wrapper">
+            <?
+            /* Фильтр */
+            $APPLICATION->IncludeComponent("zolo:catalog.smart.filter", "", array(
+                "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+                "IBLOCK_ID" => $arParams["IBLOCK_ID"],
+                "SECTION_ID" => $arCurSection['ID'],
+                "FILTER_NAME" => $arParams["FILTER_NAME"],
+                "PRICE_CODE" => $arParams["~PRICE_CODE"],
+                "CACHE_TYPE" => $arParams["CACHE_TYPE"],
+                "CACHE_TIME" => $arParams["CACHE_TIME"],
+                "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+                "SAVE_IN_SESSION" => "N",
+                "XML_EXPORT" => "N",
+                "SECTION_TITLE" => "NAME",
+                "SECTION_DESCRIPTION" => "DESCRIPTION",
+                'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
+                "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
+                'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
+                'CURRENCY_ID' => $arParams['CURRENCY_ID'],
+                "SEF_MODE" => $arParams["SEF_MODE"],
+                "SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
+                "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
+                "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
+                "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
+            ),
+                $component,
+                array('HIDE_ICONS' => 'Y')
+            );
+            ?>
 
-                <div class="catalog__sort">
-                    <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
-                        <div class="select__group">
-                            <form id="sort_selector"
-                                  action="<?= $APPLICATION->GetCurPageParam('', ['sort']);?>"
-                                  method="get"
-                                  class="form">
-                                <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
-                                    <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'sort' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
-                                    <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
-                                    <option value="price-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
-                                    <option value="date-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
-                                    <option value="date-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
-                                </select>
-                                <button type="submit" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+            <div class="catalog__main">
+                <div class="catalog__panel">
+                    <p class="catalog__results">Найдено <span class="catalog__results-count">19 </span>товаров</p>
+
+                    <div class="catalog__sort">
+                        <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
+                            <div class="select__group">
+                                <form id="sort_selector"
+                                      action="<?= $APPLICATION->GetCurPageParam('', ['sort']);?>"
+                                      method="get"
+                                      class="form">
+                                    <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
+                                        <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'sort' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
+                                        <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
+                                        <option value="price-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
+                                        <option value="date-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
+                                        <option value="date-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
+                                    </select>
+                                    <button type="submit" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
                                     <span class="button__icon button__icon--medium">
                                         <svg class="icon icon--sort">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
                                         </svg>
                                     </span>
-                                </button>
-                            </form>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="catalog__toggle">
-                        <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
+                        <div class="catalog__toggle">
+                            <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
                             <span class="button__icon button__icon--right button__icon--medium">
                                 <svg class="icon icon--filter">
                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
                                 </svg>
                             </span>
-                            <span class="button__text">Фильтр</span>
-                        </button>
+                                <span class="button__text">Фильтр</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <?
+                <?
                 $intSectionID = $APPLICATION->IncludeComponent(
                     "zolo:catalog.section",
                     "",
@@ -224,7 +229,7 @@ else
                         'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
 
                         'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
-                        "ADD_SECTIONS_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "Y",
                         'ADD_TO_BASKET_ACTION' => $basketAction,
                         'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
                         'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],
@@ -239,6 +244,7 @@ else
 
                 $GLOBALS['CATALOG_CURRENT_SECTION_ID'] = $intSectionID;
                 ?>
+            </div>
         </div>
     </div>
-</div>
+</main>
