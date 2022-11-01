@@ -2,6 +2,11 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Type\DateTime;
+use QSoft\Entity\User;
+use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\TransactionTable;
+
 /**
  * Класс для работы с программой лояльности
  * @package QSoft\Helper
@@ -91,6 +96,33 @@ class LoyaltyProgramHelper
         return $lowestLevel;
     }
 
+    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): array
+    {
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
+            ],
+            'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
+        ])->fetchAll();
+
+        $result = [];
+
+        $typeFieldValues = HlBlockHelper::getEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
+        $typeFieldMap = array_combine(array_column($typeFieldValues, 'ID'), array_column($typeFieldValues, 'XML_ID'));
+        foreach ($transactions as $transaction) {
+            $result[$typeFieldMap[$transaction['UF_TYPE']]] += (float)$transaction['UF_AMOUNT'];
+        }
+
+        return $result;
+    }
+
     /**
      * Получить самый высокий уровень программы лояльности
      * @return string XML_ID уровня
@@ -107,6 +139,44 @@ class LoyaltyProgramHelper
             }
         }
         return $highestLevel;
+    }
+
+    public function getLoyaltyStatusByPeriod(int $userId, DateTime $from, DateTime $to): array
+    {
+        $user = new User($userId);
+        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+
+        $result = [
+            'self' => [
+                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['self_total'],
+                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'current_value' => .0,
+            ],
+            'team' => [
+                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'],
+                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'current_value' => .0,
+            ],
+        ];
+
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
+            ],
+        ])->fetchAll();
+
+        $sourceFieldSelfId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']);
+        foreach ($transactions as $transaction) {
+            $result[$transaction['UF_SOURCE'] === $sourceFieldSelfId ? 'self' : 'team']['current_value'] += $transaction['UF_AMOUNT'];
+        }
+
+        return $result;
     }
 
     /**

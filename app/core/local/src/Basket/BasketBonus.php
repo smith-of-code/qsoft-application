@@ -2,6 +2,9 @@
 
 namespace QSoft\Basket;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\Fuser;
@@ -10,14 +13,10 @@ use QSoft\Helper\BasketHelper;
 
 class BasketBonus
 {
-    const LEVEL_PROPS = [
-        'K1' => 'BONUSES_K1',
-        'K2' => 'BONUSES_K2',
-        'K3' => 'BONUSES_K3'
-    ];
+    private const BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX = 'BONUSES_';
 
     /**
-     * @var BasketBase корзина пользователя
+     * @var BasketBase Корзина пользователя
      */
     private BasketBase $basket;
 
@@ -31,45 +30,6 @@ class BasketBonus
     }
 
     /**
-     * @param User $user
-     * @return int сумма бонусов товаров по уровyю пользователя
-     */
-    public function getUserBonusSum(User $user): int
-    {
-        $bonus = 0;
-        $propLevel = self::LEVEL_PROPS[$user->loyalty->getLoyaltyLevel()];
-
-        $offersBonuses = $this->loadBasketBonusesByUserLevel($user);
-
-        foreach ($offersBonuses as $bonusItem) {
-            $bonus += (int)$bonusItem[$propLevel];
-        }
-
-        return $bonus;
-    }
-
-    /**
-     * @param User $user
-     * @return array бонусы по уровня пользователя по товарам
-     */
-    public function loadBasketBonusesByUserLevel(User $user): array
-    {
-        $result = [];
-        if (!isset($this->basket)) {
-            $this->loadBasket();
-        }
-
-        if ($user->groups->isConsultant()) {
-            $propLevel = self::LEVEL_PROPS[$user->loyalty->getLoyaltyLevel()];
-
-            if ($propLevel) {
-                $result = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
-            }
-        }
-        return $result;
-    }
-
-    /**
      * @param BasketBase $basket
      */
     public function setBasket(BasketBase $basket): void
@@ -77,9 +37,29 @@ class BasketBonus
         $this->basket = $basket;
     }
 
-    public function loadBasket(): void
+    /**
+     * @param User $user
+     * @return int Сумма бонусов товаров по уровню пользователя
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function getBasketItemsBonusSum(User $user): int
     {
-        $this->basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);;
-    }
+        if (!$user->groups->isConsultant() || empty($user->loyaltyLevel)) {
+            return 0;
+        }
 
+        $propLevel = self::BONUSES_TO_GET_OFFER_PROP_CODE_PREFIX . $user->loyaltyLevel;
+
+        $offerPropertiesByBasketItems = BasketHelper::getOfferProperties($this->basket, [$propLevel]);
+
+        $bonus = 0;
+
+        foreach ($offerPropertiesByBasketItems as $basketItemId => $offerProperties) {
+            $bonus += (int)$offerProperties[$propLevel] * $this->basket->getItemById($basketItemId)->getQuantity();
+        }
+
+        return $bonus;
+    }
 }

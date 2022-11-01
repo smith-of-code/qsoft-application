@@ -11,6 +11,8 @@ use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\Entity\EnumField;
 use \Bitrix\Main\Type\DateTime;
 
+
+
 Loc::loadMessages(__FILE__);
 
 final class NotificationTable extends BaseTable

@@ -24,7 +24,7 @@ class UserEventsListener
             // а также он был изменен и не является ID самого пользователя
             if (is_numeric($fields['UF_MENTOR_ID'])
                 && (int) $fields['UF_MENTOR_ID'] > 0
-                && $user->mentor !== (int) $fields['UF_MENTOR_ID']
+                && $user->getMentor()->id !== (int) $fields['UF_MENTOR_ID']
                 && $user->id !== (int) $fields['UF_MENTOR_ID']
             ) {
                 // Получим нового юзера-наставника

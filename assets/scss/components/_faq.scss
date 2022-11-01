@@ -10,6 +10,14 @@
         }
     }
 
+    &__heading {
+        font-size: rem($font-size-average);
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-huge);
+        }
+    }
+
     &__questions {
         max-width: 100%;
 
