@@ -48,7 +48,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                             <div class="filter__select select select--mitigate select--small select--squared" data-select>
                                 <select class="select__control" name="PAYD" id="PAYD" data-select-control data-placeholder="Статус оплаты">
                                     <option><!-- пустой option для placeholder --></option>
-                                    <?php foreach ($arResult['PAYMENT'] as $code => $name): dump($code, $name);?>
+                                    <?php foreach ($arResult['PAYMENT'] as $code => $name): ?>
                                         <option value="<?=$code ?>"><?=$name ?></option>
                                     <?php endforeach; ?>
                                 </select>

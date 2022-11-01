@@ -4,7 +4,6 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-dump($arResult);
 if (!empty($arResult['ERRORS']['FATAL'])) {
 	foreach($arResult['ERRORS']['FATAL'] as $error) {
 		ShowError($error);
@@ -13,15 +12,14 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 	if ($arParams['AUTH_FORM_IN_TEMPLATE'] && isset($arResult['ERRORS']['FATAL'][$component::E_NOT_AUTHORIZED])) {
 		$APPLICATION->AuthForm('', false, false, 'N', false);
 	}
-}
-else {
+} else {
 	if (!empty($arResult['ERRORS']['NONFATAL'])) {
 		foreach($arResult['ERRORS']['NONFATAL'] as $error) {
 			ShowError($error);
 		}
 	}
 }
-?>
+if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
 <h1 class="page__heading"><?=$APPLICATION->showTitle() ?></h1>
 
@@ -410,3 +408,4 @@ else {
         });
     }
 </script>
+<?php endif; ?>

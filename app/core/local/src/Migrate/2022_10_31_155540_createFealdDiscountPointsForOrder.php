@@ -18,8 +18,6 @@ final class createFealdDiscountPointsForOrder extends Migration
 
         if (!$this->isPropertyExist()) {
             CSaleOrderProps::Add($fields);
-        } else {
-            dump('Такое свойство уже');
         }
     }
 
@@ -46,8 +44,6 @@ final class createFealdDiscountPointsForOrder extends Migration
 
         if ($id = $this->isPropertyExist()) {
             CSaleOrderProps::delete($id);
-        } else {
-            dump('Нет такого свойства');
         }
     }
 
