@@ -1,7 +1,6 @@
 <?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
 
 $arResult = $_REQUEST['data'];
-// dump($arResult, $_REQUEST);
 ?>
 
 <ul class="table-list__list">
@@ -14,14 +13,14 @@ $arResult = $_REQUEST['data'];
                 <div class="product-line__inner">
                     <div class="product-line__info">
                         <div class="product-line__image">
-                            <img src="<?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
+                            <img src="<?=$product['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
                         </div>
                         <div class="product-line__wrapper">
                             <h2 class="product-line__title">
                                 <?=$product['NAME']?>
                             </h2>
                             <p class="product-line__subtitle">
-                                Арт. <?=$order['PRODUCT_ADDITIONAL_DATA'][$product['PRODUCT_ID']]['ARTICLE']?>
+                                Арт. <?=$product['ARTICLE'] ?>
                             </p>
                         </div>
                     </div>

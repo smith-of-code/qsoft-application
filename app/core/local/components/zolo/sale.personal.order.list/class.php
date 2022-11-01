@@ -875,7 +875,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$listOrders = array();
 		$orderIdList = array();
-		$listOrderBasket = array();
 		$listOrderShipment = array();
 		$listOrderPayment = array();
 		$orderUserIdList = [];
@@ -1001,54 +1000,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$basketClassName = $this->registry->getBasketClassName();
 
-
-
-		/** @var Main\DB\Result $listBaskets */
-		$listBaskets = $basketClassName::getList(array(
-			'select' => array("*"),
-			'filter' => array("ORDER_ID" => $orderIdList),
-			'order' => array('NAME' => 'asc')
-		));
-
-		while ($basket = $listBaskets->fetch())
-		{
-			if (CSaleBasketHelper::isSetItem($basket))
-				continue;
-			$listOrderBasket[$basket['ORDER_ID']][$basket['ID']] = $basket;
-			$productIds[] = $basket['PRODUCT_ID'];
-			$productByOrderIds[$basket['ORDER_ID']][$basket['PRODUCT_ID']] = $basket['PRODUCT_ID'];
-		}
-
-		$cibegl = CIBlockElement::GetList(
-			[],
-			['ID' => array_unique($productIds)],
-			false,
-			false,
-			[
-				'*', 'PROPERTY_ARTICLE', 'PROPERTY_IMAGES',
-			]
-		);
-
-		while ($r = $cibegl->Fetch()) {
-			$imageId = $r['PROPERTY_IMAGES_VALUE'][0];
-			$productInfo[$r['ID']] = [
-				'ARTICLE' => $r['PROPERTY_ARTICLE_VALUE'],
-				'IMAGES_ID' => $imageId,
-			];
-			$imgIds[$imageId] = $imageId;
-		}
-
-		$images = $this->getImageUrl($imgIds ?? []);
-
-		foreach ($productByOrderIds as $orderId => $product) {
-			foreach ($product as $productId) {
-				if ($productInfo[$productId]) {
-					$productInfo[$productId]['IMAGE_SRC'] = $images[$productInfo[$productId]['IMAGES_ID']];
-				}
-				$productAdditionalInfo[$orderId][$productId] = $productInfo[$productId];
-			}
-		}
-
 		$trackingManager = Sale\Delivery\Tracking\Manager::getInstance();
 
 		$deliveryStatusClassName = $this->registry->getDeliveryStatusClassName();
@@ -1141,10 +1092,8 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 			$this->dbResult['ORDERS'][] = array(
 				"ORDER" => $listOrders[$orderId],
-				"BASKET_ITEMS" => $listOrderBasket[$orderId],
 				"SHIPMENT" => $listOrderShipment[$orderId],
 				"PAYMENT" => $listOrderPayment[$orderId],
-				"PRODUCT_ADDITIONAL_DATA" => $productAdditionalInfo[$orderId]
 			);
 		}
 	}
@@ -1618,9 +1567,33 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 				continue;
 			}
 
-			$listOrderBasket[$basket['ID']] = $basket;
+			$listOrderBasket[$basket['PRODUCT_ID']] = $basket;
 			$productIds[] = $basket['PRODUCT_ID'];
 			$productByOrderIds[$basket['ORDER_ID']][$basket['PRODUCT_ID']] = $basket['PRODUCT_ID'];
+		}
+
+		$dbIblockResult = CIBlockElement::GetList(
+			[],
+			['ID' => array_unique($productIds)],
+			false,
+			false,
+			[
+				'*', 'PROPERTY_ARTICLE', 'PROPERTY_IMAGES',
+			]
+		);
+
+		while ($row = $dbIblockResult->Fetch()) {
+			$imageId = $row['PROPERTY_IMAGES_VALUE'][0];
+			$listOrderBasket[$row['ID']]['ARTICLE'] = $row['PROPERTY_ARTICLE_VALUE'];
+			$listOrderBasket[$row['ID']]['IMAGES_ID'] = $imageId;
+
+			$imgIds[$imageId] = $imageId;
+		}
+
+		$images = $this->getImageUrl($imgIds ?? []);
+
+		foreach ($listOrderBasket as $prodictId => &$product) {
+			$product['IMAGE_SRC'] = $images[$product['IMAGES_ID']];
 		}
 
 		return $listOrderBasket ?? [];
