@@ -6,6 +6,7 @@ export const PersonalData = {
             mutableUserInfo: {},
             editing: false,
             phoneError: false,
+            phoneVerified: false,
             verifyError: false,
         };
     },
@@ -53,7 +54,7 @@ export const PersonalData = {
         },
         saveUserInfo() {
             // TODO validate
-            if (this.userInfo.phone !== this.mutableUserInfo.phone) {
+            if (this.userInfo.phone !== this.mutableUserInfo.phone && !this.phoneVerified) {
                 this.phoneError = true;
                 return;
             }
@@ -67,9 +68,8 @@ export const PersonalData = {
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
             this.cancelEditing();
         },
-        sendCode() {
+        async sendCode() {
             const phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
-            console.log('PHONE', phone);
 
             this.phoneError = false;
             if (!phone || phone.match(/_+/i)) {
@@ -78,8 +78,9 @@ export const PersonalData = {
             }
 
             try {
-                const response = this.personalDataStore.sendCode(phone);
+                const response = await this.personalDataStore.sendCode(phone);
 
+                console.log(response);
                 if (!response.data || response.data.status === 'error') {
                     throw new Error(response.data.message);
                 }
@@ -90,9 +91,9 @@ export const PersonalData = {
 
             $.fancybox.open({ src: '#approve-number' });
         },
-        verifyCode() {
+        async verifyCode() {
             try {
-                const response = this.personalDataStore.verifyCode($('input[name=verify_code]').val());
+                const response = await this.personalDataStore.verifyCode($('input[name=verify_code]').val());
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
