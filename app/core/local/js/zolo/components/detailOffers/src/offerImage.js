@@ -10,12 +10,12 @@ export const OfferImage = {
     },
     setup() {
         const store = detailOfferStore();
-        let offers = store.getOffers();
         return {
-            store, offers
+            store
         }
     },
     updated() {
+        window.swiper.destroy();
         window.initSlider();
     },
      // language=Vue
