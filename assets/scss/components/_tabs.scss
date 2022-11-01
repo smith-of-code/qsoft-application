@@ -43,6 +43,18 @@
         }
     }
 
+    &#{&}--big & {
+        &__item {
+            padding-right: rem(44px);
+            padding-left: rem(44px);
+
+            @media #{$screen-desktop} {
+                padding-right: rem(49px);
+                padding-left: rem(49px);
+            }
+        }
+    }
+
     &--rounded & {
         &__item {
             border-radius: rem(20px);
