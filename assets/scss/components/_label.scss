@@ -14,11 +14,63 @@
         line-height: rem($line-height-small);
     }
 
-    &--pink{
+    &--pink {
         background-color: $hibiscus;
     }
 
-    &--violet{
+    &--violet {
         background-color: $wisteria;
+    }
+
+    &--green {
+        background-color: $seaGreen;
+    }
+
+    &--blue {
+        background-color: $bostonBlue;
+    }
+
+    &--red {
+        background-color: $brickRed;
+    }
+
+    &--orange {
+        background-color: $piper;
+    }
+
+    &--primary {
+        font-size: rem($font-size-normal);
+        font-weight: $font-weight-bold;
+        line-height: ($line-height-small / $font-size-normal);
+
+        padding: rem($gap-small);
+
+        letter-spacing: 0.02em;
+        
+        color: $athensGray;
+        border-radius: rem($border-radius-middle);
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-average);
+            line-height: ($line-height-normal / $font-size-average);
+        }
+    }
+    
+    &--secondary {
+        font-size: rem($font-size-miniature);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-tiny / $font-size-miniature);
+
+        padding: rem(6px) rem($gap-average);
+
+        letter-spacing: 0.04em;
+
+        border: rem(1px) solid $white;
+        border-radius: rem(34px);
+
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-mini);
+            line-height: ($line-height-miniature / $font-size-mini);
+        }
     }
 }
