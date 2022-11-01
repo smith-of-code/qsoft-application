@@ -2,9 +2,11 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Type\DateTime;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
+use QSoft\Helper\TransactionsHelper;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -67,6 +69,29 @@ class BonusAccountHelper
         return false;
     }
 
+    public function addOrderBonuses(User $user, float $amount): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
+        }
+
+        $this->transactions->add(
+            $user->id,
+            TransactionTable::TYPES['purchase'],
+            TransactionTable::SOURCES['personal'],
+            TransactionTable::MEASURES['points'],
+            $amount,
+        );
+
+        return $user->update([
+            'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
+            'UF_LOYALTY_CHECK_DATE' => new DateTime,
+        ]);
+    }
+
     /**
      * Выполнить начисление бонусных баллов за повышение уровня
      * @param User $user
@@ -104,6 +129,24 @@ class BonusAccountHelper
             ]);
         }
         return false;
+    }
+
+    public function subtractOrderBonuses(User $user, float $amount): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
+        }
+        if ($user->bonusPoints < $amount) {
+            throw new RuntimeException('У пользователя недостаточно бонусов');
+        }
+
+        return $user->update([
+            'UF_BONUS_POINTS' => $user->bonusPoints - $amount,
+            'UF_LOYALTY_CHECK_DATE' => new DateTime,
+        ]);
     }
 
     /**

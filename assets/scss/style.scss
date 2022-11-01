@@ -123,8 +123,6 @@
 
 @import "components/card-banner";
 
-@import "components/sale";
-
 @import "components/header";
 
 @import "components/navigation";
@@ -233,6 +231,9 @@
 @import "components/question";
 @import "components/questions";
 
+@import "components/cards-compilation";
+@import "components/card-compilation";
+
 @import "components/work-step";
 @import "components/work-steps";
 
@@ -250,6 +251,13 @@
 
 @import "components/notifications";
 
+@import "components/card-compilation";
+
+@import "components/cards-article";
+@import "components/card-article";
+
+@import "components/cards-sale";
+
 @import "components/profitability";
 
 @import "components/group";
@@ -257,3 +265,4 @@
 
 @import "components/counter";
 
+@import "components/accounting";

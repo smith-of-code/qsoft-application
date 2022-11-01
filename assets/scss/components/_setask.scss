@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
 
-    padding: rem($gap-medium);
-    
     background-color: $white;
 
     @media #{$screen-tablet} {
@@ -14,6 +12,8 @@
     @media #{$screen-desktop} {
         position: sticky;
         top: rem(160px);
+
+        padding: rem($gap-medium);
     }
     
     &__image {
@@ -48,6 +48,7 @@
 
     &__text {
         font-weight: $font-weight-semibold;
+        font-size: rem($font-size-normal);
     
         margin-bottom: rem($gap-mini);
 
