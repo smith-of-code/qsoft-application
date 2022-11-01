@@ -9664,7 +9664,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -9917,7 +9917,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -10897,7 +10897,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -11150,7 +11150,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -12130,7 +12130,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -12383,7 +12383,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -13389,7 +13389,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -13642,7 +13642,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -14629,7 +14629,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -14882,7 +14882,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -15864,7 +15864,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -16117,7 +16117,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
