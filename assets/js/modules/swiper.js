@@ -54,7 +54,7 @@ export default function () {
                     break;
                 case 'product':
                     const images = $(ELEMENTS_SELECTOR.productImage, wrap);
-                    console.log(images);
+                    
                     paramsCustom = {
                         slidesPerView: 1,
                         pagination: {
