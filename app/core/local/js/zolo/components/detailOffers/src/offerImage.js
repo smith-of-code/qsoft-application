@@ -16,7 +16,7 @@ export const OfferImage = {
         }
     },
     updated() {
-        // TODO ?
+        window.initSlider();
     },
      // language=Vue
     template: ` 

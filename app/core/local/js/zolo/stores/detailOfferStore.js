@@ -14,7 +14,7 @@ export const detailOfferStore = defineStore('detailOffer', {
         },
         images() {
             return this.offers.PHOTOS[this.currentOfferId];
-        }
+        },
     },
     actions: {
         getOffers() {
