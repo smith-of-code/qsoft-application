@@ -1,0 +1,60 @@
+.group {
+    display: flex;
+    align-items: center;
+
+    padding: rem(6px) rem($gap-medium);
+
+    border-radius: rem($border-radius-middle);
+    background-color: $white;
+
+    &__users {
+        display: flex;
+        align-items: center;
+
+        &-icon {
+            $size: 24px;
+
+            width: rem($size);
+            height: rem($size);
+
+            color: #292d32;
+        }
+
+        &-counter {
+            margin-left: rem($gap-mini);
+        }
+    }
+
+    &__symbol {
+        $size: 10px;
+
+        width: rem($size);
+        height: rem($size);
+        margin: 0 rem($gap-small);
+
+        color: $tuna;
+    }
+
+    &__delete {
+        margin-left: auto;
+        padding: rem(6px);
+
+        cursor: pointer;
+
+        border-radius: rem($gap-small);
+        background-color: $athensGray;
+
+        @media #{$screen-desktop} {
+            margin-left: rem(10px);
+        }
+
+        &-icon {
+            $size: 28px;
+
+            width: rem($size);
+            height: rem($size);
+
+            color: $saltBox;
+        }
+    }
+}
