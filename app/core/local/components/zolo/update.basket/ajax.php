@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Catalog\Product\CatalogProvider;
 use Bitrix\Currency\CurrencyManager;
 use Bitrix\Main;
 use Bitrix\Main\Loader;
@@ -7,6 +8,7 @@ use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
+use QSoft\Basket\ProductProvider;
 
 
 class UpdateBasketController extends \Bitrix\Main\Engine\Controller
@@ -40,9 +42,15 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
         } else {
             $this->deleteBasketItem($basket, $id);
         }
-        $basket->save();
 
-        return [];
+        $basket->refresh();
+
+        $basketSaveResult = $basket->save();
+
+        return [
+            'warnings' => $basketSaveResult->getWarnings(),
+            'errors' => $basketSaveResult->getErrors()
+        ];
     }
 
     public function clearBasketAction(): array
@@ -63,7 +71,7 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
         $basketItem->setFields([
             'QUANTITY' => $quantity,
             'CURRENCY' => CurrencyManager::getBaseCurrency(),
-            'PRODUCT_PROVIDER_CLASS' => '\Bitrix\Catalog\Product\CatalogProvider',
+            'PRODUCT_PROVIDER_CLASS' => CatalogProvider::class,
         ]);
     }
 

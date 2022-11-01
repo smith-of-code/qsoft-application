@@ -14,9 +14,17 @@ Loc::loadMessages(__FILE__);
 
 final class NotificationTable extends BaseTable
 {
+    const TYPES = [
+        'application_status_change' => 'NOTIFICATION_TYPE_APPLICATION_STATUS_CHANGE',
+        'order_created' => 'NOTIFICATION_TYPE_ORDER_CREATED',
+        'order_status_change' => 'NOTIFICATION_TYPE_ORDER_STATUS_CHANGE',
+        'order_ready' => 'NOTIFICATION_TYPE_ORDER_READY',
+        'order_canceled' => 'NOTIFICATION_TYPE_ORDER_CANCELED',
+    ];
+
     const STATUSES = [
-        'unread' => 'NOTIFICATION_STATUS_UNREAD',
         'read' => 'NOTIFICATION_STATUS_READ',
+        'unread' => 'NOTIFICATION_STATUS_UNREAD',
     ];
 
     protected static array $decorators = [
