@@ -4,8 +4,10 @@ namespace QSoft\Helper;
 
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable;
-use http\Exception\RuntimeException;
+use QSoft\Entity\User;
+use QSoft\Helper\UserFieldHelper;
 use QSoft\ORM\TransactionTable;
+use RuntimeException;
 
 class TransactionsHelper
 {
