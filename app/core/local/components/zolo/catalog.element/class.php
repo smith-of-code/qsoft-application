@@ -96,7 +96,7 @@ class CatalogElementComponent extends Element
 
                 $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
-                dump($this->arResult['PRODUCT']);
+
                 $fileIds = $this->getFilesByItem($product);
 
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
