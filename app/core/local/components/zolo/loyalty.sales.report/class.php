@@ -6,11 +6,13 @@ use Bitrix\Main\LoaderException;
 use Bitrix\Main\SystemException;
 use QSoft\Entity\User;
 use QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\OrderHelper;
 
 class LoyaltySalesReportComponent extends CBitrixComponent implements Controllerable
 {
     private User $user;
 
+    private OrderHelper $orderHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
     public function __construct($component = null)
@@ -23,6 +25,7 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
             LocalRedirect('/');
         }
 
+        $this->orderHelper = new OrderHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
 
         $this->checkModules();
@@ -57,6 +60,9 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         $currentPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
 
         $this->arResult['user'] = $this->user->getPersonalData();
+        $this->arResult['orders_report'] = $this->orderHelper->getOrdersReport($this->user->id);
+        $this->arResult['current_accounting_period'] = $currentPeriod;
+        $this->arResult['accounting_periods'] = $this->loyaltyProgramHelper->getAvailableAccountingPeriods($this->user->id);
         $this->arResult['bonuses_income'] = $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod(
             $this->user->id,
             $currentPeriod['from'],

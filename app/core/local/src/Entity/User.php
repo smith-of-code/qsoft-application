@@ -2,6 +2,7 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Type\DateTime;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
@@ -106,6 +107,10 @@ class User
      */
     public int $photo;
     /**
+     * @var string Дата регистрации
+     */
+    public string $dateRegister;
+    /**
      * @var string Уровень в программе лояльности
      */
     public string $loyaltyLevel;
@@ -173,6 +178,7 @@ class User
         'PERSONAL_BIRTHDAY' => 'birthday',
         'PERSONAL_CITY' => 'city',
         'PERSONAL_PHOTO' => 'photo',
+        'DATE_REGISTER' => 'dateRegister',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
@@ -289,7 +295,10 @@ class User
             'first_name' => $this->name,
             'last_name' => $this->lastName,
             'second_name' => $this->secondName,
+            'name_initials' => $this->lastName . ' ' . strtoupper(substr($this->name, 0, 1)) . '.' . strtoupper(substr($this->secondName, 0, 1)) . '.',
+            'full_name' => "$this->lastName $this->name $this->secondName",
             'gender' => $this->gender,
+            'date_register' => $this->dateRegister,
             'photo' => $this->getPhotoUrl(),
             'loyalty_level' => $this->loyaltyLevel,
             'birthdate' => $this->birthday->format('d.m.Y'),

@@ -72,3 +72,33 @@ if (!function_exists('phpToVueObject')) {
         return str_replace('\'', '"', CUtil::PhpToJSObject($array));
     }
 }
+
+if (!function_exists('numberToRoman')) {
+    function numberToRoman(int $number): string
+    {
+        $thousands = (int) ($number / 1000);
+        $number -= $thousands * 1000;
+        $result = str_repeat('M', $thousands);
+        $table = [
+            1 => 'I',
+            4 => 'IV',
+            5 => 'V',
+            9 => 'IX',
+            10 => 'X',
+            40 => 'XL',
+            50 => 'L',
+            90 => 'XC',
+            100 => 'C',
+            400 => 'CD',
+            500 => 'D',
+            900 => 'CM',
+        ];
+        while($number) {
+            foreach ($table as $part => $fragment) if ($part <=$number) break;
+            $amount = (int) ($number / $part);
+            $number -= $part * $amount;
+            $result .= str_repeat($fragment, $amount);
+        }
+        return $result;
+    }
+}

@@ -7,18 +7,24 @@ use Bitrix\Sale\Basket\Storage;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Order;
 use Bitrix\Sale\Delivery\Services\Manager as DeliveryServicesManager;
+use Bitrix\Sale\OrderTable;
 use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
 use Bitrix\Sale\PropertyValue;
+use CFile;
 use QSoft\Entity\User;
 use QSoft\ORM\NotificationTable;
+use QSoft\ORM\TransactionTable;
+use QSoft\Service\ProductService;
 
 class OrderHelper
 {
     private BonusAccountHelper $bonusAccountHelper;
+    private LoyaltyProgramHelper $loyaltyProgramHelper;
 
     public function __construct()
     {
         $this->bonusAccountHelper = new BonusAccountHelper;
+        $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
     }
 
     public function createOrder(int $userId, array $data)
@@ -89,5 +95,93 @@ class OrderHelper
         );
 
         return $orderId;
+    }
+
+    public function getOrdersReport(int $userId)
+    {
+        $result = [
+            'total_sum' => .0,
+            'current_period_sum' => .0,
+            'current_period_bonuses' => 0,
+            'paid_orders_count' => 0,
+            'full_refunded_orders_count' => 0, // TODO
+            'part_refunded_orders_count' => 0, // TODO
+            'last_month_products' => [],
+            'last_order_date' => null,
+        ];
+
+        $user = new User($userId);
+        $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+
+        $orders = OrderTable::getList([
+            'order' => ['DATE_INSERT' => 'ASC'],
+            'filter' => [
+                '=USER_ID' => $user->id,
+            ],
+            'select' => ['ID', 'PRICE', 'DATE_INSERT', 'SUM_PAID'],
+        ])->fetchAll();
+
+        $transactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $user->id,
+                '=UF_MEASURE' => TransactionTable::MEASURES['points'],
+            ],
+            'select' => ['ID', 'UF_AMOUNT'],
+        ])->fetchAll();
+
+        foreach ($transactions as $transaction) {
+            $result['current_period_bonuses'] += $transaction['UF_AMOUNT'];
+        }
+
+        $now = new DateTime;
+        $lastMonthOrders = [];
+        foreach ($orders as $order) {
+            $result['total_sum'] += $order['PRICE'];
+
+            $orderDate = new DateTime($order['DATE_INSERT']);
+            $result['last_order_date'] = $orderDate;
+
+            if (
+                $orderDate->getDiff($currentAccountingPeriod['from'])->invert
+                && !$orderDate->getDiff($currentAccountingPeriod['to'])->invert
+            ) {
+                $result['current_period_sum'] += $order['PRICE'];
+            }
+
+            if ($order['PRICE'] === $order['SUM_PAID']) {
+                $result['paid_orders_count']++;
+            }
+
+            if ($orderDate->getDiff($now)->days <= 30) {
+                $lastMonthOrders[] = $order['ID'];
+            }
+        }
+
+        if (count($lastMonthOrders)) {
+            $products = ProductService::getProductOfferDataClass()::getList([
+                'filter' => [
+                    '=BASKET.ORDER_ID' => $lastMonthOrders,
+                ],
+                'select' => [
+                    'NAME',
+                    'VENDOR_CODE' => 'ARTICLE.VALUE',
+                    'PRICE' => 'BASKET.PRICE',
+                    'QUANTITY' => 'BASKET.QUANTITY',
+                    'PICTURE' => 'PREVIEW_PICTURE',
+                ],
+            ])->fetchAll();
+
+            foreach ($products as $product) {
+                $result['last_month_products'][] = [
+                    'name' => $product['NAME'],
+                    'article' => $product['VENDOR_CODE'],
+                    'price' => $product['PRICE'],
+                    'quantity' => $product['QUANTITY'],
+                    'picture' => CFile::GetPath($product['PICTURE']),
+                ];
+            }
+        }
+
+        return $result;
     }
 }

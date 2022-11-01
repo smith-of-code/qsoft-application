@@ -40,18 +40,38 @@ class LoyaltyProgramHelper
         return app('config')->get($this->configPath);
     }
 
-    public function getCurrentAccountingPeriod(): array
+    public function getAccountingPeriod(DateTime $date): array
     {
-        $currentDate = new Date;
-        $currentQuarter = intdiv((int) $currentDate->format('m'), 3) + 1;
-
+        $currentQuarter = intdiv((int) $date->format('m') - 1, 3) + 1;
         $startPeriod = $currentQuarter + ($currentQuarter - 1) * 2;
         $endPeriod = $startPeriod + 2;
 
         return [
-            'from' => new DateTime($currentDate->format("d.$startPeriod.Y")),
-            'to' => new DateTime($currentDate->format("d.$endPeriod.Y")),
+            'name' => numberToRoman($currentQuarter) . $date->format(' квартал Y'),
+            'from' => new DateTime($date->format("01.$startPeriod.Y")),
+            'to' => (new DateTime($date->format("01.$endPeriod.Y")))->add('+1 month')->add('-1 day'),
         ];
+    }
+
+    public function getCurrentAccountingPeriod(): array
+    {
+        return $this->getAccountingPeriod(new DateTime);
+    }
+
+    public function getAvailableAccountingPeriods(int $userId): array
+    {
+        $user = new User($userId);
+
+        $now = new Date;
+        $period = $this->getAccountingPeriod(new DateTime($user->dateRegister));
+
+        $result = [];
+        while ($now->getDiff($period['to'])->invert) {
+            $result[] = $period;
+            $period = $this->getAccountingPeriod((new DateTime($period['to']))->add('+1 day'));
+        }
+        $result[] = $this->getCurrentAccountingPeriod();
+        return $result;
     }
 
     /**
@@ -74,7 +94,7 @@ class LoyaltyProgramHelper
     public function getLoyaltyLevelInfo(string $level) : ?array
     {
         $levels = $this->getLoyaltyLevels();
-        return $levels[$level] ?? null;
+        return $levels[$levels['types'][substr($level, 0, 1)]][$level] ?? null;
     }
 
     /**
