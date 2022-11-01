@@ -56,10 +56,8 @@
         }
     }
 
-    &__tabs {
-        &-body {
-            margin-top: rem($gap-big);
-        }
+    &__content {
+        margin-top: rem($gap-big);
     }
 
     &__calculation {

@@ -133,7 +133,7 @@
                                                     <!--Для к2-->
                                                     <!-- <div style="display: none;" data-tippy-template>
                                                         <div class="profitability__tooltip">
-                                                            <p class="profitability__tooltip-title">Для перехода на уровень К2 необходимо выполнить следующие условия:</p>
+                                                            <p class="profitability__tooltip-title">Для перехода на уровень К3 необходимо выполнить следующие условия:</p>
 
                                                             <ul class="profitability__tooltip-list">
                                                                 <li class="profitability__tooltip-item">
@@ -461,455 +461,461 @@
                                             </div>
 
                                             <div class="profitability__level">
-                                                <div class="profitability__tabs tabs tabs--red tabs--separated tabs--small" data-tabs>
-                                                    <div class="profitability__level-header box box--circle">
-                                                        <h6 class="profitability__level-title">Выберите уровень аккаунта и рассчитайте свой потенциальный доход</h6>
-                                                        <nav class="tabs__items">
-                                                            <ul class="tabs__list">
-                                                                <li class="tabs__item tabs__item--active" data-tab="k1">
-                                                                    Уровень К1
-                                                                </li>
-
-                                                                <li class="tabs__item" data-tab="k2">
-                                                                    Уровень К2
-                                                                </li>
-
-                                                                <li class="tabs__item" data-tab="k3">
-                                                                    Уровень К3
-                                                                </li>
-                                                            </ul>
-
-                                                            <input type="radio" name="radioButton" value="1" data-calculator-level checked>
-                                                            <input type="radio" name="radioButton" value="2" data-calculator-level>
-                                                            <input type="radio" name="radioButton" value="3" data-calculator-level>
-                                                        </nav>
-                                                    </div>
-
-                                                    <div class="profitability__tabs-body tabs__body">
-                                                        <div class="tabs__block tabs__block--active" data-tab-section="k1">
-                                                            <form class="form">
-                                                                <div class="section__box-inner">
-                                                                    <h5 class="box__heading box__heading--middle">Личные покупки</h5>
-
-                                                                    <div class="profitability__calculation" data-calculator-range="personal">
-                                                                        <div class="profitability__calculation-cards cards-counting cards-counting--double">
-                                                                            <ul class="cards-counting__list">
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting card-counting--extra" >
-                                                                                        <div class="card-counting__inner" >
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-rub
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ₽
-                                                                                                </span>
-                                                                                            </div>
-                                            
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="100000"
-                                                                                                    data-step="100"
-                                                                                                ></div>
-                                                                                            </div>
-
-                                                                                            <p class="card-counting__name">
-                                                                                                Сумма личных покупок
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting card-counting--extra">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-point
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ББ
-                                                                                                </span>
-                                                                                            </div>
-                                            
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="1000"
-                                                                                                    data-step="1"
-                                                                                                    data-calculator-range-points
-                                                                                                ></div>
-                                                                                            </div>
-                                            
-                                                                                            <p class="card-counting__name">
-                                                                                                Сумма личных баллов
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-
-                                                                        <div class="profitability__calculation-result">
-                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма личных покупок за 1 отчетный период для Консультанта 
-                                                                                <span data-calculator-level-hidden="1">К1 составляет 5 000 руб.</span>
-                                                                                <span style="display: none" data-calculator-level-hidden="2">К2 составляет 15 000 руб.</span>
-                                                                                <span style="display: none" data-calculator-level-hidden="3">К3 составляет 30 000 руб.</span>
-                                                                            </p>
-
-                                                                            <div class="profitability__calculation-total">
-                                                                                <p class="profitability__calculation-total-sum">
-                                                                                    = <span data-calculator-personal-points-sum>0</span> ББ
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
+                                                <div class="profitability__level-header box box--circle">
+                                                    <h6 class="profitability__level-title">Выберите уровень аккаунта и рассчитайте свой потенциальный доход</h6>
+                                                    <div class="toggles">
+                                                        <ul class="toggles__list">
+                                                            <li class="toggles__item">
+                                                                <div class="toggle toggle--first">
+                                                                    <div class="radio">
+                                                                        <input class="toggle__input radio__input" type="radio" name="radioButton1" value="1" id="radioButton1" data-calculator-level checked>
+                                                                        <label for="radioButton1">
+                                                                            <div class="toggle__item">Уровень К1</div>
+                                                                        </label>
                                                                     </div>
                                                                 </div>
+                                                            </li>
 
-                                                                <div class="section__box-inner">
-                                                                    <h5 class="box__heading box__heading--middle">Доход от зарегистрированных покупателей в моей группе</h5>
-
-                                                                    <div class="profitability__calculation" data-calculator-range="group">
-                                                                        <div class="cards-counting">
-                                                                            <ul class="cards-counting__list">
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-quantity="buyer"
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix"></span>
-                                                                                            </div>
-
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="1"
-                                                                                                    data-current="1"
-                                                                                                    data-max="999"
-                                                                                                    data-step="1"
-                                                                                                ></div>
-                                                                                            </div>
-
-                                                                                            <p class="card-counting__name">
-                                                                                                Количество покупателей
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-rub
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ₽
-                                                                                                </span>
-                                                                                            </div>
-                                            
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="100000"
-                                                                                                    data-step="200"
-                                                                                                ></div>
-                                                                                            </div>
-                                            
-                                                                                            <p class="card-counting__name">
-                                                                                                Средняя сумма покупок 1 покупателя
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-point
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ББ
-                                                                                                </span>
-                                                                                            </div>
-                                            
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="500"
-                                                                                                    data-step="1"
-                                                                                                    data-calculator-range-points
-                                                                                                ></div>   
-                                                                                            </div>
-                                            
-                                                                                            <p class="card-counting__name">
-                                                                                                Средняя сумма баллов 1 покупателя
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                            
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
+                                                            <li class="toggles__item">
+                                                                <div class="toggle">
+                                                                    <div class="radio">
+                                                                        <input class="toggle__input radio__input" type="radio" name="radioButton1" value="2" id="radioButton2" data-calculator-level>
+                                                                        <label for="radioButton2">
+                                                                            <div class="toggle__item">Уровень К2</div>
+                                                                        </label>
                                                                     </div>
                                                                 </div>
+                                                            </li>
 
-                                                                <div class="section__box-inner">
-                                                                    <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
-
-                                                                    <div class="profitability__calculation" data-calculator-consultant data-calculator-range="consultant">
-                                                                        <div class="profitability__calculation-cards cards-counting">
-                                                                            <ul class="cards-counting__list">
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-quantity="consultant"
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix"></span>
-                                                                                            </div>
-
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="1"
-                                                                                                    data-current="1"
-                                                                                                    data-max="999"
-                                                                                                    data-step="1"
-                                                                                                ></div>
-                                                                                            </div>
-
-                                                                                            <p class="card-counting__name">
-                                                                                                Количество консультантов
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-rub
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ₽
-                                                                                                </span>
-                                                                                            </div>
-
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="100000"
-                                                                                                    data-step="200"
-                                                                                                ></div>
-                                                                                            </div>
-
-                                                                                            <p class="card-counting__name">
-                                                                                                Средняя сумма покупок 1 консультанта
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                                <li class="cards-counting__item">
-                                                                                    <div class="card-counting">
-                                                                                        <div class="card-counting__inner">
-                                                                                            <div class="card-counting__value">
-                                                                                                <!-- скрипт выводит значение data-current в value-count -->
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    class="card-counting__value-count"
-                                                                                                    data-range-min
-                                                                                                    data-calculator-range-input-point
-                                                                                                />
-                                                                                                <span class="card-counting__value-suffix">
-                                                                                                    ББ
-                                                                                                </span>
-                                                                                            </div>
-
-                                                                                            <div class="card-counting__range range" data-range>
-                                                                                                <div
-                                                                                                    class="range-slider"
-                                                                                                    data-range-slider
-                                                                                                    data-type="min"
-                                                                                                    data-min="0"
-                                                                                                    data-current="0"
-                                                                                                    data-max="500"
-                                                                                                    data-step="1"
-                                                                                                    data-calculator-range-points
-                                                                                                ></div>   
-                                                                                            </div>
-
-                                                                                            <p class="card-counting__name">
-                                                                                                Средняя сумма баллов 1 консультанта
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-
-                                                                        <div class="profitability__calculation-groups">
-                                                                            <button type="button" class="profitability__calculation-button button button--medium button--rounded button--outlined button--mixed button--full" data-calculator-consultant-add>
-                                                                                <span class="button__icon button__icon--medium">
-                                                                                    <svg class="icon icon--add-circle">
-                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span class="button__text button__text--full">Создать группу консультантов с выбранными параметрами</span>
-                                                                            </button>
-
-                                                                            <div class="profitability__groups groups">
-                                                                                <ul class="groups__list" data-calculator-consultant-wrapper>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profitability__calculation-result">
-                                                                            <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма групповых покупок за 1 отчетный период для Консультанта 
-                                                                                <span data-calculator-level-hidden="1">К1 составляет 0 руб.</span>
-                                                                                <span style="display: none;" data-calculator-level-hidden="2">К2 составляет 21 000 руб.</span>
-                                                                                <span style="display: none;" data-calculator-level-hidden="3">К3 составляет 60 000 руб.</span>
-                                                                                </p>
-
-                                                                            <div class="profitability__calculation-total">
-                                                                                <p class="profitability__calculation-total-sum">
-                                                                                    = <span data-calculator-group-points-sum>0</span> ББ
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
+                                                            <li class="toggles__item">
+                                                                <div class="toggle toggle--last">
+                                                                    <div class="radio">
+                                                                        <input class="toggle__input radio__input" type="radio" name="radioButton1" value="3" id="radioButton3" data-calculator-level>
+                                                                        <label for="radioButton3">
+                                                                            <div class="toggle__item">Уровень К3</div>
+                                                                        </label>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="profitability__consultants" data-consultants>
-                                                                    <div class="profitability__consultants-col">
-                                                                        <div class="profitability__consultants-switcher switcher" name="switcher3">
-                                                                            <input type="checkbox" class="switcher__input" name="switch2" id="switch3" data-consultants-switcher>
-                                                                            <label for="switch3" class="switcher__label">
-                                                                                <span class="switcher__icon"></span>
-                                                                                <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profitability__consultants-col profitability__consultants-col--inlined">
-                                                                        <div class="profitability__consultants-quantity profitability__consultants-quantity--hidden quantity quantity--active" data-quantity data-consultants-quantity>
-                                                                            <div class="quantity__actions">
-                                                                                <div class="quantity__decrease">
-                                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
-                                                                                        <span class="button__icon button__icon--small">
-                                                                                            <svg class="icon icon--minus">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    </button>
-                                                                                </div>
-                                                
-                                                                                <div class="quantity__total">
-                                                                                    <span class="quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
-                                                                                        1
-                                                                                    </span>
-                                                                                </div>
-                                                
-                                                                                <div class="quantity__increase">
-                                                                                    <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
-                                                                                        <span class="button__icon button__icon--small">
-                                                                                            <svg class="icon icon--plus">
-                                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profitability__hint">
-                                                                            <svg class="icon icon--question-circle">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
-                                                                            </svg>
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full">
-                                                                    <span class="button__text">Рассчитать</span>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-
-                                                        <div class="tabs__block" data-tab-section="k2">
-                                                            Аналогично Уровень К1
-                                                        </div>
-
-                                                        <div class="tabs__block" data-tab-section="k3">
-                                                            Аналогично Уровень К1
-                                                        </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
+
+                                                <div class="profitability__content">
+                                                    <form class="form">
+                                                        <div class="section__box-inner">
+                                                            <h5 class="box__heading box__heading--middle">Личные покупки</h5>
+
+                                                            <div class="profitability__calculation" data-calculator-range="personal">
+                                                                <div class="profitability__calculation-cards cards-counting cards-counting--double">
+                                                                    <ul class="cards-counting__list">
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting card-counting--extra" >
+                                                                                <div class="card-counting__inner" >
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-rub
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ₽
+                                                                                        </span>
+                                                                                    </div>
+                                    
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="100000"
+                                                                                            data-step="100"
+                                                                                        ></div>
+                                                                                    </div>
+
+                                                                                    <p class="card-counting__name">
+                                                                                        Сумма личных покупок
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting card-counting--extra">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-point
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ББ
+                                                                                        </span>
+                                                                                    </div>
+                                    
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="1000"
+                                                                                            data-step="1"
+                                                                                            data-calculator-range-points
+                                                                                        ></div>
+                                                                                    </div>
+                                    
+                                                                                    <p class="card-counting__name">
+                                                                                        Сумма личных баллов
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+
+                                                                <div class="profitability__calculation-result">
+                                                                    <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма личных покупок за 1 отчетный период для Консультанта 
+                                                                        <span data-calculator-level-hidden="1">К1 составляет 5 000 руб.</span>
+                                                                        <span style="display: none" data-calculator-level-hidden="2">К2 составляет 15 000 руб.</span>
+                                                                        <span style="display: none" data-calculator-level-hidden="3">К3 составляет 30 000 руб.</span>
+                                                                    </p>
+
+                                                                    <div class="profitability__calculation-total">
+                                                                        <p class="profitability__calculation-total-sum">
+                                                                            = <span data-calculator-personal-points-sum>0</span> ББ
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="section__box-inner">
+                                                            <h5 class="box__heading box__heading--middle">Доход от зарегистрированных покупателей в моей группе</h5>
+
+                                                            <div class="profitability__calculation" data-calculator-range="group">
+                                                                <div class="cards-counting">
+                                                                    <ul class="cards-counting__list">
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-quantity="buyer"
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix"></span>
+                                                                                    </div>
+
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="1"
+                                                                                            data-current="1"
+                                                                                            data-max="999"
+                                                                                            data-step="1"
+                                                                                        ></div>
+                                                                                    </div>
+
+                                                                                    <p class="card-counting__name">
+                                                                                        Количество покупателей
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-rub
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ₽
+                                                                                        </span>
+                                                                                    </div>
+                                    
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="100000"
+                                                                                            data-step="200"
+                                                                                        ></div>
+                                                                                    </div>
+                                    
+                                                                                    <p class="card-counting__name">
+                                                                                        Средняя сумма покупок 1 покупателя
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-point
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ББ
+                                                                                        </span>
+                                                                                    </div>
+                                    
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="500"
+                                                                                            data-step="1"
+                                                                                            data-calculator-range-points
+                                                                                        ></div>   
+                                                                                    </div>
+                                    
+                                                                                    <p class="card-counting__name">
+                                                                                        Средняя сумма баллов 1 покупателя
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                    
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="section__box-inner">
+                                                            <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
+
+                                                            <div class="profitability__calculation" data-calculator-consultant data-calculator-range="consultant">
+                                                                <div class="profitability__calculation-cards cards-counting">
+                                                                    <ul class="cards-counting__list">
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-quantity="consultant"
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix"></span>
+                                                                                    </div>
+
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="1"
+                                                                                            data-current="1"
+                                                                                            data-max="999"
+                                                                                            data-step="1"
+                                                                                        ></div>
+                                                                                    </div>
+
+                                                                                    <p class="card-counting__name">
+                                                                                        Количество консультантов
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-rub
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ₽
+                                                                                        </span>
+                                                                                    </div>
+
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="100000"
+                                                                                            data-step="200"
+                                                                                        ></div>
+                                                                                    </div>
+
+                                                                                    <p class="card-counting__name">
+                                                                                        Средняя сумма покупок 1 консультанта
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="cards-counting__item">
+                                                                            <div class="card-counting">
+                                                                                <div class="card-counting__inner">
+                                                                                    <div class="card-counting__value">
+                                                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            class="card-counting__value-count"
+                                                                                            data-range-min
+                                                                                            data-calculator-range-input-point
+                                                                                        />
+                                                                                        <span class="card-counting__value-suffix">
+                                                                                            ББ
+                                                                                        </span>
+                                                                                    </div>
+
+                                                                                    <div class="card-counting__range range" data-range>
+                                                                                        <div
+                                                                                            class="range-slider"
+                                                                                            data-range-slider
+                                                                                            data-type="min"
+                                                                                            data-min="0"
+                                                                                            data-current="0"
+                                                                                            data-max="500"
+                                                                                            data-step="1"
+                                                                                            data-calculator-range-points
+                                                                                        ></div>   
+                                                                                    </div>
+
+                                                                                    <p class="card-counting__name">
+                                                                                        Средняя сумма баллов 1 консультанта
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+
+                                                                <div class="profitability__calculation-groups">
+                                                                    <button type="button" class="profitability__calculation-button button button--medium button--rounded button--outlined button--mixed button--full" data-calculator-consultant-add>
+                                                                        <span class="button__icon button__icon--medium">
+                                                                            <svg class="icon icon--add-circle">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="button__text button__text--full">Создать группу консультантов с выбранными параметрами</span>
+                                                                    </button>
+
+                                                                    <div class="profitability__groups groups">
+                                                                        <ul class="groups__list" data-calculator-consultant-wrapper>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profitability__calculation-result">
+                                                                    <p class="profitability__calculation-annotation">В соответствии с действующим маркетинговым планом минимальная сумма групповых покупок за 1 отчетный период для Консультанта 
+                                                                        <span data-calculator-level-hidden="1">К1 составляет 0 руб.</span>
+                                                                        <span style="display: none;" data-calculator-level-hidden="2">К2 составляет 21 000 руб.</span>
+                                                                        <span style="display: none;" data-calculator-level-hidden="3">К3 составляет 60 000 руб.</span>
+                                                                        </p>
+
+                                                                    <div class="profitability__calculation-total">
+                                                                        <p class="profitability__calculation-total-sum">
+                                                                            = <span data-calculator-group-points-sum>0</span> ББ
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="profitability__consultants" data-consultants>
+                                                            <div class="profitability__consultants-col">
+                                                                <div class="profitability__consultants-switcher switcher" name="switcher3">
+                                                                    <input type="checkbox" class="switcher__input" name="switch2" id="switch3" data-consultants-switcher>
+                                                                    <label for="switch3" class="switcher__label">
+                                                                        <span class="switcher__icon"></span>
+                                                                        <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profitability__consultants-col profitability__consultants-col--inlined">
+                                                                <div class="profitability__consultants-quantity profitability__consultants-quantity--hidden quantity quantity--active" data-quantity data-consultants-quantity>
+                                                                    <div class="quantity__actions">
+                                                                        <div class="quantity__decrease">
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                                <span class="button__icon button__icon--small">
+                                                                                    <svg class="icon icon--minus">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </button>
+                                                                        </div>
+                                        
+                                                                        <div class="quantity__total">
+                                                                            <span class="quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
+                                                                                1
+                                                                            </span>
+                                                                        </div>
+                                        
+                                                                        <div class="quantity__increase">
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                                <span class="button__icon button__icon--small">
+                                                                                    <svg class="icon icon--plus">
+                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profitability__hint">
+                                                                    <svg class="icon icon--question-circle">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                                    </svg>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full">
+                                                            <span class="button__text">Рассчитать</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </section>
