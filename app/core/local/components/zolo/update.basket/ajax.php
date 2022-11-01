@@ -45,11 +45,7 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
 
         $basket->refresh();
 
-        dump('beforeSave');
-
         $basketSaveResult = $basket->save();
-
-//        dd('basketSaved');
 
         return [
             'warnings' => $basketSaveResult->getWarnings(),
@@ -75,7 +71,7 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
         $basketItem->setFields([
             'QUANTITY' => $quantity,
             'CURRENCY' => CurrencyManager::getBaseCurrency(),
-            'PRODUCT_PROVIDER_CLASS' => ProductProvider::class,
+            'PRODUCT_PROVIDER_CLASS' => CatalogProvider::class,
         ]);
     }
 

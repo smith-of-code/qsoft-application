@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Sale\Discount;
 use Bitrix\Sale\Order;
 use QSoft\Basket\BasketBonus;
 use QSoft\Entity\User;
@@ -24,15 +25,12 @@ class SaleBasketTotal extends CBitrixComponent
         $order->setPersonTypeId(1);
         $order->setBasket($basket);
 
-        $discounts = $order->getDiscount();
-        $discountResult = $discounts->getApplyResult();
-
         $this->arResult = [
             'BASKET_COUNT' => $basket->count(),
             'BASKET_PRICE' => $order->getPrice(),
+            'BASKET_BASE_PRICE'=> $order->getBasePrice(),
             'BASKET_TOTAL_VAT' => $order->getVatSum(),
-            'TOTAL_DISCOUNT' => $order->getDiscountPrice(),
-            'DISCOUNT_RESULT' => $discountResult
+            'TOTAL_DISCOUNT' => $order->getBasePrice() - $order->getPrice(),
         ];
 
         if (currentUser() && currentUser()->groups->isConsultant()) {

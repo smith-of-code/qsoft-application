@@ -7,7 +7,9 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
+use Bitrix\Sale\FuserTable;
 use CUserFieldEnum;
+use QSoft\Entity\User;
 
 class LoyaltyLevelEquals extends \CSaleActionCtrlAction
 {
@@ -71,7 +73,7 @@ class LoyaltyLevelEquals extends \CSaleActionCtrlAction
             $dbLoyaltyLevels = CUserFieldEnum::GetList([], ['USER_FIELD_NAME' => 'UF_LOYALTY_LEVEL']);
 
             while ($loyaltyLevel = $dbLoyaltyLevels->Fetch()) {
-                $loyaltyLevels[$loyaltyLevel['ID']] = $loyaltyLevel['VALUE'];
+                $loyaltyLevels[$loyaltyLevel['VALUE']] = $loyaltyLevel['VALUE'];
             }
         }
 
@@ -118,19 +120,26 @@ class LoyaltyLevelEquals extends \CSaleActionCtrlAction
      */
     public static function Generate($arOneCondition, $arParams, $arControl, $arSubs = false)
     {
-        dump($arOneCondition, $arParams);
-
-        return __CLASS__ . '::applyProductDiscount($row,' . $arOneCondition["LoyaltyLevelEquals"] . ')';
+        return __CLASS__ . "::applyProductDiscount(\$row, {$arOneCondition['LoyaltyLevelEquals']})";
     }
 
     /**
      * Логика кастомного условия
      * @param $row
-     * @param $priceType
+     * @param $loyaltyLevelValue
      * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
-    public static function applyProductDiscount($row, $priceType)
+    public static function applyProductDiscount($row, $loyaltyLevelValue)
     {
-        return $priceType != $row['PRICE_TYPE_ID'];
+        if (empty($row['FUSER_ID'])) {
+            return false;
+        }
+
+        $userId = FuserTable::getRowById($row['FUSER_ID'])['USER_ID'];
+
+        return (new User($userId))->loyaltyLevel == $loyaltyLevelValue;
     }
 }
