@@ -1,6 +1,7 @@
 <?
 use Bitrix\Main\Loader;
 use Bitrix\Main\Text\Encoding;
+use QSoft\Entity\User;
 use QSoft\Service\UserGroupsService;
 use QSoft\Service\UserService;
 
@@ -249,10 +250,12 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                     }
                 }
             }
-        }dump(11);
-        $currentUser = new \QSoft\Entity\User();
+        }
+        try {
+            $currentUser = new User;
+        } catch (\Exception $e) {}
 
-        if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
+        if (isset($currentUser) && $currentUser->groups->isConsultant()) {
             $items['BONUSES'] = [
                 'ID' => 'BONUSES',
                 'CODE' => 'BONUSES',
