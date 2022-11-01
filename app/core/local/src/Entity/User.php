@@ -144,6 +144,7 @@ class User
      */
     private const ENUM_PROPERTIES = [
         'UF_LOYALTY_LEVEL',
+        'UF_PERSONAL_DISCOUNT_LEVEL',
     ];
 
     protected static array $protectedFields = [
@@ -178,7 +179,7 @@ class User
     public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
-        
+
         // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
@@ -194,7 +195,7 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('User not found');
+            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение
@@ -208,8 +209,11 @@ class User
 
         //Задаем необходимые связанные объекты
         $this->legalEntity = new LegalEntityService($this);
-        $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+
+        //Задаем уровень в программе лояльности в зависимости от группы пользователя
+        $this->loyalty = new LoyaltyService($this);
+        
         $this->notification = new NotificationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
@@ -252,8 +256,8 @@ class User
     }
 
     /**
-     * Обновляет поля пользователя битрикс и свойства объекта
-     * @param array $bitrixFields
+     * Обновляет поля пользователя
+     * @param array $fields
      * @return bool
      */
     public function update(array $bitrixFields): bool
