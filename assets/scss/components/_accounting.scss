@@ -53,8 +53,11 @@
         }
     }
 
-    &__tabs-items {
-        margin-bottom: rem($gap-medium);
+    &__tabs {
+        &-items {
+            width: max-content;
+            margin-bottom: rem($gap-medium);
+        }
     }
 
     &__filter {

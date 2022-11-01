@@ -159,6 +159,16 @@
         }
     }
 
+    &#{&}--common {
+        .select2-container--default {
+            .select2-selection--single {
+                border: none;
+                border-radius: 0;
+                background-color: $white;
+            }
+        }
+    }
+
     &#{&}--sorting {
         .select2-container--default {
             .select2-selection--single {

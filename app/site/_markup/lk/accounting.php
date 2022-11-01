@@ -169,7 +169,7 @@
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
-                                                                        <div class="accounting__period-select select select--mitigate select--small select--squared" data-select>
+                                                                        <div class="accounting__period-select select select--mitigate select--small select--common" data-select>
                                                                             <select class="select__control" name="select2" data-select-control data-placeholder="Период">
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">I квартал 2022</option>
@@ -1355,15 +1355,15 @@
                                                 </h4>
                                             </div>
 
-                                            <div class="tabs tabs--covered tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="accounting__tabs tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
                                                 <nav class="accounting__tabs-items tabs__items">
                                                     <ul class="tabs__list">
-                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                        <li class="accounting__tabs-item tabs__item tabs__item--active" data-tab="block1">
                                                             Консультанты
                                                             <span>(6)</span>
                                                         </li>
 
-                                                        <li class="tabs__item" data-tab="block2">
+                                                        <li class="accounting__tabs-item tabs__item" data-tab="block2">
                                                             Покупатели
                                                             <span>(28)</span>
                                                         </li>
@@ -1382,7 +1382,7 @@
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
                                                                                         <div class="filter__select select select--mitigate select--small select--squared select--multiple" data-select>
-                                                                                            <select class="select__control" name="select2" data-select-control data-placeholder="Выбрать уровень" multiple>
+                                                                                            <select class="select__control" name="select2" data-select-control data-placeholder="Выбрать уровень">
                                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                                 <option value="1">Размещен</option>
                                                                                                 <option value="2">Отменен</option>
