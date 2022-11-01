@@ -1,0 +1,16 @@
+<?php
+
+namespace QSoft\PropertiesDigest;
+
+class Transactions
+{
+    public const REASON_INVITATION = 'TRANSACTION_TYPE_INVITE';
+    public const REASON_PURCHASE = 'TRANSACTION_TYPE_PURCHASE';
+    public const REASON_UPGRADE = 'TRANSACTION_TYPE_UPGRADE';
+
+    public const SOURCE_PERSONAL = 'TRANSACTION_SOURCE_PERSONAL';
+    public const SOURCE_GROUP = 'TRANSACTION_SOURCE_GROUP';
+
+    public const MEASURE_MONEY = 'TRANSACTION_MEASURE_MONEY';
+    public const MEASURE_BONUSES = 'TRANSACTION_MEASURE_POINTS';
+}
