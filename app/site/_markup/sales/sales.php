@@ -232,7 +232,7 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="sales__button-more button button--rounded button--outlined button--green">
+                                <button type="button" class="button button--show button--rounded-big button--outlined button--green">
                                     Показать больше
                                 </button>
                             </div>
