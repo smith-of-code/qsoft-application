@@ -34,7 +34,7 @@
 
                     <div class="content__main">
                         <div class="about__wrapper">
-                            <section class="about__hero section">
+                            <section class="about__hero section section--margin-xl">
                                 
                                 <div class="about__hero-box section__box box box--gray box--rounded-sm">
                                     <div class="about__hero-images">
@@ -55,13 +55,12 @@
                                 </div>
                             </section>
 
-                            <section class="about__appreciate section">
+                            <section class="about__appreciate section section--margin-xl">
                                 <div class="section__box box">
-                                    <div class="section__header about__appreciate-header">
-                                        <h3 class="section__title">
-                                            Мы ценим
-                                        </h3>
-                                    </div>
+                                    <h3 class="section__title">
+                                        Мы ценим
+                                    </h3>
+
                                     <div class="appreciates">
                                         <ul class="appreciates__list">
                                             <li class="appreciates__item">
@@ -91,73 +90,75 @@
                                
                             </section>
 
-                            <section class="about__goals section">
+                            <section class="about__goals section section--margin-xl">
                                 <div class="section__box box">
-                                    <ul class="goals-cards__list">
-                                        <li class="goals-cards__item">
-                                            <div class="goals-card">
-                                                <div class="goals-card__wrapper">
-                                                    <picture class="goals-card__picture">
-                                                        <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-1.png" alt="">
-                                                    </picture>
+                                    <div class="goals-cards">
+                                        <ul class="goals-cards__list">
+                                            <li class="goals-cards__item">
+                                                <div class="goals-card">
+                                                    <div class="goals-card__wrapper">
+                                                        <picture class="goals-card__picture">
+                                                            <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
+                                                            <img class="goals-card__images" src="/local/templates/.default/images/about-goal-1.png" alt="">
+                                                        </picture>
+                                                    </div>
+                                            
+                                                    <div class="goals-card__content">
+                                                        <h4 class="goals-card__title">
+                                                            Дарим пользу
+                                                        </h4>
+                                                        <p class="goals-card__text">
+                                                            Наша продукция понравится Вашим питомцам, и Вы захотите ее рекомендовать.
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                           
-                                                <div class="goals-card__content">
-                                                    <h4 class="goals-card__title">
-                                                        Дарим пользу
-                                                    </h4>
-                                                    <p class="goals-card__text">
-                                                        Наша продукция понравится Вашим питомцам, и Вы захотите ее рекомендовать.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
 
-                                        <li class="goals-cards__item">
-                                            <div class="goals-card">
-                                                <div class="goals-card__wrapper">
-                                                    <picture class="goals-card__picture goals-card__picture--big">
-                                                        <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2.png" alt="">
-                                                    </picture>
+                                            <li class="goals-cards__item">
+                                                <div class="goals-card">
+                                                    <div class="goals-card__wrapper">
+                                                        <picture class="goals-card__picture goals-card__picture--big">
+                                                            <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
+                                                            <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2.png" alt="">
+                                                        </picture>
+                                                    </div>
+                                                    
+                                                    <div class="goals-card__content">
+                                                        <h4 class="goals-card__title">
+                                                            Растем вместе
+                                                        </h4>
+                                                        <p class="goals-card__text">
+                                                            Мы ценим наших партнеров и готовы прислушиваться к Вашему мнению, ведь на нем строится наше дело.
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                            </li>
+
+                                            <li class="goals-cards__item goals-cards__item--full">
+                                                <div class="goals-card goals-card--full">
+                                                    <div class="goals-card__wrapper">
+                                                        <picture class="goals-card__picture">
+                                                            <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
+                                                            <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3.png" alt="">
+                                                        </picture>
+                                                    </div>
                                                 
-                                                <div class="goals-card__content">
-                                                    <h4 class="goals-card__title">
-                                                        Растем вместе
-                                                    </h4>
-                                                    <p class="goals-card__text">
-                                                        Мы ценим наших партнеров и готовы прислушиваться к Вашему мнению, ведь на нем строится наше дело.
-                                                    </p>
+                                                    <div class="goals-card__content">
+                                                        <h4 class="goals-card__title">
+                                                            Стремимся к успеху
+                                                        </h4>
+                                                        <p class="goals-card__text">
+                                                            Мы строим бизнес так, чтобы дать возможность нашим партнерам рекомендовать качественную продукцию и получать стабильный доход. Мы не экономим на качестве, мы не тратим деньги на рекламу.
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="goals-cards__item goals-cards__item--full">
-                                            <div class="goals-card goals-card--full">
-                                                <div class="goals-card__wrapper">
-                                                    <picture class="goals-card__picture">
-                                                        <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
-                                                        <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3.png" alt="">
-                                                    </picture>
-                                                </div>
-                                               
-                                                <div class="goals-card__content">
-                                                    <h4 class="goals-card__title">
-                                                        Стремимся к успеху
-                                                    </h4>
-                                                    <p class="goals-card__text">
-                                                        Мы строим бизнес так, чтобы дать возможность нашим партнерам рекомендовать качественную продукцию и получать стабильный доход. Мы не экономим на качестве, мы не тратим деньги на рекламу.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </section>
 
-                            <section class="about__advantages section">
+                            <section class="about__advantages section section--margin-xl">
                                 <div class="about__advantages-top section__box box box--gray box--rounded-sm">
                                     <div class="about__advantages-wrapper">
                                         <picture class="about__advantages-picture">
@@ -260,13 +261,11 @@
                                 </div>
                             </section>
 
-                            <section class="about__cert section">
+                            <section class="about__cert section section--margin-xl">
                                 <div class="about__cert-box section__box box">
-                                    <div class=" section__header">
-                                        <h3 class="about__cert-title section__title section__title--closer">
-                                            Сертификаты, подтверждающие качество нашей продукции
-                                        </h3>
-                                    </div>
+                                    <h3 class="about__cert-title section__title section__title--closer">
+                                        Сертификаты, подтверждающие качество нашей продукции
+                                    </h3>
 
                                     <div class="about__cert-list documents">
                                         <div class="about__cert-item documents__item">
@@ -385,19 +384,17 @@
                                 </div>
                             </section>
 
-                            <section class="about__business section">
+                            <section class="about__business section section--margin-xl">
                                 <div class="about__business-box section__box box">
-                                    <div class="about__business-header section__header">
-                                        <h2 class="about__cert-title section__title section__title--closer">
-                                            Бизнес с нами
-                                        </h2>
-                                    </div>
-
+                                    <h2 class="about__business-title section__title section__title--closer">
+                                        Бизнес с нами
+                                    </h2>
+                                    
                                     <div class="about__business-steps work-steps">
                                         <div class="work-steps__box section__box box box--gray">
                                             <div class="work-steps__header section__header">
                                                 <h3 class="section__title section__title--closer">
-                                                    Как это рабоатет
+                                                    Как это работает
                                                 </h3>
                                             </div>
                                             <ul class="work-steps__list">
@@ -484,14 +481,14 @@
                                 </div> 
                             </section>
 
-                            <section class="about__preview section">
+                            <section class="about__preview section section--margin-xl">
                                 <div class="about__preview-box section__box box">
                                     <iframe class="about__preview-video" width="100%" height="100%" src="https://www.youtube.com/embed/j36Uq2A1OP0" frameborder="0" allowfullscreen>
                                     </iframe>
                                 </div> 
                             </section>
 
-                            <section class="about__howbecome section">
+                            <section class="about__howbecome section section--margin-xl">
                                 <div class="about__howbecome-box section__box box">
                                     <h3 class="section__title">
                                         Как стать консультантом
@@ -592,131 +589,129 @@
                                 </div> 
                             </section>
 
-                            <section class="about__contacts section">
-                                <div class="about__contacts-header section__header">
-                                    <h2 class="section__title">
-                                        Контакты
-                                    </h2>
-                                </div>
-                                   
-                                <div class="about__contacts-box section__box box box--gray box--rounded-sm">
-                                    <div class="about__contacts-content">
-                                        <h3 class="about__contacts-name">
-                                            ООО «ЭКО-Золопродукт»
-                                        </h3>
+                            <section class="about__contacts section section--margin-xl">
+                                <h2 class="section__title">
+                                    Контакты
+                                </h2>
+                                
+                                <div class="contacts">
+                                    <div class="contacts__box section__box box box--gray box--rounded-sm">
+                                        <div class="contacts__content">
+                                            <h3 class="contacts__name">
+                                                ООО «ЭКО-Золопродукт»
+                                            </h3>
 
-                                        <ul class="about__contacts-list">
-                                            <li class="about__contacts-item">
-                                                <div class="about__contacts-card">
-                                                    <svg class="about__contacts-card-icon icon icon--location">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
-                                                    </svg>
-                                                    <span class="about__contacts-card-title heading heading--small">Адрес:</span>
-                                                    <span class="about__contacts-card-text">Проспект Мира, 9</span>
+                                            <ul class="contacts__list">
+                                                <li class="contacts__item">
+                                                    <div class="contacts__card">
+                                                        <svg class="contacts__card-icon icon icon--location">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
+                                                        </svg>
+                                                        <span class="contacts__card-title heading heading--small">Адрес:</span>
+                                                        <span class="contacts__card-text">Проспект Мира, 9</span>
+                                                    </div>
+                                                </li>
+
+                                                <li class="contacts__item">
+                                                    <div class="contacts__card">
+                                                        <svg class="contacts__card-icon icon icon--call">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
+                                                        </svg>
+                                                        <span class="contacts__card-title heading heading--small">Телефон:</span>
+                                                        <span class="contacts__card-text">8 (800) 123-45-67</span>
+                                                    </div>
+                                                </li>
+
+                                                <li class="contacts__item">
+                                                    <div class="contacts__card">
+                                                        <svg class="contacts__card-icon icon icon--clock">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                        </svg>
+                                                        <span class="contacts__card-title heading heading--small">Часы работы:</span>
+                                                        <span class="contacts__card-text">
+                                                            Пн-Пт 9:00 - 18:00, Сб-Вс 11:00 - 17:00
+                                                        </span>
+                                                    </div>
+                                                </li>
+
+                                                <li class="contacts__item">
+                                                    <div class="contacts__card">
+                                                        <svg class="contacts__card-icon icon icon--sms">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
+                                                        </svg>
+                                                        <span class="contacts__card-title heading heading--small">Email:</span>
+                                                        <span class="contacts__card-text">
+                                                            ameappetite_info@yandex.ru <br>
+                                                            <span class="contacts__card-spec">(по вопросам сотрудничества)</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <div class="contacts__social">
+                                                <h5 class="contacts__social-title section__title section__title--closer">
+                                                    Мы в социальных сетях:
+                                                </h5>
+
+                                                <div class="socials">
+                                                    <ul class="socials__list">
+                                                        <li class="socials__item">
+                                                            <a class="socials__link" href="#">
+                                                                <svg class="socials__icon icon icon--social">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                        <li class="socials__item">
+                                                            <a class="socials__link" href="#">
+                                                                <svg class="socials__icon icon icon--social">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                        <li class="socials__item">
+                                                            <a class="socials__link" href="#">
+                                                                <svg class="socials__icon icon icon--social">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                        <li class="socials__item">
+                                                            <a class="socials__link" href="#">
+                                                                <svg class="socials__icon icon icon--social">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                        <li class="socials__item">
+                                                            <a class="socials__link" href="#">
+                                                                <svg class="socials__icon icon icon--social">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                            </li>
-
-                                            <li class="about__contacts-item">
-                                                <div class="about__contacts-card">
-                                                    <svg class="about__contacts-card-icon icon icon--call">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
-                                                    </svg>
-                                                    <span class="about__contacts-card-title heading heading--small">Телефон:</span>
-                                                    <span class="about__contacts-card-text">8 (800) 123-45-67</span>
-                                                </div>
-                                            </li>
-
-                                            <li class="about__contacts-item">
-                                                <div class="about__contacts-card">
-                                                    <svg class="about__contacts-card-icon icon icon--clock">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                                                    </svg>
-                                                    <span class="about__contacts-card-title heading heading--small">Часы работы:</span>
-                                                    <span class="about__contacts-card-text">
-                                                        Пн-Пт 9:00 - 18:00, Сб-Вс 11:00 - 17:00
-                                                    </span>
-                                                </div>
-                                            </li>
-
-                                            <li class="about__contacts-item">
-                                                <div class="about__contacts-card">
-                                                    <svg class="about__contacts-card-icon icon icon--sms">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
-                                                    </svg>
-                                                    <span class="about__contacts-card-title heading heading--small">Email:</span>
-                                                    <span class="about__contacts-card-text">
-                                                        ameappetite_info@yandex.ru <br>
-                                                        <span class="about__contacts-card-spec">(по вопросам сотрудничества)</span>
-                                                    </span>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <div class="about__contacts-social">
-                                            <h5 class="about__contacts-social-title section__title section__title--closer">
-                                                Мы в социальных сетях:
-                                            </h5>
-
-                                            <div class="socials">
-                                                <ul class="socials__list">
-                                                    <li class="socials__item">
-                                                        <a class="socials__link" href="#">
-                                                            <svg class="socials__icon icon icon--social">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="socials__item">
-                                                        <a class="socials__link" href="#">
-                                                            <svg class="socials__icon icon icon--social">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="socials__item">
-                                                        <a class="socials__link" href="#">
-                                                            <svg class="socials__icon icon icon--social">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="socials__item">
-                                                        <a class="socials__link" href="#">
-                                                            <svg class="socials__icon icon icon--social">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="socials__item">
-                                                        <a class="socials__link" href="#">
-                                                            <svg class="socials__icon icon icon--social">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                            
+                                            
                                             </div>
-                                           
-                                           
+                                        </div>
+
+                                        <div class="contacts__wrapper">
+                                            <picture class="contacts__picture">
+                                                <source srcset="/local/templates/.default/images/about-contact-mobile.png" media="(max-width: 767px)" />
+                                                <img class="contacts__images" src="/local/templates/.default/images/about-contact.png" alt="">
+                                            </picture>
                                         </div>
                                     </div>
-
-                                    <div class="about__contacts-wrapper">
-                                        <picture class="about__contacts-picture">
-                                            <source srcset="/local/templates/.default/images/about-contact-mobile.png" media="(max-width: 767px)" />
-                                            <img class="about__contacts-images" src="/local/templates/.default/images/about-contact.png" alt="">
-                                        </picture>
-                                    </div>
                                 </div>
-
+                                
                             </section>
 
-                            <section class="about__info section">
-                                <div class="about__info-header section__header">
-                                    <h2 class="about__info-title section__title">
-                                        Правовая информация
-                                    </h2>
-                                </div>
+                            <section class="about__info section section--margin-xl">
+                                <h2 class="about__info-title section__title">
+                                    Правовая информация
+                                </h2>
 
                                 <div class="section__box box">
                                     <div class="accordeon">
