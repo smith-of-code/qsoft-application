@@ -14,6 +14,7 @@ use Bitrix\Main,
 	Bitrix\Main\Data,
 	Bitrix\Sale,
 	Bitrix\Sale\Internals\OrderPropsValueTable;
+use QSoft\Helper\UserFieldHelper;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
@@ -354,8 +355,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			$_REQUEST["order"] == "ASC"
 		];
 
-		$_REQUEST['check'] = !empty($this->filteredByStatus);
-
 		if (!empty($this->filteredByStatus)) {
 			$arFilter["@STATUS_ID"] = $this->filteredByStatus;
 		}
@@ -366,6 +365,10 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		if (!empty($this->filteredByPayd)) {
 			$arFilter["PAYED"] = $this->filteredByPayd;
+		}
+
+		if (!empty($filter["filter_id"])) {
+			$arFilter["ID"] = $filter["filter_id"];
 		}
 
 		$this->filter = $arFilter;
@@ -416,11 +419,11 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$this->sortBy = ($filter["by"] <> '' ? $filter["by"] : $this->arParams['DEFAULT_SORT']);
 
-		$this->filteredByStatus = ($filter["status"] <> '' ? $filter["status"] : '');
+		$this->filteredByStatus = (count($filter["status"]) <> 0 ? $filter["status"] : []);
 
-		$this->filteredByPayd = ($filter["by"] <> '' ? $filter["by"] : '');
+		$this->filteredByPayd = ($filter["payd"] <> '' ? $filter["payd"] : '');
 
-		$this->sortOrder = (mb_strlen($_REQUEST["order"]) != "" && $_REQUEST["order"] == "ASC" ? "ASC": "DESC");
+		$this->sortOrder = (mb_strlen($filter["order"]) != "" && $filter["order"] == "ASC" ? "ASC": "DESC");
 
 		$this->prepareFilter();
 	}
@@ -431,7 +434,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 	 */
 	protected function filterRestore()
 	{
-		if ($this->arParams["SAVE_IN_SESSION"] == "Y" && !mb_strlen($_REQUEST["filter"]))
+		if ($this->arParams["SAVE_IN_SESSION"] == "Y" && empty($_REQUEST["filter"]))
 		{
 			if (intval($_SESSION["spo_filter_id"]))
 				$_REQUEST["filter_id"] = $_SESSION["spo_filter_id"];
@@ -506,8 +509,8 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			$arFilter["@STATUS_ID"] = $this->filteredByStatus;
 		}
 
-		if (!empty($this->filteredByStatus)) {
-			$arFilter["PAYED"] = 'Y';
+		if (!empty($this->filteredByPayd)) {
+			$arFilter["PAYED"] = $this->filteredByPayd;
 		}
 
 		if($_REQUEST["filter_date_from"] <> '')
@@ -902,9 +905,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			'select' => $select
 		);
 
-		if ($this->sortBy == 'STATUS')
-		{
-			$_REQUEST['test123'] = 1;
+		if ($this->sortBy == 'STATUS') {
 			$getListParams['runtime'] = array(
 				new Main\Entity\ReferenceField(
 					'STATUS',
@@ -921,13 +922,13 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		}
 		else
 		{
-			$_REQUEST['test123'] = [$this->sortBy => $this->sortOrder];
 			$getListParams['order'] = array($this->sortBy => $this->sortOrder);
 		}
 
 		$orderClassName = $this->registry->getOrderClassName();
 
         $this->page = empty($_REQUEST['offset']) ? 1 : (int)$_REQUEST['offset'];
+
         $size = empty($_REQUEST['limit'])
             ? (((int)$this->arParams["ORDERS_PER_PAGE"] > 0)
 					? (int)$this->arParams["ORDERS_PER_PAGE"]
@@ -1118,21 +1119,21 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		foreach ($orderUserIdList as $orderId => $userId) {
 			$user = $users[$userId];
-			$result[$orderId] = $this->userFIOFormat($user['NAME'] , $user['SECOND_NAME'] , $user['LAST_NAME']);
+			$result[$orderId]
+				= UserFieldHelper::userFIOFormat($user['NAME'] , $user['SECOND_NAME'] , $user['LAST_NAME']);
 		}
 
 		return $result ?? [];
 	}
 
-	// TODO: Перенести в хелпер
-	private function userFIOFormat(string $firstName, ?string $secondName = '', ?string $lastName = '')
-	{
-		$secondName = mb_substr(mb_convert_case($secondName, MB_CASE_TITLE, 'UTF-8'), 0, 1) ?? '';
-		$firstName = mb_substr(mb_convert_case($firstName, MB_CASE_TITLE, 'UTF-8'), 0, 1) ?? '';
-
-		return $lastName . ' ' . $firstName . ' ' . $secondName;
-	}
-
+	/**
+	 * [Description for getImageUrl]
+	 *
+	 * @param array $imgIds
+	 * 
+	 * @return array
+	 * 
+	 */
 	private function getImageUrl(array $imgIds): array
 	{
 		$bdResult = CFile::GetList([], ['@ID' => implode(',', $imgIds)]);
@@ -1531,7 +1532,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         return json_encode([
             'orders' => $this->arResult,
             'last' => $this->isLastPage,
-            'offset' => ($this->page + 1)
+            'offset' => ($this->page + 1),
         ]);
     }
 
@@ -1592,7 +1593,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$images = $this->getImageUrl($imgIds ?? []);
 
-		foreach ($listOrderBasket as $prodictId => &$product) {
+		foreach ($listOrderBasket as &$product) {
 			$product['IMAGE_SRC'] = $images[$product['IMAGES_ID']];
 		}
 
@@ -1613,6 +1614,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         $this->formatResult();
         return json_encode([
             'orders' => $this->arResult,
+            'offset' => ($this->page + 1),
             'last' => $this->isLastPage,
         ]);
     }

@@ -63,5 +63,4 @@ $arResult = $_REQUEST['data'];
 
         </li>
     <?php endforeach; ?>
-
 </ul>

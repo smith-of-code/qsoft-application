@@ -9,8 +9,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                 <div class="form__field">
                     <div class="form__field-block form__field-block--input">
                         <div class="input input--small input--squared input--buttoned">
-                            <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
-                            <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
+                            <input type="text" class="input__control" name="filter_id" id="filter_id" placeholder="Я ищу...">
+                            <button type="button" id="search_button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                 <span class="button__icon button__icon--medium">
                                     <svg class="icon icon--search">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>

@@ -8,6 +8,7 @@ use \QSoft\Service\ProductService;
 use \Bitrix\Main\Engine\ActionFilter\Csrf;
 use \QSoft\Entity\User;
 use \Bitrix\Sale\Internals\StatusTable;
+use QSoft\Helper\UserFieldHelper;
 
 Loader::includeModule('sale');
 Loc::loadMessages(__FILE__);
@@ -98,14 +99,7 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         $user = new User();
         $userName = '';
         if ($user->lastName) {
-            $userName .= $user->lastName;
-
-            foreach([$user->name, $user->secondName] as $initial) {
-                if($initial) {
-                    $userName .= ' ' . mb_substr($initial, 0, 1) . '.';
-                }
-            }
-
+            $userName = UserFieldHelper::userFIOFormat($user->name, $user->secondName, $user->lastName);
         } else {
             $userName = $user->email ?? $user->login;
         }

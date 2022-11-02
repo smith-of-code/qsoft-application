@@ -245,6 +245,9 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     </div>
 </div>
 <script>
+    let offset = <?=$arResult['OFFSET'] ?? 1?>;
+    let size = <?=$arParams['ORDERS_PER_PAGE']?>;
+    console.log(offset);
     $(document).ready(function () {
         $('#PAYD').on('select2:close', function(){
             filteringValues('payd', $(this).val());
@@ -276,6 +279,12 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             }
         });
 
+        $('#search_button').on('click', function () {
+            if ($('#filter_id').val() != '') {
+                filteringValues('search', $('#filter_id').val());
+            }
+        });
+
     });
 
     function filteringValues(filterType, value, sort = '') {
@@ -284,29 +293,40 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             status: filterType == 'status' ? value: $('#STATUS').val(),
             payd: filterType == 'payd' ? value: $('#PAYD').val(),
             order: sort != '' ? sort: 'asc',
+            filter_id: value,
         };
-        
+        showMore.style.cssText = '';
         console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
 
         BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
             mode: 'class',
             data: {
-                filter:filter
+                filter:filter,
+                offset: 1,
+                limit: size,
             }
         }).then(function (response) {
             let orders = JSON.parse(response.data);
-            console.log("ok", orders);
+            console.log("filter", orders);
             
             $('#order_list').empty()
-            setData(orders);
+            offset = orders.offset;
+            if (Object.keys(orders.orders.ORDERS).length == 0) {
+                $('#order_list').append('Ничего не найдено')
+                showMore.style.cssText = 'display:none;';
+            } else {
+                if (orders.last) {
+                    showMore.style.cssText = 'display:none;';
+                    setData(orders);
+                } else {
+                    setData(orders);
+                }
+            }
 
         }, function (response) {
             console.log(123, "err", response.errors);
         });
     }
-
-    let offset = <?=$arResult['OFFSET'] ?? 1?>;
-    let size = <?=$arParams['ORDERS_PER_PAGE']?>;
 
     showMore.onclick = function (e) {
         let filter = {
@@ -315,7 +335,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             payd:  $('#PAYD').val(),
             order: $('#SORTING').hasClass('desc') ? 'desc' : 'asc',
         };
-        console.log('TT');
+
         e.preventDefault();
         BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'load', {
             mode: 'class',
@@ -327,10 +347,11 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         }).then(function (response) {
             let orders = JSON.parse(response.data);
 
-            console.log("ok", orders);
+            console.log("page", orders);
             offset = orders.offset;
             if (orders.last) {
                 showMore.style.cssText = 'display:none;';
+                setData(orders);
             } else {
                 setData(orders);
             }
@@ -365,15 +386,9 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         }).then(function (response) {
             let basket = JSON.parse(response.data);
 
-            console.log("ok", basket.basket);
+            console.log("basket", basket.basket);
 
             setBasketList(basket.basket, orderId);
-
-            // if (orders.last) {
-            //     showMore.innerHTML = 'Заказы закончились';
-            // } else {
-            //     setData(orders);
-            // }
         }, function (response) {
             console.log("err", response.errors);
         });
