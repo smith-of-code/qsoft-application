@@ -23,8 +23,6 @@
     &__list {
         display: flex;
         flex-direction: column;
-
-        margin-bottom: rem($gap-normal);
     }
 
     &__item {
@@ -34,6 +32,7 @@
         padding: 0 rem($gap-small);
 
         &:last-child {
+            margin-top: rem($gap-small);
             margin-bottom: 0;
         }
     }
@@ -84,7 +83,7 @@
 
     &__bonus {
         padding-top: rem($gap-small);
-        padding-bottom: rem($gap-medium);
+        padding-bottom: rem($gap-small);
 
         &-wrapper {
             padding: rem($gap-medium);
@@ -113,5 +112,9 @@
 
             margin-left: auto;
         }
+    }
+
+    &__button {
+        margin-top: rem($gap-normal);
     }
 }

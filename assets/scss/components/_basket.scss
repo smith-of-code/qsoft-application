@@ -26,8 +26,18 @@
         }
     }
 
-    &__order {
-        margin-top: rem(24px);
+    &__progress {
+        margin-bottom: rem(24px);
+    }
+
+    &__cart {
+        &-null {
+            display: none;
+
+            text-align: center;
+
+            color: $saltBox;
+        }
     }
 
     

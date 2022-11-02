@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>Детальная страница товара</title>
+        <title>Корзина</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
@@ -25,7 +25,9 @@
                     <div class="content__main">
                         <div class="basket__row">
                             <div class="basket__col basket__col--full">
-                                <div class="cards-cart basket__cart">
+                                <div class="cards-cart basket__cart" data-basket>
+                                    <div class="basket__cart-null heading heading--average">Корзина пуста</div>
+
                                     <ul class="cards-cart__list basket__list" data-basket-list>
                                         <li class="cards-cart__item basket__item"data-basket-item data-remove-item>
 
@@ -96,7 +98,7 @@
                                                                 <div class="quantity quantity--active" data-quantity>
                                                                     <div class="quantity__actions">
                                                                         <div class="quantity__decrease">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--minus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -117,7 +119,7 @@
                                                                         </div>
 
                                                                         <div class="quantity__increase">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--plus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -133,7 +135,7 @@
                                                             <div class="card-cart__price">
                                                                 <p class="card-cart__price-item">
                                                                     <span class="card-cart__price-value">
-                                                                        1542 ₽
+                                                                        1000 ₽
                                                                     </span>
                                                                     <span class="card-cart__price-sufix">
                                                                         за шт
@@ -161,7 +163,7 @@
                                                                 </svg>
                                                             </span>
                                                         </button>
-                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                                             <span class="button__icon">
                                                                 <svg class="icon">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -220,7 +222,7 @@
                                                                 <div class="quantity quantity--active" data-quantity>
                                                                     <div class="quantity__actions">
                                                                         <div class="quantity__decrease">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--minus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -241,7 +243,7 @@
                                                                         </div>
 
                                                                         <div class="quantity__increase">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--plus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -282,7 +284,7 @@
                                                                 </svg>
                                                             </span>
                                                         </button>
-                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                                             <span class="button__icon">
                                                                 <svg class="icon">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -364,7 +366,7 @@
                                                                 <div class="quantity quantity--active" data-quantity>
                                                                     <div class="quantity__actions">
                                                                         <div class="quantity__decrease">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--minus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -385,7 +387,7 @@
                                                                         </div>
 
                                                                         <div class="quantity__increase">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--plus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -429,7 +431,7 @@
                                                                 </svg>
                                                             </span>
                                                         </button>
-                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                                             <span class="button__icon">
                                                                 <svg class="icon">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -511,7 +513,7 @@
                                                                 <div class="quantity quantity--active" data-quantity>
                                                                     <div class="quantity__actions">
                                                                         <div class="quantity__decrease">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-red" data-quantity-decrease data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--minus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -532,7 +534,7 @@
                                                                         </div>
 
                                                                         <div class="quantity__increase">
-                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase>
+                                                                            <button type="button" class="button button--iconed button--covered button--square button--gray-green" data-quantity-increase data-basket-item-count>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--plus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -576,7 +578,7 @@
                                                                 </svg>
                                                             </span>
                                                         </button>
-                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end">
+                                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                                             <span class="button__icon">
                                                                 <svg class="icon">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -666,7 +668,7 @@
                                                     <span class="basket-card__elipse">
                                                         ...................................................................
                                                     </span>
-                                                    <span class="basket-card__total" data-basket-economy>0 ₽</span> 
+                                                    <span class="basket-card__total basket-card__total--green" data-basket-economy>0 ₽</span> 
                                                 </div>
                                                 <div class="basket-card__bonus">
                                                     <div class="basket-card__bonus-wrapper">
@@ -708,7 +710,7 @@
                                                     <span class="basket-card__total basket-card__total--bold" data-basket-total>0 ₽</span> 
                                                 </div>
                                             </div>
-                                            <button type="button" class="button button--rounded button--covered button--green button--full">
+                                            <button type="button" class="basket-card__button button button--rounded button--covered button--green button--full">
                                                 Оформить заказ
                                             </button>
                                         </div>
