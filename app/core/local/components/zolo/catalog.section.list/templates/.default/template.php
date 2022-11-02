@@ -11,61 +11,186 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-
-$strTitle = "";
 ?>
-<div class="catalog-section-list">
-	<?
-	$TOP_DEPTH = $arResult["SECTION"]["DEPTH_LEVEL"];
-	$CURRENT_DEPTH = $TOP_DEPTH;
 
-	foreach($arResult["SECTIONS"] as $arSection)
-	{
-		$this->AddEditAction($arSection['ID'], $arSection['EDIT_LINK'], CIBlock::GetArrayByID($arSection["IBLOCK_ID"], "SECTION_EDIT"));
-		$this->AddDeleteAction($arSection['ID'], $arSection['DELETE_LINK'], CIBlock::GetArrayByID($arSection["IBLOCK_ID"], "SECTION_DELETE"), array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM')));
-		if($CURRENT_DEPTH < $arSection["DEPTH_LEVEL"])
-		{
-			echo "\n",str_repeat("\t", $arSection["DEPTH_LEVEL"]-$TOP_DEPTH),"<ul>";
-		}
-		elseif($CURRENT_DEPTH == $arSection["DEPTH_LEVEL"])
-		{
-			echo "</li>";
-		}
-		else
-		{
-			while($CURRENT_DEPTH > $arSection["DEPTH_LEVEL"])
-			{
-				echo "</li>";
-				echo "\n",str_repeat("\t", $CURRENT_DEPTH-$TOP_DEPTH),"</ul>","\n",str_repeat("\t", $CURRENT_DEPTH-$TOP_DEPTH-1);
-				$CURRENT_DEPTH--;
-			}
-			echo "\n",str_repeat("\t", $CURRENT_DEPTH-$TOP_DEPTH),"</li>";
-		}
+<?
+$TOP_DEPTH = $arResult["SECTION"]["DEPTH_LEVEL"];
+$CURRENT_DEPTH = $TOP_DEPTH;
 
-		$count = $arParams["COUNT_ELEMENTS"] && $arSection["ELEMENT_CNT"] ? "&nbsp;(".$arSection["ELEMENT_CNT"].")" : "";
+// Открывающий участок блока списка разделов
+if ($TOP_DEPTH == 0): ?>
+    <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
+<?php else: ?>
+    <div class="filter__header">
+        <p class="filter__heading heading heading--small">Категории</p>
+    </div>
 
-		if ($_REQUEST['SECTION_ID']==$arSection['ID'])
-		{
-			$link = '<b>'.$arSection["NAME"].$count.'</b>';
-			$strTitle = $arSection["NAME"];
-		}
-		else
-		{
-			$link = '<a href="'.$arSection["SECTION_PAGE_URL"].'">'.$arSection["NAME"].$count.'</a>';
-		}
+    <div class="category">
+        <ul class="category__list">
+<?php endif;
 
-		echo "\n",str_repeat("\t", $arSection["DEPTH_LEVEL"]-$TOP_DEPTH);
-		?><li id="<?=$this->GetEditAreaId($arSection['ID']);?>"><?=$link?><?
+$openLevel1 = "";
+$closeLevel1 = "";
+$openLevel2 = "";
+$closeLevel2 = "";
+$link = "";
 
-		$CURRENT_DEPTH = $arSection["DEPTH_LEVEL"];
-	}
+foreach($arResult["SECTIONS"] as $key => $arSection) {
+    $count = $arParams["COUNT_ELEMENTS"] && $arSection["ELEMENT_CNT"] ? "&nbsp;(".$arSection["ELEMENT_CNT"].")" : "";
+    $name = $arSection["NAME"] . $count;
+    $url = $arSection["SECTION_PAGE_URL"];
+    $openExpandable = false;
+    $closeExpandable = false;
 
-	while($CURRENT_DEPTH > $TOP_DEPTH)
-	{
-		echo "</li>";
-		echo "\n",str_repeat("\t", $CURRENT_DEPTH-$TOP_DEPTH),"</ul>","\n",str_repeat("\t", $CURRENT_DEPTH-$TOP_DEPTH-1);
-		$CURRENT_DEPTH--;
-	}
-	?>
-</div>
-<?=($strTitle?'<br/><h2>'.$strTitle.'</h2>':'')?>
+    if ($TOP_DEPTH == 0) { // Верстка для корневого раздела
+
+        $openLevel1 = <<<OPEN_LEVEL_1
+        <div class="accordeon__item box box--rounded-sm" data-accordeon>
+            <div class="accordeon__header" data-accordeon-toggle>
+                <h5 class="accordeon__title accordeon__title--dark">$name</h5>
+                <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                    <span class="accordeon__toggle-icon button__icon">
+                        <svg class="icon icon--arrow-down">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+
+            <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                <div class="category">
+                    <ul class="category__list">
+OPEN_LEVEL_1;
+
+        $closeLevel1 = <<<CLOSE_LEVEL_1
+                    </ul>
+                </div>
+            </div>
+        </div>
+CLOSE_LEVEL_1;
+
+        $openLevel2 = <<<OPEN_LEVEL_2
+                        <li class="category__item">
+OPEN_LEVEL_2;
+
+        $closeLevel2 = <<<CLOSE_LEVEL_2
+                        </li>
+CLOSE_LEVEL_2;
+
+        $link = <<<LINK
+                            <a href="$url" class="category__item-link button button--simple button--red">$name</a>
+LINK;
+
+    } else { // Верстка для вложенного раздела
+
+        // Если следующий уровень будет вложенный - открываем блок с учетом функционала сворачивания списка
+        if (isset($arResult["SECTIONS"][$key+1]) && $arResult["SECTIONS"][$key+1]["DEPTH_LEVEL"] > $arSection["DEPTH_LEVEL"]) {
+            $openExpandable = true;
+        }
+        // Если предыдущий уровень был вложенный - закрываем блок с учетом функционала сворачивания списка
+        if (isset($arResult["SECTIONS"][$key-1]) && $arResult["SECTIONS"][$key-1]["DEPTH_LEVEL"] > $arSection["DEPTH_LEVEL"]) {
+            $closeExpandable = true;
+        }
+
+
+        $openLevel1 = <<<OPEN_LEVEL_1
+        <li class="category__item">
+OPEN_LEVEL_1;
+
+        $closeLevel1 = <<<CLOSE_LEVEL_1
+        </li>
+CLOSE_LEVEL_1;
+
+        if ($openExpandable) {
+            $openLevel1 = <<<OPEN_LEVEL_1
+            <li class="category__item">
+                <div class="accordeon accordeon--small" data-accordeon>
+                    <div class="accordeon__header" data-accordeon-toggle>
+                        <a href="$url" class="accordeon__title category__item-link button button--simple button--red">$name</a>
+                        <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
+                            <span class="accordeon__toggle-icon button__icon">
+                                <svg class="icon icon--arrow-down">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+        
+                    <div class="filter__accordeon-body accordeon__body" data-accordeon-content>
+                        <div class="category">
+                            <ul class="category__list">
+OPEN_LEVEL_1;
+        }
+
+        if ($closeExpandable) {
+            $closeLevel1 = <<<CLOSE_LEVEL_1
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+CLOSE_LEVEL_1;
+        }
+
+        $openLevel2 = <<<OPEN_LEVEL_2
+        <li class="category__item">
+OPEN_LEVEL_2;
+
+        $closeLevel2 = <<<CLOSE_LEVEL_2
+        </li>
+CLOSE_LEVEL_2;
+
+        $link = <<<LINK
+        <a href="$url" class="category__item-link button button--simple button--red">$name</a>
+LINK;
+
+    }
+
+    /* Построение списка разделов */
+
+    if ($CURRENT_DEPTH < $arSection["DEPTH_LEVEL"]) { // Если уровень раздела выше текущего
+        if ($CURRENT_DEPTH == $TOP_DEPTH) {
+            echo $openLevel1;
+            if ($TOP_DEPTH != 0 && !$openExpandable) echo $link;
+        } else {
+            echo $openLevel2;
+            echo $link;
+        }
+    } elseif($CURRENT_DEPTH == $arSection["DEPTH_LEVEL"]) { // Если уровень тот же
+        if ($CURRENT_DEPTH == $TOP_DEPTH + 1) {
+            echo $closeLevel1;
+            echo $openLevel1;
+            if ($TOP_DEPTH != 0 && !$openExpandable) echo $link;
+        } else {
+            echo $closeLevel2;
+            echo $openLevel2;
+            echo $link;
+        }
+    } else { // Если уровень раздела меньше текущего
+        echo $closeLevel2;
+        echo $closeLevel1;
+        echo $openLevel1;
+        if ($TOP_DEPTH != 0 && !$openExpandable) echo $link;
+    }
+    $CURRENT_DEPTH = $arSection["DEPTH_LEVEL"];
+}
+
+// Закрытие блоков списка разделов
+while($CURRENT_DEPTH > $TOP_DEPTH) {
+    if ($CURRENT_DEPTH > $TOP_DEPTH + 1) {
+        echo $closeLevel2;
+    } else {
+        echo $closeLevel1;
+    }
+    $CURRENT_DEPTH--;
+}
+
+
+
+// Закрывающий участок блока списка разделов
+if ($TOP_DEPTH == 0): ?>
+    </div>
+<?php else: ?>
+        </ul>
+    </div>
+<?php endif; ?>

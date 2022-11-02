@@ -28,42 +28,43 @@ $this->setFrameMode(true);
                 <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" class="form">
 
                     <div class="filter__row">
-                        <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
-                            <!-- TODO: Интегрировать верстку списка разделов (аккордеон) -->
-                            <?
-                            /* Список разделов каталога */
-                            $sectionListParams = array(
-                                "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-                                "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-                                "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
-                                "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
-                                "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-                                "CACHE_TIME" => $arParams["CACHE_TIME"],
-                                "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-                                "COUNT_ELEMENTS" => $arParams["SECTION_COUNT_ELEMENTS"],
-                                "TOP_DEPTH" => $arParams["SECTION_TOP_DEPTH"],
-                                "SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
-                                "VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
-                                "SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
-                                "HIDE_SECTION_NAME" => (isset($arParams["SECTIONS_HIDE_SECTION_NAME"]) ? $arParams["SECTIONS_HIDE_SECTION_NAME"] : "N"),
-                                "ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
-                            );
-                            $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
-                            $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
-                            $APPLICATION->IncludeComponent(
-                                "zolo:catalog.section.list",
-                                "",
-                                $sectionListParams,
-                                $component,
-                                array("HIDE_ICONS" => "Y")
-                            );
-                            unset($sectionListParams);
-                            ?>
-                        </div>
+                        <?
+                        /* Список разделов каталога */
+                        $sectionListParams = array(
+                            "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+                            "IBLOCK_ID" => $arParams["IBLOCK_ID"],
+                            "SECTION_ID" => $arParams["SECTION_ID"],
+                            "SECTION_CODE" => $arParams["SECTION_CODE"],
+                            "CACHE_TYPE" => $arParams["CACHE_TYPE"],
+                            "CACHE_TIME" => $arParams["CACHE_TIME"],
+                            "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+                            "COUNT_ELEMENTS" => $arParams["COUNT_ELEMENTS"],
+                            "TOP_DEPTH" => $arParams["TOP_DEPTH"],
+                            "SECTION_URL" => $arParams["SECTION_URL"],
+                            "VIEW_MODE" => $arParams["VIEW_MODE"],
+                            "SHOW_PARENT_NAME" => $arParams["SHOW_PARENT_NAME"],
+                            "HIDE_SECTION_NAME" => $arParams["HIDE_SECTION_NAME"],
+                            "ADD_SECTIONS_CHAIN" => "N", // Отключено, т. к. уже добавляется
+                        );
+                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
+                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
+                        $APPLICATION->IncludeComponent(
+                            "zolo:catalog.section.list",
+                            "",
+                            $sectionListParams,
+                            $component,
+                            array("HIDE_ICONS" => "Y")
+                        );
+                        unset($sectionListParams);
+                        ?>
                     </div>
 
                     <?php foreach($arResult["HIDDEN"] as $arItem):?>
-                        <input type="hidden" name="<?= $arItem["CONTROL_NAME"]?>" id="<?= $arItem["CONTROL_ID"]?>" value="<?= $arItem["HTML_VALUE"]?>" />
+                        <input class="filter__row"
+                               type="hidden"
+                               name="<?= $arItem["CONTROL_NAME"]?>"
+                               id="<?= $arItem["CONTROL_ID"]?>"
+                               value="<?= $arItem["HTML_VALUE"]?>" />
                     <?php endforeach;?>
 
                     <?php foreach($arResult["ITEMS"] as $key=>$arItem):

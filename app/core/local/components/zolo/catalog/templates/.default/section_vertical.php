@@ -64,6 +64,15 @@ else
                 "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
                 "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
                 "INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
+                // + параметры компонента списка разделов, размещенного внутри фильтра
+                "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
+                "COUNT_ELEMENTS" => $arParams["SECTION_COUNT_ELEMENTS"],
+                "TOP_DEPTH" => $arParams["SECTION_TOP_DEPTH"],
+                "SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+                "VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
+                "SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
+                "HIDE_SECTION_NAME" => (isset($arParams["SECTIONS_HIDE_SECTION_NAME"]) ? $arParams["SECTIONS_HIDE_SECTION_NAME"] : "N"),
+                "ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
             ),
                 $component,
                 array('HIDE_ICONS' => 'Y')
