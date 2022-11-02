@@ -293,7 +293,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             status: filterType == 'status' ? value: $('#STATUS').val(),
             payd: filterType == 'payd' ? value: $('#PAYD').val(),
             order: sort != '' ? sort: 'asc',
-            filter_id: value,
+            filter_id: filterType == 'search' ? value : '',
         };
         showMore.style.cssText = '';
         console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
@@ -395,6 +395,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     }
 
     function setBasketList(data, orderId) {
+                console.log(data);
         $.ajax({
             method: 'POST',
             data: {
