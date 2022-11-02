@@ -15,7 +15,7 @@ const ELEMENTS_SELECTOR = {
 };
 
 const MASKS = {
-    dateMask: 'дд.мм.гггг',
+    dateMask: '99.99.9999',
     phoneMask: '+7 (999) 999-99-99',
     emailMask: 'email',
     seriaMask: '99 99',
