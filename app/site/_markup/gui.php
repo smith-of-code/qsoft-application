@@ -425,6 +425,30 @@
                                     </svg>
                                 </li>
 
+                                <li class="icons__item" title="Icon: double-quotes">
+                                    <svg class="icon icon--double-quotes gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: call">
+                                    <svg class="icon icon--call gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: location">
+                                    <svg class="icon icon--location gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: sms">
+                                    <svg class="icon icon--sms gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
+                                    </svg>
+                                </li>
+
                                 <li class="icons__item" title="Icon: question-circle">
                                     <svg class="icon icon--question-circle gui__icon">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
@@ -17287,6 +17311,330 @@
                         </div>
                     </div>
                     <!--/Слайдер-->
+                    <!--Мы ценим-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Блок Мы ценим</h2>
+
+                        <div class="appreciates">
+                            <ul class="appreciates__list">
+                                <li class="appreciates__item">
+                                    <div class="appreciate-card appreciate-card--blue">
+                                        <img class="appreciate__card-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
+                                        <p class="appreciate__card-text">Честность</p>
+                                    </div>
+                                </li>
+
+                                <li class="appreciates__item">
+                                    <div class="appreciate-card appreciate-card--green">
+                                        <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
+                                        <p class="appreciate-card__text">Ответсвенность</p>
+                                    </div>
+                                </li>
+
+                                <li class="appreciates__item">
+                                    <div class="appreciate-card appreciate-card--eggwhite">
+                                        <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/foot.svg" alt="solidarity">
+                                        <p class="appreciate-card__text">Персональный подход</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Мы ценим-->
+                    <!--Карточки целей-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки целей</h2>
+
+                        <div class="goals-cards">
+                            <ul class="goals-cards__list">
+                                <li class="goals-cards__item">
+                                    <div class="goals-card">
+                                        <div class="goals-card__wrapper">
+                                            <picture class="goals-card__picture">
+                                                <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
+                                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-1.png" alt="">
+                                            </picture>
+                                        </div>
+                                
+                                        <div class="goals-card__content">
+                                            <h4 class="goals-card__title">
+                                                Дарим пользу
+                                            </h4>
+                                            <p class="goals-card__text">
+                                                Наша продукция понравится Вашим питомцам, и Вы захотите ее рекомендовать.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="goals-cards__item">
+                                    <div class="goals-card">
+                                        <div class="goals-card__wrapper">
+                                            <picture class="goals-card__picture goals-card__picture--big">
+                                                <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
+                                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2.png" alt="">
+                                            </picture>
+                                        </div>
+                                        
+                                        <div class="goals-card__content">
+                                            <h4 class="goals-card__title">
+                                                Растем вместе
+                                            </h4>
+                                            <p class="goals-card__text">
+                                                Мы ценим наших партнеров и готовы прислушиваться к Вашему мнению, ведь на нем строится наше дело.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="goals-cards__item goals-cards__item--full">
+                                    <div class="goals-card goals-card--full">
+                                        <div class="goals-card__wrapper">
+                                            <picture class="goals-card__picture">
+                                                <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
+                                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3.png" alt="">
+                                            </picture>
+                                        </div>
+                                    
+                                        <div class="goals-card__content">
+                                            <h4 class="goals-card__title">
+                                                Стремимся к успеху
+                                            </h4>
+                                            <p class="goals-card__text">
+                                                Мы строим бизнес так, чтобы дать возможность нашим партнерам рекомендовать качественную продукцию и получать стабильный доход. Мы не экономим на качестве, мы не тратим деньги на рекламу.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Карточки целей-->
+                    <!--Карточки преимуществ-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки преимуществ</h2>
+
+                        <div class="cards-preference">
+                            <ul class="cards-preference__list">
+                                <li class="cards-preference__item">
+                                    <div class="card-preference">
+                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-happy.svg" alt="">
+                                        <p class="card-preference__text">На любой вкус</p>
+                                    </div>
+                                </li>
+
+                                <li class="cards-preference__item">
+                                    <div class="card-preference">
+                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-vet.svg" alt="">
+                                        <p class="card-preference__text">На любой вкус</p>
+                                    </div>
+                                </li>
+
+                                <li class="cards-preference__item">
+                                    <div class="card-preference">
+                                        <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-dog.svg" alt="">
+                                        <p class="card-preference__text">На любой вкус</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Карточки преимуществ-->
+                    <!--Цитаты-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Цитата</h2>
+
+                        <div class="quote">
+                            <svg class="quote__icon" class="icon icon--double-quotes">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-double-quotes"></use>
+                            </svg>
+                            <p class="quote__text">
+                                Мы хотим дать возможность нашим покупателям стать нашими настоящими партнерами, чтобы о качестве нашей продукции рассказывали не мы сами в кричащих рекламных роликах, а Вы – честные потребители.
+                            </p>
+                        </div>
+                    </div>
+                    <!--/Цитаты-->
+                    <!--Баннеры-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Баннеры</h2>
+
+                        <div class="banner">
+                            <div class="banner__image">
+                                <img class="banner__image-picture" src="/local/templates/.default/images/howbecome-banner.png" alt="">
+                            </div>
+                            <div class="banner__inner">
+                                <p class="banner__text">
+                                    Получите все привилегии <br> AmeБизнес, став консультантом
+                                </p>
+                                <a href="#" class="banner__link button button--rounded button--covered button--red">
+                                    Стать консультантом
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Баннеры-->
+                    <!--Баннеры-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Контакты</h2>
+
+                        <div class="contacts">
+                            <div class="contacts__box section__box box box--gray box--rounded-sm">
+                                <div class="contacts__content">
+                                    <h3 class="contacts__name">
+                                        ООО «ЭКО-Золопродукт»
+                                    </h3>
+
+                                    <ul class="contacts__list">
+                                        <li class="contacts__item">
+                                            <div class="contacts__card">
+                                                <svg class="contacts__card-icon icon icon--location">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
+                                                </svg>
+                                                <span class="contacts__card-title heading heading--small">Адрес:</span>
+                                                <span class="contacts__card-text">Проспект Мира, 9</span>
+                                            </div>
+                                        </li>
+
+                                        <li class="contacts__item">
+                                            <div class="contacts__card">
+                                                <svg class="contacts__card-icon icon icon--call">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
+                                                </svg>
+                                                <span class="contacts__card-title heading heading--small">Телефон:</span>
+                                                <span class="contacts__card-text">8 (800) 123-45-67</span>
+                                            </div>
+                                        </li>
+
+                                        <li class="contacts__item">
+                                            <div class="contacts__card">
+                                                <svg class="contacts__card-icon icon icon--clock">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                </svg>
+                                                <span class="contacts__card-title heading heading--small">Часы работы:</span>
+                                                <span class="contacts__card-text">
+                                                    Пн-Пт 9:00 - 18:00, Сб-Вс 11:00 - 17:00
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                        <li class="contacts__item">
+                                            <div class="contacts__card">
+                                                <svg class="contacts__card-icon icon icon--sms">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
+                                                </svg>
+                                                <span class="contacts__card-title heading heading--small">Email:</span>
+                                                <span class="contacts__card-text">
+                                                    ameappetite_info@yandex.ru <br>
+                                                    <span class="contacts__card-spec">(по вопросам сотрудничества)</span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="contacts__social">
+                                        <h5 class="contacts__social-title section__title section__title--closer">
+                                            Мы в социальных сетях:
+                                        </h5>
+
+                                        <div class="socials">
+                                            <ul class="socials__list">
+                                                <li class="socials__item">
+                                                    <a class="socials__link" href="#">
+                                                        <svg class="socials__icon icon icon--social">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="socials__item">
+                                                    <a class="socials__link" href="#">
+                                                        <svg class="socials__icon icon icon--social">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="socials__item">
+                                                    <a class="socials__link" href="#">
+                                                        <svg class="socials__icon icon icon--social">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="socials__item">
+                                                    <a class="socials__link" href="#">
+                                                        <svg class="socials__icon icon icon--social">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="socials__item">
+                                                    <a class="socials__link" href="#">
+                                                        <svg class="socials__icon icon icon--social">
+                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="contacts__wrapper">
+                                    <picture class="contacts__picture">
+                                        <source srcset="/local/templates/.default/images/about-contact-mobile.png" media="(max-width: 767px)" />
+                                        <img class="contacts__images" src="/local/templates/.default/images/about-contact.png" alt="">
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Баннеры-->
+                    <!--Социальные сети-->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Социальные сети</h2>
+
+                        <div class="socials">
+                            <ul class="socials__list">
+                                <li class="socials__item">
+                                    <a class="socials__link" href="#">
+                                        <svg class="socials__icon icon icon--social">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="socials__item">
+                                    <a class="socials__link" href="#">
+                                        <svg class="socials__icon icon icon--social">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="socials__item">
+                                    <a class="socials__link" href="#">
+                                        <svg class="socials__icon icon icon--social">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="socials__item">
+                                    <a class="socials__link" href="#">
+                                        <svg class="socials__icon icon icon--social">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="socials__item">
+                                    <a class="socials__link" href="#">
+                                        <svg class="socials__icon icon icon--social">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/Социальные сети-->
                 </main>
             </div>
         </div>

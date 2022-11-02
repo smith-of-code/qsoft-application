@@ -1,4 +1,17 @@
 .participant {
+    &--accounting & {
+        &__header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__info {
+            &-name {
+                display: block;
+            }
+        }
+    }
+
     &__head {
         display: none;
 

@@ -1,0 +1,33 @@
+.socials {
+    &__list {
+        display: flex;
+        align-items: center;
+    }
+
+    &__item {
+        margin-right: rem($gap-medium);
+
+        &:last-child {
+            margin-right: 0;
+        }  
+    }
+
+    &__link {
+        color: $tuna;
+
+        transition: color $transition-duration $transition-function;
+
+        &:hover {
+            color: $brickRed;
+        }
+    }
+
+    &__icon {
+        $size: 24px;
+
+        width: rem($size);
+        height: rem($size);
+
+        color: inherit;
+    }
+}

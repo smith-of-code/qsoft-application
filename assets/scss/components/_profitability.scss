@@ -56,10 +56,8 @@
         }
     }
 
-    &__tabs {
-        &-body {
-            margin-top: rem($gap-big);
-        }
+    &__content {
+        margin-top: rem($gap-big);
     }
 
     &__calculation {
@@ -116,7 +114,7 @@
                 font-weight: $font-weight-bold;
                 line-height: ($line-height-middle / $font-size-middle);
 
-                width: rem(178px);
+                width: rem(200px);
 
                 color: $brickRed;
             }
@@ -171,6 +169,10 @@
         }
 
         &-quantity {
+            &--hidden {
+                visibility: hidden;
+            }
+
             width: rem(192px);
 
             @media #{$screen-desktop} {

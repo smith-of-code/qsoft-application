@@ -1,6 +1,9 @@
 .notifications {
     &__title {
-        margin-bottom: rem($gap-medium);
+        font-size: rem($font-size-middle);
+        line-height: ($line-height-middle/$font-size-middle);
+
+        margin-bottom: rem($gap-normal);
 
         @media #{$screen-tablet} {
             display: none;
@@ -13,6 +16,39 @@
 
             @media #{$screen-tablet} {
                 margin-top: rem(20px);
+            }
+        }
+    }
+
+    &__menu {
+
+        &--private & {
+            &-list {
+                padding: rem(16px) rem(8px);
+
+                @media #{$screen-desktop} {
+                    padding: rem(21px) rem(8px);
+                }
+            }
+
+            &-item {
+                font-size: rem($font-size-small);
+                font-weight: $font-weight-medium;
+                line-height: (22px/$font-size-small);
+
+                padding: rem(7px) rem(16px);
+                margin-top: rem(14px);
+
+                @media #{$screen-desktop} {
+                    margin-top: rem(10px);
+                }
+            }
+
+            &-icon {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
             }
         }
     }
