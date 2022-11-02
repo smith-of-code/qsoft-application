@@ -13,6 +13,7 @@ use \Bitrix\Main\ORM\Fields\IntegerField;
 use \Bitrix\Main\ORM\Fields\StringField;
 use \Bitrix\Main\ORM\Fields\Relations\Reference;
 use \Bitrix\Main\ORM\Fields\ExpressionField;
+use QSoft\ORM\Entity\EnumField;
 
 class NotificationService
 {
@@ -23,12 +24,12 @@ class NotificationService
         $this->user = $user;
     }
 
-    public static function getUnreadNotify(): int
-    {
+    public function getUnreadCount(): int
+    {   dump((new EnumField('UF_STATUS', [], 'notification'))->getValueExternalList());
         return NotificationTable::getList([
             'filter' => [
-                'UF_USER_ID' => $userId,
-                'UF_STATUS' => 'NOTIFICATION_STATUS_UNREAD',
+                'UF_USER_ID' => $this->user->id,
+                'UF_STATUS' => 2185,
             ],
         ])->getSelectedRowsCount();
     }
