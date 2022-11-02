@@ -10,6 +10,7 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
