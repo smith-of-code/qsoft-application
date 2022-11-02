@@ -55,7 +55,7 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
             $user = currentUser();
 
             $this->arResult['NOTIFICATION_COUNT'] = $user->notification->getUnreadCount();
-            dump($user->notification->getUnreadCount());
+
             $this->arResult['IS_CONSULTANT'] = $user->groups->isConsultant();
 
             $this->includeComponentTemplate();

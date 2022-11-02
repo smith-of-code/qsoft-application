@@ -13,11 +13,14 @@ use \Bitrix\Main\ORM\Fields\IntegerField;
 use \Bitrix\Main\ORM\Fields\StringField;
 use \Bitrix\Main\ORM\Fields\Relations\Reference;
 use \Bitrix\Main\ORM\Fields\ExpressionField;
-use QSoft\ORM\Entity\EnumField;
+use Bitrix\Main\Entity\EnumField;
 
 class NotificationService
 {
     private User $user;
+
+    private const NOTIFICATION_STATUS_UNREAD = 'NOTIFICATION_STATUS_UNREAD';
+    private const UF_STATUS = 'UF_STATUS';
 
     public function __construct(User $user)
     {
@@ -25,13 +28,36 @@ class NotificationService
     }
 
     public function getUnreadCount(): int
-    {   dump((new EnumField('UF_STATUS', [], 'notification'))->getValueExternalList());
+    {
+        $unreadStatusId = $this->getStatusPropertyEnumIdByXMLId(self::UF_STATUS, self::NOTIFICATION_STATUS_UNREAD);
+ 
         return NotificationTable::getList([
             'filter' => [
                 'UF_USER_ID' => $this->user->id,
-                'UF_STATUS' => 2185,
+                'UF_STATUS' => $unreadStatusId,
             ],
         ])->getSelectedRowsCount();
+    }
+
+    /**
+     * Получаем id статуса уведомления по его внешнему коду.
+     *
+     * @param string $fieldCode
+     * @param string $xmlCode
+     * 
+     * @return int
+     * 
+     */
+    private function getStatusPropertyEnumIdByXMLId(string $fieldCode, string $xmlCode): int
+    {
+        $dbResult = NotificationTable::getFieldValues([$fieldCode]);
+        foreach ($dbResult[$fieldCode] as $status) {
+            if ($status['XML_ID'] == $xmlCode) {
+                return $status['ID'];
+            }
+        }
+
+        return 0;
     }
 
     public function sendNotification(string $type, string $message, string $link): bool
