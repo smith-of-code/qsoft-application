@@ -1,0 +1,14 @@
+.sales {
+    &__cards {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(30px);
+        }
+    }
+
+    &__button-more {
+        width: 100%;
+        min-height: rem(48px);
+    }
+}
