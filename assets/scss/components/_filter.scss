@@ -153,7 +153,7 @@
         padding-bottom: rem($gap-normal);
 
         @media #{$screen-desktop} {
-            display: none;
+            padding-bottom: 0;
         }
     }
 

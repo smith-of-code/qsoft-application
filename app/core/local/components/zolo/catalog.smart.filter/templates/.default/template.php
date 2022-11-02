@@ -217,8 +217,8 @@ $this->setFrameMode(true);
                                         <?php if(count($arItem["VALUES"]) > $showed) : ?>
                                             <button type="button" class="filter__button button button--simple button--gray button--small" data-toggle-visibility-action="hide">
                                                 <span class="button__icon button__icon--mini button__icon--right">
-                                                    <svg class="icon icon--arrow-up">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-up"></use>
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
                                                     </svg>
                                                 </span>
                                                 <span class="button__text" data-toggle-visibility-action-text="{&quot;show&quot;:&quot;Показать все&quot;, &quot;hide&quot;:&quot;Показать меньше&quot;}">Показать все</span>
