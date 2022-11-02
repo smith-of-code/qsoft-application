@@ -63,6 +63,9 @@ import './svg/double-quotes.svg';
 import './svg/call.svg';
 import './svg/location.svg';
 import './svg/sms.svg';
+import './svg/question-circle.svg';
+import './svg/users.svg';
+import './svg/cross.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

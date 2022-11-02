@@ -448,6 +448,24 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sms"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: question-circle">
+                                    <svg class="icon icon--question-circle gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: users">
+                                    <svg class="icon icon--users gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-users"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: cross">
+                                    <svg class="icon icon--cross gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
@@ -6687,6 +6705,201 @@
                     </div>
                     <!-- /Карточки-акций -->
 
+                    <!-- Карточки подсчета -->
+                    <div class="gui__block" style="padding: 16px; background: #f4f3f6;">
+                        <h2 class="gui__title">Карточки подсчета</h2>
+
+                        <h3 style="margin-top: 40px;">3 шт.</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-counting">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="10000"
+                                                        data-current="50000"
+                                                        data-max="10000000"
+                                                        data-step="10000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ББ
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="0"
+                                                        data-current="100"
+                                                        data-max="1000"
+                                                        data-step="10"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Средняя сумма баллов 1 покупателя
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">2 шт.</h3>
+
+                        <div class="gui__block">
+
+                            <div class="cards-counting cards-counting--double">
+                                <ul class="cards-counting__list">
+                                    <li class="cards-counting__item">
+
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix">
+                                                        ₽
+                                                    </span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1000"
+                                                        data-current="15000"
+                                                        data-max="30000"
+                                                        data-step="1000"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Сумма личных покупок
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="cards-counting__item">
+                                        <div class="card-counting card-counting--extra">
+                                            <div class="card-counting__inner">
+                                                <div class="card-counting__value">
+                                                    <!-- скрипт выводит значение data-current в value-count -->
+                                                    <input
+                                                        type="number"
+                                                        class="card-counting__value-count"
+                                                        data-range-min
+                                                    />
+                                                    <span class="card-counting__value-suffix"></span>
+                                                </div>
+
+                                                <div class="card-counting__range range" data-range>
+                                                    <div
+                                                        class="range-slider"
+                                                        data-range-slider
+                                                        data-type="min"
+                                                        data-min="1"
+                                                        data-current="5"
+                                                        data-max="10"
+                                                        data-step="1"
+                                                    ></div>   
+                                                </div>
+
+                                                <p class="card-counting__name">
+                                                    Количество покупателей
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки подсчета -->
+
                     <!-- Карточки товаров в корзине -->
                     <div class="gui__block">
                         <h2 class="gui__title">Карточки товаров в корзине</h2>
@@ -8149,7 +8362,6 @@
                                             </div>
                                         </article>
                                     </li>
-
                                 </ul>
                             </div>
 
@@ -8505,7 +8717,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Попап cookie -->
+                    <!-- /Попап cookie -->
 
                     <!-- Как это рабоатет -->
                     <div class="gui__block">
@@ -8861,7 +9073,6 @@
 
                                             </div>
                                         </article>
-
                                     </li>
                                 </ul>
                             </div>
@@ -8869,6 +9080,522 @@
                         </div>
                     </div>
                     <!-- /Карточки Статусы -->
+
+                    <!-- Карточки советов -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки советов</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-article">
+                                <ul class="cards-article__list">
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--green box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--green">
+                                                    Ame бизнес
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--blue box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--blue">
+                                                    Собаки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--orange box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--orange">
+                                                    Кошки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--violet box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--violet">
+                                                    Интересное
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--green box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--green">
+                                                    Ame бизнес
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+
+                                    <li class="cards-article__item">
+                                        <article class="card-article card-article--orange box box--hovering box--circle">
+                                            <a href="#" class="card-article__link"></a>
+
+                                            <div class="card-article__inner">
+                                                <div class="card-article__banner">
+                                                    <img
+                                                        src="https://placeimg.com/840/780/any"
+                                                        alt="#"
+                                                        class="card-article__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-article__label label label--secondary label--orange">
+                                                    Кошки
+                                                </div>
+
+                                                <div class="card-article__content">
+
+                                                    <h2 class="card-article__title">
+                                                        Запускаем обучающие курсы для новых консультантов
+                                                    </h2>
+
+                                                    <p class="card-article__text">
+                                                        Для продвижения бренда, новичок должен обладать высоким уровнем знаний продукции, обеспечивая правильный подход...
+                                                    </p>
+
+                                                    <time class="card-article__send" datetime="2022-08-10">
+                                                        10.08.2022
+                                                    </time>
+
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки советов -->
+
+                    <!-- Карточки акций -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки акций</h2>
+
+                        <div class="gui__block">
+                            <div class="cards-sale">
+                                <ul class="cards-sale__list">
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-sale__item">
+
+                                        <article class="card-compilation card-compilation--sale card-compilation--gigantic card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород! Мы любим животных и стараемся поддерживать тех из них, кому не посчастливилось иметь ласковых хозяев и тёплый кров. 
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Карточки акций -->
+
+                    
+                    <!-- Карточки подборок -->
+                    <div class="gui__block">
+                        <h2 class="gui__title">Карточки подборок</h2>
+
+                        <div class="gui__block">
+
+                            <div class="cards-compilation">
+                                <ul class="cards-compilation__list">
+                                    <li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra">
+
+                                        <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--green">
+                                                    AmeБизнес
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+
+                                                    <p class="card-compilation__text">
+                                                        совмещая работу и заботу о питомцах
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--sale cards-compilation__item--extra">
+
+                                        <article class="card-compilation card-compilation--medium card-compilation--grey box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+                                            
+                                                <div class="card-compilation__label label label--primary label--red">
+                                                    -25%
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <p class="card-compilation__text">
+                                                        <span class="card-compilation__text-accent">
+                                                            Скидка
+                                                        </span>
+                                                        на аксессуары для собак средних и маленьких пород!
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--compilation">
+
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                    <li class="cards-compilation__item cards-compilation__item--selection">
+
+                                        <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle">
+                                            <a href="#" class="card-compilation__link"></a>
+                                        
+                                            <div class="card-compilation__inner">
+
+                                                <div class="card-compilation__banner">
+                                                    <img
+                                                        src="https://placeimg.com/640/480/any"
+                                                        alt="изображение подборки"
+                                                        class="card-compilation__banner-image"
+                                                    />
+                                                </div>
+
+                                                <div class="card-compilation__label label label--secondary label--violet">
+                                                    Подборка
+                                                </div>
+
+                                                <div class="card-compilation__content">
+                                                    <h2 class="card-compilation__title">
+                                                        Строй свой бизнес с AmeAppetite,
+                                                    </h2>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Карточки подборок -->
 
                     <!-- Карточки Участников -->
                     <div class="gui__block">
@@ -8961,7 +9688,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -9214,7 +9941,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -10194,7 +10921,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -10447,7 +11174,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -11427,7 +12154,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -11680,7 +12407,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -12686,7 +13413,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -12939,7 +13666,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -13926,7 +14653,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -14179,7 +14906,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -15161,7 +15888,7 @@
                                                 Плановые показатели
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -15414,7 +16141,7 @@
                                                 Продажи
                                             </h5>
 
-                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
                                                 <nav class="tabs__items">
                                                     <ul class="tabs__list">
                                                         <li class="tabs__item tabs__item--active" data-tab="block1">
