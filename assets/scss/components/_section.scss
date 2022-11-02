@@ -11,6 +11,16 @@
         }
     }
 
+    &--margin-xl {
+        & + & {
+            margin-top: rem(56px);
+    
+            @media #{$screen-desktop} {
+                margin-top: rem(80px);
+            }
+        }
+    }
+
     &--limited {
         max-width: rem(370px);
     }
