@@ -2,6 +2,7 @@
 
 use Illuminate\Container\Container;
 use QSoft\Application\Application;
+use QSoft\Entity\User;
 
 function getApplication(): Container
 {
@@ -35,6 +36,26 @@ if (!function_exists('app')) {
 //        }
 
         return getApplication()->make($alias);
+    }
+}
+
+if (!function_exists('currentUser')) {
+    function currentUser(): ?User
+    {
+        static $user = null;
+        static $isCurrentUserSet = true;
+
+        if (empty($user) && $isCurrentUserSet) {
+            global $USER;
+
+            if (empty($USER->GetID())) {
+                $isCurrentUserSet = false;
+            } else {
+                $user = new User($USER->GetID());
+            }
+        }
+
+        return $user;
     }
 }
 
