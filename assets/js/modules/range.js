@@ -36,18 +36,23 @@ export default function(){
                         let $input = $card.find('.card-counting__value-count');
 
                         $input.val(ui.value).css('width', `${$input.val().length + 1}ch`);
+
+                        $input.trigger('changeCalculator');
                     },
                     create: function (event, ui) {
                         let $card = $(event.target).closest('.card-counting');
                         $card.find('.card-counting__value-count').val(this.dataset.current);
 
-                        $card.on('change', ELEMENTS_SELECTOR.rangeMin, function () {
+                        $card.on('change changeRange', ELEMENTS_SELECTOR.rangeMin, function () {
                             minVal = +$(this).val().trim();
+                            minVal = Math.floor(minVal);
+
+                            let min = slider.slider('option', 'min');
+                            let max = slider.slider('option', 'max');
 
                             if (minVal < min) {
                                 minVal = min;
                             }
-        
                             if (minVal > max) {
                                 minVal = max;
                             }
