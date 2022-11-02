@@ -33,7 +33,7 @@ global $APPLICATION;
 
 <body class="page">
 <!--header-->
-<header class="page__header header <?= Page::isMain() ? 'header--main' : '' ?>">
+<header class="page__header header">
 
     <div class="header__row header__row--main">
         <div class="container">
@@ -95,11 +95,11 @@ global $APPLICATION;
                                     <div class="menu__header-profile">
                                         <button type="button"
                                                 class="button button--huge button--rounded button--outlined button--green button--full">
-                                            <span class="button__icon button__icon--right">
-                                                <svg class="icon icon--user">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                                </svg>
-                                            </span>
+                                                        <span class="button__icon button__icon--right">
+                                                            <svg class="icon icon--user">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                                            </svg>
+                                                        </span>
                                             <span class="button__text">Войти в профиль</span>
                                         </button>
                                     </div>
@@ -491,7 +491,7 @@ global $APPLICATION;
                             </div>
                         <?php endif ?>
 
-                        <?php $APPLICATION->IncludeComponent(
+                        <? $APPLICATION->IncludeComponent(
                             'zolo:sale.basket.basket.line',
                             '',
                             [
@@ -508,6 +508,7 @@ global $APPLICATION;
                             false,
                             array()
                         ); ?>
+
 
                     </div>
                 </div>
@@ -558,7 +559,16 @@ global $APPLICATION;
 </header>
 <!--/header-->
 
-<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
+
+<div class="page__content content">
     <div class="container">
-        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
-<!--            <h1 class="page__heading">Личный кабинет</h1>-->
+        <main class="page__private private">
+
+            <h1 class="page__heading">Личный кабинет</h1>
+
+            <div class="content__main">
+                <div class="private__row">
+                    <div class="private__col private__col--limited">
+                        <?php $APPLICATION->IncludeComponent('zolo:personal.main.profile.navigation_menu', '')?>
+                    </div>
+                    <div class="private__col private__col--full">
