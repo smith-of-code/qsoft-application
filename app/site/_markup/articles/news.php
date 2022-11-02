@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>Мероприятия</title>
+        <title>Новости</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
@@ -18,24 +18,24 @@
         <!--content-->
         <div class="page__content page__content--breadcrumbs content">
             <div class="container">
-                <main class="page__events events">
+                <main class="page__news news">
                     <div class="breadcrumbs">
                         <ul class="breadcrumbs__list">
                             <li class="breadcrumbs__item">
                                 <a href="#" class="breadcrumbs__link">Главная</a>
                             </li>
-                            <li class="breadcrumbs__item">
-                                <a href="#" class="breadcrumbs__link">Мероприятия</a>
+                            <li class="breadcrumbs__item breadcrumbs__item--active">
+                                <a href="#" class="breadcrumbs__link">Новости</a>
                             </li>
 
                         </ul>
                     </div>
 
                     <div class="content__main content__main--separated">
-                        <section class="section events__section">
+                        <section class="section news__section">
                             <div class="section__header">
                                 <h2 class="section__title">
-                                    Мероприятия
+                                    Новости
                                 </h2>
                             </div>
 
@@ -265,7 +265,7 @@
                                 </ul>
                             </div>
 
-                            <button type="button" class="events__more events__button button button--rounded-big button--covered button--white-green button--full">
+                            <button type="button" class="news__more news__button button button--rounded-big button--covered button--white-green button--full">
                                 Показать больше
                             </button>
                         </section>

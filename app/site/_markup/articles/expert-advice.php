@@ -24,7 +24,7 @@
                             <li class="breadcrumbs__item">
                                 <a href="#" class="breadcrumbs__link">Главная</a>
                             </li>
-                            <li class="breadcrumbs__item">
+                            <li class="breadcrumbs__item breadcrumbs__item--active">
                                 <a href="#" class="breadcrumbs__link">Советы экспертов</a>
                             </li>
 
