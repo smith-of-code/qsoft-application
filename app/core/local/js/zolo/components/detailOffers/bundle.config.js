@@ -1,5 +1,5 @@
 module.exports = {
-    input: './src/offerLoader.js',
-    output: './dist/offerLoader.bundle.js',
+    input: './src/component.js',
+    output: './dist/component.bundle.js',
     namespace: 'Zolo',
 };

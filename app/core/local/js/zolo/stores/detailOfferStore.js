@@ -6,30 +6,34 @@ export const detailOfferStore = defineStore('detailOffer', {
         currentOfferId: undefined,
     }),
     getters: {
-        currentOffer() {
-            return this.offers.OFFERS[this.currentOfferId];
-        },
         article() {
             return this.offers.ARTICLES[this.currentOfferId];
         },
         images() {
             return this.offers.PHOTOS[this.currentOfferId];
         },
+        packagings() {
+            return this.offers.PACKAGINGS;
+        },
+        colors() {
+            return this.offers.COLORS;
+        },
+        price() {
+            return this.offers.PRICES[this.currentOfferId]
+        }
     },
     actions: {
-        getOffers() {
-            return this.offers;
+        load(name, data) {
+            this[name] = data;
         },
         checkAvailable(id) {
-            return this.offers.AVAILABLE[id];
+            return !!this.offers.AVAILABLE[id];
         },
         setStore(data) {
-            console.log('SetSTore', data);
             this.offers = data;
         },
         setOffer(id) {
-            console.log('SetOffer', id);
             this.currentOfferId = id;
         },
-},
+    },
 })

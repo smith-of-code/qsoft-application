@@ -14,6 +14,10 @@ export const OfferImage = {
             store
         }
     },
+    mounted() {
+        window.swiper.destroy();
+        window.initSlider();
+    },
     updated() {
         window.swiper.destroy();
         window.initSlider();

@@ -13,12 +13,12 @@ export const SelectOfferMobile = {
         }
     },
     mounted() {
-        // window.initSelect();
+        window.initSelect();
         $('select[name=select-package]').on('change',() => this.setOffer('select-package'));
         $('select[name=select-color]').on('change',() => this.setOffer('select-color'));
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId']),
+        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'colors']),
     },
     methods: {
         setOffer(name) {
@@ -31,13 +31,13 @@ export const SelectOfferMobile = {
     // language=Vue
     template: `
         <!-- Блок селекта фассовки малый вариант-->
-        <template v-if="offers.PACKAGINGS.length > 0">
+        <template v-if="packagings.length > 0">
             <div class="cart__packs">
                 <p class="specification__category">Фасовка</p>
                 <div class="select select--mini" data-select  >
                     <select class="select__control"  name="select-package" data-select-control data-placeholder="Выберите фасовку" data-option >
                         <option><!-- пустой option для placeholder --></option>
-                        <option v-for="(item) in offers.PACKAGINGS"
+                        <option v-for="(item) in packagings"
                                 v-bind:value="item.offerId"
                                 v-bind:selected="currentOfferId == item.offerId"
                                 v-bind:disabled="!offers.AVAILABLE[item.offerId]"
@@ -50,13 +50,13 @@ export const SelectOfferMobile = {
                 </div>
             </div>
         </template>
-        <template v-else-if="offers.COLORS.length > 0">
+        <template v-else-if="colors.length > 0">
             <div class="cart__colors">
                 <p class="specification__category">Цвет</p>
                 <div class="select select--middle select--simple" data-select>
                     <select class="select__control" name="select-color" data-select-control data-placeholder="Выберите цвет" data-option>
                         <option><!-- пустой option для placeholder --></option>
-                        <option v-for="item in offers.COLORS"
+                        <option v-for="item in colors"
                                 v-on:click="setOffer"
                                 v-bind:value="item.offerId"
                                 v-bind:selected="currentOfferId == item.offerId"

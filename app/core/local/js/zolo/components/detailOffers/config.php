@@ -7,8 +7,6 @@ return [
     'js' => './dist/offerLoader.bundle.js',
     'rel' => [
 		'main.polyfill.core',
-		'ui.vue3',
-		'ui.vue3.pinia',
 	],
 	'skip_core' => true,
 ];

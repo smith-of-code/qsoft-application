@@ -1,5 +1,6 @@
-import {mapState} from "ui.vue3.pinia";
-import {detailOfferStore} from "../../../stores/detailOfferStore";
+import { mapState } from "ui.vue3.pinia";
+import { detailOfferStore } from "../../../stores/detailOfferStore";
+
 export const SelectOffer = {
     data() {
         return {
@@ -8,13 +9,12 @@ export const SelectOffer = {
 
     setup() {
         const store = detailOfferStore();
-        let offers = store.getOffers();
         return {
-            store, offers
+            store
         }
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId']),
+        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'colors']),
     },
     methods: {
         setOffer(event) {
@@ -25,11 +25,11 @@ export const SelectOffer = {
     },
     // language=Vue
     template: `
-        <template v-if="offers.PACKAGINGS.length > 0">
+        <template v-if="packagings.length > 0">
         <div class="specification__packs packs">
             <p class="specification__category">Фасовка</p>
             <ul class="packs__list">
-                <li class="packs__item" v-for="(item) in offers.PACKAGINGS">
+                <li class="packs__item" v-for="(item) in packagings">
                     <div class="pack pack--bordered">
                         <div class="radio">
                             <input type="radio" class="pack__input radio__input" name="radio_pack"
@@ -48,11 +48,11 @@ export const SelectOffer = {
             </ul>
         </div>
         </template>
-        <template v-else-if="offers.COLORS.length > 0">
+        <template v-else-if="colors.length > 0">
         <div class="specification__colors colors colors--big">
             <p class="specification__category">Цвет</p>
             <ul class="colors__list">
-              <li class="colors__item" v-for="item in offers.COLORS" >
+              <li class="colors__item" v-for="item in colors" >
                     <div v-bind:class="'color' + (offers.AVAILABLE[item.offerId]) ? '' : 'color--disabled'">
                         <div class="radio">
                             <input type="radio" class="color__input radio__input" name="radio_color"

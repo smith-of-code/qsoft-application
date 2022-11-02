@@ -40,7 +40,10 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 <?php
 $offerId = $arResult['OFFER_FIRST'];
 ?>
-
+<div id="offerStore"
+    prop-offers='<?= phpToVueObject($arResult) ?>'
+    prop-current-offer-id='<?= $arResult['OFFER_FIRST'] ?>'
+></div>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
@@ -58,7 +61,7 @@ $offerId = $arResult['OFFER_FIRST'];
         <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
-                    <?  $offerImgs = $arResult['PHOTOS'][$offerId]; // TODO first By sort
+                    <?  $offerImgs = $arResult['PHOTOS'][$offerId];
                     if (!empty($offerImgs)) : ?>
                         <? foreach ($offerImgs as $image) : ?>
                         <div class="swiper-slide slider__slide">
@@ -1318,12 +1321,3 @@ n
     </div>
 </div>
 <!-- Каталог товаров -->
-<?
-\Bitrix\Main\UI\Extension::load("zolo.components.detailOffers");
-?>
-<script>
-    let c = new Zolo.offerLoader();
-    c.initStorageBeforeStartApplication();
-    c.loadData(<?=CUTil::PhpToJSObject($arResult)?>);
-    c.start();
-</script>

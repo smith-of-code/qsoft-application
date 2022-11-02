@@ -230,6 +230,7 @@ class CatalogElementComponent extends Element
                 'filter' => ['=PRODUCT_ID' => $ids],
             ])->fetchAll();
             foreach ($offers as &$offer) {
+                // TODO получение баллов
                 $price = current(array_filter($prices, function ($item) use ($offer) {
                     return (int) $item['PRODUCT_ID'] === $offer['ID'];
                 }));
@@ -354,7 +355,7 @@ class CatalogElementComponent extends Element
                     'package'=> $offer['PROPERTY_PACKAGING_VALUE']
                 ];
             }
-
+            
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
                     $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
