@@ -1,11 +1,12 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
 
 <div
-    id="loyaltySalesReport"
-    prop-user='<?=phpToVueObject($arResult['user'])?>'
-    prop-orders-report='<?=phpToVueObject($arResult['orders_report'])?>'
+    id="salesReportPage"
+    prop-consultant-loyalty-levels='<?=phpToVueObject($arResult['consultant_loyalty_levels'])?>'
+    prop-buyer-loyalty-levels='<?=phpToVueObject($arResult['buyer_loyalty_levels'])?>'
+    prop-consultant-accounting-periods='<?=phpToVueObject($arResult['consultants_accounting_periods'])?>'
+    prop-buyer-accounting-periods='<?=phpToVueObject($arResult['buyers_accounting_periods'])?>'
+    prop-current-user='<?=phpToVueObject($arResult['current_user'])?>'
     prop-current-accounting-period='<?=phpToVueObject($arResult['current_accounting_period'])?>'
-    prop-accounting-periods='<?=phpToVueObject($arResult['accounting_periods'])?>'
-    prop-loyalty-status='<?=phpToVueObject($arResult['loyalty_status'])?>'
-    prop-bonuses-income='<?=phpToVueObject($arResult['bonuses_income'])?>'
+    prop-team='<?=phpToVueObject($arResult['user_team'])?>'
 ></div>

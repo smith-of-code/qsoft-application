@@ -1,7 +1,7 @@
 import { MiniBasket } from '../../components/miniBasket/src/component';
-import { LoyaltySalesReport } from '../../components/loyaltySalesReport/src/component';
+import { SalesReportPage } from '../../components/salesReportPage/src/component';
 
 export default {
-    '#loyaltySalesReport': LoyaltySalesReport,
+    '#salesReportPage': SalesReportPage,
     '#miniBasket': MiniBasket
 };

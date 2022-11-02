@@ -2,8 +2,10 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Loader;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
+use Bitrix\Sale\OrderTable;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
@@ -29,6 +31,12 @@ class LoyaltyProgramHelper
     {
         $this->levelsIDs = [];
         $this->levels = [];
+        $this->includeModules();
+    }
+
+    private function includeModules(): void
+    {
+        Loader::includeModule('sale');
     }
 
     /**
@@ -40,7 +48,7 @@ class LoyaltyProgramHelper
         return app('config')->get($this->configPath);
     }
 
-    public function getAccountingPeriod(DateTime $date): array
+    public function getAccountingPeriod(Date $date): array
     {
         $currentQuarter = intdiv((int) $date->format('m') - 1, 3) + 1;
         $startPeriod = $currentQuarter + ($currentQuarter - 1) * 2;
@@ -48,8 +56,8 @@ class LoyaltyProgramHelper
 
         return [
             'name' => numberToRoman($currentQuarter) . $date->format(' квартал Y'),
-            'from' => new DateTime($date->format("01.$startPeriod.Y")),
-            'to' => (new DateTime($date->format("01.$endPeriod.Y")))->add('+1 month')->add('-1 day'),
+            'from' => new Date($date->format("01.$startPeriod.Y")),
+            'to' => (new Date($date->format("01.$endPeriod.Y")))->add('+1 month')->add('-1 day'),
         ];
     }
 
@@ -58,20 +66,23 @@ class LoyaltyProgramHelper
         return $this->getAccountingPeriod(new DateTime);
     }
 
-    public function getAvailableAccountingPeriods(int $userId): array
+    public function getAccountingPeriodsSinceDate(Date $date): array
     {
-        $user = new User($userId);
-
         $now = new Date;
-        $period = $this->getAccountingPeriod(new DateTime($user->dateRegister));
+        $period = $this->getAccountingPeriod($date);
 
         $result = [];
         while ($now->getDiff($period['to'])->invert) {
             $result[] = $period;
-            $period = $this->getAccountingPeriod((new DateTime($period['to']))->add('+1 day'));
+            $period = $this->getAccountingPeriod((new Date($period['to']))->add('+1 day'));
         }
         $result[] = $this->getCurrentAccountingPeriod();
-        return $result;
+        return array_reverse($result);
+    }
+
+    public function getAvailableAccountingPeriods(int $userId): array
+    {
+        return $this->getAccountingPeriodsSinceDate(new Date((new User($userId))->dateRegister));
     }
 
     /**
@@ -131,7 +142,7 @@ class LoyaltyProgramHelper
         return $lowestLevel;
     }
 
-    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): array
+    public function getPersonalBonusesIncomeByPeriod(int $userId, Date $from, Date $to): array
     {
         $transactions = TransactionTable::getList([
             'filter' => [
@@ -176,7 +187,7 @@ class LoyaltyProgramHelper
         return $highestLevel;
     }
 
-    public function getLoyaltyStatusByPeriod(int $userId, DateTime $from, DateTime $to): array
+    public function getLoyaltyStatusByPeriod(int $userId, Date $from, Date $to): array
     {
         $user = new User($userId);
         $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
@@ -194,21 +205,20 @@ class LoyaltyProgramHelper
             ],
         ];
 
-        $transactions = TransactionTable::getList([
+        $orders = OrderTable::getList([
             'filter' => [
-                '=UF_USER_ID' => $userId,
-                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                '=USER_ID' => $userId,
                 [
                     'LOGIC' => 'AND',
-                    ['>UF_CREATED_AT' => $from],
-                    ['<UF_CREATED_AT' => $to],
+                    ['>DATE_INSERT' => $from],
+                    ['<DATE_INSERT' => $to],
                 ],
             ],
+            'select' => ['ID', 'PRICE']
         ])->fetchAll();
 
-        $sourceFieldSelfId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']);
-        foreach ($transactions as $transaction) {
-            $result[$transaction['UF_SOURCE'] === $sourceFieldSelfId ? 'self' : 'team']['current_value'] += $transaction['UF_AMOUNT'];
+        foreach ($orders as $order) {
+            $result['self']['current_value'] += $order['PRICE'];
         }
 
         return $result;

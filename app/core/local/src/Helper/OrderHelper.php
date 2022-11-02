@@ -2,6 +2,7 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Sale\Basket\Storage;
 use Bitrix\Sale\Fuser;
@@ -18,6 +19,16 @@ use QSoft\Service\ProductService;
 
 class OrderHelper
 {
+    public const ACCOMPLISHED_STATUS = 'F';
+    public const PARTLY_REFUNDED_STATUS = 'PR';
+    public const FULL_REFUNDED_STATUS = 'FR';
+
+    public const ORDER_STATUSES = [
+        'accomplished' => self::ACCOMPLISHED_STATUS,
+        'partly_refunded' => self::PARTLY_REFUNDED_STATUS,
+        'full_refunded' => self::FULL_REFUNDED_STATUS,
+    ];
+
     private BonusAccountHelper $bonusAccountHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
@@ -104,8 +115,8 @@ class OrderHelper
             'current_period_sum' => .0,
             'current_period_bonuses' => 0,
             'paid_orders_count' => 0,
-            'full_refunded_orders_count' => 0, // TODO
-            'part_refunded_orders_count' => 0, // TODO
+            'part_refunded_orders_count' => 0,
+            'full_refunded_orders_count' => 0,
             'last_month_products' => [],
             'last_order_date' => null,
         ];
@@ -133,12 +144,12 @@ class OrderHelper
             $result['current_period_bonuses'] += $transaction['UF_AMOUNT'];
         }
 
-        $now = new DateTime;
+        $now = new Date;
         $lastMonthOrders = [];
         foreach ($orders as $order) {
             $result['total_sum'] += $order['PRICE'];
 
-            $orderDate = new DateTime($order['DATE_INSERT']);
+            $orderDate = new Date($order['DATE_INSERT']);
             $result['last_order_date'] = $orderDate;
 
             if (
@@ -148,8 +159,16 @@ class OrderHelper
                 $result['current_period_sum'] += $order['PRICE'];
             }
 
-            if ($order['PRICE'] === $order['SUM_PAID']) {
-                $result['paid_orders_count']++;
+            switch ($order['STATUS_ID']) {
+                case self::ACCOMPLISHED_STATUS:
+                    $result['paid_orders_count']++;
+                    break;
+                case self::PARTLY_REFUNDED_STATUS:
+                    $result['part_refunded_orders_count']++;
+                    break;
+                case self::FULL_REFUNDED_STATUS:
+                    $result['full_refunded_orders_count']++;
+                    break;
             }
 
             if ($orderDate->getDiff($now)->days <= 30) {

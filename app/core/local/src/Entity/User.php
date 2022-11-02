@@ -2,6 +2,7 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Carbon\Carbon;
 use CCatalogGroup;
@@ -298,7 +299,7 @@ class User
             'name_initials' => $this->lastName . ' ' . strtoupper(substr($this->name, 0, 1)) . '.' . strtoupper(substr($this->secondName, 0, 1)) . '.',
             'full_name' => "$this->lastName $this->name $this->secondName",
             'gender' => $this->gender,
-            'date_register' => $this->dateRegister,
+            'date_register' => new Date($this->dateRegister),
             'photo' => $this->getPhotoUrl(),
             'loyalty_level' => $this->loyaltyLevel,
             'birthdate' => $this->birthday->format('d.m.Y'),

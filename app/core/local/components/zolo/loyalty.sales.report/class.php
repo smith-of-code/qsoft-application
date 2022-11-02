@@ -4,6 +4,7 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Type\Date;
 use QSoft\Entity\User;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\OrderHelper;
@@ -15,6 +16,8 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
     private OrderHelper $orderHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
+    private array $currentAccountingPeriod;
+
     public function __construct($component = null)
     {
         parent::__construct($component);
@@ -25,10 +28,12 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
             LocalRedirect('/');
         }
 
+        $this->checkModules();
+
         $this->orderHelper = new OrderHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
 
-        $this->checkModules();
+        $this->currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
     }
 
     /**
@@ -57,22 +62,63 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
 
     public function getResult()
     {
-        $currentPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+        $loyaltyLevels = $this->loyaltyProgramHelper->getLoyaltyLevels();
 
-        $this->arResult['user'] = $this->user->getPersonalData();
-        $this->arResult['orders_report'] = $this->orderHelper->getOrdersReport($this->user->id);
-        $this->arResult['current_accounting_period'] = $currentPeriod;
-        $this->arResult['accounting_periods'] = $this->loyaltyProgramHelper->getAvailableAccountingPeriods($this->user->id);
-        $this->arResult['bonuses_income'] = $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod(
-            $this->user->id,
-            $currentPeriod['from'],
-            $currentPeriod['to'],
+        $this->arResult['current_accounting_period'] = $this->currentAccountingPeriod;
+        $this->arResult['current_user'] = $this->getUserData($this->user);
+
+        $this->arResult['consultant_loyalty_levels'] = $loyaltyLevels['consultant'];
+        $this->arResult['buyer_loyalty_levels'] = $loyaltyLevels['customer'];
+
+        $this->arResult['user_team'] = [
+            'consultants' => [
+                $this->getUserData(new User(1)),
+                $this->getUserData(new User(1)),
+                $this->getUserData(new User(1)),
+            ],
+            'buyers' => [
+                $this->getUserData(new User(1)),
+                $this->getUserData(new User(1)),
+                $this->getUserData(new User(1)),
+            ],
+        ];
+
+        $this->arResult['consultants_accounting_periods'] = $this->loyaltyProgramHelper->getAccountingPeriodsSinceDate(
+            $this->getOlderRegisterDate($this->arResult['user_team']['consultants'])
         );
-        $this->arResult['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
-            $this->user->id,
-            $currentPeriod['from'],
-            $currentPeriod['to'],
+        $this->arResult['buyers_accounting_periods'] = $this->loyaltyProgramHelper->getAccountingPeriodsSinceDate(
+            $this->getOlderRegisterDate($this->arResult['user_team']['buyers'])
         );
+    }
+
+    public function getOlderRegisterDate(array $users)
+    {
+        $result = new Date;
+        foreach ($users as $user) {
+            if ($result->getDiff($user['user_info']['date_register'])->invert) {
+                $result = $user['user_info']['date_register'];
+            }
+        }
+        return $result;
+    }
+
+    public function getUserData(User $user)
+    {
+        return [
+            'user_info' => $user->getPersonalData(),
+            'orders_report' => $this->orderHelper->getOrdersReport($user->id),
+            'accounting_periods' => $this->loyaltyProgramHelper->getAvailableAccountingPeriods($user->id),
+            'bonuses_income' => $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod(
+                $user->id,
+                $this->currentAccountingPeriod['from'],
+                $this->currentAccountingPeriod['to'],
+            ),
+            'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+                $user->id,
+                $this->currentAccountingPeriod['from'],
+                $this->currentAccountingPeriod['to'],
+            ),
+        ];
     }
 
     public function configureActions(): array
@@ -81,12 +127,29 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
             'getDataByPeriod' => [
                 'prefilters' => []
             ],
+            'getTeamMembersDataByPeriod' => [
+                'prefilters' => []
+            ],
         ];
 
     }
 
     public function getDataByPeriodAction(string $from, string $to): array
     {
-        return [];
+        $from = new Date($from);
+        $to = new Date($to);
+
+        return [
+            'bonuses_income' => $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod($this->user->id, $from, $to),
+            'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod($this->user->id, $from, $to),
+        ];
+    }
+
+    public function getTeamMembersDataByPeriodAction(string $role, string $from, string $to): array
+    {
+        return [
+            $this->getUserData(new User(1)),
+            $this->getUserData(new User(1)),
+        ];
     }
 }

@@ -76,28 +76,27 @@ if (!function_exists('phpToVueObject')) {
 if (!function_exists('numberToRoman')) {
     function numberToRoman(int $number): string
     {
-        $thousands = (int) ($number / 1000);
-        $number -= $thousands * 1000;
-        $result = str_repeat('M', $thousands);
-        $table = [
-            1 => 'I',
-            4 => 'IV',
-            5 => 'V',
-            9 => 'IX',
-            10 => 'X',
-            40 => 'XL',
-            50 => 'L',
-            90 => 'XC',
-            100 => 'C',
-            400 => 'CD',
-            500 => 'D',
-            900 => 'CM',
+        $romanNumbersMap = [
+            'M'  => 1000,
+            'CM' => 900,
+            'D'  => 500,
+            'CD' => 400,
+            'C'  => 100,
+            'XC' => 90,
+            'L'  => 50,
+            'XL' => 40,
+            'X'  => 10,
+            'IX' => 9,
+            'V'  => 5,
+            'IV' => 4,
+            'I'  => 1,
         ];
-        while($number) {
-            foreach ($table as $part => $fragment) if ($part <=$number) break;
-            $amount = (int) ($number / $part);
-            $number -= $part * $amount;
-            $result .= str_repeat($fragment, $amount);
+
+        $result = '';
+        foreach ($romanNumbersMap as $roman => $value) {
+            $matches = intval($number / $value);
+            $result .= str_repeat($roman, $matches);
+            $number = $number % $value;
         }
         return $result;
     }
