@@ -84,28 +84,26 @@ else
                     <p class="catalog__results">Найдено <span class="catalog__results-count">19 </span>товаров</p>
 
                     <div class="catalog__sort">
-                        <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
-                            <div class="select__group">
-                                <form id="sort_selector"
-                                      action="<?= $APPLICATION->GetCurPageParam('', ['sort']);?>"
-                                      method="get"
-                                      class="form">
-                                    <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
-                                        <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'sort' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
-                                        <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
-                                        <option value="price-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
-                                        <option value="date-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
-                                        <option value="date-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
-                                    </select>
-                                    <button type="submit" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                    <span class="button__icon button__icon--medium">
-                                        <svg class="icon icon--sort">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                        </svg>
-                                    </span>
-                                    </button>
-                                </form>
-                            </div>
+                        <div class="catalog__select select select--small select--limited select--sorting select--borderless select--groups" data-select>
+                            <form id="sort_selector" class="select__group"
+                                    action="<?= $APPLICATION->GetCurPageParam('', ['sort']);?>"
+                                    method="get"
+                                    class="form">
+                                <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
+                                    <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'sort' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
+                                    <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
+                                    <option value="price-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'catalog_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
+                                    <option value="date-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
+                                    <option value="date-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'timestamp_x' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
+                                </select>
+                                <button type="submit" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                <span class="button__icon button__icon--medium">
+                                    <svg class="icon icon--sort">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                    </svg>
+                                </span>
+                                </button>
+                            </form>
                         </div>
 
                         <div class="catalog__toggle">
