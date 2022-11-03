@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         '',
-		"news/",
+		"",
 		Array(),
 		Array('MESSENGER_ICON' => "telegram"),
 		""
@@ -10,7 +10,7 @@ $aMenuLinks = Array(
 
 	Array(
 		"",
-		"about/howto/",
+		"",
 		Array(), 
 		Array('MESSENGER_ICON' => "youtube"),
 		"" 
@@ -18,21 +18,21 @@ $aMenuLinks = Array(
 
 	Array(
 		"",
-		"about/delivery/",
+		"",
 		Array(), 
 		Array('MESSENGER_ICON' => "vk"),
 		"" 
 	),
     Array(
         "",
-        "about/delivery/",
+        "",
         Array(),
         Array('MESSENGER_ICON' => "whatsapp"),
         ""
     ),
     Array(
         "",
-        "about/delivery/",
+        "",
         Array(),
         Array('MESSENGER_ICON' => "viber"),
         ""

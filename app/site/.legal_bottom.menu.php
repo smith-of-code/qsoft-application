@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         'Правила компании',
-		"news/",
+		"/legal/company_rules/",
 		Array(),
 		Array(),
 		""
@@ -10,14 +10,14 @@ $aMenuLinks = Array(
 
 	Array(
         'Положение об обработке персональных данных',
-		"about/howto/",
+		"/legal/personal_data_regulation/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
         'Правила поведения в компании',
-		"about/delivery/",
+		"/legal/rules_of_conduct/",
 		Array(), 
 		Array(), 
 		"" 

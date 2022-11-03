@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         'Акции',
-		"news/",
+		"/info/discounts/",
 		Array(),
 		Array(),
 		""
@@ -10,21 +10,21 @@ $aMenuLinks = Array(
 
 	Array(
         'Оплата и доставка',
-		"about/howto/",
+		"/info/payment_and_delivery/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
         'FAQ',
-		"about/delivery/",
+		"/info/faq/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
         'Обратиться в поддержку',
-		"about/",
+		"/contact_support/",
 		Array(),
 		Array(),
 		""

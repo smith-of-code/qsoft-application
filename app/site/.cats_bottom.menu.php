@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         'Сухой корм',
-		"news/",
+		"/catalog/for_cats/dry_food_for_cats/",
 		Array(),
 		Array(),
 		""
@@ -10,7 +10,7 @@ $aMenuLinks = Array(
 
 	Array(
 		"Влажный корм",
-		"about/howto/",
+		"/catalog/for_cats/wet_food_for_cats/",
 		Array(), 
 		Array(), 
 		"" 
@@ -18,21 +18,21 @@ $aMenuLinks = Array(
 
 	Array(
 		"Лакомства",
-		"about/delivery/",
+		"/catalog/for_cats/treats_for_cats/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Аксессуары",
-		"about/",
+		"/catalog/for_cats/accessories_for_cats/",
 		Array(),
 		Array(),
 		""
 	),
 	Array(
 		"Советы экспертов",
-		"about/guaranty/",
+		"/info/expert-advice/",
 		Array(),
 		Array(),
 		""

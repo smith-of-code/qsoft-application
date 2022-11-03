@@ -1,8 +1,9 @@
 <?
+
 $aMenuLinks = Array(
 	Array(
 		"Сухой корм",
-		"news/",
+		"/catalog/for_dogs/dry_food_for_dogs/",
 		Array(),
 		Array(),
 		""
@@ -10,7 +11,7 @@ $aMenuLinks = Array(
 
 	Array(
 		"Влажный корм",
-		"about/howto/",
+		"/catalog/for_dogs/wet_food_for_dogs/",
 		Array(), 
 		Array(), 
 		"" 
@@ -18,21 +19,21 @@ $aMenuLinks = Array(
 
 	Array(
 		"Лакомства",
-		"about/delivery/",
+		"/catalog/for_dogs/treats_for_dogs/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Аксессуары",
-		"about/",
+		"/catalog/for_dogs/accessories_for_dogs/",
 		Array(),
 		Array(),
 		""
 	),
 	Array(
 		"Советы экспертов",
-		"about/guaranty/",
+		"/info/expert-advice/for_dogs/",
 		Array(),
 		Array(),
 		""

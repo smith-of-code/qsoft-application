@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         'AmeBusiness',
-		"news/",
+		"/info/ame-business/",
 		Array(),
 		Array(),
 		""
@@ -10,14 +10,14 @@ $aMenuLinks = Array(
 
 	Array(
         'Новости',
-		"about/howto/",
+		"/info/news/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
         'Мероприятия',
-		"about/delivery/",
+		"/info/events/",
 		Array(), 
 		Array(), 
 		"" 
