@@ -24,14 +24,14 @@
         line-height: rem($line-height-small);
 
         width: 100%;
-        padding: rem(6px) rem(32px);
+        padding: rem(10px) rem(32px);
 
         cursor: pointer;
         text-align: center;
 
         color: $saltBox;
-        border: rem(1px) solid $alto;
-        border-radius: rem($border-radius-average);
+        outline: rem(1px) solid $alto;
+        border-radius: rem(60px);
         background-color: $white;
 
         @media #{$screen-desktop} {
@@ -39,7 +39,6 @@
             padding-right: rem($gap-big);
             padding-left: rem($gap-big);
 
-            border-right: 0;
             border-radius: 0;
         }
     }
