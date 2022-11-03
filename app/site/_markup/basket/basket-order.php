@@ -25,190 +25,191 @@
                     <div class="content__main">
                         <div class="basket__row">
                             <div class="basket__col basket__col--full">
-                                
-                                <form class="bascket-order__form form">
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="subname" class="form__label form__label--required">
-                                                        <span class="form__label-text">Фамилия</span>
-                                                    </label>
-                                                </div>
 
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="input">
-                                                        <input type="text" class="input__control" name="subname-required" id="subname-required" placeholder="Фамилия">
+                                <div class="basket-order__box box box--gray box--rounded-sm">
+                                    <form class="basket-order__form form form--wraped">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="subname" class="form__label form__label--required">
+                                                            <span class="form__label-text">Фамилия</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="text" class="input__control" name="subname-required" id="subname-required" placeholder="Фамилия">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="name" class="form__label form__label--required">
-                                                        <span class="form__label-text">Имя</span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="input">
-                                                        <input type="text" class="input__control" name="name-required" id="name-required" placeholder="Имя">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="name" class="form__label form__label--required">
+                                                            <span class="form__label-text">Имя</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="delivery-method" class="form__label form__label--required">
-                                                        <span class="form__label-text">Способ доставки</span>
-                                                    </label>
-                                                </div>
 
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="form__control">
-                                                        <div class="select select--mitigate" data-select>
-                                                            <select class="select__control" name="delivery-method" data-select-control data-placeholder="Способ доставки">
-                                                                <option><!-- пустой option для placeholder --></option>
-                                                                <option value="1">Самовывоз со склада Amestore</option>
-                                                                <option value="2">Доставка курьером</option>
-                                                            </select>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="text" class="input__control" name="name-required" id="name-required" placeholder="Имя">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="delivery-date" class="form__label form__label--required">
-                                                        <span class="form__label-text">Дата доставки</span>
-                                                    </label>
-                                                </div>
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="delivery-method" class="form__label form__label--required">
+                                                            <span class="form__label-text">Способ доставки</span>
+                                                        </label>
+                                                    </div>
 
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="input">
-                                                        <input type="text" class="input__control" name="delivery-date-required" id="delivery-date-required" placeholder="Дата доставки">
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="delivery-method" data-select-control data-placeholder="Способ доставки">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Самовывоз со склада Amestore</option>
+                                                                    <option value="2">Доставка курьером</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="city" class="form__label form__label--required">
-                                                        <span class="form__label-text">Город</span>
-                                                    </label>
-                                                </div>
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="delivery-date" class="form__label form__label--required">
+                                                            <span class="form__label-text">Дата доставки</span>
+                                                        </label>
+                                                    </div>
 
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="form__control">
-                                                        <div class="select select--mitigate" data-select>
-                                                            <select class="select__control" name="city" data-select-control data-placeholder="Город">
-                                                                <option><!-- пустой option для placeholder --></option>
-                                                                <option value="1">Москва</option>
-                                                                <option value="2">Санкт-Петербург</option>
-                                                                <option value="2">Сочи</option>
-                                                                <option value="2">Саратов</option>
-                                                            </select>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="text" class="input__control" name="delivery-date-required" id="delivery-date-required" placeholder="Дата доставки">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="address" class="form__label form__label--required">
-                                                        <span class="form__label-text">Адрес доставки</span>
-                                                    </label>
-                                                </div>
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="city" class="form__label form__label--required">
+                                                            <span class="form__label-text">Город</span>
+                                                        </label>
+                                                    </div>
 
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="form__control">
-                                                        <div class="select select--mitigate" data-select>
-                                                            <select class="select__control" name="address" data-select-control data-placeholder="Адрес доставки">
-                                                                <option><!-- пустой option для placeholder --></option>
-                                                                <option value="1">Адрес доставки</option>
-                                                                <option value="2">Адрес доставки</option>
-                                                            </select>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="city" data-select-control data-placeholder="Город">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Москва</option>
+                                                                    <option value="2">Санкт-Петербург</option>
+                                                                    <option value="2">Сочи</option>
+                                                                    <option value="2">Саратов</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="address" class="form__label form__label--required">
+                                                            <span class="form__label-text">Адрес доставки</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="form__control">
+                                                            <div class="select select--mitigate" data-select>
+                                                                <select class="select__control" name="address" data-select-control data-placeholder="Адрес доставки">
+                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                    <option value="1">Адрес доставки</option>
+                                                                    <option value="2">Адрес доставки</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="text" class="form__label form__label--required">
-                                                        <span class="form__label-text">Номер телефона</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="input">
-                                                        <input type="tel" class="input__control" name="text-required" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label form__label--required">
+                                                            <span class="form__label-text">Номер телефона</span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="text-required" class="form__label form__label--required">
-                                                        <span class="form__label-text">E-mail</span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="input">
-                                                        <input type="text" class="input__control" name="text-required" id="text-required2" placeholder="example@email.com" data-mail inputmode="email">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--label">
-                                                    <label for="text" class="form__label">
-                                                        <span class="form__label-text">Комментарий</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form__field-block form__field-block--input">
-                                                    <label class="input input--textarea">
-                                                        <textarea type="text" class="input__control" name="textarea" id="textarea1" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
-                                                        <div class="input__counter">
-                                                            <span class="input__counter-current" data-textarea-current></span>
-                                                                /
-                                                            <span class="input__counter-total" data-textarea-total></span>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="tel" class="input__control" name="text-required" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
                                                         </div>
-                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text-required" class="form__label form__label--required">
+                                                            <span class="form__label-text">E-mail</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <div class="input">
+                                                            <input type="text" class="input__control" name="text-required" id="text-required2" placeholder="example@email.com" data-mail inputmode="email">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <button type="button" class="button button--rounded button--covered button--white-green button--full">
-                                                Вернуться к корзине
-                                            </button>
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <div class="form__field">
+                                                    <div class="form__field-block form__field-block--label">
+                                                        <label for="text" class="form__label">
+                                                            <span class="form__label-text">Комментарий</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form__field-block form__field-block--input">
+                                                        <label class="input input--textarea">
+                                                            <textarea type="text" class="input__control" name="textarea" id="textarea1" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
+                                                            <div class="input__counter">
+                                                                <span class="input__counter-current" data-textarea-current></span>
+                                                                    /
+                                                                <span class="input__counter-total" data-textarea-total></span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form__col">
-                                            <button type="button" class="button button--rounded button--covered button--green button--full">
-                                                Оформить заказ
-                                            </button>
+                                        <div class="form__row">
+                                            <div class="form__col">
+                                                <button type="button" class="button button--rounded button--covered button--white-green button--full">
+                                                    Вернуться к корзине
+                                                </button>
+                                            </div>
+                                            <div class="form__col">
+                                                <button type="button" class="button button--rounded button--covered button--green button--full">
+                                                    Оформить заказ
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                                
+                                    </form>
+                                </div>
                                 
                             </div>
                             <div class="basket__col basket__col--limited">

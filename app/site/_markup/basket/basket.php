@@ -599,45 +599,118 @@
                                     <div class="card-progress">
                                         <div class="card-progress__inner">
                                             <p class="card-progress__title">
-                                                Повышения уровня по групповым покупкам
+                                                Удержание уровня по личным покупкам
                                             </p>
                                             <div class="card-progress__mark">
-                                                <svg class="card-progress__icon icon icon--cat-happy">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-happy"></use>
+                                                <svg class="card-progress__icon icon icon--cat-serious">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
                                                 </svg>
                                                 <span class="card-progress__mark-text">
-                                                    Просто фантастика
+                                                    Осталось еще немного
                                                 </span>
                                             </div>
                                             <div class="card-progress__wrapper">
                                                 <div class="card-progress__progress progress-bar">
-                                                    <div style="width: 100%;" class="progress-bar__filler progress-bar__filler--green"></div>
+                                                    <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
                                                 </div>
                                                 <div class="card-progress__bottom">
                                                     <div class="card-progress__amount amount">
-                                                        <p class="amount__target amount__target--green">
-                                                            179 000 ₽
+                                                        <p class="amount__target amount__target--red">
+                                                            124 000 ₽
                                                         </p>
                                                         <p class="amount__total">
                                                             из 175 000 ₽
                                                         </p>
                                                     </div>
-
+    
                                                     <div class="card-progress__status">
                                                         <p class="card-progress__text">
-                                                            Перевыполнено 
-                                                        </p>
-                                                        <p class="card-progress__text">
-                                                            на 4 000 ₽
+                                                            Осталось 56 000 ₽
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="card-progress__warning warning">
+                                                <div class="warning__mark">
+                                                    <button type="button" 
+                                                        class="button button--iconed button--simple button--red"
+                                                        data-fancybox data-modal-type="modal"
+                                                        data-src="#conditions"
+                                                    >
+                                                        <span class="button__icon">
+                                                            <svg class="icon icon--basket warning__icon">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <p class="warning__text">
+                                                    Условия повышения уровня
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
+                                    <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
+                                        <div class="modal__content">
+                                            <header class="modal__section modal__section--header">
+                                                <p class="heading heading--average">Условия поддержания уровня</p>
+                                            </header>
+
+                                            <section class="modal__section modal__section--content">
+                                                <div class="conditions">
+                                                    <div class="conditions__block">
+                                                        <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
+
+                                                        <ul class="conditions__list">
+                                                            <li class="conditions__item">
+                                                                Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="conditions__block">
+                                                        <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+
+                                                        <ul class="conditions__list">
+                                                            <li class="conditions__item">
+                                                                Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                            </li>
+
+                                                            <li class="conditions__item">
+                                                                Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                                        </p>
+                                                        <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                                    </div>
+
+                                                    <div class="conditions__block">
+                                                        <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+
+                                                        <ul class="conditions__list">
+                                                            <li class="conditions__item">
+                                                                Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                            </li>
+
+                                                            <li class="conditions__item">
+                                                                Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+
+                                                        </p>
+                                                        <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </article>
                                 </div>
                                 <div class="basket__order">
-                                    <div class="basket-card">
+                                    <div class="basket-card" data-basket-card>
                                         <div class="basket-card__title">Ваш заказ</div>
 
                                         <div class="basket-card__wrapper">
@@ -654,7 +727,7 @@
                                                     <span class="basket-card__elipse">
                                                         ............................................................
                                                     </span>
-                                                    <span class="basket-card__total">70 ₽</span> 
+                                                    <span class="basket-card__total" data-basket-product-nds>0 ₽</span> 
                                                 </div>
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text">Сумма заказа</span>
@@ -674,7 +747,7 @@
                                                     <div class="basket-card__bonus-wrapper">
                                                         <div class="basket-card__bonus-inner">
                                                             <span class="basket-card__bonus-text">Сумма ББ на счету</span>
-                                                            <span class="basket-card__bonus-count">1 216 ББ</span>
+                                                            <span class="basket-card__bonus-count" data-basket-bonus-balance>7 216 ББ</span>
                                                         </div>
                                                         <div class="basket-card__bonus-inner">
                                                             <span class="basket-card__bonus-text">ББ за заказ</span>
@@ -685,10 +758,10 @@
                                                             <div class="form__col">
                                                                 <div class="form__field">
                                                                     <div class="form__field-block form__field-block--input">
-                                                                        <div class="input input--small input--buttoned input--placeholder">
-                                                                            <input type="text" class="input__control" name="text" id="text3" value="">
+                                                                        <div class="input input--small input--buttoned input--placeholder" data-basket-bonus-input>
+                                                                            <input type="number" class="input__control" name="text" id="text3" value="">
                                                                             <span class="input__placeholder">Сколько баллов списать</span>
-                                                                            <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark">
+                                                                            <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark" data-basket-bonus-accept>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--arrow">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
@@ -699,6 +772,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="basket-card__bonus-error">
+                                                            Баллами можно оплатить до 99% от итоговой стоимости в корзине. Пожалуйста, уменьшите количество списываемых баллов
                                                         </div>
                                                     </div>
                                                 </div>

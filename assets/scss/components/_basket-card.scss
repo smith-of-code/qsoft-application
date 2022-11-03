@@ -90,6 +90,22 @@
 
             background-color: $tara;
             border-radius: rem($border-radius-average);
+
+            &--error {
+                background-color: $pastelPink; 
+            }
+        }
+
+        &-error {
+            display: none; 
+
+            font-size: rem($font-size-tiny);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-tiny/$font-size-tiny);
+
+            margin-top: rem($gap-small);
+
+            color: $brickRed;
         }
 
         &-inner {

@@ -442,6 +442,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: close-tick-circle">
+                                    <svg class="icon icon--close gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: refresh">
+                                    <svg class="icon icon--refresh gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
