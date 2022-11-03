@@ -21,8 +21,7 @@ else
 }
 ?>
 
-<main class="page__catalog catalog">
-    <?php
+<?php
     /* ЦЕПОЧКА НАВИГАЦИИ РАЗДЕЛА КАТАЛОГА */
     $APPLICATION->IncludeComponent(
         'bitrix:breadcrumb',
@@ -36,9 +35,9 @@ else
     );
     ?>
 
-    <h1 class="page__heading">Каталог товаров</h1>
+<h1 class="page__heading">Каталог товаров</h1>
 
-    <div class="content__main">
+<div class="content__main">
         <div class="catalog__wrapper">
             <?
             /* Фильтр */
@@ -254,4 +253,3 @@ else
             </div>
         </div>
     </div>
-</main>
