@@ -22,6 +22,8 @@ html {
 body {
     @include text-medium;
 
+    letter-spacing: 0.02em;
+
     text-rendering: optimizeLegibility;
 }
 
