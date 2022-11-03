@@ -272,6 +272,8 @@
         &-title {
             margin-bottom: rem($gap-medium);
 
+            color: $tuna;
+
             @media #{$screen-desktop} {
                 margin-bottom: rem(20px);
             }
