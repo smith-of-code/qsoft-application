@@ -9938,7 +9938,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -11171,7 +11171,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -12404,7 +12404,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -13663,7 +13663,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -14903,7 +14903,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -16138,7 +16138,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
