@@ -56,7 +56,7 @@ class CSystemAuthRegistrationComponent {
 
         if (isForwardDirection) {
             if (data.currentStep === 'pets_data' && data.pets) {
-                data.pets = null;
+                data.pets = {};
             }
 
             $(`.${registrationData.currentStep} .form`).find('input, select').each((index, item) => {
@@ -82,7 +82,11 @@ class CSystemAuthRegistrationComponent {
                     }
 
                     const separateKey = $(item).attr('name').split('-');
-                    if (!data[separateKey[0]]) data[separateKey[0]] = [];
+                    if ($(item).attr('name').indexOf('breed') !== -1) {
+                        data[separateKey[0]][separateKey[1]].breed = $(item).val();
+                        return;
+                    }
+                    if (!data[separateKey[0]]) data[separateKey[0]] = {};
                     if (!data[separateKey[0]][separateKey[1]]) data[separateKey[0]][separateKey[1]] = {};
                     data[separateKey[0]][separateKey[1]][separateKey[2]] = $(item).val();
 
@@ -135,7 +139,7 @@ class CSystemAuthRegistrationComponent {
             });
         }
 
-        if (data.currentStep === 'pets_data' && !data.pets?.length) {
+        if (data.currentStep === 'pets_data' && !Object.keys(data.pets).length) {
             return;
         }
 
