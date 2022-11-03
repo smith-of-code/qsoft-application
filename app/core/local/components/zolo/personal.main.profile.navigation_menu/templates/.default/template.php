@@ -17,9 +17,11 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 <nav class="private__menu menu menu--private">
     <ul class="menu__list">
-        <li class="menu__item <?=$currentUrl == $arParams['PROFILE_URL'] ? 'menu__item--active' : ''?>">
+
+        <?php $isCurentUrl = $currentUrl == $arParams['PROFILE_URL'] ? 'menu__item--active' : ''?>
+        <li class="menu__item <?=$isCurentUrl ? 'menu__item--active' : ''?>">
             <a href="<?=$arParams['PROFILE_URL']?>" class="menu__link">
-                <span class="menu__icon menu__icon--active">
+                <span class="menu__icon <?=$isCurentUrl ? 'menu__icon--active' : ''?>">
                     <svg class="icon icon--profile gui__icon">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
                     </svg>
@@ -28,9 +30,10 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             </a>
         </li>
 
-        <li class="menu__item <?=$currentUrl == $arParams['ORDER_HISTORY_URL'] ? 'menu__item--active' : ''?>">
+        <?php $isCurentUrl = $currentUrl == $arParams['ORDER_HISTORY_URL'] ? 'menu__item--active' : ''?>
+        <li class="menu__item <?=$isCurentUrl ? 'menu__item--active' : ''?>">
             <a href="<?=$arParams['ORDER_HISTORY_URL']?>" class="menu__link">
-                <span class="menu__icon">
+                <span class="menu__icon <?=$isCurentUrl ? 'menu__icon--active' : ''?>">
                     <svg class="icon icon--receipts gui__icon">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
                     </svg>
@@ -38,10 +41,12 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 <span class="menu__text"><?=Loc::getMessage('HISTORY_TAB_NAME')?></span>
             </a>
         </li>
+
         <?php if ($arResult['IS_CONSULTANT']): ?>
-            <li class="menu__item <?=$currentUrl == $arParams['INCOMES_CALCULATOR_URL'] ? 'menu__item--active' : ''?>">
+            <?php $isCurentUrl = $currentUrl == $arParams['INCOMES_CALCULATOR_URL'] ? 'menu__item--active' : ''?>
+            <li class="menu__item  <?=$isCurentUrl ? 'menu__item--active' : ''?>">
                 <a href="<?=$arParams['INCOMES_CALCULATOR_URL']?>" class="menu__link">
-                    <span class="menu__icon">
+                    <span class="menu__icon <?=$isCurentUrl ? 'menu__icon--active' : ''?>">
                         <svg class="icon icon--calculator gui__icon">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
                         </svg>
@@ -50,9 +55,10 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <li class="menu__item <?=$currentUrl == $arParams['SALES_REPORT_URL'] ? 'menu__item--active' : ''?>">
+            <?php $isCurentUrl = $currentUrl == $arParams['SALES_REPORT_URL'] ? 'menu__item--active' : ''?>
+            <li class="menu__item  <?=$isCurentUrl ? 'menu__item--active' : ''?>">
                 <a href="<?=$arParams['SALES_REPORT_URL']?>" class="menu__link">
-                    <span class="menu__icon">
+                    <span class="menu__icon <?=$isCurentUrl ? 'menu__icon--active' : ''?>">
                         <svg class="icon icon--chart-square gui__icon">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
                         </svg>
@@ -62,7 +68,8 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             </li>
         <?php endif; ?>
 
-        <li class="menu__item <?=$currentUrl == $arParams['NOTIFICATIONS_URL'] ? 'menu__item--active' : ''?>">
+        <?php $isCurentUrl = $currentUrl == $arParams['NOTIFICATIONS_URL'] ? 'menu__item--active' : ''?>
+        <li class="menu__item  <?=$isCurentUrl ? 'menu__item--active' : ''?>">
             <a href="<?=$arParams['NOTIFICATIONS_URL']?>" class="menu__link">
                 <span class="menu__icon">
                     <svg class="icon icon--notification gui__icon">
