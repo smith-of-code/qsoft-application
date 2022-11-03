@@ -15,6 +15,13 @@
         }
     }
 
+    &--search & {
+        &__control {
+            font-size: rem($font-size-mini);
+            line-height: ($line-height-normal / $font-size-mini)
+        }
+    }
+
     &--small & {
         &__control {
             @include text-tiny;

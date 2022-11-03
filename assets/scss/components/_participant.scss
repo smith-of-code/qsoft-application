@@ -1,4 +1,17 @@
 .participant {
+    &--accounting & {
+        &__header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__info {
+            &-name {
+                display: block;
+            }
+        }
+    }
+
     &__head {
         display: none;
 
@@ -258,6 +271,8 @@
 
         &-title {
             margin-bottom: rem($gap-medium);
+
+            color: $tuna;
 
             @media #{$screen-desktop} {
                 margin-bottom: rem(20px);

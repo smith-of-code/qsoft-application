@@ -159,6 +159,16 @@
         }
     }
 
+    &#{&}--common {
+        .select2-container--default {
+            .select2-selection--single {
+                border: none;
+                border-radius: 0;
+                background-color: $white;
+            }
+        }
+    }
+
     &#{&}--sorting {
         .select2-container--default {
             .select2-selection--single {
@@ -238,6 +248,29 @@
         .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
             border-bottom-left-radius: rem($border-radius-small);
             border-bottom-right-radius: rem($border-radius-small); 
+        }
+    }
+
+    &#{&}--groups {
+        .select2-selection__rendered {
+            .select__item {
+                @include text-ellips;
+
+                max-width: rem(150px);
+            }
+        }
+
+        .select2-container--default {
+            .select2-dropdown {
+                right: 0;
+                left: auto;
+
+                width: rem(320px) !important;
+            }
+        }
+
+        .select2-results > .select2-results__options {
+            max-height: min-content !important;
         }
     }
 

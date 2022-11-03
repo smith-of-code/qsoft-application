@@ -252,11 +252,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             }
         }
 
-        try {
-            $currentUser = new User;
-        } catch (\Exception $e) {}
-
-        if (isset($currentUser) && $currentUser->groups->isConsultant()) {
+        if (!is_null(currentUser()) && currentUser()->groups->isConsultant()) {
             $items['BONUSES'] = [
                 'ID' => 'BONUSES',
                 'CODE' => 'BONUSES',

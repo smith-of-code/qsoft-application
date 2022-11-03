@@ -1,0 +1,38 @@
+.appreciate-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    height: 100%;
+    padding: rem($gap-big) 0;
+
+    border-radius: rem($border-radius-average);
+
+    &--blue {
+        color: $bostonBlue;
+        background-color: $onahau;
+    }
+
+    &--green {
+        color: $seaGreen;
+        background-color: $tara;
+    }
+
+    &--eggwhite {
+        color: $buddhaGold;
+        background-color: $eggWhite;
+    }
+   
+    
+    &__text {
+        font-weight: $font-weight-semibold;
+        font-size: rem($font-size-normal);
+        line-height: ($line-height-normal/$font-size-normal);
+    }
+
+    &__icon {
+        margin-bottom: rem($gap-average);
+    }
+    
+}
