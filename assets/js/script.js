@@ -47,6 +47,7 @@
  import identic from './modules/identic';
  import showText from './modules/show-text';
  import calculator from './modules/calculator';
+ import chart from './modules/chart';
 
 
  const app = {
@@ -86,6 +87,7 @@
         identic();
         showText();
         calculator();
+        chart();
     },
 
     load() {
