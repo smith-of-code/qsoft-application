@@ -1,4 +1,29 @@
 .document {
+    &--column & {
+        &__link {
+            flex-direction: row;
+
+            @media #{$screen-tablet} {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        &__icon {
+            $size: 40px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-tablet} {
+                $size: 64px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+    }
+
     &__link {
         display: flex;
         align-items: center;
