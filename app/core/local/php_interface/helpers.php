@@ -66,8 +66,6 @@ if (!function_exists('mb_ucfirst')) {
     }
 }
 
-
-//- TODO Скопировано из 227010, удалить дубль
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
