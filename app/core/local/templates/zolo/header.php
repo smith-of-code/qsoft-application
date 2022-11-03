@@ -8,12 +8,6 @@ CJSCore::Init(["fx"]);
 global $APPLICATION;
 ?>
 
-<script>
-    window.onload = () => {
-        (new Zolo.Loader()).run();
-    }
-</script>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>

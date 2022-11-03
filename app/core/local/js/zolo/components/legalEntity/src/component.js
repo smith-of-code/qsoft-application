@@ -28,10 +28,6 @@ export const LegalEntity = {
     },
 
     mounted() {
-        window.dropzone();
-        window.initSelect(); // TODO Do anything with it
-        window.inputMaskInit();
-
         $('select[name=status]').on('change', () => this.changeLegalEntityType());
     },
 
@@ -676,7 +672,7 @@ export const LegalEntity = {
                                 </div>
                             </div>
                             
-                            <div v-if="mutableLegalEntity.type.code === 'STATUS_SELF_EMPLOYED'" class="section__box-inner legal_entity STATUS_SELF_EMPLOYED">
+                            <div :hidden="mutableLegalEntity.type.code !== 'STATUS_SELF_EMPLOYED'" class="section__box-inner legal_entity STATUS_SELF_EMPLOYED">
                                 <h5 class="box__heading box__heading--middle">Самозанятый</h5>
                     
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">
@@ -1013,7 +1009,7 @@ export const LegalEntity = {
                                 </div>
                             </div>
                             
-                            <div v-if="mutableLegalEntity.type.code === 'STATUS_IP'" class="section__box-inner legal_entity STATUS_IP">
+                            <div :hidden="mutableLegalEntity.type.code !== 'STATUS_IP'" class="section__box-inner legal_entity STATUS_IP">
                                 <h5 class="box__heading box__heading--middle">Индивидуальный предприниматель</h5>
                     
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">
@@ -1502,7 +1498,7 @@ export const LegalEntity = {
                                 </div>
                             </div>
                             
-                            <div v-if="mutableLegalEntity.type.code === 'STATUS_JURIDICAL'" class="section__box-inner legal_entity STATUS_JURIDICAL">
+                            <div :hidden="mutableLegalEntity.type.code !== 'STATUS_JURIDICAL'" class="section__box-inner legal_entity STATUS_JURIDICAL">
                                 <h5 class="box__heading box__heading--middle">Общество с ограниченной ответственностью</h5>
                     
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">

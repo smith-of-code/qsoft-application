@@ -41,7 +41,7 @@ class ConfirmationService
                 Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
                 $code
             ),
-            $this->user->login
+            $this->user->phone
         );
     }
 

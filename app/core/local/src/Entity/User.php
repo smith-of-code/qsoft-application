@@ -116,6 +116,10 @@ class User
      */
     public int $photo;
     /**
+     * @var string Номер телефона
+     */
+    public string $phone;
+    /**
      * @var string Уровень в программе лояльности
      */
     public string $loyaltyLevel;
@@ -180,6 +184,7 @@ class User
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
         'PERSONAL_PHOTO' => 'photo',
+        'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
@@ -277,7 +282,7 @@ class User
             'loyalty_level' => $this->loyaltyLevel,
             'birthdate' => $this->birthday->format('d.m.Y'),
             'email' => $this->email,
-            'phone' => $this->login,
+            'phone' => $this->phone,
             'city' => $this->city,
             'pickup_point_id' => $this->pickupPointId,
         ];

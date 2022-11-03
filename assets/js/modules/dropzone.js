@@ -215,12 +215,6 @@ function uploadFiles(el) {
 }
 
 export default function (container) {
-    function dropzone(container) {
-        const $elems = container ? $(container).find(ELEMENTS_SELECTOR.uploaderArea) : $(ELEMENTS_SELECTOR.uploaderArea);
-
-        $elems.each((index, elem) => uploadFiles(elem));
-    }
-
-    dropzone(container);
-    window.dropzone = dropzone;
+    const $elems = container ? $(container).find(ELEMENTS_SELECTOR.uploaderArea) : $(ELEMENTS_SELECTOR.uploaderArea);
+    $elems.each((index, elem) => uploadFiles(elem));
 }

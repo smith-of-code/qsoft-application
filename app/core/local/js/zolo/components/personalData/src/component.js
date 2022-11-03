@@ -38,12 +38,6 @@ export const PersonalData = {
         this.initUserInfo();
     },
 
-    mounted() {
-        window.dropzone();
-        window.initSelect(); // TODO Do anything with it
-        window.inputMaskInit();
-    },
-
     methods: {
         initUserInfo() {
             this.mutableUserInfo = JSON.parse(JSON.stringify(this.userInfo));
@@ -416,6 +410,7 @@ export const PersonalData = {
                                                     </div>
                                                     
                                                     <button
+                                                        v-if="editing"
                                                         type="button"
                                                         class="form__field-button button button--simple button--red button--underlined button--tiny"
                                                         data-src="#approve-number"

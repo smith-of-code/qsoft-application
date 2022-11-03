@@ -1,6 +1,10 @@
 import { usePetStore } from '../../../stores/petStore';
+import { Select } from "../../gui/select/src/component";
+import { DateInput } from "../../gui/dateInput/src/component";
 
 export const Pets = {
+    components: { Select, DateInput },
+
     data() {
         return {
             mutablePets: [],
@@ -31,19 +35,15 @@ export const Pets = {
     },
 
     created() {
-        this.mutablePets = Object.values(this.pets);
+        this.mutablePets = JSON.parse(JSON.stringify(Object.values(this.pets)));
     },
 
     mounted() {
-        window.initSelect(); // TODO Do anything with it
-        window.inputMaskInit();
     },
 
     methods: {
         addPet() {
             this.mutablePets.push({ id: `new-${Date.now()}`, editing: true });
-            window.initSelect(); // TODO Do anything with it
-            window.inputMaskInit();
         },
         deletePet(pet) {
             if (pet.id.indexOf('new') === -1) {
@@ -63,10 +63,6 @@ export const Pets = {
             }
         },
         savePet(pet) {
-            pet.kind = this.kinds[$(`#kind-${pet.id}`).val()];
-            pet.breed = this.breeds[pet.kind.code][$(`#breed-${pet.id}`).val()];
-            pet.gender = this.genders[$(`#gender-${pet.id}`).val()];
-
             pet.editing = false;
 
             if (pet.id.indexOf('new') === -1) {
@@ -113,7 +109,7 @@ export const Pets = {
                                                 </div>
 
                                                 <div class="pet-card__breed" data-pets-breed>
-                                                    {{ pet.breed.name }}
+                                                    {{ pet.breed?.name }}
                                                 </div>
 
                                                 <div class="pet-card__info-record">
@@ -166,20 +162,13 @@ export const Pets = {
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="form__control">
-                                                                <div class="select select--mitigate select--iconed" data-select>
-                                                                    <select class="select__control" name="UF_KIND" :id="'kind-' + pet.id" data-select-control data-placeholder="Выбрать">
-                                                                        <option><!-- пустой option для placeholder --></option>
-                                                                        <option
-                                                                            v-for="(kind, kindId) in kinds"
-                                                                            :key="kindId"
-                                                                            :value="kindId"
-                                                                            :data-option-icon="kind.code.toLowerCase().substring(5)"
-                                                                            :selected="kind.code === pet.kind?.code"
-                                                                        >
-                                                                            {{ kind.name }}
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
+                                                                <Select
+                                                                    :name="UF_KIND"
+                                                                    :options="kinds"
+                                                                    :selected="pet.kind?.id"
+                                                                    :iconed="true"
+                                                                    @change="(value) => { pet.kind = kinds[value] }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -195,19 +184,12 @@ export const Pets = {
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="form__control">
-                                                                <div class="select select--mitigate" data-select>
-                                                                    <select class="select__control" name="UF_GENDER" :id="'gender-' + pet.id" data-select-control data-placeholder="Выбрать">
-                                                                        <option><!-- пустой option для placeholder --></option>
-                                                                        <option
-                                                                            v-for="(gender, genderId) in genders"
-                                                                            :key="genderId"
-                                                                            :value="genderId"
-                                                                            :selected="gender.code === pet.gender?.code"
-                                                                        >
-                                                                            {{ gender.name }}
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
+                                                                <Select
+                                                                    :name="UF_GENDER"
+                                                                    :options="genders"
+                                                                    :selected="pet.gender?.id"
+                                                                    @change="(value) => { pet.gender = genders[value] }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -222,24 +204,11 @@ export const Pets = {
                                                         </div>
 
                                                         <div class="form__field-block form__field-block--input">
-                                                           <div class="input input--iconed">
-                                                                <input
-                                                                    inputmode="numeric"
-                                                                    class="input__control"
-                                                                    name="UF_BIRTHDATE"
-                                                                    placeholder="ДД.ММ.ГГГГ"
-                                                                    data-mask-date
-                                                                    data-inputmask-alias="datetime"
-                                                                    data-inputmask-inputformat="dd.mm.yyyy"
-                                                                    :id="'birthdate-' + pet.id"
-                                                                    v-model="pet.birthdate"
-                                                                >
-                                                                <span class="input__icon">
-                                                                    <svg class="icon icon--calendar">
-                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
+                                                           <DateInput
+                                                               :name="UF_BIRTHDATE"
+                                                               :value="pet.birthdate"
+                                                               @change="(value) => { pet.birthdate = value }"
+                                                           />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -254,19 +223,12 @@ export const Pets = {
 
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="form__control">
-                                                                <div class="select select--mitigate" data-select>
-                                                                    <select class="select__control" name="UF_BREED" :id="'breed-' + pet.id" data-select-control data-placeholder="Выбрать">
-                                                                        <option><!-- пустой option для placeholder --></option>
-                                                                        <option
-                                                                            v-for="(breed, breedId) in breeds[pet.kind?.code]"
-                                                                            :key="breedId"
-                                                                            :value="breedId"
-                                                                            :selected="breed.id === pet.breed.id"
-                                                                        >
-                                                                            {{ breed.name }}
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
+                                                                <Select
+                                                                    :name="UF_BREED"
+                                                                    :options="breeds[pet.kind?.code] ?? {}"
+                                                                    :selected="pet.breed?.id"
+                                                                    @change="(value) => { pet.breed = breeds[pet.kind.code][value] }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>

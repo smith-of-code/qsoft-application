@@ -110,6 +110,9 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->arResult['pet_genders'] = $this->petHelper->getGenders();
         $this->arResult['pet_breeds'] = $this->petHelper->getBreeds();
         $this->arResult['pet_kinds'] = $this->petHelper->getKinds();
+        foreach ($this->arResult['pet_kinds'] as &$kind) {
+            $kind['icon'] = substr(strtolower($kind['code']), 5);
+        }
 
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
@@ -119,8 +122,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     private function getMentorInfo()
     {
-        $mentorInfo = CUser::GetByID($this->user->mentor->id)->Fetch();
-        $mentorInfo['PERSONAL_PHOTO_URL'] = $this->user->mentor->getPhotoUrl();
+        $mentorInfo = CUser::GetByID($this->user->getMentor()->id)->Fetch();
+        $mentorInfo['PERSONAL_PHOTO_URL'] = $this->user->getMentor()->getPhotoUrl();
 
 
         return $mentorInfo;

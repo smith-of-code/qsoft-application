@@ -239,11 +239,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
             throw new InvalidArgumentException('Invalid phone number');
         }
+        if (UserTable::getCount(['PERSONAL_PHONE' => $phoneNumber])) {
+            throw new InvalidArgumentException('Пользователь с таким номером телефона уже существует');
+        }
 
         $password = uniqid();
         $user = new CUser;
         $result = $user->Register(
-            $phoneNumber,
+            uniqid('user_', true),
             '',
             '',
             $password,
@@ -258,10 +261,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ];
         }
 
-        $user->Update($result['ID'], ['ACTIVE' => 'N']);
+        $user->Update($result['ID'], [
+            'ACTIVE' => 'N',
+            'PERSONAL_PHONE' => $phoneNumber,
+        ]);
         $user->Logout();
 
         $this->setRegisterData([
+            'phone' => $phoneNumber,
             'password' => $password,
             'user_id' => $result['ID'],
         ]);
@@ -297,6 +304,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
             'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
+            'PERSONAL_PHONE' => $data['phone'],
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
