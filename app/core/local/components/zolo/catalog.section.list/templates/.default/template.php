@@ -18,16 +18,18 @@ $TOP_DEPTH = $arResult["SECTION"]["DEPTH_LEVEL"];
 $CURRENT_DEPTH = $TOP_DEPTH;
 
 // Открывающий участок блока списка разделов
-if ($TOP_DEPTH == 0): ?>
-    <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
-<?php else: ?>
-    <div class="filter__header">
-        <p class="filter__heading heading heading--small">Категории</p>
-    </div>
+if (! empty($arResult["SECTIONS"])):
+    if ($TOP_DEPTH == 0): ?>
+        <div class="filter__accordeon accordeon accordeon--simple accordeon--small">
+    <?php else: ?>
+        <div class="filter__header">
+            <p class="filter__heading heading heading--small">Категории</p>
+        </div>
 
-    <div class="category">
-        <ul class="category__list">
-<?php endif;
+        <div class="category">
+            <ul class="category__list">
+    <?php endif;
+endif;
 
 $openLevel1 = "";
 $closeLevel1 = "";
@@ -188,9 +190,12 @@ while($CURRENT_DEPTH > $TOP_DEPTH) {
 
 
 // Закрывающий участок блока списка разделов
+if (! empty($arResult["SECTIONS"])):
 if ($TOP_DEPTH == 0): ?>
     </div>
 <?php else: ?>
         </ul>
     </div>
-<?php endif; ?>
+<?php endif;
+endif;
+?>
