@@ -1,0 +1,9 @@
+.sales {
+    &__cards {
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-tablet} {
+            margin-bottom: rem(30px);
+        }
+    }
+}

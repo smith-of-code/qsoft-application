@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 <?php
 if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 }
 global $APPLICATION;
 ?>
+=======
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
+        </main>
+>>>>>>> 0428f864cada760fa25a87cd6123cade447a2ac2
     </div>
 </div>
 <!--content-->

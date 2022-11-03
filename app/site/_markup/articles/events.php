@@ -265,7 +265,7 @@
                                 </ul>
                             </div>
 
-                            <button type="button" class="events__more events__button button button--rounded-big button--covered button--white-green button--full">
+                            <button type="button" class="events__more events__button button button--show button--rounded-big button--outlined button--green">
                                 Показать больше
                             </button>
                         </section>
