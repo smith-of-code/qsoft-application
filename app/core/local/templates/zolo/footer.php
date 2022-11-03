@@ -2,6 +2,7 @@
         </main>
     </div>
 </div>
+<!--content-->
 
 <!--Футер-->
 <footer class="page__footer footer">

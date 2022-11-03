@@ -565,6 +565,7 @@ global $APPLICATION;
         <main class="page__private private">
 
             <h1 class="page__heading">Личный кабинет</h1>
+
             <div class="content__main">
                 <div class="private__row">
                     <div class="private__col private__col--limited">

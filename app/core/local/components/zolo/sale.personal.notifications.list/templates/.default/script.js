@@ -47,6 +47,7 @@ function attach(notifications) {
         addition.querySelector('.card-notify__send-time').innerHTML = item['TIME'];
         addition.querySelector('.card-notify__status-text').innerHTML = item['STATUS'];
         let notificationRedirectAnchor = addition.querySelector('.card-notify__link');
+        notificationRedirectAnchor.setAttribute('href', item['LINK']);
         notificationRedirectAnchor.setAttribute('id', item['ID']);
         notificationRedirectAnchor.addEventListener('click', readNotification);
         document.querySelector('.notifications__list').appendChild(addition);

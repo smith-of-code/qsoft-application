@@ -20,7 +20,7 @@ const GREEN = "green", ORANGE = "orange";
         <?php foreach ($arResult['NOTIFICATIONS'] as $notification): ?>
             <li class="cards-notify__item">
                 <article class="card-notify card-notify--<?=$notification['STATUS'] == Loc::getMessage("READ") ? GREEN : ORANGE?>">
-                    <a href="/personal/" id="<?=$notification['ID']?>" target="_blank" class="card-notify__link"></a>
+                    <a href="<?=$notification['LINK']?>" id="<?=$notification['ID']?>" target="_blank" class="card-notify__link"></a>
                     <div class="card-notify__inner">
                         <header class="card-notify__header">
                             <div class="card-notify__mark">

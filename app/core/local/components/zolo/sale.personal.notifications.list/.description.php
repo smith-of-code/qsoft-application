@@ -6,11 +6,11 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-$arComponentDescription = array(
-	"NAME" => Loc::getMessage("NOTIFICATIONS_LIST_COMPONENT_NAME"),
-	"DESCRIPTION" => Loc::getMessage("NOTIFICATIONS_LIST_COMPONENT_DESCRIPTION"),
-    "PATH" => array(
+$arComponentDescription = [
+    "NAME" => Loc::getMessage("NOTIFICATIONS_LIST_COMPONENT_NAME"),
+    "DESCRIPTION" => Loc::getMessage("NOTIFICATIONS_LIST_COMPONENT_DESCRIPTION"),
+    "PATH" => [
         "ID" => "notifications_list",
         "NAME" => Loc::getMessage("NOTIFICATIONS_LIST_COMPONENT_PATH"),
-    )
-);
+    ]
+];
