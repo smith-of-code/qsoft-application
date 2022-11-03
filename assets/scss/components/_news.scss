@@ -1,0 +1,9 @@
+.news {
+    &__more {
+        margin-top: rem(24px);
+
+        @media #{$screen-desktop} {
+            margin-top: rem(30px);
+        }
+    }
+}

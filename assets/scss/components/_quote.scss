@@ -1,0 +1,40 @@
+.quote {
+    position: relative;
+
+    display: flex;
+
+    padding: rem($gap-medium);
+
+    background: $athensGray;
+    border-radius: rem($border-radius-average);
+
+    @media #{$screen-tablet} {
+        padding: rem(34px) rem(48px) rem(24px) rem(92px);
+    }
+
+    &__text {
+        padding-top: rem($gap-medium);
+
+        @media #{$screen-tablet} {
+            padding: 0;
+        }
+    }
+
+    &__icon {
+        $size: 32px;
+
+        position: absolute;
+        top: 0;
+        left: rem(4px);
+
+        width: rem($size);
+        height: rem($size);
+
+        color: $brickRed;
+
+        @media #{$screen-tablet} {
+            top: rem(24px);
+            left: rem(48px);
+        }
+    }
+}

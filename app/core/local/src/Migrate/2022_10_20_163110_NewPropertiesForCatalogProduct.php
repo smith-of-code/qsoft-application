@@ -27,6 +27,7 @@ class NewPropertiesForCatalogProduct extends Migration
      */
     public function up(): void
     {
+        $this->includeIBlockModule();
         $iblockId = IBLOCK_PRODUCT;
         $this->addProperties($iblockId);
         $this->updateProperties($iblockId);
@@ -39,6 +40,7 @@ class NewPropertiesForCatalogProduct extends Migration
      */
     public function down(): void
     {
+        $this->includeIBlockModule();
         $iblockId = IBLOCK_PRODUCT;
         $this->deleteProperties($iblockId);
     }
@@ -53,15 +55,17 @@ class NewPropertiesForCatalogProduct extends Migration
         $properties = $this->preparePropertiesFieldsForAdd($iblockId);
 
         foreach ($properties as $propertyFields) {
-            $id = (new CIBlockProperty())->add($propertyFields);
+            $id = (new \CIBlockProperty())->add($propertyFields);
 
             if (in_array($propertyFields['CODE'], self::ON_DETAIL_PAGE)) {
                 PropertyFeature::setFeatures(
                     $id, 
                     [
-                        "FEATURE_ID" => "DETAIL_PAGE_SHOW",
-                        "IS_ENABLED" => "Y",
-                        "MODULE_ID" => "iblock",
+                        [
+                            "FEATURE_ID" => "DETAIL_PAGE_SHOW",
+                            "IS_ENABLED" => "Y",
+                            "MODULE_ID" => "iblock",
+                        ]
                     ]
                 );
             }
@@ -102,9 +106,7 @@ class NewPropertiesForCatalogProduct extends Migration
      */
     private function deleteProperties(int $iblockId):void
     {
-        $properties = $this->preparePropertiesFieldsForAdd($iblockId);
-
-        $propertiesId = $this->getPropertiesIdByCodes($properties);
+        $propertiesId = $this->getPropertiesIdByCodes($iblockId);
 
         foreach ($propertiesId as $id) {
             $properiesResult = CIBlockProperty::delete($id);
@@ -114,9 +116,9 @@ class NewPropertiesForCatalogProduct extends Migration
     /**
      * @return [type]
      */
-    private function getPropertiesIdByCodes()
+    private function getPropertiesIdByCodes($iblockId)
     {
-        $properties = $this->preparePropertiesFieldsForAdd($this->arParams['IBLOCK_ID']);
+        $properties = $this->preparePropertiesFieldsForAdd($iblockId);
 
         foreach ($properties as $property) {
             $ids[] = CIBlockProperty::GetList(

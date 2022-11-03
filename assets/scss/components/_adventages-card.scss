@@ -24,6 +24,10 @@
         content: "";
     }
 
+    &--bg-gray {
+        background-color: $athensGray;
+    }
+
     &--blue {
         &::before {
             background-color: $onahau;
@@ -94,7 +98,14 @@
 
                 width: rem($size);
                 height: rem($size);
-            } 
+            }
+
+            &--lg {
+                $size: 48px;
+
+                width: rem($size);
+                height: rem($size);
+            }
         }
     }
 

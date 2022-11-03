@@ -1,0 +1,29 @@
+.goals-cards {
+    &__list {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: rem(-30px);
+        margin-left:rem(-15px);
+        margin-right:rem(-15px);
+
+        @media #{$screen-desktop} {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__item {
+        flex-basis: percentage(1 / 1);
+        padding: 0 rem(15px);
+        margin-top: rem(30px);
+
+        @media #{$screen-desktop} {
+            flex-basis: percentage(1 / 2);
+        }
+     
+        &--full {
+            flex-basis: percentage(1 / 1); 
+        }
+    }
+}

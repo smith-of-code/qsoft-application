@@ -1,4 +1,18 @@
 .adventages-cards {
+    &--square & {
+        &__item {
+            flex-basis: percentage(1 / 1);
+
+            @media #{$screen-tablet} {
+                flex-basis: percentage(1 / 2);
+            }
+
+            @media #{$screen-desktop} {
+                flex-basis: percentage(1 / 4);
+            }
+        }
+    }
+
     &__list{
         display: flex;
         flex-wrap: wrap;
