@@ -21,60 +21,39 @@ if ($arParams['SET_META_KEYWORDS'] === 'Y') {
 if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
 }
+
+$offerId = $arResult['OFFER_FIRST'];
 ?>
+<div id="offerStore"
+    prop-offers='<?= phpToVueObject($arResult) ?>'
+    prop-current-offer-id='<?= $arResult['OFFER_FIRST'] ?>'
+></div>
+<!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
+
         <div class="detail__card-specification detail__card-specification--mobile specification">
             <p class="specification__title"><?= $arResult['TITLE']?></p>
             <?php foreach ($arResult['ARTICLES'] as $articul): ?>
                 <p class="specification__article">Арт. <?= $articul?></p>
             <?php endforeach; ?>
         </div>
-        <div class="detail__card-slider slider slider--product" data-carousel="product">
 
-            <!-- картинка товара -->
+
+        <!--  Слайдер  в картинками ТП -->
+        <div id="imageSlider">
+        <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
-
-                    <?php if (!empty($arResult['PHOTOS'])): ?>
-
-                        <?php foreach ($arResult['PHOTOS'] as $value): ?>
-                            <?php foreach ($value as $photo): ?>
-                                <div class="swiper-slide slider__slide">
-                                    <article class="product-card product-card--slide box box--circle box--hovering box--border">
-                                        <div class="product-card__header">
-                                            <div class="product-card__label label label--violet">ограниченное предложение</div>
-
-                                            <div class="product-card__favourite">
-                                                <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                                                    <span class="button__icon button__icon--big">
-                                                        <svg class="icon icon--heart">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-
-                                            <div class="product-card__wrapper">
-                                                <div class="product-card__image box box--circle">
-                                                    <div class="product-card__box">
-                                                        <img src="<?=$photo ?>" alt="Название товара" class="product-card__pic">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endforeach; ?>
-
-                    <?php else: ?>
-
+                    <?  $offerImgs = $arResult['PHOTOS'][$offerId];
+                    if (!empty($offerImgs)) : ?>
+                        <? foreach ($offerImgs as $image) : ?>
                         <div class="swiper-slide slider__slide">
                             <article class="product-card product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
-                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
-
+                                    <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
+                                    <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
+                                    <? endif; ?>
                                     <div class="product-card__favourite">
                                         <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
                                             <span class="button__icon button__icon--big">
@@ -88,16 +67,71 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                                     <div class="product-card__wrapper">
                                         <div class="product-card__image box box--circle">
                                             <div class="product-card__box">
-                                                <img src="/local/templates/.default/images/no_image.jpg" alt="Название товара" class="product-card__pic">
+                                                <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </article>
                         </div>
+                        <? endforeach; ?>
+                    <? else : ?>
+                    <div class="swiper-slide slider__slide">
+                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                            <div class="product-card__header">
+                                <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
+                                    <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
+                                <? endif; ?>
 
-                    <?php endif; ?>
+                                <div class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                        <span class="button__icon button__icon--big">
+                                            <svg class="icon icon--heart">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
 
+                                <div class="product-card__wrapper">
+                                    <div class="product-card__image box box--circle">
+                                        <div class="product-card__box">
+                                            <img src="https://fakeimg.pl/366x312/" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <? endif; ?>
+                    <? if (!empty($arResult['PRODUCT_VIDEO'])) : ?>
+                        <div class="swiper-slide slider__slide">
+                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                <div class="product-card__header">
+                                    <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
+                                        <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
+                                    <? endif; ?>
+                                    <div class="product-card__favourite">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                        <span class="button__icon button__icon--big">
+                                            <svg class="icon icon--heart">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                            </svg>
+                                        </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    <? endif; ?>
                 </div>
 
                 <div class="slider__buttons">
@@ -110,9 +144,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                             </span>
                         </button>
                     </div>
-                    
+
                     <div class="swiper-pagination pagination pagination--image" data-carousel-pagination></div>
-                    
+
                     <div class="slider__buttons-item swiper-button-next" data-carousel-next>
                         <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
@@ -125,101 +159,67 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 </div>
 
             </div>
-            <!-- слайдер с картинками товара -->
         </div>
+        </div>
+        <!-- Конец блока слайдера-->
+
         <!-- Основной блок -->
         <div class="detail__card-wrapper">
             <!-- Основная информация -->
             <div class="detail__card-specification specification">
                 <p class="specification__title specification__title--hidden"><?= $arResult['TITLE']?></p><!-- Название -->
+
                 <!-- Артикулы -->
-                <?php foreach ($arResult['ARTICLES'] as $articul): ?>
-                    <p class="specification__article specification__article--hidden">Арт. <?=$articul?></p>
-                <?php endforeach; ?>
-                <!-- Артикулы -->
-
-                <!-- Блок селекта фассовки большой вариант-->
-                <div class="specification__packs packs">
-                    <p class="specification__category">Фасовка</p>
-                    <ul class="packs__list">
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="radio111" checked>
-                                    <label for="radio111">
-                                        <div class="pack__item">600 г</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="radio222">
-                                    <label for="radio222">
-                                        <div class="pack__item">1 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="radio333">
-                                    <label for="radio333">
-                                        <div class="pack__item">3 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="radio444">
-                                    <label for="radio444">
-                                        <div class="pack__item">5 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="radio555">
-                                    <label for="radio555">
-                                        <div class="pack__item">7 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered" data-tippy-content="нет в наличии">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="radio666" disabled>
-                                    <label for="radio666">
-                                        <div class="pack__item pack__item--disabled">10 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack pack--bordered" data-tippy-content="нет в наличии">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="radio777" disabled>
-                                    <label for="radio777">
-                                        <div class="pack__item pack__item--disabled">15 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div id="offerArticle">
+                    <p class="specification__article specification__article--hidden">Арт. <?=$arResult['ARTICLES'][$offerId]?></p>
                 </div>
+                <div id="offerSelect">
+                    <!-- Блок селекта фассовки большой вариант-->
+                    <? if (!empty($arResult['PACKAGINGS'])) :?>
+                        <div class="specification__packs packs">
+                            <p class="specification__category">Фасовка</p>
+                            <ul class="packs__list">
+                                <?  foreach ($arResult['PACKAGINGS'] as $item) :?>
+                                        <li class="packs__item">
+                                            <div class="pack pack--bordered">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio_pack" value="<?=$item['offerId']?>" id="radio<?=$item['offerId']?>"
+
+                                                        <?= ($arResult['AVAILABLE'][$item['offerId']]) ? '' : 'disabled'?>
+                                                    >
+                                                    <label for="radio<?=$item['offerId']?>">
+                                                        <div class="pack__item <?= ($arResult['AVAILABLE'][$item['offerId']]) ? '' : 'pack__item--disabled'?>" ><?= $item['package']?></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                <? endforeach; ?>
+
+                            </ul>
+                        </div>
+                    <? elseif (!empty($arResult['COLORS'])): ?>
+                        <div class="specification__colors colors colors--big">
+                            <p class="specification__category">Цвет</p>
+                            <ul class="colors__list">
+                                <?  foreach ($arResult['COLORS'] as $item) :?>
+                                        <li class="colors__item">
+                                            <div class="color <?= ($arResult['AVAILABLE'][$item['offerId']]) ? '' : 'color--disabled'?>">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio_color" value="<?=$item['offerId']?>" id="radio<?=$item['offerId']?>"
+                                                        <?= ($arResult['AVAILABLE'][$item['offerId']]) ? '' : 'disabled'?>
+                                                    >
+                                                    <label for="radio<?=$item['offerId']?>">
+                                                        <div class="color__item color__item--big color__item--<?=$item['color']?>"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                <? endforeach; ?>
+                            </ul>
+                        </div>
+                    <? endif; ?>
+                </div>
+                <!-- Артикулы -->
                 <!-- Блок селекта фассовки -->
 
                 <!-- Список описаний товара -->
@@ -240,25 +240,49 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                 <h4 class="cart__heading">Ваш заказ</h4>
 
                 <!-- Блок селекта фассовки малый вариант-->
+                <div id="offerSelectMobile">
+                <? if (!empty($arResult['PACKAGINGS'])) :?>
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
                     <div class="select select--mini" data-select>
                         <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите фасовку" data-option>
                             <option><!-- пустой option для placeholder --></option>
-                            <option value="1" data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                600 г
-                            </option>
-                            <option value="2" data-option-after='<span class="stock stock--yes">в наличии</span>'>
-                                1 кг
-                            </option>
-                            <option value="3" data-option-after='<span class="stock">нет в наличии</span>' disabled>
-                                5 кг
-                            </option>
-                            <option value="4" data-option-after='<span class="stock">нет в наличии</span>' disabled>
-                                7 кг
-                            </option>
+                            <?  foreach ($arResult['PACKAGINGS'] as $item) :
+                                $isAvailable = $arResult['AVAILABLE'][$item['offerId']];
+                                ?>
+                                <? if ($item['package']) :?>
+                                <option value="<?=$item['offerId']?>"
+                                        data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'
+                                    <?= !$isAvailable ? 'disabled' : ''?>
+                                >
+                                    <?= $item['package']?>
+                                </option>
+                                <? endif; ?>
+                            <? endforeach;?>
                         </select>
                     </div>
+                </div>
+                <? elseif (!empty($arResult['COLORS'])): ?>
+                <div class="cart__colors">
+                    <p class="specification__category">Цвет</p>
+                    <div class="select select--middle select--simple" data-select>
+                        <select class="select__control" name="select1p" data-select-control data-placeholder="Выберите цвет" data-option>
+                            <option><!-- пустой option для placeholder --></option>
+                            <?  foreach ($arResult['COLORS'] as $item) :
+                                $isAvailable = $arResult['AVAILABLE'][$item['offerId']];
+                            ?>
+                            <? if ($item['color']) :?>
+                                <option value="<?=$item['offerId']?>"
+                                        data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$item['color']?>"></span></span>'
+                                        data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
+                                    <?= ($arResult['COLOR_NAMES'][$item['color']]) ??  '' ?>
+                                </option>
+                            <? endif; ?>
+                            <? endforeach;?>
+                        </select>
+                    </div>
+                </div>
+                <? endif; ?>
                 </div>
                 <!-- Блок селекта фассовки малый вариант-->
 
@@ -448,9 +472,11 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                         </div>
 
                         <div class="description__col description__col--right">
+                            <? if ($arResult['PRODUCT_IMAGE']) :?>
                             <div class="description__image">
-                                <img src="<?=$arResult['PRODUCT_IMAGE'][0]?>" alt="Товар" class="description__image__pic">
+                                <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
                             </div>
+                            <? endif; ?>
                         </div>
 
                         </div>
@@ -529,74 +555,32 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
                             </span>
                         </button>
                     </div>
-
+                    <? if (!empty($arResult['DOCUMENTS'])) : ?>
                     <div class="tabs__block accordeon__body" data-tab-section="block4" data-accordeon-content>
                         <div class="documents">
-                            <div class="documents__item">
-                                <div class="document">
-                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
-                                        <div class="document__icon">
-                                            <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="document__text">
-                                            <span class="document__text-name">Сертификат о государственной регистрации</span>
-                                            <span class="document__text-size">(630 KB)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
 
+                            <? foreach ($arResult['DOCUMENTS'] as $document) : ?>
                             <div class="documents__item">
                                 <div class="document">
-                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
+                                    <a href="<?= $document['SRC'] ?>" class="document__link" target="_blank">
                                         <div class="document__icon">
                                             <svg class="icon icon--pdf">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
                                             </svg>
                                         </div>
                                         <div class="document__text">
-                                            <span class="document__text-name">Заключение ветеринарной комиссии</span>
-                                            <span class="document__text-size">(630 KB)</span>
+                                            <span class="document__text-name"><?= $document['ORIGINAL_NAME'] ?></span>
+                                            <span class="document__text-size">(<?= round($document['FILE_SIZE'] / 1024) ?> KB)</span>
                                         </div>
                                     </a>
                                 </div>
                             </div>
+                            <? endforeach; ?>
 
-                            <div class="documents__item">
-                                <div class="document">
-                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
-                                        <div class="document__icon">
-                                            <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="document__text">
-                                            <span class="document__text-name">Часто задаваемые вопросы</span>
-                                            <span class="document__text-size">(1.2 Mb)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
 
-                            <div class="documents__item">
-                                <div class="document">
-                                    <a href="/local/templates/.default/images/main-slider-desktop.jpg" class="document__link" target="_blank">
-                                        <div class="document__icon">
-                                            <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="document__text">
-                                            <span class="document__text-name">Сертификат о безопасности</span>
-                                            <span class="document__text-size">(630 KB)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                    <? endif; ?>
                 </div>
             </div>
         </div>
@@ -604,7 +588,6 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 
     <div class="detail__attached">
         <h3 class="detail__attached-title">Сопутствующие товары</h3>
-
         <div class="product-cards">
             <ul class="product-cards__list">
                 <li class="product-cards__item">
@@ -1319,4 +1302,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
             </ul>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+<!-- Каталог товаров -->
+>>>>>>> 5844a53c14a60d5acb112c32a180488ba0616dcb

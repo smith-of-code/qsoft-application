@@ -212,13 +212,13 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             if (self::$catalogIncluded)
             {
                 // Перед получением цен - исключим цены в баллах, недоступные для пользователя
-                $currentUser = new \QSoft\Entity\User();
+                $currentUser = currentUser();
 
                 $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
                 $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
 
                 $priceCodes = $this->arParams["PRICE_CODE"];
-                if ($currentUser->isAuthorized && $currentUser->groups->isConsultant()) {
+                if (! is_null($currentUser) && $currentUser->groups->isConsultant()) {
                     // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
                     foreach ($this->arParams["PRICE_CODE"] as $index => $code) {
                         if (in_array($code, $loyaltyLevelsXmlIds, true) && $code !== $currentUser->loyaltyLevel) {
@@ -281,7 +281,6 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 }
             }
         }
-
         return $items;
     }
 
