@@ -604,7 +604,6 @@ $offerId = $arResult['OFFER_FIRST'];
 
     <div class="detail__attached">
         <h3 class="detail__attached-title">Сопутствующие товары</h3>
-n
         <div class="product-cards">
             <ul class="product-cards__list">
                 <li class="product-cards__item">
