@@ -2,6 +2,7 @@
 
 namespace QSoft\Notifiers;
 
+use Bitrix\Sale\StatusLangTable;
 class ChangeOrderStatusNotifier extends NotificationContent
 {
     private int $orderId;
@@ -16,7 +17,11 @@ class ChangeOrderStatusNotifier extends NotificationContent
 
     public function getTitle(): string
     {
-        return "Ваш заказ №" . $this->orderId . " " . $this->notificationContent[$this->statusId]['name'];
+        $replacement = [
+            '#order_id#' => $this->orderId,
+            '#status_name#' => mb_strtolower(StatusLangTable::getRowById($this->statusId)['NAME']),
+        ];
+        return str_replace(array_keys($replacement), array_values($replacement), $this->notificationContent['title_template']);
     }
 
     public function getMessage(): string
@@ -26,7 +31,7 @@ class ChangeOrderStatusNotifier extends NotificationContent
 
     public function getLink(): string
     {
-        return $this->notificationContent['link_template'] . $this->orderId;
+        return str_replace('#order_id#', $this->orderId, $this->notificationContent['link_template']);
     }
 
     protected function getNotificationType(): string

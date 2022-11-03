@@ -11,7 +11,7 @@ class SupportTicketUpdateNotifier extends NotificationContent
     {
         parent::__construct();
         $this->categorySid = $ticket['CATEGORY_SID'];
-        $this->acceptRequest = $ticket['UF_ACCEPT_REQUEST'];
+        $this->acceptRequest = \CUserFieldEnum::GetList([],['ID'=> $ticket['UF_ACCEPT_REQUEST']])->Fetch()['XML_ID'];
     }
 
     public function getTitle(): string
@@ -24,9 +24,11 @@ class SupportTicketUpdateNotifier extends NotificationContent
         return $this->notificationContent[$this->acceptRequest][$this->categorySid]['message'];
     }
 
+
     public function getLink(): string
     {
-        return $this->notificationContent[$this->acceptRequest][$this->categorySid]['link_template'];
+        //TODO Реализовать метод согласно ссылкам в файле config/notification_content.php
+        return '';
     }
 
     protected function getNotificationType(): string
