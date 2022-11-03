@@ -1128,7 +1128,7 @@
                                                                             id="birthdate2"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
-                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-alias="date"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
                                                                             data-pets-date-input
                                                                             data-pets-change

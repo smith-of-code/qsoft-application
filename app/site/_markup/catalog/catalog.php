@@ -2083,7 +2083,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="catalog__button button button--rounded-big button--outlined button--green button--full">Показать больше</button>
+                                <button type="button" class="catalog__button button button--show button--rounded-big button--outlined button--green">Показать больше</button>
                             </div>
                         </div>
                     </div>

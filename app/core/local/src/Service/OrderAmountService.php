@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
+use QSoft\PropertiesDigest\Transactions;
 
 class OrderAmountService
 {
@@ -38,9 +39,8 @@ class OrderAmountService
         $filter = [
             '=UF_USER_ID' => $this->user->id,
             '>=UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime($startDateTime),
-            '=UF_TYPE' => EnumDecorator::prepareField(TransactionTable::TYPES['purchase']),
-            '=UF_SOURCE' => EnumDecorator::prepareField(TransactionTable::SOURCES['personal']),
-            '=UF_MEASURE' => EnumDecorator::prepareField(TransactionTable::MEASURES['money'])
+            '=UF_SOURCE' => Transactions::SOURCE_PERSONAL,
+            '=UF_MEASURE' => Transactions::MEASURE_MONEY
         ];
         // Если есть дата окончания - добавляем в фильтр
         if (isset($endDateTime)) {
@@ -75,9 +75,8 @@ class OrderAmountService
         $filter = [
             '=UF_USER_ID' => $this->user->id,
             '>=UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime($startDateTime),
-            '=UF_TYPE' => EnumDecorator::prepareField(TransactionTable::TYPES['purchase']),
-            '=UF_SOURCE' => EnumDecorator::prepareField(TransactionTable::SOURCES['group']),
-            '=UF_MEASURE' => EnumDecorator::prepareField(TransactionTable::MEASURES['money'])
+            '=UF_SOURCE' => Transactions::SOURCE_GROUP,
+            '=UF_MEASURE' => Transactions::MEASURE_MONEY
         ];
         // Если есть дата окончания - добавляем в фильтр
         if (isset($endDateTime)) {

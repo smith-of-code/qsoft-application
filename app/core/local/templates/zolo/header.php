@@ -1,5 +1,7 @@
 <?php
 
+use QSoft\Helper\Page;
+
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init(["fx"]);
 
@@ -16,23 +18,23 @@ global $APPLICATION;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css"/>
     <script src="/local/templates/.default/js/script.js"></script>
-    <?php $APPLICATION->ShowHead()?>
+    <?php $APPLICATION->ShowHead() ?>
 </head>
 
 <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
 
 <body class="page">
 <!--header-->
-<header class="page__header header header--main">
+<header class="page__header header <?= Page::isMain() ? 'header--main' : '' ?>">
 
     <div class="header__row header__row--main">
         <div class="container">
             <div class="header__wrapper">
                 <div class="header__block header__block--logo">
                     <div class="logo">
-                        <a class="logo__link" href="#">
+                        <a class="logo__link" href="/">
                             <img class="logo__pic" src="/local/templates/.default/images/icons/logo.svg" alt="logo">
                         </a>
                     </div>
@@ -87,11 +89,11 @@ global $APPLICATION;
                                     <div class="menu__header-profile">
                                         <button type="button"
                                                 class="button button--huge button--rounded button--outlined button--green button--full">
-                                                        <span class="button__icon button__icon--right">
-                                                            <svg class="icon icon--user">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                                            </svg>
-                                                        </span>
+                                            <span class="button__icon button__icon--right">
+                                                <svg class="icon icon--user">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                                </svg>
+                                            </span>
                                             <span class="button__text">Войти в профиль</span>
                                         </button>
                                     </div>
@@ -459,48 +461,47 @@ global $APPLICATION;
                             </div>
                         </div>
 
-                        <div class="personal__item personal__item--hidden">
-                            <button type="button" class="button button--simple button--red button--vertical">
-                                            <span class="button__icon button__icon--mixed">
-                                                <svg class="icon icon--user">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                                </svg>
-                                            </span>
-                                <span class="personal__button-text button__text">Профиль</span>
-                            </button>
-                        </div>
+                        <?php if ($USER->isAuthorized()): ?>
+                            <div class="personal__item personal__item--hidden">
+                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
+                                    <span class="button__icon button__icon--mixed">
+                                        <svg class="icon icon--user">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="personal__button-text button__text">Профиль</span>
+                                </button>
+                            </div>
+                        <?php else: ?>
+                            <div class="personal__item personal__item--hidden" style="display: none">
+                                <button type="button" class="button button--simple button--red button--vertical">
+                                    <span class="button__icon button__icon--mixed">
+                                        <svg class="icon icon--login">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="personal__button-text button__text">Войти</span>
+                                </button>
+                            </div>
+                        <?php endif ?>
 
-                        <!--Для неавторизованного пользователя (скрыто по умолчанию)-->
-                        <div class="personal__item personal__item--hidden" style="display: none">
-                            <button type="button" class="button button--simple button--red button--vertical">
-                                            <span class="button__icon button__icon--mixed">
-                                                <svg class="icon icon--login">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
-                                                </svg>
-                                            </span>
-                                <span class="personal__button-text button__text">Войти</span>
-                            </button>
-                        </div>
-                        <!--/Для неавторизованного пользователя-->
-
-                        <?$APPLICATION->IncludeComponent(
+                        <?php $APPLICATION->IncludeComponent(
                             'zolo:sale.basket.basket.line',
                             '',
                             [
-                                "PATH_TO_BASKET" => SITE_DIR."personal/cart/",
-                                "PATH_TO_PERSONAL" => SITE_DIR."personal/",
+                                "PATH_TO_BASKET" => SITE_DIR . "personal/cart/",
+                                "PATH_TO_PERSONAL" => SITE_DIR . "personal/",
                                 "SHOW_PERSONAL_LINK" => "N",
                                 "SHOW_NUM_PRODUCTS" => "Y",
                                 "SHOW_TOTAL_PRICE" => "Y",
                                 "SHOW_PRODUCTS" => "N",
-                                "POSITION_FIXED" =>"N",
-                                "PATH_TO_REGISTER" => SITE_DIR."login/",
-                                "PATH_TO_PROFILE" => SITE_DIR."personal/"
+                                "POSITION_FIXED" => "N",
+                                "PATH_TO_REGISTER" => SITE_DIR . "login/",
+                                "PATH_TO_PROFILE" => SITE_DIR . "personal/"
                             ],
                             false,
                             array()
-                        );?>
-
+                        ); ?>
 
                     </div>
                 </div>
@@ -551,5 +552,7 @@ global $APPLICATION;
 </header>
 <!--/header-->
 
-<div class="page__content content">
+<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
     <div class="container">
+        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
+<!--            <h1 class="page__heading">Личный кабинет</h1>-->

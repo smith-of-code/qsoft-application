@@ -9,11 +9,11 @@
             @media #{$screen-tablet} {
                 flex-shrink: 0;
 
-                max-width: rem(343px);
+                width: rem(343px);
             }
 
             @media #{$screen-desktop} {
-                max-width: rem(370px);
+                width: rem(370px);
             }
         }
 

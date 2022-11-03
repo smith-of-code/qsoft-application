@@ -1,0 +1,74 @@
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        max-width: rem(808px);
+        padding: 0 rem($gap-medium);
+    }
+
+    &__image {
+        margin-bottom: rem(56px);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(48px);
+        }
+
+        &-picture {
+            display: block;
+
+            max-width: 100%;
+        }
+    }
+
+    &__status {
+        @include title-1;
+
+        margin-bottom: rem($gap-average);
+
+        text-align: center;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(20px);
+        }
+    }
+
+    &__message {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        margin-bottom: rem($gap-normal);
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem(20);
+        }
+    }
+
+    &__text,
+    &__link {
+        @include text-average($font-weight-medium);
+
+        margin-bottom: rem($gap-medium);
+
+        text-align: center;
+
+        @media #{$screen-desktop} {
+            margin-bottom: rem($gap-average);
+        }
+
+        @include resetting-vertical-indentation-of-last;
+    }
+
+    &__button {
+        width: 100%;
+        max-width: rem(370px);
+    }
+}
