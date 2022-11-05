@@ -22,10 +22,18 @@ const ELEMENTS_SELECTOR = {
     calculatorConsultantItem: '[data-calculator-consultant-item]',
     calculatorConsultantRemove: '[data-calculator-consultant-remove]',
 
+    calculatorComputing: '[data-calculator-computing]',
+    calculatorComputingSum: '[data-calculator-computing-sum]',
+    calculatorComputingBlock: '[data-calculator-computing-block]',
 
     consultants: '[data-consultants]',
     switcher: '[data-consultants-switcher]',
     quantity: '[data-consultants-quantity]',
+    quantitySum: '[data-quantity-sum]',
+    quantityDecrease: '[data-quantity-decrease]',
+    quantityIncrease: '[data-quantity-increase]',
+
+    chart: '[data-chart]',
 };
 
 // Удалить 
@@ -59,6 +67,8 @@ function setDataVariables(typeCalc, rub, point) {
         setData('consultantRub', rub);
         calculateGroup();
     }
+
+    $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
 }
 
 function calculateGroup() {
@@ -73,6 +83,8 @@ function calculateGroup() {
 
     let sum = groupPoints + consultantPoints + consultantFixedPoints;
     $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html(sum.toLocaleString());
+
+    return sum;
 }
 
 function getDataLevelProperty(calcRange) {
@@ -89,12 +101,26 @@ function getDataLevelProperty(calcRange) {
     return property;
 }
 
-export default function () {
-    // Показать скрыть "Учитывать разовые начисления баллов"
-    $(document).on('change', ELEMENTS_SELECTOR.switcher, function() {
-        $(ELEMENTS_SELECTOR.consultants).find(ELEMENTS_SELECTOR.quantity).toggleClass('profitability__consultants-quantity--hidden');
-    });
+function changeOneTimeCharges() {
+    let oneTimeCharges = 0;
+    let oneTimeChargesTransitionLevel = 0;
 
+    if ($(ELEMENTS_SELECTOR.switcher).is(':checked')) {
+        let quantity = $(ELEMENTS_SELECTOR.quantitySum).data('quantity-sum');
+        let invitation = getCurrentLevel('invitation');
+        oneTimeCharges = quantity * invitation;
+
+        if (bigData.personalLevel < bigData.currentLevel) {
+            oneTimeChargesTransitionLevel = getCurrentLevel('transitionToLevel');
+        }
+    }
+
+    setData('oneTimeCharges', oneTimeCharges);
+    setData('oneTimeChargesTransitionLevel', oneTimeChargesTransitionLevel);
+    $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+}
+
+export default function () {
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
         let value = +$(this).val();
@@ -174,10 +200,11 @@ export default function () {
             });
 
             setDataVariables(property.typeCalc, currentRub, currentPoint);
+            changeOneTimeCharges();
         });
     });
 
-    // Сохраниение количества покупателей и консультантов
+    // Изменение количества покупателей и консультантов
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorQuantity, function() {
         let type = $(this).data('calculator-quantity');
         let value = +$(this).val();
@@ -189,6 +216,8 @@ export default function () {
         }
 
         calculateGroup();
+
+        $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
     });
 
     // Добавление консультантов
@@ -272,5 +301,42 @@ export default function () {
         delete bigData.consultantArr[number-1];
 
         calculateGroup();
+        $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+    });
+
+    // "Учитывать разовые начисления баллов"
+    $(document).on('change', ELEMENTS_SELECTOR.switcher, function() {
+        $(ELEMENTS_SELECTOR.consultants).find(ELEMENTS_SELECTOR.quantity).toggleClass('profitability__consultants-quantity--hidden');
+
+        changeOneTimeCharges();
+    });
+
+    // Добавление новых консультантов для разового расчета
+    $(document).on('click', `${ELEMENTS_SELECTOR.quantityDecrease}, ${ELEMENTS_SELECTOR.quantityIncrease}`, function() {
+        changeOneTimeCharges();
+    });
+    
+    // Расчет в диаграмму
+    $(document).on('click', ELEMENTS_SELECTOR.calculatorComputing, function(e) {
+        e.preventDefault();
+
+        let incomeFromPersonalSales = bigData.personalPurchasesSum / 100 * getCurrentLevel('percent'); // Доход от личных продаж
+        let profitFromPersonalPurchases = bigData.personalPoints; // Прибыль от личных покупок
+        let incomeFromGroup = calculateGroup(); // Доход от группы
+        let oneTimeCharges = bigData.oneTimeCharges + bigData.oneTimeChargesTransitionLevel; // Разовые начисления
+        let sum = incomeFromPersonalSales + profitFromPersonalPurchases + incomeFromGroup + oneTimeCharges;
+        
+        $(ELEMENTS_SELECTOR.calculatorComputingSum).text(sum.toLocaleString());
+
+        let chart = $(ELEMENTS_SELECTOR.chart);
+        chart[0].myChart.data.datasets[0].data = [
+            incomeFromPersonalSales,
+            profitFromPersonalPurchases,
+            incomeFromGroup,
+            oneTimeCharges
+        ];
+        chart[0].myChart.update();
+
+        $(ELEMENTS_SELECTOR.calculatorComputingBlock).show();
     });
 }

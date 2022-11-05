@@ -1,35 +1,41 @@
-import {Chart} from 'chart.js';
+import {Chart, DoughnutController, ArcElement, Tooltip} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.register(DoughnutController, ArcElement, Tooltip, ChartDataLabels);
 
+const ELEMENTS_SELECTOR = {
+    chartElement: '[data-chart]',
+};
 
 export default function () {
-    const ctx = document.getElementById('myChart');
+    $(ELEMENTS_SELECTOR.chartElement).each((id, chartItem)=>{
+        let data = $(chartItem).data('chart');
 
-    const tags = ["Яндекс.Директ", "Google Ads", "Таргетированная реклама", "Партнеры"];
+        const myChart = new Chart(chartItem, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                layout: {
+                    padding: 40
+                },
 
-    const dataTraffic = {
-        data: [1500, 400, 2000, 7000],
-        backgroundColor: [
-            '#3887b5',
-            '#2c877f',
-            '#d82f49',
-            '#945dab',
-        ],
-        // borderColor: [
-        //     'rgba(163,221,203,1)',
-        //     'rgba(232,233,161,1)',
-        //     'rgba(230,181,102,1)',
-        //     'rgba(229,112,126,1)',
-        // ],
-        borderWidth: 0,
-    };
+                plugins: {
+                    datalabels: {
+                        formatter: (value) => {
+                            if (value == 0) {
+                                return '';
+                            }
+                            return value.toLocaleString();
+                        },
+                        color: '#3A3A43',
+                        anchor: 'end',
+                        align: 'end',
+                        offset: -2,
+                        display: 'auto'
+                    },
+                }
+            }
+        });
 
-    const myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: tags,
-            datasets: [
-                dataTraffic,
-            ]
-        },
+        chartItem.myChart = myChart;
     });
 }

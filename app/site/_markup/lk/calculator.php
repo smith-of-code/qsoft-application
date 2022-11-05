@@ -322,7 +322,9 @@
                                                                 stepPointsGroup: 1,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 7,
+                                                                percent: 7,
+                                                                invitation: 100,
+                                                                transitionToLevel: 0,
                                                             },
                                                             {
                                                                 maxPointsPersonal: 2000,
@@ -333,7 +335,9 @@
                                                                 stepPointsGroup: 2,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 10,
+                                                                percent: 10,
+                                                                invitation: 150,
+                                                                transitionToLevel: 100,
                                                             },
                                                             {
                                                                 maxPointsPersonal: 3000,
@@ -344,7 +348,9 @@
                                                                 stepPointsGroup: 4,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 12,
+                                                                percent: 12,
+                                                                invitation: 200,
+                                                                transitionToLevel: 300,
                                                             },
                                                         ],
                                                         currentLevel: 1,
@@ -360,6 +366,12 @@
                                                         consultantRub: 0,
                                                         consultantPoints: 0,
                                                         consultantArr: [],
+
+                                                        personalPurchasesSum: 10000, // Сумма личных покупок с базовой ценой
+                                                        personalLevel: 1, // Заполняется из админке, текущий уровень пользователя
+
+                                                        oneTimeCharges: 0,
+                                                        oneTimeChargesTransitionLevel: 0,
                                                     };
                                                 </script>
 
@@ -864,7 +876,7 @@
                                                                     <input type="checkbox" class="switcher__input" name="switch2" id="switch3" data-consultants-switcher>
                                                                     <label for="switch3" class="switcher__label">
                                                                         <span class="switcher__icon"></span>
-                                                                        <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
+                                                                        <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровень и привлечение новых консультантов в группу</span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -910,7 +922,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full">
+                                                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full" data-calculator-computing>
                                                             <span class="button__text">Рассчитать</span>
                                                         </button>
                                                     </form>
@@ -920,7 +932,7 @@
                                         </div>
                                     </section>
 
-                                    <section class="profitability__section section">
+                                    <section class="profitability__section section" data-calculator-computing-block style="display: none">
                                         <div class="section__box box box--gray box--rounded-sm">
                                             <div class="profitability__section-header section__header">
                                                 <h4 class="section__title section__title--closer">Результат расчета Вашего потенциального дохода</h4>
@@ -932,7 +944,71 @@
                                                 </div>
                                             </div>
 
-                                            <canvas id="myChart" width="400" height="400"></canvas>
+                                            <div class="diagramm">
+                                                <div class="diagramm__row">
+
+                                                    <div class="diagramm__total diagramm__total--mobile">
+                                                        <span class="diagramm__total-text">Ваш потенциальный* доход</span>
+                                                        <span class="diagramm__total-sum"><span data-calculator-computing-sum>0</span> ₽</span>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--results">
+                                                        <div class="diagramm__results">
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
+                                                                <span class="diagramm__result-text">Доход от личных продаж</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#2c877f"></span>
+                                                                <span class="diagramm__result-text">Прибыль от личных покупок</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#945dab"></span>
+                                                                <span class="diagramm__result-text">Доход от группы</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#c73c5e"></span>
+                                                                <span class="diagramm__result-text">Разовые начисления</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="diagramm__total diagramm__total--desktop">
+                                                            <span class="diagramm__total-text">Ваш потенциальный* доход</span>
+                                                            <span class="diagramm__total-sum"><span data-calculator-computing-sum>0</span> ₽</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--main">
+                                                        <div class="diagramm__main">
+                                                            <canvas width="400" height="400" data-chart='{"labels": [" Доход от личных продаж", " Прибыль от личных покупок", " Доход от группы", " Разовые начисления"],"datasets": [{"data": [0, 0, 0, 0],"backgroundColor": ["#3887b5","#2c877f","#945dab","#d82f49"]}]}'></canvas>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--composition">
+                                                        <div class="diagramm__composition">
+                                                            <div class="diagramm__composition-item">
+                                                                <canvas id="myChart1" width="80" height="80"></canvas>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <canvas id="myChart2" width="80" height="80"></canvas>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <canvas id="myChart3" width="80" height="80"></canvas>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <canvas id="myChart4" width="80" height="80"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="diagramm__footer">
+                                                    <p class="diagramm__footer-info">
+                                                        *Калькулятор позволяет осуществить ориентировочный расчет Вашего вознаграждения, предоставлен на основе данных, введенных в полях калькулятора доходности, и не является точным прогнозом.
+                                                    </p>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </section>
                                 </div>
