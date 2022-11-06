@@ -8,10 +8,10 @@ export const useLoyaltySalesReportStore = defineStore('loyaltySalesReport', {
                 data: { from, to },
             });
         },
-        async getTeamMembersDataByPeriod(role, from, to) {
+        async getTeamMembersDataByPeriod(ids, from, to) {
             return await BX.ajax.runComponentAction('zolo:loyalty.sales.report', 'getTeamMembersDataByPeriod', {
                 mode: 'class',
-                data: { role, from, to },
+                data: { ids, from, to },
             });
         },
     },

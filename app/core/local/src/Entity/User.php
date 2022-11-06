@@ -285,7 +285,7 @@ class User
             'first_name' => $this->name,
             'last_name' => $this->lastName,
             'second_name' => $this->secondName,
-            'name_initials' => $this->lastName . ' ' . strtoupper(substr($this->name, 0, 1)) . '.' . strtoupper(substr($this->secondName, 0, 1)) . '.',
+            'name_initials' => $this->lastName . ' ' . mb_strtoupper(mb_substr($this->name, 0, 1)) . '.' . mb_strtoupper(mb_substr($this->secondName, 0, 1)) . '.',
             'full_name' => "$this->lastName $this->name $this->secondName",
             'gender' => $this->gender,
             'photo' => $this->getPhotoUrl(),
@@ -295,6 +295,7 @@ class User
             'phone' => $this->phone,
             'city' => $this->city,
             'pickup_point_id' => $this->pickupPointId,
+            'is_consultant' => $this->groups->isConsultant(),
             'date_register' => new Date($this->dateRegister),
         ];
     }

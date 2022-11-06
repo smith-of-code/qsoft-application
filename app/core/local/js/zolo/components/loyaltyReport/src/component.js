@@ -2,7 +2,6 @@ import { useLoyaltySalesReportStore } from '../../../stores/loyaltySalesReportSt
 import { LoyaltyStatusReport } from "../../loyaltyStatusReport/src/component";
 import { OrdersReport } from "../../ordersReport/src/component";
 import NumberFormatMixin from "../../../mixins/NumberFormatMixin";
-import toggle from "../../../../../../../../assets/js/modules/toggle";
 
 export const LoyaltyReport = {
     components: { LoyaltyStatusReport, OrdersReport },
@@ -13,6 +12,7 @@ export const LoyaltyReport = {
         return {
             mutableLoyaltyStatus: {},
             mutableBonusesIncome: {},
+            mutableOrdersReport: {},
         }
     },
 
@@ -54,13 +54,13 @@ export const LoyaltyReport = {
     created() {
         this.mutableLoyaltyStatus = this.loyaltyStatus;
         this.mutableBonusesIncome = this.bonusesIncome;
+        this.mutableOrdersReport = this.ordersReport;
     },
 
     mounted() {
-        window.initSelect();
-        toggle();
-
-        $('select[name=accounting_periods]').on('change', () => this.changeAccountingPeriod());
+        if (!this.accordion) {
+            $('select[name=accounting_periods]').on('change', () => this.changeAccountingPeriod());
+        }
     },
 
     methods: {
@@ -70,6 +70,7 @@ export const LoyaltyReport = {
             const response = await this.loyaltySalesReportStore.getDataByPeriod(period[0], period[1]);
 
             this.mutableLoyaltyStatus = response.data.loyalty_status;
+            this.mutableOrdersReport = response.data.orders_report;
         },
     },
 
@@ -87,7 +88,7 @@ export const LoyaltyReport = {
                     <div class="participant__col participant__col--name">
                         <div class="participant__info">
                             <span class="participant__info-name">ФИО</span>
-                            <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" data-tippy-content="Достоевская-Васильева А.М." data-show-text>{{ user.name_initials }}</span>
+                            <span class="participant__info-value participant__info-value--truncate participant__info-value--accent" :data-tippy-content="user.name_initials" data-show-text>{{ user.name_initials }}</span>
                         </div>
                     </div>
                 </div>
@@ -126,7 +127,7 @@ export const LoyaltyReport = {
                     <div class="participant__col participant__col--email">
                         <div class="participant__info">
                             <span class="participant__info-name">Email</span>
-                            <span class="participant__info-value participant__info-value--truncate" data-tippy-content="dostaevskaya-vasileva1995@yandex.ru" data-show-text>{{ user.email }}</span>
+                            <span class="participant__info-value participant__info-value--truncate" :data-tippy-content="user.email" data-show-text>{{ user.email }}</span>
                         </div>
                     </div>
                 </div>
@@ -260,7 +261,7 @@ export const LoyaltyReport = {
                         <div class="tabs__body">
                             <!--Таб Личные-->
                             <div class="tabs__block tabs__block--active" data-tab-section="block1">
-                                <OrdersReport :orders-report="ordersReport" />
+                                <OrdersReport :orders-report="mutableOrdersReport" />
                             </div>
                             <!--/Таб Личные-->
 

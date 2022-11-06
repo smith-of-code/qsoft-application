@@ -13,6 +13,7 @@ use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
 use Bitrix\Sale\PropertyValue;
 use CFile;
 use QSoft\Entity\User;
+use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\NotificationTable;
 use QSoft\ORM\TransactionTable;
 use QSoft\Service\ProductService;
@@ -108,7 +109,7 @@ class OrderHelper
         return $orderId;
     }
 
-    public function getOrdersReport(int $userId)
+    public function getOrdersReport(int $userId, Date $from, Date $to)
     {
         $result = [
             'total_sum' => .0,
@@ -122,7 +123,6 @@ class OrderHelper
         ];
 
         $user = new User($userId);
-        $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
 
         $orders = OrderTable::getList([
             'order' => ['DATE_INSERT' => 'ASC'],
@@ -135,7 +135,12 @@ class OrderHelper
         $transactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $user->id,
-                '=UF_MEASURE' => TransactionTable::MEASURES['points'],
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                [
+                    'LOGIC' => 'AND',
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
+                ],
             ],
             'select' => ['ID', 'UF_AMOUNT'],
         ])->fetchAll();
@@ -153,8 +158,8 @@ class OrderHelper
             $result['last_order_date'] = $orderDate;
 
             if (
-                $orderDate->getDiff($currentAccountingPeriod['from'])->invert
-                && !$orderDate->getDiff($currentAccountingPeriod['to'])->invert
+                $orderDate->getDiff($from)->invert
+                && !$orderDate->getDiff($to)->invert
             ) {
                 $result['current_period_sum'] += $order['PRICE'];
             }

@@ -8,6 +8,7 @@ use Bitrix\Main\Type\Date;
 use QSoft\Entity\User;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\OrderHelper;
+use QSoft\ORM\BeneficiariesTable;
 
 class LoyaltySalesReportComponent extends CBitrixComponent implements Controllerable
 {
@@ -70,18 +71,23 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         $this->arResult['consultant_loyalty_levels'] = $loyaltyLevels['consultant'];
         $this->arResult['buyer_loyalty_levels'] = $loyaltyLevels['customer'];
 
-        $this->arResult['user_team'] = [
-            'consultants' => [
-                $this->getUserData(new User(1)),
-                $this->getUserData(new User(1)),
-                $this->getUserData(new User(1)),
+        $teamMembers = BeneficiariesTable::getList([
+            'filter' => [
+                '=UF_BENEFICIARY_ID' => $this->user->id,
             ],
-            'buyers' => [
-                $this->getUserData(new User(1)),
-                $this->getUserData(new User(1)),
-                $this->getUserData(new User(1)),
-            ],
-        ];
+            'select' => ['ID', 'UF_USER_ID'],
+        ])->fetchAll();
+
+        $this->arResult['user_team'] = ['consultants' => [], 'buyers' => []];
+        foreach ($teamMembers as $teamMember) {
+            $userData = $this->getUserData(new User($teamMember['UF_USER_ID']));
+
+            if ($userData['user_info']['is_consultant']) {
+                $this->arResult['user_team']['consultants'][] = $userData;
+            } else {
+                $this->arResult['user_team']['buyers'][] = $userData;
+            }
+        }
 
         $this->arResult['consultants_accounting_periods'] = $this->loyaltyProgramHelper->getAccountingPeriodsSinceDate(
             $this->getOlderRegisterDate($this->arResult['user_team']['consultants'])
@@ -102,21 +108,29 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         return $result;
     }
 
-    public function getUserData(User $user)
+    public function getUserData(User $user, ?array $accountingPeriod = null): array
     {
+        if (!$accountingPeriod) {
+            $accountingPeriod = $this->currentAccountingPeriod;
+        }
+
         return [
             'user_info' => $user->getPersonalData(),
-            'orders_report' => $this->orderHelper->getOrdersReport($user->id),
             'accounting_periods' => $this->loyaltyProgramHelper->getAvailableAccountingPeriods($user->id),
+            'orders_report' => $this->orderHelper->getOrdersReport(
+                $user->id,
+                $accountingPeriod['from'],
+                $accountingPeriod['to'],
+            ),
             'bonuses_income' => $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod(
                 $user->id,
-                $this->currentAccountingPeriod['from'],
-                $this->currentAccountingPeriod['to'],
+                $accountingPeriod['from'],
+                $accountingPeriod['to'],
             ),
             'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
                 $user->id,
-                $this->currentAccountingPeriod['from'],
-                $this->currentAccountingPeriod['to'],
+                $accountingPeriod['from'],
+                $accountingPeriod['to'],
             ),
         ];
     }
@@ -139,17 +153,19 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         $from = new Date($from);
         $to = new Date($to);
 
-        return [
+        return CUtil::JsObjectToPhp(CUtil::PhpToJSObject([
             'bonuses_income' => $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod($this->user->id, $from, $to),
             'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod($this->user->id, $from, $to),
-        ];
+            'orders_report' => $this->orderHelper->getOrdersReport($this->user->id, $from, $to),
+        ]));
     }
 
-    public function getTeamMembersDataByPeriodAction(string $role, string $from, string $to): array
+    public function getTeamMembersDataByPeriodAction(array $ids, string $from, string $to): array
     {
-        return [
-            $this->getUserData(new User(1)),
-            $this->getUserData(new User(1)),
-        ];
+        $result = [];
+        foreach ($ids as $id) {
+            $result[] = $this->getUserData(new User($id), ['from' => new Date($from), 'to' => new Date($to)]);
+        }
+        return CUtil::JsObjectToPhp(CUtil::PhpToJSObject($result));
     }
 }
