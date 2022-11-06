@@ -72,7 +72,6 @@ if (!function_exists('phpToVueObject')) {
         return str_replace('\'', '"', CUtil::PhpToJSObject($array));
     }
 }
-
 if (!function_exists('numberToRoman')) {
     function numberToRoman(int $number): string
     {

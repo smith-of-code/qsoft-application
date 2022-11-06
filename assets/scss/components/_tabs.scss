@@ -81,7 +81,7 @@
             }
 
             &--active {
-                color: $white;
+                color: $athensGray;
                 background-color: $brickRed;
             }
         }
@@ -168,7 +168,7 @@
         &__item {
             padding: rem(6px) rem(14px);
 
-            background-color: $athensGray;
+            background-color: $white;
 
             &--active {
                 color: $white;
@@ -178,6 +178,13 @@
     }
 
     &--white & {
+        &__list {
+            padding: 0;
+            
+            border-radius: rem($border-radius-big);
+            background-color: $white;
+        }
+
         &__items {
             width: max-content;
             padding: rem($gap-mini);

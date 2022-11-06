@@ -46,11 +46,14 @@
  import cookie from './modules/cookie';
  import identic from './modules/identic';
  import showText from './modules/show-text';
+ import calculator from './modules/calculator';
 
 
  const app = {
     ready() {
-        // Пример вызова импортированнывх функций
+        (new Zolo.Loader()).run();
+
+        // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
 
@@ -84,6 +87,7 @@
         cookie();
         identic();
         showText();
+        calculator();
     },
 
     load() {

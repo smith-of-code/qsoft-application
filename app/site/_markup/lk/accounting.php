@@ -169,7 +169,7 @@
                                                             <div class="form__field">
                                                                 <div class="form__field-block form__field-block--input">
                                                                     <div class="form__control">
-                                                                        <div class="accounting__period-select select select--mitigate select--small select--squared" data-select>
+                                                                        <div class="accounting__period-select select select--mitigate select--small select--common" data-select>
                                                                             <select class="select__control" name="select2" data-select-control data-placeholder="Период">
                                                                                 <option><!-- пустой option для placeholder --></option>
                                                                                 <option value="1">I квартал 2022</option>
@@ -439,7 +439,7 @@
 
                                                     <div class="participant__section">
                                                         <h5 class="participant__section-title">
-                                                            Продажи
+                                                            Покупки
                                                         </h5>
 
                                                         <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -1355,15 +1355,15 @@
                                                 </h4>
                                             </div>
 
-                                            <div class="tabs tabs--covered tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                                            <div class="accounting__tabs tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
                                                 <nav class="accounting__tabs-items tabs__items">
                                                     <ul class="tabs__list">
-                                                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                                                        <li class="accounting__tabs-item tabs__item tabs__item--active" data-tab="consultants">
                                                             Консультанты
                                                             <span>(6)</span>
                                                         </li>
 
-                                                        <li class="tabs__item" data-tab="block2">
+                                                        <li class="accounting__tabs-item tabs__item" data-tab="buyers">
                                                             Покупатели
                                                             <span>(28)</span>
                                                         </li>
@@ -1372,7 +1372,7 @@
 
                                                 <div class="tabs__body">
                                                     <!--Консультанты-->
-                                                    <div class="tabs__block tabs__block--active" data-tab-section="block1">
+                                                    <div class="tabs__block tabs__block--active" data-tab-section="consultants">
                                                         <div class="accounting__block">
                                                             <div class="accounting__filter content__filter filter filter--content">
                                                                 <form class="form form--wraped form--separated form--wraped-small">
@@ -1414,12 +1414,14 @@
                                                                             <div class="form__field">
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
-                                                                                        <div class="filter__sort select select--small select--sorting select--borderless" data-select>
+                                                                                        <div class="filter__sort select select--small select--sorting select--borderless select--groups" data-select>
                                                                                             <div class="select__group">
                                                                                                 <select class="select__control" name="select1" id="sort1" data-select-control data-placeholder="Сортировать по">
                                                                                                     <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1">По дате создания</option>
-                                                                                                    <option value="2">По сумме заказа</option>
+                                                                                                    <option value="1">По уровню консультанта</option>
+                                                                                                    <option value="2">По дате регистрации</option>
+                                                                                                    <option value="3">По количеству личных заказов со статусом “Оплачен”</option>
+                                                                                                    <option value="2">По количеству личных заказов со статусом  “Возврат”</option>
                                                                                                 </select>
                                                     
                                                                                                 <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
@@ -1776,7 +1778,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -3009,7 +3011,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -4242,7 +4244,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -5155,7 +5157,7 @@
                                                     <!--/Консультанты-->
 
                                                     <!--Покупатели-->
-                                                    <div class="tabs__block" data-tab-section="block2">
+                                                    <div class="tabs__block" data-tab-section="buyers">
                                                         <div class="accounting__block">
                                                             <div class="accounting__filter content__filter filter filter--content">
                                                                 <form class="form form--wraped form--separated form--wraped-small">
@@ -5554,7 +5556,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -6794,7 +6796,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -8029,7 +8031,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>

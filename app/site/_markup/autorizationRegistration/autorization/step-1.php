@@ -12,9 +12,7 @@
     <body class="page page--banner">
 
         <!--header-->
-        <header class="page__header header" style="background-color: cadetblue">
-            Хедер
-        </header>
+        <? include_once("../../include/header.php"); ?>
         <!--/header-->
 
         <!--content-->
@@ -113,9 +111,7 @@
         <!--content-->
 
         <!--Футер-->
-        <footer class="page__footer footer" style="background-color: cadetblue">
-            Футер
-        </footer>
+        <? include_once("../../include/footer.php"); ?>
         <!--/Футер-->
 
         <script src="/local/templates/.default/js/script.js"></script>

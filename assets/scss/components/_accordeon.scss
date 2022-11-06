@@ -186,6 +186,13 @@
                 margin-top: rem(2px);
             }
         }
+
+        &--simple {
+            padding: rem($gap-normal);
+
+            border-radius: rem($border-radius-average);
+            background-color: $white;
+        }
     }
 
     &__icon {
