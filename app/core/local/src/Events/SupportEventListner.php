@@ -84,6 +84,7 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
+        dump($ticketValues);
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
@@ -246,7 +247,7 @@ class SupportEventListner
         $user = new User($ticketValues['OWNER_USER_ID']);
         if (!empty($fields['USER_INFO'])){
             $user->Update($fields['USER_INFO']);
-            $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+            $user->legalEntity->update($fields['LEGAL_ENTITY']);
         }
     }
 
