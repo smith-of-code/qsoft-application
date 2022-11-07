@@ -1496,7 +1496,7 @@
                                                     id="birthdate"
                                                     placeholder="ДД.ММ.ГГГГ"
                                                     data-mask-date 
-                                                    data-inputmask-alias="datetime"
+                                                    data-inputmask-alias="date"
                                                     data-inputmask-inputformat="dd.mm.yyyy"
                                                     data-pets-date-input
                                                     data-pets-change
@@ -3556,7 +3556,7 @@
                                                                     id="birthdate2"
                                                                     placeholder="ДД.ММ.ГГГГ"
                                                                     data-mask-date 
-                                                                    data-inputmask-alias="datetime"
+                                                                    data-inputmask-alias="date"
                                                                     data-inputmask-inputformat="dd.mm.yyyy"
                                                                     data-pets-date-input
                                                                     data-pets-change
@@ -4919,7 +4919,7 @@
                                                                             id="birthdate3"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
-                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-alias="date"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
                                                                             data-pets-date-input
                                                                             data-pets-change
@@ -5114,7 +5114,7 @@
                                                                             id="birthdate4"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
-                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-alias="date"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
                                                                             data-pets-date-input
                                                                             data-pets-change
@@ -5319,7 +5319,7 @@
                                                                             id="birthdate"
                                                                             placeholder="ДД.ММ.ГГГГ"
                                                                             data-mask-date 
-                                                                            data-inputmask-alias="datetime"
+                                                                            data-inputmask-alias="date"
                                                                             data-inputmask-inputformat="dd.mm.yyyy"
                                                                             data-pets-date-input
                                                                             data-pets-change
@@ -9938,7 +9938,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -11171,7 +11171,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -12404,7 +12404,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -13663,7 +13663,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -14903,7 +14903,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>
@@ -16138,7 +16138,7 @@
 
                                         <div class="participant__section">
                                             <h5 class="participant__section-title">
-                                                Продажи
+                                                Покупки
                                             </h5>
 
                                             <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--big" data-tabs>

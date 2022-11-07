@@ -265,7 +265,7 @@
                                 </ul>
                             </div>
 
-                            <button type="button" class="expert-advice__more expert-advice__button button button--rounded-big button--covered button--white-green button--full">
+                            <button type="button" class="expert-advice__more expert-advice__button button button--show button--rounded-big button--outlined button--green">
                                 Показать больше
                             </button>
                         </section>

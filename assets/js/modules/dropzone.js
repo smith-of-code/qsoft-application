@@ -216,6 +216,5 @@ function uploadFiles(el) {
 
 export default function (container) {
     const $elems = container ? $(container).find(ELEMENTS_SELECTOR.uploaderArea) : $(ELEMENTS_SELECTOR.uploaderArea);
-
     $elems.each((index, elem) => uploadFiles(elem));
 }

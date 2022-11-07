@@ -22,6 +22,12 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => PersonalMainProfileNavigationMenu::ORDER_HISTORY_URL,
         ],
+        'USER_GROUP' => [
+            'PARENT' => 'BASE',
+            'NAME' => Loc::getMessage('ORDER_HISTORY_URL'),
+            'TYPE' => 'STRING',
+            'DEFAULT' => 'BUYER',
+        ],
         'INCOMES_CALCULATOR_URL' => [
             'PARENT' => 'BASE',
             'NAME' => Loc::getMessage('INCOMES_CALCULATOR_URL'),

@@ -51,7 +51,9 @@
 
  const app = {
     ready() {
-        // Пример вызова импортированнывх функций
+        (new Zolo.Loader()).run();
+
+        // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
 

@@ -504,7 +504,7 @@
                                                 <div class="profitability__content">
                                                     <form class="form">
                                                         <div class="section__box-inner">
-                                                            <h5 class="box__heading box__heading--middle">Личные покупки</h5>
+                                                            <h5 class="box__heading box__heading--middle box__heading--dark">Личные покупки</h5>
 
                                                             <div class="profitability__calculation" data-calculator-range="personal">
                                                                 <div class="profitability__calculation-cards cards-counting cards-counting--double">
@@ -599,7 +599,7 @@
                                                         </div>
 
                                                         <div class="section__box-inner">
-                                                            <h5 class="box__heading box__heading--middle">Доход от зарегистрированных покупателей в моей группе</h5>
+                                                            <h5 class="box__heading box__heading--middle box__heading--dark">Доход от зарегистрированных покупателей в моей группе</h5>
 
                                                             <div class="profitability__calculation" data-calculator-range="group">
                                                                 <div class="cards-counting">
@@ -714,7 +714,7 @@
                                                         </div>
 
                                                         <div class="section__box-inner">
-                                                            <h5 class="box__heading box__heading--middle">Доход от консультантов в моей группе</h5>
+                                                            <h5 class="box__heading box__heading--middle box__heading--dark">Доход от консультантов в моей группе</h5>
 
                                                             <div class="profitability__calculation" data-calculator-consultant data-calculator-range="consultant">
                                                                 <div class="profitability__calculation-cards cards-counting">

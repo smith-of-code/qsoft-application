@@ -32,4 +32,18 @@ class HlBlockHelper
 
         return CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
     }
+
+    public static function getPreparedEnumFieldValues(string $tableName, string $fieldName): array
+    {
+        $values = static::getEnumFieldValues($tableName, $fieldName);
+
+        return array_combine(
+            array_column($values, 'ID'),
+            array_map(static fn(array $value): array => [
+                'id' => $value['ID'],
+                'name' => $value['VALUE'],
+                'code' => $value['XML_ID'],
+            ], $values),
+        );
+    }
 }
