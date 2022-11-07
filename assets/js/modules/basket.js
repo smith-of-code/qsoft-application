@@ -66,6 +66,7 @@ export default function () {
         const basketList = $(ELEMENTS_SELECTOR.item);
         let lengthBasket = basketList.length;
         let basketAmoutOrder = 0;
+        let basketAmoutOrderSale = 0;
         let basketProductTotal = 0;
 
         if (lengthBasket === 0) {
@@ -79,32 +80,55 @@ export default function () {
         }
 
         basketList.each(function(index, item) {
+            const priceDefault = $(item).find('.product-price__item');
+            const priceOld = $(item).find('.product-price__item.product-price__item--old');
+            const priceSale = $(item).find('.product-price__item.product-price__item--new');
+
             const amountProduct = $(item)
             .find('.quantity__total-sum')
             .text();
+       
+            if (priceOld.length > 0) {
+                const priceProductValue = priceOld.text().replace(/\s/g,'');
+                const priceProductNumber = parseInt(priceProductValue);
+                const currentPrice = priceСalc(priceProductNumber, amountProduct);
+                basketAmoutOrder += currentPrice;
+            } else {
+                const priceProductValue = priceDefault.text().replace(/\s/g,'');
+                const priceProductNumber = parseInt(priceProductValue);
+                const currentPrice = priceСalc(priceProductNumber, amountProduct);
+                basketAmoutOrder += currentPrice;
+            }
 
-            const priceProduct = $(item)
-            .find('.card-cart__price-value')
-            .text();
-    
-            const currentPrice = priceСalc(priceProduct, amountProduct);
+            if (priceSale.length > 0) {
+                const priceProductValue = priceSale.text().replace(/\s/g,'');
+                const priceProductNumber = parseInt(priceProductValue);
+                const currentPrice = priceСalc(priceProductNumber, amountProduct);
+                basketAmoutOrderSale += currentPrice;
+            } else {
+                const priceProductValue = priceDefault.text().replace(/\s/g,'');
+                const priceProductNumber = parseInt(priceProductValue);
+                const currentPrice = priceСalc(priceProductNumber, amountProduct);
+                basketAmoutOrderSale += currentPrice;
+            }
+          
             const currentProductTotal = Number(amountProduct);
-    
-            basketAmoutOrder += currentPrice;
+        
             basketProductTotal += currentProductTotal;
         });
 
-        const basketTotal = basketAmoutOrder;
+        const basketTotal = basketAmoutOrder; 
+        const basketTotalSale = basketAmoutOrderSale;
         const ndsTotal = calcNds(basketTotal);
-        const economyTotal = calcEconomy(basketAmoutOrder, basketTotal)
+        const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
 
         $(ELEMENTS_SELECTOR.product_total).html(basketProductTotal);
         $(ELEMENTS_SELECTOR.nds).html(ndsTotal + ' ₽');
         $(ELEMENTS_SELECTOR.amount).html(basketAmoutOrder + ' ₽');
         $(ELEMENTS_SELECTOR.economy).html(economyTotal + ' ₽');
-        $(ELEMENTS_SELECTOR.total).html(basketTotal + ' ₽');
+        $(ELEMENTS_SELECTOR.total).html(basketTotalSale + ' ₽');
 
-        return basketAmoutOrder;
+        return basketAmoutOrder
     }
     
     function acceptBonus() {
@@ -170,7 +194,7 @@ export default function () {
 
     function priceСalc(price, amount) {
         const priceProduct = parseInt(amount) * parseInt(price);
-
+   
         return priceProduct
     }
 

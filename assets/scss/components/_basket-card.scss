@@ -35,14 +35,18 @@
             margin-top: rem($gap-small);
             margin-bottom: 0;
         }
-    }
 
-    &__elipse {
-        overflow: hidden;
+        &::before {
+            flex-grow: 1;
+            order: 2;
 
-        flex: 1;
+            margin: 0 rem(3px);
+            margin-bottom: rem(5px);
 
-        color:  $alto;
+            content: '';
+
+            border-bottom: rem(1px) dotted $alto;
+        }
     }
 
     &__text {
@@ -69,7 +73,9 @@
         font-size: rem($font-size-small);
         font-weight: $font-weight-medium;
         line-height: (22px/$font-size-small);
-     
+
+        order: 3;
+
         color: $tuna;
 
         &--green {
