@@ -15,7 +15,7 @@ use \Bitrix\Main\Engine\ActionFilter;
 
 class NotificationListComponent extends CBitrixComponent implements Controllerable, Errorable
 {
-    private const NOTIFICATIONS_LIMIT = 2;
+    private const NOTIFICATIONS_LIMIT = 20;
     protected ErrorCollection $errorCollection;
     private User $user;
 
