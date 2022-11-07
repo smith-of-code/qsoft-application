@@ -1,6 +1,7 @@
-<?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
+<?php
+require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
 
-$arResult = $_REQUEST['data'];
+$arResult = $_REQUEST['data']['PRODUCTS'];
 ?>
 
 <ul class="table-list__list">
@@ -13,14 +14,14 @@ $arResult = $_REQUEST['data'];
                 <div class="product-line__inner">
                     <div class="product-line__info">
                         <div class="product-line__image">
-                            <img src="<?=$product['IMAGE_SRC']?>" alt="#" class="product-line__image-picture">
+                            <img src="<?=$product['PICTURE']?>" alt="#" class="product-line__image-picture">
                         </div>
                         <div class="product-line__wrapper">
                             <h2 class="product-line__title">
                                 <?=$product['NAME']?>
                             </h2>
                             <p class="product-line__subtitle">
-                                Арт. <?=$product['ARTICLE'] ?>
+                                Арт. <?=$product['VENDOR_CODE'] ?>
                             </p>
                         </div>
                     </div>
@@ -32,17 +33,17 @@ $arResult = $_REQUEST['data'];
                                         Цена:
                                     </span>
                                     <span class="product-line__params-value">
-                                <?=number_format($product['PRICE'], 2, '.', ' ')?> ₽
+                                        <?=number_format($product['PRICE'], 2, '.', ' ')?> ₽
                                     </span>
                                 </p>
-                            </li> 
+                            </li>
                             <li class="product-line__params">
                                 <p class="product-line__text">
                                     <span class="product-line__params-name">
                                         Количество:
                                     </span>
                                     <span class="product-line__params-value">
-                                <?=$product['QUANTITY']?>
+                                        <?=number_format($product['QUANTITY'])?>
                                     </span>
                                 </p>
                             </li> 

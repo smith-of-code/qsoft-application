@@ -24,81 +24,7 @@ $this->addExternalJS($this->GetFolder(). "/script.js");
 
 if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
-<h1 class="page__heading"><?=$APPLICATION->showTitle() ?></h1>
-
-<div class="content__main">
     <div class="private__row">
-        <div class="private__col private__col--limited">
-            <nav class="private__menu menu menu--private">
-                <ul class="menu__list">
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">
-                            <span class="menu__icon">
-                                <svg class="icon icon--profile gui__icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-profile"></use>
-                                </svg>
-                            </span>
-                            <span class="menu__text">
-                                Профиль
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu__item  menu__item--active">
-                        <a href="#" class="menu__link">
-                            <span class="menu__icon menu__icon--active">
-                                <svg class="icon icon--receipts gui__icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-receipts"></use>
-                                </svg>
-                            </span>
-                            <span class="menu__text">
-                                История заказов
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">
-                            <span class="menu__icon">
-                                <svg class="icon icon--calculator gui__icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calculator"></use>
-                                </svg>
-                            </span>
-                            <span class="menu__text">
-                                Калькулятор доходности
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">
-                            <span class="menu__icon">
-                                <svg class="icon icon--chart-square gui__icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chart-square"></use>
-                                </svg>
-                            </span>
-                            <span class="menu__text">
-                                Отчетность по объемам продаж
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">
-                            <span class="menu__icon">
-                                <svg class="icon icon--notification gui__icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                </svg>
-                            </span>
-                            <span class="menu__text">
-                                Уведомления
-                            </span>
-                            <span class="menu__counter">10</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
 
         <div class="private__col private__col--full">
             <div class="orders">
@@ -243,10 +169,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             </div>
         </div>
     </div>
-</div>
 <script>
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
+    let basketOfset = 0;
     console.log(offset);
     $(document).ready(function () {
         $('#PAYD').on('select2:close', function(){
@@ -275,7 +201,8 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
         $('div').one('click', function () {
             if ($(this).attr('button-id') !== undefined) {
-                getBasketData($(this).attr('button-id'));
+                // getBasketData($(this).attr('button-id'), basketOfset);
+                getBasketProductData($(this).attr('button-id'), basketOfset);
             }
         });
 
@@ -293,7 +220,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             status: filterType == 'status' ? value: $('#STATUS').val(),
             payd: filterType == 'payd' ? value: $('#PAYD').val(),
             order: sort != '' ? sort: 'asc',
-            filter_id: filterType == 'search' ? value : '',
+            filter_id: value,
         };
         showMore.style.cssText = '';
         console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
@@ -309,10 +236,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             let orders = JSON.parse(response.data);
             console.log("filter", orders);
             
-            $('#order_list').empty()
+            $('#order_list').empty();
             offset = orders.offset;
             if (Object.keys(orders.orders.ORDERS).length == 0) {
-                $('#order_list').append('Ничего не найдено')
+                setData('Ничего не найдено');
                 showMore.style.cssText = 'display:none;';
             } else {
                 if (orders.last) {
@@ -376,12 +303,12 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
     }
 
-    function getBasketData(orderId) {
-        console.log(orderId);
-        BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'loadBasktet', {
+    function getBasketData(orderId, ofset) {
+        BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
             mode: 'class',
             data: {
                 orderId: orderId,
+                offset: ofset,
             }
         }).then(function (response) {
             let basket = JSON.parse(response.data);
@@ -394,8 +321,26 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
     }
 
+    function getBasketProductData(orderId, ofset) {
+        console.log(orderId, ofset);
+        BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProductsBasket', {
+            mode: 'class',
+            data: {
+                orderId: orderId,
+                offset: ofset,
+            }
+        }).then(function (response) {
+            let basket = JSON.parse(response.data);
+
+            console.log("basket", basket);
+
+            setBasketList(basket.basket, orderId);
+        }, function (response) {
+            console.log("err", response.errors);
+        });
+    }
+
     function setBasketList(data, orderId) {
-                console.log(data);
         $.ajax({
             method: 'POST',
             data: {

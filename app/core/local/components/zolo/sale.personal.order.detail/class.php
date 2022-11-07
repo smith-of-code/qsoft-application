@@ -1,5 +1,6 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) die();
 
+use Bitrix\Catalog\PriceTable;
 use Bitrix\Main\Loader;
 use Bitrix\Sale\Order;
 use Bitrix\Main\Engine\Contract\Controllerable;
@@ -55,6 +56,19 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         return $result;
     }
 
+    public function loadProductsBasketAction(int $orderId, int $offset = 0)
+    {
+        $result['PRODUCTS'] = $this->loadProducts($orderId, $offset);
+        $result['OFFSET'] = $offset + count($result['PRODUCTS']);
+
+        return json_encode(
+            [
+                'basket' => $result,
+                'test' => $_REQUEST
+            ]
+        );
+    }
+
     private function loadProducts(int $orderId, int $offset): array
     {
         $products = ProductService::getProductOfferDataClass()::getList([
@@ -63,15 +77,17 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
                 'VENDOR_CODE' => 'ARTICLE.VALUE',
                 'PRICE' => 'BASKET.PRICE',
                 'QUANTITY' => 'BASKET.QUANTITY',
-                'PICTURE' => 'PREVIEW_PICTURE',
+                'PICTURE' => 'IMAGES.VALUE',
             ],
             'filter' => ['BASKET.ORDER_ID' => $orderId],
             'offset' => $offset,
             'limit' => self::PRODUCT_LIMIT,
         ])->fetchAll();
+        $_REQUEST['tester'] = $products;
         foreach ($products as &$product) {
             $product['PICTURE'] = CFile::GetPath($product['PICTURE']);
         }
+
         return $products;
     }
 
