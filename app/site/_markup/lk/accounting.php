@@ -195,9 +195,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="diagramm__col">
+                                                                            <p class="diagramm__title">Сумма всех заработанных баллов:</p>
                                                                             <div class="diagramm__results">
-                                                                                <p class="diagramm__results-title">Сумма всех заработанных баллов:</p>
-
                                                                                 <div class="diagramm__result">
                                                                                     <span class="diagramm__result-icon" style="background-color:#2c877f"></span>
                                                                                     <span class="diagramm__result-text">с личных покупок</span>

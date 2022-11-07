@@ -21,6 +21,18 @@
             }
         }
 
+        &__title {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: (22px / $font-size-small);
+
+            margin-bottom: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem($gap-normal);
+            }
+        }
+
         &__results {
             @media #{$screen-tablet} {
                 display: flex;
@@ -32,18 +44,6 @@
                 margin-top: rem(-$gap-medium);
                 margin-right: rem(-$gap-average);
                 margin-left: rem(-$gap-average);
-            }
-
-            &-title {
-                font-size: rem($font-size-small);
-                font-weight: $font-weight-medium;
-                line-height: (22px / $font-size-small);
-
-                margin-bottom: rem($gap-average);
-
-                @media #{$screen-desktop} {
-                    margin-bottom: rem($gap-normal);
-                }
             }
         }
 
