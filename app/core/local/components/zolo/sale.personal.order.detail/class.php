@@ -83,7 +83,7 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
             'offset' => $offset,
             'limit' => self::PRODUCT_LIMIT,
         ])->fetchAll();
-        $_REQUEST['tester'] = $products;
+
         foreach ($products as &$product) {
             $product['PICTURE'] = CFile::GetPath($product['PICTURE']);
         }
