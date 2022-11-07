@@ -61,11 +61,13 @@ $arResult = $_REQUEST['data']['orders'];
                             <div class="card-order__price price">
                                 <div class="price__calculation price__calculation--columned">
                                     <p class="price__calculation-total price__calculation-total--has-icon">
-                                        <span class="price__calculation-picture">
-                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
-                                            </svg>
-                                        </span>
+                                        <?php if ($order['ORDER']['PERSONAL_DISCOUNT'] == 'true'): ?>
+                                            <span class="price__calculation-picture">
+                                                <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                </svg>
+                                            </span>
+                                        <?php endif; ?>
                                         <span class="price__calculation-value">
                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                         </span>
@@ -79,7 +81,7 @@ $arResult = $_REQUEST['data']['orders'];
 
                 <div class="card-order__content">
                     <div class="accordeon__item box" data-accordeon>
-                        <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
+                        <div class="accordeon__header" button-next-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
                             <h6 class="accordeon__title">Состав заказа</h6>
 
                             <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
@@ -130,8 +132,8 @@ $arResult = $_REQUEST['data']['orders'];
 <!-- Карточка заказа -->
 <script>
     $('div').one('click', function () {
-        if ($(this).attr('button-id') !== undefined) {
-            getBasketData($(this).attr('button-id'));
+        if ($(this).attr('button-next-id') !== undefined) {
+            getBasketData($(this).attr('button-next-id'), basketOfset);
         }
     });
 </script>

@@ -14,7 +14,7 @@ $arResult = $_REQUEST['data']['PRODUCTS'];
                 <div class="product-line__inner">
                     <div class="product-line__info">
                         <div class="product-line__image">
-                            <img src="<?=$product['PICTURE']?>" alt="#" class="product-line__image-picture">
+                            <img src="<?=$product['PICTURE']?>" alt="<?=$product['NAME']?>" class="product-line__image-picture">
                         </div>
                         <div class="product-line__wrapper">
                             <h2 class="product-line__title">
@@ -53,7 +53,7 @@ $arResult = $_REQUEST['data']['PRODUCTS'];
                                         Сумма баллов:
                                     </span>
                                     <span class="product-line__params-value">
-                                    <?=$product['POINTS'] ?? 0?> ББ
+                                    <?=$product['BONUS'] ?? 0?> ББ
                                     </span>
                                 </p>
                             </li> 

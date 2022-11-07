@@ -44,17 +44,17 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                     <ul class="card-order__list">
                                                         <li class="card-order__item">
                                                             <h2 class="card-order__title">
-                                                                Заказ от <?=$order['ORDER']['DATE_INSERT_FORMATED'] ?>
+                                                                <?=getMessage('ORDER_FROM') ?> <?=$order['ORDER']['DATE_INSERT_FORMATED'] ?>
                                                             </h2>
                                                             <p class="card-order__subtitle">
-                                                                №<?=$order['ORDER']['ID'] ?>
+                                                            <?=getMessage('ORDER_NUMBER') ?><?=$order['ORDER']['ID'] ?>
                                                             </p>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
                                                             <div class="info-slot">
                                                                 <p class="info-slot__name">
-                                                                    Кем заказан
+                                                                    <?=getMessage('ORDER_USER') ?>
                                                                 </p>
                                                                 <p class="info-slot__value">
                                                                     <?=$order['ORDER']['FIO'] ?>
@@ -65,7 +65,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
                                                                 <p class="info-slot__name">
-                                                                    Статус заказа
+                                                                    <?=getMessage('ORDER_STATUS') ?>
                                                                 </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     <?=$arResult['INFO']['STATUS'][$order['ORDER']['STATUS_ID']]['NAME'] ?>
@@ -76,7 +76,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                         <li class="card-order__item card-order__item--pay">
                                                             <div class="info-slot">
                                                                 <p class="info-slot__name">
-                                                                    Статус оплаты
+                                                                    <?=getMessage('ORDER_PAYD_STATUS') ?>
                                                                 </p>
                                                                 <p class="info-slot__value info-slot__value--icon">
                                                                     <span class="info-slot__icon">
@@ -84,7 +84,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-<?=$paid ? 'paid' : 'not-paid' ?>"></use>
                                                                         </svg>
                                                                     </span>
-                                                                    <?=$paid ? 'Оплачен' : 'Не оплачен' ?>
+                                                                    <?=$paid ? getMessage('ORDER_PAYD') : getMessage('ORDER_NOT_PAYD') ?>
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -93,16 +93,18 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                             <div class="card-order__price price">
                                                                 <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
-                                                                        <span class="price__calculation-picture">
-                                                                            <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
-                                                                            </svg>
-                                                                        </span>
+                                                                        <?php if ($order['ORDER']['PERSONAL_DISCOUNT']): ?>
+                                                                            <span class="price__calculation-picture">
+                                                                                <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="<?=getMessage('ORDER_PERSONAL_ACTION') ?>" data-tippy-placement="bottom-start">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        <?php endif; ?>
                                                                         <span class="price__calculation-value">
                                                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                                                         </span>
                                                                     </p>
-                                                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['PROPERTIES']['POINTS'] ?? 0 ?> ББ</p>
+                                                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['PROPERTIES']['POINTS'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -112,7 +114,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                 <div class="card-order__content">
                                                     <div class="accordeon__item box" data-accordeon>
                                                         <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
-                                                            <h6 class="accordeon__title">Состав заказа</h6>
+                                                            <h6 class="accordeon__title"><?=getMessage('ORDER_COMPOSITION') ?></h6>
 
                                                             <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                                                 <span class="accordeon__toggle-icon button__icon">
@@ -130,22 +132,22 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                 <div class="table-list__head">
                                                                     <div class="table-list__cell">
                                                                         <p class="table-list__name">
-                                                                            Наименование
+                                                                            <?=getMessage('PRODUCT_NAME') ?>
                                                                         </p>
                                                                     </div>
                                                                     <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
-                                                                            Цена
+                                                                            <?=getMessage('PRODUCT_PRICE') ?>
                                                                         </p>
                                                                     </div>
                                                                     <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
-                                                                            Количество
+                                                                            <?=getMessage('PRODUCT_COUNT') ?>
                                                                         </p>
                                                                     </div>
                                                                     <div class="table-list__cell table-list__cell--desktop">
                                                                         <p class="table-list__name">
-                                                                            Сумма баллов
+                                                                            <?=getMessage('PRODUCT_BB') ?>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -163,7 +165,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                             </ul>
                         </div>
 
-                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full">Показать больше</button>
+                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full"><?=getMessage('SHOW_MORE') ?></button>
                     </section>
                 </div>
             </div>
@@ -201,8 +203,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
         $('div').one('click', function () {
             if ($(this).attr('button-id') !== undefined) {
-                // getBasketData($(this).attr('button-id'), basketOfset);
-                getBasketProductData($(this).attr('button-id'), basketOfset);
+                getBasketData($(this).attr('button-id'), basketOfset);
             }
         });
 
@@ -216,11 +217,11 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
     function filteringValues(filterType, value, sort = '') {
         let filter = {
-            by: filterType == 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
-            status: filterType == 'status' ? value: $('#STATUS').val(),
-            payd: filterType == 'payd' ? value: $('#PAYD').val(),
-            order: sort != '' ? sort: 'asc',
-            filter_id: value,
+            by: filterType === 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
+            status: filterType === 'status' ? value: $('#STATUS').val(),
+            payd: filterType === 'payd' ? value: $('#PAYD').val(),
+            order: sort !== '' ? sort: 'asc',
+            filter_id: filterType === 'search' ? value : '',
         };
         showMore.style.cssText = '';
         console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
@@ -304,6 +305,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     }
 
     function getBasketData(orderId, ofset) {
+        console.log(orderId, ofset);
         BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
             mode: 'class',
             data: {
@@ -313,27 +315,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         }).then(function (response) {
             let basket = JSON.parse(response.data);
 
-            console.log("basket", basket.basket);
-
-            setBasketList(basket.basket, orderId);
-        }, function (response) {
-            console.log("err", response.errors);
-        });
-    }
-
-    function getBasketProductData(orderId, ofset) {
-        console.log(orderId, ofset);
-        BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProductsBasket', {
-            mode: 'class',
-            data: {
-                orderId: orderId,
-                offset: ofset,
-            }
-        }).then(function (response) {
-            let basket = JSON.parse(response.data);
-
             console.log("basket", basket);
-
+            if (basket.basket.PRODUCTS.length == 0) {
+                $('div').find('[data-list-id=' + orderId + ']').hide();
+            }
             setBasketList(basket.basket, orderId);
         }, function (response) {
             console.log("err", response.errors);

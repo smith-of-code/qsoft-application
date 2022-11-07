@@ -14,6 +14,7 @@ use Bitrix\Main,
 	Bitrix\Main\Data,
 	Bitrix\Sale,
 	Bitrix\Sale\Internals\OrderPropsValueTable;
+use Bitrix\Sale\Order;
 use QSoft\Helper\UserFieldHelper;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
@@ -991,15 +992,25 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			$orderUserIdList[$arOrder["ID"]] = $arOrder["USER_ID"];
 		}
 
+		$orderInfo = Order::loadByFilter([
+			'select' => '*',
+			'filter' => [
+				'ID' => $orderIdList
+			],
+		]);
+
+		foreach ($orderInfo as $orderObject) {
+			$orders[$orderObject->getField('ID')] = $orderObject->getField('PAY_VOUCHER_NUM');
+		}
+
 		$orderProps = $this->loadOrdersProperties($orderIdList);
 		$orderUsers = $this->getUsersByOrders($orderUserIdList);
 
 		foreach ($orderProps as $orderPropId => $props) {
             $listOrders[$orderPropId]['PROPERTIES'] = $props;
             $listOrders[$orderPropId]['FIO'] = $orderUsers[$orderPropId];
+            $listOrders[$orderPropId]['PERSONAL_DISCOUNT'] = (bool)$orders[$orderPropId];
         }
-
-		$basketClassName = $this->registry->getBasketClassName();
 
 		$trackingManager = Sale\Delivery\Tracking\Manager::getInstance();
 
@@ -1046,6 +1057,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			'select' => array('ID', 'PAY_SYSTEM_NAME', 'PAY_SYSTEM_ID', 'ACCOUNT_NUMBER', 'ORDER_ID', 'PAID', 'SUM', 'CURRENCY', 'DATE_BILL'),
 			'filter' => array('ORDER_ID' => $orderIdList)
 		));
+
 
 		$paymentIdList = array();
 		$paymentList = array();
