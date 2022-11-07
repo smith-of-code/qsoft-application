@@ -1,10 +1,13 @@
 <?php
 
 use Bitrix\Main;
-use	Bitrix\Main\Loader;
-use	Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Iblock\Model\PropertyFeature;
+use Bitrix\Iblock\Component\Element;
+use QSoft\Helper\ColorHelper;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -18,9 +21,10 @@ if (!Loader::includeModule('iblock'))
     return;
 }
 
-class CatalogElementComponent extends CBitrixComponent
+class CatalogElementComponent extends Element
 {
     private bool $isError = false;
+
     /**
      * @param array $arParams
      * @return array
@@ -57,12 +61,17 @@ class CatalogElementComponent extends CBitrixComponent
 
     public function executeComponent()
     {
+        $this->checkModules();
         try {
             if ($this->isError) {
                 return;
             }
 
             if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
+                throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
+            }
+
+            if (!Loader::includeModule('sale') || !Loader::includeModule('catalog')) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
@@ -79,6 +88,7 @@ class CatalogElementComponent extends CBitrixComponent
                     'ID',
                     'NAME',
                     'CODE',
+                    'SORT',
                     'DETAIL_PAGE_URL',
                     'PREVIEW_PICTURE',
                     'DETAIL_PICTURE',
@@ -88,16 +98,16 @@ class CatalogElementComponent extends CBitrixComponent
                     'PREVIEW_TEXT_TYPE',
                 ];
 
+                $fileIds = [];
                 $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
 
                 $fileIds = $this->getFilesByItem($product);
+                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds); // TODO filesids
+                $this->arResult['OFFERS'] = $offers;
 
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
                 $this->arResult['DOCUMENTS'] = array_merge($sectionDocuments, $product['PROPERTY_DOCUMENTS_VALUE'] ?? []);
-
-                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds);
-                $this->arResult['OFFERS'] = $offers;
 
                 $itemFilter = ['@ID' => implode(',', array_unique($fileIds))];
                 $fileIterator = CFile::GetList([], $itemFilter);
@@ -132,6 +142,7 @@ class CatalogElementComponent extends CBitrixComponent
                     $basketInfo[$basket['PRODUCT_ID']] = $basket;
                 }
             }
+
             $this->arResult['BASKET'] = $basketInfo;
             $this->arResult = $this->transformData($this->arResult);
 
@@ -140,6 +151,7 @@ class CatalogElementComponent extends CBitrixComponent
             ShowError($e->getMessage());
         }
     }
+
 
     private function getProduct(array $arSelect): array
     {
@@ -179,7 +191,11 @@ class CatalogElementComponent extends CBitrixComponent
 
     private function getOffers(int $productId, array $arSelect, array &$fileIds): array
     {
-        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], ['IBLOCK_ID']);
+        $filter = [
+            'ACTIVE' => 'Y'
+        ];
+
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter , ['IBLOCK_ID']);
         $offers = [];
         if (!empty($offersResult) && !empty(current($offersResult))) {
             $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
@@ -190,26 +206,38 @@ class CatalogElementComponent extends CBitrixComponent
                 $keys = $this->getPropertyKeys($properties);
                 $arSelect = array_merge($arSelect, $keys);
 
-                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], [], $arSelect);
+                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter, array_merge($arSelect, ['CATALOG_AVAILABLE']));
                 $offers = array_merge($offers, current($currentOffers));
-
                 foreach (current($currentOffers) as $offer) {
                     $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
                 }
             }
         }
 
-        $ids = array_column($offers, 'ID');
-        $prices = PriceTable::getList([
-            'filter' => ['@PRODUCT_ID' => $ids],
-        ])->fetchAll();
-        foreach ($offers as &$offer) {
-            $price = current(array_filter($prices, function ($item) use ($offer) {
-                return (int) $item['PRODUCT_ID'] === $offer['ID'];
-            }));
+        usort($offers, function ($a, $b) {
+            if ($a['CATALOG_AVAILABLE'] == $b['CATALOG_AVAILABLE']) {
+                return  $a['SORT'] > $b['SORT'];
+            } else if ($a['CATALOG_AVAILABLE'] == 'Y') {
+                return false;
+            } else {
+                return true;
+            }
 
-            if ($price) {
-                $offer['PRICE'] = $price;
+        });
+
+        if ($ids = array_column($offers, 'ID')) {
+            $prices = PriceTable::getList([
+                'filter' => ['=PRODUCT_ID' => $ids],
+            ])->fetchAll();
+            foreach ($offers as &$offer) {
+                // TODO получение баллов
+                $price = current(array_filter($prices, function ($item) use ($offer) {
+                    return (int) $item['PRODUCT_ID'] === $offer['ID'];
+                }));
+
+                if ($price) {
+                    $offer['PRICE'] = $price;
+                }
             }
         }
 
@@ -235,8 +263,8 @@ class CatalogElementComponent extends CBitrixComponent
         if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
             $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
         }
-        if (isset($item['PROPERTY_VIDEO_VALUE']) && $item['PROPERTY_VIDEO_VALUE']) {
-            $result[] = $item['PROPERTY_VIDEO_VALUE'];
+        if (isset($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
+            $result = array_merge($item['PROPERTY_IMAGES_VALUE'], $result);
         }
         if (isset($item['PROPERTY_DOCUMENTS_VALUE']) && $item['PROPERTY_DOCUMENTS_VALUE']) {
             $result = array_merge($item['PROPERTY_DOCUMENTS_VALUE'], $result);
@@ -273,6 +301,8 @@ class CatalogElementComponent extends CBitrixComponent
     private function transformData(array $data): array
     {
         $result = [
+            'ID' => $data['PRODUCT']['ID'],
+            'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
             'DISCOUNT_LABELS' => [],
@@ -282,7 +312,8 @@ class CatalogElementComponent extends CBitrixComponent
             'BESTSELLERS' => [],
             'PACKAGINGS' => [],
             'PHOTOS' => [],
-            'PRODUCT_IMAGE' => [$data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']]['SRC']],
+            'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
+            'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
             'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
             'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
@@ -290,32 +321,148 @@ class CatalogElementComponent extends CBitrixComponent
             'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
             'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
-            'IS_TREAT' => $data['PRODUCT']['PROPERTY_IS_TREAT_VALUE'] === 'Да',
+            'IS_TREAT' => $data['PRODUCT']['PROPERTY_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
+            'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
+            'COLOR_NAMES' => ColorHelper::getColorNames(),
+            'OFFERS' => $data['OFFERS'], // TODO format
+            'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
         ];
 
         foreach ($data['OFFERS'] as $offer) {
+            $result['SORT'][] = $offer['ID'];
             $result['PRICES'][$offer['ID']] = $offer['PRICE'];
-            $result['DISCOUNT_LABELS'][$offer['ID']] = $offer['PRICE']['DISCOUNT_LABEL'];
-            $result['COLORS'][$offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+
+            $result['DISCOUNT_LABELS'][$offer['ID']]['NAME'] = $offer['PROPERTY_DISCOUNT_LABEL_VALUE'];
+            $result['DISCOUNT_LABELS'][$offer['ID']]['COLOR'] = $this->getDiscountLabelColor($offer['PROPERTY_DISCOUNT_LABEL_VALUE']);
+
+            if ($offer['PROPERTY_COLOR_VALUE']) {
+                $result['COLORS'][] = [
+                    'offerId' => $offer['ID'],
+                    'color'=> $offer['PROPERTY_COLOR_VALUE']
+                ];
+            }
+
             $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
             $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
-            $result['PACKAGINGS'][$offer['ID']] = $offer['PROPERTY_PACKAGING_VALUE'];
+
+            if($offer['PROPERTY_PACKAGING_VALUE']) {
+                $result['PACKAGINGS'][] = [
+                    'offerId' => $offer['ID'],
+                    'package'=> $offer['PROPERTY_PACKAGING_VALUE']
+                ];
+            }
+            
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
-                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item]['SRC'];
+                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
                 }
             }
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
+            $result['AVAILABLE'][$offer['ID']] = $offer['CATALOG_AVAILABLE'] == 'Y';
         }
 
         foreach ($data['DOCUMENTS'] as $documentId) {
-            $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId]['SRC'];
+            $result['DOCUMENTS'][] = $data['FILES'][(string) $documentId];
         }
 
+        // Объект CIBlockPropertyResult
+        $propsResult = $this->getProperties();
+
+        // id элементов, у которых выставлен параметр "Показывать на детальной странице.
+        $showedPropertiesInDetail = $this->getShowedInDetailPageProperties();
+
+        while($item = $propsResult->GetNext()) {
+            $result['PROPERTY_NAMES'][$item['CODE']] = $item['NAME'];
+
+            if (in_array($item['ID'], $showedPropertiesInDetail)) {
+                $properties[$item['ID']] = $item;
+            }
+        }
+
+        $index = 1;
+        foreach ($properties as $property) {
+            if ($index++ > $this->arParams['PROPERTY_COUNT_DETAIL']) {
+                break;
+            }
+
+            $code = $property['CODE'];
+            if ($value = $data['PRODUCT']["PROPERTY_{$code}_VALUE"]) {
+                $result['SPECIFICATION'][$code] = $value;
+            }
+        }
+
+        $result['ENERGY_VALUE'] = [
+            'CALCIUM' => $data['PRODUCT']['PROPERTY_CALCIUM_VALUE'],
+            'PRHOSPHORUS' => $data['PRODUCT']['PROPERTY_PRHOSPHORUS_VALUE'],
+            'ROW_ASH' => $data['PRODUCT']['PROPERTY_ROW_ASH_VALUE'],
+            'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
+            'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
+            'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
+        ];
+
+        $result['ENERGY_VALUE'] = array_filter($result['ENERGY_VALUE'], fn ($value) => !empty($value));
+
         return $result;
+    }
+
+    /**
+     * @return CIBlockPropertyResult
+     */
+    private function getProperties():CIBlockPropertyResult
+    {
+        return CIBlockProperty::GetList(
+            ["SORT" => "ASC"],
+            [
+                "ACTIVE"    => "Y",
+                "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
+            ]
+        );
+    }   
+
+    /**
+     * @return array|null
+     */
+    private function getShowedInDetailPageProperties(): ?array
+    {
+        return PropertyFeature::getDetailPageShowPropertyCodes(
+            $this->arParams['IBLOCK_ID'],
+            ['DETAIL_PAGE_SHOW' => 'Y']
+        );
+    }
+
+
+    /**
+     * @return array|null
+     */
+    private function getOfferDetailPageProperties(): ?array //  TODO проверку добавить
+    {
+        $detailShowOfferProps = PropertyFeature::getDetailPageShowPropertyCodes(
+            IBLOCK_PRODUCT_OFFER
+        );
+        $props = \Bitrix\Iblock\PropertyTable::getList([
+            'filter' => [
+                'id' => $detailShowOfferProps,
+            ],
+            'select' => ['ID', 'CODE']
+        ]);
+
+        $result = [];
+        while ($item = $props->fetch()) {
+            $result[$item['ID']] = $item['CODE'];
+        }
+        return $result;
+    }
+
+    private function getDiscountLabelColor($typeName) {
+        $color = [
+            'Сезонное предложение' => 'violet',
+            'Ограниченное предложение' => 'pink'
+        ];
+
+        return $color[$typeName] ?? 'violet';
     }
 }

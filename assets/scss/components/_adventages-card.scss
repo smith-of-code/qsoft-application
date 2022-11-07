@@ -1,0 +1,122 @@
+.adventages-card {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 100%;
+    padding: rem(8px) rem(8px) rem(22px) rem(8px);
+
+    border-radius: rem($border-radius-average);
+    background-color: $white;
+
+    @media #{$screen-desktop} {
+        padding: rem(20px) rem(20px) rem(38px) rem(20px);
+    }
+
+    &::before {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        height: rem(4px);
+
+        content: "";
+    }
+
+    &--bg-gray {
+        background-color: $athensGray;
+    }
+
+    &--blue {
+        &::before {
+            background-color: $onahau;
+        }     
+    }
+
+    &--blue  & {
+        &__image{
+            &-icon {
+                color: $bostonBlue;
+            }
+        } 
+    }
+
+    &--gold {
+        &::before {
+            background-color: $drover;
+        } 
+    }
+
+    &--gold  & {
+        &__image{
+            &-icon {
+                color: $buddhaGold;
+            }
+        } 
+    }
+
+    &--wisteria {
+        &::before {
+            background-color: $lavenderGray;
+        }  
+    }
+
+    &--wisteria  & {
+        &__image{
+            &-icon {
+                color: $wisteria;
+            }
+        } 
+    }
+
+    &--piper {
+        &::before {
+            background-color: $caramel;
+        } 
+    }
+
+    &--piper  & {
+        &__image{
+            &-icon {
+                color: $piper;
+            }
+        } 
+    }
+
+    &__image {
+        margin-bottom: rem(6px);
+
+        &-icon {
+            $size: 24px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-desktop} {
+                $size: 48px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+
+            &--lg {
+                $size: 48px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+    }
+
+    &__text {
+        font-size: rem($font-size-tiny);
+        font-weight: $font-weight-semibold;
+        line-height: $line-height-miniature;
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-small);
+            line-height: $line-height-small;
+        }
+    }
+}

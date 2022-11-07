@@ -1,0 +1,25 @@
+.groups {
+    &__list {
+        margin: rem(-$gap-average / 2) 0;
+
+        @media #{$screen-desktop} {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            margin-top: rem(-$gap-average);
+            margin-right: rem(-$gap-average);
+            margin-left: rem(-$gap-average);
+        }
+    }
+
+    &__item {
+        padding: rem($gap-average / 2) 0;
+
+        @media #{$screen-desktop} {
+            min-width: rem(203px);
+            margin-top: rem($gap-average);
+            padding: 0 rem($gap-average);
+        }
+    }
+}

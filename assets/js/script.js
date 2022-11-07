@@ -21,8 +21,8 @@
  import inputPlaceholder from './modules/inputPlaceholder';
  import tabs from './modules/tabs';
  import scrollbar from './modules/scrollbar';
- import tooltip from "./modules/tooltip";
- import toggle from "./modules/toggle";
+ import tooltip from './modules/tooltip';
+ import toggle from './modules/toggle';
  import truncate from './modules/truncate';
  import dropdown from './modules/dropdown';
  import quantity from './modules/quantity';
@@ -40,12 +40,20 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
-import cookie from './modules/cookie';
+ import cardCounting from './modules/cardCounting';
+ import removeItem from './modules/remove-item';
+ import editProfile from './modules/edit-profile'; 
+ import cookie from './modules/cookie';
+ import identic from './modules/identic';
+ import showText from './modules/show-text';
+ import calculator from './modules/calculator';
 
 
  const app = {
     ready() {
-        // Пример вызова импортированнывх функций
+        (new Zolo.Loader()).run();
+
+        // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
 
@@ -73,8 +81,13 @@ import cookie from './modules/cookie';
         addFavourite();
         filter();
         swiper();
+        cardCounting();
+        removeItem();
+        editProfile();
         cookie();
-
+        identic();
+        showText();
+        calculator();
     },
 
     load() {

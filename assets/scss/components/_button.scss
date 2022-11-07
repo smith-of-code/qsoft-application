@@ -91,6 +91,30 @@
         height: rem($size-huge);
     }
 
+    &--back {
+        font-size: rem($font-size-mini);
+    }
+
+    &--back & {
+        &__icon {
+            $size: 12px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+
+    &--show {
+        font-size: rem($font-size-normal);
+        font-weight: $font-weight-semibold;
+        line-height: ($line-height-normal / $font-size-normal);
+
+        width: 100%;
+        min-height: rem(48px);
+
+        letter-spacing: 0.02em;
+    }
+
     &--square {
         border-radius: rem($border-radius-small);
     }
@@ -272,7 +296,7 @@
     }
 
     &--outlined {
-        background-color: transparent;
+        background-color: $white;
         background-clip: padding-box;
     }
 
@@ -306,6 +330,24 @@
         &:focus {
             color: $mandy2;
             border-color: $mandy2;
+            background-color: $white;
+        }
+    }
+
+    &--outlined#{&}--mixed{
+        color: $saltBox;
+        border-color: $alto;
+        background-color: $white;
+
+        &:hover {
+            color: $brickRed;
+            border-color: $alto;
+            background-color: $white;
+        }
+
+        &:focus {
+            color: $mandy2;
+            border-color: $alto;
             background-color: $white;
         }
     }
@@ -495,6 +537,13 @@
 
                 color: $brickRed;
             }
+        }
+
+        &--full {
+            overflow: visible;
+
+            text-align: left;
+            white-space: normal;
         }
     }
 

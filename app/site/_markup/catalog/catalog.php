@@ -1336,7 +1336,7 @@
                                     <p class="catalog__results">Найдено <span class="catalog__results-count">19 </span>товаров</p>
 
                                     <div class="catalog__sort">
-                                        <div class="catalog__select select select--small select--sorting select--borderless" data-select>
+                                        <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
                                             <div class="select__group">
                                                 <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
                                                     <option><!-- пустой option для placeholder --></option>
@@ -2083,7 +2083,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="catalog__button button button--rounded-big button--outlined button--green button--full">Показать больше</button>
+                                <button type="button" class="catalog__button button button--show button--rounded-big button--outlined button--green">Показать больше</button>
                             </div>
                         </div>
                     </div>

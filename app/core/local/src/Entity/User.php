@@ -2,11 +2,17 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Security\Password;
 use Carbon\Carbon;
+use CCatalogGroup;
 use CFile;
+use CModule;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Service\ConfirmationService;
+use QSoft\Entity\Mutators\UserPropertiesMutator;
+use QSoft\Service\BonusAccountService;
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
@@ -14,6 +20,7 @@ use QSoft\Service\OrderAmountService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
+use ReflectionProperty;
 use RuntimeException;
 
 class User
@@ -39,6 +46,10 @@ class User
      */
     public NotificationService $notification;
     /**
+     * @var ConfirmationService Объект для работы с подтверждениями
+     */
+    public ConfirmationService $confirmation;
+    /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
     public OrderAmountService $orderAmount;
@@ -50,6 +61,8 @@ class User
      * @var PetService Объект для работы с питомцами пользователя
      */
     public PetService $pets;
+    public BonusAccountService $bonusAccount;
+
     /**
      * @var int ID пользователя
      */
@@ -58,6 +71,10 @@ class User
      * @var string Логин (он же номер телефона)
      */
     public string $login;
+    /**
+     * @var int|null ID цены бонусов для товаров по уровню лояльности
+     */
+    public ?int $catalogGroupId = null;
     /**
      * @var bool Флаг активности
      */
@@ -75,6 +92,14 @@ class User
      */
     public ?string $secondName;
     /**
+     * @var string Город
+     */
+    public string $city;
+    /**
+     * @var int
+     */
+    public int $pickupPointId;
+    /**
      * @var string E-mail
      */
     public string $email;
@@ -90,6 +115,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Номер телефона
+     */
+    public string $phone;
     /**
      * @var string Уровень в программе лояльности
      */
@@ -113,9 +142,13 @@ class User
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
+     * @var int $mentorId
+     */
+    public int $mentorId;
+    /**
      * @var User|null Наставник
      */
-    public ?User $mentor;
+    private ?User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -135,6 +168,31 @@ class User
      */
     private const ENUM_PROPERTIES = [
         'UF_LOYALTY_LEVEL',
+        'UF_PERSONAL_DISCOUNT_LEVEL',
+    ];
+
+    protected static array $bitrixFieldsToObjectPropertiesMapping = [
+        'ID' => 'id',
+        'LOGIN' => 'login',
+        'ACTIVE' => 'active',
+        'NAME' => 'name',
+        'LAST_NAME' => 'lastName',
+        'SECOND_NAME' => 'secondName',
+        'PERSONAL_CITY' => 'city',
+        'UF_PICKUP_POINT_ID' => 'pickupPointId',
+        'EMAIL' => 'email',
+        'PERSONAL_GENDER' => 'gender',
+        'PERSONAL_BIRTHDAY' => 'birthday',
+        'PERSONAL_PHOTO' => 'photo',
+        'PERSONAL_PHONE' => 'phone',
+        'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
+        'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
+        'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
+        'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
+        'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => 'agreeToReceiveInformationAboutPromotions',
+        'UF_MENTOR_ID' => 'mentorId',
+        'UF_BONUS_POINTS' => 'bonusPoints',
+        'UF_LOYALTY_CHECK_DATE' => 'loyaltyCheckDate'
     ];
 
     /**
@@ -144,7 +202,7 @@ class User
     public function __construct(?int $userId = null)
     {
         $this->cUser = new CUser;
-        
+
         // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
@@ -160,7 +218,7 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('User not found');
+            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение
@@ -170,36 +228,25 @@ class User
             }
         }
 
-        // Стандартные поля
-        $this->id = $user['ID'];
-        $this->login = $user['LOGIN'];
-        $this->active = $user['ACTIVE'] === 'Y';
-        $this->name = $user['NAME'];
-        $this->lastName = $user['LAST_NAME'];
-        $this->secondName = $user['SECOND_NAME'];
-        $this->email = $user['EMAIL'];
-        $this->gender = $user['PERSONAL_GENDER'];
-        $this->birthday = Carbon::createFromTimestamp(MakeTimeStamp($user['PERSONAL_BIRTHDAY']));
-        $this->photo = $user['PERSONAL_PHOTO'] ?? 0;
-        $this->loyaltyLevel = $user['UF_LOYALTY_LEVEL'] ?? '';
-
-        // Пользовательские поля
-        $this->agreeWithPersonalDataProcessing = $user['UF_AGREE_WITH_PERSONAL_DATA_PROCESSING'] === 'Y';
-        $this->agreeWithTermsOfUse = $user['UF_AGREE_WITH_TERMS_OF_USE'] === 'Y';
-        $this->agreeWithCompanyRules = $user['UF_AGREE_WITH_COMPANY_RULES'] === 'Y';
-        $this->agreeToReceiveInformationAboutPromotions = $user['UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS'] === 'Y';
-        $this->mentor = $user['UF_MENTOR_ID'] ? new self((int) $user['UF_MENTOR_ID']) : null;
-        $this->bonusPoints = (int) $user['UF_BONUS_POINTS'];
-        $this->loyaltyCheckDate = Carbon::createFromTimestamp(MakeTimeStamp($user['UF_LOYALTY_CHECK_DATE']));
+        $this->setObjectProperties($user);
 
         //Задаем необходимые связанные объекты
         $this->legalEntity = new LegalEntityService($this);
-        $this->loyalty = new LoyaltyService($this);
         $this->groups = new UserGroupsService($this);
+
+        //Задаем уровень в программе лояльности в зависимости от группы пользователя
+        $this->loyalty = new LoyaltyService($this);
+        
         $this->notification = new NotificationService($this);
+        $this->confirmation = new ConfirmationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
+        $this->bonusAccount = new BonusAccountService($this);
+
+        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
+            $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
+        }
     }
 
     /**
@@ -208,8 +255,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => 'Y'])) {
-            $this->active = true;
+        if ($this->update(['ACTIVE' => true])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;
@@ -224,13 +270,93 @@ class User
         return CFile::GetPath($this->photo);
     }
 
+    public function getPersonalData(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->name,
+            'last_name' => $this->lastName,
+            'second_name' => $this->secondName,
+            'gender' => $this->gender,
+            'photo' => $this->getPhotoUrl(),
+            'loyalty_level' => $this->loyaltyLevel,
+            'birthdate' => $this->birthday->format('d.m.Y'),
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'city' => $this->city,
+            'pickup_point_id' => $this->pickupPointId,
+        ];
+    }
+
+    public function getMentor(): ?User
+    {
+        if (!isset($this->mentor)) {
+            if (empty($this->mentorId)) {
+                return null;
+            }
+
+            $this->mentor = new User($this->mentorId);
+        }
+
+        return $this->mentor;
+    }
+
     /**
      * Обновляет поля пользователя
      * @param array $fields
      * @return bool
      */
-    public function update(array $fields): bool
+    public function update(array $bitrixFields): bool
     {
-        return $this->cUser->Update($this->id, $fields);
+        $this->setObjectProperties($bitrixFields);
+
+        return $this->cUser->Update($this->id, $bitrixFields);
+    }
+
+    protected function setObjectProperties(array $bitrixFields): void
+    {
+        $mutator = UserPropertiesMutator::class;
+
+        foreach ($bitrixFields as $bitrixFieldName => $bitrixFieldValue) {
+            $objectPropertyName = self::$bitrixFieldsToObjectPropertiesMapping[$bitrixFieldName];
+
+            $objectPropertyValue = $bitrixFieldValue;
+
+            if (property_exists(self::class, $objectPropertyName)) {
+                switch ((new ReflectionProperty(self::class, $objectPropertyName))->getType()->getName()) {
+                    case 'int':
+                        $objectPropertyValue = (int)$objectPropertyValue;
+                        break;
+                    case 'bool':
+                        $objectPropertyValue = (bool)$objectPropertyValue;
+                }
+            }
+
+            $mutationMethod = 'read' . ucfirst($objectPropertyName);
+            if (method_exists($mutator, $mutationMethod)) {
+                $objectPropertyValue = call_user_func([$mutator, $mutationMethod], $objectPropertyValue);
+            }
+
+            $this->$objectPropertyName = $objectPropertyValue;
+        }
+    }
+
+    public function changePassword(string $password, string $confirmPassword): bool
+    {
+        $checkWord = md5(uniqid().\CMain::GetServerUniqID());
+        $checkWordHash = Password::hash($checkWord);
+
+        global $DB;
+        $DB->Query(<<<SQL
+            update b_user set 
+              CHECKWORD = '$checkWordHash',
+              CHECKWORD_TIME = now(),
+              TIMESTAMP_X = TIMESTAMP_X
+            where ID = '$this->id'
+        SQL);
+
+        $result = (new CUser)->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
+
+        return $result['TYPE'] === 'OK';
     }
 }

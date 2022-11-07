@@ -1,0 +1,11 @@
+.results {
+    &__item {
+        & + & {
+            margin-top: rem($gap-mini);
+
+            @media #{$screen-desktop} {
+                margin-top: rem(2px);
+            }
+        }
+    }
+}

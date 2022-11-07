@@ -12,3 +12,4 @@ $MESS['IBLOCK_FIELD_NAME'] = 'Название';
 $MESS['CP_BCE_SET_META_KEYWORDS'] = 'Устанавливать ключевые слова страницы';
 $MESS['T_IBLOCK_DESC_KEYWORDS'] = 'Установить ключевые слова страницы из свойства';
 $MESS['T_IBLOCK_DESC_DESCRIPTION'] = 'Установить описание страницы из свойства';
+$MESS['PROPERTY_COUNT_DETAIL'] = 'Коллическтво свойств в шапке товара';

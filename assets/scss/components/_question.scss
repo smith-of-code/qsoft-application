@@ -1,0 +1,16 @@
+.question {
+   
+    &__theme {
+        margin-bottom: rem($gap-normal);
+    }
+
+    &__accordeon {
+        &-title {
+            display: flex;
+        }
+
+        &-number {
+            margin-right: rem(8px);
+        }
+    }
+}
