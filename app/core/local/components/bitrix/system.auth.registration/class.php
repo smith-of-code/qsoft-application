@@ -14,7 +14,6 @@ use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\ORM\ConfirmationTable;
-use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -217,9 +216,6 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
-                    foreach ($value['files'] as &$file) {
-                        $file['src'] = CFile::GetPath($file['id']);
-                    }
                     $value = $value['files'];
                 } else {
                     $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
@@ -423,7 +419,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
             LegalEntityTable::add([
                 'UF_USER_ID' => $registrationData['user_id'],
-                'UF_STATUS' => EnumDecorator::prepareField('UF_STATUS', LegalEntityTable::STATUSES[$data['status']]),
+                'UF_STATUS' => LegalEntityTable::STATUSES[$data['status']],
                 'UF_IS_ACTIVE' => true,
                 'UF_DOCUMENTS' => json_encode($documents, JSON_UNESCAPED_UNICODE),
             ]);
