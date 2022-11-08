@@ -329,9 +329,6 @@ class User
                         break;
                     case 'bool':
                         $objectPropertyValue = (bool)$objectPropertyValue;
-                        break;
-                    case 'string':
-                        $objectPropertyValue = (string)$objectPropertyValue;
                 }
             }
 
