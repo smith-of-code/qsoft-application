@@ -46,7 +46,9 @@
  import cookie from './modules/cookie';
  import identic from './modules/identic';
  import showText from './modules/show-text';
+ import basket from './modules/basket';
  import calculator from './modules/calculator';
+
 
 
  const app = {
@@ -89,6 +91,7 @@
         cookie();
         identic();
         showText();
+        basket();
         calculator();
     },
 

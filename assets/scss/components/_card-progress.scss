@@ -16,6 +16,26 @@
         border: none;
     }
 
+    &--mini & {
+        &__title {
+            flex-basis: percentage(210px / 262px); 
+        }
+
+        &__mark {
+            @media #{$screen-desktop} {
+                order: 2;
+            }
+
+            &-text {
+                display: none;
+            }
+        }
+
+        &__wrapper {
+            flex-basis: percentage(1 / 1); 
+        }
+    }
+
     &__inner {
         display: flex;
         align-items: center;
