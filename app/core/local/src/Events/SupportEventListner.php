@@ -84,7 +84,10 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
-        dump($ticketValues);
+        if (empty($ticketValues['CATEGORY_ID']) || $ticketValues['CATEGORY_ID'] == 0) {
+            return; // возвращаем void если не выбрана категория.
+        }
+
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
@@ -386,6 +389,12 @@ class SupportEventListner
         ];
     }
 
+    /**
+     * Возвращает текущий протокол http
+     *
+     * @return string
+     * 
+     */
     private function getProtocol(): string
     {
         return (
