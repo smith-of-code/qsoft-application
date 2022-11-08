@@ -6,20 +6,37 @@ const ELEMENTS_SELECTOR = {
     item_button_remove: '[data-basket-item-remove]',
     item_button_count: '[data-basket-item-count]',
     
-    product_total: '[data-basket-product-total]',
+    productTotal: '[data-basket-product-total]',
     nds: '[data-basket-product-nds]',
     amount: '[data-basket-order-amount]',
     economy: '[data-basket-economy]',
     total: '[data-basket-total]',
 
-    bonus_balance: '[data-basket-bonus-balance]',
-    bonus_input: '[data-basket-bonus-input]',
-    bonus_button: '[data-basket-bonus-accept]',
+    bonusBalance: '[data-basket-bonus-balance]',
+    bonusInput: '[data-basket-bonus-input]',
+    bonusButton: '[data-basket-bonus-accept]',
 };
 
 export default function () {
+    const iconError = `
+    <svg class="icon icon--close">
+        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
+    </svg>`
+
+    const iconDefault = `
+    <svg class="icon icon--arrow">
+        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
+    </svg>`
+
+    const iconRefresh = `
+    <svg class="icon icon--refresh">
+        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
+    </svg>
+    `
+
     let errorCard = false;
     let bonusAccept = false;
+    let totalBonus = 0;
 
     checkStatusBasket();
 
@@ -27,7 +44,7 @@ export default function () {
 
     $(document).on('click', ELEMENTS_SELECTOR.item_button_count, checkStatusBasket);
 
-    $(document).on('click', ELEMENTS_SELECTOR.bonus_button, () => {
+    $(document).on('click', ELEMENTS_SELECTOR.bonusButton, () => {
         if (!bonusAccept && !errorCard) {
             acceptBonus();
         } else if (bonusAccept) {
@@ -39,8 +56,8 @@ export default function () {
         }
     });
        
-    $(document).on('input', ELEMENTS_SELECTOR.bonus_input, () => {
-        const button = $(ELEMENTS_SELECTOR.bonus_button);
+    $(document).on('input', ELEMENTS_SELECTOR.bonusInput, () => {
+        const button = $(ELEMENTS_SELECTOR.bonusButton);
         const buttonIcon = button.find('.button__icon');
         const basketCard = $(ELEMENTS_SELECTOR.card);
         const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
@@ -68,7 +85,7 @@ export default function () {
         let basketAmoutOrder = 0;
         let basketAmoutOrderSale = 0;
         let basketProductTotal = 0;
-
+        
         if (lengthBasket === 0) {
             $(ELEMENTS_SELECTOR.cart)
             .find('.basket__cart-null')
@@ -83,50 +100,45 @@ export default function () {
             const priceDefault = $(item).find('.product-price__item');
             const priceOld = $(item).find('.product-price__item.product-price__item--old');
             const priceSale = $(item).find('.product-price__item.product-price__item--new');
-
             const amountProduct = $(item)
             .find('.quantity__total-sum')
             .text();
-       
-            if (priceOld.length > 0) {
-                const priceProductValue = priceOld.text().replace(/\s/g,'');
-                const priceProductNumber = parseInt(priceProductValue);
-                const currentPrice = priceСalc(priceProductNumber, amountProduct);
-                basketAmoutOrder += currentPrice;
-            } else {
-                const priceProductValue = priceDefault.text().replace(/\s/g,'');
-                const priceProductNumber = parseInt(priceProductValue);
-                const currentPrice = priceСalc(priceProductNumber, amountProduct);
-                basketAmoutOrder += currentPrice;
-            }
 
+            let priceProductValue;
+            let priceNoDiscountsValue;
+            
             if (priceSale.length > 0) {
-                const priceProductValue = priceSale.text().replace(/\s/g,'');
-                const priceProductNumber = parseInt(priceProductValue);
-                const currentPrice = priceСalc(priceProductNumber, amountProduct);
-                basketAmoutOrderSale += currentPrice;
+                priceProductValue = priceSale.text().replace(/\s/g,'');
+                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'');
+            } else if (priceOld.length > 0) {
+                priceProductValue = priceOld.text().replace(/\s/g,'');
+                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'');
             } else {
-                const priceProductValue = priceDefault.text().replace(/\s/g,'');
-                const priceProductNumber = parseInt(priceProductValue);
-                const currentPrice = priceСalc(priceProductNumber, amountProduct);
-                basketAmoutOrderSale += currentPrice;
+                priceProductValue = priceDefault.text().replace(/\s/g,'');
+                priceNoDiscountsValue  = priceDefault.text().replace(/\s/g,'');
             }
           
+            let priceProductNumber = parseInt(priceProductValue);
+            let priceNoDiscounts = parseInt(priceNoDiscountsValue);
+            const currentPrice = priceСalc(priceProductNumber, amountProduct);
+            const currentPriceDefault = priceСalc(priceNoDiscounts, amountProduct);
             const currentProductTotal = Number(amountProduct);
         
+            basketAmoutOrder += currentPriceDefault;
             basketProductTotal += currentProductTotal;
+            basketAmoutOrderSale += currentPrice;
         });
 
         const basketTotal = basketAmoutOrder; 
         const basketTotalSale = basketAmoutOrderSale;
-        const ndsTotal = calcNds(basketTotal);
+        const ndsTotal = calcNds(basketTotalSale);
         const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
 
-        $(ELEMENTS_SELECTOR.product_total).html(basketProductTotal);
-        $(ELEMENTS_SELECTOR.nds).html(ndsTotal + ' ₽');
-        $(ELEMENTS_SELECTOR.amount).html(basketAmoutOrder + ' ₽');
-        $(ELEMENTS_SELECTOR.economy).html(economyTotal + ' ₽');
-        $(ELEMENTS_SELECTOR.total).html(basketTotalSale + ' ₽');
+        acceptProductTotal(basketProductTotal);
+        acceptNds(ndsTotal);
+        acceptAmount(basketAmoutOrder);
+        acceptEconomy(economyTotal);
+        acceptTotal(basketTotalSale);
 
         return basketAmoutOrder
     }
@@ -135,23 +147,22 @@ export default function () {
         const basketCard = $(ELEMENTS_SELECTOR.card)
         const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
         const basketCardError = basketCard.find('.basket-card__bonus-error');
-        const bonusInput = $(ELEMENTS_SELECTOR.bonus_input);
-        const bonusInputControl = $(ELEMENTS_SELECTOR.bonus_input).find('.input__control');
+        const bonusInput = $(ELEMENTS_SELECTOR.bonusInput);
+        const bonusInputControl = bonusInput.find('.input__control');
         const bonusInputValue = bonusInputControl.val();
-        const bonusBalanceValue = $(ELEMENTS_SELECTOR.bonus_balance)
-        .text()
-        .replace(' ', '');
+        const bonusInputValueNumber = Number(bonusInputValue);
+        const bonusBalanceValue = $(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,'');
         const bonusBalance = parseInt(bonusBalanceValue);
-        const button = $(ELEMENTS_SELECTOR.bonus_button);
+        const button = $(ELEMENTS_SELECTOR.bonusButton);
         const buttonIcon = button.find('.button__icon');
-        const totalBasket = $(ELEMENTS_SELECTOR.total).text()
-        const percentageBonusPay = calcBonusPercent(bonusInputValue, totalBasket);
+        const totalBasket = $(ELEMENTS_SELECTOR.total).text().replace(/\s/g,'');
+        const percentageBonusPay = calcBonusPercent(bonusInputValueNumber, totalBasket); 
 
         if (!bonusInputValue) {
           return  
         }
 
-        if (bonusBalance < bonusInputValue) {
+        if (bonusBalance < bonusInputValueNumber) {
             errorCard = true;
 
             basketCardWrapper.addClass('basket-card__bonus-wrapper--error');
@@ -171,101 +182,105 @@ export default function () {
         } else {
             errorCard = false;
             bonusAccept = true;
-
+        
             const basketAmoutOrder = checkStatusBasket();
-            const priceBasket = calcTotal(totalBasket, bonusInputValue);
-            const updateBalanceBonus = calcBonus(bonusBalance, bonusInputValue);
+            const priceBasket = calcTotal(totalBasket, bonusInputValueNumber);
+            const updateBalanceBonus = calcBonus(bonusBalance, bonusInputValueNumber);
             const updateEconomy = calcEconomy(basketAmoutOrder, priceBasket);
             const updateNds = calcNds(priceBasket);
 
-            $(ELEMENTS_SELECTOR.nds).html(updateNds + ' ₽');    
-            $(ELEMENTS_SELECTOR.bonus_balance).html(updateBalanceBonus + ' ББ');
-            $(ELEMENTS_SELECTOR.economy).html(updateEconomy + ' ₽');
-            $(ELEMENTS_SELECTOR.total).html(priceBasket + ' ₽');
-           
+            acceptNds(updateNds);
+            acceptEconomy(updateEconomy);
+            acceptTotal(priceBasket);
+            acceptBonusBalance(updateBalanceBonus);
+
+            totalBonus += bonusInputValueNumber;
+
             basketCardWrapper.removeClass('basket-card__bonus-wrapper--error');
             button.removeClass('button--red').addClass('button--green');
 
             bonusInput.find('.input__placeholder').html('Списано баллов')
+            const bonusInputValue = bonusInputControl.val(totalBonus);
             buttonIcon.html(iconRefresh);
             basketCardError.hide();
         }     
     }
 
     function priceСalc(price, amount) {
-        const priceProduct = parseInt(amount) * parseInt(price);
-   
-        return priceProduct
+        return parseInt(amount) * parseInt(price);
     }
 
     function calcNds(total) {
-        const ndsProduct = Math.round(parseInt(total) * 0.2);
-
-        return ndsProduct
+        return Math.round(parseInt(total) * 0.2);
     }
 
     function calcTotal(currentPrice, bonus) {
-        const  totalBasket = parseInt(currentPrice) -  parseInt(bonus);
-
-        return totalBasket
+        return parseInt(currentPrice) -  parseInt(bonus);
     }
 
     function calcEconomy(currentPrice, basketTotal) {
-        const  totalEconomy = parseInt(currentPrice) - parseInt(basketTotal);
-
-        return totalEconomy
+        return parseInt(currentPrice) - parseInt(basketTotal);
     }
 
     function calcBonus(bonusBalance, bonusInput) {
-        const totalBonus = parseInt(bonusBalance) - parseInt(bonusInput);
-
-        return totalBonus
+        return parseInt(bonusBalance) - parseInt(bonusInput);
     }
 
     function calcBonusPercent(bonusInput, totalBalance) {
-        const totalBonus = parseInt(bonusInput) / parseInt(totalBalance);
-        
-        return totalBonus
+        return parseInt(bonusInput) / parseInt(totalBalance);
     }
 
     function resetBonus() {
-        const bonusInput = $(ELEMENTS_SELECTOR.bonus_input);
-        const bonusInputControl = $(ELEMENTS_SELECTOR.bonus_input).find('.input__control');
-        const bonusInputValueReset = bonusInputControl.val('');
-        const totalEconimy = $(ELEMENTS_SELECTOR.economy).text();
-        const totalBonusBalance = $(ELEMENTS_SELECTOR.bonus_balance).text();
+        const bonusInput = $(ELEMENTS_SELECTOR.bonusInput);
+        const bonusInputControl = bonusInput.find('.input__control');
+        const bonusInputValue = bonusInputControl.val()
+        const bonusInputValueNumber = Number(bonusInputValue);
+        
+        const totalEconomy = $(ELEMENTS_SELECTOR.economy).text().replace(/\s/g,'');
+        const totalBonusBalance = $(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,'');
 
-        const resetBonus = parseInt(totalEconimy) + parseInt(totalBonusBalance);
-        const resetEconomy = parseInt(totalEconimy) - parseInt(totalEconimy);
+        const resetBonus = parseInt(bonusInputValueNumber) + parseInt(totalBonusBalance);
+        const resetEconomy = parseInt(totalEconomy) - parseInt(totalEconomy);
 
-        $(ELEMENTS_SELECTOR.bonus_balance).html(resetBonus + ' ББ');
+        $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus + ' ББ');
         $(ELEMENTS_SELECTOR.economy).html(resetEconomy + ' ₽');
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
 
         checkStatusBasket();
+        const bonusInputValueReset = bonusInputControl.val('');
+        totalBonus = 0;
     }
 
     function resetInput() {
-        const bonusInput = $(ELEMENTS_SELECTOR.bonus_input);
-        const bonusInputControl = $(ELEMENTS_SELECTOR.bonus_input).find('.input__control');
+        const bonusInput = $(ELEMENTS_SELECTOR.bonusInput);
+        const bonusInputControl = bonusInput.find('.input__control');
         const bonusInputValue = bonusInputControl.val('');
 
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
     }
 
-    const iconError = `
-    <svg class="icon icon--close gui__icon">
-        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
-    </svg>`
+    function acceptNds(total) {
+        $(ELEMENTS_SELECTOR.nds).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+    }
 
-    const iconDefault = `
-    <svg class="icon icon--arrow">
-        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
-    </svg>`
+    function acceptEconomy(total) {
+        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+    }
 
-    const iconRefresh = `
-    <svg class="icon icon--refresh">
-        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
-    </svg>
-    `
+    function acceptTotal(total) {
+        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+    }
+
+    function acceptBonusBalance(total) {
+        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU') + ' ББ');
+    }
+
+    function acceptAmount(total) {
+        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+    }
+
+    function acceptProductTotal(total) {
+        $(ELEMENTS_SELECTOR.productTotal).html(total.toLocaleString('ru-RU'));
+    }
+
 }
