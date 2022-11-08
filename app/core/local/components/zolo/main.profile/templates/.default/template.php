@@ -845,10 +845,10 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                     </div>
                                                     <div class="card-stock__bottom">
                                                         <p class="card-stock__title">
-                                                            Хз сколько <!-- TODO -->
+                                                            <?=$promotion['name']?>
                                                         </p>
                                                         <p class="card-stock__text">
-                                                            Хз на что <!-- TODO -->
+                                                            <!-- TODO Description -->
                                                         </p>
                                                     </div>
                                                 </div>

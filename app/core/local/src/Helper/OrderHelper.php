@@ -70,7 +70,7 @@ class OrderHelper
                 ],
                 '>ACTIVE_TO' => $now,
             ],
-            'select' => ['ID', 'COUPON', 'ACTIVE_TO', 'SHORT_DESCRIPTION' => 'DISCOUNT.SHORT_DESCRIPTION'],
+            'select' => ['ID', 'COUPON', 'ACTIVE_TO', 'NAME' => 'DISCOUNT.NAME'],
             'runtime' => [
                 'DISCOUNT' => [
                     'data_type' => DiscountTable::class,
@@ -79,23 +79,12 @@ class OrderHelper
             ],
         ])->fetchAll();
 
-        $result = array_map(static function (array $coupon): array {
+        return array_map(static function (array $coupon): array {
             return array_combine(
                 array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
                 $coupon
             );
         }, $result);
-
-        foreach ($result as &$item) {
-            if ($description = unserialize($item['short_description'])) {
-                $item['short_description'] = array_combine(
-                    array_map(static fn ($key) => strtolower($key), array_keys($description)),
-                    $description,
-                );
-            }
-        }
-
-        return $result;
     }
 
     public function createOrder(int $userId, array $data)
