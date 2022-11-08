@@ -78,8 +78,7 @@ class DropzoneComponent extends CBitrixComponent
         $arFile = $this->myRequest->getFile($this->arParams['NAME']);
 
         if (!empty($arFile)) {
-            $pathValue = $path ?? $this->arParams['PATH'] ?? "$_SERVER[DOCUMENT_ROOT]/upload/files";
-            $fid = CFile::SaveFile($arFile, $pathValue);
+            $fid = CFile::SaveFile($arFile, 'dropzone');
 
             $APPLICATION->RestartBuffer();
             echo json_encode(['FILE_ID' => $fid]);
