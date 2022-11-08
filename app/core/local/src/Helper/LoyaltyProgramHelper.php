@@ -109,6 +109,17 @@ class LoyaltyProgramHelper
     }
 
     /**
+     * Получить коэффициенты и параметры уровня программы лояльности
+     * @param string $level Уровень программы лояльности
+     * @return array|null
+     */
+    public function getNextLoyaltyLevelInfo(string $level) : ?array
+    {
+        $levels = $this->getLoyaltyLevels();
+        return $levels[$levels['types'][substr($level, 0, 1)]][substr($level, 0, 1) . (substr($level, 1, 1) + 1)] ?? null;
+    }
+
+    /**
      * Возвращает массив ID значений уровней программы лояльности (свойства пользователя)
      * @return array Массив пар "XML_ID" => "ID"
      */
@@ -191,16 +202,17 @@ class LoyaltyProgramHelper
     {
         $user = new User($userId);
         $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+        $nextLoyaltyLevelInfo = $this->getNextLoyaltyLevelInfo($user->loyaltyLevel);
 
         $result = [
             'self' => [
                 'hold_value' => $loyaltyLevelInfo['hold_level_terms']['self_total'],
-                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'upgrade_value' => $nextLoyaltyLevelInfo ? $nextLoyaltyLevelInfo['upgrade_level_terms']['self_total'] : 0,
                 'current_value' => .0,
             ],
             'team' => [
                 'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'],
-                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'upgrade_value' => $nextLoyaltyLevelInfo ? $nextLoyaltyLevelInfo['upgrade_level_terms']['team_total'] : 0,
                 'current_value' => .0,
             ],
         ];
@@ -212,8 +224,8 @@ class LoyaltyProgramHelper
                 '!=UF_ORDER_ID' => null,
                 [
                     'LOGIC' => 'AND',
-                    ['>DATE_INSERT' => $from],
-                    ['<DATE_INSERT' => $to],
+                    ['>UF_CREATED_AT' => $from],
+                    ['<UF_CREATED_AT' => $to],
                 ],
             ],
             'select' => ['ID', 'UF_AMOUNT', 'UF_SOURCE'],

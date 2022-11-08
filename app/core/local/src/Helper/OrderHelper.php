@@ -140,6 +140,7 @@ class OrderHelper
             'order' => ['UF_CREATED_AT' => 'ASC'],
             'filter' => [
                 '=UF_USER_ID' => $user->id,
+                '!=UF_ORDER_ID' => null,
             ],
             'select' => [
                 'ID',

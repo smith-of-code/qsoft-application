@@ -195,20 +195,11 @@ export const LoyaltyReport = {
                             <div class="tabs__block tabs__block--active" data-tab-section="block1">
                                 <div class="participant__block">
                                     <div class="participant__progress cards-progress">
-                                        <ul class="cards-progress__list">
-                                            <li class="cards-progress__item">
-                                                <LoyaltyStatusReport
-                                                    :current-value="mutableLoyaltyStatus.self.current_value"
-                                                    :target-value="mutableLoyaltyStatus.self.hold_value"
-                                                />
-                                            </li>
-                                            <li class="cards-progress__item">
-                                                <LoyaltyStatusReport
-                                                    :current-value="mutableLoyaltyStatus.self.current_value"
-                                                    :target-value="mutableLoyaltyStatus.self.upgrade_value"
-                                                />
-                                            </li>
-                                        </ul>
+                                        <LoyaltyStatusReport
+                                            :current-value="mutableLoyaltyStatus.self.current_value"
+                                            :hold-value="mutableLoyaltyStatus.self.hold_value"
+                                            :upgrade-value="mutableLoyaltyStatus.self.upgrade_value"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -218,20 +209,12 @@ export const LoyaltyReport = {
                             <div class="tabs__block" data-tab-section="block2">
                                 <div class="participant__block">
                                     <div class="participant__progress cards-progress">
-                                        <ul class="cards-progress__list">
-                                            <li class="cards-progress__item">
-                                                <LoyaltyStatusCard
-                                                    :current-value="mutableLoyaltyStatus.team.current_value"
-                                                    :target-value="mutableLoyaltyStatus.team.hold_value"
-                                                />
-                                            </li>
-                                            <li class="cards-progress__item">
-                                                <LoyaltyStatusCard
-                                                    :current-value="mutableLoyaltyStatus.team.current_value"
-                                                    :target-value="mutableLoyaltyStatus.team.upgrade_value"
-                                                />
-                                            </li>
-                                        </ul>
+                                        <LoyaltyStatusReport
+                                            :current-value="mutableLoyaltyStatus.team.current_value"
+                                            :hold-value="mutableLoyaltyStatus.team.hold_value"
+                                            :upgrade-value="mutableLoyaltyStatus.team.upgrade_value"
+                                            :is-group="true"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -261,13 +244,13 @@ export const LoyaltyReport = {
                         <div class="tabs__body">
                             <!--Таб Личные-->
                             <div class="tabs__block tabs__block--active" data-tab-section="block1">
-                                <OrdersReport :orders-report="mutableOrdersReport" />
+                                <OrdersReport :orders-report="mutableOrdersReport.self" />
                             </div>
                             <!--/Таб Личные-->
 
                             <!--Таб Групповые-->
                             <div class="tabs__block" data-tab-section="block2">
-                                <OrdersReport :orders-report="{}" />
+                                <OrdersReport :orders-report="mutableOrdersReport.team" />
                             </div>
                             <!--/Таб Групповые-->
                         </div>
