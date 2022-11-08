@@ -1,11 +1,23 @@
 <?
 
+use Bitrix\Main\Engine\Contract\Controllerable;
 use QSoft\Entity\User;
 
  if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-class TechsupportFormHandlerComponent extends CBitrixComponent
+class TechsupportFormHandlerComponent extends CBitrixComponent implements Controllerable
 {
+    public function configureActions()
+    {
+        return [
+            'load' => [
+                '-prefilters' => [
+                    Csrf::class,
+                ],
+            ]
+        ];
+    }
+
     public function onPrepareComponentParams($arParams)
     {
         return $arParams;
@@ -32,6 +44,13 @@ class TechsupportFormHandlerComponent extends CBitrixComponent
         if (!$this->arParams["IBLOCKS"] || $this->arParams["IBLOCKS"] <= 0) {
             ShowError(GetMessage("IBLOCK_MODULE_NOT_FOUND"));
         }
+    }
+
+    public function loadAction()
+    {
+        return json_encode([
+            'data' => 'test'
+        ]);
     }
 
     public function prepareResult()
