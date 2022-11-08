@@ -78,7 +78,7 @@ class SupportEventListner
 
         //Добавить уведомление
         $notifier = new SupportTicketUpdateNotifier($ticketValues);
-        (new User())->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
+        (new User($ticketValues['OWNER_USER_ID']))->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**
