@@ -51,7 +51,9 @@
 
  const app = {
     ready() {
-        (new Zolo.Loader()).run();
+        if (typeof Zolo !== 'undefined') {
+            (new Zolo.Loader()).run();
+        }
 
         // Пример вызова импортированных функций
         // pluginName();
