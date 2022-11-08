@@ -205,20 +205,27 @@ class LoyaltyProgramHelper
             ],
         ];
 
-        $orders = OrderTable::getList([
+        $transactions = TransactionTable::getList([
             'filter' => [
-                '=USER_ID' => $userId,
+                '=UF_USER_ID' => $user->id,
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['money']),
+                '!=UF_ORDER_ID' => null,
                 [
                     'LOGIC' => 'AND',
                     ['>DATE_INSERT' => $from],
                     ['<DATE_INSERT' => $to],
                 ],
             ],
-            'select' => ['ID', 'PRICE']
-        ])->fetchAll();
+            'select' => ['ID', 'UF_AMOUNT', 'UF_SOURCE'],
+        ]);
 
-        foreach ($orders as $order) {
-            $result['self']['current_value'] += $order['PRICE'];
+        $groupSourceFieldId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']);
+        foreach ($transactions as $transaction) {
+            if ($transaction['UF_SOURCE'] === $groupSourceFieldId) {
+                $result['team']['current_value'] += $transaction['UF_AMOUNT'];
+            } else {
+                $result['self']['current_value'] += $transaction['UF_AMOUNT'];
+            }
         }
 
         return $result;
