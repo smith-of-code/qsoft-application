@@ -27,11 +27,6 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         ];
     }
 
-    public function onPrepareComponentParams($arParams)
-    {
-        return parent::onPrepareComponentParams($arParams);
-    }
-
     public function executeComponent()
     {
         try {
@@ -70,8 +65,15 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         ])->fetchAll();
         foreach ($products as &$product) {
             $product['PICTURE'] = CFile::GetPath($product['PICTURE']);
+            $product['PRICE'] = self::getWholePart($product['PRICE']);
+            $product['QUANTITY'] = self::getWholePart($product['QUANTITY']);
         }
         return $products;
+    }
+
+    private static function getWholePart(string $numeric): string
+    {
+        return explode(".", $numeric)[0];
     }
 
     private function getOrderDetails(Order $order): array

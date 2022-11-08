@@ -1,0 +1,21 @@
+<?php
+$MESS['RETURN_TO_ORDER_LIST'] = 'К списку заказов';
+$MESS['ORDER_CREATION_DATE'] = 'Заказ от ';
+$MESS['NUMBER'] = '№';
+$MESS['CREATED_BY'] = 'Кем заказан';
+$MESS['ORDER_STATUS'] = 'Статус заказа';
+$MESS['PAID_STATUS'] = 'Статус оплаты';
+$MESS['PAID'] = 'Оплачен';
+$MESS['NOT_PAID'] = 'Не оплачен';
+$MESS['PERSONAL_PROMOTION_APPLIED'] = 'применена персональная акция';
+$MESS['RUBLE'] = ' ₽';
+$MESS['CREDIT'] = ' ББ';
+$MESS['REPEAT_ORDER'] = 'Повторить заказ';
+$MESS['ORDER_LIST'] = 'Состав заказа';
+$MESS['NAME'] = 'Наименование';
+$MESS['PRICE'] = 'Цена';
+$MESS['QUANTITY'] = 'Количество';
+$MESS['CREDIT_FOR_PRODUCT'] = 'Сумма баллов';
+$MESS['ARTICLE'] = 'Арт. ';
+$MESS['SHOW_MORE'] = 'Показать больше';
+$MESS['RETURN_ORDER'] = 'Вернуть заказ';
