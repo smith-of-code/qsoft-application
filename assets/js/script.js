@@ -47,11 +47,17 @@
  import identic from './modules/identic';
  import showText from './modules/show-text';
  import basket from './modules/basket';
+ import calculator from './modules/calculator';
+
 
 
  const app = {
     ready() {
-        // Пример вызова импортированнывх функций
+        if (typeof Zolo !== 'undefined') {
+            (new Zolo.Loader()).run();
+        }
+
+        // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
 
@@ -86,6 +92,7 @@
         identic();
         showText();
         basket();
+        calculator();
     },
 
     load() {

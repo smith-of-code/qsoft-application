@@ -1,4 +1,17 @@
 .participant {
+    &--accounting & {
+        &__header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__info {
+            &-name {
+                display: block;
+            }
+        }
+    }
+
     &__head {
         display: none;
 
@@ -57,6 +70,66 @@
         & + & {
             @media #{$screen-desktop} {
                 margin-top: rem($gap-mini);
+            }
+        }
+    }
+
+    &__item--main & {
+        &__col {
+            @media #{$screen-desktop} {
+                margin-right: rem($gap-small);
+            }
+
+            &--avatar {
+                margin-right: rem(20px);
+            }
+
+            &--name {
+                @media #{$screen-desktop} {
+                    width: rem(160px);
+                }
+            }
+
+            &--id {
+                @media #{$screen-desktop} {
+                    width: rem(80px);
+                }
+            }
+
+            &--level {
+                text-align: left;
+
+                @media #{$screen-desktop} {
+                    width: rem(80px);
+                }
+            }
+
+            &--date {
+                margin-right: rem(40px);
+
+                @media #{$screen-tablet} {
+                    margin-right: 0;
+                }
+
+                @media #{$screen-desktop} {
+                    width: rem(80px);
+                }
+            }
+
+            &--email {
+                @media #{$screen-desktop} {
+                    width: rem(196px);
+                }
+            }
+
+            &--separated {
+                @media #{$screen-tablet} {
+                    margin-right: rem(28px);
+                }
+
+                @media #{$screen-desktop} {
+                    margin-right: 0;
+                }
             }
         }
     }
@@ -257,7 +330,11 @@
         }
 
         &-title {
+            font-size: rem($font-size-normal);
+
             margin-bottom: rem($gap-medium);
+
+            color: $tuna;
 
             @media #{$screen-desktop} {
                 margin-bottom: rem(20px);
