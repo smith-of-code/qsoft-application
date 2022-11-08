@@ -52,8 +52,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
                 $arFile = array_first($request->getFileList()->toArray());
                 if (!empty($arFile)) {
-                    $pathValue = $path ?? $this->arParams['PATH'] ?? "$_SERVER[DOCUMENT_ROOT]/upload/files";
-                    $fid = CFile::SaveFile($arFile, $pathValue);
+                    $fid = CFile::SaveFile($arFile, 'dropzone');
 
                     $APPLICATION->RestartBuffer();
                     echo json_encode(['FILE_ID' => $fid]);
