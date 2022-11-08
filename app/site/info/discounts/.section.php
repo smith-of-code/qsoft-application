@@ -1,6 +1,3 @@
-<?
+<?php
 $sSectionName = "Акции";
-$arDirProperties = Array(
-
-);
-?>
+$arDirProperties = [];
