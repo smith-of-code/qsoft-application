@@ -175,7 +175,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
     let basketOfset = 0;
-    console.log(offset);
+
     $(document).ready(function () {
         $('#PAYD').on('select2:close', function(){
             filteringValues('payd', $(this).val());
@@ -197,7 +197,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                 $(this).removeClass('desc');
                 orderSort = 'DESC';
             }
-            console.log(orderSort);
             filteringValues('sorting', $('#sort').val(), orderSort);
         });
 
@@ -214,47 +213,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
 
     });
-
-    function filteringValues(filterType, value, sort = '') {
-        let filter = {
-            by: filterType === 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
-            status: filterType === 'status' ? value: $('#STATUS').val(),
-            payd: filterType === 'payd' ? value: $('#PAYD').val(),
-            order: sort !== '' ? sort: 'asc',
-            filter_id: filterType === 'search' ? value : '',
-        };
-        showMore.style.cssText = '';
-        console.log(filter, $('#sort').val(), $('#STATUS').val(), $('#PAYD').val());
-
-        BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
-            mode: 'class',
-            data: {
-                filter:filter,
-                offset: 1,
-                limit: size,
-            }
-        }).then(function (response) {
-            let orders = JSON.parse(response.data);
-            console.log("filter", orders);
-            
-            $('#order_list').empty();
-            offset = orders.offset;
-            if (Object.keys(orders.orders.ORDERS).length == 0) {
-                setData('Ничего не найдено');
-                showMore.style.cssText = 'display:none;';
-            } else {
-                if (orders.last) {
-                    showMore.style.cssText = 'display:none;';
-                    setData(orders);
-                } else {
-                    setData(orders);
-                }
-            }
-
-        }, function (response) {
-            console.log(123, "err", response.errors);
-        });
-    }
 
     showMore.onclick = function (e) {
         let filter = {
@@ -275,7 +233,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         }).then(function (response) {
             let orders = JSON.parse(response.data);
 
-            console.log("page", orders);
             offset = orders.offset;
             if (orders.last) {
                 showMore.style.cssText = 'display:none;';
@@ -285,59 +242,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             }
         }, function (response) {
             console.log("err", response.errors);
-        });
-    }
-
-    function setData(data) {
-        $.ajax({
-            method: 'POST',
-            data: {
-                data: data
-            },
-            url: '/ajax/order_list.php',
-            success: function (data) {
-                $('#order_list').append(data)
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
-    }
-
-    function getBasketData(orderId, ofset) {
-        console.log(orderId, ofset);
-        BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
-            mode: 'class',
-            data: {
-                orderId: orderId,
-                offset: ofset,
-            }
-        }).then(function (response) {
-            let basket = JSON.parse(response.data);
-
-            console.log("basket", basket);
-            if (basket.basket.PRODUCTS.length == 0) {
-                $('div').find('[data-list-id=' + orderId + ']').hide();
-            }
-            setBasketList(basket.basket, orderId);
-        }, function (response) {
-            console.log("err", response.errors);
-        });
-    }
-
-    function setBasketList(data, orderId) {
-        $.ajax({
-            method: 'POST',
-            data: {
-                data: data
-            },
-            url: '/ajax/order_basket_list.php',
-            success: function (data) {
-                $('div[data-list-id= ' + orderId + ']').append(data)
-            },
-            error: function (error) {
-                console.log(error);
-            },
         });
     }
 </script>
