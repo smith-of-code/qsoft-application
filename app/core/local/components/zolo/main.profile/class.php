@@ -158,6 +158,25 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function savePersonalDataAction(array $userInfo): array
     {
+        $messageId = null;
+        $oldUserData = $this->user->getPersonalData();
+        $message = "Заявка на изменение персональных данных пользователя ID {$this->user->id}:\n";
+
+        foreach ($userInfo as $key => $value) {
+            if ($oldUserData[$key] !== $value) {
+                $message .= strtoupper($key) . ": $oldUserData[$key] -> $value\n";
+            }
+        }
+
+        CModule::IncludeModule('support');
+        CTicket::Set([
+            'TITLE' => 'Заявка на изменение персональных данных',
+            'OWNER_SID' => $this->user->phone,
+            'OWNER_USER_ID' => $this->user->id,
+            'MESSAGE' => $message,
+        ], $messageId);
+        return ['status' => 'success'];
+
         $fields = [
             'LOGIN' => $userInfo['phone'],
             'NAME' => $userInfo['first_name'],
