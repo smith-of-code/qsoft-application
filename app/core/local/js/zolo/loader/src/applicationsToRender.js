@@ -7,6 +7,7 @@ import {SelectOffer} from "../../components/detailOffers/src/offerSelect";
 import {OfferArticle} from "../../components/detailOffers/src/offerArticle";
 import {SelectOfferMobile} from "../../components/detailOffers/src/offerSelectMobile";
 import {OfferImage} from "../../components/detailOffers/src/offerImage";
+import {LoyaltyStatusReport} from "../../components/loyaltyStatusReport/src/component";
 
 export default {
     '#miniBasket': MiniBasket,
@@ -15,6 +16,7 @@ export default {
     '#legalEntity': LegalEntity,
     '#salesReportPage': SalesReportPage,
 
+    '#loyaltyStatusReport': LoyaltyStatusReport,
     // DetailOfferPage components
     '#offerSelect':  SelectOffer,
     '#offerArticle':  OfferArticle,
