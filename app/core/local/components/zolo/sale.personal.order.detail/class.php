@@ -65,15 +65,15 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         ])->fetchAll();
         foreach ($products as &$product) {
             $product['PICTURE'] = CFile::GetPath($product['PICTURE']);
-            $product['PRICE'] = self::getWholePart($product['PRICE']);
-            $product['QUANTITY'] = self::getWholePart($product['QUANTITY']);
+            $product['PRICE'] = self::formatPrice($product['PRICE']);
+            $product['QUANTITY'] = intVal($product['QUANTITY']);
         }
         return $products;
     }
 
-    private static function getWholePart(string $numeric): string
+    private static function formatPrice(string $numeric): string
     {
-        return explode(".", $numeric)[0];
+        return number_format($numeric, 0, " ", " ");
     }
 
     private function getOrderDetails(Order $order): array
@@ -89,8 +89,8 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
             'CREATED_BY' => $this->formUserName(),
             'ORDER_STATUS' => $statusName['NAME'],
             'IS_PAID' => $order->isPaid(),
-            'TOTAL_PRICE' => $order->getPrice(),
-            'VOUCHER_USED' => (bool)$order->getField(['PAY_VOUCHER_NUM']),
+            'TOTAL_PRICE' => self::formatPrice($order->getPrice()),
+            'IS_PROMOTION' => (bool)$order->getField(['PAY_VOUCHER_NUM']),
         ];
     }
 
