@@ -42,7 +42,7 @@ $offerId = $arResult['OFFER_FIRST'];
 ?>
 <div id="offerStore"
     prop-offers='<?= phpToVueObject($arResult) ?>'
-    prop-current-offer-id='<?= $arResult['OFFER_FIRST'] ?>'
+    prop-current-offer-id='<?= $offerId ?>'
 ></div>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
@@ -302,27 +302,27 @@ $offerId = $arResult['OFFER_FIRST'];
                 </div>
                 <!-- Блок селекта фассовки малый вариант-->
 
-                <?php if ($USER->isAuthorized()): ?>
-
-                    <div class="cart__price price">
-                        <p class="price__main">1 545 ₽</p>
+                <!-- Блок цены ТП -->
+                <div id="offerPrice"
+                     class="cart__price price"
+                     prop-is-authorised="<?= json_encode($USER->isAuthorized()) ?>">
+                    <?php if ($USER->isAuthorized()): ?>
+                        <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?> ₽</p>
                         <div class="price__calculation">
-                            <p class="price__calculation-total">1 420 ₽</p>
-                            <p class="price__calculation-accumulation">14 ББ</p>
+                            <p class="price__calculation-total">? ₽</p>
+                            <p class="price__calculation-accumulation">? ББ</p>
                         </div>
-                    </div>
-
-                <?php else: ?>
-
-                    <!-- Если не авторизован -->
-                    <div class="cart__price price">
+                    <?php else: ?>
+                        <!-- Если не авторизован -->
                         <div class="price__calculation" >
-                            <p class="price__calculation-total price__calculation-total--red">1 420 ₽</p>
-                            <p class="price__main">1 545 ₽</p>
+                            <p class="price__calculation-total price__calculation-total--red">? ₽</p>
+                            <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?></p>
                         </div>
-                    </div>
+                    <?php endif; ?>
+                </div>
+                <!-- Блок цены ТП -->
 
-                <?php endif; ?>
+                <!-- Блок количества ТП -->
                 <div class="cart__quantity quantity" data-quantity>
                     <div class="quantity__button" data-quantity-button>
                         <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
@@ -366,6 +366,7 @@ $offerId = $arResult['OFFER_FIRST'];
                         </div>
                     </div>
                 </div>
+                <!-- Блок количества ТП -->
             </div>
             <!-- Блок  Ваш заказ -->
         </div>

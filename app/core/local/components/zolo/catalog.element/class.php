@@ -347,7 +347,7 @@ class CatalogElementComponent extends Element
 
             $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
-            $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
+            $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_IS_BESTSELLER_VALUE'] === 'Да';
 
             if($offer['PROPERTY_PACKAGING_VALUE']) {
                 $result['PACKAGINGS'][] = [
