@@ -10,6 +10,7 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
@@ -74,6 +75,10 @@ class SupportEventListner
             default:
                 break;
         }
+
+        //Добавить уведомление
+        $notifier = new SupportTicketUpdateNotifier($ticketValues);
+        (new User($ticketValues['OWNER_USER_ID']))->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**
@@ -84,6 +89,10 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
+        if (empty($ticketValues['CATEGORY_ID']) || $ticketValues['CATEGORY_ID'] == 0) {
+            return; // возвращаем void если не выбрана категория.
+        }
+
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
@@ -246,7 +255,7 @@ class SupportEventListner
         $user = new User($ticketValues['OWNER_USER_ID']);
         if (!empty($fields['USER_INFO'])){
             $user->Update($fields['USER_INFO']);
-            $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
+            $user->legalEntity->update($fields['LEGAL_ENTITY']);
         }
     }
 
@@ -385,6 +394,12 @@ class SupportEventListner
         ];
     }
 
+    /**
+     * Возвращает текущий протокол http
+     *
+     * @return string
+     * 
+     */
     private function getProtocol(): string
     {
         return (

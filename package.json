@@ -20,6 +20,8 @@
         "@babel/runtime": "^7.17.8",
         "@bitrix/cli": "^3.1.1",
         "@fancyapps/fancybox": "^3.5.7",
+        "chart.js": "^3.9.1",
+        "chartjs-plugin-datalabels": "^2.1.0",
         "dotdotdot-js": "^4.1.0",
         "dropzone": "^5.7.0",
         "inputmask": "^5.0.7",

@@ -5,26 +5,21 @@ namespace QSoft\ORM;
 use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ORM\Fields\DatetimeField;
 use Bitrix\Main\SystemException;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\Entity\EnumField;
-use Bitrix\Main\Entity\DatetimeField;
+use \Bitrix\Main\Type\DateTime;
+
+
 
 Loc::loadMessages(__FILE__);
 
 final class NotificationTable extends BaseTable
 {
-    const TYPES = [
-        'application_status_change' => 'NOTIFICATION_TYPE_APPLICATION_STATUS_CHANGE',
-        'order_created' => 'NOTIFICATION_TYPE_ORDER_CREATED',
-        'order_status_change' => 'NOTIFICATION_TYPE_ORDER_STATUS_CHANGE',
-        'order_ready' => 'NOTIFICATION_TYPE_ORDER_READY',
-        'order_canceled' => 'NOTIFICATION_TYPE_ORDER_CANCELED',
-    ];
-
     const STATUSES = [
-        'read' => 'NOTIFICATION_STATUS_READ',
         'unread' => 'NOTIFICATION_STATUS_UNREAD',
+        'read' => 'NOTIFICATION_STATUS_READ',
     ];
 
     protected static array $decorators = [
@@ -53,7 +48,7 @@ final class NotificationTable extends BaseTable
             ]),
             new StringField('UF_TITLE', [
                 'required' => true,
-                'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_TITLE'),
+                'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_TITLE_FIELD'),
             ]),
             new EnumField('UF_STATUS', [
                 'required' => true,
@@ -69,7 +64,8 @@ final class NotificationTable extends BaseTable
             ]),
             new DatetimeField('UF_DATE_TIME', [
                 'required' => true,
-                'title' => Loc::getMessage('NOTIFICATION_ENTITY_UF_DATE_TIME'),
+                'title' => Loc::getMessage('NOTIFICATION_ENTITY_DATE_TIME_FIELD'),
+                'default_value' => new DateTime(),
             ]),
         ];
     }
