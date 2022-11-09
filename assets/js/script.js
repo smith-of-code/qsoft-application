@@ -48,6 +48,7 @@
  import showText from './modules/show-text';
  import basket from './modules/basket';
  import calculator from './modules/calculator';
+ import chart from './modules/chart';
 
 
 
@@ -93,6 +94,7 @@
         showText();
         basket();
         calculator();
+        chart();
     },
 
     load() {

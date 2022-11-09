@@ -16,7 +16,7 @@
             border-radius: rem($border-radius-average);
         }
 
-        &-form {
+        &-heading {
             display: flex;
             
             flex-direction: column;
@@ -65,6 +65,27 @@
 
         @media #{$screen-desktop} {
             margin-bottom: rem(20px);
+        }
+    }
+
+    &__diagramm {
+        margin-top: rem($gap-medium);
+        padding: rem($gap-medium) rem($gap-average);
+
+        border-radius: rem($border-radius-average);
+        background-color: $white;
+
+        @media #{$screen-tablet} {
+            padding-bottom: rem($gap-normal);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem($gap-big);
+            padding: rem($gap-normal);
+        }
+
+        &-title {
+            margin-bottom: rem($gap-small);
         }
     }
 }
