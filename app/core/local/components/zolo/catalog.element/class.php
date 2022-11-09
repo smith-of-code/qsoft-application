@@ -404,6 +404,8 @@ class CatalogElementComponent extends Element
             'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
         ];
 
+        $result['ENERGY_VALUE'] = array_filter($result['ENERGY_VALUE'], fn ($value) => !empty($value));
+
         return $result;
     }
 
