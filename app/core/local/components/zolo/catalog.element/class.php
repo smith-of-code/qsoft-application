@@ -7,7 +7,7 @@ use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Iblock\Model\PropertyFeature;
 use Bitrix\Iblock\Component\Element;
-use QSoft\Helper\ColorHelper;
+use QSoft\Helper\HLReferencesHelper;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -326,7 +326,8 @@ class CatalogElementComponent extends Element
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
-            'COLOR_NAMES' => ColorHelper::getColorNames(),
+            'COLOR_NAMES' => HLReferencesHelper::getColorNames(),
+            'SIZE_NAMES' => HLReferencesHelper::getSizeNames(),
             'OFFERS' => $data['OFFERS'], // TODO format
             'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
         ];
@@ -344,8 +345,12 @@ class CatalogElementComponent extends Element
                     'color'=> $offer['PROPERTY_COLOR_VALUE']
                 ];
             }
-
-            $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
+            if ($offer['PROPERTY_COLOR_VALUE'] && $offer['PROPERTY_SIZE_VALUE']) {
+                $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
+                $result['SIZE2COLOR'][$offer['PROPERTY_SIZE_VALUE']][$offer['PROPERTY_COLOR_VALUE']][] = $offer['ID'];
+                $result['COLORS_TYPES'][ $offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+                $result['COLOR2SIZE'][$offer['PROPERTY_COLOR_VALUE']][$offer['PROPERTY_SIZE_VALUE']][] = $offer['ID'] ;
+            }
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
             $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
 
@@ -403,7 +408,7 @@ class CatalogElementComponent extends Element
             'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
             'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
         ];
-
+dump($result);
         return $result;
     }
 
@@ -464,3 +469,4 @@ class CatalogElementComponent extends Element
         return $color[$typeName] ?? 'violet';
     }
 }
+
