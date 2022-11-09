@@ -11,6 +11,10 @@
                 width: percentage(1 / 2);
             }
 
+            @media #{$screen-desktop} {
+                width: auto;
+            }
+
             & + & {
                 margin-bottom: rem($gap-average);
 
@@ -34,13 +38,14 @@
         }
 
         &__results {
-            @media #{$screen-tablet} {
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-            }
+            display: flex;
+            flex-direction: column;
 
             @media #{$screen-desktop} {
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
+
                 margin-top: rem(-$gap-medium);
                 margin-right: rem(-$gap-average);
                 margin-left: rem(-$gap-average);
@@ -48,16 +53,16 @@
         }
 
         &__result {
-            width: percentage(1 / 2);
             padding: 0;
 
             background-color: transparent;
 
-            & + & {
+            &:not(:first-child) {
                 margin-top: rem($gap-average);
             }
 
             @media #{$screen-desktop} {
+                width: percentage(1 / 2);
                 margin-top: rem($gap-medium);
                 padding-right: rem($gap-average);
                 padding-left: rem($gap-average);
@@ -142,7 +147,7 @@
         border-radius: rem($border-radius-middle);
         background-color: $white;
 
-        & + & {
+        &:not(:first-child) {
             margin-top: rem($gap-mini);
         }
 
