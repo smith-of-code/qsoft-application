@@ -1,0 +1,21 @@
+.main {
+    &__section {
+        @include resetting-vertical-indentation-of-first;
+
+        margin-top: rem(56px);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(38px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(80px);
+        }
+
+        &--separated {
+            @media #{$screen-tablet} {
+                margin-top: rem(48px);
+            }
+        }
+    }
+}

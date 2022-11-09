@@ -1,0 +1,16 @@
+.subject {
+    &__row {
+        @media #{$screen-tablet} {
+            display: flex;
+            align-items: center;
+        }
+    }
+    
+    &__item {
+        padding: rem($gap-average);
+
+        @media #{$screen-tablet} {
+            padding: rem($gap-average);
+        }
+    }
+}
