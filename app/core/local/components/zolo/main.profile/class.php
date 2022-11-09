@@ -16,6 +16,7 @@ use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\OrderHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
@@ -27,6 +28,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private User $user;
 
     private PetHelper $petHelper;
+    private OrderHelper $orderHelper;
 
     public function __construct($component = null)
     {
@@ -39,6 +41,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->user = new User($this->userId);
 
         $this->petHelper = new PetHelper;
+        $this->orderHelper = new OrderHelper;
 
         parent::__construct($component);
     }
@@ -85,8 +88,9 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     public function getResult()
     {
         $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
-        $this->arResult['personal_data'] = $this->user->getPersonalData();
         $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
+
+        $this->arResult['personal_data'] = $this->user->getPersonalData();
 
         $pickupPoints = PickupPointTable::getList([
             'order' => ['UF_NAME' => 'ASC'],
@@ -112,6 +116,9 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         foreach ($this->arResult['pet_kinds'] as &$kind) {
             $kind['icon'] = substr(strtolower($kind['code']), 5);
         }
+
+        $this->arResult['personal_promotions'] = $this->orderHelper->getUserCoupons($this->user->id);
+        $this->arResult['promotion_orders'] = $this->orderHelper->getUserOrdersWithPersonalPromotions($this->user->id);
 
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
         //Система лояльности
