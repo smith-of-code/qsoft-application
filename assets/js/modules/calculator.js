@@ -33,7 +33,11 @@ const ELEMENTS_SELECTOR = {
     quantityDecrease: '[data-quantity-decrease]',
     quantityIncrease: '[data-quantity-increase]',
 
-    chart: '[data-chart]',
+    chart: '[data-calculator-chart]',
+    chartIncomeSales: '[data-calculator-chart-income-sales]',
+    chartProfitPurchases: '[data-calculator-chart-profit-purchases]',
+    chartIncomeGroup: '[data-calculator-chart-income-group]',
+    chartOneTimeCharges: '[data-calculator-chart-onetime-charges]',
 };
 
 // Удалить 
@@ -110,7 +114,7 @@ function changeOneTimeCharges() {
         let invitation = getCurrentLevel('invitation');
         oneTimeCharges = quantity * invitation;
 
-        if (bigData.personalLevel < bigData.currentLevel) {
+        if (bigData.currentLevel == 2 || bigData.currentLevel == 3) {
             oneTimeChargesTransitionLevel = getCurrentLevel('transitionToLevel');
         }
     }
@@ -118,6 +122,11 @@ function changeOneTimeCharges() {
     setData('oneTimeCharges', oneTimeCharges);
     setData('oneTimeChargesTransitionLevel', oneTimeChargesTransitionLevel);
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+}
+
+function chartSum(elem, num) {
+    let sum = elem.closest('.diagramm__main').find('.diagramm__sum');
+    sum.html(num.toLocaleString());
 }
 
 export default function () {
@@ -320,7 +329,7 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.calculatorComputing, function(e) {
         e.preventDefault();
 
-        let incomeFromPersonalSales = bigData.personalPurchasesSum / 100 * getCurrentLevel('percent'); // Доход от личных продаж
+        let incomeFromPersonalSales = bigData.personalRub / 100 * getCurrentLevel('percent'); // Доход от личных продаж
         let profitFromPersonalPurchases = bigData.personalPoints; // Прибыль от личных покупок
         let incomeFromGroup = calculateGroup(); // Доход от группы
         let oneTimeCharges = bigData.oneTimeCharges + bigData.oneTimeChargesTransitionLevel; // Разовые начисления
@@ -328,6 +337,7 @@ export default function () {
         
         $(ELEMENTS_SELECTOR.calculatorComputingSum).text(sum.toLocaleString());
 
+        // Обновление основной диаграммы
         let chart = $(ELEMENTS_SELECTOR.chart);
         chart[0].myChart.data.datasets[0].data = [
             incomeFromPersonalSales,
@@ -336,6 +346,43 @@ export default function () {
             oneTimeCharges
         ];
         chart[0].myChart.update();
+        chartSum(chart, sum);
+
+        // Обновление диаграммы Доход от личных продаж
+        let chartIncomeSales = $(ELEMENTS_SELECTOR.chartIncomeSales);
+        chartIncomeSales[0].myChart.data.datasets[0].data = [
+            incomeFromPersonalSales,
+            profitFromPersonalPurchases + incomeFromGroup + oneTimeCharges
+        ];
+        chartIncomeSales[0].myChart.update();
+        chartSum(chartIncomeSales, incomeFromPersonalSales);
+
+        // Обновление диаграммы Прибыль от личных покупок
+        let chartProfitPurchases = $(ELEMENTS_SELECTOR.chartProfitPurchases);
+        chartProfitPurchases[0].myChart.data.datasets[0].data = [
+            profitFromPersonalPurchases,
+            incomeFromPersonalSales + incomeFromGroup + oneTimeCharges
+        ];
+        chartProfitPurchases[0].myChart.update();
+        chartSum(chartProfitPurchases, profitFromPersonalPurchases);
+
+        // Обновление диаграммы Доход от группы
+        let chartIncomeGroup = $(ELEMENTS_SELECTOR.chartIncomeGroup);
+        chartIncomeGroup[0].myChart.data.datasets[0].data = [
+            incomeFromGroup,
+            incomeFromPersonalSales + profitFromPersonalPurchases + oneTimeCharges
+        ];
+        chartIncomeGroup[0].myChart.update();
+        chartSum(chartIncomeGroup, incomeFromGroup);
+
+        // Обновление диаграммы Разовые начисления
+        let chartOneTimeCharges = $(ELEMENTS_SELECTOR.chartOneTimeCharges);
+        chartOneTimeCharges[0].myChart.data.datasets[0].data = [
+            oneTimeCharges,
+            incomeFromPersonalSales + incomeFromGroup + profitFromPersonalPurchases
+        ];
+        chartOneTimeCharges[0].myChart.update();
+        chartSum(chartOneTimeCharges, oneTimeCharges);
 
         $(ELEMENTS_SELECTOR.calculatorComputingBlock).show();
     });
