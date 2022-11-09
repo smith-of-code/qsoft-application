@@ -46,6 +46,8 @@
         }
 
         &-title {
+            font-size: rem($font-size-small);
+
             margin-bottom: rem($gap-small);
 
             color: $tuna;

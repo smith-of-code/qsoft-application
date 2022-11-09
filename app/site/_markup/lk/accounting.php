@@ -99,11 +99,11 @@
                                     <section class="accounting__section section">
                                         <div class="section__box box">
                                             <div class="participant participant--accounting">
-                                                <div class="participant__item">
+                                                <div class="participant__item participant__item--main">
                                                     <div class="participant__header box box--gray box--rounded-sm">
                                                         <div class="participant__row">
                                                             <div class="participant__col participant__col--avatar">
-                                                                <div class="participant__avatar avatar avatar--accent">
+                                                                <div class="participant__avatar avatar avatar--accent avatar--big">
                                                                     <div class="avatar__box">
                                                                         <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                     </div>
@@ -493,7 +493,7 @@
 
                                                     <div class="participant__section">
                                                         <h5 class="participant__section-title">
-                                                            Продажи
+                                                            Покупки
                                                         </h5>
 
                                                         <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -1404,9 +1404,9 @@
                                     <section class="accounting__section section">
                                         <div class="section__box box">
                                             <div class="section__header">
-                                                <h4 class="section__title">
+                                                <h5 class="accounting__section-title section__title">
                                                     Участники группы
-                                                </h4>
+                                                </h5>
                                             </div>
 
                                             <div class="accounting__tabs tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
@@ -1511,7 +1511,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar">
+                                                                                    <div class="accordeon__avatar participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
@@ -1832,7 +1832,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -2744,7 +2744,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar avatar--accent">
+                                                                                    <div class="participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
@@ -3065,7 +3065,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -4298,7 +4298,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -5610,7 +5610,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -6522,7 +6522,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar avatar--accent">
+                                                                                    <div class="participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
@@ -6850,7 +6850,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
@@ -8085,7 +8085,7 @@
 
                                                                             <div class="participant__section">
                                                                                 <h5 class="participant__section-title">
-                                                                                    Продажи
+                                                                                    Покупки
                                                                                 </h5>
 
                                                                                 <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>

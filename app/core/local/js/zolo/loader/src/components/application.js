@@ -1,2 +1,1 @@
-export const Application =
-    {};
+export const Application = {};

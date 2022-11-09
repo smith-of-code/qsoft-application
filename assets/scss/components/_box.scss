@@ -101,5 +101,9 @@
                 margin-bottom: rem($gap-medium);
             }
         }
+
+        &--dark {
+            color: $tuna;
+        }
     }
 }

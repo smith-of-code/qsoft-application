@@ -46,13 +46,19 @@
  import cookie from './modules/cookie';
  import identic from './modules/identic';
  import showText from './modules/show-text';
+ import basket from './modules/basket';
  import calculator from './modules/calculator';
  import chart from './modules/chart';
 
 
+
  const app = {
     ready() {
-        // Пример вызова импортированнывх функций
+        if (typeof Zolo !== 'undefined') {
+            (new Zolo.Loader()).run();
+        }
+
+        // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
 
@@ -86,6 +92,7 @@
         cookie();
         identic();
         showText();
+        basket();
         calculator();
         chart();
     },

@@ -2,6 +2,7 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Security\Password;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
@@ -9,6 +10,7 @@ use CModule;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Service\ConfirmationService;
 use QSoft\Entity\Mutators\UserPropertiesMutator;
 use QSoft\Service\BonusAccountService;
 use QSoft\Service\LegalEntityService;
@@ -43,6 +45,10 @@ class User
      * @var NotificationService Объект для работы с уведомлениями
      */
     public NotificationService $notification;
+    /**
+     * @var ConfirmationService Объект для работы с подтверждениями
+     */
+    public ConfirmationService $confirmation;
     /**
      * @var OrderAmountService Объект для подсчета статистики по заказам пользователя
      */
@@ -86,6 +92,14 @@ class User
      */
     public ?string $secondName;
     /**
+     * @var string Город
+     */
+    public string $city;
+    /**
+     * @var int
+     */
+    public int $pickupPointId;
+    /**
      * @var string E-mail
      */
     public string $email;
@@ -94,10 +108,6 @@ class User
      */
     public string $gender;
     /**
-     * @var string Город
-     */
-    public string $city;
-    /**
      * @var Carbon Дата рождения
      */
     public Carbon $birthday;
@@ -105,6 +115,10 @@ class User
      * @var int Фотография (ID файла)
      */
     public int $photo;
+    /**
+     * @var string Номер телефона
+     */
+    public string $phone;
     /**
      * @var string Уровень в программе лояльности
      */
@@ -134,7 +148,7 @@ class User
     /**
      * @var User|null Наставник
      */
-    public ?User $mentor;
+    private ?User $mentor;
     /**
      * @var int Бонусные баллы
      */
@@ -157,10 +171,6 @@ class User
         'UF_PERSONAL_DISCOUNT_LEVEL',
     ];
 
-    protected static array $protectedFields = [
-        'id', 'login'
-    ];
-
     protected static array $bitrixFieldsToObjectPropertiesMapping = [
         'ID' => 'id',
         'LOGIN' => 'login',
@@ -168,10 +178,13 @@ class User
         'NAME' => 'name',
         'LAST_NAME' => 'lastName',
         'SECOND_NAME' => 'secondName',
+        'PERSONAL_CITY' => 'city',
+        'UF_PICKUP_POINT_ID' => 'pickupPointId',
         'EMAIL' => 'email',
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
         'PERSONAL_PHOTO' => 'photo',
+        'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
@@ -225,6 +238,7 @@ class User
         $this->loyalty = new LoyaltyService($this);
         
         $this->notification = new NotificationService($this);
+        $this->confirmation = new ConfirmationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
@@ -254,6 +268,24 @@ class User
     public function getPhotoUrl(): ?string
     {
         return CFile::GetPath($this->photo);
+    }
+
+    public function getPersonalData(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->name,
+            'last_name' => $this->lastName,
+            'second_name' => $this->secondName,
+            'gender' => $this->gender,
+            'photo' => $this->getPhotoUrl(),
+            'loyalty_level' => $this->loyaltyLevel,
+            'birthdate' => $this->birthday->format('d.m.Y'),
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'city' => $this->city,
+            'pickup_point_id' => $this->pickupPointId,
+        ];
     }
 
     public function getMentor(): ?User
@@ -297,6 +329,9 @@ class User
                         break;
                     case 'bool':
                         $objectPropertyValue = (bool)$objectPropertyValue;
+                        break;
+                    case 'string':
+                        $objectPropertyValue = (string)$objectPropertyValue;
                 }
             }
 
@@ -307,5 +342,24 @@ class User
 
             $this->$objectPropertyName = $objectPropertyValue;
         }
+    }
+
+    public function changePassword(string $password, string $confirmPassword): bool
+    {
+        $checkWord = md5(uniqid().\CMain::GetServerUniqID());
+        $checkWordHash = Password::hash($checkWord);
+
+        global $DB;
+        $DB->Query(<<<SQL
+            update b_user set 
+              CHECKWORD = '$checkWordHash',
+              CHECKWORD_TIME = now(),
+              TIMESTAMP_X = TIMESTAMP_X
+            where ID = '$this->id'
+        SQL);
+
+        $result = (new CUser)->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
+
+        return $result['TYPE'] === 'OK';
     }
 }

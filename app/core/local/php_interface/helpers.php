@@ -65,3 +65,10 @@ if (!function_exists('mb_ucfirst')) {
         return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
     }
 }
+
+if (!function_exists('phpToVueObject')) {
+    function phpToVueObject(array $array): string
+    {
+        return str_replace('\'', '"', CUtil::PhpToJSObject($array));
+    }
+}

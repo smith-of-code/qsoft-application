@@ -14,6 +14,7 @@ use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\ORM\ConfirmationTable;
+use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -150,14 +151,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     private function confirmEmail()
     {
-        $confirmResult = (new ConfirmationService)->verifyEmailCode(
-            $this->arParams['USER_ID'],
+        $user = new User($this->arParams['USER_ID']);
+        $confirmResult = $user->confirmation->verifyEmailCode(
             $this->arParams['CONFIRM_CODE'],
             ConfirmationTable::TYPES['confirm_email'],
         );
 
         if ($confirmResult) {
-            (new User($this->arParams['USER_ID']))->activate();
+            $user->activate();
         }
 
         LocalRedirect('/');
@@ -216,6 +217,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
+                    foreach ($value['files'] as &$file) {
+                        $file['src'] = CFile::GetPath($file['id']);
+                    }
                     $value = $value['files'];
                 } else {
                     $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
@@ -239,11 +243,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
             throw new InvalidArgumentException('Invalid phone number');
         }
+        if (UserTable::getCount(['PERSONAL_PHONE' => $phoneNumber])) {
+            throw new InvalidArgumentException('Пользователь с таким номером телефона уже существует');
+        }
 
         $password = uniqid();
         $user = new CUser;
         $result = $user->Register(
-            $phoneNumber,
+            uniqid('user_', true),
             '',
             '',
             $password,
@@ -258,22 +265,26 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ];
         }
 
-        $user->Update($result['ID'], ['ACTIVE' => 'N']);
+        $user->Update($result['ID'], [
+            'ACTIVE' => 'N',
+            'PERSONAL_PHONE' => $phoneNumber,
+        ]);
         $user->Logout();
 
         $this->setRegisterData([
+            'phone' => $phoneNumber,
             'password' => $password,
             'user_id' => $result['ID'],
         ]);
 
-        (new ConfirmationService)->sendSmsConfirmation($result['ID']);
+        (new User($result['ID']))->confirmation->sendSmsConfirmation();
 
         return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
     {
-        $verifyResult = (new ConfirmationService)->verifySmsCode($this->getRegisterData()['user_id'], $code);
+        $verifyResult = (new User($this->getRegisterData()['user_id']))->confirmation->verifySmsCode($code);
 
         return ['status' => $verifyResult ? 'success' : 'error'];
     }
@@ -297,6 +308,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
             'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
+            'PERSONAL_PHONE' => $data['phone'],
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => $data['cities'][$data['city']],
             'GROUP_ID' => [$userGroupId],
@@ -349,6 +361,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 'living_house' => $data['living_house'] ?? $data['register_house'],
                 'living_apartment' => $data['living_apartment'] ?? $data['register_apartment'],
                 'living_postal_code' => $data['living_postal_code'] ?? $data['register_postal_code'],
+                'without_living' => (bool) $data['living_locality'],
             ];
 
             if ($data['status'] === 'self_employed') {
@@ -410,13 +423,13 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
             LegalEntityTable::add([
                 'UF_USER_ID' => $registrationData['user_id'],
-                'UF_STATUS' => LegalEntityTable::STATUSES[$data['status']],
+                'UF_STATUS' => EnumDecorator::prepareField('UF_STATUS', LegalEntityTable::STATUSES[$data['status']]),
                 'UF_IS_ACTIVE' => true,
                 'UF_DOCUMENTS' => json_encode($documents, JSON_UNESCAPED_UNICODE),
             ]);
         }
 
-        (new ConfirmationService)->sendEmailConfirmation((int) $registrationData['user_id']);
+        (new User($registrationData['user_id']))->confirmation->sendEmailConfirmation();
 
         $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 

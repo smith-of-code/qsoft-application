@@ -1,3 +1,5 @@
+import truncate from "./truncate";
+
 const ELEMENTS_SELECTOR = {
     tabs: '[data-tabs]',
     tab: '[data-tab]',
