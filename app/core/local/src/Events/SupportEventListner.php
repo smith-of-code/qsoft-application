@@ -10,6 +10,7 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
@@ -74,6 +75,10 @@ class SupportEventListner
             default:
                 break;
         }
+
+        //Добавить уведомление
+        $notifier = new SupportTicketUpdateNotifier($ticketValues);
+        (new User($ticketValues['OWNER_USER_ID']))->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**

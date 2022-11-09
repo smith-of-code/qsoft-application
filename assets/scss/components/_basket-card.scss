@@ -1,0 +1,142 @@
+.basket-card {
+    padding: rem($gap-normal) rem($gap-small) rem($gap-big) rem($gap-small);
+
+    border: rem(1px) solid $alto;
+    border-radius: rem($border-radius-average);
+
+    &__title {
+        font-size: rem($font-size-average);
+        font-weight: $font-weight-bold;
+        line-height: ($line-height-average/$font-size-average);
+
+        color: $tuna;
+
+        @media #{$screen-desktop} {
+            text-align: center; 
+        }
+    }
+
+    &__wrapper {
+        margin-top: rem(20px);
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item {
+        display: flex;
+
+        margin-bottom: rem($gap-small);
+        padding: 0 rem($gap-small);
+
+        &:last-child {
+            margin-top: rem($gap-small);
+            margin-bottom: 0;
+        }
+
+        &::before {
+            flex-grow: 1;
+            order: 2;
+
+            margin: 0 rem(3px);
+            margin-bottom: rem(5px);
+
+            content: '';
+
+            border-bottom: rem(1px) dotted $alto;
+        }
+    }
+
+    &__text {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px/$font-size-small);
+
+        color: $tuna;
+
+        &--gray {
+            color: $saltBox;
+        }
+
+        &--green {
+            color: $seaGreen;
+        }
+
+        &--bold {
+            font-weight: $font-weight-semibold;
+        }
+    }
+
+    &__total {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: (22px/$font-size-small);
+
+        order: 3;
+
+        color: $tuna;
+
+        &--green {
+            color: $seaGreen;
+        }
+
+        &--bold {
+            font-weight: $font-weight-semibold;
+        }
+    }
+
+    &__bonus {
+        padding-top: rem($gap-small);
+        padding-bottom: rem($gap-small);
+
+        &-wrapper {
+            padding: rem($gap-medium);
+
+            background-color: $tara;
+            border-radius: rem($border-radius-average);
+
+            &--error {
+                background-color: $pastelPink; 
+            }
+        }
+
+        &-error {
+            display: none; 
+
+            font-size: rem($font-size-tiny);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-tiny/$font-size-tiny);
+
+            margin-top: rem($gap-small);
+
+            color: $brickRed;
+        }
+
+        &-inner {
+            font-size: rem($font-size-miniature);
+            line-height: ($line-height-miniature/$font-size-miniature);
+
+            display: flex;
+
+            width: 100%;
+            margin-bottom: rem($gap-small);
+        
+            color: $tuna;
+        }
+        &-text {
+            font-weight: $font-weight-medium;
+        }
+
+        &-count {
+            font-weight: $font-weight-bold;
+
+            margin-left: auto;
+        }
+    }
+
+    &__button {
+        margin-top: rem($gap-normal);
+    }
+}
