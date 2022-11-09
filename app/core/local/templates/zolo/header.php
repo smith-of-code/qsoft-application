@@ -461,7 +461,9 @@ global $APPLICATION;
                             </div>
                         </div>
 
-                        <?php if ($USER->isAuthorized()): ?>
+                        <?php
+                        global $USER;
+                        if ($USER->isAuthorized()): ?>
                             <div class="personal__item personal__item--hidden">
                                 <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
                                     <span class="button__icon button__icon--mixed">
@@ -473,8 +475,8 @@ global $APPLICATION;
                                 </button>
                             </div>
                         <?php else: ?>
-                            <div class="personal__item personal__item--hidden" style="display: none">
-                                <button type="button" class="button button--simple button--red button--vertical">
+                            <div class="personal__item personal__item--hidden">
+                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/login';">
                                     <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--login">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
