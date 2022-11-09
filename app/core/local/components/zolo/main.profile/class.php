@@ -17,6 +17,7 @@ use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -27,6 +28,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private User $user;
 
     private PetHelper $petHelper;
+    private TicketHelper $ticketHelper;
 
     public function __construct($component = null)
     {
@@ -39,6 +41,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->user = new User($this->userId);
 
         $this->petHelper = new PetHelper;
+        $this->ticketHelper = new TicketHelper();
 
         parent::__construct($component);
     }
@@ -158,49 +161,54 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function savePersonalDataAction(array $userInfo): array
     {
-        $messageId = null;
-        $oldUserData = $this->user->getPersonalData();
-        $message = "Заявка на изменение персональных данных пользователя ID {$this->user->id}:\n";
-
-        foreach ($userInfo as $key => $value) {
-            if ($oldUserData[$key] !== $value) {
-                $message .= strtoupper($key) . ": $oldUserData[$key] -> $value\n";
-            }
+        $ticketData = ['id' => $userInfo['id']];
+        if ($userInfo['first_name'] !== $this->user->name) {
+            $ticketData['NAME'] = $userInfo['first_name'];
         }
-
-        CModule::IncludeModule('support');
-        CTicket::Set([
-            'TITLE' => 'Заявка на изменение персональных данных',
-            'OWNER_SID' => $this->user->phone,
-            'OWNER_USER_ID' => $this->user->id,
-            'MESSAGE' => $message,
-        ], $messageId);
-        return ['status' => 'success'];
-
-        $fields = [
-            'LOGIN' => $userInfo['phone'],
-            'NAME' => $userInfo['first_name'],
-            'LAST_NAME' => $userInfo['last_name'],
-            'SECOND_NAME' => $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'],
-            'PERSONAL_GENDER' => $userInfo['gender'],
-            'PERSONAL_BIRTHDAY' => $userInfo['birthdate'],
-            'EMAIL' => $userInfo['email'],
-            'PERSONAL_PHONE' => $userInfo['phone'],
-            'PERSONAL_CITY' => $userInfo['city'],
-            'UF_PICKUP_POINT_ID' => $userInfo['pickup_point'],
-        ];
-
+        if ($userInfo['last_name'] !== $this->user->lastName) {
+            $ticketData['LAST_NAME'] = $userInfo['last_name'];
+        }
+        if ($userInfo['second_name'] !== $this->user->secondName) {
+            $ticketData['SECOND_NAME'] = $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'];
+        }
+        if ($userInfo['gender'] !== $this->user->gender) {
+            $ticketData['PERSONAL_GENDER'] = $userInfo['gender'];
+        }
         if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
-            $fields['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+            $ticketData['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+        }
+        if ($userInfo['birthdate'] !== $this->user->birthday->format('d.m.Y')) {
+            $ticketData['PERSONAL_BIRTHDAY'] = $userInfo['birthdate'];
+        }
+        if ($userInfo['email'] !== $this->user->email) {
+            $ticketData['EMAIL'] = $userInfo['email'];
+        }
+        if ($userInfo['phone'] !== $this->user->phone) {
+            $ticketData['PERSONAL_PHONE'] = $userInfo['phone'];
+        }
+        if ($userInfo['city'] !== $this->user->city) {
+            $ticketData['PERSONAL_CITY'] = $userInfo['city'];
+        }
+        if ((int) $userInfo['pickup_point_id'] !==  $this->user->pickupPointId) {
+            $ticketData['UF_PICKUP_POINT_ID'] = $userInfo['pickup_point_id'];
         }
 
-        $updateResult = $this->user->update($fields);
-
-        if ($updateResult && $userInfo['password'] && $userInfo['confirm_password']) {
-            $updateResult = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
+        if (count($ticketData)) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_PERSONAL_DATA_CATEGORY,
+                json_encode($ticketData),
+            );
         }
 
-        return ['status' => $updateResult ? 'success' : 'error'];
+        if ($userInfo['password'] && $userInfo['confirm_password']) {
+            $passwordChanged = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
+        }
+
+        return [
+            'ticket_created' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error',
+            'password_changed' => isset($passwordChanged) && $passwordChanged ? 'success' : 'error',
+        ];
     }
 
     public function sendCodeAction(string $phoneNumber): array
@@ -221,14 +229,17 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function saveLegalEntityDataAction($data): array
     {
-        $result = LegalEntityTable::update($data['id'], [
-            'UF_USER_ID' => $data['user_id'],
-            'UF_IS_ACTIVE' => $data['active'],
-            'UF_STATUS' => $data['type']['id'],
-            'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
-        ]);
+        $oldData = $this->user->legalEntity->getData();
 
-        return ['status' => $result->isSuccess() ? 'success' : 'error'];
+        if ($oldData['type']['id'] !== $data['type']['id'] || $oldData['documents'] !== $data['documents']) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY,
+                json_encode($data, JSON_UNESCAPED_UNICODE),
+            );
+        }
+
+        return ['status' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error'];
     }
 
     public function addPetAction(array $pet): array
