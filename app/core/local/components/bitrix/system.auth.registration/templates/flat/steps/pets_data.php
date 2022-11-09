@@ -35,7 +35,7 @@ if (!$arResult['pets']) {
                                 </div>
 
                                 <div class="pet-card__breed" data-pets-breed>
-                                    <?=$pet['breed']?>
+                                    <?=$arResult['breeds'][$pet['type']][$pet['breed']]?>
                                 </div>
 
                                 <div class="pet-card__info-record">
