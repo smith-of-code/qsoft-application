@@ -76,4 +76,22 @@ class UserFieldHelper
         }
         return $result;
     }
+    
+	/**
+	 * Получаем ФИО пользователя в формате Фамилия И О
+	 *
+	 * @param string $firstName
+	 * @param string|null $secondName
+	 * @param string|null $lastName
+	 * 
+	 * @return string
+	 * 
+	 */
+	public static function userFIOFormat(string $firstName, ?string $secondName = '', ?string $lastName = ''): string
+	{
+		$secondName = mb_substr(mb_convert_case($secondName, MB_CASE_TITLE, 'UTF-8'), 0, 1) . '. ' ?? '';
+		$firstName = mb_substr(mb_convert_case($firstName, MB_CASE_TITLE, 'UTF-8'), 0, 1) . '.' ?? '';
+
+		return $lastName . ' ' . $firstName . $secondName;
+	}
 }

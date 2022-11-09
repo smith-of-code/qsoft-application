@@ -46,12 +46,17 @@
  import cookie from './modules/cookie';
  import identic from './modules/identic';
  import showText from './modules/show-text';
+ import basket from './modules/basket';
  import calculator from './modules/calculator';
+ import chart from './modules/chart';
+
 
 
  const app = {
     ready() {
-        (new Zolo.Loader()).run();
+        if (typeof Zolo !== 'undefined') {
+            (new Zolo.Loader()).run();
+        }
 
         // Пример вызова импортированных функций
         // pluginName();
@@ -87,7 +92,9 @@
         cookie();
         identic();
         showText();
+        basket();
         calculator();
+        chart();
     },
 
     load() {

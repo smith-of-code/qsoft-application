@@ -25,6 +25,15 @@
         }
     }
 
+    &:hover {
+        outline: rem(2px) solid $brickRed;
+        box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
+    }
+
+    &--big {
+        width: rem(60px);
+    }
+
     &--accent {
         outline: rem(2px) solid $brickRed;
         box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
