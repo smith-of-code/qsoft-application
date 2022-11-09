@@ -7,6 +7,8 @@ use QSoft\Entity\User;
 
 class TechsupportFormHandlerComponent extends CBitrixComponent implements Controllerable
 {
+    private int $ticketId;
+    
     public function configureActions()
     {
         return [
@@ -41,15 +43,26 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         if (!CModule::IncludeModule("support")) {
             ShowError(GetMessage("IBLOCK_MODULE_NOT_INSTALLED"));
         }
-        if (!$this->arParams["IBLOCKS"] || $this->arParams["IBLOCKS"] <= 0) {
-            ShowError(GetMessage("IBLOCK_MODULE_NOT_FOUND"));
-        }
     }
 
     public function loadAction()
     {
+        $this->checkRequiredModules();
+        $this->prepareResult();
+        $this->SetResultCacheKeys(["POSITION"]);
+
         return json_encode([
-            'data' => 'test'
+            'data' => $this->arResult,
+        ]);
+    }
+
+    public function sendTicketAction($fields)
+    {
+        $this->checkRequiredModules();
+        $this->sendTicket($fields);
+
+        return json_encode([
+            'data' => $this->ticketId,
         ]);
     }
 
@@ -58,11 +71,33 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         $user = new User();
         $this->arResult['EMAIL'] = $user->email;
         $this->arResult['ID'] = $user->id;
-        $this->arResult['ID'] = $user->id;
+        $this->arResult['MENTHOR_ID'] = $user->menthor->id ?? false;
+        $this->arResult['NAME'] = $user->name;
+        $this->arResult['LAST_NAME'] = $user->lastName;
+        $this->arResult['SECOND_NAME'] = $user->secondName;
+        $this->arResult['BIRTH_DATE'] = $user->birthday;
     }
 
-    public function addTicket()
+    public function sendTicket($fields)
     {
-        //
+        $arFields = $this->prepareFields($fields);
+
+        $this->ticketId = (new CTicket())->set($arFields, $MID, '', 'N', 'Y', 'Y');
+    }
+
+    private function prepareFields($fields)
+    {
+        return [
+            'TITLE' => 'Создано обращение',
+            'MESSAGE' => 'сообщение',
+            'OWNER_SID' => $fields['EMAIL'],
+            'CATEGORY_SID' => '',
+            'CRITICALITY_SID' => '',
+            'STATUS_SID' => '',
+            'MARK_ID' => '',
+            'RESPONSIBLE_USER_ID' => '',
+            'UF_DATA' => 'json data',
+            'UF_ACCEPT_REQUEST' => '',
+        ];
     }
 }

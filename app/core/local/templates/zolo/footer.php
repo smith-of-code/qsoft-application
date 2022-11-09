@@ -88,7 +88,9 @@
                     </a>
                 </li>
                 <li class="footer__item">
-                    <a href="#" class="footer__link">
+                    <a href="#" onKlick="showSupportPopup();" class="footer__link" 
+                                        data-fancybox data-modal-type="modal"
+                                        data-src="#technical-support">
                         Обратиться в поддержку
                     </a>
                 </li>
