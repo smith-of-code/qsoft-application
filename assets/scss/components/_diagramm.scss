@@ -11,9 +11,9 @@
                 width: percentage(1 / 2);
             }
 
-            @media #{$screen-desktop} {
-                width: auto;
-            }
+            //@media #{$screen-desktop} {
+            //    width: auto;
+            //}
 
             & + & {
                 margin-bottom: rem($gap-average);

@@ -3,6 +3,8 @@ import { LoyaltyStatusReport } from "../../loyaltyStatusReport/src/component";
 import { OrdersReport } from "../../ordersReport/src/component";
 import NumberFormatMixin from "../../../mixins/NumberFormatMixin";
 
+let id = 0;
+
 export const LoyaltyReport = {
     components: { LoyaltyStatusReport, OrdersReport },
 
@@ -10,6 +12,7 @@ export const LoyaltyReport = {
 
     data() {
         return {
+            componentId: `loyalty-report${++id}`,
             mutableLoyaltyStatus: {},
             mutableBonusesIncome: {},
             mutableOrdersReport: {},
@@ -71,6 +74,11 @@ export const LoyaltyReport = {
 
             this.mutableLoyaltyStatus = response.data.loyalty_status;
             this.mutableOrdersReport = response.data.orders_report;
+            this.mutableBonusesIncome = response.data.bonuses_income;
+
+            const diagram = $(`#${this.componentId}`)[0];
+            diagram.myChart.data = this.mutableBonusesIncome.js_data;
+            diagram.myChart.update();
         },
     },
 
@@ -101,7 +109,20 @@ export const LoyaltyReport = {
                         </div>
                     </div>
 
-                    <div class="participant__col participant__col--level">
+                    <div v-if="user.pets" class="participant__col participant__col--pets">
+                        <div class="participant__info">
+                            <span class="participant__info-name">Уровень</span>
+                            <div class="participant__info-pets">
+                                <div v-for="pet in user.pets" :key="pet" class="participant__info-pet" :class="'participant__info-pet--' + pet">
+                                    <svg class="icon" :class="'icon--' + pet">
+                                        <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + pet + '-seating'"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div v-else class="participant__col participant__col--level">
                         <div class="participant__info">
                             <span class="participant__info-name">Уровень</span>
                             <span class="participant__info-value">{{ user.loyalty_level }}</span>
@@ -145,31 +166,66 @@ export const LoyaltyReport = {
             </div>
 
             <div :class="{ 'accordeon__body': accordion, 'accounting__section-box': !accordion, 'section__box': !accordion, 'box': !accordion, 'box--gray': !accordion }" :data-accordeon-content="accordion">
-
                 <div v-if="!accordion" class="accounting__period filter filter--content">
                     <form class="accounting__period-form form">
-                        <div class="accounting__period-name heading heading--small">
-                            Выберите период отчета
-                        </div>
+                        <div class="accounting__period-heading">
+                            <div class="accounting__period-name heading heading--small">
+                                Выберите период отчета
+                            </div>
 
-                        <div class="form__field">
-                            <div class="form__field-block form__field-block--input">
-                                <div class="form__control">
-                                    <div class="accounting__period-select select select--mitigate select--small select--squared" data-select>
-                                        <select class="select__control" name="accounting_periods" data-select-control data-placeholder="Период">
-                                            <option><!-- пустой option для placeholder --></option>
-                                            <option
-                                                v-for="accountingPeriod in accountingPeriods"
-                                                :key="accountingPeriod.name"
-                                                :selected="accountingPeriod.name === currentAccountingPeriod.name"
-                                                :value="accountingPeriod.from + '-' + accountingPeriod.to"
-                                            >{{ accountingPeriod.name }}</option>
-                                        </select>
+                            <div class="form__field">
+                                <div class="form__field-block form__field-block--input">
+                                    <div class="form__control">
+                                        <div class="accounting__period-select select select--mitigate select--small select--common" data-select>
+                                            <select class="select__control" name="accounting_periods" data-select-control data-placeholder="Период">
+                                                <option><!-- пустой option для placeholder --></option>
+                                                <option
+                                                  v-for="accountingPeriod in accountingPeriods"
+                                                  :key="accountingPeriod.name"
+                                                  :selected="accountingPeriod.name === currentAccountingPeriod.name"
+                                                  :value="accountingPeriod.from + '-' + accountingPeriod.to"
+                                                >{{ accountingPeriod.name }}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
+                </div>
+
+                <div class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
+                    <h5 class="accounting__diagramm-title">Мой заработок</h5>
+
+                    <div class="diagramm diagramm--simple">
+                        <div class="diagramm__row">
+                            <div class="diagramm__col">
+                                <div class="diagramm__main">
+                                    <canvas
+                                        width="227"
+                                        height="227"
+                                        :id="componentId"
+                                        :data-chart='JSON.stringify(mutableBonusesIncome.js_data)'
+                                    ></canvas>
+                                    <div class="diagramm__sum">{{ formatNumber(mutableBonusesIncome.total) }}</div>
+                                </div>
+                            </div>
+                            <div class="diagramm__col">
+                                <p class="diagramm__title">Сумма всех заработанных баллов:</p>
+
+                                <div class="diagramm__results">
+                                    <div
+                                        v-for="(bonusesIncome, bonusesIncomeKey) in mutableBonusesIncome.js_data.labels"
+                                        :key="bonusesIncomeKey"
+                                        class="diagramm__result"
+                                    >
+                                        <span class="diagramm__result-icon" :style="{ 'background-color': mutableBonusesIncome.js_data.datasets[0].backgroundColor[bonusesIncomeKey] }"></span>
+                                        <span class="diagramm__result-text">{{ bonusesIncome }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="participant__section">

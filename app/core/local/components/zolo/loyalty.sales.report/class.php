@@ -8,12 +8,14 @@ use Bitrix\Main\Type\Date;
 use QSoft\Entity\User;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\OrderHelper;
+use QSoft\Helper\PetHelper;
 use QSoft\ORM\BeneficiariesTable;
 
 class LoyaltySalesReportComponent extends CBitrixComponent implements Controllerable
 {
     private User $user;
 
+    private PetHelper $petHelper;
     private OrderHelper $orderHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
@@ -31,6 +33,7 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
 
         $this->checkModules();
 
+        $this->petHelper = new PetHelper;
         $this->orderHelper = new OrderHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
 
@@ -115,7 +118,12 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         }
 
         return [
-            'user_info' => $user->getPersonalData(),
+            'user_info' => $user->groups->isConsultant() ? $user->getPersonalData() : array_merge($user->getPersonalData(), [
+                'pets' => array_map(
+                    static fn (string $petKindCode): string => strtolower(str_replace('KIND_', '', $petKindCode)),
+                    array_column(array_column($this->petHelper->getUserPets($user->id), 'kind'), 'code'),
+                ),
+            ]),
             'accounting_periods' => $this->loyaltyProgramHelper->getAvailableAccountingPeriods($user->id),
             'orders_report' => $this->orderHelper->getOrdersReport(
                 $user->id,

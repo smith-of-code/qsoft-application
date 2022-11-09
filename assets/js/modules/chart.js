@@ -1,5 +1,6 @@
 import {Chart, DoughnutController, ArcElement, Tooltip} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 Chart.register(DoughnutController, ArcElement, Tooltip, ChartDataLabels);
 
 const ELEMENTS_SELECTOR = {
@@ -7,7 +8,7 @@ const ELEMENTS_SELECTOR = {
 };
 
 export default function () {
-    $(ELEMENTS_SELECTOR.chartElement).each((id, chartItem)=>{
+    $(ELEMENTS_SELECTOR.chartElement).each((id, chartItem) => {
         let data = $(chartItem).data('chart');
         let baseOptions = {
             layout: {
@@ -16,11 +17,8 @@ export default function () {
 
             plugins: {
                 datalabels: {
-                    formatter: (value) => {
-                        if (value == 0) {
-                            return '';
-                        }
-                        return value.toLocaleString();
+                    formatter(value) {
+                        return value === 0 ? '' : value.toLocaleString();
                     },
                     color: '#3A3A43',
                     anchor: 'end',
@@ -41,12 +39,10 @@ export default function () {
             baseOptions.plugins.tooltip.enabled = false;
         }
 
-        let myChart = new Chart(chartItem, {
+        chartItem.myChart = new Chart(chartItem, {
             type: 'doughnut',
             data: data,
             options: baseOptions,
         });
-
-        chartItem.myChart = myChart;
     });
 }

@@ -6,7 +6,9 @@ export const SalesReportPage = {
 
     data() {
         return {
+            consultantsSortAsc: true,
             consultantsSort: 'id',
+            buyersSortAsc: true,
             buyersSort: 'id',
             consultantsLoyaltyLevelFilter: [],
             buyersLoyaltyLevelFilter: [],
@@ -57,7 +59,11 @@ export const SalesReportPage = {
                     ? this.consultantsLoyaltyLevelFilter.includes(consultant.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                return a.user_info[this.consultantsSort] < b.user_info[this.consultantsSort];
+                if (this.consultantsSortAsc) {
+                    return a.user_info[this.consultantsSort] > b.user_info[this.consultantsSort];
+                } else {
+                    return a.user_info[this.consultantsSort] < b.user_info[this.consultantsSort];
+                }
             });
         },
         buyersMembers() {
@@ -66,7 +72,11 @@ export const SalesReportPage = {
                     ? this.buyersLoyaltyLevelFilter.includes(buyer.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                return a.user_info[this.buyersSort] > b.user_info[this.buyersSort];
+                if (this.buyersSortAsc) {
+                    return a.user_info[this.buyersSort] > b.user_info[this.buyersSort];
+                } else {
+                    return a.user_info[this.buyersSort] < b.user_info[this.buyersSort];
+                }
             });
         },
     },
@@ -217,7 +227,7 @@ export const SalesReportPage = {
                                                                                 <option value="email">Email</option>
                                                                             </select>
                                 
-                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="consultantsSortAsc = !consultantsSortAsc">
                                                                                 <span class="button__icon button__icon--medium">
                                                                                     <svg class="icon icon--sort">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
@@ -304,7 +314,7 @@ export const SalesReportPage = {
                                                                                 <option value="email">Email</option>
                                                                             </select>
                                 
-                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
                                                                                 <span class="button__icon button__icon--medium">
                                                                                     <svg class="icon icon--sort">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>

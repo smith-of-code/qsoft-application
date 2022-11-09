@@ -169,15 +169,23 @@ class LoyaltyProgramHelper
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
         ])->fetchAll();
 
-        $result = [];
+        $typeFieldValues = HlBlockHelper::getPreparedEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
 
-        $typeFieldValues = HlBlockHelper::getEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
-        $typeFieldMap = array_combine(array_column($typeFieldValues, 'ID'), array_column($typeFieldValues, 'XML_ID'));
-        foreach ($transactions as $transaction) {
-            $result[$typeFieldMap[$transaction['UF_TYPE']]] += (float)$transaction['UF_AMOUNT'];
-        }
-
-        return $result;
+        return [
+            'total' => array_sum(array_column($transactions, 'UF_AMOUNT')),
+            'js_data' => [
+                'labels' => array_map(
+                    fn (array $transaction): string => TransactionTable::TYPES_LABELS[$typeFieldValues[$transaction['UF_TYPE']]['code']],
+                    $transactions
+                ),
+                'datasets' => [
+                    [
+                        'data' => array_column($transactions, 'UF_AMOUNT'),
+                        'backgroundColor' => ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"],
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**

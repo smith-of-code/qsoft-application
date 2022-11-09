@@ -21,6 +21,13 @@ final class TransactionTable extends BaseTable
         'upgrade' => 'TRANSACTION_TYPE_UPGRADE',
     ];
 
+    const TYPES_LABELS = [
+        self::TYPES['purchase'] => 'Поступление',
+        self::TYPES['invite'] => 'За приглашение',
+        self::TYPES['referral'] => 'За рефералла',
+        self::TYPES['upgrade'] => 'За повышение уровня лояльности',
+    ];
+
     const SOURCES = [
         'personal' => 'TRANSACTION_SOURCE_PERSONAL',
         'group' => 'TRANSACTION_SOURCE_GROUP',
