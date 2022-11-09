@@ -1,12 +1,12 @@
-<?php if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) die();
-
-use Bitrix\Catalog\GroupTable;
-use Bitrix\Catalog\PriceTable;
+<?php
+if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+use QSoft\Service\ProductService;
 use Bitrix\Main\Loader;
 use Bitrix\Sale\Order;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use	Bitrix\Main\Localization\Loc;
-use \QSoft\Service\ProductService;
 use \Bitrix\Main\Engine\ActionFilter\Csrf;
 use \QSoft\Entity\User;
 use \Bitrix\Sale\Internals\StatusTable;
@@ -15,9 +15,9 @@ use QSoft\Helper\UserFieldHelper;
 Loader::includeModule('sale');
 Loc::loadMessages(__FILE__);
 
-class CatalogElementComponent extends CBitrixComponent implements Controllerable
+class PersonalOrderDetailComponent extends CBitrixComponent implements Controllerable
 {
-    private const PRODUCT_LIMIT = 41;
+    private const PRODUCT_LIMIT = 2;
 
     public function configureActions()
     {
@@ -37,7 +37,7 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
             if (is_null($order)) {
                 throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
             }
-            $this->arResult = $this->prepareData($order->getId());
+            $this->arResult = $this->loadProductsAction($order->getId());
             $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -45,98 +45,31 @@ class CatalogElementComponent extends CBitrixComponent implements Controllerable
         }
     }
 
-    public function prepareData(int $orderId, int $offset = 0): array
+    public function loadProductsAction(int $orderId, int $offset = 0)
     {
         $result['PRODUCTS'] = $this->loadProducts($orderId, $offset);
         $result['OFFSET'] = $offset + count($result['PRODUCTS']);
         return $result;
     }
 
-    public function loadProductsAction(int $orderId, int $offset = 0)
-    {
-        $result['PRODUCTS'] = $this->loadProducts($orderId, $offset);
-        $result['OFFSET'] = $offset + count($result['PRODUCTS']);
-
-        return json_encode(
-            [
-                'basket' => $result,
-                'test' => $_REQUEST
-            ]
-        );
-    }
-
     private function loadProducts(int $orderId, int $offset): array
     {
-        $dbProducts = ProductService::getProductOfferDataClass()::getList([
-            'select' => [
-                'ID',
-                'NAME',
-                'VENDOR_CODE' => 'ARTICLE.VALUE',
-                'PRICE' => 'BASKET.PRICE',
-                'QUANTITY' => 'BASKET.QUANTITY',
-                'PICTURE' => 'IMAGES.VALUE',
-            ],
-            'filter' => ['BASKET.ORDER_ID' => $orderId],
-        ]);
-
-        while ($row = $dbProducts->Fetch()) {
-            $products[$row['ID']] = $row;
+        $products = ProductService::getProductDataFromBasket($orderId, $offset, self::PRODUCT_LIMIT);
+        if (empty($products)) {
+            return [];
         }
-
+        $productIds = array_map(fn($product) => $product['PRODUCT_ID'], $products);
+        $offers = ProductService::getProductByIds($productIds);
+        $bonuses = ProductService::getBonusByProductIds($productIds);
         foreach ($products as &$product) {
-            $product['PICTURE'] = CFile::GetPath($product['PICTURE']);
+            $product['NAME'] = $offers[$product['PRODUCT_ID']]['NAME'];
+            $product['PICTURE'] = CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE']);
+            $product['ARTICLE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'];
             $product['PRICE'] = self::formatPrice($product['PRICE']);
             $product['QUANTITY'] = intVal($product['QUANTITY']);
-            $productIds[] = $product['ID'];
+            $product['BONUS'] = $bonuses[$product['PRODUCT_ID']]['PRICE'] * $product['QUANTITY'] ?? 0;
         }
-
-        if (!empty($productIds)) {
-            $bonuses = $this->getBonusByProductIds($productIds);
-        }
-
-        foreach ($products as &$product) {
-            $product['BONUS'] = $bonuses[$product['ID']]['PRICE'] * $product['QUANTITY'] ?? 0;
-        }
-
-        return $products ?? [];
-    }
-
-    private function getBonusByProductIds(array $productIds)
-    {
-        $levelId = 0;
-
-        $levels = GroupTable::GetList(
-            [
-                'select' => ['*'],
-            ]
-        )->fetchAll();
-
-        $user = new User();
-
-        $level = $user->loyalty->getLoyaltyProgramInfo()['CURRENT_LEVEL'];
-
-        foreach ($levels as $lvl) {
-            if ($lvl['NAME'] == $level) {
-                $levelId = $lvl['ID'];
-                break;
-            }
-        }
-
-        $dbBonuses = PriceTable::GetList(
-            [
-                'select' => ['*'],
-                'filter' => [
-                    'PRODUCT_ID' => $productIds,
-                    'CATALOG_GROUP_ID' => $levelId,
-                ],
-            ]
-        );
-
-        while ($row = $dbBonuses->Fetch()) {
-            $bonuses[$row['PRODUCT_ID']] = $row;
-        }
-
-        return $bonuses;
+        return $products;
     }
 
     private static function formatPrice(string $numeric): string

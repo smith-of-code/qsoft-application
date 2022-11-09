@@ -15,7 +15,7 @@ $details = $arResult['ORDER_DETAILS'];
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left-thin"></use>
         </svg>
     </span>
-    <span class="button__text"><?=Loc::getMessage("RETURN_TO_ORDER_LIST")?></span>
+    <span class="button__text"><?=Loc::getMessage("TO_ORDER_LIST_BUTTON")?></span>
 </a>
 
 <section class="orders__section">
@@ -174,7 +174,7 @@ $details = $arResult['ORDER_DETAILS'];
                                                                     <?=$product['NAME']?>
                                                                 </h2>
                                                                 <p class="product-line__subtitle product-article">
-                                                                    <?=Loc::getMessage("PRODUCT_ARTICLE")?><?=$product['VENDOR_CODE']?>
+                                                                    <?=Loc::getMessage("PRODUCT_ARTICLE")?><?=$product['ARTICLE']?>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -196,8 +196,8 @@ $details = $arResult['ORDER_DETAILS'];
                                                                 </li>
                                                                 <li class="product-line__params product-line__params--bold">
                                                                     <p class="product-line__text">
-                                                                        <span class="product-line__params-value product-credit">
-                                                                            баллы
+                                                                        <span class="product-line__params-value product-credit product-bonus">
+                                                                            <?=$product['BONUS']?>
                                                                         </span>
                                                                     </p>
                                                                 </li>
@@ -236,5 +236,6 @@ $details = $arResult['ORDER_DETAILS'];
 <script>
     let offset = <?=$arResult['OFFSET']?>;
     const orderId = <?=$arParams['ORDER_ID']?>;
-    const RUBLE_SYMBOL = ' ₽';
+    const RUBLE_SYMBOL = "<?=Loc::getMessage("RUBLE_SYMBOL")?>";
+    const ARTICLE = "<?=Loc::getMessage("PRODUCT_ARTICLE")?>";
 </script>

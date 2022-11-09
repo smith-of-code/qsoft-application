@@ -12,7 +12,7 @@ function loadOrders() {
             orderId: orderId
         }
     }).then(function (response) {
-        console.log(response['status']);
+        console.log(response);
         attach(response['data']['PRODUCTS']);
         offset = response['data']['OFFSET'];
     }, function (response) {
@@ -27,10 +27,10 @@ function attach(products) {
         let addition = document.querySelector('.table-list__item').cloneNode(true);
         addition.querySelector('.product-line__image-picture').setAttribute('href', item['PICTURE']);
         addition.querySelector('.product-name').innerText = item['NAME'];
-        addition.querySelector('.product-article').innerText = item['VENDOR_CODE'];
+        addition.querySelector('.product-article').innerText = ARTICLE + item['ARTICLE'];
         addition.querySelector('.product-price').innerText = item['PRICE'] + RUBLE_SYMBOL;
         addition.querySelector('.product-quantity').innerText = item['QUANTITY'];
-        addition.querySelector('.product-credit').innerText = "баллы";
+        addition.querySelector('.product-bonus').innerText = item['BONUS'];
         document.querySelector('.table-list__list').appendChild(addition);
     }
 }
