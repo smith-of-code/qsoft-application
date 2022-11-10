@@ -443,7 +443,7 @@ class NewPropertiesForCatalogProduct extends Migration
             ],
             [
                 "IBLOCK_ID" => $iblockId,
-                'NAME' => 'Матерьял',
+                'NAME' => 'Материал',
                 'ACTIVE' => 'Y',
                 'SORT' => '500',
                 'CODE' => 'MATERIAL',

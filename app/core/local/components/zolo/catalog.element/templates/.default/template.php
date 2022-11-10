@@ -21,23 +21,7 @@ if ($arParams['SET_META_KEYWORDS'] === 'Y') {
 if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
     $APPLICATION->SetPageProperty('description', $arResult['META_DESCRIPTION']);
 }
-?>
-<?php
-    $APPLICATION->IncludeComponent(
-        'bitrix:breadcrumb', 
-        '', 
-        [
-            'PATH' => '',
-            'SITE_ID' => '',
-            'START_FROM' => '0',
-        ],
-        false
-    );
 
-
-//    dump("tpl", $arResult);
-?>
-<?php
 $offerId = $arResult['OFFER_FIRST'];
 ?>
 <div id="offerStore"
@@ -1318,5 +1302,9 @@ $offerId = $arResult['OFFER_FIRST'];
             </ul>
         </div>
     </div>
+<<<<<<< HEAD
+</div>
+=======
 </div>
 <!-- Каталог товаров -->
+>>>>>>> 5844a53c14a60d5acb112c32a180488ba0616dcb

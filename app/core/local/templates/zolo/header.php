@@ -556,5 +556,4 @@ global $APPLICATION;
 
 <div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
     <div class="container">
-        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
-<!--            <h1 class="page__heading">Личный кабинет</h1>-->
+        <main class="<?= Page::isMain() ? 'page__main main' : (Page::isCatalog() ? 'page__catalog catalog' : '') ?>">
