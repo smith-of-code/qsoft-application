@@ -12,9 +12,10 @@ function loadOrders() {
             orderId: orderId
         }
     }).then(function (response) {
-        console.log(response);
-        attach(response['data']['PRODUCTS']);
-        offset = response['data']['OFFSET'];
+        console.log(response['status']);
+        let data = JSON.parse(response.data).basket;
+        attach(data.PRODUCTS);
+        offset = data.OFFSET;
     }, function (response) {
         console.log(response['errors']);
     });

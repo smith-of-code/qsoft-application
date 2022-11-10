@@ -133,6 +133,6 @@ class ProductService
             $bonuses[$row['PRODUCT_ID']] = $row;
         }
 
-        return $bonuses;
+        return $bonuses ?? [];
     }
 }

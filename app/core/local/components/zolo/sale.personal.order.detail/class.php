@@ -37,7 +37,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             if (is_null($order)) {
                 throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
             }
-            $this->arResult = $this->loadProductsAction($order->getId());
+            $this->arResult = $this->loadProducts($order->getId());
             $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -45,14 +45,17 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         }
     }
 
-    public function loadProductsAction(int $orderId, int $offset = 0)
+    public function loadProductsAction(int $orderId, int $offset)
     {
-        $result['PRODUCTS'] = $this->loadProducts($orderId, $offset);
-        $result['OFFSET'] = $offset + count($result['PRODUCTS']);
-        return $result;
-    }
+        return json_encode(
+            [
+                'basket' => $this->loadProducts($orderId, $offset),
+                'test' => $_REQUEST,
+            ]
+        );
+    } 
 
-    private function loadProducts(int $orderId, int $offset): array
+    private function loadProducts(int $orderId, int $offset = 0): array
     {
         $products = ProductService::getProductDataFromBasket($orderId, $offset, self::PRODUCT_LIMIT);
         if (empty($products)) {
@@ -69,7 +72,10 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             $product['QUANTITY'] = intVal($product['QUANTITY']);
             $product['BONUS'] = $bonuses[$product['PRODUCT_ID']]['PRICE'] * $product['QUANTITY'] ?? 0;
         }
-        return $products;
+        return [
+            'PRODUCTS' => $products,
+            'OFFSET' => $offset + count($products),
+        ];
     }
 
     private static function formatPrice(string $numeric): string
