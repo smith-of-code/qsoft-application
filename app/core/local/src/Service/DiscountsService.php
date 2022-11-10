@@ -14,7 +14,7 @@ class DiscountsService
         self::checkModules();
         $discounts = self::getRawDiscounts($offset);
         $detailPageUrl = self::getDetailPageUrl(array_map(fn($discount) => $discount['PRODUCT'], $discounts));
-        self::addPictureAndUrl($detailPageUrl, $discounts);
+        $discounts = self::addPictureAndUrl($detailPageUrl, $discounts);
         return $discounts;
     }
 
