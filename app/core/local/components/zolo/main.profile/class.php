@@ -226,6 +226,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     public function changePetAction(array $pet)
     {
         PetTable::update($pet['id'], $this->preparePetForSaving($pet));
+
+        return $pet;
     }
 
     public function deletePetAction(int $petId)

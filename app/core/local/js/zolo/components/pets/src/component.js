@@ -58,7 +58,7 @@ export const Pets = {
             if (pet.id.indexOf('new') !== -1) {
                 this.deletePet(pet);
             } else {
-                this.mutablePets[petKey] = this.originalPets[pet.id];
+                this.mutablePets[petKey] = JSON.parse(JSON.stringify(this.originalPets[pet.id]));
             }
         },
         async savePet(pet) {
@@ -99,7 +99,7 @@ export const Pets = {
                                     <div class="pet-card__main box box--circle" data-pets-main>
                                         <div class="pet-card__content">
                                             <div class="pet-card__avatar" data-pets-type>
-                                                <svg class="icon icon--dog">
+                                                <svg class="icon" :class="'icon--' + pet.kind?.code.toLowerCase().substring(5)">
                                                     <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + pet.kind?.code.toLowerCase().substring(5)"></use>
                                                 </svg>
                                             </div>
@@ -115,7 +115,7 @@ export const Pets = {
 
                                                 <div class="pet-card__info-record">
                                                     <div class="pet-card__gender" data-pets-gender>
-                                                        <svg class="icon icon--man">
+                                                        <svg class="icon" :class="'icon--' + (pet.gender?.code.indexOf('FEMALE') !== -1 ? 'woman' : 'man')">
                                                             <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (pet.gender?.code.indexOf('FEMALE') !== -1 ? 'woman' : 'man')"></use>
                                                         </svg>
                                                     </div>
@@ -168,7 +168,7 @@ export const Pets = {
                                                                     :options="kinds"
                                                                     :selected="pet.kind?.id"
                                                                     :iconed="true"
-                                                                    @custom-change="(value) => { pet.kind = kinds[value] }"
+                                                                    @custom-change="(value) => { pet.kind = kinds[value]; pet.breed = null }"
                                                                 />
                                                             </div>
                                                         </div>
@@ -261,7 +261,7 @@ export const Pets = {
                                             </div>
 
                                             <div class="pet-card__buttons">
-                                                <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
+                                                <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
                                                     Сохранить изменения
                                                 </button>
                                             
