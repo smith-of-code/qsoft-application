@@ -10,7 +10,6 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
-use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
@@ -75,10 +74,6 @@ class SupportEventListner
             default:
                 break;
         }
-
-        //Добавить уведомление
-        $notifier = new SupportTicketUpdateNotifier($ticketValues);
-        (new User($ticketValues['OWNER_USER_ID']))->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**
@@ -89,7 +84,10 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
-        $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        if ($ticketValues['CATEGORY_ID'] != null && $ticketValues['CATEGORY_ID'] <= 0) {
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
+        }
+
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
                 ->GetNext();
@@ -104,8 +102,6 @@ class SupportEventListner
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
-
-            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
             
             $phoneNumberToSend
                 = (new \CUser)->GetList('', '', ['ID' => $ticket['RESPONSIBLE_USER_ID']])->GetNext()['PERSONAL_PHONE'];
@@ -211,7 +207,13 @@ class SupportEventListner
     private function prepareFieldsToMessageAddingTicket(array $ticket)
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
-        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
+        
+        if ($ticket['CATEGORY_ID'] != null && $ticket['CATEGORY_ID'] <= 0) {
+            $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID']);
+            if ($category) {
+                $category = $category->GetNext();
+            }
+        }
         $rsSites = CSite::GetByID(SITE_ID)->Fetch();
         $siteEmail = $rsSites['EMAIL'];
 

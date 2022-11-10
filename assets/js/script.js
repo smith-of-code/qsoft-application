@@ -40,9 +40,7 @@
  import filter from './modules/filter';
  import swiper from './modules/swiper'; 
  import bitrixPanelHide from './modules/bitrix-panel-hide'; 
-<<<<<<< HEAD
  import showSupportPopup from './modules/support-popup'; 
-=======
  import cardCounting from './modules/cardCounting';
  import removeItem from './modules/remove-item';
  import editProfile from './modules/edit-profile'; 
@@ -51,19 +49,15 @@
  import showText from './modules/show-text';
  import basket from './modules/basket';
  import calculator from './modules/calculator';
->>>>>>> 0792d82e78b4284618196a726fd88ba8d9951f2e
 
 
 
  const app = {
     ready() {
-<<<<<<< HEAD
-=======
         if (typeof Zolo !== 'undefined') {
             (new Zolo.Loader()).run();
         }
 
->>>>>>> 0792d82e78b4284618196a726fd88ba8d9951f2e
         // Пример вызова импортированных функций
         // pluginName();
         svg4everybody();
@@ -92,10 +86,7 @@
         addFavourite();
         filter();
         swiper();
-<<<<<<< HEAD
         showSupportPopup();
-
-=======
         cardCounting();
         removeItem();
         editProfile();
@@ -104,7 +95,6 @@
         showText();
         basket();
         calculator();
->>>>>>> 0792d82e78b4284618196a726fd88ba8d9951f2e
     },
 
     load() {
