@@ -211,30 +211,6 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 self::$catalogIncluded = Loader::includeModule('catalog');
             if (self::$catalogIncluded)
             {
-                // Перед получением цен - исключим цены в баллах, недоступные для пользователя
-                $currentUser = currentUser();
-
-                $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
-                $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
-
-                $priceCodes = $this->arParams["PRICE_CODE"];
-                if (! is_null($currentUser) && $currentUser->groups->isConsultant()) {
-                    // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
-                    foreach ($this->arParams["PRICE_CODE"] as $index => $code) {
-                        if (in_array($code, $loyaltyLevelsXmlIds, true) && $code !== $currentUser->loyaltyLevel) {
-                            unset($priceCodes[$index]);
-                        }
-                    }
-                } else {
-                    // Убираем варианты фильтрации по баллам
-                    foreach ($this->arParams["PRICE_CODE"] as $index => $code) {
-                        if (in_array($code, $loyaltyLevelsXmlIds, true)) {
-                            unset($priceCodes[$index]);
-                        }
-                    }
-                }
-                $this->arParams["PRICE_CODE"] = $priceCodes;
-
                 $rsPrice = CCatalogGroup::GetList(
                     array('SORT' => 'ASC', 'ID' => 'ASC'),
                     array('=NAME' => $this->arParams["PRICE_CODE"]),
@@ -275,8 +251,6 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                         // Обновим наименования цен для отображения в фильтре
                         if ($items[$arPrice["NAME"]]['CODE'] === 'BASE')
                             $items[$arPrice["NAME"]]['NAME'] = 'Цена, ₽';
-                        if (in_array($items[$arPrice["NAME"]]['CODE'], $loyaltyLevelsXmlIds, true))
-                            $items[$arPrice["NAME"]]['NAME'] = 'Баллы, ББ';
                     }
                 }
             }
@@ -287,6 +261,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 	public function getResultItems()
 	{
 		$items = $this->getIBlockItems($this->IBLOCK_ID);
+
 		$this->arResult["PROPERTY_COUNT"] = count($items);
 		$this->arResult["PROPERTY_ID_LIST"] = array_keys($items);
 
@@ -310,7 +285,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
-		// Добавим параметр "Со скидкой"
+        // Добавим параметр "Со скидкой"
         $items['WITH_DISCOUNT'] = [
             'CODE' => 'WITH_DISCOUNT',
             'NAME' => 'Со скидкой',
@@ -333,6 +308,35 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             ],
         ];
 
+        // Уберем лишние фильтры по баллам, в зависимости от уровня в программе лояльности
+        $currentUser = currentUser();
+
+        $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
+        $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
+
+        $propsCodes = [];
+        foreach ($items as $index => $item) {
+            if (isset($item['CODE'])) {
+                $propsCodes[$item['CODE']] = $index;
+            }
+        }
+
+        foreach ($loyaltyLevelsXmlIds as $levelCode) {
+            $bonusesPropName = 'BONUSES_' . $levelCode;
+            if (in_array($bonusesPropName, array_keys($propsCodes), true)) {
+                // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
+                if (! is_null($currentUser)
+                    && $currentUser->groups->isConsultant()
+                    && $levelCode === $currentUser->loyaltyLevel
+                ) {
+                    // Обновим наименование для отображения в фильтре
+                    $items[$propsCodes[$bonusesPropName]]['NAME'] = 'Баллы, ББ';
+                    continue;
+                }
+                unset($items[$propsCodes[$bonusesPropName]]);
+            }
+        }
+
         /* Выполним пересортировку элементов фильтра в нужном порядке */
 
         // Порядок сортировки элементов фильтра
@@ -340,7 +344,9 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             'IS_BESTSELLER',
             'WITH_DISCOUNT',
             'BASE',
-            'K2',
+            'BONUSES_K1',
+            'BONUSES_K2',
+            'BONUSES_K3',
             'AGE',
             'BREED',
             'PACKAGING',
