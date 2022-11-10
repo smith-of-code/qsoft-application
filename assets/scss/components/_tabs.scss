@@ -84,9 +84,18 @@
 
     &--black & {
         &__item {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-medium;
+
+            padding: rem(6px) rem($gap-normal);
+
             color: $tuna;
             border: rem(1px) solid $tuna;
             background-color: $white;
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-normal);
+            }
 
             &--active {
                 color: $white;
@@ -204,8 +213,8 @@
 
     &__item {
         font-size: rem($font-size-normal);
-        line-height: rem($line-height-normal);
         font-weight: $font-weight-semibold;
+        line-height: ($line-height-normal/$font-size-normal);
 
         margin-right: rem(4px);
         margin-left: rem(4px);

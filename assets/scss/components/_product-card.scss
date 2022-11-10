@@ -39,6 +39,37 @@
         }
     }
 
+    &--marketing & {
+        &__image {
+            &:before {
+                @media #{$screen-desktop} {
+                    $card-width: rem(262px);
+                    $card-height: rem(262px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+            }
+        }
+
+        &__title {
+            font-weight: $font-weight-semibold;
+        }
+
+        &__text {
+            @include text-small;
+
+            @media #{$screen-desktop} {
+                max-width: rem(166px);
+            }
+        }
+
+        &__footer {
+            &-label {
+                text-align: right;
+            }
+        }
+    }
+
     &__link {
         @include position-stretching;
     }
