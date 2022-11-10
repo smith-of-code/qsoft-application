@@ -25,7 +25,20 @@
     }
 
     &--bg-gray {
+        padding: rem($gap-medium) rem($gap-normal);
+
         background-color: $athensGray;
+
+        @media #{$screen-tablet} {
+            padding: rem(20px) rem(32px) rem(46px) rem(32px);
+        }
+    }
+
+    &--bg-gray & {
+        &__text {
+            font-size: rem($font-size-small);
+            line-height: $line-height-small;
+        }
     }
 
     &--blue {
@@ -82,6 +95,30 @@
                 color: $piper;
             }
         } 
+    }
+
+    &--bright#{&}--blue {
+        &::before {
+            background-color: $bostonBlue;
+        }
+    }
+
+    &--bright#{&}--gold {
+        &::before {
+            background-color: $buddhaGold;
+        }
+    }
+
+    &--bright#{&}--wisteria {
+        &::before {
+            background-color: $wisteria;
+        }
+    }
+
+    &--bright#{&}--piper {
+        &::before {
+            background-color: $piper;
+        }
     }
 
     &__image {
