@@ -23,7 +23,7 @@ export const DateInput = {
 
     watch: {
         currentValue(newValue) {
-            this.$emit('change', newValue);
+            this.$emit('custom-change', newValue);
         },
     },
 

@@ -36,7 +36,7 @@ export const Select = {
         select();
 
         $(`#${this.componentId}`).on('change', () => {
-            this.$emit('change', $(`#${this.componentId}`).val());
+            this.$emit('custom-change', $(`#${this.componentId}`).val());
         });
     },
 
