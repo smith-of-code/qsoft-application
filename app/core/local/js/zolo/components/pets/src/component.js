@@ -66,7 +66,7 @@ export const Pets = {
             pet.editing = false;
 
             if (pet.id.indexOf('new') === -1) {
-                pet.id = this.petStore.changePet(pet).data.id;
+                this.petStore.changePet(pet);
             } else {
                 this.petStore.addPet(pet);
             }
