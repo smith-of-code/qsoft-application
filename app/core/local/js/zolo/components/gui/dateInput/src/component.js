@@ -22,8 +22,8 @@ export const DateInput = {
     },
 
     watch: {
-        currentValue() {
-            this.$emit('change', this.currentValue);
+        currentValue(newValue) {
+            this.$emit('custom-change', newValue);
         },
     },
 
@@ -32,7 +32,7 @@ export const DateInput = {
     },
 
     mounted() {
-        inputMaskInit($(`[data-date-input-id=${this.componentId}]`), 'dateMask');
+        // inputMaskInit($(`[data-date-input-id=${this.componentId}]`), 'dateMask');
     },
 
     template: `
@@ -47,6 +47,8 @@ export const DateInput = {
                 data-inputmask-inputformat="dd.mm.yyyy"
                 :id="componentId"
                 v-model="currentValue"
+                data-pets-date-input
+                data-pets-change
             >
             <span class="input__icon">
                 <svg class="icon icon--calendar">
