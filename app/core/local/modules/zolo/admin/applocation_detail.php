@@ -2,7 +2,7 @@
 // Инициализация административного блока, стилей и интерфейса
 
 use Bitrix\Main\Loader;
-use Bitrix\zolo\FormHandler;
+use Bitrix\Zolo\FormHandler;
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_before.php");
 IncludeModuleLangFile(__FILE__);
@@ -31,7 +31,7 @@ if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 		<?php foreach ($fields as $key => $value): ?>
 				<div>
 					<hr>
-						<b><?=$key == 'USER_INFO' ? 'Информация о пользователе' : 'Юридическая информация'?></b>: 
+						<b><?=$key == 'USER_INFO' ? 'Информация о пользователе' : 'Юридическая информация'?></b>:
 					<hr>
 					<?=$formHandler->prepareFields($value)?>
 				</div>

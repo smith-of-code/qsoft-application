@@ -21,6 +21,13 @@ final class TransactionTable extends BaseTable
         'upgrade' => 'TRANSACTION_TYPE_UPGRADE',
     ];
 
+    const TYPES_LABELS = [
+        self::TYPES['purchase'] => 'Поступление',
+        self::TYPES['invite'] => 'За приглашение',
+        self::TYPES['referral'] => 'За рефералла',
+        self::TYPES['upgrade'] => 'За повышение уровня лояльности',
+    ];
+
     const SOURCES = [
         'personal' => 'TRANSACTION_SOURCE_PERSONAL',
         'group' => 'TRANSACTION_SOURCE_GROUP',
@@ -54,6 +61,10 @@ final class TransactionTable extends BaseTable
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_ID_FIELD'),
             ]),
             new IntegerField('UF_USER_ID', [
+                'required' => true,
+                'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_USER_ID_FIELD'),
+            ]),
+            new IntegerField('UF_ORDER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_USER_ID_FIELD'),
             ]),

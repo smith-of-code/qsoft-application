@@ -3,6 +3,7 @@ import {detailOfferStore} from "../../../stores/detailOfferStore";
 export const SelectOfferMobile = {
     data() {
         return {
+            isSizeRestricted: false
         };
     },
 
@@ -13,20 +14,38 @@ export const SelectOfferMobile = {
         }
     },
     mounted() {
+        // window.initSelect();
+        $('select[name=select-package]').on('change',() => this.setOffer('select-package', false));
+        $('select[name=select-color]').on('change',() => this.setOffer('select-color', false));
+        $('select[name=select-size-mob]').on('change',() => this.setOffer('select-size-mob', true));
+    },
+    updated() {
         window.initSelect();
-        $('select[name=select-package]').on('change',() => this.setOffer('select-package'));
-        $('select[name=select-color]').on('change',() => this.setOffer('select-color'));
+
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'colors']),
+        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
     },
     methods: {
-        setOffer(name) {
+        setOffer(name, selectFlag) {
+            this.isSizeRestricted = selectFlag;
             let value = $('select[name=' + name+ ']').val();
             if (this.store.checkAvailable(value)) {
                 this.store.setOffer(value);
             }
         },
+        getColorOffer(color) {
+            if (this.isSizeRestricted) {
+                return this.store.getIdByColor(color);
+            } else {
+                if (color == this.currentColor) {
+                    return this.currentOfferId;
+                }
+                let keys = Object.keys(this.color2Size[color]);
+                let first = (keys.indexOf(this.currentSize) == -1) ? keys[0] : this.currentSize;
+                return this.color2Size[color][first];
+            }
+        }
     },
     // language=Vue
     template: `
@@ -50,20 +69,39 @@ export const SelectOfferMobile = {
                 </div>
             </div>
         </template>
-        <template v-else-if="colors.length > 0">
+        <template v-else-if="color2Size">
             <div class="cart__colors">
                 <p class="specification__category">Цвет</p>
                 <div class="select select--middle select--simple" data-select>
                     <select class="select__control" name="select-color" data-select-control data-placeholder="Выберите цвет" data-option>
                         <option><!-- пустой option для placeholder --></option>
-                        <option v-for="item in colors"
+                        <option v-for="(item, color) in color2Size"
                                 v-on:click="setOffer"
-                                v-bind:value="item.offerId"
-                                v-bind:selected="currentOfferId == item.offerId"
-                                v-bind:disabled="!offers.AVAILABLE[item.offerId]"
-                                v-bind:data-option-before="'<span class=&quot;color color--option&quot;><span class=&quot;color__item color__item--medium color__item--' + item.color + '&quot;></span></span>'"
-                                v-bind:data-option-after="'<span class=&quot;stock ' + (offers.AVAILABLE[item.offerId] ? 'stock--yes' : '') + '&quot;>' +  (!offers.AVAILABLE[item.offerId] ? 'нет ' : '') + 'в наличии</span>'">
-                            {{offers.COLOR_NAMES[item.color]}}
+                                v-bind:value="getColorOffer(color)"
+                                v-bind:selected="currentOfferId == getColorOffer(color)"
+                                v-bind:disabled="!offers.AVAILABLE[getColorOffer(color)]"
+                                v-bind:data-option-before="'<span class=&quot;color color--option&quot;><span class=&quot;color__item color__item--medium color__item--' + color + '&quot;></span></span>'"
+                        >
+                            {{ offers.COLOR_NAMES[color] }}
+                            &lt;span class=&quot;stock {{ (offers.AVAILABLE[getColorOffer(color)] ? ' stock--yes' : '') }} &quot;&gt;
+                            {{ (!offers.AVAILABLE[getColorOffer(color)] ? 'нет ' : '') }}в наличии &lt;/span&gt;
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="cart__breed">
+                <p class="specification__category">Размер</p>
+                <div class="select select--middle select--simple" data-select>
+                    <select class="select__control" name="select-size-mob" data-select-control data-placeholder="Выберите размер" data-option>
+                        <option><!-- пустой option для placeholder --></option>
+                        <option v-for="(item, size) in size2Color"
+                                v-bind:value="store.getIdBySize(size)"
+                                v-bind:disabled="!offers.AVAILABLE[store.getIdBySize(size)]"
+                                v-bind:selected="currentOfferId == store.getIdBySize(size)"
+                        >
+                            {{ offers.SIZE_NAMES[size] }} &lt;span class=&quot;stock
+                            {{ (offers.AVAILABLE[store.getIdBySize(size)] ? ' stock--yes' : '') }}&quot;&gt;
+                            {{(!offers.AVAILABLE[store.getIdBySize(size)] ? 'нет' : '')}} в наличии&lt;/span&gt;
                         </option>
                     </select>
                 </div>
