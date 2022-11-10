@@ -1,0 +1,22 @@
+.basket-order {
+    &__box {
+        @media #{$screen-desktop} {
+            padding: 0;
+            border-radius: 0;
+            background-color: transparent;
+        }
+    }
+
+    &__form {
+        padding: rem($gap-medium) rem($gap-average);
+
+        border-radius: rem($border-radius);
+        background-color: $white;
+
+        @media #{$screen-desktop} {
+            padding: 0;
+
+            border-radius: 0;
+        }
+    }
+}

@@ -3,6 +3,7 @@
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Security\Password;
 use Bitrix\Main\UserTable;
+use QSoft\Entity\User;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\Service\ConfirmationService;
 
@@ -16,8 +17,7 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
 
     public function executeComponent()
     {
-        $confirmResult = (new ConfirmationService)->verifyEmailCode(
-            $this->arParams['USER_ID'],
+        $confirmResult = (new User($this->arParams['USER_ID']))->confirmation->verifyEmailCode(
             $this->arParams['CONFIRM_CODE'],
             ConfirmationTable::TYPES['reset_password'],
         );
@@ -40,42 +40,6 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
 
     public function changePasswordAction(int $userId, string $password, string $confirmPassword): array
     {
-        $user = UserTable::getRowById($userId);
-
-        if (!$user) {
-            return [
-                'status' => 'error',
-                'message' => 'User not found',
-            ];
-        }
-
-        if ($user['ACTIVE'] === 'N') {
-            return [
-                'status' => 'error',
-                'message' => 'User is not active',
-            ];
-        }
-
-        $checkWord = md5(uniqid().CMain::GetServerUniqID());
-        $checkWordHash = Password::hash($checkWord);
-
-        global $DB;
-        $DB->Query(<<<SQL
-            update b_user set 
-              CHECKWORD = '$checkWordHash',
-              CHECKWORD_TIME = now(),
-              TIMESTAMP_X = TIMESTAMP_X
-            where ID = '$userId'
-        SQL);
-
-        $result = (new CUser)->ChangePassword($user['LOGIN'], $checkWord, $password, $confirmPassword);
-
-        if ($result['TYPE'] !== 'OK') {
-            return [
-                'status' => 'error',
-                'message' => $result['MESSAGE'],
-            ];
-        }
-        return ['status' => 'success'];
+        return ['status' => (new User($userId))->changePassword($password, $confirmPassword) ? 'success' : 'error'];
     }
 }

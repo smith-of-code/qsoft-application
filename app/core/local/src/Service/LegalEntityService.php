@@ -5,8 +5,8 @@ namespace QSoft\Service;
 use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\ORM\Data\UpdateResult;
 use QSoft\Entity\User;
+use QSoft\Helper\HlBlockHelper;
 use QSoft\ORM\LegalEntityTable;
-use QSoft\Helper\HLPropertyHelper;
 
 class LegalEntityService
 {
@@ -17,8 +17,13 @@ class LegalEntityService
         $this->user = $user;
     }
 
-    public function get(): ?array
+    public function getData(): array
     {
+        if (!$this->user->groups->isConsultant()) {
+            throw new \RuntimeException('User is not a consultant');
+        }
+        $types = HlBlockHelper::getPreparedEnumFieldValues(LegalEntityTable::getTableName(), 'UF_STATUS');
+
         $legalEntity = LegalEntityTable::getRow([
             'order' => ['ID' => 'DESC'],
             'filter' => [
@@ -27,11 +32,17 @@ class LegalEntityService
             ],
         ]);
 
-        if ($legalEntity['UF_DOCUMENTS'] != '') {
-            $legalEntity['DOCUMENTS'] = json_decode($legalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR);
+        if (!in_array($types[$legalEntity['UF_STATUS']]['code'], LegalEntityTable::STATUSES)) {
+            throw new \RuntimeException('Unknown legal entity status');
         }
 
-        return $legalEntity;
+        return [
+            'id' => $legalEntity['ID'],
+            'user_id' => $legalEntity['UF_USER_ID'],
+            'type' => $types[$legalEntity['UF_STATUS']],
+            'active' => $legalEntity['UF_IS_ACTIVE'],
+            'documents' => json_decode($legalEntity['UF_DOCUMENTS'], true, 512, JSON_THROW_ON_ERROR),
+        ];
     }
 
     /**

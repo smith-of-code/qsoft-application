@@ -3,7 +3,6 @@
 use	Bitrix\Main\Loader;
 use	Bitrix\Main\Localization\Loc;
 use QSoft\Entity\User;
-use QSoft\ORM\NotificationService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();

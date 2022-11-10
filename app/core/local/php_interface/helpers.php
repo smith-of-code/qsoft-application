@@ -66,11 +66,37 @@ if (!function_exists('mb_ucfirst')) {
     }
 }
 
-
-//- TODO Скопировано из 227010, удалить дубль
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
         return str_replace('\'', '"', CUtil::PhpToJSObject($array));
+    }
+}
+if (!function_exists('numberToRoman')) {
+    function numberToRoman(int $number): string
+    {
+        $romanNumbersMap = [
+            'M'  => 1000,
+            'CM' => 900,
+            'D'  => 500,
+            'CD' => 400,
+            'C'  => 100,
+            'XC' => 90,
+            'L'  => 50,
+            'XL' => 40,
+            'X'  => 10,
+            'IX' => 9,
+            'V'  => 5,
+            'IV' => 4,
+            'I'  => 1,
+        ];
+
+        $result = '';
+        foreach ($romanNumbersMap as $roman => $value) {
+            $matches = intval($number / $value);
+            $result .= str_repeat($roman, $matches);
+            $number = $number % $value;
+        }
+        return $result;
     }
 }

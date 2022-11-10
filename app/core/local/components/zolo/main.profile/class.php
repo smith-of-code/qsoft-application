@@ -4,9 +4,8 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 }
 
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Context;
 use Bitrix\Main\Engine\Contract\Controllerable;
-use Bitrix\Main\Errorable;
-use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
@@ -14,38 +13,62 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
-use Bitrix\Highloadblock\HighloadBlockTable as HL;
+use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
-use QSoft\ORM\CatBreedTable;
-use QSoft\ORM\DogBreedTable;
+use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\OrderHelper;
+use QSoft\Helper\PetHelper;
+use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
 
-class MainProfileComponent extends CBitrixComponent implements Controllerable, Errorable
+class MainProfileComponent extends CBitrixComponent implements Controllerable
 {
     private ?int $userId;
     private User $user;
 
-    protected ErrorCollection $errorCollection;
+    private PetHelper $petHelper;
+    private TicketHelper $ticketHelper;
+    private OrderHelper $orderHelper;
+    private LoyaltyProgramHelper $loyaltyProgramHelper;
 
-    public function onPrepareComponentParams($arParams)
+    public function __construct($component = null)
     {
-        $this->errorCollection = new ErrorCollection();
-        $this->userId = $GLOBALS['USER']->GetID();
-        $this->user = new User($this->userId);
+        $this->checkModules();
 
-        if (! isset($this->userId)) {
-            echo Loc::getMessage('PSETTINGS_NEED_AUTHORIZATION');
-            die();
+        if (!$this->userId = $GLOBALS['USER']->GetID()) {
+            LocalRedirect('/');
         }
 
-        $this->checkModules();
+        $this->user = new User($this->userId);
+
+        $this->petHelper = new PetHelper;
+        $this->ticketHelper = new TicketHelper;
+        $this->orderHelper = new OrderHelper;
+        $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
+
+        parent::__construct($component);
     }
 
     public function executeComponent()
     {
         try {
+            $request = Context::getCurrent()->getRequest();
+            if ($request->isAjaxRequest() && !empty($request->getFileList())) {
+                global $APPLICATION;
+
+                $arFile = array_first($request->getFileList()->toArray());
+                if (!empty($arFile)) {
+                    $fid = CFile::SaveFile($arFile, 'dropzone');
+
+                    $APPLICATION->RestartBuffer();
+                    echo json_encode(['FILE_ID' => $fid]);
+                    die();
+                }
+            }
+
             $this->getResult();
             $this->includeComponentTemplate();
         } catch (Exception $e) {
@@ -70,108 +93,78 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
 
     public function getResult()
     {
-        $this->arResult['SELECT_OPTIONS'] = $this->getSelects();
+        $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
+        $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
 
-        $this->arResult['USER_INFO'] = $this->getUser();
+        $this->arResult['personal_data'] = $this->user->getPersonalData();
+        $this->arResult['current_accounting_period'] = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+        $this->arResult['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['orders_report'] = $this->orderHelper->getOrdersReport(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['loyalty_level_info'] = $this->loyaltyProgramHelper->getLoyaltyLevelInfo(
+            $this->arResult['personal_data']['loyalty_level']
+        );
 
-        if ($this->arResult['USER_GROUP'] == 'Консультант') {
-            $this->arResult['LEGAL_ENTITY'] = $this->user->legalEntity->get();
-            foreach ($this->arResult['SELECT_OPTIONS']['STATUS'] as $key => $value) {
-                if ($key == $this->arResult['LEGAL_ENTITY']['UF_STATUS']) {
-                    $this->arResult['STATUS'] = $value;
-                }
-            }
-        }
-        $this->arResult['PETS_INFO'] = $this->user->pets->getAll();
-        $this->arResult['MENTOR_INFO'] = $this->user->getMentor();
-        //Система лояльности
-        $this->arResult['LOYALTY_INFO'] = $this->user->loyalty->getLoyaltyProgramInfo();
-        //Персональные акции
-    }
-
-
-    private function getUser()
-    {
-        $arUserInfo = CUser::GetByID($this->userId)->Fetch();
-
-        if ($this->user->groups->isBuyer()) {
-            $this->arResult['USER_GROUP'] = 'Покупатель';
-        } elseif ($this->user->groups->isConsultant()) {
-            $this->arResult['USER_GROUP'] = 'Консультант';
-        }
-
-        if (!empty($arUserInfo['PERSONAL_PHOTO'])) {
-            $arUserInfo['PERSONAL_PHOTO_URL'] = $this->user->getPhotoUrl();
-        }
-
-        return $arUserInfo;
-    }
-
-    /**
-     * @throws ObjectPropertyException
-     * @throws ArgumentException
-     * @throws SystemException
-     */
-    private function getSelects(): array
-    {
-        //Пол пользователя
-        $selects['USER_GENDER'] = ['M' => 'Мужской', 'F' => 'Женский'];
-
-        //Пункты выдачи заказов
-        $hlBlock = PickupPointTable::getList([
+        $pickupPoints = PickupPointTable::getList([
             'order' => ['UF_NAME' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($fields = $hlBlock->Fetch()) {
-            $selects['PICK_POINT'][$fields['ID']] = $fields['UF_NAME'];
+            'select' => ['ID', 'UF_NAME'],
+        ])->fetchAll();
+        $this->arResult['pickup_points'] = array_combine(
+            array_column($pickupPoints, 'ID'),
+            array_column($pickupPoints, 'UF_NAME'),
+        );
+
+        if ($this->user->groups->isConsultant()) {
+            $this->arResult['legal_entity'] = $this->user->legalEntity->getData();
+            $this->arResult['legal_entity_types'] = HlBlockHelper::getPreparedEnumFieldValues(
+                LegalEntityTable::getTableName(),
+                'UF_STATUS'
+            );
         }
 
-        //Статусы юр лица для консультантов
-        $petGenders = LegalEntityTable::getFieldValues(['UF_STATUS'])['UF_STATUS'];
-        foreach ($petGenders as $petGender) {
-            $selects['STATUS'][$petGender['ID']] = $petGender['VALUE'];
+        $this->arResult['pets'] = $this->petHelper->getUserPets($this->user->id);
+        $this->arResult['pet_genders'] = $this->petHelper->getGenders();
+        $this->arResult['pet_breeds'] = $this->petHelper->getBreeds();
+        $this->arResult['pet_kinds'] = $this->petHelper->getKinds();
+        foreach ($this->arResult['pet_kinds'] as &$kind) {
+            $kind['icon'] = substr(strtolower($kind['code']), 5);
         }
 
-        //Типы питомцев
-        $petGenders = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
-        foreach ($petGenders as $petGender) {
-            $selects['PET_KIND'][$petGender['ID']] = $petGender['VALUE'];
-        }
+        $this->arResult['personal_promotions'] = $this->orderHelper->getUserCoupons($this->user->id);
+        $this->arResult['promotion_orders'] = $this->orderHelper->getUserOrdersWithPersonalPromotions($this->user->id);
 
-        //Породы кошек
-        $hlBlock = CatBreedTable::getList([
-            'order' => ['UF_BREED_CAT' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($fields = $hlBlock->Fetch()) {
-            $selects['CAT_BREED'][$fields['ID']] = $fields['UF_BREED_CAT'];
-        }
+        $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
+    }
 
-        //Породы собак
-        $hlBlock = DogBreedTable::getList([
-            'order' => ['UF_BREED_DOG' => 'ASC'],
-            'select' => ['*'],
-        ]);
-        while ($enumFields = $hlBlock->Fetch()) {
-            $selects['DOG_BREED'][$enumFields['ID']] = $enumFields['UF_BREED_DOG'];
-        }
+    private function getMentorInfo()
+    {
+        $mentorInfo = CUser::GetByID($this->user->getMentor()->id)->Fetch();
+        $mentorInfo['PERSONAL_PHOTO_URL'] = $this->user->getMentor()->getPhotoUrl();
 
-        //Пол питомцев
-        $petGenders = PetTable::getFieldValues(['UF_GENDER'])['UF_GENDER'];
-        foreach ($petGenders as $petGender) {
-            $selects['PET_GENDER'][$petGender['ID']] = $petGender['VALUE'];
-        }
 
-        return $selects;
+        return $mentorInfo;
     }
 
     public function configureActions(): array
     {
         return [
-            'userInfoUpdate' => [
+            'savePersonalData' => [
                 'prefilters' => []
             ],
-            'legalEntityUpdate' => [
+            'sendCode' => [
+                'prefilters' => []
+            ],
+            'verifyCode' => [
+                'prefilters' => []
+            ],
+            'saveLegalEntityData' => [
                 'prefilters' => []
             ],
             'addPet' => [
@@ -184,136 +177,118 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable, E
                 'prefilters' => []
             ],
         ];
-
     }
 
-    public function userInfoUpdateAction(array $userInfo)
+    public function savePersonalDataAction(array $userInfo): array
     {
-        //TODO:Загрузка фоток
-        $props = [];
-
-        foreach ($userInfo as $userInfoRow) {
-            $props[$userInfoRow['name']] = $userInfoRow['value'];
+        $ticketData = ['id' => $userInfo['id']];
+        if ($userInfo['first_name'] !== $this->user->name) {
+            $ticketData['NAME'] = $userInfo['first_name'];
+        }
+        if ($userInfo['last_name'] !== $this->user->lastName) {
+            $ticketData['LAST_NAME'] = $userInfo['last_name'];
+        }
+        if ($userInfo['second_name'] !== $this->user->secondName) {
+            $ticketData['SECOND_NAME'] = $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'];
+        }
+        if ($userInfo['gender'] !== $this->user->gender) {
+            $ticketData['PERSONAL_GENDER'] = $userInfo['gender'];
+        }
+        if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
+            $ticketData['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+        }
+        if ($userInfo['birthdate'] !== $this->user->birthday->format('d.m.Y')) {
+            $ticketData['PERSONAL_BIRTHDAY'] = $userInfo['birthdate'];
+        }
+        if ($userInfo['email'] !== $this->user->email) {
+            $ticketData['EMAIL'] = $userInfo['email'];
+        }
+        if ($userInfo['phone'] !== $this->user->phone) {
+            $ticketData['PERSONAL_PHONE'] = $userInfo['phone'];
+        }
+        if ($userInfo['city'] !== $this->user->city) {
+            $ticketData['PERSONAL_CITY'] = $userInfo['city'];
+        }
+        if ((int) $userInfo['pickup_point_id'] !==  $this->user->pickupPointId) {
+            $ticketData['UF_PICKUP_POINT_ID'] = $userInfo['pickup_point_id'];
         }
 
-        $fields = [
-            'NAME' => $props['NAME'],
-            'LAST_NAME' => $props['LAST_NAME'],
-            'SECOND_NAME' => $props['SECOND_NAME'],
-            'PERSONAL_GENDER' => $props['PERSONAL_GENDER'],
-            'PERSONAL_BIRTHDAY' => $props['PERSONAL_BIRTHDAY'],
-            'EMAIL' => $props['EMAIL'],
-            'PERSONAL_PHONE' => $props['PERSONAL_PHONE'],
-            'PERSONAL_CITY' => $props['PERSONAL_CITY'],
-            'UF_PICKUP_POINT_ID' => $props['UF_PICKUP_POINT_ID']
-        ];
-
-        (new User($GLOBALS['USER']->GetID()))->update($fields);
-    }
-
-    public function legalEntityUpdateAction($form)
-    {
-        //TODO:Загрузка кучи сканов
-        $docs = [];
-
-        foreach ($form as $row) {
-            if ($row['name'] != 'UF_STATUS') {
-                array_set($docs, $row['name'], $row['value']);
-            } else {
-                $props["UF_STATUS"] = $row['value'];
-            }
+        if (count($ticketData)) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_PERSONAL_DATA_CATEGORY,
+                json_encode($ticketData),
+            );
         }
 
-        $props['UF_USER_ID'] = $GLOBALS['USER']->GetID();
-        $props['UF_CREATED_AT'] = new DateTime();
-        $props['UF_DOCUMENTS'] = json_encode($docs, JSON_UNESCAPED_UNICODE);
-        $props['UF_IS_ACTIVE'] = true;
-
-
-        LegalEntityTable::add($props);
-
-        //TODO: добавить модерацию (видимо переслать в ConfirmationTable)
-        //TODO(?): добавить ивент хендлер, деактивирующий/удаляющий предыдущую запись после модерации
-    }
-
-    protected function preparePetForSaving(array $pet): array
-    {
-        global $USER;
-
-        $props['UF_USER_ID'] = $USER->GetID();
-        $props['UF_NAME'] = $pet['UF_NAME'];
-        $props['UF_GENDER'] = $pet['UF_GENDER'];
-        $props['UF_KIND'] = $pet['UF_KIND'];
-        $props['UF_BIRTHDATE'] = new date($pet['UF_BIRTHDATE'], 'd.m.Y');
-
-        $kinds = PetTable::getFieldValues(['UF_KIND'])['UF_KIND'];
-        foreach ($kinds as $kind) {
-            if ($pet['UF_KIND'] == $kind['ID']) {
-                $petType = $kind['XML_ID'];
-
-                if ($petType == 'KIND_CAT') {
-                    $props['UF_BREED'] = $pet['UF_CAT_BREED'];
-                } elseif ($petType == 'KIND_DOG') {
-                    $props['UF_BREED'] = $pet['UF_DOG_BREED'];
-                }
-            }
+        if ($userInfo['password'] && $userInfo['confirm_password']) {
+            $passwordChanged = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
         }
-
-        return $props;
-    }
-
-    public function addPetAction(array $pet): ?array
-    {
-        $preparedPet = $this->preparePetForSaving($pet);
 
         return [
-            'pet-id' => PetTable::add($preparedPet)->getId()
+            'ticket_created' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error',
+            'password_changed' => isset($passwordChanged) && $passwordChanged ? 'success' : 'error',
         ];
+    }
+
+    public function sendCodeAction(string $phoneNumber): array
+    {
+        if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
+            throw new InvalidArgumentException('Invalid phone number');
+        }
+
+        $this->user->confirmation->sendSmsConfirmation();
+
+        return ['status' => 'success'];
+    }
+
+    public function verifyCodeAction(string $code): array
+    {
+        return ['status' => $this->user->confirmation->verifySmsCode($code) ? 'success' : 'error'];
+    }
+
+    public function saveLegalEntityDataAction($data): array
+    {
+        $oldData = $this->user->legalEntity->getData();
+
+        if ($oldData['type']['id'] !== $data['type']['id'] || $oldData['documents'] !== $data['documents']) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY,
+                json_encode($data, JSON_UNESCAPED_UNICODE),
+            );
+        }
+
+        return ['status' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error'];
+    }
+
+    public function addPetAction(array $pet): array
+    {
+        return ['id' => PetTable::add($this->preparePetForSaving($pet))->getId()];
     }
 
     public function changePetAction(array $pet)
     {
-        global $USER;
-
-        if (!$this->canUserChangePet($USER->GetID(), $pet['ID'])) {
-            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
-
-            return null;
-        }
-
-        $preparedPet = $this->preparePetForSaving($pet);
-
-        PetTable::update($pet['ID'], $preparedPet);
+        PetTable::update($pet['id'], $this->preparePetForSaving($pet));
     }
 
     public function deletePetAction(int $petId)
     {
-        global $USER;
-
-        if (!$this->canUserChangePet($USER->GetID(), $petId)) {
-            $this->errorCollection[] = new \Bitrix\Main\Error('Can\'t modify other user\'s pet');
-
-            return null;
-        }
-
         PetTable::delete($petId);
     }
 
-    protected function canUserChangePet(int $userId, int $petId): bool
+    protected function preparePetForSaving(array $pet): array
     {
-        return (bool)(new User($userId))->pets->get($petId);
+        return [
+            'UF_USER_ID' => $this->userId,
+            'UF_NAME' => $pet['name'],
+            'UF_BIRTHDATE' => new Date($pet['birthdate']),
+            'UF_GENDER' => $pet['gender']['id'],
+            'UF_BREED' => $pet['breed']['id'],
+            'UF_KIND' => $pet['kind']['id'],
+        ];
     }
 
     //TODO смена ментора
     //TODO модерация
-
-    public function getErrors()
-    {
-        $this->errorCollection->toArray();
-    }
-
-    public function getErrorByCode($code)
-    {
-        $this->errorCollection->getErrorByCode($code);
-    }
 }

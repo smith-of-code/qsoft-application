@@ -18,11 +18,33 @@ export const detailOfferStore = defineStore('detailOffer', {
         colors() {
             return this.offers.COLORS;
         },
+        currentColor() {
+            return this.offers.COLORS[this.currentOfferId];
+        },
+        currentSize() {
+            return this.offers.SIZES[this.currentOfferId];
+        },
+        color2Size() {
+            return this.offers.COLOR2SIZE;
+        },
+        size2Color() {
+            return this.offers.SIZE2COLOR;
+        },
         price() {
             return this.offers.PRICES[this.currentOfferId]
         }
     },
     actions: {
+        getIdByColor(color){
+            // size preselected
+            let size = this.offers.SIZES[this.currentOfferId];
+            return this.offers.SIZE2COLOR[size][color];
+        },
+        getIdBySize(size){
+            // color preselected
+            let color = this.offers.COLORS[this.currentOfferId];
+            return this.offers.COLOR2SIZE[color][size];
+        },
         load(name, data) {
             this[name] = data;
         },

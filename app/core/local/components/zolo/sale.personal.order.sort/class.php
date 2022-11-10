@@ -25,5 +25,4 @@ class SalePersonalOrderSortComponent extends CBitrixComponent
         $this->arResult['SORT'] = $this->sortFields;
         $this->arResult['DIRECTION'] = $this->sortDirection;
     }
-
 }

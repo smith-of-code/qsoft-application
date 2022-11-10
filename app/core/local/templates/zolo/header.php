@@ -10,12 +10,6 @@ CJSCore::Init(["fx"]);
 global $APPLICATION;
 ?>
 
-<script>
-    window.onload = () => {
-        (new Zolo.Loader()).run();
-    }
-</script>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -467,7 +461,9 @@ global $APPLICATION;
                             </div>
                         </div>
 
-                        <?php if ($USER->isAuthorized()): ?>
+                        <?php
+                        global $USER;
+                        if ($USER->isAuthorized()): ?>
                             <div class="personal__item personal__item--hidden">
                                 <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
                                     <span class="button__icon button__icon--mixed">
@@ -479,8 +475,8 @@ global $APPLICATION;
                                 </button>
                             </div>
                         <?php else: ?>
-                            <div class="personal__item personal__item--hidden" style="display: none">
-                                <button type="button" class="button button--simple button--red button--vertical">
+                            <div class="personal__item personal__item--hidden">
+                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/login';">
                                     <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--login">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
@@ -528,13 +524,13 @@ global $APPLICATION;
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/faq/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">FAQ</span>
                             </a>
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/news/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">Новости</span>
                             </a>
                         </li>

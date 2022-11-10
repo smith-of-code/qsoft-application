@@ -69,19 +69,14 @@
 
     &--red & {
         &__item {
-            padding-right: rem($gap-medium);
-            padding-left: rem($gap-medium);
+            padding-right: rem($gap-big);
+            padding-left: rem($gap-big);
 
             color: $saltBox;
             background-color: $white;
 
-            @media #{$screen-desktop} {
-                padding-right: rem($gap-big);
-                padding-left: rem($gap-big);
-            }
-
             &--active {
-                color: $white;
+                color: $athensGray;
                 background-color: $brickRed;
             }
         }

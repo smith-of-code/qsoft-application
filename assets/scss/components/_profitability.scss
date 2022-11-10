@@ -46,6 +46,8 @@
         }
 
         &-title {
+            font-size: rem($font-size-small);
+
             margin-bottom: rem($gap-small);
 
             color: $tuna;
@@ -155,7 +157,7 @@
 
             &--inlined {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: space-between;
 
                 @media #{$screen-desktop} {
@@ -210,6 +212,34 @@
             width: rem($size);
             height: rem($size);
             margin-right: rem(10px);
+        }
+
+        &-note {
+            margin-top: rem($gap-mini);
+        }
+    }
+
+    &__signature {
+        font-size: rem($font-size-miniature);
+        font-weight: $font-weight-medium;
+        line-height: $line-height-miniature;
+
+        display: none;
+
+        margin-top: rem($gap-mini);
+
+        color: $saltBox;
+
+        @media #{$screen-desktop} {
+            display: block;
+        }
+
+        &--mobile {
+            display: block;
+
+            @media #{$screen-desktop} {
+                display: none;
+            }
         }
     }
 }

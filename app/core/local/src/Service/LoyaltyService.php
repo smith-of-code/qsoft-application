@@ -2,6 +2,7 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Main\Type\DateTime;
 use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
