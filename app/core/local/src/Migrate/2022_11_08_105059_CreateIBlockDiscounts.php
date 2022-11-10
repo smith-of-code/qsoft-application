@@ -52,10 +52,10 @@ final class CreateIBlockDiscounts extends BaseCreateIBlockMigration
             'IS_REQUIRED' => 'Y',
         ],
         [
-            'NAME' => 'Товар',
-            'CODE' => 'PRODUCT_ID',
-            'PROPERTY_TYPE' => 'E',
-            'LINK_IBLOCK_ID' => 'catalog:product',
+            'NAME' => 'Акционный каталог',
+            'CODE' => 'DISCOUNT_SECTION_ID',
+            'PROPERTY_TYPE' => 'G',
+            'LINK_IBLOCK_ID' => 'catalog',
             'IS_REQUIRED' => 'Y',
         ]
     ];

@@ -3,7 +3,7 @@ window.onload = function () {
 }
 
 function loadDiscounts() {
-    BX.ajax.runComponentAction('zolo:discounts', 'loadDiscounts', {
+    BX.ajax.runComponentAction('zolo:discounts.list', 'loadDiscounts', {
         mode: 'class',
         data: {
             offset: offset
@@ -18,7 +18,7 @@ function loadDiscounts() {
 }
 
 function attach($discounts) {
-    $titles = ['ID', 'TEXT', 'PICTURE', 'DISCOUNT', 'PRODUCT'];
+    $titles = ['ID', 'TEXT', 'PICTURE', 'DISCOUNT', 'CATALOG'];
     let page = document.querySelector('.discounts');
     for (let i = 0; i < $discounts.length; i++) {
         let discount = document.createElement('div');

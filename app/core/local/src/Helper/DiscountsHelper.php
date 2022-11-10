@@ -1,21 +1,21 @@
 <?php
 
-namespace QSoft\Service;
+namespace QSoft\Helper;
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 
-class DiscountsService
+class DiscountsHelper
 {
-    private const DISCOUNTS_LIMIT = 2;
+    private const DISCOUNTS_LIMIT = 6;
 
     public static function getDiscounts(int $offset): array
     {
         self::checkModules();
         $discounts = self::getRawDiscounts($offset);
-        $detailPageUrl = self::getDetailPageUrl(array_map(fn($discount) => $discount['PRODUCT'], $discounts));
-        $discounts = self::addPictureAndUrl($detailPageUrl, $discounts);
-        return $discounts;
+        $catalogUrl = self::getCatalogUrl(array_map(fn($discount) => $discount['CATALOG'], $discounts));
+        self::addPictureAndCatalogUrl($catalogUrl, $discounts);
+        return $discounts ?? [];
     }
 
     public static function checkModules()
@@ -43,47 +43,46 @@ class DiscountsService
                 'PREVIEW_TEXT',
                 'DETAIL_PICTURE',
                 'PROPERTY_DISCOUNT_VALUE',
-                'PROPERTY_PRODUCT_ID',
+                'PROPERTY_DISCOUNT_SECTION_ID'
             ]
         );
         $discounts = [];
         while ($element = $rowDiscountsResult->GetNext(true, false)) {
-            $discount = [];
-            $discount['ID'] = $element['ID'];
-            $discount['TEXT'] = $element['PREVIEW_TEXT'];
-            $discount['PICTURE'] = $element['DETAIL_PICTURE'];
-            $discount['DISCOUNT'] = $element['PROPERTY_DISCOUNT_VALUE_VALUE'];
-            $discount['PRODUCT'] = $element['PROPERTY_PRODUCT_ID_VALUE'];
-            $discounts[] = $discount;
+            $discounts[] = [
+                'ID' => $element['ID'],
+                'TEXT' => $element['PREVIEW_TEXT'],
+                'PICTURE' => $element['DETAIL_PICTURE'],
+                'DISCOUNT' => $element['PROPERTY_DISCOUNT_VALUE_VALUE'],
+                'CATALOG' => $element['PROPERTY_DISCOUNT_SECTION_ID_VALUE'],
+            ];
         }
         return $discounts;
     }
 
-    private static function getDetailPageUrl(array $productsId): array
+    private static function getCatalogUrl(array $sectionIds): array
     {
-        $detailPageUrlResult = \CIBlockElement::GetList(
+        $catalogUrlResult = \CIBlockSection::GetList(
             [],
             [
-                'ID' => $productsId
+                'ID' => $sectionIds
             ],
-            false,
             false,
             [
                 'ID',
-                'DETAIL_PAGE_URL'
-            ]
+                'SECTION_PAGE_URL'
+            ],
         );
-        $detailPageUrl = [];
-        while ($element = $detailPageUrlResult->GetNext(true, false)) {
-            $detailPageUrl[$element['ID']] = $element['DETAIL_PAGE_URL'];
+        $catalogUrl = [];
+        while ($element = $catalogUrlResult->GetNext(true, false)) {
+            $catalogUrl[$element['ID']] = $element['SECTION_PAGE_URL'];
         }
-        return $detailPageUrl;
+        return $catalogUrl;
     }
 
-    private static function addPictureAndUrl($url, &$discounts): void
+    private static function addPictureAndCatalogUrl($url, &$discounts): void
     {
         foreach ($discounts as &$discount) {
-            $discount['PRODUCT'] = $url[$discount['PRODUCT']];
+            $discount['CATALOG'] = $url[$discount['CATALOG']];
             $discount['PICTURE'] = \CFile::GetPath($discount['PICTURE']);
         }
     }
