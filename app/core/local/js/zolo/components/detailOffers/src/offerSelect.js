@@ -23,7 +23,7 @@ export const SelectOffer = {
         window.initSelect();
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'colors', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
+        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
     },
     methods: {
         setOffer(event) {
@@ -83,28 +83,8 @@ export const SelectOffer = {
         <template v-else-if="color2Size">
             <div class="specification__colors colors colors--big">
                 <p class="specification__category">Цвет</p>
-                <!--            <ul class="colors__list">-->
-                <!--              <li class="colors__item" v-for="item in colors" >-->
-                <!--                    <div v-bind:class="'color' + (offers.AVAILABLE[item.offerId]) ? '' : 'color&#45;&#45;disabled'">-->
-                <!--                        <div class="radio">-->
-                <!--                            <input type="radio" class="color__input radio__input" name="radio_color"-->
-                <!--                                   @click="setOffer"-->
-                <!--                                   v-bind:value="item.offerId"-->
-                <!--                                   v-bind:id="'radio' + item.offerId"-->
-                <!--                                   v-bind:disabled="!offers.AVAILABLE[item.offerId]"-->
-                <!--                                   v-bind:checked="currentOfferId == item.offerId"-->
-                <!--                            >-->
-                <!--                            <label v-bind:for="'radio' + item.offerId">-->
-                <!--                                <div v-bind:class="'color__item color__item&#45;&#45;big color__item&#45;&#45;' + item.color"></div>-->
-                <!--                            </label>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </li>-->
-                <!--            </ul>-->
                 <ul class="colors__list">
                     <li class="colors__item" v-for="(item, color) in color2Size">
-                        <!--              {{color}}-->
-                        <!--              {{getColorOffer(color)}}-->
                         <div v-bind:class="'color ' + ((offers.AVAILABLE[getColorOffer(color)]) ? '' : ' color--disabled')">
                             <div class="radio">
                                 <input type="radio" class="color__input radio__input" name="radio_color"

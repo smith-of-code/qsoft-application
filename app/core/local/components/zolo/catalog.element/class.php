@@ -339,18 +339,13 @@ class CatalogElementComponent extends Element
             $result['DISCOUNT_LABELS'][$offer['ID']]['NAME'] = $offer['PROPERTY_DISCOUNT_LABEL_VALUE'];
             $result['DISCOUNT_LABELS'][$offer['ID']]['COLOR'] = $this->getDiscountLabelColor($offer['PROPERTY_DISCOUNT_LABEL_VALUE']);
 
-            if ($offer['PROPERTY_COLOR_VALUE']) {
-                $result['COLORS'][] = [
-                    'offerId' => $offer['ID'],
-                    'color'=> $offer['PROPERTY_COLOR_VALUE']
-                ];
-            }
             if ($offer['PROPERTY_COLOR_VALUE'] && $offer['PROPERTY_SIZE_VALUE']) {
                 $result['SIZES'][$offer['ID']] = $offer['PROPERTY_SIZE_VALUE'];
                 $result['SIZE2COLOR'][$offer['PROPERTY_SIZE_VALUE']][$offer['PROPERTY_COLOR_VALUE']][] = $offer['ID'];
-                $result['COLORS_TYPES'][ $offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
+                $result['COLORS'][ $offer['ID']] = $offer['PROPERTY_COLOR_VALUE'];
                 $result['COLOR2SIZE'][$offer['PROPERTY_COLOR_VALUE']][$offer['PROPERTY_SIZE_VALUE']][] = $offer['ID'] ;
             }
+
             $result['ARTICLES'][$offer['ID']] = $offer['PROPERTY_ARTICLE_VALUE'];
             $result['BESTSELLERS'][$offer['ID']] = $offer['PROPERTY_BESTSELLER_VALUE'] === 'Да';
 
@@ -408,7 +403,7 @@ class CatalogElementComponent extends Element
             'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
             'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
         ];
-dump($result);
+
         return $result;
     }
 
