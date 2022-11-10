@@ -2,7 +2,10 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\Loader;
+use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
+use Bitrix\Sale\OrderTable;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
@@ -28,6 +31,12 @@ class LoyaltyProgramHelper
     {
         $this->levelsIDs = [];
         $this->levels = [];
+        $this->includeModules();
+    }
+
+    private function includeModules(): void
+    {
+        Loader::includeModule('sale');
     }
 
     /**
@@ -37,6 +46,43 @@ class LoyaltyProgramHelper
     public function getConfiguration()
     {
         return app('config')->get($this->configPath);
+    }
+
+    public function getAccountingPeriod(Date $date): array
+    {
+        $currentQuarter = intdiv((int) $date->format('m') - 1, 3) + 1;
+        $startPeriod = $currentQuarter + ($currentQuarter - 1) * 2;
+        $endPeriod = $startPeriod + 2;
+
+        return [
+            'name' => numberToRoman($currentQuarter) . $date->format(' квартал Y'),
+            'from' => new Date($date->format("01.$startPeriod.Y")),
+            'to' => (new Date($date->format("01.$endPeriod.Y")))->add('+1 month')->add('-1 day'),
+        ];
+    }
+
+    public function getCurrentAccountingPeriod(): array
+    {
+        return $this->getAccountingPeriod(new DateTime);
+    }
+
+    public function getAccountingPeriodsSinceDate(Date $date): array
+    {
+        $now = new Date;
+        $period = $this->getAccountingPeriod($date);
+
+        $result = [];
+        while ($now->getDiff($period['to'])->invert) {
+            $result[] = $period;
+            $period = $this->getAccountingPeriod((new Date($period['to']))->add('+1 day'));
+        }
+        $result[] = $this->getCurrentAccountingPeriod();
+        return array_reverse($result);
+    }
+
+    public function getAvailableAccountingPeriods(int $userId): array
+    {
+        return $this->getAccountingPeriodsSinceDate(new Date((new User($userId))->dateRegister));
     }
 
     /**
@@ -59,7 +105,18 @@ class LoyaltyProgramHelper
     public function getLoyaltyLevelInfo(string $level) : ?array
     {
         $levels = $this->getLoyaltyLevels();
-        return $levels[$level] ?? null;
+        return $levels[$levels['types'][substr($level, 0, 1)]][$level] ?? null;
+    }
+
+    /**
+     * Получить коэффициенты и параметры уровня программы лояльности
+     * @param string $level Уровень программы лояльности
+     * @return array|null
+     */
+    public function getNextLoyaltyLevelInfo(string $level) : ?array
+    {
+        $levels = $this->getLoyaltyLevels();
+        return $levels[$levels['types'][substr($level, 0, 1)]][substr($level, 0, 1) . (substr($level, 1, 1) + 1)] ?? null;
     }
 
     /**
@@ -96,7 +153,7 @@ class LoyaltyProgramHelper
         return $lowestLevel;
     }
 
-    public function getPersonalBonusesIncomeByPeriod(int $userId, DateTime $from, DateTime $to): array
+    public function getPersonalBonusesIncomeByPeriod(int $userId, Date $from, Date $to): array
     {
         $transactions = TransactionTable::getList([
             'filter' => [
@@ -112,15 +169,23 @@ class LoyaltyProgramHelper
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
         ])->fetchAll();
 
-        $result = [];
+        $typeFieldValues = HlBlockHelper::getPreparedEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
 
-        $typeFieldValues = HlBlockHelper::getEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
-        $typeFieldMap = array_combine(array_column($typeFieldValues, 'ID'), array_column($typeFieldValues, 'XML_ID'));
-        foreach ($transactions as $transaction) {
-            $result[$typeFieldMap[$transaction['UF_TYPE']]] += (float)$transaction['UF_AMOUNT'];
-        }
-
-        return $result;
+        return [
+            'total' => array_sum(array_column($transactions, 'UF_AMOUNT')),
+            'js_data' => [
+                'labels' => array_map(
+                    fn (array $transaction): string => TransactionTable::TYPES_LABELS[$typeFieldValues[$transaction['UF_TYPE']]['code']],
+                    $transactions
+                ),
+                'datasets' => [
+                    [
+                        'data' => array_column($transactions, 'UF_AMOUNT'),
+                        'backgroundColor' => ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"],
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -141,39 +206,46 @@ class LoyaltyProgramHelper
         return $highestLevel;
     }
 
-    public function getLoyaltyStatusByPeriod(int $userId, DateTime $from, DateTime $to): array
+    public function getLoyaltyStatusByPeriod(int $userId, Date $from, Date $to): array
     {
         $user = new User($userId);
         $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+        $nextLoyaltyLevelInfo = $this->getNextLoyaltyLevelInfo($user->loyaltyLevel);
 
         $result = [
             'self' => [
                 'hold_value' => $loyaltyLevelInfo['hold_level_terms']['self_total'],
-                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'upgrade_value' => $nextLoyaltyLevelInfo ? $nextLoyaltyLevelInfo['upgrade_level_terms']['self_total'] : 0,
                 'current_value' => .0,
             ],
             'team' => [
                 'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'],
-                'upgrade_value' => $loyaltyLevelInfo['upgrade_level_terms']['self_total'],
+                'upgrade_value' => $nextLoyaltyLevelInfo ? $nextLoyaltyLevelInfo['upgrade_level_terms']['team_total'] : 0,
                 'current_value' => .0,
             ],
         ];
 
         $transactions = TransactionTable::getList([
             'filter' => [
-                '=UF_USER_ID' => $userId,
-                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                '=UF_USER_ID' => $user->id,
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['money']),
+                '!=UF_ORDER_ID' => null,
                 [
                     'LOGIC' => 'AND',
                     ['>UF_CREATED_AT' => $from],
                     ['<UF_CREATED_AT' => $to],
                 ],
             ],
-        ])->fetchAll();
+            'select' => ['ID', 'UF_AMOUNT', 'UF_SOURCE'],
+        ]);
 
-        $sourceFieldSelfId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']);
+        $groupSourceFieldId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']);
         foreach ($transactions as $transaction) {
-            $result[$transaction['UF_SOURCE'] === $sourceFieldSelfId ? 'self' : 'team']['current_value'] += $transaction['UF_AMOUNT'];
+            if ($transaction['UF_SOURCE'] === $groupSourceFieldId) {
+                $result['team']['current_value'] += $transaction['UF_AMOUNT'];
+            } else {
+                $result['self']['current_value'] += $transaction['UF_AMOUNT'];
+            }
         }
 
         return $result;

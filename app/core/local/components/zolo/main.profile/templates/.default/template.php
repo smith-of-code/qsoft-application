@@ -263,7 +263,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
                                     </svg>
                                 </span>
-                                <span class="profile__period-text">II квартал 2022</span>
+                                <span class="profile__period-text"><?=$arResult['current_accounting_period']['name']?></span>
                             </div>
 
                             <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
@@ -284,7 +284,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
                                     </svg>
                                 </span>
-                                <span class="profile__period-text">II квартал 2022</span>
+                                <span class="profile__period-text"><?=$arResult['current_accounting_period']['name']?></span>
                             </div>
                         </div>
                         <div class="section__box-inner">
@@ -293,22 +293,22 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                             <div class="success-cards">
                                 <div class="success-cards__item">
                                     <div class="success-card success-card--green">
-                                        <span class="success-card__title heading heading--large"><?=$arResult['USER_INFO']['UF_LOYALTY_LEVEL_NAME']?></span>
+                                        <span class="success-card__title heading heading--large"><?=$arResult['personal_data']['loyalty_level']?></span>
                                         <span class="success-card__info">Уровень аккаунта</span>
                                     </div>
                                 </div>
 
                                 <div class="success-cards__item">
                                     <div class="success-card success-card--red">
-                                        <span class="success-card__title heading heading--large">5%</span>
+                                        <span class="success-card__title heading heading--large"><?=$arResult['loyalty_level_info']['benefits']['personal_discount']?>%</span>
                                         <span class="success-card__info">Персональная скидка</span>
                                     </div>
                                 </div>
 
                                 <div class="success-cards__item">
                                     <div class="success-card success-card--violet">
-                                        <span class="success-card__title heading heading--large">808</span>
-                                        <span class="success-card__info">Сумма баллов за IV квартал 2022</span>
+                                        <span class="success-card__title heading heading--large"><?=$arResult['orders_report']['current_period_bonuses']?></span>
+                                        <span class="success-card__info">Сумма баллов за <?=$arResult['current_accounting_period']['name']?></span>
                                     </div>
                                 </div>
                             </div>
@@ -320,75 +320,18 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                             <div class="cards-progress">
                                 <ul class="cards-progress__list">
                                     <li class="cards-progress__item">
-                                        <div class="card-progress card-progress--unbordered">
-                                            <div class="card-progress__inner">
-                                                <p class="card-progress__title">
-                                                    Удержание уровня по личным покупкам
-                                                </p>
-                                                <div class="card-progress__mark">
-                                                    <svg class="card-progress__icon icon icon--cat-serious">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
-                                                    </svg>
-                                                    <span class="card-progress__mark-text">
-                                                        Осталось еще немного
-                                                    </span>
-                                                </div>
-                                                <div class="card-progress__wrapper">
-                                                    <div class="card-progress__progress progress-bar">
-                                                        <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
-                                                    </div>
-                                                    <div class="card-progress__bottom">
-                                                        <div class="card-progress__amount amount">
-                                                            <p class="amount__target amount__target--red">
-                                                                124 000 ₽
-                                                            </p>
-                                                            <p class="amount__total">
-                                                                из 175 000 ₽
-                                                            </p>
-                                                        </div>
-
-                                                        <div class="card-progress__status">
-                                                            <p class="card-progress__text">
-                                                                Осталось 56 000 ₽
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-progress__warning warning">
-                                                    <div class="warning__mark">
-                                                        <button type="button"
-                                                            class="button button--iconed button--simple button--red"
-                                                            data-fancybox data-modal-type="modal"
-                                                            data-src="#conditions"
-                                                        >
-                                                            <span class="button__icon">
-                                                                <svg class="icon icon--basket warning__icon">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <p class="warning__text">
-                                                        Условия повышения уровня
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        <div
+                                            id="loyaltyStatusReport"
+                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                        ></div>
                                     </li>
                                     <li class="cards-progress__item">
-                                        <div class="card-progress card-progress--unbordered">
-                                            <div class="card-progress__inner card-progress__inner--columed">
-                                                <div class="card-progress__image">
-                                                    <svg class="card-progress__image-pic icon icon--cat-cheerful">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-cheerful"></use>
-                                                    </svg>
-                                                </div>
-
-                                                <p class="card-progress__text">У Вас максимальный уровень</p>
-                                            </div>
-                                        </div>
-
+                                        <div
+                                            id="loyaltyStatusReport"
+                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                            prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                        ></div>
                                     </li>
                                 </ul>
                             </div>
