@@ -120,9 +120,10 @@
 
             width: 100%;
             height: 100%;
-    
-            border-radius: rem($border-radius-average);
-    
+
+            border-top-left-radius: rem($border-radius-average);
+            border-bottom-left-radius: rem($border-radius-average);
+
             @include object-fit(cover);
         }
 
@@ -159,6 +160,7 @@
         &-list {
             @media #{$screen-tablet} {
                 margin: 0 rem(-15px);
+                margin-top: rem($gap-big);
             }
         }
 
@@ -166,7 +168,6 @@
             flex-basis: percentage( 1 / 4);
 
             margin-top: rem(16px);
-            
 
             @media #{$screen-tablet} {
                 padding: 0 rem(15px);
