@@ -71,7 +71,7 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <?php $isCurrentUrl  = $currentUrl == $arParams['NOTIFICATIONS_URL'] ? 'menu__item--active' : ''?>
         <li class="menu__item  <?=$isCurrentUrl  ? 'menu__item--active' : ''?>">
             <a href="<?=$arParams['NOTIFICATIONS_URL']?>" class="menu__link">
-                <span class="menu__icon">
+                <span class="menu__icon <?=$isCurrentUrl  ? 'menu__icon--active' : ''?>">
                     <svg class="icon icon--notification gui__icon">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
                     </svg>
