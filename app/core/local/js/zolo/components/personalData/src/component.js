@@ -57,7 +57,7 @@ export const PersonalData = {
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
             this.mutableUserInfo.gender = $('#gender').val();
             this.mutableUserInfo.city = $('#city').val();
-            this.mutableUserInfo.pickup_point = $('#pickup_point').val();
+            this.mutableUserInfo.pickup_point_id = $('#pickup_point_id').val();
 
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
             this.cancelEditing();
@@ -453,7 +453,7 @@ export const PersonalData = {
                                             <div class="form__col">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
-                                                        <label for="pickup_point" class="profile__label form__label form__label--required">
+                                                        <label for="pickup_point_id" class="profile__label form__label form__label--required">
                                                             <span class="form__label-text">Пункт выдачи заказов</span>
                                                         </label>
                                                     </div>
@@ -461,7 +461,7 @@ export const PersonalData = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="profile__toggle-select select select--mitigate" data-select>
-                                                                <select class="select__control js-required" name="pickup_point" id="pickup_point" data-select-control data-placeholder="Выберите пункт выдачи">
+                                                                <select class="select__control js-required" name="pickup_point_id" id="pickup_point_id" data-select-control data-placeholder="Выберите пункт выдачи">
                                                                     <option><!-- пустой option для placeholder --></option>
                                                                     <option
                                                                         v-for="(pickupPoint, pickupPointId) in pickupPoints"

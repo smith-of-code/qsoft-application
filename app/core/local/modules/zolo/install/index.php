@@ -1,5 +1,8 @@
 <?php
 
+use Bitrix\Main\Application;
+use Bitrix\Main\IO\Directory;
+
 includeModuleLangFile(__FILE__);
 if (class_exists('zolo'))
 	return;
@@ -49,8 +52,25 @@ class zolo extends CModule
 
 	function installFiles()
 	{
-		return true;
-	}
+        $result = CopyDirFiles(
+            __DIR__ . '/admin',
+            "$_SERVER[DOCUMENT_ROOT]/bitrix/admin",
+            true,
+            true
+        );
+        $result = $result && CopyDirFiles(
+            __DIR__ . '/css',
+            Application::getDocumentRoot() . '/bitrix/css/' . $this->MODULE_ID . '/',
+            true,
+            true
+        );
+        return $result && CopyDirFiles(
+            __DIR__ . '/js',
+            Application::getDocumentRoot() . '/bitrix/js/' . $this->MODULE_ID . '/',
+            true,
+            true
+        );
+    }
 
 	function doUninstall()
 	{
@@ -73,7 +93,10 @@ class zolo extends CModule
 
 	function uninstallFiles()
 	{
-		return true;
+        DeleteDirFiles(__DIR__ . '/admin', "{$_SERVER['DOCUMENT_ROOT']}/bitrix/admin");
+        Directory::deleteDirectory(Application::getDocumentRoot() . '/bitrix/css/' . $this->MODULE_ID);
+        Directory::deleteDirectory(Application::getDocumentRoot() . '/bitrix/js/' . $this->MODULE_ID);
+        return true;
 	}
 
 }
