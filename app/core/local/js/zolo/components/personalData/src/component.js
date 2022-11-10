@@ -1,6 +1,9 @@
 import { usePersonalDataStore } from '../../../stores/personalDataStore';
+import { Select } from "../../gui/select/src/component";
 
 export const PersonalData = {
+    components: { Select },
+
     data() {
         return {
             mutableUserInfo: {},
@@ -30,6 +33,12 @@ export const PersonalData = {
         },
     },
 
+    computed: {
+        userCity() {
+            return Object.values(this.cities).find(city => city.name === this.mutableUserInfo.city);
+        },
+    },
+
     setup() {
         return { personalDataStore: usePersonalDataStore() };
     },
@@ -55,18 +64,17 @@ export const PersonalData = {
 
             this.phoneError = false;
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
-            this.mutableUserInfo.gender = $('#gender').val();
-            this.mutableUserInfo.city = $('#city').val();
-            this.mutableUserInfo.pickup_point_id = $('#pickup_point_id').val();
 
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
-            this.cancelEditing();
+            this.editing = false;
+
+            $.fancybox.open({ src: '#thanks' });
         },
         async sendCode() {
             const phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
 
             this.phoneError = false;
-            if (!phone || phone.match(/_+/i)) {
+                if (!phone || phone.match(/_+/i)) {
                 this.phoneError = true;
                 return;
             }
@@ -74,7 +82,6 @@ export const PersonalData = {
             try {
                 const response = await this.personalDataStore.sendCode(phone);
 
-                console.log(response);
                 if (!response.data || response.data.status === 'error') {
                     throw new Error(response.data.message);
                 }
@@ -305,15 +312,13 @@ export const PersonalData = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="profile__toggle-select select select--mitigate" data-select>
-                                                                <select class="select__control js-required" name="gender" id="gender" data-select-control data-placeholder="Выберите пол">
-                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                    <option 
-                                                                        v-for="(gender, genderCode) in genders" 
-                                                                        :key="genderCode"
-                                                                        :value="genderCode" 
-                                                                        :selected="genderCode === mutableUserInfo.gender"
-                                                                    >{{ gender }}</option>
-                                                                </select>
+                                                                <Select
+                                                                    name="gender"
+                                                                    :options="genders"
+                                                                    placeholder="Выберите пол"
+                                                                    :selected="mutableUserInfo.gender"
+                                                                    @custom-change="(value) => { mutableUserInfo.gender = value }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -435,15 +440,13 @@ export const PersonalData = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="profile__toggle-select select select--mitigate" data-select>
-                                                                <select class="select__control js-required" name="city" id="city" data-select-control data-placeholder="Выберите город">
-                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                    <option
-                                                                        v-for="city in cities"
-                                                                        :key="city.name" 
-                                                                        :value="city.name"
-                                                                        :selected="city.name === mutableUserInfo.city"
-                                                                    >{{ city.name }}</option>
-                                                                </select>
+                                                                <Select
+                                                                    name="city"
+                                                                    :options="cities"
+                                                                    placeholder="Выберите город"
+                                                                    :selected="userCity.id"
+                                                                    @custom-change="(value) => { mutableUserInfo.city = cities[value].name }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -461,16 +464,13 @@ export const PersonalData = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="form__control">
                                                             <div class="profile__toggle-select select select--mitigate" data-select>
-                                                                <select class="select__control js-required" name="pickup_point_id" id="pickup_point_id" data-select-control data-placeholder="Выберите пункт выдачи">
-                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                    <option
-                                                                        v-for="(pickupPoint, pickupPointId) in pickupPoints"
-                                                                        :key="pickupPointId"
-                                                                        :value="pickupPointId" 
-                                                                        :selected="pickupPointId === mutableUserInfo.pickup_point_id"
-                                                                        class="form-control__option"
-                                                                    >{{ pickupPoint }}</option>
-                                                                </select>
+                                                                <Select
+                                                                    name="pickup_point_id"
+                                                                    :options="pickupPoints[userCity.id] ?? {}"
+                                                                    placeholder="Выберите пункт выдачи заказов"
+                                                                    :selected="mutableUserInfo.pickup_point_id"
+                                                                    @custom-change="(value) => { mutableUserInfo.pickup_point_id = value }"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -588,6 +588,23 @@ export const PersonalData = {
                     </div>
                 </form>
             </section>
+
+            <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+                <div class="modal__content">
+                    <section class="modal__section modal__section--content">
+                        <div class="notification notification--simple">
+                            <div class="notification__icon">
+                                <svg class="icon icon--cat-serious">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                                </svg>
+                            </div>
+
+                            <h4 class="notification__title">Спасибо за обращение</h4>
+                            <p class="notification__text">Мы проверим обновленные данные и уведомим Вас о результате внесения изменений. </p>
+                        </div>
+                    </section>
+                </div>
+            </article>
             
             <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
                 <div class="modal__content">

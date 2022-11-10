@@ -58,7 +58,9 @@ export const LegalEntity = {
             });
 
             this.legalEntityStore.saveLegalEntityData(this.mutableLegalEntity);
-            this.cancelEditing();
+            this.editing = false;
+
+            $.fancybox.open({ src: '#thanks' });
         },
     },
 
@@ -2498,5 +2500,22 @@ export const LegalEntity = {
                 </div>
             </section>
         </div>
+
+        <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+            <div class="modal__content">
+                <section class="modal__section modal__section--content">
+                    <div class="notification notification--simple">
+                        <div class="notification__icon">
+                            <svg class="icon icon--cat-serious">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                            </svg>
+                        </div>
+                        
+                        <h4 class="notification__title">Спасибо за обращение</h4>
+                        <p class="notification__text">Мы проверим обновленные данные и уведомим Вас о результате внесения изменений. </p>
+                    </div>
+                </section>
+            </div>
+        </article>
     `,
 };

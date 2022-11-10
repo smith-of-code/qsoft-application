@@ -19,6 +19,7 @@ use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\OrderHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Helper\PickupPointHelper;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
@@ -33,6 +34,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private TicketHelper $ticketHelper;
     private OrderHelper $orderHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
+    private PickupPointHelper $pickupPointHelper;
 
     public function __construct($component = null)
     {
@@ -48,6 +50,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->ticketHelper = new TicketHelper;
         $this->orderHelper = new OrderHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
+        $this->pickupPointHelper = new PickupPointHelper;
 
         parent::__construct($component);
     }
@@ -93,8 +96,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function getResult()
     {
-        $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
-        $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
+        $this->arResult['cities'] = $this->pickupPointHelper->getCities();
+        $this->arResult['pickup_points'] = $this->pickupPointHelper->getPickupPoints();
+
+        $this->arResult['user_genders'] = ['M' => ['name' => 'Мужской'], 'F' => ['name' => 'Женский']];
 
         $this->arResult['personal_data'] = $this->user->getPersonalData();
         $this->arResult['current_accounting_period'] = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
@@ -110,15 +115,6 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         );
         $this->arResult['loyalty_level_info'] = $this->loyaltyProgramHelper->getLoyaltyLevelInfo(
             $this->arResult['personal_data']['loyalty_level']
-        );
-
-        $pickupPoints = PickupPointTable::getList([
-            'order' => ['UF_NAME' => 'ASC'],
-            'select' => ['ID', 'UF_NAME'],
-        ])->fetchAll();
-        $this->arResult['pickup_points'] = array_combine(
-            array_column($pickupPoints, 'ID'),
-            array_column($pickupPoints, 'UF_NAME'),
         );
 
         if ($this->user->groups->isConsultant()) {
