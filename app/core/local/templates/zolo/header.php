@@ -524,13 +524,13 @@ global $APPLICATION;
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/faq/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">FAQ</span>
                             </a>
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/news/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">Новости</span>
                             </a>
                         </li>

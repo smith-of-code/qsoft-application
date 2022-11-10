@@ -134,6 +134,9 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $kind['icon'] = substr(strtolower($kind['code']), 5);
         }
 
+        $this->arResult['personal_promotions'] = $this->orderHelper->getUserCoupons($this->user->id);
+        $this->arResult['promotion_orders'] = $this->orderHelper->getUserOrdersWithPersonalPromotions($this->user->id);
+
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
     }
 
