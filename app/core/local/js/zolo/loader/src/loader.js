@@ -53,13 +53,15 @@ export class Loader {
         return props;
     }
 
-    renderApplication(root, component, pinia): void {
-        const rootElement = document.querySelector(root)
+    renderApplication(selector, component, pinia) {
+        const elements = document.querySelectorAll(selector);
 
-        if (rootElement) {
-            const app = BitrixVue.createApp(component, this.loadProperties(rootElement));
-            app.use(pinia);
-            app.mount(rootElement);
+        if (elements && elements.length) {
+            for (const element of elements) {
+                const app = BitrixVue.createApp(component, this.loadProperties(element));
+                app.use(pinia);
+                app.mount(element);
+            }
         }
     }
 }

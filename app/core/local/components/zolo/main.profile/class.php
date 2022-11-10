@@ -16,6 +16,8 @@ use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\OrderHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
@@ -27,6 +29,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private User $user;
 
     private PetHelper $petHelper;
+    private OrderHelper $orderHelper;
+    private LoyaltyProgramHelper $loyaltyProgramHelper;
 
     public function __construct($component = null)
     {
@@ -39,6 +43,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->user = new User($this->userId);
 
         $this->petHelper = new PetHelper;
+        $this->orderHelper = new OrderHelper;
+        $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
 
         parent::__construct($component);
     }
@@ -85,8 +91,23 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     public function getResult()
     {
         $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
-        $this->arResult['personal_data'] = $this->user->getPersonalData();
         $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
+
+        $this->arResult['personal_data'] = $this->user->getPersonalData();
+        $this->arResult['current_accounting_period'] = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+        $this->arResult['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['orders_report'] = $this->orderHelper->getOrdersReport(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['loyalty_level_info'] = $this->loyaltyProgramHelper->getLoyaltyLevelInfo(
+            $this->arResult['personal_data']['loyalty_level']
+        );
 
         $pickupPoints = PickupPointTable::getList([
             'order' => ['UF_NAME' => 'ASC'],
@@ -114,9 +135,6 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         }
 
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
-        //Система лояльности
-        $this->arResult['LOYALTY_INFO'] = $this->user->loyalty->getLoyaltyProgramInfo();
-        //Персональные акции
     }
 
     private function getMentorInfo()
