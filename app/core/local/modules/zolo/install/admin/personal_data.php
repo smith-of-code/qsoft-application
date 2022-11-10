@@ -264,6 +264,30 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);?>
                     <?php endif;?>
                 </div>
             </div>
+
+            <div class="form__row">
+                <div class="form__col">
+                    <?php if ($ticketData['UF_PICKUP_POINT_ID']):?>
+                        <div class="form__field">
+                            <div class="form__field-block form__field-block--label">
+                                <label for="pickup_point_id" class="form__label form__label--required">
+                                    <span class="form__label-text">Пункт выдачи заказов</span>
+                                </label>
+                            </div>
+
+                            <div class="form__field-block form__field-block--input">
+                                <div class="form__control">
+                                    <div class="select select--mitigate" data-select>
+                                        <select class="select__control" name="pickup_point_id" id="pickup_point_id" data-select-control data-placeholder="Выберите пункт выдачи заказов">
+                                            <option><?=$pickupPoints[$ticketData['UF_PICKUP_POINT_ID']]?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif;?>
+                </div>
+            </div>
         </div>
 
         <div class="registration__actions registration__actions--inlined registration__actions--separated">
