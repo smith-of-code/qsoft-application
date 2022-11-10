@@ -33,7 +33,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Советы экспертов",
-		"/info/expert-advice/for_dogs/",
+		"/info/expert-advice/",
 		Array(),
 		Array(),
 		""

@@ -7,7 +7,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 ?>
 
-<ul class="footer__list">
+<ul class="footer__list <?= $arParams['COLUMN_ADDITIONAL_CLASS'] ?>">
     <li class="footer__item footer__item--heading">
         <?php
         $APPLICATION->IncludeComponent(
