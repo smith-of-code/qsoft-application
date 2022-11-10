@@ -9,13 +9,13 @@ $details = $arResult['ORDER_DETAILS'];
 
 ?>
 <!--Кнопка "К списку заказов" -->
-<a href="#" class="orders__transition button button--back button--simple button--red">
+<a href="/personal/orders/" class="orders__transition button button--back button--simple button--red">
     <span class="button__icon">
         <svg class="icon icon--arrow-left-thin">
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left-thin"></use>
         </svg>
     </span>
-    <span class="button__text"><?=Loc::getMessage("TO_ORDER_LIST_BUTTON")?></span>
+    <span class="button__text"><?=Loc::getMessage("ORDERS_BUTTON")?></span>
 </a>
 
 <section class="orders__section">

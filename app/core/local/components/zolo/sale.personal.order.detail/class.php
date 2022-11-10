@@ -57,10 +57,9 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
     private function loadProducts(int $orderId, int $offset = 0): array
     {
-        $products = ProductService::getProductDataFromBasket($orderId, $offset, self::PRODUCT_LIMIT);
-        if (empty($products)) {
-            return [];
-        }
+        $products = ProductService::getProductDataFromBasket($orderId, $offset, self::PRODUCT_LIMIT + 1);
+        $isLast = self::PRODUCT_LIMIT >= count($products);
+        $products = $isLast ? $products : array_slice($products, 0, -1);
         $productIds = array_map(fn($product) => $product['PRODUCT_ID'], $products);
         $offers = ProductService::getProductByIds($productIds);
         $bonuses = ProductService::getBonusByProductIds($productIds);
@@ -75,6 +74,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         return [
             'PRODUCTS' => $products,
             'OFFSET' => $offset + count($products),
+            'last' => $isLast,
         ];
     }
 

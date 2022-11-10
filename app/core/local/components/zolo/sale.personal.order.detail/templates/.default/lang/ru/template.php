@@ -16,6 +16,6 @@ $MESS['PROMOTION_PRODUCT_TABLE'] = 'Сумма баллов';
 $MESS['PRODUCT_ARTICLE'] = 'Арт. ';
 $MESS['SHOW_MORE_BUTTON'] = 'Показать больше';
 $MESS['RETURN_ORDER_BUTTON'] = 'Вернуть заказ';
-$MESS['TO_ORDER_LIST_BUTTON'] = 'К списку заказов';
+$MESS['ORDERS_BUTTON'] = 'К списку заказов';
 $MESS['REPEAT_ORDER_BUTTON'] = 'Повторить заказ';
 $MESS['ORDER_PRODUCTS_BUTTON'] = 'Состав заказа';

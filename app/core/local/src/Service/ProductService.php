@@ -75,12 +75,16 @@ class ProductService
         ])->fetchAll();
     }
 
-    public static function getProductByIds(array $productsId): array
+    public static function getProductByIds(array $productsIds): array
     {
+        if (empty($productsIds)) {
+            return [];
+        }
+
         $offersResult = \CIBlockElement::GetList(
             [],
             [
-                'ID' => $productsId
+                'ID' => $productsIds
             ],
             false,
             false,
@@ -100,6 +104,10 @@ class ProductService
 
     public static function getBonusByProductIds(array $productIds): array
     {
+        if (empty($productIds)) {
+            return [];
+        }
+
         $levelId = 0;
 
         $levels = GroupTable::GetList(

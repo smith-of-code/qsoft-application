@@ -15,6 +15,9 @@ function loadOrders() {
         console.log(response['status']);
         let data = JSON.parse(response.data).basket;
         attach(data.PRODUCTS);
+        if (data.last) {
+            document.querySelector('.orders__button-more').style.display = 'none';
+        }
         offset = data.OFFSET;
     }, function (response) {
         console.log(response['errors']);
@@ -35,4 +38,3 @@ function attach(products) {
         document.querySelector('.table-list__list').appendChild(addition);
     }
 }
-
