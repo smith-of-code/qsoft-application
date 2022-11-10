@@ -12,7 +12,6 @@ use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
-use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
