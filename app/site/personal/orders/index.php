@@ -1,8 +1,17 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("История заказов");
-?>
-<?$APPLICATION->IncludeComponent("zolo:sale.personal.order.list","",Array(
+<?php
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+
+
+$APPLICATION->IncludeComponent(
+    "zolo:sale.personal.orders",
+    "",
+    [
+        'TEMPLATE_NAME' => 'detail'
+    ]
+);
+
+
+/*$APPLICATION->IncludeComponent("zolo:sale.personal.order.list","",Array(
         "PATH_TO_DETAIL" => "/personal/order/#ID#",
         "PATH_TO_CANCEL" => "/personal/order/#ID#",
         "PATH_TO_BASKET" => "/personal/cart/",
@@ -18,5 +27,7 @@ $APPLICATION->SetTitle("История заказов");
         "HISTORIC_STATUSES" => "F",
         "ACTIVE_DATE_FORMAT" => "d.m.Y"
     )
-);?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);
+*/
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
