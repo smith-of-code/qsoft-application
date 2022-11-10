@@ -60,15 +60,11 @@ class NotificationService
         return 0;
     }
 
-    public function sendNotification(string $type, string $message, string $link): bool
+    public function sendNotification(string $title, string $message, string $link): bool
     {
-        if (!in_array($type, NotificationTable::TYPES)) {
-            throw new \RuntimeException('Unknown notification type');
-        }
-
         return NotificationTable::add([
+            'UF_TITLE' => $title,
             'UF_USER_ID' => $this->user->id,
-            'UF_TYPE' => $type,
             'UF_STATUS' => NotificationTable::STATUSES['unread'],
             'UF_MESSAGE' => $message,
             'UF_LINK' => $link,

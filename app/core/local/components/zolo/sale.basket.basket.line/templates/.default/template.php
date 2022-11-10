@@ -2,7 +2,3 @@
 
 ?>
 <div class="personal__item" id="miniBasket"></div>
-<!--<script>-->
-<!--    const miniBasket = new zolo.miniBasket('#miniBasket');-->
-<!--    miniBasket.run();-->
-<!--</script>-->
