@@ -189,13 +189,13 @@
 
                                                                 <div class="diagramm diagramm--simple">
                                                                     <div class="diagramm__row">
-                                                                        <div class="diagramm__col">
+                                                                        <div class="diagramm__col diagramm__col--diagramm">
                                                                             <div class="diagramm__main">
                                                                                 <canvas width="227" height="227" data-chart='{"labels": [" с личных покупок", " с товаров по персональной акции", " за приглашенных Консультантов", " за переход на К1", " за переход на К2", " за переход на К3", " за удержание на К3", " за покупки группы"],"datasets": [{"data": [100, 100, 200, 150, 100, 150, 200, 80],"backgroundColor": ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"]}]}'></canvas>
                                                                                 <div class="diagramm__sum">1 200</div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="diagramm__col">
+                                                                        <div class="diagramm__col diagramm__col--sum">
                                                                             <p class="diagramm__title">Сумма всех заработанных баллов:</p>
                                                                             <div class="diagramm__results">
                                                                                 <div class="diagramm__result">
