@@ -116,7 +116,7 @@ export const PersonalData = {
                         <div class="profile__accordeon-header accordeon__header section__header">
                             <h4 class="section__title section__title--closer">Персональные данные</h4>
                             <div class="profile__actions">
-                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
+                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -151,7 +151,10 @@ export const PersonalData = {
                                 <div class="profile__avatar">
                                     <div class="profile__avatar-box">
                                         <div class="profile__avatar-image">
-                                            <img :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <img v-if="mutableUserInfo.photo" :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <svg v-else class="dropzone__message-button-icon icon icon--camera">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                            </svg>
                                         </div>
                                     </div>
 
@@ -160,7 +163,8 @@ export const PersonalData = {
                                         <div class="dropzone__area" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true}'>
                                             <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
-                                                    <svg class="dropzone__message-button-icon icon icon--camera">
+                                                    <img v-if="mutableUserInfo.photo" :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                    <svg v-else class="dropzone__message-button-icon icon icon--camera">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
                                                     </svg>
                                                 </div>

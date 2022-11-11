@@ -70,6 +70,7 @@
 
     &__diagramm {
         margin-top: rem($gap-medium);
+        margin-bottom: rem($gap-normal);
         padding: rem($gap-medium) rem($gap-average);
 
         border-radius: rem($border-radius-average);
@@ -81,6 +82,7 @@
 
         @media #{$screen-desktop} {
             margin-top: rem($gap-big);
+            margin-bottom: rem($gap-big);
             padding: rem($gap-normal);
         }
 
