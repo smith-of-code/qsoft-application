@@ -38,20 +38,22 @@ function setData(data) {
             $('#order_list').append(data)
         },
         error: function (error) {
-            console.log(error);
+            console.log("err", error);
         },
     });
 }
 
 function setSortingType() {
     let orderSort = '';
-    if ($('#SORTING').hasClass('asc')) {
-        $(this).removeClass('asc');
-        $(this).addClass('desc');
+    let sorting = $('#SORTING');
+
+    if (sorting.hasClass('asc')) {
+        sorting.removeClass('asc');
+        sorting.addClass('desc');
         orderSort = 'ASC';
     } else {
-        $(this).addClass('asc');
-        $(this).removeClass('desc');
+        sorting.addClass('asc');
+        sorting.removeClass('desc');
         orderSort = 'DESC';
     }
 
@@ -68,7 +70,6 @@ function filteringValues(filterType, value, sort = '') {
     };
     showMore.style.cssText = 'display:none;';
 
-    console.log(filter);
     BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
         mode: 'class',
         data: {
@@ -80,7 +81,6 @@ function filteringValues(filterType, value, sort = '') {
         let orders = JSON.parse(response.data);
 
         $('#order_list').empty();
-        console.log($('#order_list'));
 
         offset = orders.offset;
         if (Object.keys(orders.orders.ORDERS).length == 0) {
@@ -99,7 +99,7 @@ function filteringValues(filterType, value, sort = '') {
         }
 
     }, function (response) {
-        console.log(123, "err", response.errors);
+        console.log("err", response.errors);
     });
 }
 

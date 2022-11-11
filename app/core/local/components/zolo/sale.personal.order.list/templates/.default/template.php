@@ -186,35 +186,12 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             filteringValues('status', $(this).val());
         });
 
-        $('#SORTING_BY').on('select2:close', function(){
-            let orderSort = '';
-            if ($('#SORTING').hasClass('asc')) {
-                $(this).removeClass('asc');
-                $(this).addClass('desc');
-                orderSort = 'ASC';
-            } else {
-                $(this).addClass('asc');
-                $(this).removeClass('desc');
-                orderSort = 'DESC';
-            }
-
-            console.log(orderSort);
-
-            filteringValues('sorting', $('#SORTING_BY').val(), orderSort);
+        $('#SORTING_BY').on('select2:close', function() {
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
         });
 
         $('#SORTING').on('click', function(){
-            let orderSort = '';
-            if ($('#SORTING').hasClass('asc')) {
-                $(this).removeClass('asc');
-                $(this).addClass('desc');
-                orderSort = 'ASC';
-            } else {
-                $(this).addClass('asc');
-                $(this).removeClass('desc');
-                orderSort = 'DESC';
-            }
-            filteringValues('sorting', $('#SORTING_BY').val(), orderSort);
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
         });
 
         $('div').one('click', function () {
@@ -237,7 +214,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             payd:  $('#PAYD').val(),
             order: $('#SORTING').hasClass('desc') ? 'DESC' : 'ASC',
         };
-        console.log(filter);
+
         e.preventDefault();
         BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'load', {
             mode: 'class',
