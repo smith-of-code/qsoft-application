@@ -68,6 +68,7 @@ import './svg/users.svg';
 import './svg/cross.svg';
 import './svg/close-tick-circle.svg';
 import './svg/refresh.svg';
+import './svg/arrow-slider.svg';
 
 import './svg/pdf.svg';
 import './svg/attention.svg';

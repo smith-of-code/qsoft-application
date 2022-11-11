@@ -12,10 +12,10 @@
         margin-left: rem(-22px);
     }
 
-    @media #{$screen-tablet} {
-        margin-top: rem(-$gap-medium);
-        margin-right: rem(-38px);
-        margin-left: rem(-38px);
+    @media #{$screen-desktop} {
+        margin-top: rem(-10px);
+        margin-right: rem(-18px);
+        margin-left: rem(-18px);
     }
 
     &__item {
@@ -28,11 +28,11 @@
             padding-left: rem(22px);
         }
 
-        @media #{$screen-tablet} {
+        @media #{$screen-desktop} {
             width: percentage(1 / 2);
-            margin-top: rem($gap-medium);
-            padding-right: rem(38px);
-            padding-left: rem(38px);
+            margin-top: rem(10px);
+            padding-right: rem(18px);
+            padding-left: rem(18px);
         }
     }
 
