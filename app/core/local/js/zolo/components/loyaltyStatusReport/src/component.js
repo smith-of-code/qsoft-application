@@ -30,12 +30,12 @@ export const LoyaltyStatusReport = {
 
     template: `
         <div class="participant__progress cards-progress">
-            <ul v-if="holdValue" class="cards-progress__list">
-                <li class="cards-progress__item">
+            <ul class="cards-progress__list">
+                <li v-if="holdValue" class="cards-progress__item">
                     <div class="card-progress card-progress--unbordered">
                         <div class="card-progress__inner">
                             <p class="card-progress__title">
-                                Поддержание уровня по {{ isGroup }} покупкам
+                                Поддержание уровня по {{ label }} покупкам
                             </p>
                             <div v-if="currentValue / holdValue < 0.5" class="card-progress__mark">
                                 <svg class="card-progress__icon icon icon--cat-serious">
@@ -139,7 +139,7 @@ export const LoyaltyStatusReport = {
             
                                                 <ul class="conditions__list">
                                                     <li class="conditions__item">
-                                                        Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                        Совершение личных покупок на общую сумму {{ formatNumber(5000) }} рублей за период в 3 последовательных месяца (квартал);
                                                     </li>
                                                 </ul>
                                             </div>
@@ -149,11 +149,11 @@ export const LoyaltyStatusReport = {
             
                                                 <ul class="conditions__list">
                                                     <li class="conditions__item">
-                                                        Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                        Совершение личных покупок на сумму {{ formatNumber(5000) }} рублей каждый месяц за период в 3 последовательных месяца (квартал);
                                                     </li>
             
                                                     <li class="conditions__item">
-                                                        Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                        Совершение групповых покупок на сумму {{ formatNumber(7000) }} рублей каждый месяц за период в 3 последовательных месяца (квартал);
                                                     </li>
                                                 </ul>
             
@@ -167,11 +167,11 @@ export const LoyaltyStatusReport = {
             
                                                 <ul class="conditions__list">
                                                     <li class="conditions__item">
-                                                        Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                        Совершение личных покупок на сумму {{ formatNumber(10000) }} рублей каждый месяц за период в 3 последовательных месяца (квартал);
                                                     </li>
             
                                                     <li class="conditions__item">
-                                                        Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                        Совершение групповых покупок на сумму {{ formatNumber(20000) }} рублей каждый месяц за период в 3 последовательных месяца (квартал);
                                                     </li>
                                                 </ul>
             
@@ -191,7 +191,7 @@ export const LoyaltyStatusReport = {
                     <div class="card-progress card-progress--unbordered">
                         <div class="card-progress__inner">
                             <p class="card-progress__title">
-                                Повышение уровня по {{ isGroup }} покупкам
+                                Повышение уровня по {{ label }} покупкам
                             </p>
                             <div v-if="currentValue / upgradeValue < 0.5" class="card-progress__mark">
                                 <svg class="card-progress__icon icon icon--cat-serious">
@@ -291,16 +291,15 @@ export const LoyaltyStatusReport = {
                                     <section class="modal__section modal__section--content">
                                         <div class="conditions">
                                             <div class="conditions__block">
-                                            <div class="conditions__block">
                                                 <h5 class="conditions__title">Условия повышения уровня до К2 (единовременное соблюдение всех условий):</h5>
             
                                                 <ul class="conditions__list">
                                                     <li class="conditions__item">
-                                                        Совершение личных покупок на общую сумму 10000 рублей за период в 3 последовательных месяца (квартал);
+                                                        Совершение личных покупок на общую сумму {{ formatNumber(10000) }} рублей за период в 3 последовательных месяца (квартал);
                                                     </li>
             
                                                     <li class="conditions__item">
-                                                        Совершение групповых покупок на общую сумму 10000 рублей за период в 3 последовательных месяца (квартал);
+                                                        Совершение групповых покупок на общую сумму {{ formatNumber(10000) }} рублей за период в 3 последовательных месяца (квартал);
                                                     </li>
                                                 </ul>
             
@@ -312,11 +311,11 @@ export const LoyaltyStatusReport = {
             
                                                 <ul class="conditions__list">
                                                     <li class="conditions__item">
-                                                        Совершение личных покупок на общую сумму 50000 рублей за период в 6 последовательных месяца (два последовательных квартала);
+                                                        Совершение личных покупок на общую сумму {{ formatNumber(50000) }} рублей за период в 6 последовательных месяца (два последовательных квартала);
                                                     </li>
             
                                                     <li class="conditions__item">
-                                                        Совершение групповых покупок на общую сумму 100000 рублей за период в 6 последовательных месяца (два последовательных квартала);
+                                                        Совершение групповых покупок на общую сумму {{ formatNumber(100000) }} рублей за период в 6 последовательных месяца (два последовательных квартала);
                                                     </li>
                                                 </ul>
             
