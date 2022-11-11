@@ -46,13 +46,19 @@ global $APPLICATION;
                         "bitrix:menu",
                         "header_catalog_menu",
                         [
-                            "ROOT_MENU_TYPE" => "consumers_bottom",
-                            "MAX_LEVEL" => "1",
-                            "HEAD_PATH" => "/include/consumers.php",
-                            'COLUMN_ADDITIONAL_CLASS' => 'footer__list--customers'
+                            "ALLOW_MULTI_SELECT" => "N",
+                            "CHILD_MENU_TYPE" => "top_catalog",
+                            "DELAY" => "N",
+                            "MAX_LEVEL" => "2",
+                            "MENU_CACHE_GET_VARS" => [],
+                            "MENU_CACHE_TIME" => "3600",
+                            "MENU_CACHE_TYPE" => "A",
+                            "MENU_CACHE_USE_GROUPS" => "Y",
+                            "ROOT_MENU_TYPE" => "top_catalog",
+                            "USE_EXT" => "Y",
                         ]
                     );
-                    ?>
+                ?>
                 <!--Каталог-->
 
                 <!--Поиск-->
@@ -125,16 +131,19 @@ global $APPLICATION;
 
                 </div>
                 <!--/Поиск-->
-                
+
                 <div class="header__block header__block--personal personal">
                     <div class="personal__elements">
-                        <?php
-                        $APPLICATION->IncludeComponent(
-                            'zolo:sale.personal.notifications.list',
-                            'notification_header',
-                        );
 
+                        <!--выпадающий список уведомлений-->
+                        <?php
+                            $APPLICATION->IncludeComponent(
+                                'zolo:sale.personal.notifications.list',
+                                "notification_header",
+                                []
+                            );
                         ?>
+                        <!--выпадающий список уведомлений-->
 
                         <?php
                         global $USER;
@@ -187,44 +196,22 @@ global $APPLICATION;
     </div>
 
     <!--нижнее меню-->
-    <div class="header__row header__row--nav">
-        <div class="container">
-            <div class="header__wrapper">
-                <nav class="navigation">
-                    <ul class="navigation__list">
-                        <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
-                                <span class="button__text">AmeБизнес</span>
-                            </a>
-                        </li>
-
-                        <li class="navigation__item">
-                            <a href="/info/faq/" class="navigation__button button button--simple button--red">
-                                <span class="button__text">FAQ</span>
-                            </a>
-                        </li>
-
-                        <li class="navigation__item">
-                            <a href="/info/news/" class="navigation__button button button--simple button--red">
-                                <span class="button__text">Новости</span>
-                            </a>
-                        </li>
-
-                        <li class="navigation__item">
-                            <a href="#" type="button" class="navigation__button button button--simple button--dark-red">
-                                            <span class="button__icon">
-                                                <svg class="icon icon--discount">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
-                                                </svg>
-                                            </span>
-                                <span class="button__text">Акции</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+        <?php
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "top_menu_ame",
+                [
+                    "ALLOW_MULTI_SELECT" => "N",
+                    "DELAY" => "N",
+                    "MAX_LEVEL" => "1",
+                    "MENU_CACHE_GET_VARS" => [],
+                    "MENU_CACHE_TIME" => "3600",
+                    "MENU_CACHE_TYPE" => "A",
+                    "MENU_CACHE_USE_GROUPS" => "Y",
+                    "ROOT_MENU_TYPE" => "top_mobile",
+                ]
+            );
+        ?>
     <!--/нижнее меню-->
 </header>
 <!--/header-->

@@ -5,9 +5,6 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /**
  * @var array $arResult
  */
-
-use Bitrix\Main\Localization\Loc;
-dump($arResult);
 ?>
 
 <div class="personal__item personal__item--hidden">

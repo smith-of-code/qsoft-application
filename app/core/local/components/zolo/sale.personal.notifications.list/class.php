@@ -47,8 +47,10 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
 
     public function executeComponent()
     {
-        $this->arResult = $this->loadNotificationsAction([], 0, self::NOTIFICATIONS_LIMIT);
-        $this->includeComponentTemplate();
+        if ($this->user->isAuthorized) {
+            $this->arResult = $this->loadNotificationsAction([], 0, self::NOTIFICATIONS_LIMIT);
+            $this->includeComponentTemplate();
+        }
     }
 
     public function loadNotificationsAction(array $filter, int $offset, int $limit): array
