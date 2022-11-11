@@ -2,8 +2,6 @@ export default function showSupportPopup() {
     let body = $('body');
     body.append(setPopup());
     initSupportForms();
-
-    console.log($('#technical-support div section'))
 }
 
 function setPopup() {
@@ -21,25 +19,24 @@ function setPopup() {
 }
 
 function initSupportForms() {
-    console.log($('a[data-src="#technical-support"]'));
-    $('a[data-src="#technical-support"]').one('click', function () {
+    $('[data-fancybox][data-src="#technical-support"]').one('click', function () {
         let popup = $('#technical-support div section');
+        let selected = $(this).data('selected');
         BX.ajax.runComponentAction('zolo:techsupport.form.handler', 'load', {
             mode: 'class',
             data: {}
         }).then(function (response) {
-            let data = JSON.parse(response.data);console.log(data, popup)
-            popup.append(setDataToPopup(data.data));
-            initSelect()
+            let data = JSON.parse(response.data);
+            popup.append(setDataToPopup(data.data, selected));
+            initSelect();
             initSendForm();
-            console.log("ok", data);
         }, function (response) {
             console.log("err", response.errors);
         });
     });
 }
 
-function setDataToPopup (data) {
+function setDataToPopup (data, selected) {
     return `
             <form action="" class="form">
                 <div class="form__row form__row--separated">
@@ -56,10 +53,10 @@ function setDataToPopup (data) {
                                     <div class="select select--mitigate" data-select>
                                         <select class="select__control" name="TICKET_TYPE" id="ticket-type" data-select-control data-placeholder="Выберите вариант" data-option>
                                             <option><!-- пустой option для placeholder --></option>
-                                            <option value="REFUND_ORDER" data-variant="REFUND_ORDER">Возврат заказа</option>
-                                            <option value="SUPPORT" data-variant="SUPPORT">Неработающая функциональность</option>
-                                            <option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR">Смена наставника/контактного лица</option>
-                                            <option value="OTHER" data-variant="OTHER">Другое</option>
+                                            <option value="REFUND_ORDER" data-variant="REFUND_ORDER" ${selected === 'REFUND_ORDER' ? 'selected' : ''}>Возврат заказа</option>
+                                            <option value="SUPPORT" data-variant="SUPPORT" ${selected === 'SUPPORT' ? 'selected' : ''}>Неработающая функциональность</option>
+                                            <option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ${selected === 'CHANGE_MENTOR' ? 'selected' : ''}>Смена наставника/контактного лица</option>
+                                            <option value="OTHER" data-variant="OTHER" ${selected === 'OTHER' ? 'selected' : ''}>Другое</option>
                                         </select>
                                         <span class="input__control-error" hidden attitude-id="ticket-type">Не указан тип обращения</span>
                                     </div>
@@ -295,7 +292,6 @@ function initSendForm() {
     $('#send_suport-message').on('click', function() {
         let selectedSuportType = $('#ticket-type').val();
         let error = '';
-        console.log(selectedSuportType);
 
         if (selectedSuportType === '') {
             console.log( $('#ticket-type').next('span'))
@@ -323,7 +319,6 @@ function initSendForm() {
             }
 
         });
-        console.log(fields);
 
         if (error != '') {
             return false;
@@ -342,7 +337,6 @@ function sendForm(data) {
         if (data.ticket_id > 0) {
             setSuccessMessage(data.ticket_id);
         }
-        console.log("ok", data);
     }, function (response) {
         console.log("err", response.errors);
     });
