@@ -32,6 +32,14 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/ymarket/index.php',
     'SORT' => 100,
   ),
+  8 => 
+  array (
+    'CONDITION' => '#^/info/expert-advice/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/info/expert-advice/index.php',
+    'SORT' => 100,
+  ),
   3 => 
   array (
     'CONDITION' => '#^/online/(/?)([^/]*)#',
@@ -48,19 +56,27 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/stssync/calendar/index.php',
     'SORT' => 100,
   ),
-  9 => 
-  array (
-    'CONDITION' => '#^/personal/order/#',
-    'RULE' => '',
-    'ID' => 'bitrix:sale.personal.order',
-    'PATH' => '/personal/order/index.php',
-    'SORT' => 100,
-  ),
   14 =>
   array(
     'CONDITION' => '#^/personal/orders/#',
     'ID' => 'zolo:sale.personal.orders',
     'PATH' => '/personal/orders/index.php',
+    'SORT' => 100,
+  ),
+  13 => 
+  array (
+    'CONDITION' => '#^/info/events/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/info/events/index.php',
+    'SORT' => 100,
+  ),
+  7 => 
+  array (
+    'CONDITION' => '#^/info/news/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/info/news/index.php',
     'SORT' => 100,
   ),
   10 => 
@@ -71,7 +87,7 @@ $arUrlRewrite=array (
     'PATH' => '/personal/index.php',
     'SORT' => 100,
   ),
-  12 => 
+  15 =>
   array (
     'CONDITION' => '#^/catalog/#',
     'RULE' => '',
@@ -95,29 +111,4 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/rest/index.php',
     'SORT' => 100,
   ),
-  7 => 
-  array (
-    'CONDITION' => '#^/info/news/#',
-    'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/info/news/index.php',
-    'SORT' => 100,
-  ),
-  8 =>
-  array (
-      'CONDITION' => '#^/info/expert-advice/#',
-      'RULE' => '',
-      'ID' => 'bitrix:news',
-      'PATH' => '/info/expert-advice/index.php',
-      'SORT' => 100,
-  ),
-  13 =>
-  array (
-      'CONDITION' => '#^/info/events/#',
-      'RULE' => '',
-      'ID' => 'bitrix:news',
-      'PATH' => '/info/events/index.php',
-      'SORT' => 100,
-  ),
-
 );

@@ -40,7 +40,6 @@ export default function inputMaskInit($container, mask) {
         $container = $(document);
     }
     if (mask) {
-        console.log($container.find(ELEMENTS_SELECTOR[mask]));
         Inputmask(MASKS[mask])?.mask($container.find(ELEMENTS_SELECTOR[mask]));
         return;
     }

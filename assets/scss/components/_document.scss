@@ -24,6 +24,34 @@
         }
     }
 
+    &--big & {
+        &__icon {
+            $size: 48px;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: 0;
+            margin-bottom: rem(2px);
+
+            @media #{$screen-tablet} {
+                $size: 88px;
+
+                width: rem($size);
+                height: rem($size);
+                margin-bottom: rem($gap-mini);
+            }
+        }
+
+        &__text {
+            font-size: rem($font-size-mini);
+            font-weight: $font-weight-semibold;
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-normal);
+            }
+        }
+    }
+
     &__link {
         display: flex;
         align-items: center;

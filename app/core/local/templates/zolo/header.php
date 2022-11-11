@@ -524,13 +524,13 @@ global $APPLICATION;
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/faq/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">FAQ</span>
                             </a>
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/news/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">Новости</span>
                             </a>
                         </li>
@@ -556,5 +556,4 @@ global $APPLICATION;
 
 <div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
     <div class="container">
-        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
-<!--            <h1 class="page__heading">Личный кабинет</h1>-->
+        <main class="<?= Page::isMain() ? 'page__main main' : (Page::isCatalog() ? 'page__catalog catalog' : '') ?>">

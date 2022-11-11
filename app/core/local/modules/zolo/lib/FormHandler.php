@@ -1,6 +1,6 @@
 <?php
 
-namespace Bitrix\zolo;
+namespace Bitrix\Zolo;
 
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;

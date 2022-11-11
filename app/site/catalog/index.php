@@ -1,9 +1,7 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-?>
-<main class="page__catalog catalog">
-<?$APPLICATION->IncludeComponent(
-	"zolo:catalog",
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php"); ?>
+<?php
+$APPLICATION->IncludeComponent(
+	"zolo:catalog", 
 	".default", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
@@ -22,7 +20,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "N",
-		'PROPERTY_COUNT_DETAIL' => 4,
+		"PROPERTY_COUNT_DETAIL" => "4",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		"CACHE_FILTER" => "Y",
@@ -34,11 +32,11 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"DETAIL_DISPLAY_NAME" => "N",
 		"USE_ELEMENT_COUNTER" => "Y",
 		"USE_FILTER" => "Y",
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "sf",
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"USE_COMPARE" => "N",
 		"PRICE_CODE" => array(
-			0 => "BASE",
+			0 => "BASE"
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
@@ -56,10 +54,13 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 			4 => "IS_BESTSELLER",
 			5 => "COLOR",
 			6 => "SIZE",
+			7 => "BONUSES_K1",
+			8 => "BONUSES_K2",
+			9 => "BONUSES_K3",
 		),
 		"SHOW_TOP_ELEMENTS" => "N",
 		"SECTION_COUNT_ELEMENTS" => "N",
-		"SECTION_TOP_DEPTH" => "3",
+		"SECTION_TOP_DEPTH" => "2",
 		"SECTIONS_VIEW_MODE" => "LIST",
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
 		"PAGE_ELEMENT_COUNT" => "15",
@@ -91,7 +92,10 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 			4 => "IS_BESTSELLER",
 			5 => "COLOR",
 			6 => "SIZE",
-			7 => "",
+			7 => "BONUSES_K1",
+			8 => "BONUSES_K2",
+			9 => "BONUSES_K3",
+			10 => "",
 		),
 		"LIST_OFFERS_LIMIT" => "0",
 		"SECTION_BACKGROUND_IMAGE" => "-",
@@ -112,7 +116,10 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 			4 => "IS_BESTSELLER",
 			5 => "COLOR",
 			6 => "SIZE",
-			7 => "",
+			7 => "BONUSES_K1",
+			8 => "BONUSES_K2",
+			9 => "BONUSES_K3",
+			10 => "",
 		),
 		"DETAIL_BACKGROUND_IMAGE" => "-",
 		"LINK_IBLOCK_TYPE" => "",
@@ -278,6 +285,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		)
 	),
 	false
-);?>
-</main>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);
+?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>

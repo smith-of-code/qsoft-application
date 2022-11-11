@@ -56,10 +56,11 @@
                 order: 2;
 
                 margin: 0 rem(3px);
+                margin-top: rem(3px);
 
                 content: '';
 
-                border-bottom: rem(1px) dotted $alto;
+                border-bottom: rem(2px) dotted $alto;
             }
 
             & + & {

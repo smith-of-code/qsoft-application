@@ -16,7 +16,11 @@ use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
+use QSoft\Helper\OrderHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Helper\PickupPointHelper;
+use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -27,6 +31,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private User $user;
 
     private PetHelper $petHelper;
+    private TicketHelper $ticketHelper;
+    private OrderHelper $orderHelper;
+    private LoyaltyProgramHelper $loyaltyProgramHelper;
+    private PickupPointHelper $pickupPointHelper;
 
     public function __construct($component = null)
     {
@@ -39,6 +47,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->user = new User($this->userId);
 
         $this->petHelper = new PetHelper;
+        $this->ticketHelper = new TicketHelper;
+        $this->orderHelper = new OrderHelper;
+        $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
+        $this->pickupPointHelper = new PickupPointHelper;
 
         parent::__construct($component);
     }
@@ -84,17 +96,25 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function getResult()
     {
-        $this->arResult['cities'] = HlBlockHelper::getPreparedEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
-        $this->arResult['personal_data'] = $this->user->getPersonalData();
-        $this->arResult['user_genders'] = ['M' => 'Мужской', 'F' => 'Женский'];
+        $this->arResult['cities'] = $this->pickupPointHelper->getCities();
+        $this->arResult['pickup_points'] = $this->pickupPointHelper->getPickupPoints();
 
-        $pickupPoints = PickupPointTable::getList([
-            'order' => ['UF_NAME' => 'ASC'],
-            'select' => ['ID', 'UF_NAME'],
-        ])->fetchAll();
-        $this->arResult['pickup_points'] = array_combine(
-            array_column($pickupPoints, 'ID'),
-            array_column($pickupPoints, 'UF_NAME'),
+        $this->arResult['user_genders'] = ['M' => ['name' => 'Мужской'], 'F' => ['name' => 'Женский']];
+
+        $this->arResult['personal_data'] = $this->user->getPersonalData();
+        $this->arResult['current_accounting_period'] = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+        $this->arResult['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['orders_report'] = $this->orderHelper->getOrdersReport(
+            $this->user->id,
+            $this->arResult['current_accounting_period']['from'],
+            $this->arResult['current_accounting_period']['to'],
+        );
+        $this->arResult['loyalty_level_info'] = $this->loyaltyProgramHelper->getLoyaltyLevelInfo(
+            $this->arResult['personal_data']['loyalty_level']
         );
 
         if ($this->user->groups->isConsultant()) {
@@ -113,10 +133,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $kind['icon'] = substr(strtolower($kind['code']), 5);
         }
 
+        $this->arResult['personal_promotions'] = $this->orderHelper->getUserCoupons($this->user->id);
+        $this->arResult['promotion_orders'] = $this->orderHelper->getUserOrdersWithPersonalPromotions($this->user->id);
+
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
-        //Система лояльности
-        $this->arResult['LOYALTY_INFO'] = $this->user->loyalty->getLoyaltyProgramInfo();
-        //Персональные акции
     }
 
     private function getMentorInfo()
@@ -157,30 +177,54 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function savePersonalDataAction(array $userInfo): array
     {
-        $fields = [
-            'LOGIN' => $userInfo['phone'],
-            'NAME' => $userInfo['first_name'],
-            'LAST_NAME' => $userInfo['last_name'],
-            'SECOND_NAME' => $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'],
-            'PERSONAL_GENDER' => $userInfo['gender'],
-            'PERSONAL_BIRTHDAY' => $userInfo['birthdate'],
-            'EMAIL' => $userInfo['email'],
-            'PERSONAL_PHONE' => $userInfo['phone'],
-            'PERSONAL_CITY' => $userInfo['city'],
-            'UF_PICKUP_POINT_ID' => $userInfo['pickup_point'],
-        ];
-
+        $ticketData = ['id' => $userInfo['id']];
+        if ($userInfo['first_name'] !== $this->user->name) {
+            $ticketData['NAME'] = $userInfo['first_name'];
+        }
+        if ($userInfo['last_name'] !== $this->user->lastName) {
+            $ticketData['LAST_NAME'] = $userInfo['last_name'];
+        }
+        if ($userInfo['second_name'] !== $this->user->secondName) {
+            $ticketData['SECOND_NAME'] = $userInfo['without_second_name'] === 'true' ? '' : $userInfo['second_name'];
+        }
+        if ($userInfo['gender'] !== $this->user->gender) {
+            $ticketData['PERSONAL_GENDER'] = $userInfo['gender'];
+        }
         if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
-            $fields['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+            $ticketData['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+        }
+        if ($userInfo['birthdate'] !== $this->user->birthday->format('d.m.Y')) {
+            $ticketData['PERSONAL_BIRTHDAY'] = $userInfo['birthdate'];
+        }
+        if ($userInfo['email'] !== $this->user->email) {
+            $ticketData['EMAIL'] = $userInfo['email'];
+        }
+        if ($userInfo['phone'] !== $this->user->phone) {
+            $ticketData['PERSONAL_PHONE'] = $userInfo['phone'];
+        }
+        if ($userInfo['city'] !== $this->user->city) {
+            $ticketData['PERSONAL_CITY'] = $userInfo['city'];
+        }
+        if ((int) $userInfo['pickup_point_id'] !==  $this->user->pickupPointId) {
+            $ticketData['UF_PICKUP_POINT_ID'] = $userInfo['pickup_point_id'];
         }
 
-        $updateResult = $this->user->update($fields);
-
-        if ($updateResult && $userInfo['password'] && $userInfo['confirm_password']) {
-            $updateResult = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
+        if (count($ticketData)) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_PERSONAL_DATA_CATEGORY,
+                json_encode($ticketData),
+            );
         }
 
-        return ['status' => $updateResult ? 'success' : 'error'];
+        if ($userInfo['password'] && $userInfo['confirm_password']) {
+            $passwordChanged = $this->user->changePassword($userInfo['password'], $userInfo['confirm_password']);
+        }
+
+        return [
+            'ticket_created' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error',
+            'password_changed' => isset($passwordChanged) && $passwordChanged ? 'success' : 'error',
+        ];
     }
 
     public function sendCodeAction(string $phoneNumber): array
@@ -201,14 +245,17 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function saveLegalEntityDataAction($data): array
     {
-        $result = LegalEntityTable::update($data['id'], [
-            'UF_USER_ID' => $data['user_id'],
-            'UF_IS_ACTIVE' => $data['active'],
-            'UF_STATUS' => $data['type']['id'],
-            'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
-        ]);
+        $oldData = $this->user->legalEntity->getData();
 
-        return ['status' => $result->isSuccess() ? 'success' : 'error'];
+        if ($oldData['type']['id'] !== $data['type']['id'] || $oldData['documents'] !== $data['documents']) {
+            $ticketCreated = $this->ticketHelper->createTicket(
+                $this->user->id,
+                TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY,
+                json_encode($data, JSON_UNESCAPED_UNICODE),
+            );
+        }
+
+        return ['status' => isset($ticketCreated) && $ticketCreated ? 'success' : 'error'];
     }
 
     public function addPetAction(array $pet): array
@@ -219,6 +266,8 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     public function changePetAction(array $pet)
     {
         PetTable::update($pet['id'], $this->preparePetForSaving($pet));
+
+        return $pet;
     }
 
     public function deletePetAction(int $petId)

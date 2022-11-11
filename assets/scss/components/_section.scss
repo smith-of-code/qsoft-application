@@ -57,6 +57,26 @@
         &--closer {
             margin-bottom: 0;
         }
+
+        &--small {
+            font-size: rem($font-size-medium);
+            line-height: $line-height-medium;
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-middle);
+                line-height: $line-height-middle;
+            }
+        }
+
+        &--medium {
+            font-size: rem($font-size-medium);
+            line-height: $line-height-medium;
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-large);
+                line-height: $line-height-large;
+            }
+        }
     }
 
     &__box {

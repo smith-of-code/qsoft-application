@@ -20,6 +20,10 @@ use QSoft\Helper\LoyaltyProgramHelper;
  * - upgrade_level_bonuses - бонус за переход на заданный уровень;
  */
 return [
+    'types' => [
+        'K' => 'consultant',
+        'B' => 'customer',
+    ],
     'consultant' => [
         'K1' => [
             'label' => 'K1', // Название для вывода в публичной части

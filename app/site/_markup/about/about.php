@@ -57,7 +57,7 @@
 
                             <section class="about__appreciate section section--margin-xl">
                                 <div class="section__box box">
-                                    <h3 class="section__title">
+                                    <h3 class="section__title section__title--small">
                                         Мы ценим
                                     </h3>
 
@@ -65,8 +65,8 @@
                                         <ul class="appreciates__list">
                                             <li class="appreciates__item">
                                                 <div class="appreciate-card appreciate-card--blue">
-                                                    <img class="appreciate__card-icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
-                                                    <p class="appreciate__card-text">Честность</p>
+                                                    <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/solidarity.svg" alt="solidarity">
+                                                    <p class="appreciate-card__text">Честность</p>
                                                 </div>
                                             </li>
 
@@ -206,46 +206,46 @@
                                     <div class="adventages-cards adventages-cards--square">
                                         <ul class="adventages-cards__list">
                                             <li class="adventages-cards__item">
-                                                <div class="adventages-card adventages-card--bg-gray adventages-card--blue">
+                                                <div class="adventages-card adventages-card--bg-gray adventages-card--blue adventages-card--bright">
                                                     <div class="adventages-card__image">
                                                         <svg class="adventages-card__image-icon adventages-card__image-icon--lg icon icon--check-mark">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
                                                         </svg>
                                                     </div>
                                                     <p class="adventages-card__text">
-                                                        Комплекс витаминов и минералов
+                                                        Без ГМО<br> и вредных добавок
                                                     </p>
                                                 </div>
                                             </li>
 
                                             <li class="adventages-cards__item">
-                                                <div class="adventages-card adventages-card--bg-gray adventages-card--gold">
+                                                <div class="adventages-card adventages-card--bg-gray adventages-card--gold adventages-card--bright">
                                                     <div class="adventages-card__image">
                                                         <svg class="adventages-card__image-icon adventages-card__image-icon--lg icon icon--check-mark">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
                                                         </svg>
                                                     </div>
                                                     <p class="adventages-card__text">
-                                                        Сбалансированная формула
+                                                        Сбалансированная<br> формула
                                                     </p>
                                                 </div>
                                             </li>
 
                                             <li class="adventages-cards__item">
-                                                <div class="adventages-card adventages-card--bg-gray adventages-card--wisteria">
+                                                <div class="adventages-card adventages-card--bg-gray adventages-card--wisteria adventages-card--bright">
                                                     <div class="adventages-card__image">
                                                         <svg class="adventages-card__image-icon adventages-card__image-icon--lg icon icon--check-mark">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
                                                         </svg>
                                                     </div>
                                                     <p class="adventages-card__text">
-                                                        Комплекс витаминов и минералов
+                                                        Комплекс витаминов<br> и минералов
                                                     </p>
                                                 </div>
                                             </li>
 
                                             <li class="adventages-cards__item">
-                                                <div class="adventages-card adventages-card--bg-gray adventages-card--piper">
+                                                <div class="adventages-card adventages-card--bg-gray adventages-card--piper adventages-card--bright">
                                                     <div class="adventages-card__image">
                                                         <svg class="adventages-card__image-icon adventages-card__image-icon--lg icon icon--check-mark">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
@@ -263,7 +263,7 @@
 
                             <section class="about__cert section section--margin-xl">
                                 <div class="about__cert-box section__box box">
-                                    <h3 class="about__cert-title section__title section__title--closer">
+                                    <h3 class="about__cert-title section__title section__title--closer section__title--small">
                                         Сертификаты, подтверждающие качество нашей продукции
                                     </h3>
 
@@ -386,7 +386,7 @@
 
                             <section class="about__business section section--margin-xl">
                                 <div class="about__business-box section__box box">
-                                    <h2 class="about__business-title section__title section__title--closer">
+                                    <h2 class="about__business-title section__title section__title--closer section__title--medium">
                                         Бизнес с нами
                                     </h2>
                                     
@@ -490,7 +490,7 @@
 
                             <section class="about__howbecome section section--margin-xl">
                                 <div class="about__howbecome-box section__box box">
-                                    <h3 class="section__title">
+                                    <h3 class="section__title section__title--small">
                                         Как стать консультантом
                                     </h3>
                                     <div class="about__howbecome-list">
@@ -519,7 +519,7 @@
                                                 <div class="about__howbecome-item about__howbecome-item--mini">
                                                     <div class="about__howbecome-card about__howbecome-card--mini">
                                                         <div class="about__howbecome-card-wrapper">
-                                                            <div class="document">
+                                                            <div class="document document--big">
                                                                 <a href="#" class="about__howbecome-card-document document__link">
                                                                     <div class="document__icon">
                                                                         <svg class="icon icon--pdf">
@@ -546,7 +546,7 @@
                                                 <div class="about__howbecome-item about__howbecome-item--mini">
                                                     <div class="about__howbecome-card about__howbecome-card--mini">
                                                         <div class="about__howbecome-card-wrapper">
-                                                            <div class="document">
+                                                            <div class="document document--big">
                                                                     <a href="#" class="about__howbecome-card-document document__link">
                                                                         <div class="document__icon">
                                                                             <svg class="icon icon--pdf">
@@ -590,7 +590,7 @@
                             </section>
 
                             <section class="about__contacts section section--margin-xl">
-                                <h2 class="section__title">
+                                <h2 class="section__title section__title--medium">
                                     Контакты
                                 </h2>
                                 
@@ -707,7 +707,7 @@
                             </section>
 
                             <section class="about__info section section--margin-xl">
-                                <h2 class="about__info-title section__title">
+                                <h2 class="about__info-title section__title section__title--medium">
                                     Правовая информация
                                 </h2>
 

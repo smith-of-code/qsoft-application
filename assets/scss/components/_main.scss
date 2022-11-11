@@ -1,0 +1,59 @@
+.main {
+    &__section {
+        @include resetting-vertical-indentation-of-first;
+
+        margin-top: rem(56px);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(38px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(80px);
+        }
+
+        &--separated {
+            @media #{$screen-tablet} {
+                margin-top: rem(48px);
+            }
+
+            @media #{$screen-desktop} {
+                margin-top: rem(80px);
+            }
+        }
+
+        &-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+
+            margin-bottom: rem($gap-big);
+
+            @media #{$screen-tablet} {
+                justify-content: flex-start;
+            }
+
+            &--closer {
+                @media #{$screen-tablet} {
+                    margin-bottom: rem($gap-normal);
+                }
+            }
+        }
+
+        &-heading {
+            @media #{$screen-tablet} {
+                margin-right: rem(20px);
+            }
+        }
+    }
+
+    &__tabs {
+        &-body {
+            margin-top: rem(20px);
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-normal);
+            }
+        }
+    }
+}

@@ -2,6 +2,8 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\Type\Date;
+use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Security\Password;
 use Carbon\Carbon;
 use CCatalogGroup;
@@ -116,6 +118,10 @@ class User
      */
     public int $photo;
     /**
+     * @var string Дата регистрации
+     */
+    public string $dateRegister;
+    /**
      * @var string Номер телефона
      */
     public string $phone;
@@ -183,7 +189,9 @@ class User
         'EMAIL' => 'email',
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
+        'PERSONAL_CITY' => 'city',
         'PERSONAL_PHOTO' => 'photo',
+        'DATE_REGISTER' => 'dateRegister',
         'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
@@ -277,6 +285,8 @@ class User
             'first_name' => $this->name,
             'last_name' => $this->lastName,
             'second_name' => $this->secondName,
+            'name_initials' => $this->lastName . ' ' . mb_strtoupper(mb_substr($this->name, 0, 1)) . '.' . mb_strtoupper(mb_substr($this->secondName, 0, 1)) . '.',
+            'full_name' => "$this->lastName $this->name $this->secondName",
             'gender' => $this->gender,
             'photo' => $this->getPhotoUrl(),
             'loyalty_level' => $this->loyaltyLevel,
@@ -285,6 +295,8 @@ class User
             'phone' => $this->phone,
             'city' => $this->city,
             'pickup_point_id' => $this->pickupPointId,
+            'is_consultant' => $this->groups->isConsultant(),
+            'date_register' => new Date($this->dateRegister),
         ];
     }
 

@@ -1,4 +1,4 @@
-let offset, limit;
+let offset, limit, isLast;
 const PERIOD = 30;
 let filter = {'period': PERIOD};
 
@@ -25,6 +25,9 @@ function loadNotifications() {
     }).then(function (response) {
         attach(response['data']['NOTIFICATIONS']);
         offset = response['data']['OFFSET'];
+        if (response['data']['LAST']) {
+            hideShowMoreButton();
+        }
     }, function (response) {
         console.log(response);
     });
@@ -63,3 +66,8 @@ function readNotification(redirectEvent) {
         }
     });
 }
+
+function hideShowMoreButton() {
+    document.querySelector('.notifications__button-more').style.display = 'none';
+}
+
