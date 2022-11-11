@@ -23,13 +23,12 @@
         padding-bottom: rem($gap-average / 2);
 
         @media #{$screen-tablet} {
-            width: percentage(1 / 4);
+            width: percentage(1 / 2);
             padding-right: rem(22px);
             padding-left: rem(22px);
         }
 
         @media #{$screen-desktop} {
-            width: percentage(1 / 2);
             margin-top: rem(10px);
             padding-right: rem(18px);
             padding-left: rem(18px);
