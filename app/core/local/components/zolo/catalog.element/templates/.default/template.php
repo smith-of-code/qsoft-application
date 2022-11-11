@@ -1302,9 +1302,4 @@ $offerId = $arResult['OFFER_FIRST'];
             </ul>
         </div>
     </div>
-<<<<<<< HEAD
 </div>
-=======
-</div>
-<!-- Каталог товаров -->
->>>>>>> 5844a53c14a60d5acb112c32a180488ba0616dcb
