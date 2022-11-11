@@ -320,22 +320,12 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                             <h5 class="box__heading box__heading--middle">Плановые показатели</h5>
 
                             <div class="cards-progress">
-                                <ul class="cards-progress__list">
-                                    <li class="cards-progress__item">
-                                        <div
-                                            id="loyaltyStatusReport"
-                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
-                                        ></div>
-                                    </li>
-                                    <li class="cards-progress__item">
-                                        <div
-                                            id="loyaltyStatusReport"
-                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                            prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                        ></div>
-                                    </li>
-                                </ul>
+                                <div
+                                    id="loyaltyStatusReport"
+                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                    prop-hold-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                    prop-upgrade-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                ></div>
                             </div>
                         </div>
 

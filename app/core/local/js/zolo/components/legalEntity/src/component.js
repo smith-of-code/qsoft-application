@@ -1,8 +1,11 @@
 import { useLegalEntityStore } from '../../../stores/legalEntityStore';
 
+let id = 0;
+
 export const LegalEntity = {
     data() {
         return {
+            componentId: `legal-entity-${++id}`,
             mutableLegalEntity: {},
             editing: false,
         };
@@ -38,6 +41,12 @@ export const LegalEntity = {
         changeLegalEntityType() {
             this.mutableLegalEntity.type = this.types[$('select[name=status]').val()];
         },
+        edit() {
+            this.editing = true;
+            if ($(`#${this.componentId} .accordeon__body`).css('display') === 'none') {
+                $(`#${this.componentId} [data-accordeon-toggle]`).trigger('click');
+            }
+        },
         cancelEditing() {
             this.editing = false;
             this.initLegalEntity();
@@ -65,7 +74,7 @@ export const LegalEntity = {
     },
 
     template: `
-        <div class="profile__block legal_entity_block" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div :id="componentId" class="profile__block legal_entity_block" data-accordeon :class="{ 'profile__block--edit': editing }">
             <section class="section">
                 <div class="form form--wraped form--separated">
                     <div class="section__box box box--gray box--rounded-sm">
@@ -73,7 +82,7 @@ export const LegalEntity = {
                             <h4 class="section__title section__title--closer">Юридические данные</h4>
 
                             <div class="profile__actions">
-                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
+                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="edit">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -94,7 +103,7 @@ export const LegalEntity = {
 
                         <div class="accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
