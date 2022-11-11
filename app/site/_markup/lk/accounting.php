@@ -1468,24 +1468,22 @@
                                                                             <div class="form__field">
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
-                                                                                        <div class="filter__sort select select--small select--sorting select--borderless select--groups" data-select>
-                                                                                            <div class="select__group">
-                                                                                                <select class="select__control" name="select1" id="sort1" data-select-control data-placeholder="Сортировать по">
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1">По уровню консультанта</option>
-                                                                                                    <option value="2">По дате регистрации</option>
-                                                                                                    <option value="3">По количеству личных заказов со статусом “Оплачен”</option>
-                                                                                                    <option value="2">По количеству личных заказов со статусом  “Возврат”</option>
-                                                                                                </select>
-                                                    
-                                                                                                <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                                                                    <span class="button__icon button__icon--medium">
-                                                                                                        <svg class="icon icon--sort">
-                                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                                        </svg>
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                            </div>
+                                                                                        <div class="filter__sort select select--small select--sorting select--borderless" data-select>
+                                                                                            <select class="select__control" name="select1" id="sort1" data-select-control data-placeholder="Сортировать по">
+                                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                                <option value="1">По уровню консультанта</option>
+                                                                                                <option value="2">По дате регистрации</option>
+                                                                                                <option value="3">По количеству личных заказов со статусом “Оплачен”</option>
+                                                                                                <option value="2">По количеству личных заказов со статусом  “Возврат”</option>
+                                                                                            </select>
+                                                
+                                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                                                <span class="button__icon button__icon--medium">
+                                                                                                    <svg class="icon icon--sort">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -5238,21 +5236,19 @@
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
                                                                                         <div class="filter__sort select select--small select--sorting select--borderless" data-select>
-                                                                                            <div class="select__group">
-                                                                                                <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1">По дате создания</option>
-                                                                                                    <option value="2">По сумме заказа</option>
-                                                                                                </select>
-                                                    
-                                                                                                <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                                                                    <span class="button__icon button__icon--medium">
-                                                                                                        <svg class="icon icon--sort">
-                                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                                        </svg>
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                            </div>
+                                                                                            <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
+                                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                                <option value="1">По дате создания</option>
+                                                                                                <option value="2">По сумме заказа</option>
+                                                                                            </select>
+                                                
+                                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                                                <span class="button__icon button__icon--medium">
+                                                                                                    <svg class="icon icon--sort">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
