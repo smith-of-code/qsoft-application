@@ -4,8 +4,8 @@ class SalePersonalOrderSortComponent extends CBitrixComponent
 {
 
     protected $sortFields = [
-        'DATE_INSERT' => 'Дата создания',
-        'PRICE' => 'Сумма заказа'
+        'DATE_INSERT' => 'По дате создания',
+        'PRICE' => 'По сумме заказа'
     ];
 
     protected $sortDirection = [
