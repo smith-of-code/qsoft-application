@@ -60,16 +60,34 @@ function setSortingType() {
     return orderSort;
 }
 
-function filteringValues(filterType, value, sort = '') {
-    let filter = {
-        by: filterType === 'sorting' ? (value != '' ? value : $('#SORTING_BY').val()) : $('#SORTING_BY').val(),
-        status: filterType === 'status' ? value: $('#STATUS').val(),
-        payd: filterType === 'payd' ? value: $('#PAYD').val(),
-        order: sort !== '' ? sort: 'asc',
-        filter_id: filterType === 'search' ? value : '',
-    };
-    showMore.style.cssText = 'display:none;';
+function clearFilters() {
+    $('#PAYD').val(null).trigger('change');
+    $('#STATUS').val([]).trigger('change');
+    $('#SORTING_BY').val(null).trigger('change')
+}
 
+function clearSearch() {
+    $('#filter_id').val(null);
+}
+
+function filteringValues(filterType, value, sort = '') {
+    let filter = {};
+    if (filterType === 'search') {
+        filter = {by: '', status: '', payd: '', order: '', filter_id: value ?? ''};
+        clearFilters();
+    } else {
+        filter = {
+            by: filterType === 'sorting' ? (value != '' ? value : $('#SORTING_BY').val()) : $('#SORTING_BY').val(),
+            status: filterType === 'status' ? value: $('#STATUS').val(),
+            payd: filterType === 'payd' ? value: $('#PAYD').val(),
+            order: sort !== '' ? sort: 'asc',
+            filter_id: '',
+        };
+        clearSearch();
+        window.history.replaceState(null, null, "?filter_id=" + $('#filter_id').val());
+    }
+    showMore.style.cssText = 'display:none;';
+    console.log(filter);
     BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
         mode: 'class',
         data: {
