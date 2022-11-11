@@ -6,7 +6,7 @@ use \Bitrix\Main;
  * @global CMain $APPLICATION
  * @var array $arParams
  * @var array $arResult
- * @var CatalogProductsViewedComponent $component
+ * @var CatalogSectionComponent $component
  * @var CBitrixComponentTemplate $this
  * @var string $templateName
  * @var string $componentPath
@@ -17,37 +17,20 @@ $this->setFrameMode(true);
 
 if (isset($arResult['ITEM']))
 {
+    /**
+     * @var array Общие данные о продукте и его торговых предложениях
+     */
     $item = $arResult['ITEM'];
+    /**
+     * @var array Текущее торговое предложение
+     */
+    $actualItem = isset($item['OFFERS'][$item['OFFERS_SELECTED']])
+        ? $item['OFFERS'][$item['OFFERS_SELECTED']]
+        : reset($item['OFFERS']);
+
 	$areaId = $arResult['AREA_ID'];
-	$itemIds = array(
-		'ID' => $areaId,
-		'PICT' => $areaId.'_pict',
-		'SECOND_PICT' => $areaId.'_secondpict',
-		'PICT_SLIDER' => $areaId.'_pict_slider',
-		'STICKER_ID' => $areaId.'_sticker',
-		'SECOND_STICKER_ID' => $areaId.'_secondsticker',
-		'QUANTITY' => $areaId.'_quantity',
-		'QUANTITY_DOWN' => $areaId.'_quant_down',
-		'QUANTITY_UP' => $areaId.'_quant_up',
-		'QUANTITY_MEASURE' => $areaId.'_quant_measure',
-		'QUANTITY_LIMIT' => $areaId.'_quant_limit',
-		'BUY_LINK' => $areaId.'_buy_link',
-		'BASKET_ACTIONS' => $areaId.'_basket_actions',
-		'NOT_AVAILABLE_MESS' => $areaId.'_not_avail',
-		'SUBSCRIBE_LINK' => $areaId.'_subscribe',
-		'COMPARE_LINK' => $areaId.'_compare_link',
-		'PRICE' => $areaId.'_price',
-		'PRICE_OLD' => $areaId.'_price_old',
-		'PRICE_TOTAL' => $areaId.'_price_total',
-		'DSC_PERC' => $areaId.'_dsc_perc',
-		'SECOND_DSC_PERC' => $areaId.'_second_dsc_perc',
-		'PROP_DIV' => $areaId.'_sku_tree',
-		'PROP' => $areaId.'_prop_',
-		'DISPLAY_PROP_DIV' => $areaId.'_sku_prop',
-		'BASKET_PROP_DIV' => $areaId.'_basket_prop',
-	);
-	$obName = 'ob'.preg_replace("/[^a-zA-Z0-9_]/", "x", $areaId);
-	$isBig = isset($arResult['BIG']) && $arResult['BIG'] === 'Y';
+	$currentUser = currentUser();
+	$hasDiscount = (int) $actualItem['ITEM_PRICES'][0]['DISCOUNT'] > 0;
 
 	$productTitle = isset($item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) && $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] != ''
 		? $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']
@@ -57,166 +40,302 @@ if (isset($arResult['ITEM']))
 		? $item['IPROPERTY_VALUES']['ELEMENT_PREVIEW_PICTURE_FILE_TITLE']
 		: $item['NAME'];
 
-	$skuProps = array();
 
-	$haveOffers = !empty($item['OFFERS']);
-	if ($haveOffers)
-	{
-		$actualItem = isset($item['OFFERS'][$item['OFFERS_SELECTED']])
-			? $item['OFFERS'][$item['OFFERS_SELECTED']]
-			: reset($item['OFFERS']);
-	}
-	else
-	{
-		$actualItem = $item;
-	}
 
-	$morePhoto = null;
-	if ($arParams['PRODUCT_DISPLAY_MODE'] === 'N' && $haveOffers)
-	{
-		$price = $item['ITEM_START_PRICE'];
-		$minOffer = $item['OFFERS'][$item['ITEM_START_PRICE_SELECTED']];
-		$measureRatio = $minOffer['ITEM_MEASURE_RATIOS'][$minOffer['ITEM_MEASURE_RATIO_SELECTED']]['RATIO'];
-		if (isset($item['MORE_PHOTO']))
-		{
-			$morePhoto = $item['MORE_PHOTO'];
-		}
-	}
-	else
-	{
-		$price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
-		$measureRatio = $price['MIN_QUANTITY'];
-		if (isset($actualItem['MORE_PHOTO']))
-		{
-			$morePhoto = $actualItem['MORE_PHOTO'];
-		}
-	}
+    //dump('JS_OFFERS', $item['JS_OFFERS']);
+    //dump('params', $arParams);
+    //dump($actualItem);
+    ?>
+    <li class="product-cards__item" id="<?=$areaId?>" data-entity="item">
+        <article class="product-card box box--circle box--hovering box--grayish">
 
-	$showSlider = is_array($morePhoto) && count($morePhoto) > 1;
-	$showSubscribe = $arParams['PRODUCT_SUBSCRIPTION'] === 'Y' && ($item['CATALOG_SUBSCRIBE'] === 'Y' || $haveOffers);
+            <a href="<?=$item['DETAIL_PAGE_URL']?>" class="product-card__link"></a>
 
-	$discountPositionClass = isset($arResult['BIG_DISCOUNT_PERCENT']) && $arResult['BIG_DISCOUNT_PERCENT'] === 'Y'
-		? 'product-item-label-big'
-		: 'product-item-label-small';
-	$discountPositionClass .= $arParams['DISCOUNT_POSITION_CLASS'];
+            <div class="product-card__header">
+                <?php if (isset($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE'])): ?>
+                    <?php if ($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'] == "SEASONAL_OFFER"): ?>
+                        <div class="product-card__label label label--pink">сезонное предложение</div>
+                    <?php elseif ($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'] == "LIMITED_OFFER"): ?>
+                        <div class="product-card__label label label--violet">ограниченное предложение</div>
+                    <?php endif; ?>
+                <?php endif; ?>
 
-	$labelPositionClass = isset($arResult['BIG_LABEL']) && $arResult['BIG_LABEL'] === 'Y'
-		? 'product-item-label-big'
-		: 'product-item-label-small';
-	$labelPositionClass .= $arParams['LABEL_POSITION_CLASS'];
+                <!-- Кнопка "Добавить в избранное" -->
+                <div class="product-card__favourite">
+                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                        <span class="button__icon button__icon--big">
+                            <svg class="icon">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <!-- Кнопка "Добавить в избранное" -->
 
-	$buttonSizeClass = isset($arResult['BIG_BUTTONS']) && $arResult['BIG_BUTTONS'] === 'Y' ? 'btn-md' : 'btn-sm';
-	$itemHasDetailUrl = isset($item['DETAIL_PAGE_URL']) && $item['DETAIL_PAGE_URL'] != '';
-	?>
+                <!-- Картинка товара -->
+                <div class="product-card__wrapper">
+                    <div class="product-card__image box box--circle">
+                        <div class="product-card__box">
+                            <img src="<?= $item['PREVIEW_PICTURE']['SRC'] ?>" alt="<?= $imgTitle ?>" class="product-card__pic">
+                        </div>
+                    </div>
+                </div>
+                <!-- Картинка товара -->
+            </div>
 
-	<div class="product-item-container<?=(isset($arResult['SCALABLE']) && $arResult['SCALABLE'] === 'Y' ? ' product-item-scalable-card' : '')?>"
-		id="<?=$areaId?>" data-entity="item">
-		<?
-		$documentRoot = Main\Application::getDocumentRoot();
-		$templatePath = mb_strtolower($arResult['TYPE']).'/template.php';
-		$file = new Main\IO\File($documentRoot.$templateFolder.'/'.$templatePath);
-		if ($file->isExists())
-		{
-			include($file->getPath());
-		}
+            <div class="product-card__content">
+                <h6 class="product-card__title"><?= $productTitle ?></h6>
 
-        $jsParams = array(
-            'PRODUCT_TYPE' => $item['PRODUCT']['TYPE'],
-            'SHOW_QUANTITY' => false,
-            'SHOW_ADD_BASKET_BTN' => false,
-            'SHOW_BUY_BTN' => true,
-            'SHOW_ABSENT' => true,
-            'SHOW_SKU_PROPS' => false,
-            'SECOND_PICT' => $item['SECOND_PICT'],
-            'SHOW_OLD_PRICE' => $arParams['SHOW_OLD_PRICE'] === 'Y',
-            'SHOW_MAX_QUANTITY' => $arParams['SHOW_MAX_QUANTITY'],
-            'RELATIVE_QUANTITY_FACTOR' => $arParams['RELATIVE_QUANTITY_FACTOR'],
-            'SHOW_DISCOUNT_PERCENT' => $arParams['SHOW_DISCOUNT_PERCENT'] === 'Y',
-            'ADD_TO_BASKET_ACTION' => $arParams['ADD_TO_BASKET_ACTION'],
-            'SHOW_CLOSE_POPUP' => $arParams['SHOW_CLOSE_POPUP'] === 'Y',
-            'DISPLAY_COMPARE' => $arParams['DISPLAY_COMPARE'],
-            'BIG_DATA' => $item['BIG_DATA'],
-            'TEMPLATE_THEME' => $arParams['TEMPLATE_THEME'],
-            'VIEW_MODE' => $arResult['TYPE'],
-            'USE_SUBSCRIBE' => $showSubscribe,
-            'DEFAULT_PICTURE' => array(
-                'PICTURE' => $item['PRODUCT_PREVIEW'],
-                'PICTURE_SECOND' => $item['PRODUCT_PREVIEW_SECOND']
-            ),
-            'VISUAL' => array(
-                'ID' => $itemIds['ID'],
-                'PICT_ID' => $itemIds['PICT'],
-                'SECOND_PICT_ID' => $itemIds['SECOND_PICT'],
-                'PICT_SLIDER_ID' => $itemIds['PICT_SLIDER'],
-                'QUANTITY_ID' => $itemIds['QUANTITY'],
-                'QUANTITY_UP_ID' => $itemIds['QUANTITY_UP'],
-                'QUANTITY_DOWN_ID' => $itemIds['QUANTITY_DOWN'],
-                'QUANTITY_MEASURE' => $itemIds['QUANTITY_MEASURE'],
-                'QUANTITY_LIMIT' => $itemIds['QUANTITY_LIMIT'],
-                'PRICE_ID' => $itemIds['PRICE'],
-                'PRICE_OLD_ID' => $itemIds['PRICE_OLD'],
-                'PRICE_TOTAL_ID' => $itemIds['PRICE_TOTAL'],
-                'TREE_ID' => $itemIds['PROP_DIV'],
-                'TREE_ITEM_ID' => $itemIds['PROP'],
-                'BUY_ID' => $itemIds['BUY_LINK'],
-                'DSC_PERC' => $itemIds['DSC_PERC'],
-                'SECOND_DSC_PERC' => $itemIds['SECOND_DSC_PERC'],
-                'DISPLAY_PROP_DIV' => $itemIds['DISPLAY_PROP_DIV'],
-                'BASKET_ACTIONS_ID' => $itemIds['BASKET_ACTIONS'],
-                'NOT_AVAILABLE_MESS' => $itemIds['NOT_AVAILABLE_MESS'],
-                'COMPARE_LINK_ID' => $itemIds['COMPARE_LINK'],
-                'SUBSCRIBE_ID' => $itemIds['SUBSCRIBE_LINK']
-            ),
-            'BASKET' => array(
-                'QUANTITY' => $arParams['PRODUCT_QUANTITY_VARIABLE'],
-                'PROPS' => $arParams['PRODUCT_PROPS_VARIABLE'],
-                'SKU_PROPS' => $item['OFFERS_PROP_CODES'],
-                'BASKET_URL' => $arParams['~BASKET_URL'],
-                'ADD_URL_TEMPLATE' => $arParams['~ADD_URL_TEMPLATE'],
-                'BUY_URL_TEMPLATE' => $arParams['~BUY_URL_TEMPLATE']
-            ),
-            'PRODUCT' => array(
-                'ID' => $item['ID'],
-                'NAME' => $productTitle,
-                'DETAIL_PAGE_URL' => $item['DETAIL_PAGE_URL'],
-                'MORE_PHOTO' => $item['MORE_PHOTO'],
-                'MORE_PHOTO_COUNT' => $item['MORE_PHOTO_COUNT']
-            ),
-            'OFFERS' => array(),
-            'OFFER_SELECTED' => 0,
-            'TREE_PROPS' => array()
-        );
+                <p class="product-card__article">Арт. <?=$actualItem['PROPERTIES']['ARTICLE']['VALUE'] ?? ''?></p>
 
-        if (!empty($item['OFFERS_PROP']))
-        {
-            $jsParams['SHOW_QUANTITY'] = $arParams['USE_PRODUCT_QUANTITY'];
-            $jsParams['SHOW_SKU_PROPS'] = $item['OFFERS_PROPS_DISPLAY'];
-            $jsParams['OFFERS'] = $item['JS_OFFERS'];
-            $jsParams['OFFER_SELECTED'] = $item['OFFERS_SELECTED'];
-            $jsParams['TREE_PROPS'] = $skuProps;
-        }
+                <div class="product-card__colors colors">
+                    <ul class="colors__list">
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                    <label for="radio">
+                                        <div class="color__item color__item--pink"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
 
-		$jsParams['PRODUCT_DISPLAY_MODE'] = $arParams['PRODUCT_DISPLAY_MODE'];
-		$jsParams['USE_ENHANCED_ECOMMERCE'] = $arParams['USE_ENHANCED_ECOMMERCE'];
-		$jsParams['DATA_LAYER_NAME'] = $arParams['DATA_LAYER_NAME'];
-		$jsParams['BRAND_PROPERTY'] = null;
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
+                                    <label for="radio2">
+                                        <div class="color__item color__item--blue"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
 
-		$jsParams['IS_FACEBOOK_CONVERSION_CUSTOMIZE_PRODUCT_EVENT_ENABLED'] = $arResult['IS_FACEBOOK_CONVERSION_CUSTOMIZE_PRODUCT_EVENT_ENABLED'];
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
+                                    <label for="radio3">
+                                        <div class="color__item color__item--green"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
 
-		$templateData = array(
-			'JS_OBJ' => $obName,
-			'ITEM' => array(
-				'ID' => $item['ID'],
-				'IBLOCK_ID' => $item['IBLOCK_ID'],
-				'OFFERS_SELECTED' => $item['OFFERS_SELECTED'],
-				'JS_OFFERS' => $item['JS_OFFERS']
-			)
-		);
-		?>
-		<script>
-			var <?=$obName?> = new JCCatalogItem(<?=CUtil::PhpToJSObject($jsParams, false, true)?>);
-		</script>
-	</div>
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
+                                    <label for="radio4">
+                                        <div class="color__item color__item--yellow"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
+                                    <label for="radio5">
+                                        <div class="color__item color__item--red"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="colors__item">
+                            <div class="color">
+                                <div class="radio">
+                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
+                                    <label for="radio6">
+                                        <div class="color__item color__item--violet"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-card__breed">
+                    <div class="select select--mini" data-select>
+                        <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                            <option><!-- пустой option для placeholder --></option>
+                            <option value="1">Для всех пород</option>
+                            <option value="2">Мелкие породы</option>
+                            <option value="3">Средние породы</option>
+                            <option value="4">Крупные породы</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-card__packs product-card__packs--desktop packs">
+                    <ul class="packs__list">
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r11" id="radio11p" checked>
+                                    <label for="radio11p">
+                                        <div class="pack__item">600 г</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r22" id="radio22p">
+                                    <label for="radio22p">
+                                        <div class="pack__item">1 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r33" id="radio33p">
+                                    <label for="radio33p">
+                                        <div class="pack__item">3 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r44" id="radio44p">
+                                    <label for="radio44p">
+                                        <div class="pack__item">5 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r55" id="radio55p">
+                                    <label for="radio55p">
+                                        <div class="pack__item">7 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r66" id="radio66p">
+                                    <label for="radio66p">
+                                        <div class="pack__item">10 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="packs__item">
+                            <div class="pack">
+                                <div class="radio">
+                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r77" id="radio77p">
+                                    <label for="radio77p">
+                                        <div class="pack__item">15 кг</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-card__packs product-card__packs--mobile">
+                    <div class="select select--mini" data-select>
+                        <select class="select__control" name="select1p" id="select1p" data-select-control data-placeholder="Выберите фасовку" data-option>
+                            <option><!-- пустой option для placeholder --></option>
+                            <option value="1">600 г</option>
+                            <option value="2">1 кг</option>
+                            <option value="3">3 кг</option>
+                            <option value="4">5 кг</option>
+                            <option value="5">7 кг</option>
+                            <option value="6">10 кг</option>
+                            <option value="7">15 кг</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card__footer">
+                <div class="product-card__price price">
+                    <?php if ($currentUser->groups->isConsultant()): ?>
+                        <?php if ($hasDiscount): ?>
+                            <p class="price__main"><?=$actualItem['ITEM_PRICES'][0]['PRINT_BASE_PRICE']?></p>
+                        <?php endif; ?>
+                        <div class="price__calculation">
+                            <p class="price__calculation-total">
+                                <?php if ($hasDiscount): ?>
+                                    <?=$actualItem['ITEM_PRICES'][0]['PRINT_PRICE']?>
+                                <?php else: ?>
+                                    <?=$actualItem['ITEM_PRICES'][0]['PRINT_BASE_PRICE']?>
+                                <?php endif; ?>
+                            </p>
+                            <?php if ($currentUser->loyaltyLevel && !empty($actualItem['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'])): ?>
+                                <p class="price__calculation-accumulation"><?=$actualItem['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE']?> ББ</p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="product-card__cart">
+                    <div class="quantity" data-quantity>
+                        <div class="quantity__button" data-quantity-button>
+                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                <span class="button__icon">
+                                    <svg class="icon icon--basket">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                    </svg>
+                                </span>
+                                <span class="button__text">В корзину</span>
+                            </button>
+                        </div>
+
+                        <div class="quantity__actions">
+                            <div class="quantity__decrease">
+                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                    <span class="button__icon button__icon--small">
+                                        <svg class="icon icon--minus">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="quantity__total">
+                                <span class="quantity__total-icon">
+                                    <svg class="icon icon--basket">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                    </svg>
+                                </span>
+                                <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                            </div>
+
+                            <div class="quantity__increase">
+                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                    <span class="button__icon button__icon--small">
+                                        <svg class="icon icon--plus">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </li>
 	<?
-	unset($item, $actualItem, $minOffer, $itemIds, $jsParams);
+	unset($item, $actualItem, $minOffer);
 }
