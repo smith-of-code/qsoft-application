@@ -131,7 +131,11 @@
                 }
 
                 .select2-selection__rendered-item {
+                    font-weight: $font-weight-medium;
+
                     padding: 0 rem(6px);
+
+                    color: $tuna;
                 }
             }
         }
@@ -382,7 +386,7 @@
             border-radius: rem($border-radius-middle);
 
             .select2-selection__placeholder {
-                color: rgba($saltBox, .85);
+                color: $saltBox;
             }
 
             .select2-selection__rendered {
@@ -408,6 +412,7 @@
                 line-height: 22px;
 
                 margin-left: 0;
+                margin-bottom: rem(2px);
             }
         }
     }
@@ -418,6 +423,8 @@
 
             border: rem(1px) solid $alto;
             background-color: $white;
+
+            cursor: pointer;
 
             .select2-selection__placeholder {
                 color: rgba($saltBox, .85);
@@ -431,6 +438,10 @@
 
             .select2-selection__arrow {
                 display: none;
+            }
+
+            .select2-search__field {
+                cursor: pointer;
             }
         }
     }
@@ -542,6 +553,8 @@
     }
 
     &__item {
+        font-weight: $font-weight-medium;
+
         display: flex;
         align-items: center;
 

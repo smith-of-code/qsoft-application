@@ -562,7 +562,7 @@
                                                 <div class="form__col">
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
-                                                            <div class="input input--small input--squared input--buttoned">
+                                                            <div class="input input--middle input--squared input--buttoned">
                                                                 <input type="text" class="input__control" name="text" id="text5" placeholder="Я ищу...">
                                                                 <button type="button" class="input__button input__button--search button button--iconed button--covered button--square button--dark">
                                                                     <span class="button__icon button__icon--medium">

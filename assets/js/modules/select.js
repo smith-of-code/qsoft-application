@@ -29,6 +29,11 @@ export default function () {
             return result;
         };
 
+        function searchDisabled (element) {
+            let searchfield = element.parent().find('.select2-search__field');
+            searchfield.prop('disabled', true);
+        }
+
         const scrollOptions = {
             autohidemode: "leave",
             railpadding: { top: 0, right: 0, left: 6, bottom: 0 },
@@ -66,6 +71,9 @@ export default function () {
                             }
                         });
                     }
+                })
+                .on('select2:opening select2:closing', function() {
+                    searchDisabled($(this));
                 });
         });
     }
