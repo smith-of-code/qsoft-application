@@ -1,6 +1,9 @@
 window.onload = function () {
-    //Выполнить пагинацию по клику на кнопке "Показать больше"
-    document.querySelector('.orders__button-more').addEventListener('click', loadOrders);
+    //Выполнить пагинацию по клику на кнопке "Показать больше". Кнопка может быть скрыта.
+    let buttonShowMore = document.querySelector('.orders__button-more');
+    if (buttonShowMore != null) {
+        buttonShowMore.addEventListener('click', loadOrders);
+    }
 }
 
 //пагинация товаров
@@ -16,7 +19,7 @@ function loadOrders() {
         let data = JSON.parse(response.data).basket;
         attach(data.PRODUCTS);
         if (data.last) {
-            document.querySelector('.orders__button-more').style.display = 'none';
+            hideShowMoreButton();
         }
         offset = data.OFFSET;
     }, function (response) {
@@ -37,4 +40,8 @@ function attach(products) {
         addition.querySelector('.product-bonus').innerText = item['BONUS'];
         document.querySelector('.table-list__list').appendChild(addition);
     }
+}
+
+function hideShowMoreButton() {
+    document.querySelector('.orders__button-more').style.display = 'none';
 }

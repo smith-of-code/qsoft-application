@@ -6,7 +6,6 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 use Bitrix\Main\Localization\Loc;
 
 $details = $arResult['ORDER_DETAILS'];
-
 ?>
 <!--Кнопка "К списку заказов" -->
 <a href="/personal/orders/" class="orders__transition button button--back button--simple button--red">
@@ -103,7 +102,7 @@ $details = $arResult['ORDER_DETAILS'];
                                             </p>
 
                                             <!-- итоговое количество баллов ББ -->
-                                            <p class="price__calculation-accumulation"><?=Loc::getMessage("PROMOTION_SYMBOL")?></p>
+                                            <p class="price__calculation-accumulation"><?=$details['BONUS']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
                                         </div>
                                     </div>
                                 </li>
@@ -151,7 +150,7 @@ $details = $arResult['ORDER_DETAILS'];
                                             </div>
 
                                             <!-- Цена, Количество, Сумма баллов -->
-                                            <?php foreach (['PRICE_PRODUCT_TABLE', 'QUANTITY_PRODUCT_TABLE', 'PROMOTION_PRODUCT_TABLE'] as $field) :?>
+                                            <?php foreach (['PRICE_PRODUCT_TABLE', 'QUANTITY_PRODUCT_TABLE', 'BONUS_PRODUCT_TABLE'] as $field) :?>
                                                 <div class="table-list__cell table-list__cell--desktop">
                                                     <p class="table-list__name">
                                                         <?=Loc::getMessage($field)?>
@@ -211,7 +210,9 @@ $details = $arResult['ORDER_DETAILS'];
 
                                     </div>
                                     <!-- Кнопка Показать больше -->
-                                    <button type="button" class="orders__button button button--rounded button--outlined button--green button--full button--middle orders__button-more"><?=Loc::getMessage("SHOW_MORE_BUTTON")?></button>
+                                    <?php if (! $arResult['last']) { ?>
+                                        <button type="button" class="orders__button button button--rounded button--outlined button--green button--full button--middle orders__button-more"><?=Loc::getMessage("SHOW_MORE_BUTTON")?></button>
+                                    <?php } ?>
                                 </div>
                             </div>
 

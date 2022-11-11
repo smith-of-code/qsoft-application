@@ -7,6 +7,7 @@ $APPLICATION->IncludeComponent(
     "zolo:sale.personal.order.list",
     "",
     [
+        'SEF_FOLDER' => $arResult["FOLDER"],
         "PATH_TO_CANCEL" => "/personal/order/#ID#",
         "PATH_TO_BASKET" => "/personal/cart/",
         "PATH_TO_COPY" => "/personal/cart/",

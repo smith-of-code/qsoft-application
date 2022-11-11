@@ -2,6 +2,8 @@
 if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
+
+use Bitrix\Sale\Internals\OrderPropsValueTable;
 use QSoft\Service\ProductService;
 use Bitrix\Main\Loader;
 use Bitrix\Sale\Order;
@@ -98,6 +100,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => self::formatPrice($order->getPrice()),
             'IS_PROMOTION' => (bool)$order->getField(['PAY_VOUCHER_NUM']),
+            'BONUS' => self::loadOrderBonus($order->getId()),
         ];
     }
 
@@ -113,5 +116,23 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         }
 
         return $userName;
+    }
+
+    /**
+     * Fetches Order Properties by CODEs
+     * @param $orderIdList
+     * @return array
+     */
+    protected function loadOrderBonus(int $orderId): int
+    {
+        $prop = OrderPropsValueTable::getList([
+            'filter' => [
+                'CODE' => [
+                    'POINTS'
+                ],
+                'ORDER_ID' => $orderId
+            ],
+        ])->fetchRaw();
+        return $prop['VALUE'] ?? 0;
     }
 }
