@@ -8,7 +8,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
             <div class="form__control">
                 <div class="filter__sort select select--small select--sorting select--borderless" data-select>
                     <div class="select__group">
-                        <select class="select__control" name="SORTING" id="sort" data-select-control data-placeholder="Сортировка">
+                        <select class="select__control" name="SORTING" id="SORTING_BY" data-select-control data-placeholder="Сортировка">
                             <option><!-- пустой option для placeholder --></option>
                             <? foreach ($arResult['SORT'] as  $code => $name) : ?>
                                 <option value="<?=$code?>"><?=$name?></option>
