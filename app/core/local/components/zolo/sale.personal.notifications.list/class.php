@@ -16,6 +16,7 @@ use \Bitrix\Main\Engine\ActionFilter;
 class NotificationListComponent extends CBitrixComponent implements Controllerable, Errorable
 {
     private const NOTIFICATIONS_LIMIT = 20;
+    const NOTIFICATIONS_URL = '/personal/notifications/';
     protected ErrorCollection $errorCollection;
     private User $user;
 
@@ -53,9 +54,13 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
     public function loadNotificationsAction(array $filter, int $offset, int $limit): array
     {
         $notifications = $this->user->notification->getNotifications($filter, $offset, $limit);
+
+        $unreadNotificationsCount = $this->user->notification->getUnreadCount();
         return [
             'NOTIFICATIONS' => $notifications,
             'OFFSET' => $offset + count($notifications),
+            'UNREAD_COUNT' => $unreadNotificationsCount,
+            'NOTIFICATIONS_URL' => self::NOTIFICATIONS_URL
         ];
     }
 
