@@ -1216,7 +1216,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			'Y' => 'Оплачен',
 			'N' => 'Не оплачен',
 		];
-
+		// $arResult["IS_LAST"] = $this->isLastPage;
 
 		$arResult["CURRENT_PAGE"] = $APPLICATION->GetCurPage();
 		$arResult["NAV_STRING"] = $this->dbQueryResult['ORDERS']->GetPageNavString(Localization\Loc::getMessage("SPOL_PAGES"), $this->arParams["NAV_TEMPLATE"]);

@@ -43,16 +43,32 @@ function setData(data) {
     });
 }
 
+function setSortingType() {
+    let orderSort = '';
+    if ($('#SORTING').hasClass('asc')) {
+        $(this).removeClass('asc');
+        $(this).addClass('desc');
+        orderSort = 'ASC';
+    } else {
+        $(this).addClass('asc');
+        $(this).removeClass('desc');
+        orderSort = 'DESC';
+    }
+
+    return orderSort;
+}
+
 function filteringValues(filterType, value, sort = '') {
     let filter = {
-        by: filterType === 'sorting' ? (value != '' ? value : $('#sort').val()) : $('#sort').val(),
+        by: filterType === 'sorting' ? (value != '' ? value : $('#SORTING_BY').val()) : $('#SORTING_BY').val(),
         status: filterType === 'status' ? value: $('#STATUS').val(),
         payd: filterType === 'payd' ? value: $('#PAYD').val(),
         order: sort !== '' ? sort: 'asc',
         filter_id: filterType === 'search' ? value : '',
     };
-    showMore.style.cssText = '';
+    showMore.style.cssText = 'display:none;';
 
+    console.log(filter);
     BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
         mode: 'class',
         data: {
@@ -62,8 +78,10 @@ function filteringValues(filterType, value, sort = '') {
         }
     }).then(function (response) {
         let orders = JSON.parse(response.data);
-        
+
         $('#order_list').empty();
+        console.log($('#order_list'));
+
         offset = orders.offset;
         if (Object.keys(orders.orders.ORDERS).length == 0) {
             setData('Ничего не найдено');
@@ -74,12 +92,19 @@ function filteringValues(filterType, value, sort = '') {
                 setData(orders);
             } else {
                 setData(orders);
+
+                setTimeout(() => { showMore.style.cssText = ''; }, 1000);
+                
             }
         }
 
     }, function (response) {
         console.log(123, "err", response.errors);
     });
+}
+
+function showMoreDisplay(showMore) {
+    showMore.style.cssText = '';
 }
 
 function setBasketTemplate(data) {
