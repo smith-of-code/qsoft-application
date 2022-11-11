@@ -46,7 +46,42 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                 class="profile__block"
                 prop-legal-entity='<?=phpToVueObject($arResult['legal_entity'])?>'
                 prop-types='<?=phpToVueObject($arResult['legal_entity_types'])?>'
-            ></div>
+            >
+                <div class="profile__block">
+                    <div class="profile__block legal_entity_block" data-accordeon>
+                        <section class="section">
+                            <div class="form form--wraped form--separated">
+                                <div class="section__box box box--gray box--rounded-sm">
+                                    <div class="profile__accordeon-header accordeon__header section__header">
+                                        <h4 class="section__title section__title--closer">Юридические данные</h4>
+                                        <div class="profile__actions">
+                                            <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red">
+                                                <span class="button__icon">
+                                                    <svg class="icon icon--edit">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                                    </svg>
+                                                </span>
+                                                <span class="button__text">Редактировать</span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="profile__actions-button accordeon__toggle button button--circular button--mini button--covered button--red-white"
+                                                data-accordeon-toggle
+                                            >
+                                                <span class="accordeon__toggle-icon button__icon">
+                                                    <svg class="icon icon--arrow-down">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
         <!--/Юридические данные-->
 
@@ -58,7 +93,30 @@ $APPLICATION->setTitle('Личный Кабинет');?>
             prop-genders='<?=phpToVueObject($arResult['pet_genders'])?>'
             prop-breeds='<?=phpToVueObject($arResult['pet_breeds'])?>'
             prop-kinds='<?=phpToVueObject($arResult['pet_kinds'])?>'
-        ></div>
+        >
+            <div class="profile__block">
+                <div class="profile__block" data-accordeon>
+                    <div class="section__box box box--gray box--rounded">
+                        <div class="profile__accordeon-header accordeon__header section__header">
+                            <h4 class="section__title section__title--closer">Данные о питомцах</h4>
+                            <div class="profile__actions">
+                                <button
+                                    type="button"
+                                    class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white"
+                                    data-accordeon-toggle
+                                >
+                                    <span class="accordeon__toggle-icon button__icon">
+                                        <svg class="icon icon--arrow-down">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--/Данные о питомцах-->
 
         <!--Наставник-->

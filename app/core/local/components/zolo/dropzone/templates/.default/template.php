@@ -47,11 +47,11 @@
 
                             <div class="file__delete" data-dz-remove="">
                                 <button type="button" class="file__delete-button button button--iconed button--simple button--gray">
-                                <span class="file__delete-button-icon button__icon">
-                                    <svg class="icon icon--delete">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
-                                    </svg>
-                                </span>
+                                    <span class="file__delete-button-icon button__icon">
+                                        <svg class="icon icon--delete">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                        </svg>
+                                    </span>
                                 </button>
                             </div>
                         </div>

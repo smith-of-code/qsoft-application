@@ -81,7 +81,7 @@ class DropzoneComponent extends CBitrixComponent
             $fid = CFile::SaveFile($arFile, 'dropzone');
 
             $APPLICATION->RestartBuffer();
-            echo json_encode(['FILE_ID' => $fid]);
+            echo json_encode(['FILE_ID' => $fid, 'FILE_SRC' => CFile::GetPath($fid)]);
             die();
         }
     }

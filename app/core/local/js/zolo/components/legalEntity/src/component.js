@@ -605,9 +605,7 @@ export const LegalEntity = {
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Копия паспорта</h6>
 
-                                        <!-- TODO: Определиться с реализацией -->
-                                        <!-- Для интеграции - необходимо вставить ссылку на файл -->
-                                        <div class="profile__notification" style="display:none">
+                                        <div v-if="!editing && !mutableLegalEntity.documents.passport?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
                                                 <svg class="icon icon--danger">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
@@ -632,7 +630,7 @@ export const LegalEntity = {
                                                 </div>
                 
                                                 <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                                    <div v-for="passportPhoto in mutableLegalEntity.documents.passport" :key="passportPhoto.id" class="file dz-processing dz-image-preview dz-success" data-uploader-preview="">
+                                                    <div v-for="passportPhoto in mutableLegalEntity.documents.passport" :key="passportPhoto.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
                                                         <div class="file__wrapper">
                                                             <div class="file__prewiew">
                                                                 <div class="file__icon">
@@ -652,7 +650,7 @@ export const LegalEntity = {
                                                                 <div class="file__weight" data-uploader-preview-size="">{{ passportPhoto.size }}</div>
 
                                                                 <div class="file__delete" data-dz-remove="">
-                                                                    <button type="button" class="file__delete-button button button--iconed button--simple button--gray">
+                                                                    <button type="button" class="file__delete-button button button--iconed button--simple button--gray" >
                                                                         <span class="file__delete-button-icon button__icon">
                                                                             <svg class="icon icon--delete">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -717,7 +715,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                        </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
@@ -889,7 +896,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
@@ -956,7 +972,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.personal_tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="personal_tax_registration_certificate" multiple class="dropzone__control">
                                         
@@ -1114,7 +1139,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
@@ -1181,7 +1215,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="usn_notification" multiple class="dropzone__control">
                                         
@@ -1277,7 +1320,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.ip_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="ip_registration_certificate" multiple class="dropzone__control">
                                         
@@ -1449,7 +1501,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
@@ -1664,7 +1725,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
@@ -1731,7 +1801,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="usn_notification" multiple class="dropzone__control">
                                         
@@ -1827,7 +1906,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию устава ООО</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_charter?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_charter" multiple class="dropzone__control">
                                         
@@ -1894,7 +1982,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию протокола участников (решения участника) ООО об избрании руководителя организации</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_members?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_members" multiple class="dropzone__control">
                                         
@@ -1961,7 +2058,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.ceo_appointment?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="ceo_appointment" multiple class="dropzone__control">
                                         
@@ -2028,7 +2134,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_registration_certificate" multiple class="dropzone__control">
                                         
@@ -2123,7 +2238,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.procuration?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="procuration" multiple class="dropzone__control">
                                         
@@ -2295,7 +2419,16 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
@@ -2312,7 +2445,7 @@ export const LegalEntity = {
                                                 </div>
                                         
                                                 <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                                    <div v-for="photo in mutableLegalEntity.documents.procuration" :key="photo.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
+                                                    <div v-for="photo in mutableLegalEntity.documents.bank_details" :key="photo.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
                                                         <div class="file__wrapper">
                                                             <div class="file__prewiew">
                                                                 <div class="file__icon">
@@ -2493,9 +2626,9 @@ export const LegalEntity = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="cancelEditing">
-                                        <span class="button__text">Отменить изменения</span>
-                                    </button>
+                                  <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" @click="() => cancelEditing(pet, petKey)">
+                                    Отменить изменения
+                                  </button>
                                 </div>
 
                                 <div class="section__actions-col">
