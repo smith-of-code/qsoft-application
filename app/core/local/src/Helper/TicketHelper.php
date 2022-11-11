@@ -57,6 +57,7 @@ class TicketHelper
             'MESSAGE' => self::CATEGORIES[$category]['TITLE'],
             'UF_DATA' => $data,
             'CATEGORY_ID' => $this->getCategoryId($category),
+            'CATEGORY_SID' => $category,
         ], $messageId);
 
         $files = null;

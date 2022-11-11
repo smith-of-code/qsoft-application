@@ -6,7 +6,7 @@ global $APPLICATION;
 $APPLICATION->setTitle('Личный Кабинет');?>
 
 <div class="profile">
-    <?php if ($arResult['USER_INFO']['USER_GROUP_XML'] == 'BUYER'): ?>
+    <?php if (!$arResult['personal_data']['is_consultant']): ?>
         <div class="profile__consultant consultant box box--gray box--rounded-sm">
             <div class="consultant__col consultant__col--left">
                 <p class="consultant__text">Стань консультантом и получи все привилегии <span class="consultant__text-accent">AmeБизнес</span></p>
@@ -40,12 +40,14 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--/Персональные данные-->
 
         <!--Юридические данные-->
-        <div
-            id="legalEntity"
-            class="profile__block"
-            prop-legal-entity='<?=phpToVueObject($arResult['legal_entity'])?>'
-            prop-types='<?=phpToVueObject($arResult['legal_entity_types'])?>'
-        ></div>
+        <?php if ($arResult['personal_data']['is_consultant']): ?>
+            <div
+                id="legalEntity"
+                class="profile__block"
+                prop-legal-entity='<?=phpToVueObject($arResult['legal_entity'])?>'
+                prop-types='<?=phpToVueObject($arResult['legal_entity_types'])?>'
+            ></div>
+        <?php endif; ?>
         <!--/Юридические данные-->
 
         <!--Данные о питомцах-->
