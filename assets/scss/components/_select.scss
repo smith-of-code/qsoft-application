@@ -119,7 +119,11 @@
                 }
 
                 .select2-selection__rendered-item {
+                    font-weight: $font-weight-medium;
+
                     padding: 0 rem(6px);
+
+                    color: $tuna;
                 }
             }
         }
@@ -396,6 +400,8 @@
             border: rem(1px) solid $alto;
             background-color: $white;
 
+            cursor: pointer;
+
             .select2-selection__placeholder {
                 color: rgba($saltBox, .85);
             }
@@ -408,6 +414,10 @@
 
             .select2-selection__arrow {
                 display: none;
+            }
+
+            .select2-search__field {
+                cursor: pointer;
             }
         }
     }
