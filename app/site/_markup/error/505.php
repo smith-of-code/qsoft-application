@@ -24,8 +24,8 @@
                     Error 505
                 </p>
 
-                <div class="error__message">
-                    <p class="error__text">Ошибка загрузки. Пожалуйста, проверьте соединение<br>и обновите страницу</p>
+                <div class="error__message error__message--limited">
+                    <p class="error__text">Ошибка загрузки. Пожалуйста, проверьте соединение и обновите страницу</p>
                 </div>
 
             </div>
