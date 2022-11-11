@@ -90,4 +90,9 @@ class TicketHelper
     {
         return CTicketDictionary::GetList('', '', ['SID' => $categoryCode])->GetNext()['ID'];
     }
+
+    public function getCategorySid(int $categoryId): int
+    {
+        return CTicketDictionary::GetList('', '', ['ID' => $categoryId])->GetNext()['SID'];
+    }
 }
