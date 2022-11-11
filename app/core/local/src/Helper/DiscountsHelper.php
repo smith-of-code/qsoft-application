@@ -7,14 +7,13 @@ use Bitrix\Main\Localization\Loc;
 
 class DiscountsHelper
 {
-    private const DISCOUNTS_LIMIT = 6;
-
-    public static function getDiscounts(int $offset): array
+    public static function getDiscounts(int $offset, int $limit): array
     {
         self::checkModules();
-        $discounts = self::getRawDiscounts($offset);
+        $discounts = self::getRawDiscounts($offset, $limit);
         $catalogUrl = self::getCatalogUrl(array_map(fn($discount) => $discount['CATALOG'], $discounts));
-        self::addPictureAndCatalogUrl($catalogUrl, $discounts);
+        $discounts = self::addPictureAndCatalogUrl($catalogUrl, $discounts);
+        $discounts = self::getFirstWordForAccent($discounts);
         return $discounts ?? [];
     }
 
@@ -25,7 +24,7 @@ class DiscountsHelper
         }
     }
 
-    private static function getRawDiscounts(int $offset = 0): array
+    private static function getRawDiscounts(int $offset = 0, int $limit = 0): array
     {
         $rowDiscountsResult = \CIBlockElement::GetList(
             [],
@@ -34,7 +33,7 @@ class DiscountsHelper
             ],
             false,
             [
-                'nTopCount' => self::DISCOUNTS_LIMIT,
+                'nTopCount' => $limit,
                 'nOffset' => $offset,
             ],
             [
@@ -79,11 +78,23 @@ class DiscountsHelper
         return $catalogUrl;
     }
 
-    private static function addPictureAndCatalogUrl($url, &$discounts): void
+    private static function addPictureAndCatalogUrl(array $url, array $discounts): array
     {
         foreach ($discounts as &$discount) {
             $discount['CATALOG'] = $url[$discount['CATALOG']];
             $discount['PICTURE'] = \CFile::GetPath($discount['PICTURE']);
         }
+        return $discounts;
+    }
+
+    private static function getFirstWordForAccent(array $discounts): array
+    {   $accent = [];
+        foreach ($discounts as &$discount) {
+            //получить первое слово до пробела в массив $accent
+            preg_match('/^\S+/', $discount['TEXT'], $accent);
+            $discount['ACCENT'] = $accent[0];
+            $discount['TEXT'] = mb_substr($discount['TEXT'], mb_strlen($accent[0]));
+        }
+        return $discounts;
     }
 }

@@ -1,5 +1,5 @@
 window.onload = function () {
-    document.querySelector('.show-more').addEventListener('click', loadDiscounts);
+    document.querySelector('.button--show').addEventListener('click', loadDiscounts);
 }
 
 function loadDiscounts() {
@@ -9,27 +9,30 @@ function loadDiscounts() {
             offset: offset
         },
     }).then(function (response) {
-        console.log(response);
+        console.log(response['status']);
         offset = response['data']['OFFSET'];
         attach(response['data']['ITEMS']);
+        if (response['data']['LAST']) {
+            hideShowMoreButton();
+        }
     }, function (response) {
-        console.log(response);
+        console.log(response['errors']);
     });
 }
 
-function attach($discounts) {
-    $titles = ['ID', 'TEXT', 'PICTURE', 'DISCOUNT', 'CATALOG'];
-    let page = document.querySelector('.discounts');
-    for (let i = 0; i < $discounts.length; i++) {
-        let discount = document.createElement('div');
-        discount.classList.add("discount-item");
-        for (let j = 0; j < Object.keys($discounts[i]).length; j++) {
-            let p = document.createElement('p');
-            p.innerHTML = $titles[j] + " --- " + $discounts[i][$titles[j]];
-            discount.appendChild(p);
-        }
-        page.appendChild(discount);
+function attach(discounts) {
+    for (let i = 0; i < discounts.length; i++) {
+        let discount = discounts[i];
+        let addition = document.querySelector('.cards-sale__item').cloneNode(true);
+        addition.querySelector('.card-compilation__text-accent').innerText = discount['ACCENT'];
+        addition.querySelector('.sale-text').innerText = discount['TEXT'];
+        addition.querySelector('.card-compilation__banner-image').setAttribute('src', discount['PICTURE']);
+        addition.querySelector('.card-compilation__link').setAttribute('href', discount['CATALOG']);
+        addition.querySelector('.card-compilation__label').innerText = '-' + discount['DISCOUNT'] + '%';
+        document.querySelector('.cards-sale__list').appendChild(addition);
     }
+}
 
-
+function hideShowMoreButton() {
+    document.querySelector('.button--show').style.display = 'none';
 }

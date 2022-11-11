@@ -8,6 +8,8 @@ use \Bitrix\Main\Engine\Contract\Controllerable;
 
 class DiscountsComponent extends CBitrixComponent implements Controllerable
 {
+    private const DISCOUNTS_LIMIT = 6;
+
     public function configureActions()
     {
         return [
@@ -21,10 +23,13 @@ class DiscountsComponent extends CBitrixComponent implements Controllerable
     
     public function loadDiscountsAction($offset = 0): array
     {
-        $discounts = DiscountsHelper::getDiscounts($offset);
+        $discounts = DiscountsHelper::getDiscounts($offset, self::DISCOUNTS_LIMIT + 1);
+        $isLast = self::DISCOUNTS_LIMIT >= count($discounts);
+        $discounts = $isLast ? $discounts : array_slice($discounts, 0, -1);
         return [
             'ITEMS' => $discounts,
-            'OFFSET' => $offset + count($discounts)
+            'OFFSET' => $offset + count($discounts),
+            'LAST' => $isLast,
         ];
     }
 
