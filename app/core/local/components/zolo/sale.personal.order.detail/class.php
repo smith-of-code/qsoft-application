@@ -19,7 +19,7 @@ Loc::loadMessages(__FILE__);
 
 class PersonalOrderDetailComponent extends CBitrixComponent implements Controllerable
 {
-    private const PRODUCT_LIMIT = 2;
+    private const PRODUCT_LIMIT = 20;
 
     public function configureActions()
     {
