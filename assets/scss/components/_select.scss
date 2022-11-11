@@ -358,7 +358,7 @@
             border-radius: rem($border-radius-middle);
 
             .select2-selection__placeholder {
-                color: rgba($saltBox, .85);
+                color: $saltBox;
             }
 
             .select2-selection__rendered {
@@ -384,6 +384,7 @@
                 line-height: 22px;
 
                 margin-left: 0;
+                margin-bottom: rem(2px);
             }
         }
     }
@@ -518,6 +519,8 @@
     }
 
     &__item {
+        font-weight: $font-weight-medium;
+
         display: flex;
         align-items: center;
 
