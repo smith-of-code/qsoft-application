@@ -150,7 +150,7 @@ export const SalesReportPage = {
                             </h4>
                         </div>
 
-                        <div class="tabs tabs--covered tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                        <div class="tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
                             <nav class="accounting__tabs-items tabs__items">
                                 <ul class="tabs__list">
                                     <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -216,25 +216,23 @@ export const SalesReportPage = {
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="form__control">
                                                                     <div class="filter__sort select select--small select--sorting select--borderless" data-select>
-                                                                        <div class="select__group">
-                                                                            <select class="select__control" name="consultants_sort" data-select-control data-placeholder="Сортировать по">
-                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="name_initials">ФИО</option>
-                                                                                <option selected value="id">ID</option>
-                                                                                <option value="loyalty_level">Уровень</option>
-                                                                                <option value="date_register">На сайте с</option>
-                                                                                <option value="phone">Телефон</option>
-                                                                                <option value="email">Email</option>
-                                                                            </select>
-                                
-                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="consultantsSortAsc = !consultantsSortAsc">
-                                                                                <span class="button__icon button__icon--medium">
-                                                                                    <svg class="icon icon--sort">
-                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                    </svg>
-                                                                                </span>
-                                                                            </button>
-                                                                        </div>
+                                                                        <select class="select__control" name="consultants_sort" data-select-control data-placeholder="Сортировать по">
+                                                                            <option><!-- пустой option для placeholder --></option>
+                                                                            <option value="name_initials">ФИО</option>
+                                                                            <option selected value="id">ID</option>
+                                                                            <option value="loyalty_level">Уровень</option>
+                                                                            <option value="date_register">На сайте с</option>
+                                                                            <option value="phone">Телефон</option>
+                                                                            <option value="email">Email</option>
+                                                                        </select>
+                            
+                                                                        <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="consultantsSortAsc = !consultantsSortAsc">
+                                                                            <span class="button__icon button__icon--medium">
+                                                                                <svg class="icon icon--sort">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -304,24 +302,22 @@ export const SalesReportPage = {
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="form__control">
                                                                     <div class="filter__sort select select--small select--sorting select--borderless" data-select>
-                                                                        <div class="select__group">
-                                                                            <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
-                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="name_initials">ФИО</option>
-                                                                                <option selected value="id">ID</option>
-                                                                                <option value="date_register">На сайте с</option>
-                                                                                <option value="phone">Телефон</option>
-                                                                                <option value="email">Email</option>
-                                                                            </select>
-                                
-                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
-                                                                                <span class="button__icon button__icon--medium">
-                                                                                    <svg class="icon icon--sort">
-                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                    </svg>
-                                                                                </span>
-                                                                            </button>
-                                                                        </div>
+                                                                        <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
+                                                                            <option><!-- пустой option для placeholder --></option>
+                                                                            <option value="name_initials">ФИО</option>
+                                                                            <option selected value="id">ID</option>
+                                                                            <option value="date_register">На сайте с</option>
+                                                                            <option value="phone">Телефон</option>
+                                                                            <option value="email">Email</option>
+                                                                        </select>
+                            
+                                                                        <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
+                                                                            <span class="button__icon button__icon--medium">
+                                                                                <svg class="icon icon--sort">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -3,6 +3,18 @@
 
     position: relative;
 
+    &--sorting {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        height: rem(40px);
+
+        border: rem(1px) solid $alto;
+        border-radius: rem($border-radius-small);
+    }
+
     &#{&}--squared {
         .select2-container--default {
             .select2-selection--single {
@@ -179,14 +191,18 @@
                 .select2-selection__rendered {
                     position: relative;
 
-                    max-width: rem(166px);
+                    .select__item {
+                        display: block;
 
-                    @media #{$screen-tablet} {
-                        max-width: rem(298px);
-                    }
+                        max-width: rem(245px);
 
-                    @media #{$screen-desktop} {
-                        max-width: rem(182px);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        @media #{$screen-tablet} {
+                            max-width: rem(160px);
+                        }
                     }
                 }
             }
@@ -211,6 +227,26 @@
                 left: auto;
 
                 width: rem(320px) !important;
+            }
+        }
+    }
+
+    &#{&}--sorting-big {
+        .select2-container--default {
+            .select2-selection--single {
+                .select2-selection__rendered {
+                    .select__item {
+                        max-width: rem(140px);
+
+                        @media #{$screen-tablet} {
+                            max-width: rem(260px);
+                        }
+
+                        @media #{$screen-desktop} {
+                            max-width: rem(160px);
+                        }
+                    }
+                }
             }
         }
     }
@@ -309,18 +345,6 @@
                 }
             }
         }
-    }
-
-    &__group {
-        position: relative;
-
-        display: flex;
-        align-items: center;
-
-        height: rem(40px);
-
-        border: rem(1px) solid $alto;
-        border-radius: rem($border-radius-small);
     }
 
     .select2-container {
