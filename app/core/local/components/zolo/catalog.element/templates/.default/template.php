@@ -138,8 +138,8 @@ $offerId = $arResult['OFFER_FIRST'];
                     <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
                         <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                <svg class="icon icon--arrow-slider">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-slider"></use>
                                 </svg>
                             </span>
                         </button>
@@ -149,9 +149,9 @@ $offerId = $arResult['OFFER_FIRST'];
 
                     <div class="slider__buttons-item swiper-button-next" data-carousel-next>
                         <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
-                            <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                            <span class="slider__button-icon button__icon">
+                                <svg class="icon icon--arrow-slider">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-slider"></use>
                                 </svg>
                             </span>
                         </button>
@@ -244,7 +244,7 @@ $offerId = $arResult['OFFER_FIRST'];
                 <? if (!empty($arResult['PACKAGINGS'])) :?>
                 <div class="cart__packs">
                     <p class="specification__category">Фасовка</p>
-                    <div class="select select--mini" data-select>
+                    <div class="select select--middle select--simple" data-select>
                         <select class="select__control" name="select1m" data-select-control data-placeholder="Выберите фасовку" data-option>
                             <option><!-- пустой option для placeholder --></option>
                             <?  foreach ($arResult['PACKAGINGS'] as $item) :
