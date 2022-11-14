@@ -3,7 +3,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
     die();
 }
 ?>
-<?php if (empty($arResult)): ?>
+<?php if (!empty($arResult)): ?>
     <div class="header__row header__row--nav">
         <div class="container">
             <div class="header__wrapper">
@@ -15,7 +15,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
                                 <?php if ($menuTab['PARAMS']['IMAGE']): ?>
                                     <span class="button__icon">
                                         <svg class="icon icon--discount">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-discount"></use>
+                                            <use xlink:href="<?=$menuTab['ADDITIONAL_LINKS']['SVG'] ?>"></use>
                                         </svg>
                                     </span>
                                 <?php endif; ?>

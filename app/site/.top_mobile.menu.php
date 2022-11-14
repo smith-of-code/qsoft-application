@@ -1,34 +1,33 @@
-<?
-$aMenuLinks = Array(
-	Array(
+<?php
+$aMenuLinks = [
+	[
         'AmeБизнес',
 		"#",
-		Array(),
-		Array(),
+		[],
+		[],
 		""
-	),
+	],
 
-	Array(
+	[
 		"FAQ",
 		"/info/faq/",
-		[], 
-		[], 
+		[],
+		[],
 		"" 
-	),
+	],
 
-	Array(
+	[
 		"Новости",
 		"/info/news/",
-		[], 
-		[], 
+		[],
+		[],
 		"" 
-	),
-	Array(
+	],
+	[
 		"Акции",
 		"#",
-		[],
+		['SVG' => '/local/templates/.default/images/icons/sprite.svg#icon-discount'],
 		['IMAGE' => true],
 		""
-	),
-);
-?>
+	],
+];
