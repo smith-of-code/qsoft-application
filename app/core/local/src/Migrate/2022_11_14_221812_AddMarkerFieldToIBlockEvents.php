@@ -12,7 +12,7 @@ use QSoft\Migrate\AbstractMigration;
 use Bitrix\Main\DB\Connection;
 use \Bitrix\Iblock\IblockTable;
 
-class AddMarkerFieldToIBlockNews extends AbstractMigration {
+class AddMarkerFieldToIBlockEvents extends AbstractMigration {
 
     private $onUpAddProperty = [
         [
@@ -30,37 +30,37 @@ class AddMarkerFieldToIBlockNews extends AbstractMigration {
         ]
     ];
     private $onUpDeleteProperty = [
-        'MARKER'
+        'EVENT_DATE', 'EVENT_TYPE',
     ];
 
     private $onDownAddProperty = [
         [
-            'NAME' => 'Маркер',
+            'NAME' => 'Дата проведения',
+            'PROPERTY_TYPE' => 'S',
+            'CODE' => 'EVENT_DATE',
+            'IS_REQUIRED' => 'Y',
+            'USER_TYPE' => 'DateTime',
+        ],
+        [
+            'NAME' => 'Тип',
             'PROPERTY_TYPE' => 'L',
-            'CODE' => 'MARKER',
-            'LIST_TYPE' => 'L',
+            'CODE' => 'EVENT_TYPE',
             'IS_REQUIRED' => 'Y',
             'VALUES' => [
                 [
-                    'VALUE' => 'Кошки',
+                    'VALUE' => 'Онлайн',
+                    'XML_ID' => 'online',
                     'DEF' => 'N',
-                    'XML_ID' => 'CATS',
                     'SORT' => 500,
                 ],
                 [
-                    'VALUE' => 'Собаки',
+                    'VALUE' => 'Оффлайн',
+                    'XML_ID' => 'offline',
                     'DEF' => 'N',
-                    'XML_ID' => 'DOGS',
-                    'SORT' => 1000,
-                ],
-                [
-                    'VALUE' => 'Интересное',
-                    'DEF' => 'N',
-                    'XML_ID' => 'INTERESTING',
-                    'SORT' => 1500,
+                    'SORT' => 500,
                 ],
             ],
-        ]
+        ],
     ];
     private $onDownDeleteProperty = [
         'HL_MARKER'
@@ -90,10 +90,10 @@ class AddMarkerFieldToIBlockNews extends AbstractMigration {
         //Добавление свойства HL_MARKER
         //1 По коду "CODE"=>"news" получить 'ID' инфоблока из b_iblock
         $iblock = IblockTable::getRow([
-            'filter' => ['CODE' => 'news']
+            'filter' => ['CODE' => 'event']
         ]);
         if (! $iblock) {
-            throw new \RuntimeException("Не найден инфоблок Новости с кодом CODE = news");
+            throw new \RuntimeException("Не найден инфоблок Новости с кодом CODE = event");
         }
 
         //2 Добавить свойства
@@ -113,10 +113,10 @@ class AddMarkerFieldToIBlockNews extends AbstractMigration {
 
         //1. По коду "CODE"=>"news" получить 'ID' инфоблока из b_iblock
         $iblock = IblockTable::getRow([
-            'filter' => ['CODE' => 'news']
+            'filter' => ['CODE' => 'event']
         ]);
         if (! $iblock) {
-            throw new \RuntimeException("Не найден инфоблок Новости с кодом CODE = news");
+            throw new \RuntimeException("Не найден инфоблок Новости с кодом CODE = event");
         }
 
         //2. По 'ID' инфоблока и коду свойства 'CODE'=>'MARKER' получить 'ID' свойства из b_iblock_property
@@ -142,66 +142,3 @@ class AddMarkerFieldToIBlockNews extends AbstractMigration {
         }
     }
 }
-
-/*
- * $helper->Iblock()->saveProperty($iblockId, array (
-  'NAME' => 'Маркер',
-  'ACTIVE' => 'Y',
-  'SORT' => '500',
-  'CODE' => 'HL_MARKER',
-  'DEFAULT_VALUE' => '',
-  'PROPERTY_TYPE' => 'S',
-  'ROW_COUNT' => '1',
-  'COL_COUNT' => '30',
-  'LIST_TYPE' => 'L',
-  'MULTIPLE' => 'N',
-  'XML_ID' => NULL,
-  'FILE_TYPE' => '',
-  'MULTIPLE_CNT' => '5',
-  'LINK_IBLOCK_ID' => '0',
-  'WITH_DESCRIPTION' => 'N',
-  'SEARCHABLE' => 'N',
-  'FILTRABLE' => 'N',
-  'IS_REQUIRED' => 'Y',
-  'VERSION' => '2',
-  'USER_TYPE' => 'directory',
-  'USER_TYPE_SETTINGS' =>
-  array (
-    'size' => 1,
-    'width' => 0,
-    'group' => 'N',
-    'multiple' => 'N',
-    'TABLE_NAME' => 'marker',
-  ),
-  'HINT' => '',
-  'FEATURES' =>
-  array (
-    0 =>
-    array (
-      'MODULE_ID' => 'iblock',
-      'FEATURE_ID' => 'DETAIL_PAGE_SHOW',
-      'IS_ENABLED' => 'N',
-    ),
-    1 =>
-    array (
-      'MODULE_ID' => 'iblock',
-      'FEATURE_ID' => 'LIST_PAGE_SHOW',
-      'IS_ENABLED' => 'N',
-    ),
-  ),
-));
-        $helper->UserOptions()->saveElementGrid($iblockId, array (
-  'views' =>
-  array (
-    'default' =>
-    array (
-      'columns' =>
-      array (
-        0 => '',
-      ),
-      'columns_sizes' =>
-      array (
-        'expand' => 1,
-        'columns' =>
-        array (
- */
