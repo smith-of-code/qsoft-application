@@ -84,7 +84,7 @@ function setDataToPopup (data, selected) {
                 </div>
 
                 <!--Возврат заказа-->
-                <div class="modal__section-variant" data-variant-block="REFUND_ORDER">
+                <div class="modal__section-variant ${selected === 'REFUND_ORDER' ? 'modal__section-variant--active' : ''}" data-variant-block="REFUND_ORDER">
 
                     <div class="form__row form__row--closer">
                         <div class="form__col">
@@ -131,7 +131,7 @@ function setDataToPopup (data, selected) {
                 <!--/Возврат заказа-->
 
                 <!--Неработающая функциональность-->
-                <div class="modal__section-variant" data-variant-block="SUPPORT">
+                <div class="modal__section-variant ${selected === 'SUPPORT' ? 'modal__section-variant--active' : ''}" data-variant-block="SUPPORT">
 
                     <div class="form__row form__row--closer">
                         <div class="form__col">
@@ -159,7 +159,7 @@ function setDataToPopup (data, selected) {
                 <!--/Неработающая функциональность-->
 
                 <!--Смена наставника/контактного лица-->
-                <div class="modal__section-variant" data-variant-block="CHANGE_MENTOR">
+                <div class="modal__section-variant ${selected === 'CHANGE_MENTOR' ? 'modal__section-variant--active' : ''}" data-variant-block="CHANGE_MENTOR">
 
                     <div class="form__row form__row--closer">
                         <div class="form__col">
@@ -253,7 +253,7 @@ function setDataToPopup (data, selected) {
                 <!--/Смена наставника/контактного лица-->
 
                 <!--Другое-->
-                <div class="modal__section-variant modal__section-variant--active" data-variant-block="OTHER">
+                <div class="modal__section-variant ${selected === 'OTHER' ? 'modal__section-variant--active' : ''}" data-variant-block="OTHER">
 
                     <div class="form__row form__row--closer">
                         <div class="form__col">
