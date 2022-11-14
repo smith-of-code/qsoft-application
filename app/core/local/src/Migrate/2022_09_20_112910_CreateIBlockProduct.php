@@ -150,7 +150,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             ],
         ],
         [
-            'NAME' => 'Порода',
+            'NAME' => 'Размер породы',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'BREED',
             'LIST_TYPE' => 'L',
