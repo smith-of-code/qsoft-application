@@ -36,7 +36,262 @@ $APPLICATION->setTitle('Личный Кабинет');?>
             prop-genders='<?=phpToVueObject($arResult['user_genders'])?>'
             prop-cities='<?=phpToVueObject($arResult['cities'])?>'
             prop-pickup-points='<?=phpToVueObject($arResult['pickup_points'])?>'
-        ></div>
+        >
+            <div class="profile__block" data-accordeon data-profile-block>
+                <section class="section">
+                    <form class="form form--wraped form--separated" action="" method="post" data-profile-form data-validation="profile">
+                        <div class="section__box box box--gray box--rounded-sm">
+                            <div class="profile__accordeon-header accordeon__header section__header">
+                                <h4 class="section__title section__title--closer">Персональные данные</h4>
+
+                                <div class="profile__actions">
+                                    <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" data-profile-edit>
+                                        <span class="button__icon">
+                                            <svg class="icon icon--edit">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Редактировать</span>
+                                    </button>
+
+                                    <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle >
+                                        <span class="accordeon__toggle-icon button__icon">
+                                            <svg class="icon icon--arrow-down">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
+                                <div class="profile__actions profile__actions--mobile">
+                                    <button type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
+                                        <span class="button__icon">
+                                            <svg class="icon icon--edit">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="button__text">Редактировать</span>
+                                    </button>
+                                </div>
+
+                                <div class="section__wrapper">
+                                    <div class="profile__avatar">
+                                        <div class="profile__avatar-box">
+                                            <div class="profile__avatar-image">
+                                                <?php if ($arResult['personal_data']['photo']):?>
+                                                    <img src="<?=$arResult['personal_data']['photo']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                <?php else:?>
+                                                    <svg class="dropzone__message-button-icon icon icon--camera">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                                    </svg>
+                                                <?php endif;?>
+                                            </div>
+                                        </div>
+
+                                        <!--dropzone-->
+                                        <div class="profile__dropzone dropzone dropzone--image dropzone--simple" data-uploader>
+                                            <input type="file" name="uploadFiles[]" multiple class="dropzone__control js-required">
+
+                                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                                <div class="dropzone__message dropzone__message--simple dz-message needsclick">
+                                                    <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
+                                                        <?php if ($arResult['personal_data']['photo']):?>
+                                                            <img src="<?=$arResult['personal_data']['photo']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                        <?php else:?>
+                                                            <svg class="dropzone__message-button-icon icon icon--camera">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                                            </svg>
+                                                        <?php endif;?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/dropzone-->
+                                        <div class="profile__info">
+                                            <span class="profile__level">Уровень <?=$arResult['personal_data']['loyalty_level']?></span>
+                                            <span class="profile__id">ID <?=$arResult['personal_data']['id']?></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__box-inner section__box-inner--full">
+                                        <div class="section__box-content section__box-content--collapsed box box--white box--rounded-sm box--inner" data-identic data-validate-dependent>
+                                            <div class="form__row form__row--special">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Фамилия</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['personal_data']['last_name']?>" class="input__control js-required" name="text-required3213" id="text-required" placeholder="Введите фамилию" readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Имя</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['personal_data']['first_name']?>" class="input__control js-required" name="text-required13123" id="text-required" placeholder="Введите имя" readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Отчество</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['personal_data']['second_name']?>" class="input__control js-required-dependent" name="text-required112" id="text-required112" placeholder="Введите отчество" readonly data-profile-readonly data-identic-input>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="select33" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Пол</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['user_genders'][$arResult['personal_data']['gender']]['name']?>" class="input__control js-required" name="text-required3213" id="text-required" placeholder="Введите фамилию" readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="birthdate" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Дата рождения</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input input--iconed">
+                                                                <input inputmode="numeric"
+                                                                       class="input__control js-required js-date"
+                                                                       name="text13"
+                                                                       id="birthdate"
+                                                                       placeholder="ДД.ММ.ГГГГ"
+                                                                       data-mask-date
+                                                                       data-inputmask-alias="date"
+                                                                       data-inputmask-inputformat="dd.mm.yyyy"
+                                                                       readonly data-profile-readonly
+                                                                       value="<?=$arResult['personal_data']['birthdate']?>"
+                                                                >
+                                                                <span class="input__icon">
+                                                                    <svg class="icon icon--calendar">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">E-mail</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" class="input__control js-required js-email" name="text-required1233" value="<?=$arResult['personal_data']['email']?>" id="text-required" placeholder="example@email.com" data-mail inputmode="email"  readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="text-required" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Телефон</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="tel" class="input__control js-required" name="text-required31133" value="<?=$arResult['personal_data']['phone']?>" id="text-required234324" placeholder="+7 (___) ___-__-__" data-phone inputmode="text"  readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__row">
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="select22" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Населенный пункт</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['personal_data']['city']?>" class="input__control js-required" name="text-required3213" id="text-required" placeholder="Введите фамилию" readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form__col">
+                                                    <div class="form__field">
+                                                        <div class="form__field-block form__field-block--label">
+                                                            <label for="select22" class="profile__label form__label form__label--required">
+                                                                <span class="form__label-text">Пункт выдачи заказов</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form__field-block form__field-block--input">
+                                                            <div class="input">
+                                                                <input type="text" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$arResult['personal_data']['pickup_point_id']]['name']?>" class="input__control js-required" name="text-required3213" id="text-required" placeholder="Введите фамилию" readonly data-profile-readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
         <!--/Персональные данные-->
 
         <!--Юридические данные-->
