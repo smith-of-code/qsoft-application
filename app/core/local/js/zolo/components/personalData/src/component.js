@@ -436,16 +436,6 @@ export const PersonalData = {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <button
-                                                        v-if="editing"
-                                                        type="button"
-                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
-                                                        data-src="#approve-number"
-                                                        @click="sendCode"
-                                                    >
-                                                        Отправить проверочный код
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
