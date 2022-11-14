@@ -27,7 +27,7 @@ global $APPLICATION;
 
 <body class="page">
 <!--header-->
-<header class="page__header header <?= Page::isMain() ? 'header--main' : '' ?>">
+<header class="page__header <?= Page::isMain() ? 'header--main page__header--main' : 'header' ?>">
 
     <div class="header__row header__row--main">
         <div class="container">
@@ -461,7 +461,9 @@ global $APPLICATION;
                             </div>
                         </div>
 
-                        <?php if ($USER->isAuthorized()): ?>
+                        <?php
+                        global $USER;
+                        if ($USER->isAuthorized()): ?>
                             <div class="personal__item personal__item--hidden">
                                 <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
                                     <span class="button__icon button__icon--mixed">
@@ -473,8 +475,8 @@ global $APPLICATION;
                                 </button>
                             </div>
                         <?php else: ?>
-                            <div class="personal__item personal__item--hidden" style="display: none">
-                                <button type="button" class="button button--simple button--red button--vertical">
+                            <div class="personal__item personal__item--hidden">
+                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/login';">
                                     <span class="button__icon button__icon--mixed">
                                         <svg class="icon icon--login">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
@@ -522,13 +524,13 @@ global $APPLICATION;
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/faq/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">FAQ</span>
                             </a>
                         </li>
 
                         <li class="navigation__item">
-                            <a href="#" class="navigation__button button button--simple button--red">
+                            <a href="/info/news/" class="navigation__button button button--simple button--red">
                                 <span class="button__text">Новости</span>
                             </a>
                         </li>
@@ -552,7 +554,6 @@ global $APPLICATION;
 </header>
 <!--/header-->
 
-<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
+<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?> <?= Page::isMain() ? 'page__content--main' : '' ?>">
     <div class="container">
-        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
-<!--            <h1 class="page__heading">Личный кабинет</h1>-->
+        <main class="<?= Page::isMain() ? 'page__main main' : (Page::isCatalog() ? 'page__catalog catalog' : '') ?>">

@@ -35,7 +35,7 @@ if (!$arResult['pets']) {
                                 </div>
 
                                 <div class="pet-card__breed" data-pets-breed>
-                                    <?=$pet['breed']?>
+                                    <?=$arResult['breeds'][$pet['type']][$pet['breed']]?>
                                 </div>
 
                                 <div class="pet-card__info-record">
@@ -190,7 +190,7 @@ if (!$arResult['pets']) {
                                                             <option><!-- пустой option для placeholder --></option>
                                                             <?php foreach ($breed as $breedId => $breedValue):?>
                                                                 <option value="<?=$breedId?>" <?=$pet['breed'] == $breedId ? 'selected' : ''?>>
-                                                                    <?=$breedValue?>
+                                                                    <?=$breedValue['name']?>
                                                                 </option>
                                                             <?php endforeach;?>
                                                         </select>

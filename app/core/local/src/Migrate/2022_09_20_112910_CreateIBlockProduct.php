@@ -2,9 +2,12 @@
 
 use Bitrix\Iblock\PropertyIndex\Manager;
 use QSoft\Migrate\BaseCreateIBlockMigration;
+use QSoft\Seeder\CategorySeeder;
 
 final class CreateIBlockProduct extends BaseCreateIBlockMigration
 {
+    protected ?string $seeder = CategorySeeder::class;
+
     protected array $iBlockInfo = [
         'LID' => 's1',
         'IBLOCK_TYPE_ID' => 'catalog',
@@ -16,14 +19,14 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
         'VERSION' => 2,
         'RIGHTS_MODE' => 'S',
         'GROUP_ID' => [
+            1 => 'X',
             2 => 'R',
-            6 => 'W',
-            8 => '',
             5 => '',
+            6 => 'W',
+            7 => '',
+            8 => '',
             9 => 'W',
             10 => '',
-            7 => '',
-            1 => 'X',
         ],
         'FIELDS' => [
             'IBLOCK_SECTION' => [
@@ -59,19 +62,21 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Состав',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'COMPOSITION',
+            'SMART_FILTER' => 'N',
             'ROW_COUNT' => 10,
         ],
         [
             'NAME' => 'Рекомендации по кормлению',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'FEEDING_RECOMMENDATIONS',
+            'SMART_FILTER' => 'N',
         ],
         [
             'NAME' => 'Лакомство',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'TREAT',
             'LIST_TYPE' => 'C',
-            'SMART_FILTER' => 'Y',
+            'SMART_FILTER' => 'N',
             'VALUES' => [
                 [
                     'VALUE' => 'Да',
@@ -86,13 +91,14 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'PROPERTY_TYPE' => 'S',
             'USER_TYPE' => 'video',
             'CODE' => 'VIDEO',
+            'SMART_FILTER' => 'N',
         ],
         [
             'NAME' => 'Вид животного',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'PET_TYPE',
             'LIST_TYPE' => 'L',
-            'SMART_FILTER' => 'Y',
+            'SMART_FILTER' => 'N',
             'VALUES' => [
                 [
                     'VALUE' => 'Собака',
@@ -108,16 +114,14 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'NAME' => 'Комплектность',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'COMPLETENESS',
+            'SMART_FILTER' => 'N',
         ],
         [
             'NAME' => 'Материал',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'MATERIAL',
-        ],
-        [
-            'NAME' => 'Предназначение',
-            'PROPERTY_TYPE' => 'S',
-            'CODE' => 'PURPOSE',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
         ],
         [
             'NAME' => 'Возраст',
@@ -131,14 +135,17 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                 [
                     'VALUE' => 'Для взрослых',
                     'XML_ID' => 'ADULT',
+                    'SORT' => 100,
                 ],
                 [
                     'VALUE' => 'Для молодых',
                     'XML_ID' => 'SMALL',
+                    'SORT' => 200,
                 ],
                 [
                     'VALUE' => 'Для всех возрастов',
                     'XML_ID' => 'ALL',
+                    'SORT' => 300,
                 ],
             ],
         ],
@@ -154,31 +161,38 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                 [
                     'VALUE' => 'Для мелких пород',
                     'XML_ID' => 'SMALL',
+                    'SORT' => 100,
                 ],
                 [
                     'VALUE' => 'Для средних пород',
                     'XML_ID' => 'MEDIUM',
+                    'SORT' => 200,
                 ],
                 [
                     'VALUE' => 'Для больших пород',
                     'XML_ID' => 'BIG',
+                    'SORT' => 300,
                 ],
                 [
                     'VALUE' => 'Для всех пород',
                     'XML_ID' => 'ALL',
+                    'SORT' => 400,
                 ],
             ],
         ],
         [
-            'NAME' => 'Назначение',
+            'NAME' => 'Назначение лакомства',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'APPOINTMENT',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
         ],
         [
-            'NAME' => 'Линейка',
+            'NAME' => 'Линейка товара',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'LINE',
             'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
             'LIST_TYPE' => 'L',
         ],
     ];

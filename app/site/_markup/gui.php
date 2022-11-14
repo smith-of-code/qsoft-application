@@ -466,6 +466,18 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cross"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: close-tick-circle">
+                                    <svg class="icon icon--close gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: refresh">
+                                    <svg class="icon icon--refresh gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
@@ -4731,21 +4743,19 @@
                             <div class="form__field-block form__field-block--input">
                                 <div class="form__control">
                                     <div class="select select--small select--sorting select--borderless" data-select>
-                                        <div class="select__group">
-                                            <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
-                                                <option><!-- пустой option для placeholder --></option>
-                                                <option value="1">По цене</option>
-                                                <option value="2">По популярности</option>
-                                            </select>
+                                        <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
+                                            <option><!-- пустой option для placeholder --></option>
+                                            <option value="1">По цене</option>
+                                            <option value="2">По популярности</option>
+                                        </select>
 
-                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                <span class="button__icon button__icon--medium">
-                                                    <svg class="icon icon--sort">
-                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
+                                        <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                            <span class="button__icon button__icon--medium">
+                                                <svg class="icon icon--sort">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                </svg>
+                                            </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

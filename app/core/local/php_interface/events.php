@@ -3,6 +3,7 @@
 use QSoft\Events\OfferEventsListener;
 use QSoft\Events\SupportEventListner;
 use QSoft\Events\UserEventsListener;
+use QSoft\Events\OrderEventsListener;
 
 $eventManager = \Bitrix\Main\EventManager::getInstance();
 
@@ -11,6 +12,8 @@ $eventManager = \Bitrix\Main\EventManager::getInstance();
  */
 $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
+
+$eventManager->addEventHandler('main', 'OnProlog', [\QSoft\Events\AuthRequired::class, 'checkAuth']);
 
 /**
  * Catalog module events
@@ -31,6 +34,10 @@ $eventManager->addEventHandler('support', 'OnAfterTicketUpdate', [new SupportEve
 $eventManager->addEventHandler('support', 'OnAfterTicketAdd', [new SupportEventListner(), 'onAfterTicketAdd']);
 /**
  * техподдержка конец.
- */
+*/
 
+/**
+ * Sale module events
+ */
+$eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'sendChangeOrderStatusNotification']);
 $eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [\QSoft\BasketRules\LoyaltyLevelEquals::class, 'GetControlDescr']);

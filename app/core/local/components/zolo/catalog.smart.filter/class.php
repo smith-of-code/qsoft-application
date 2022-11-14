@@ -247,36 +247,21 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                                 ),
                             ),
                         );
+
+                        // Обновим наименования цен для отображения в фильтре
+                        if ($items[$arPrice["NAME"]]['CODE'] === 'BASE')
+                            $items[$arPrice["NAME"]]['NAME'] = 'Цена, ₽';
                     }
                 }
             }
         }
-
-        if (!is_null(currentUser()) && currentUser()->groups->isConsultant()) {
-            $items['BONUSES'] = [
-                'ID' => 'BONUSES',
-                'CODE' => 'BONUSES',
-                'NAME' => 'Баллы',
-                'PRICE' => true,
-                'VALUES' => [
-                    'MIN' => [
-                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
-                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MIN",
-                    ],
-                    "MAX" => array(
-                        "CONTROL_ID" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
-                        "CONTROL_NAME" => "{$this->SAFE_FILTER_NAME}_PBONUSES_MAX",
-                    ),
-                ],
-            ];
-        }
-
         return $items;
     }
 
 	public function getResultItems()
 	{
 		$items = $this->getIBlockItems($this->IBLOCK_ID);
+
 		$this->arResult["PROPERTY_COUNT"] = count($items);
 		$this->arResult["PROPERTY_ID_LIST"] = array_keys($items);
 
@@ -300,6 +285,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
+        // Добавим параметр "Со скидкой"
         $items['WITH_DISCOUNT'] = [
             'CODE' => 'WITH_DISCOUNT',
             'NAME' => 'Со скидкой',
@@ -308,9 +294,9 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             'DISPLAY_EXPANDED' => 'Y',
             'VALUES' => [
                 '1' => [
-                    'CONTROL_ID' => 'arrFilter_WITH_DISCOUNT_1',
-                    'CONTROL_NAME' => 'arrFilter_WITH_DISCOUNT_1',
-                    'CONTROL_NAME_ALT' => 'arrFilter_WITH_DISCOUNT',
+                    'CONTROL_ID' => $this->arParams['FILTER_NAME'].'_WITH_DISCOUNT_1',
+                    'CONTROL_NAME' => $this->arParams['FILTER_NAME'].'_WITH_DISCOUNT_1',
+                    'CONTROL_NAME_ALT' => $this->arParams['FILTER_NAME'].'_WITH_DISCOUNT',
                     'HTML_VALUE_ALT' => 1,
                     'HTML_VALUE' => 'Y',
                     'VALUE' => 'Да',
@@ -321,6 +307,81 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
                 ]
             ],
         ];
+
+        // Уберем лишние фильтры по баллам, в зависимости от уровня в программе лояльности
+        $currentUser = currentUser();
+
+        $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
+        $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
+
+        $propsCodes = [];
+        foreach ($items as $index => $item) {
+            if (isset($item['CODE'])) {
+                $propsCodes[$item['CODE']] = $index;
+            }
+        }
+
+        foreach ($loyaltyLevelsXmlIds as $levelCode) {
+            $bonusesPropName = 'BONUSES_' . $levelCode;
+            if (in_array($bonusesPropName, array_keys($propsCodes), true)) {
+                // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
+                if (! is_null($currentUser)
+                    && $currentUser->groups->isConsultant()
+                    && $levelCode === $currentUser->loyaltyLevel
+                ) {
+                    // Обновим наименование для отображения в фильтре
+                    $items[$propsCodes[$bonusesPropName]]['NAME'] = 'Баллы, ББ';
+                    continue;
+                }
+                unset($items[$propsCodes[$bonusesPropName]]);
+            }
+        }
+
+        /* Выполним пересортировку элементов фильтра в нужном порядке */
+
+        // Порядок сортировки элементов фильтра
+        $preparedSortingOrder = [
+            'IS_BESTSELLER',
+            'WITH_DISCOUNT',
+            'BASE',
+            'BONUSES_K1',
+            'BONUSES_K2',
+            'BONUSES_K3',
+            'AGE',
+            'BREED',
+            'PACKAGING',
+            'MATERIAL',
+            'APPOINTMENT',
+            'LINE',
+            'FEED_TASTE',
+            'SPECIAL_INDICATIONS',
+            'COLOR',
+        ];
+
+        // Устанавливаем соответствие CODE => index, чтобы не потерять ключи элементов
+        $elementsCodes = [];
+        foreach ($items as $key => $item) {
+            $elementsCodes[$item['CODE']] = $key;
+        }
+        // Сортируем коды в нужном порядке
+        $sortedElementCodes = [];
+        foreach ($preparedSortingOrder as $code) {
+            if(isset($elementsCodes[$code])) {
+                $sortedElementCodes[$code] = $elementsCodes[$code];
+            }
+        }
+        // В конце добавляем коды элементов, не указанные в массиве сортировки
+        foreach ($elementsCodes as $code => $key) {
+            if(! isset($preparedSortingOrder[$code])) {
+                $sortedElementCodes[$code] = $key;
+            }
+        }
+        // Перезаполняем $items в новом порядке
+        $sortedItems = [];
+        foreach ($sortedElementCodes as $code => $key) {
+            $sortedItems[$key] = $items[$key];
+        }
+        $items = $sortedItems;
 
 		return $items;
 	}
@@ -1138,7 +1199,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 				if ($i == 0)
 				{
                     if ($smartElement === "with_discount")
-                        $result["arrFilter_WITH_DISCOUNT_1"] = "Y";
+                        $result[$this->arParams['FILTER_NAME']."_WITH_DISCOUNT_1"] = "Y";
 					if (preg_match("/^price-(.+)$/", $smartElement, $match))
 						$itemId = $this->searchPrice($this->arResult["ITEMS"], $match[1]);
 					else

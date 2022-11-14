@@ -314,37 +314,43 @@
                                                     let bigData = {
                                                         level: [
                                                             {
-                                                                maxPointsPersonal: 1000,
+                                                                maxPointsPersonal: 100000,
                                                                 minPointsPersonal: 0,
                                                                 stepPointsPersonal: 1,
-                                                                maxPointsGroup: 500,
+                                                                maxPointsGroup: 50000,
                                                                 minPointsGroup: 0,
                                                                 stepPointsGroup: 1,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 7,
+                                                                percent: 7,
+                                                                invitation: 100,
+                                                                transitionToLevel: 0,
                                                             },
                                                             {
-                                                                maxPointsPersonal: 2000,
+                                                                maxPointsPersonal: 200000,
                                                                 minPointsPersonal: 0,
                                                                 stepPointsPersonal: 2,
-                                                                maxPointsGroup: 1000,
+                                                                maxPointsGroup: 100000,
                                                                 minPointsGroup: 0,
                                                                 stepPointsGroup: 2,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 10,
+                                                                percent: 10,
+                                                                invitation: 150,
+                                                                transitionToLevel: 100,
                                                             },
                                                             {
-                                                                maxPointsPersonal: 3000,
+                                                                maxPointsPersonal: 300000,
                                                                 minPointsPersonal: 0,
                                                                 stepPointsPersonal: 3,
-                                                                maxPointsGroup: 2000,
+                                                                maxPointsGroup: 200000,
                                                                 minPointsGroup: 0,
                                                                 stepPointsGroup: 4,
                                                                 standardPersonal: 100,
                                                                 standardGroup: 200,
-                                                                // percent: 12,
+                                                                percent: 12,
+                                                                invitation: 200,
+                                                                transitionToLevel: 400,
                                                             },
                                                         ],
                                                         currentLevel: 1,
@@ -360,6 +366,9 @@
                                                         consultantRub: 0,
                                                         consultantPoints: 0,
                                                         consultantArr: [],
+
+                                                        oneTimeCharges: 0,
+                                                        oneTimeChargesTransitionLevel: 0,
                                                     };
                                                 </script>
 
@@ -532,7 +541,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="100000"
+                                                                                            data-max="10000000"
                                                                                             data-step="100"
                                                                                         ></div>
                                                                                     </div>
@@ -567,7 +576,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="1000"
+                                                                                            data-max="100000"
                                                                                             data-step="1"
                                                                                             data-calculator-range-points
                                                                                         ></div>
@@ -660,7 +669,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="100000"
+                                                                                            data-max="10000000"
                                                                                             data-step="200"
                                                                                         ></div>
                                                                                     </div>
@@ -695,7 +704,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="500"
+                                                                                            data-max="50000"
                                                                                             data-step="1"
                                                                                             data-calculator-range-points
                                                                                         ></div>   
@@ -775,7 +784,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="100000"
+                                                                                            data-max="10000000"
                                                                                             data-step="200"
                                                                                         ></div>
                                                                                     </div>
@@ -810,7 +819,7 @@
                                                                                             data-type="min"
                                                                                             data-min="0"
                                                                                             data-current="0"
-                                                                                            data-max="500"
+                                                                                            data-max="50000"
                                                                                             data-step="1"
                                                                                             data-calculator-range-points
                                                                                         ></div>   
@@ -864,7 +873,7 @@
                                                                     <input type="checkbox" class="switcher__input" name="switch2" id="switch3" data-consultants-switcher>
                                                                     <label for="switch3" class="switcher__label">
                                                                         <span class="switcher__icon"></span>
-                                                                        <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровеньи привлечение новых консультантов в группу</span>
+                                                                        <span class="switcher__text switcher__text--small">Учитывать разовые начисления баллов, за переход на уровень и привлечение новых консультантов в группу</span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -898,6 +907,8 @@
                                                                             </button>
                                                                         </div>
                                                                     </div>
+
+                                                                    <span class="profitability__signature">Новых консультантов</span>
                                                                 </div>
 
                                                                 <div class="profitability__hint">
@@ -906,11 +917,13 @@
                                                                     </svg>
                                                                 </div>
 
-
+                                                                
                                                             </div>
+
+                                                            <span class="profitability__signature profitability__signature--mobile">Новых консультантов</span>
                                                         </div>
 
-                                                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full">
+                                                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full" data-calculator-computing>
                                                             <span class="button__text">Рассчитать</span>
                                                         </button>
                                                     </form>
@@ -920,19 +933,233 @@
                                         </div>
                                     </section>
 
-                                    <section class="profitability__section section">
+                                    <section class="profitability__section section" data-calculator-computing-block style="display: none">
                                         <div class="section__box box box--gray box--rounded-sm">
                                             <div class="profitability__section-header section__header">
                                                 <h4 class="section__title section__title--closer">Результат расчета Вашего потенциального дохода</h4>
 
-                                                <div class="profitability__hint">
+                                                <!--к1-->
+                                                <div class="profitability__hint" data-tippy-html data-calculator-level-hidden="1">
                                                     <svg class="icon icon--question-circle">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                                     </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Баллы на уровне К1:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">1Б за каждые полные 100 рублей личных покупок</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">1Б за каждые полные 200 рублей покупок Вашей группы</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">100Б за каждого нового Консультанта в Вашей группе*</p>
+                                                                </li>
+                                                            </ul>
+
+                                                            <p class="profitability__tooltip-note">*Единоразово</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--к1-->
+
+                                                <!--к2-->
+                                                <div class="profitability__hint" style="display: none;" data-tippy-html data-calculator-level-hidden="2">
+                                                    <svg class="icon icon--question-circle">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                    </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Баллы на уровне К2:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">2Б за каждые полные 100 рублей личных покупок</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">2Б за каждые полные 200 рублей покупок Вашей группы</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">150Б за каждого нового Консультанта в Вашей группе*</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">100Б за переход на новый уровень*</p>
+                                                                </li>
+                                                            </ul>
+
+                                                            <p class="profitability__tooltip-note">*Единоразово</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--к2-->
+
+                                                <!--к3-->
+                                                <div class="profitability__hint" style="display: none;" data-tippy-html data-calculator-level-hidden="3">
+                                                    <svg class="icon icon--question-circle">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                                                    </svg>
+
+                                                    <div style="display: none;" data-tippy-template>
+                                                        <div class="profitability__tooltip">
+                                                            <p class="profitability__tooltip-title">Баллы на уровне К3:</p>
+
+                                                            <ul class="profitability__tooltip-list">
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">3Б за каждые полные 100 рублей личных покупок</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">4Б за каждые полные 200 рублей покупок Вашей группы</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">200Б за каждого нового Консультанта в Вашей группе*</p>
+                                                                </li>
+
+                                                                <li class="profitability__tooltip-item">
+                                                                    <svg class="profitability__tooltip-icon icon icon--check-mark">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
+                                                                    </svg>
+
+                                                                    <p class="profitability__tooltip-text">300Б за переход на новый уровень**</p>
+                                                                </li>
+                                                            </ul>
+
+                                                            <p class="profitability__tooltip-note">*Единоразово</p>
+                                                            <p class="profitability__tooltip-note">**Каждые 6 месяцев поддержания уровня</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--к3-->
+                                            </div>
+
+                                            <div class="diagramm">
+                                                <div class="diagramm__row">
+
+                                                    <div class="diagramm__total diagramm__total--mobile">
+                                                        <span class="diagramm__total-text">Ваш потенциальный* доход</span>
+                                                        <span class="diagramm__total-sum"><span data-calculator-computing-sum>0</span> ₽</span>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--results">
+                                                        <div class="diagramm__results">
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
+                                                                <span class="diagramm__result-text">Доход от личных продаж</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#2c877f"></span>
+                                                                <span class="diagramm__result-text">Прибыль от личных покупок</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#945dab"></span>
+                                                                <span class="diagramm__result-text">Доход от группы</span>
+                                                            </div>
+                                                            <div class="diagramm__result">
+                                                                <span class="diagramm__result-icon" style="background-color:#c73c5e"></span>
+                                                                <span class="diagramm__result-text">Разовые начисления</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="diagramm__total diagramm__total--desktop">
+                                                            <span class="diagramm__total-text">Ваш потенциальный* доход</span>
+                                                            <span class="diagramm__total-sum"><span data-calculator-computing-sum>0</span> ₽</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--main">
+                                                        <div class="diagramm__main">
+                                                            <canvas width="400" height="400" data-chart='{"labels": [" Доход от личных продаж", " Прибыль от личных покупок", " Доход от группы", " Разовые начисления"],"datasets": [{"data": [0, 0, 0, 0],"backgroundColor": ["#3887b5","#2c877f","#945dab","#d82f49"]}]}' data-calculator-chart></canvas>
+                                                            <div class="diagramm__sum">0</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="diagramm__col diagramm__col--composition">
+                                                        <div class="diagramm__composition">
+                                                            <div class="diagramm__composition-item">
+                                                                <div class="diagramm__main">
+                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#3887b5","#D0EDFE"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-income-sales></canvas>
+                                                                </div>
+                                                                <div class="diagramm__composition-text">Доход от личных продаж</div>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <div class="diagramm__main">
+                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#2C877F","#C5F2F2"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-profit-purchases></canvas>
+                                                                </div>
+                                                                <div class="diagramm__composition-text">Прибыль от личных покупок</div>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <div class="diagramm__main">
+                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#945DAB","#DDCFE3"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-income-group></canvas>
+                                                                </div>
+                                                                <div class="diagramm__composition-text">Доход от группы <br><br></div>
+                                                            </div>
+                                                            <div class="diagramm__composition-item">
+                                                                <div class="diagramm__main">
+                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#C73C5E","#FAD0D3"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-onetime-charges></canvas>
+                                                                </div>
+                                                                <div class="diagramm__composition-text">Разовые начисления</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="diagramm__footer">
+                                                    <p class="diagramm__footer-info">
+                                                        *Калькулятор позволяет осуществить ориентировочный расчет Вашего вознаграждения, предоставлен на основе данных, введенных в полях калькулятора доходности, и не является точным прогнозом.
+                                                    </p>
                                                 </div>
                                             </div>
 
-                                            Диаграмма
                                         </div>
                                     </section>
                                 </div>

@@ -1,8 +1,12 @@
 import { useLegalEntityStore } from '../../../stores/legalEntityStore';
 
+let id = 0;
+
 export const LegalEntity = {
     data() {
         return {
+            componentId: `legal-entity-${++id}`,
+            originalLegalEntity: {},
             mutableLegalEntity: {},
             editing: false,
         };
@@ -24,6 +28,7 @@ export const LegalEntity = {
     },
 
     created() {
+        this.originalLegalEntity = JSON.parse(JSON.stringify(this.legalEntity));
         this.initLegalEntity();
     },
 
@@ -33,10 +38,16 @@ export const LegalEntity = {
 
     methods: {
         initLegalEntity() {
-            this.mutableLegalEntity = JSON.parse(JSON.stringify(this.legalEntity));
+            this.mutableLegalEntity = JSON.parse(JSON.stringify(this.originalLegalEntity));
         },
         changeLegalEntityType() {
             this.mutableLegalEntity.type = this.types[$('select[name=status]').val()];
+        },
+        edit() {
+            this.editing = true;
+            if ($(`#${this.componentId} .accordeon__body`).css('display') === 'none') {
+                $(`#${this.componentId} [data-accordeon-toggle]`).trigger('click');
+            }
         },
         cancelEditing() {
             this.editing = false;
@@ -58,12 +69,16 @@ export const LegalEntity = {
             });
 
             this.legalEntityStore.saveLegalEntityData(this.mutableLegalEntity);
-            this.cancelEditing();
+            this.editing = false;
+
+            this.originalLegalEntity = JSON.parse(JSON.stringify(this.mutableLegalEntity));
+
+            $.fancybox.open({ src: '#thanks' });
         },
     },
 
     template: `
-        <div class="profile__block legal_entity_block" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div :id="componentId" class="profile__block legal_entity_block" data-accordeon :class="{ 'profile__block--edit': editing }">
             <section class="section">
                 <div class="form form--wraped form--separated">
                     <div class="section__box box box--gray box--rounded-sm">
@@ -71,7 +86,7 @@ export const LegalEntity = {
                             <h4 class="section__title section__title--closer">Юридические данные</h4>
 
                             <div class="profile__actions">
-                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
+                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="edit">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -92,7 +107,7 @@ export const LegalEntity = {
 
                         <div class="accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -594,9 +609,7 @@ export const LegalEntity = {
                                     <div class="section__box-block">
                                         <h6 class="box__heading box__heading--small">Копия паспорта</h6>
 
-                                        <!-- TODO: Определиться с реализацией -->
-                                        <!-- Для интеграции - необходимо вставить ссылку на файл -->
-                                        <div class="profile__notification" style="display:none">
+                                        <div v-if="!editing && !mutableLegalEntity.documents.passport?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
                                                 <svg class="icon icon--danger">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
@@ -621,7 +634,7 @@ export const LegalEntity = {
                                                 </div>
                 
                                                 <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                                    <div v-for="passportPhoto in mutableLegalEntity.documents.passport" :key="passportPhoto.id" class="file dz-processing dz-image-preview dz-success" data-uploader-preview="">
+                                                    <div v-for="passportPhoto in mutableLegalEntity.documents.passport" :key="passportPhoto.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
                                                         <div class="file__wrapper">
                                                             <div class="file__prewiew">
                                                                 <div class="file__icon">
@@ -631,7 +644,7 @@ export const LegalEntity = {
                                                                 </div>
 
                                                                 <div class="file__name">
-                                                                    <h6 class="file__name-heading heading heading--tiny" data-uploader-preview-filename="">Profile...ob</h6>
+                                                                    <h6 class="file__name-heading heading heading--tiny" data-uploader-preview-filename="">{{ passportPhoto.name }}</h6>
                                                                 </div>
                                                             </div>
 
@@ -641,7 +654,7 @@ export const LegalEntity = {
                                                                 <div class="file__weight" data-uploader-preview-size="">{{ passportPhoto.size }}</div>
 
                                                                 <div class="file__delete" data-dz-remove="">
-                                                                    <button type="button" class="file__delete-button button button--iconed button--simple button--gray">
+                                                                    <button type="button" class="file__delete-button button button--iconed button--simple button--gray" >
                                                                         <span class="file__delete-button-icon button__icon">
                                                                             <svg class="icon icon--delete">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
@@ -652,7 +665,7 @@ export const LegalEntity = {
 
                                                                 <!-- Для интеграции - необходимо вставить ссылку на файл -->
                                                                 <div class="file__upload">
-                                                                    <a class="button button--iconed button--simple button--gray" href="#" download>
+                                                                    <a class="button button--iconed button--simple button--gray" :href="passportPhoto.src" download>
                                                                         <span class="button__icon">
                                                                             <svg class="icon icon--import">
                                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -705,22 +718,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                        </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "tax_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -759,6 +772,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="taxRegistrationCertificatePhoto.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -876,22 +899,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "bank_details", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -931,6 +954,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -942,22 +975,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.personal_tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="personal_tax_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "personal_tax_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -996,6 +1029,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1099,22 +1142,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "tax_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1154,6 +1197,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -1165,22 +1218,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="usn_notification" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "usn_notification", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1219,6 +1272,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1260,22 +1323,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.ip_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="ip_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "ip_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1314,6 +1377,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1431,22 +1504,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "bank_details", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1485,6 +1558,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1645,22 +1728,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="tax_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "tax_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1700,6 +1783,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -1711,22 +1804,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="usn_notification" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "usn_notification", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1765,6 +1858,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1806,22 +1909,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию устава ООО</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия устава ООО</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_charter?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_charter" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "llc_charter", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1861,6 +1964,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -1872,22 +1985,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию протокола участников (решения участника) ООО об избрании руководителя организации</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия протокола участников (решения участника) ООО об избрании руководителя организации</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_members?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_members" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "llc_members", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1927,6 +2040,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -1938,22 +2061,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия приказа о вступлнеии в должность генерального директора</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.ceo_appointment?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="ceo_appointment" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "ceo_appointment", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -1993,6 +2116,16 @@ export const LegalEntity = {
                                                                     </span>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" data-dropzone-file="" :value="photo.id">
@@ -2004,22 +2137,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.llc_registration_certificate?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="llc_registration_certificate" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "llc_registration_certificate", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -2058,6 +2191,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2098,22 +2241,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.procuration?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="procuration" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "procuration", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -2152,6 +2295,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2269,22 +2422,22 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
-                    
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
+
+                                      <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
+                                            <span class="profile__notification-icon">
+                                                <svg class="icon icon--danger">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-danger"></use>
+                                                </svg>
+                                            </span>
+                                        <p class="profile__notification-text">Необходимо приложить документы. Войдите в режим редактирования.</p>
+                                      </div>
+                                      
                                         <div class="dropzone" data-uploader>
                                             <input type="file" name="bank_details" multiple class="dropzone__control">
                                         
                                             <div class="dropzone__area" data-uploader-area='{"paramName": "bank_details", "url":"/_markup/gui.php"}'>
-                                                <div class="dropzone__message dz-message needsclick">
-                                                    <div class="dropzone__message-caption needsclick">
-                                                        <h6 class="dropzone__message-title">Ограничения:</h6>
-                                                        <ul class="dropzone__message-list">
-                                                            <li class="dropzone__message-item">до 10 файлов</li>
-                                                            <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                                                            <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
-                                                        </ul>
-                                                    </div>
-                                        
+                                                <div class="profile__toggle dropzone__message dz-message needsclick">
                                                     <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
@@ -2296,7 +2449,7 @@ export const LegalEntity = {
                                                 </div>
                                         
                                                 <div class="dropzone__previews dz-previews" data-uploader-previews>
-                                                    <div v-for="photo in mutableLegalEntity.documents.procuration" :key="photo.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
+                                                    <div v-for="photo in mutableLegalEntity.documents.bank_details" :key="photo.id" class="file dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="">
                                                         <div class="file__wrapper">
                                                             <div class="file__prewiew">
                                                                 <div class="file__icon">
@@ -2323,6 +2476,16 @@ export const LegalEntity = {
                                                                         </svg>
                                                                     </span>
                                                                     </button>
+                                                                </div>
+                                                                
+                                                                <div class="file__upload">
+                                                                    <a class="button button--iconed button--simple button--gray" :href="photo.src" download>
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--import">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2467,9 +2630,9 @@ export const LegalEntity = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="cancelEditing">
-                                        <span class="button__text">Отменить изменения</span>
-                                    </button>
+                                  <button type="button" class="button button--rounded button--outlined button--red button--full" @click="cancelEditing">
+                                    <span class="button__text">Отменить изменения</span>
+                                  </button>
                                 </div>
 
                                 <div class="section__actions-col">
@@ -2483,5 +2646,22 @@ export const LegalEntity = {
                 </div>
             </section>
         </div>
+
+        <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+            <div class="modal__content">
+                <section class="modal__section modal__section--content">
+                    <div class="notification notification--simple">
+                        <div class="notification__icon">
+                            <svg class="icon icon--cat-serious">
+                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                            </svg>
+                        </div>
+                        
+                        <h4 class="notification__title">Спасибо за обращение</h4>
+                        <p class="notification__text">Мы проверим обновленные данные и уведомим Вас о результате внесения изменений. </p>
+                    </div>
+                </section>
+            </div>
+        </article>
     `,
 };

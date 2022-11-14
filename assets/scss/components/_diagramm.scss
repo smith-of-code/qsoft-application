@@ -1,0 +1,287 @@
+.diagramm {
+    &--simple & {
+        &__row {
+            @media #{$screen-tablet} {
+                align-items: flex-start;
+            }
+        }
+
+        &__col {
+            @media #{$screen-tablet} {
+                width: percentage(1 / 2);
+            }
+
+            & + & {
+                margin-bottom: rem($gap-average);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: 0;
+                    margin-left: rem($gap-big);
+                }
+
+                @media #{$screen-desktop} {
+                    margin-left: rem(48px);
+                }
+            }
+
+            &--diagramm {
+                width: rem(240px);
+            }
+
+            &--sum {
+                flex-grow: 1;
+            }
+        }
+
+        &__title {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-medium;
+            line-height: (22px / $font-size-small);
+
+            margin-bottom: rem($gap-average);
+
+            @media #{$screen-desktop} {
+                margin-bottom: rem($gap-normal);
+            }
+        }
+
+        &__results {
+            display: flex;
+            flex-direction: column;
+
+            @media #{$screen-desktop} {
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
+
+                margin-top: rem(-$gap-medium);
+                margin-right: rem(-$gap-average);
+                margin-left: rem(-$gap-average);
+            }
+        }
+
+        &__result {
+            padding: 0;
+
+            background-color: transparent;
+
+            &:not(:first-child) {
+                margin-top: rem($gap-average);
+            }
+
+            @media #{$screen-desktop} {
+                width: percentage(1 / 2);
+                margin-top: rem($gap-medium);
+                padding-right: rem($gap-average);
+                padding-left: rem($gap-average);
+
+                & + & {
+                    margin-top: 0;
+                }
+            }
+
+            &-icon {
+                $size: 24px;
+
+                display: block;
+
+                width: rem($size);
+                height: rem($size);
+                margin-right: rem($gap-average);
+
+                border-radius: rem($border-radius-small);
+            }
+        }
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: column;
+
+        @media #{$screen-tablet} {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__col {
+        @media #{$screen-tablet} {
+            width: percentage(1 / 3);
+        }
+
+        & + & {
+            margin-bottom: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-bottom: 0;
+                margin-left: rem($gap-big);
+            }
+        }
+
+        &--results {
+            order: 3;
+
+            @media #{$screen-tablet} {
+                order: initial;
+            }
+        }
+
+        &--main {
+            order: 1;
+
+            @media #{$screen-tablet} {
+                order: initial;
+            }
+        }
+
+        &--composition {
+            order: 2;
+
+            @media #{$screen-tablet} {
+                order: initial;
+            }
+        }
+    }
+
+    &__result {
+        @include text-miniature($font-weight-medium);
+
+        display: flex;
+        align-items: center;
+
+        padding: rem($gap-average);
+
+        color: $tuna;
+        border-radius: rem($border-radius-middle);
+        background-color: $white;
+
+        &:not(:first-child) {
+            margin-top: rem($gap-mini);
+        }
+
+        &-icon {
+            $size: 12px;
+
+            flex-shrink: 0;
+
+            display: block;
+
+            width: rem($size);
+            height: rem($size);
+            margin-right: rem($gap-small);
+
+            border-radius: 50%;
+        }
+    }
+
+    &__main {
+        position: relative;
+    }
+
+    &__total {
+        @include text-miniature($font-weight-medium);
+
+        padding: rem($gap-average);
+
+        color: $tuna;
+        border-radius: rem($border-radius-middle);
+        background-color: $white;
+
+        @media #{$screen-tablet} {
+            margin-top: rem(20px);
+        }
+
+        &--desktop {
+            display: none;
+
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
+
+        &--mobile {
+            margin-bottom: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
+
+        &-text {
+            display: block;
+
+            margin-bottom: rem($gap-mini);
+        }
+
+        &-sum {
+            font-size: rem($font-size-middle);
+            font-weight: $font-weight-bold;
+            line-height: ($line-height-middle / $font-size-middle);
+
+            display: block;
+
+            color: $brickRed;
+        }
+    }
+
+    &__composition {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        margin: rem(-10px);
+        margin-bottom: 0;
+
+        &-item {
+            width: percentage(1 / 2);
+            margin-top: rem(10px);
+            padding-right: rem(10px);
+            padding-left: rem(10px);
+        }
+
+        &-text {
+            font-size: rem($font-size-miniature);
+            font-weight: 500;
+            line-height: $line-height-miniature;
+
+            margin-top: rem($gap-small);
+
+            text-align: center;
+        }
+    }
+
+    &__sum {
+        @include position-stretching(absolute);
+
+        font-size: rem($font-size-normal);
+        font-weight: $font-weight-semibold;
+        line-height: $line-height-normal;
+
+        display: flex;
+        overflow: auto;
+        align-items: center;
+        justify-content: center;
+
+        width: 50%;
+        height: 50%;
+        margin: auto;
+    }
+
+    &__footer {
+        margin-top: rem($gap-medium);
+        padding-top: rem($gap-average);
+
+        border-top: rem(1px) solid $alto;
+
+        @media #{$screen-tablet} {
+            margin-top: rem($gap-big);
+        }
+
+        &-info {
+            @include text-miniature($font-weight-medium);
+
+            color: $saltBox;
+        }
+    }
+}

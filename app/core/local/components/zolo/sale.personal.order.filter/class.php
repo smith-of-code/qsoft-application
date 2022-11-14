@@ -4,54 +4,88 @@
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
+use Bitrix\Sale\Registry;
 
+/**
+ * Компонент, реализации вывода фильтров.
+ */
 class SalePersonalOrderFilterComponent extends CBitrixComponent
 {
+    /**
+     * Свойство регистра.
+     *
+     * @var Registry
+     */
+    protected Registry $registry;
 
-    protected $sortFields = [
-        'POSTED' => 'Размещен',
-        'CANCELED' => 'Отменен',
-        'DELIVERED' => 'Доставлен'
+    /**
+     * Статичный массив статуса оплаты.
+     *
+     * @var array
+     */
+    protected array $paymentStatus = [
+        'Y' => 'Оплачен',
+        'N' => 'Не оплачен'
     ];
 
-    protected $paymentStatus = [
-        'PAID' => 'Оплачен',
-        'NOT_PAID' => 'Не оплачен'
-    ];
-
-	public function executeComponent()
+	/**
+	 * Выполнение компонента
+	 *
+	 * @return void
+	 * 
+	 */
+	public function executeComponent(): void
 	{
-        $this->checkModules();
-        $this->initFilter();
+        if ($this->StartResultCache(false)) {
+            $this->checkModules();
+            $this->initRegistry();
+            $this->initFilter();
 
-		$this->includeComponentTemplate();
+            $this->SetResultCacheKeys([]);
+            $this->includeComponentTemplate();
+        }
 	}
 
-    public function checkModules()
+    /**
+     * Подключение модуля sale
+     *
+     * @return void
+     * @throws SystemException
+     */
+    public function checkModules(): void
     {
         if (!Loader::includeModule('sale')) {
             throw new SystemException(Loc::GetMessage('SPOL_SALE_MODULE_NOT_INSTALL'));
         }
     }
 
-    protected function initFilter()
+    /**
+     * Инициализация фильтров
+     *
+     * @return void
+     * 
+     */
+    protected function initFilter(): void
     {
-        $orders = \Bitrix\Sale\Order::getList([
-            'filter' => [
-                'USER_ID' => $GLOBALS['USER']->GetID()
-            ],
-            'select' => ['STATUS_ID'],
-        ]);
-        while ($order = $orders->fetch()) {
-            if (in_array($order['STATUS_ID'], ['F', 'OD'])) {
-                $this->arResult['STATUS']['DELIVERED'] = 'Доставлен';
-            } elseif ($order['STATUS_ID'] == 'OC') {
-                $this->arResult['STATUS']['CANCELED'] = 'Отменен';
-            } else {
-                $this->arResult['STATUS']['POSTED'] = 'Размещен';
-            }
+        $orderStatusClassName = $this->registry->getOrderStatusClassName();
+        $listStatusNames = $orderStatusClassName::getAllStatusesNames(LANGUAGE_ID);
+
+        foreach($listStatusNames as $key => $data)
+        {
+            $this->arResult['STATUS'][$key] = $data;
         }
 
         $this->arResult['PAYMENT'] = $this->paymentStatus;
+    }
+
+    /**
+     * Подключения регистра классов модуля sale
+     *
+     * @return void
+     * 
+     */
+    private function initRegistry(): void
+    {
+		$this->registry = Registry::getInstance(Registry::REGISTRY_TYPE_ORDER);
     }
 }

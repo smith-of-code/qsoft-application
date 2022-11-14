@@ -1,16 +1,19 @@
+let offset, limit, isLast;
+const PERIOD = 30;
+let filter = {'period': PERIOD};
 
-function nextNotifications() {
-    limit = BASE_LIMIT;
-    loadNotifications();
+window.onload = function () {
+    //Выполнить пагинацию по клику на кнопке "Показать больше"
+    document.querySelector('.notifications__button-more').addEventListener('click', loadNotifications);
+
+    //Выполнить чтение уведомления по клику на уведомление
+    let notificationRedirectAnchor = document.querySelectorAll('.card-notify__link');
+    for (let i = 0; i < notificationRedirectAnchor.length; i++) {
+        notificationRedirectAnchor[i].addEventListener('click', readNotification);
+    }
 }
 
-function filterNotifications(status) {
-    filter['status'] = status;
-    limit = Math.max(limit, offset);
-    offset = 0;
-    loadNotifications();
-}
-
+//Получение уведомлений (пагинация)
 function loadNotifications() {
     BX.ajax.runComponentAction('zolo:sale.personal.notifications.list', 'loadNotifications', {
         mode: 'class',
@@ -20,60 +23,51 @@ function loadNotifications() {
             filter: filter
         }
     }).then(function (response) {
-        console.log(response);
-        if(offset === 0) {
-            replace(response['data']['NOTIFICATIONS']);
-        } else {
-            attach(response['data']['NOTIFICATIONS']);
-        }
+        attach(response['data']['NOTIFICATIONS']);
         offset = response['data']['OFFSET'];
+        if (response['data']['LAST']) {
+            hideShowMoreButton();
+        }
     }, function (response) {
-        //console.log(response);
-        alert("Ошибка при вызове метода компонента-контроллера")
+        console.log(response);
     });
 }
 
-//прочитать уведомление
-function readMessage() {
-    let notificationId = document.getElementById("notificationIdInput").value;
+//Присоединение полученных уведомлений
+function attach(notifications) {
+    for (let i = 0; i < notifications.length; i++) {
+        //установить цвет уведомления
+        let item = notifications[i];
+        let addition = document.querySelector('.cards-notify__item').cloneNode(true);
+        let noteItemElement = addition.querySelector('.card-notify');
+        noteItemElement.className = "";
+        let color = 'card-notify--' + (notifications[i]['STATUS'] === "Прочитано" ? "green" : "orange");
+        noteItemElement.classList.add("card-notify", color);
+        //добавить данные уведомления
+        addition.querySelector('.card-notify__title').innerHTML = item['TITLE'];
+        addition.querySelector('.card-notify__text').innerHTML = item['MESSAGE'];
+        addition.querySelector('.card-notify__send-date').innerHTML = item['DATE'];
+        addition.querySelector('.card-notify__send-time').innerHTML = item['TIME'];
+        addition.querySelector('.card-notify__status-text').innerHTML = item['STATUS'];
+        let notificationRedirectAnchor = addition.querySelector('.card-notify__link');
+        notificationRedirectAnchor.setAttribute('href', item['LINK']);
+        notificationRedirectAnchor.setAttribute('id', item['ID']);
+        notificationRedirectAnchor.addEventListener('click', readNotification);
+        document.querySelector('.notifications__list').appendChild(addition);
+    }
+}
+
+//Прочитать уведомление
+function readNotification(redirectEvent) {
     BX.ajax.runComponentAction('zolo:sale.personal.notifications.list', 'readMessage', {
         mode: 'class',
         data: {
-            notificationId: notificationId
+            notificationId: redirectEvent.target.id
         }
-    }).then(function (response) {
-        console.log(response);
-        let status = document.getElementById(notificationId);
-        status.innerHTML = "Статус уведомления: " + response['data']['status'];
-    }, function (response) {
-        console.log(response);
-        alert("Ошибка при вызове метода компонента-контроллера")
     });
 }
 
-function replace(notifications) {
-    document.getElementById("notificationList").innerHTML = '';
-    attach(notifications);
+function hideShowMoreButton() {
+    document.querySelector('.notifications__button-more').style.display = 'none';
 }
 
-function attach(notifications) {
-    for (let i = 0; i < Object.keys(notifications).length; i++) {
-        let div = document.createElement('div');
-        // div.setAttribute("id", notifications[i]['ID'] + "_div");
-        div.innerHTML += "Уведомление:" + "<br>";
-        div.innerHTML += "ID" + " - " + notifications[i]['ID'] + "<br>";
-        div.innerHTML += "Заголовок" + " - " + notifications[i]['TITLE'] + "<br>";
-        div.innerHTML += "Текст уведомления" + " - " + notifications[i]['MESSAGE'] + "<br>";
-        div.innerHTML += "Дата создания уведомления" + " - " + notifications[i]['DATE'] + "<br>";
-        div.innerHTML += "Время отправки уведомления" + " - " + notifications[i]['TIME'] + "<br>";
-        //div.innerHTML += "Статус уведомления" + " - " + notifications[i]['STATUS'] + "<br>";
-        div.innerHTML += "Ссылка" + " - " + notifications[i]['LINK'] + "<br>";
-
-        let notificationStatus = document.createElement('span');
-        notificationStatus.innerHTML = "Статус уведомления" + " - " + notifications[i]['STATUS'] + "<br>";
-        notificationStatus.setAttribute('id', notifications[i]['ID']);
-        div.appendChild(notificationStatus);
-
-        document.getElementById("notificationList").appendChild(div);
-    }
-}

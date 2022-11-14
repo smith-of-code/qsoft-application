@@ -99,11 +99,11 @@
                                     <section class="accounting__section section">
                                         <div class="section__box box">
                                             <div class="participant participant--accounting">
-                                                <div class="participant__item">
+                                                <div class="participant__item participant__item--main">
                                                     <div class="participant__header box box--gray box--rounded-sm">
                                                         <div class="participant__row">
                                                             <div class="participant__col participant__col--avatar">
-                                                                <div class="participant__avatar avatar avatar--accent">
+                                                                <div class="participant__avatar avatar avatar--accent avatar--big">
                                                                     <div class="avatar__box">
                                                                         <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                     </div>
@@ -162,21 +162,75 @@
 
                                                     <div class="accounting__period filter filter--content">
                                                         <form class="accounting__period-form form">
-                                                            <div class="accounting__period-name heading heading--small">
-                                                                Выберите период отчета
+                                                            <div class="accounting__period-heading">
+                                                                <div class="accounting__period-name heading heading--small">
+                                                                    Выберите период отчета
+                                                                </div>
+
+                                                                <div class="form__field">
+                                                                    <div class="form__field-block form__field-block--input">
+                                                                        <div class="form__control">
+                                                                            <div class="accounting__period-select select select--mitigate select--small select--common" data-select>
+                                                                                <select class="select__control" name="select2" data-select-control data-placeholder="Период">
+                                                                                    <option><!-- пустой option для placeholder --></option>
+                                                                                    <option value="1">I квартал 2022</option>
+                                                                                    <option value="2">II квартал 2022</option>
+                                                                                    <option value="3">III квартал 2022</option>
+                                                                                    <option value="4">IV квартал 2022</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
-                                                            <div class="form__field">
-                                                                <div class="form__field-block form__field-block--input">
-                                                                    <div class="form__control">
-                                                                        <div class="accounting__period-select select select--mitigate select--small select--common" data-select>
-                                                                            <select class="select__control" name="select2" data-select-control data-placeholder="Период">
-                                                                                <option><!-- пустой option для placeholder --></option>
-                                                                                <option value="1">I квартал 2022</option>
-                                                                                <option value="2">II квартал 2022</option>
-                                                                                <option value="3">III квартал 2022</option>
-                                                                                <option value="4">IV квартал 2022</option>
-                                                                            </select>
+                                                            <div class="accounting__diagramm">
+                                                                <h5 class="accounting__diagramm-title">Мой заработок</h5>
+
+                                                                <div class="diagramm diagramm--simple">
+                                                                    <div class="diagramm__row">
+                                                                        <div class="diagramm__col diagramm__col--diagramm">
+                                                                            <div class="diagramm__main">
+                                                                                <canvas width="227" height="227" data-chart='{"labels": [" с личных покупок", " с товаров по персональной акции", " за приглашенных Консультантов", " за переход на К1", " за переход на К2", " за переход на К3", " за удержание на К3", " за покупки группы"],"datasets": [{"data": [100, 100, 200, 150, 100, 150, 200, 80],"backgroundColor": ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"]}]}'></canvas>
+                                                                                <div class="diagramm__sum">1 200</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="diagramm__col diagramm__col--sum">
+                                                                            <p class="diagramm__title">Сумма всех заработанных баллов:</p>
+                                                                            <div class="diagramm__results">
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#2c877f"></span>
+                                                                                    <span class="diagramm__result-text">с личных покупок</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#c99308"></span>
+                                                                                    <span class="diagramm__result-text">за переход на К2</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#2d8859"></span>
+                                                                                    <span class="diagramm__result-text">с товаров по персональной акции</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#d82f49"></span>
+                                                                                    <span class="diagramm__result-text">за переход на К3</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
+                                                                                    <span class="diagramm__result-text">за приглашенных Консультантов</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
+                                                                                    <span class="diagramm__result-text">за удержание на К3</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#d26925"></span>
+                                                                                    <span class="diagramm__result-text">за переход на К1</span>
+                                                                                </div>
+                                                                                <div class="diagramm__result">
+                                                                                    <span class="diagramm__result-icon" style="background-color:#945dab"></span>
+                                                                                    <span class="diagramm__result-text">за покупки группы</span>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1350,9 +1404,9 @@
                                     <section class="accounting__section section">
                                         <div class="section__box box">
                                             <div class="section__header">
-                                                <h4 class="section__title">
+                                                <h5 class="accounting__section-title section__title">
                                                     Участники группы
-                                                </h4>
+                                                </h5>
                                             </div>
 
                                             <div class="accounting__tabs tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
@@ -1414,24 +1468,22 @@
                                                                             <div class="form__field">
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
-                                                                                        <div class="filter__sort select select--small select--sorting select--borderless select--groups" data-select>
-                                                                                            <div class="select__group">
-                                                                                                <select class="select__control" name="select1" id="sort1" data-select-control data-placeholder="Сортировать по">
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1">По уровню консультанта</option>
-                                                                                                    <option value="2">По дате регистрации</option>
-                                                                                                    <option value="3">По количеству личных заказов со статусом “Оплачен”</option>
-                                                                                                    <option value="2">По количеству личных заказов со статусом  “Возврат”</option>
-                                                                                                </select>
-                                                    
-                                                                                                <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                                                                    <span class="button__icon button__icon--medium">
-                                                                                                        <svg class="icon icon--sort">
-                                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                                        </svg>
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                            </div>
+                                                                                        <div class="filter__sort select select--small select--sorting select--borderless" data-select>
+                                                                                            <select class="select__control" name="select1" id="sort1" data-select-control data-placeholder="Сортировать по">
+                                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                                <option value="1">По уровню консультанта</option>
+                                                                                                <option value="2">По дате регистрации</option>
+                                                                                                <option value="3">По количеству личных заказов со статусом “Оплачен”</option>
+                                                                                                <option value="2">По количеству личных заказов со статусом  “Возврат”</option>
+                                                                                            </select>
+                                                
+                                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                                                <span class="button__icon button__icon--medium">
+                                                                                                    <svg class="icon icon--sort">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -1457,7 +1509,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar">
+                                                                                    <div class="accordeon__avatar participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
@@ -2690,7 +2742,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar avatar--accent">
+                                                                                    <div class="participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
@@ -5184,21 +5236,19 @@
                                                                                 <div class="form__field-block form__field-block--input">
                                                                                     <div class="form__control">
                                                                                         <div class="filter__sort select select--small select--sorting select--borderless" data-select>
-                                                                                            <div class="select__group">
-                                                                                                <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
-                                                                                                    <option><!-- пустой option для placeholder --></option>
-                                                                                                    <option value="1">По дате создания</option>
-                                                                                                    <option value="2">По сумме заказа</option>
-                                                                                                </select>
-                                                    
-                                                                                                <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                                                                    <span class="button__icon button__icon--medium">
-                                                                                                        <svg class="icon icon--sort">
-                                                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                                                                        </svg>
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                            </div>
+                                                                                            <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
+                                                                                                <option><!-- пустой option для placeholder --></option>
+                                                                                                <option value="1">По дате создания</option>
+                                                                                                <option value="2">По сумме заказа</option>
+                                                                                            </select>
+                                                
+                                                                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                                                                <span class="button__icon button__icon--medium">
+                                                                                                    <svg class="icon icon--sort">
+                                                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -6468,7 +6518,7 @@
                                                                         <div class="participant__header accordeon__header box box--rounded-sm">
                                                                             <div class="participant__row">
                                                                                 <div class="participant__col participant__col--avatar">
-                                                                                    <div class="participant__avatar avatar avatar--accent">
+                                                                                    <div class="participant__avatar avatar">
                                                                                         <div class="avatar__box">
                                                                                             <img src="https://coolsen.ru/wp-content/uploads/2021/06/72-7.jpg" alt="#" class="avatar__picture">
                                                                                         </div>
