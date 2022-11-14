@@ -177,7 +177,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function savePersonalDataAction(array $userInfo): array
     {
-        $ticketData = ['id' => $userInfo['id']];
+        $ticketData = [];
         if ($userInfo['first_name'] !== $this->user->name) {
             $ticketData['NAME'] = $userInfo['first_name'];
         }
