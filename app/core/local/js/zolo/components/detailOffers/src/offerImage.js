@@ -120,8 +120,8 @@ export const OfferImage = {
                     <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
                         <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                <svg class="icon icon--arrow-slider">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-slider"></use>
                                 </svg>
                             </span>
                         </button>
@@ -132,8 +132,8 @@ export const OfferImage = {
                     <div class="slider__buttons-item swiper-button-next" data-carousel-next>
                         <button type="button" class="slider__button slider__button--next button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-angle-left"></use>
+                                <svg class="icon icon--arrow-slider">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-slider"></use>
                                 </svg>
                             </span>
                         </button>

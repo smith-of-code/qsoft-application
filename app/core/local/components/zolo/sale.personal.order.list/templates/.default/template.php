@@ -165,7 +165,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                             </ul>
                         </div>
 
-                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full"><?=getMessage('SHOW_MORE') ?></button>
+                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="<?=$arResult['IS_LAST'] ? 'display:none;' : '' ?>"><?=getMessage('SHOW_MORE') ?></button>
                     </section>
                 </div>
             </div>
@@ -187,18 +187,12 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             filteringValues('status', $(this).val());
         });
 
+        $('#SORTING_BY').on('select2:close', function() {
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
+        });
+
         $('#SORTING').on('click', function(){
-            let orderSort = '';
-            if ($('#SORTING').hasClass('asc')) {
-                $(this).removeClass('asc');
-                $(this).addClass('desc');
-                orderSort = 'ASC';
-            } else {
-                $(this).addClass('asc');
-                $(this).removeClass('desc');
-                orderSort = 'DESC';
-            }
-            filteringValues('sorting', $('#sort').val(), orderSort);
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
         });
 
         $('div').one('click', function () {
@@ -208,19 +202,18 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
 
         $('#search_button').on('click', function () {
-            if ($('#filter_id').val() != '') {
-                filteringValues('search', $('#filter_id').val());
-            }
+            filteringValues('search', $('#filter_id').val());
+            window.history.replaceState(null, null, "?filter_id=" + $('#filter_id').val());
         });
 
     });
 
     showMore.onclick = function (e) {
         let filter = {
-            by:  $('#sort').val(),
+            by:  $('#SORTING_BY').val(),
             status:  $('#STATUS').val(),
             payd:  $('#PAYD').val(),
-            order: $('#SORTING').hasClass('desc') ? 'desc' : 'asc',
+            order: $('#SORTING').hasClass('desc') ? 'DESC' : 'ASC',
         };
 
         e.preventDefault();

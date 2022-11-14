@@ -2,10 +2,8 @@ export default {
     methods: {
         formatNumber(number, useDecimals = false) {
             if (!number) return 0;
-            if (useDecimals) {
-                number = parseInt(number).toFixed(2);
-            }
-            return `${parseInt(number)}`.replace(/\d(?=(\d{3})+\.)/g, '$& ');
+            let result = parseInt(number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
+            return useDecimals ? result : result.substring(0, result.length - 3);
         },
     },
 };

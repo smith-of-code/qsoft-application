@@ -2,6 +2,8 @@
 
 namespace QSoft\Notifiers;
 
+use QSoft\Helper\TicketHelper;
+
 class SupportTicketUpdateNotifier extends NotificationContent
 {
     private string $categorySid;
@@ -10,6 +12,11 @@ class SupportTicketUpdateNotifier extends NotificationContent
     public function __construct(array $ticket)
     {
         parent::__construct();
+
+        if (!$ticket['CATEGORY_SID']) {
+            $ticket['CATEGORY_SID'] = (new TicketHelper)->getCategorySid($ticket['CATEGORY_ID']);
+        }
+
         $this->categorySid = $ticket['CATEGORY_SID'];
         $this->acceptRequest = \CUserFieldEnum::GetList([],['ID'=> $ticket['UF_ACCEPT_REQUEST']])->Fetch()['XML_ID'];
     }

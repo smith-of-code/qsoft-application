@@ -38,7 +38,7 @@
 
     &__inner {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         flex-wrap: wrap;
 
         &--columed {
@@ -98,6 +98,8 @@
 
             @media #{$screen-desktop} {
                 display: inline;
+
+                min-height: rem(48px);
             }
         }
     }
