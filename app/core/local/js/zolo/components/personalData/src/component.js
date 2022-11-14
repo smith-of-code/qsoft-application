@@ -9,6 +9,7 @@ export const PersonalData = {
             mutableUserInfo: {},
             editing: false,
             phoneError: false,
+            passwordError: false,
             phoneVerified: false,
             verifyError: false,
         };
@@ -37,6 +38,17 @@ export const PersonalData = {
         userCity() {
             return Object.values(this.cities).find(city => city.name === this.mutableUserInfo.city);
         },
+        validatePassword() {
+            switch (true) {
+                case this.mutableUserInfo.password !== this.mutableUserInfo.confirm_password:
+                case this.mutableUserInfo.password.length < 8:
+                case this.mutableUserInfo.password.match(/[А-я]+/i):
+                case this.mutableUserInfo.password.toUpperCase() === this.mutableUserInfo.password:
+                case this.mutableUserInfo.password.toLowerCase() === this.mutableUserInfo.password:
+                    return false;
+            }
+            return true;
+        },
     },
 
     setup() {
@@ -56,13 +68,18 @@ export const PersonalData = {
             this.initUserInfo();
         },
         saveUserInfo() {
-            // TODO validate
             if (this.userInfo.phone !== this.mutableUserInfo.phone && !this.phoneVerified) {
                 this.phoneError = true;
                 return;
             }
+            if ((this.mutableUserInfo.password || this.mutableUserInfo.confirm_password) && !this.validatePassword) {
+                this.passwordError = true;
+                return;
+            }
 
             this.phoneError = false;
+            this.passwordError = false;
+            this.mutableUserInfo.phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
 
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
@@ -98,6 +115,8 @@ export const PersonalData = {
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
+                } else {
+                    this.phoneVerified = true;
                 }
             } catch (e) {
                 this.verifyError = true;
@@ -500,6 +519,7 @@ export const PersonalData = {
                                                                 id="password" 
                                                                 placeholder="Введите пароль" 
                                                                 data-password-input
+                                                                :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.password"
                                                             >
                                                             <span class="input__icon input__icon-password" data-password-toggle>
@@ -533,6 +553,7 @@ export const PersonalData = {
                                                                 id="confirm_password" 
                                                                 placeholder="Введите пароль" 
                                                                 data-password-input
+                                                                :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.confirm_password"
                                                             >
                                                             <span class="input__icon input__icon-password" data-password-toggle>

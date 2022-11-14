@@ -6,6 +6,7 @@ export const LegalEntity = {
     data() {
         return {
             componentId: `legal-entity-${++id}`,
+            originalLegalEntity: {},
             mutableLegalEntity: {},
             editing: false,
         };
@@ -27,6 +28,7 @@ export const LegalEntity = {
     },
 
     created() {
+        this.originalLegalEntity = JSON.parse(JSON.stringify(this.legalEntity));
         this.initLegalEntity();
     },
 
@@ -36,7 +38,7 @@ export const LegalEntity = {
 
     methods: {
         initLegalEntity() {
-            this.mutableLegalEntity = JSON.parse(JSON.stringify(this.legalEntity));
+            this.mutableLegalEntity = JSON.parse(JSON.stringify(this.originalLegalEntity));
         },
         changeLegalEntityType() {
             this.mutableLegalEntity.type = this.types[$('select[name=status]').val()];
@@ -68,6 +70,8 @@ export const LegalEntity = {
 
             this.legalEntityStore.saveLegalEntityData(this.mutableLegalEntity);
             this.editing = false;
+
+            this.originalLegalEntity = JSON.parse(JSON.stringify(this.mutableLegalEntity));
 
             $.fancybox.open({ src: '#thanks' });
         },
@@ -2626,8 +2630,8 @@ export const LegalEntity = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                  <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" @click="() => cancelEditing(pet, petKey)">
-                                    Отменить изменения
+                                  <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="cancelEditing">
+                                    <span class="button__text">Отменить изменения</span>
                                   </button>
                                 </div>
 
