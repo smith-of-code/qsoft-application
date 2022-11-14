@@ -548,7 +548,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="input">
-                                                            <input type="text" class="input__control" value="<?=$arResult['SELECT_OPTIONS']['PICK_POINT'][$mentor['UF_PICKUP_POINT_ID']]?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                            <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
                                                         </div>
                                                     </div>
                                                 </div>

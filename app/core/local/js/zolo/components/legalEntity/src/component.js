@@ -718,7 +718,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -899,7 +899,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -975,7 +975,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
+                                        <h6 class="box__heading box__heading--small">Копия справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.personal_tax_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1142,7 +1142,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет в налоговом органе</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1218,7 +1218,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1323,7 +1323,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.ip_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1504,7 +1504,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1728,7 +1728,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.tax_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1804,7 +1804,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.usn_notification?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1909,7 +1909,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию устава ООО</h6>
+                                        <h6 class="box__heading box__heading--small">Копия устава ООО</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.llc_charter?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -1985,7 +1985,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию протокола участников (решения участника) ООО об избрании руководителя организации</h6>
+                                        <h6 class="box__heading box__heading--small">Копия протокола участников (решения участника) ООО об избрании руководителя организации</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.llc_members?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -2061,7 +2061,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
+                                        <h6 class="box__heading box__heading--small">Копия приказа о вступлнеии в должность генерального директора</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.ceo_appointment?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -2137,7 +2137,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.llc_registration_certificate?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -2241,7 +2241,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.procuration?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
@@ -2422,7 +2422,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Загрузить сведения о банковских реквизитах</h6>
+                                        <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                                       <div v-if="!editing && !mutableLegalEntity.documents.bank_details?.length" class="profile__notification">
                                             <span class="profile__notification-icon">
