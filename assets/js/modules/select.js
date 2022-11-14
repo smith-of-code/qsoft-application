@@ -12,6 +12,11 @@ export default function () {
         const baseOptions = {
             templateResult: formatState,
             templateSelection: formatState,
+            "language": {
+                "noResults": function(){
+                    return "Выберите тип питомца";
+                }
+            },
         };
 
         function formatState (state) {
