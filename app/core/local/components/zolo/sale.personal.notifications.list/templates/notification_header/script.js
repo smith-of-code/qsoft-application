@@ -1,7 +1,3 @@
-let offset, limit;
-const PERIOD = 30;
-let filter = {'period': PERIOD};
-
 window.onload = function () {
     //Выполнить чтение уведомления по клику на уведомление
     let notificationRedirectAnchor = document.querySelectorAll('.status__link');
