@@ -226,7 +226,9 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                'TITLE' => 'Создано обращение по поводу смены наставника',
                'MESSAGE' => 'Пользователь желает сменить наставника по причине "' . $fields['COUSES'] . '
 ID старого наставника: ' . $fields['MENTOR_ID'] . '
-ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.',
+ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.
+Коментарий: ' . $fields['MESSAGE'] . '.'
+,
                'OWNER_SID' => $fields['EMAIL'],
                'CATEGORY_SID' => self::TICKET_TYPES['REFUND_ORDER'],
                'CRITICALITY_SID' => '',

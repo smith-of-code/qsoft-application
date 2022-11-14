@@ -22,8 +22,8 @@ function setPopup() {
 
 function initSupportForms() {
     $('[data-src="#technical-support"]').one('click', function () {
-        let popup = $('#technical-support div section');console.log(popup.children().length === 0);
-        let selected = $(this).data('selected');console.log(selected);
+        let popup = $('#technical-support div section');
+        let selected = $(this).data('selected');
         let saveSelected = '';
         if (popup.children().length === 0) {
 
@@ -49,7 +49,7 @@ function initSupportForms() {
     });
 }
 
-function changeForm(Oldselected, savedSelected) {console.log(123, Oldselected, savedSelected, 123);
+function changeForm(Oldselected, savedSelected) {
     let selectedSuportType = $('#ticket-type');
     let oldForm = '';
     let selectedOption =  $('option[value='+savedSelected+']')
@@ -70,10 +70,6 @@ function changeForm(Oldselected, savedSelected) {console.log(123, Oldselected, s
     if (!selectedForm.hasClass('modal__section-variant--active')) {
         selectedForm.addClass('modal__section-variant--active')
     }
-
-    
-
-    console.log(selectedSuportType, oldForm, selectedForm, selectedOption);
 }
 
 function setDataToPopup (data, selected) {
