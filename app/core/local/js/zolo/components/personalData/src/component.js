@@ -577,7 +577,7 @@ export const PersonalData = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="cancelEditing">
+                                    <button type="button" class="button button--rounded button--mixed button--red button--full" @click="cancelEditing">
                                         <span class="button__text">Отменить изменения</span>
                                     </button>
                                 </div>

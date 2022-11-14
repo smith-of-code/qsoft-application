@@ -30,6 +30,10 @@ export const Select = {
             type: Boolean,
             default: false,
         },
+        species: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     mounted() {
@@ -38,6 +42,12 @@ export const Select = {
         $(`#${this.componentId}`).on('change', () => {
             this.$emit('custom-change', $(`#${this.componentId}`).val());
         });
+    },
+
+    methods: {
+        speciesStr(option) {
+            return this.species ? `<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${option.icon}"></use></svg>` : '';
+        }
     },
 
     template: `
@@ -50,6 +60,7 @@ export const Select = {
                     :value="optionId"
                     :data-option-icon="iconed ? option.icon : false"
                     :selected="optionId === selected"
+                    :data-option-before="speciesStr(option)"
                 >
                     {{ option.name }}
                 </option>
