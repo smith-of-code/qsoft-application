@@ -21,16 +21,8 @@ if (isset($arResult['ITEM']))
      * @var array Общие данные о продукте и его торговых предложениях
      */
     $item = $arResult['ITEM'];
-    /**
-     * @var array Текущее торговое предложение
-     */
-    $actualItem = isset($item['OFFERS'][$item['OFFERS_SELECTED']])
-        ? $item['OFFERS'][$item['OFFERS_SELECTED']]
-        : reset($item['OFFERS']);
 
-	$areaId = $arResult['AREA_ID'];
 	$currentUser = currentUser();
-	$hasDiscount = (int) $actualItem['ITEM_PRICES'][0]['DISCOUNT'] > 0;
 
 	$productTitle = isset($item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) && $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] != ''
 		? $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']
@@ -40,29 +32,82 @@ if (isset($arResult['ITEM']))
 		? $item['IPROPERTY_VALUES']['ELEMENT_PREVIEW_PICTURE_FILE_TITLE']
 		: $item['NAME'];
 
+    // Идентификаторы для работы с DOM-элементами карточки товара
+    // Добавляем префикс, чтобы идентификаторы элементов карточек не пересекались
+    $elementId = 'ob_' . preg_replace("/[^a-zA-Z0-9_]/", "x", $arResult['AREA_ID']);
+    $elementIdPrefix =  $elementId . '-';
+    $domElementsIds = [
+        'label' => $elementIdPrefix . 'label',
+        'favouriteButton' => $elementIdPrefix . 'favouriteButton',
+        'image' => $elementIdPrefix . 'image',
+        'title' => $elementIdPrefix . 'title',
+        'article' => $elementIdPrefix . 'article',
+        'mainPrice' => $elementIdPrefix . 'mainPrice',
+        'totalPrice' => $elementIdPrefix . 'totalPrice',
+        'bonuses' => $elementIdPrefix . 'bonuses',
+    ];
 
+    // Формируем массив данных о торговых предложениях для обновления данных карточки через JS
+    $jsInfo = [
+        'id' => $elementId,
+        'elementsIds' => $domElementsIds,
+    ];
 
-    //dump('JS_OFFERS', $item['JS_OFFERS']);
-    //dump('params', $arParams);
-    //dump($actualItem);
+    foreach ($item['OFFERS'] as $offer) {
+        // Артикул
+        if (isset($offer['PROPERTIES']['ARTICLE']['VALUE'])) {
+            $jsInfo['offers'][$offer['ID']]['article'] = 'Арт. ' . $offer['PROPERTIES']['ARTICLE']['VALUE'];
+        }
+        // Атрибут акционного товара
+        if (isset($offer['PROPERTIES']['DISCOUNT_LABEL']['VALUE'])) {
+            $jsInfo['offers'][$offer['ID']]['label'] = $offer['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'];
+        }
+        // Параметры цен и баллов
+        $jsInfo['offers'][$offer['ID']]['hasDiscount'] = (int) $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['DISCOUNT'] > 0;
+        $jsInfo['offers'][$offer['ID']]['mainPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_BASE_PRICE'];
+        $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_BASE_PRICE'];
+        $jsInfo['offers'][$offer['ID']]['showBonuses'] = false;
+        $jsInfo['offers'][$offer['ID']]['bonuses'] = '';
+        if (isset($currentUser) && $currentUser->groups->isConsultant()) { // Показываем базовую цену, цену со скидками и баллы для Консультантов
+            if ($jsInfo['offers'][$offer['ID']]['hasDiscount']) {
+                $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_PRICE'];
+            }
+            if ($currentUser->loyaltyLevel && ! empty($offer['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'])) {
+                $jsInfo['offers'][$offer['ID']]['showBonuses'] = true;
+                $jsInfo['offers'][$offer['ID']]['bonuses'] = $offer['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'] . ' ББ';
+            }
+        } elseif (isset($currentUser) && $currentUser->groups->isBuyer()) { // Показываем цену со скидками для Конечных покупателей
+            if ($jsInfo['offers'][$offer['ID']]['hasDiscount']) {
+                $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_PRICE'];
+            }
+        }
+
+        // Параметры торговых предложений
+        $jsInfo['offers'][$offer['ID']]['tree'] = $offer['TREE'];
+        $jsInfo['offers'][$offer['ID']]['available'] = $offer['CAN_BUY'];
+        $jsInfo['offers'][$offer['ID']]['quantity'] = $offer['CATALOG_QUANTITY'];
+    }
+
+    $actualItem = reset($jsInfo['offers']);
     ?>
-    <li class="product-cards__item" id="<?=$areaId?>" data-entity="item">
-        <article class="product-card box box--circle box--hovering box--grayish">
+    <li class="product-cards__item" id="<?=$arResult['AREA_ID']?>" data-entity="item">
+        <article class="product-card box box--circle box--hovering box--grayish" id="<?=$jsInfo['id']?>">
 
             <a href="<?=$item['DETAIL_PAGE_URL']?>" class="product-card__link"></a>
 
             <div class="product-card__header">
-                <?php if (isset($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE'])): ?>
-                    <?php if ($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'] == "SEASONAL_OFFER"): ?>
-                        <div class="product-card__label label label--pink">сезонное предложение</div>
-                    <?php elseif ($actualItem['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'] == "LIMITED_OFFER"): ?>
-                        <div class="product-card__label label label--violet">ограниченное предложение</div>
-                    <?php endif; ?>
-                <?php endif; ?>
+                <div id="<?=$domElementsIds['label'] . '_SEASONAL_OFFER'?>"
+                     class="product-card__label label label--pink"
+                     style="<?= $actualItem['showLabel'] === 'SEASONAL_OFFER' ? '' : 'display: none;'?>"
+                >сезонное предложение</div>
+                <div id="<?=$domElementsIds['label'] . '_LIMITED_OFFER'?>"
+                     class="product-card__label label label--violet"
+                     style="<?= $actualItem['showLabel'] === 'LIMITED_OFFER' ? '' : 'display: none;'?>"
+                >ограниченное предложение</div>
 
                 <!-- Кнопка "Добавить в избранное" -->
                 <div class="product-card__favourite">
-                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                    <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
                         <span class="button__icon button__icon--big">
                             <svg class="icon">
                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
@@ -76,7 +121,7 @@ if (isset($arResult['ITEM']))
                 <div class="product-card__wrapper">
                     <div class="product-card__image box box--circle">
                         <div class="product-card__box">
-                            <img src="<?= $item['PREVIEW_PICTURE']['SRC'] ?>" alt="<?= $imgTitle ?>" class="product-card__pic">
+                            <img id="<?=$domElementsIds['image']?>" src="<?= $item['PREVIEW_PICTURE']['SRC'] ?>" alt="<?= $imgTitle ?>" class="product-card__pic">
                         </div>
                     </div>
                 </div>
@@ -84,208 +129,167 @@ if (isset($arResult['ITEM']))
             </div>
 
             <div class="product-card__content">
-                <h6 class="product-card__title"><?= $productTitle ?></h6>
+                <h6 id="<?=$domElementsIds['title']?>" class="product-card__title"><?= $productTitle ?></h6>
 
-                <p class="product-card__article">Арт. <?=$actualItem['PROPERTIES']['ARTICLE']['VALUE'] ?? ''?></p>
+                <p id="<?=$domElementsIds['article']?>" class="product-card__article"><?=$actualItem['article'] ?? ''?></p>
 
-                <div class="product-card__colors colors">
-                    <ul class="colors__list">
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
-                                    <label for="radio">
-                                        <div class="color__item color__item--pink"></div>
-                                    </label>
-                                </div>
+                <?php if (isset($arParams['SKU_PROPS']['COLOR']) && $item['OFFERS_PROP']['COLOR']):
+                    $offerPropId = $arParams['SKU_PROPS']['COLOR']['ID'];
+                    $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
+                    ?>
+                    <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    ?>
+                        <div class="product-card__colors colors">
+                            <ul class="colors__list">
+                                <? foreach ($arParams['SKU_PROPS']['COLOR']['VALUES'] as $value):
+                                    if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
+                                    if (! $item['SKU_TREE_VALUES'][$offerPropId][$value['ID']]) continue; // Пропускаем значения, по которым не существует торговых предложений
+                                    $propId = $propName . '_' . $value['ID'];
+                                    $isChecked = $actualItem['tree']['PROP_' . $offerPropId] === $value['ID'];
+                                    ?>
+                                    <li class="colors__item">
+                                        <div class="color">
+                                            <div class="radio">
+                                                <input type="radio"
+                                                       class="color__input radio__input"
+                                                       name="<?=$propName?>"
+                                                       value="<?=$value['ID']?>"
+                                                       id="<?=$propId?>"
+                                                       <?= $isChecked ? 'checked' : '' ?>
+                                                       onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                                >
+                                                <label for="<?=$propId?>">
+                                                    <div class="color__item color__item--<?=$value['XML_ID']?>"></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if (isset($arParams['SKU_PROPS']['SIZE']) && $item['OFFERS_PROP']['SIZE']):
+                    $offerPropId = $arParams['SKU_PROPS']['SIZE']['ID'];
+                    $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
+                    ?>
+                    <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    ?>
+                        <div class="product-card__breed">
+                            <div class="select select--mini" data-select>
+                                <select class="select__control"
+                                        name="<?=$propName?>"
+                                        id="<?=$propName?>"
+                                        data-select-control
+                                        data-option
+                                        onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                >
+                                    <? foreach ($arParams['SKU_PROPS']['SIZE']['VALUES'] as $value):
+                                        if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
+                                        if (! $item['SKU_TREE_VALUES'][$offerPropId][$value['ID']]) continue; // Пропускаем значения, по которым не существует торговых предложений
+                                        $isSelected = $actualItem['tree']['PROP_' . $offerPropId] === $value['ID'];
+                                        ?>
+                                        <option value="<?=$value['ID']?>"
+                                                <?= $isSelected ? 'selected' : ''?>
+                                        ><?=$value['NAME']?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                        </li>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
 
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
-                                    <label for="radio2">
-                                        <div class="color__item color__item--blue"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
-                                    <label for="radio3">
-                                        <div class="color__item color__item--green"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
-                                    <label for="radio4">
-                                        <div class="color__item color__item--yellow"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
-                                    <label for="radio5">
-                                        <div class="color__item color__item--red"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="colors__item">
-                            <div class="color">
-                                <div class="radio">
-                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
-                                    <label for="radio6">
-                                        <div class="color__item color__item--violet"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="product-card__breed">
-                    <div class="select select--mini" data-select>
-                        <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите размер" data-option>
-                            <option><!-- пустой option для placeholder --></option>
-                            <option value="1">Для всех пород</option>
-                            <option value="2">Мелкие породы</option>
-                            <option value="3">Средние породы</option>
-                            <option value="4">Крупные породы</option>
-                        </select>
+                <?php if (isset($arParams['SKU_PROPS']['PACKAGING']) && $item['OFFERS_PROP']['PACKAGING']):
+                    $offerPropId = $arParams['SKU_PROPS']['PACKAGING']['ID'];
+                    $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
+                    ?>
+                    <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
+                        $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    ?>
+                        <div class="product-card__packs product-card__packs--desktop packs">
+                        <ul class="packs__list">
+                            <? foreach ($arParams['SKU_PROPS']['PACKAGING']['VALUES'] as $value):
+                                if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
+                                if (! $item['SKU_TREE_VALUES'][$offerPropId][$value['ID']]) continue; // Пропускаем значения, по которым не существует торговых предложений
+                                $propId = $propName . '_' . $value['ID'];
+                                $isChecked = $actualItem['tree']['PROP_' . $offerPropId] === $value['ID'];
+                                ?>
+                                <li class="packs__item">
+                                    <div class="pack">
+                                        <div class="radio">
+                                            <input type="radio"
+                                                   class="pack__input radio__input"
+                                                   name="<?=$propName?>"
+                                                   value="<?=$value['ID']?>"
+                                                   id="<?=$propId?>"
+                                                   <?= $isChecked ? 'checked' : '' ?>
+                                                   onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                            >
+                                            <label for="<?=$propId?>">
+                                                <div class="pack__item"><?=$value['NAME']?></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="product-card__packs product-card__packs--desktop packs">
-                    <ul class="packs__list">
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r11" id="radio11p" checked>
-                                    <label for="radio11p">
-                                        <div class="pack__item">600 г</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r22" id="radio22p">
-                                    <label for="radio22p">
-                                        <div class="pack__item">1 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r33" id="radio33p">
-                                    <label for="radio33p">
-                                        <div class="pack__item">3 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r44" id="radio44p">
-                                    <label for="radio44p">
-                                        <div class="pack__item">5 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r55" id="radio55p">
-                                    <label for="radio55p">
-                                        <div class="pack__item">7 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r66" id="radio66p">
-                                    <label for="radio66p">
-                                        <div class="pack__item">10 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="packs__item">
-                            <div class="pack">
-                                <div class="radio">
-                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r77" id="radio77p">
-                                    <label for="radio77p">
-                                        <div class="pack__item">15 кг</div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="product-card__packs product-card__packs--mobile">
-                    <div class="select select--mini" data-select>
-                        <select class="select__control" name="select1p" id="select1p" data-select-control data-placeholder="Выберите фасовку" data-option>
-                            <option><!-- пустой option для placeholder --></option>
-                            <option value="1">600 г</option>
-                            <option value="2">1 кг</option>
-                            <option value="3">3 кг</option>
-                            <option value="4">5 кг</option>
-                            <option value="5">7 кг</option>
-                            <option value="6">10 кг</option>
-                            <option value="7">15 кг</option>
-                        </select>
+                    <?php endif; ?>
+                    <?php
+                    // Задаем название input с суффиксом для дублирующего поля в мобильной версии
+                    $propName = $elementIdPrefix . 'PROP_' . $offerPropId . '_M';
+                    ?>
+                    <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['mobile'] = $propName;
+                    ?>
+                        <div class="product-card__packs product-card__packs--mobile">
+                        <div class="select select--mini" data-select>
+                            <select class="select__control"
+                                    name="<?=$propName?>"
+                                    id="<?=$propName?>"
+                                    data-select-control
+                                    data-option
+                                    onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, true)"
+                            >
+                                <? foreach ($arParams['SKU_PROPS']['PACKAGING']['VALUES'] as $value):
+                                    if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
+                                    if (! $item['SKU_TREE_VALUES'][$offerPropId][$value['ID']]) continue; // Пропускаем значения, по которым не существует торговых предложений
+                                    $isSelected = $actualItem['tree']['PROP_' . $offerPropId] === $value['ID'];
+                                    ?>
+                                    <option value="<?=$value['ID']?>"
+                                            <?= $isSelected ? 'selected' : ''?>
+                                    ><?=$value['NAME']?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
 
             <div class="product-card__footer">
                 <div class="product-card__price price">
-                    <?php if ($currentUser->groups->isConsultant()): ?>
-                        <?php if ($hasDiscount): ?>
-                            <p class="price__main"><?=$actualItem['ITEM_PRICES'][0]['PRINT_BASE_PRICE']?></p>
-                        <?php endif; ?>
-                        <div class="price__calculation">
-                            <p class="price__calculation-total">
-                                <?php if ($hasDiscount): ?>
-                                    <?=$actualItem['ITEM_PRICES'][0]['PRINT_PRICE']?>
-                                <?php else: ?>
-                                    <?=$actualItem['ITEM_PRICES'][0]['PRINT_BASE_PRICE']?>
-                                <?php endif; ?>
-                            </p>
-                            <?php if ($currentUser->loyaltyLevel && !empty($actualItem['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'])): ?>
-                                <p class="price__calculation-accumulation"><?=$actualItem['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE']?> ББ</p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
+                    <p id="<?=$domElementsIds['mainPrice']?>"
+                       class="price__main"
+                       style="<?= $actualItem['hasDiscount'] ? '' : 'display: none;' ?>"
+                    >
+                        <?=$actualItem['mainPrice']?>
+                    </p>
+                    <div class="price__calculation">
+                        <p id="<?=$domElementsIds['totalPrice']?>"
+                           class="price__calculation-total">
+                            <?=$actualItem['totalPrice']?>
+                        </p>
+                        <p id="<?=$domElementsIds['bonuses']?>"
+                           class="price__calculation-accumulation"
+                           style="<?= $actualItem['showBonuses'] ? '' : 'display: none;' ?>"
+                        >
+                            <?=$actualItem['bonuses']?>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="product-card__cart">
@@ -336,6 +340,9 @@ if (isset($arResult['ITEM']))
             </div>
         </article>
     </li>
+    <script>
+        window.CatalogItemHelperZolo.addProduct(<?=CUtil::PhpToJSObject($jsInfo, false, true)?>);
+    </script>
 	<?
-	unset($item, $actualItem, $minOffer);
+	unset($item, $actualItem, $jsInfo);
 }
