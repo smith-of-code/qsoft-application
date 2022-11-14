@@ -141,9 +141,14 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     private function getMentorInfo()
     {
-        $mentorInfo = CUser::GetByID($this->user->getMentor()->id)->Fetch();
-        $mentorInfo['PERSONAL_PHOTO_URL'] = $this->user->getMentor()->getPhotoUrl();
+        $mentor = $this->user->getMentor();
 
+        $mentorInfo = [];
+
+        if (!empty($mentor)) {
+            $mentorInfo = CUser::GetByID($this->user->getMentor()->id)->Fetch();
+            $mentorInfo['PERSONAL_PHOTO_URL'] = $this->user->getMentor()->getPhotoUrl();
+        }
 
         return $mentorInfo;
     }
@@ -177,7 +182,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
     public function savePersonalDataAction(array $userInfo): array
     {
-        $ticketData = ['id' => $userInfo['id']];
+        $ticketData = [];
         if ($userInfo['first_name'] !== $this->user->name) {
             $ticketData['NAME'] = $userInfo['first_name'];
         }

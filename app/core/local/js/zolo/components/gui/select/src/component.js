@@ -1,8 +1,11 @@
 import select from "../../../../../../../../../assets/js/modules/select";
+import StringFormatMixin from "../../../../mixins/StringFormatMixin";
 
 let id = 0;
 
 export const Select = {
+    mixins: [StringFormatMixin],
+
     data() {
         return {
             componentId: 'select-' + ++id,
@@ -30,10 +33,6 @@ export const Select = {
             type: Boolean,
             default: false,
         },
-        species: {
-            type: Boolean,
-            default: false,
-        },
     },
 
     mounted() {
@@ -45,9 +44,9 @@ export const Select = {
     },
 
     methods: {
-        speciesStr(option) {
-            return this.species ? `<svg class="select__item-icon icon icon--cat"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${option.icon}"></use></svg>` : '';
-        }
+        getIconPath(icon) {
+            return `<svg class="select__item-icon icon icon--${icon}"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use></svg>`;
+        },
     },
 
     template: `
@@ -58,11 +57,10 @@ export const Select = {
                     v-for="(option, optionId) in options"
                     :key="optionId"
                     :value="optionId"
-                    :data-option-icon="iconed ? option.icon : false"
+                    :data-option-before="iconed ? getIconPath(option.icon) : false"
                     :selected="optionId === selected"
-                    :data-option-before="speciesStr(option)"
                 >
-                    {{ option.name }}
+                    {{ uppercaseFirst(option.name) }}
                 </option>
             </select>
         </div>

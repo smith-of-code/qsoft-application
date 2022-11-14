@@ -169,7 +169,6 @@ export const Pets = {
                                                                     :selected="pet.kind?.id"
                                                                     :iconed="true"
                                                                     @custom-change="(value) => { pet.kind = kinds[value]; pet.breed = null }"
-                                                                    species
                                                                 />
                                                             </div>
                                                         </div>
