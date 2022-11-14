@@ -41,6 +41,14 @@
                 margin-top: rem(56px);
             }
         }
+
+        &--primary {
+            margin-top: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-top: rem(20px);
+            }
+        }
     }
 
     &__filter {

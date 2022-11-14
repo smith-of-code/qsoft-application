@@ -17,7 +17,7 @@
         margin-bottom: rem(4px);
 
         @media #{$screen-tablet} {
-            $size: 42px;
+            $size: 64px;
 
             width: rem($size);
             height: rem($size);

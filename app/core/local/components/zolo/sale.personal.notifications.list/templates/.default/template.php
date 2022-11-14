@@ -59,9 +59,11 @@ const GREEN = "green", ORANGE = "orange";
             </li>
         <?php endforeach?>
         </ul>
-        <button type="button" class="notifications__button-more button button--full button--rounded button--covered button--white-green">
-            <?=Loc::getMessage("SHOW_MORE")?>
-        </button>
+        <?php if (! $arResult['LAST']) {?>
+            <button type="button" class="notifications__button-more button button--full button--rounded button--covered button--white-green">
+                <?=Loc::getMessage("SHOW_MORE")?>
+            </button>
+        <? }?>
     </div>
 </div>
         </div>
@@ -70,4 +72,5 @@ const GREEN = "green", ORANGE = "orange";
 <script>
     offset = <?=$arResult['OFFSET']?>;
     limit = offset;
+    isLast = <?=json_encode($arResult['LAST'])?>;
 </script>

@@ -120,12 +120,12 @@ $generalParams = array(
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
 ?>
-<div class="row">
-	<div class="col">
-		<div class="mb-4 catalog-section" data-entity="<?=$containerName?>">
+<div class="catalog__products">
+    <ul class="product-cards product-cards--catalog">
+        <ul class="product-cards__list" data-entity="<?=$containerName?>">
             <!-- items-container -->
 			<?
-			if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
+			if (!empty($arResult['ITEMS']))
 			{
 				$areaIds = array();
 
@@ -137,100 +137,782 @@ $containerName = 'container-'.$navParams['NavNum'];
 					$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
 				}
 
-				foreach ($arResult['ITEM_ROWS'] as $rowData)
-				{
-				    $rowItems = array_splice($arResult['ITEMS'], 0, $rowData['COUNT']);
-					?>
-					<div class="row <?=$rowData['CLASS']?>" data-entity="items-row">
-						<?
-                        foreach ($rowItems as $item)
-                        {
-                            ?>
-                            <div class="col-sm-4 product-item-small-card">
-                                <?
-                                $APPLICATION->IncludeComponent(
-                                    'zolo:catalog.item',
-                                    '',
-                                    array(
-                                        'RESULT' => array(
-                                            'ITEM' => $item,
-                                            'AREA_ID' => $areaIds[$item['ID']],
-                                            'TYPE' => $rowData['TYPE'],
-                                            'BIG_LABEL' => 'N',
-                                            'BIG_DISCOUNT_PERCENT' => 'N',
-                                            'BIG_BUTTONS' => 'Y',
-                                            'SCALABLE' => 'N'
-                                        ),
-                                        'PARAMS' => $generalParams
-                                            + array('SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']])
-                                    ),
-                                    $component,
-                                    array('HIDE_ICONS' => 'Y')
-                                );
-                                ?>
+                foreach ($arResult['ITEMS'] as $item)
+                {
+                    ?>
+                    <?
+                    // TODO: Интегрировать карточку товара (верстку) в компонент ниже
+                    /*$APPLICATION->IncludeComponent(
+                        'zolo:catalog.item',
+                        '',
+                        array(
+                            'RESULT' => array(
+                                'ITEM' => $item,
+                                'AREA_ID' => $areaIds[$item['ID']],
+                                'TYPE' => 'CARD',
+                                'BIG_LABEL' => 'N',
+                                'BIG_DISCOUNT_PERCENT' => 'N',
+                                'BIG_BUTTONS' => 'Y',
+                                'SCALABLE' => 'N'
+                            ),
+                            'PARAMS' => $generalParams + array('SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']])
+                        ),
+                        $component,
+                        array('HIDE_ICONS' => 'Y')
+                    );*/
+                    ?>
+                    <li class="product-cards__item">
+                        <article class="product-card box box--circle box--hovering box--grayish">
+                            <a href="#" class="product-card__link"></a>
+                            <div class="product-card__header">
+                                <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                <div class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                                <span class="button__icon button__icon--big">
+                                                                    <svg class="icon">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                    </svg>
+                                                                </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__wrapper">
+                                    <div class="product-card__image box box--circle">
+                                        <div class="product-card__box">
+                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <?
-                        }
-						?>
-					</div>
-					<?
-				}
-				unset($generalParams, $rowItems);
+
+                            <div class="product-card__content">
+                                <h6 class="product-card__title">Клиппер-переноска для кошек и собак Ferplast Jet 10 серый/фиолетовый серый/фиолетовыйсерый/фиолетовый серый/фиолетовый</h6>
+
+                                <p class="product-card__article">Арт. СХ-С-456013</p>
+
+                                <div class="product-card__colors colors">
+                                    <ul class="colors__list">
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
+                                                    <label for="radio">
+                                                        <div class="color__item color__item--pink"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
+                                                    <label for="radio2">
+                                                        <div class="color__item color__item--blue"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
+                                                    <label for="radio3">
+                                                        <div class="color__item color__item--green"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
+                                                    <label for="radio4">
+                                                        <div class="color__item color__item--yellow"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
+                                                    <label for="radio5">
+                                                        <div class="color__item color__item--red"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
+                                                    <label for="radio6">
+                                                        <div class="color__item color__item--violet"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="product-card__breed">
+                                    <div class="select select--mini" data-select>
+                                        <select class="select__control" name="select1m" id="select1m" data-select-control data-placeholder="Выберите размер" data-option>
+                                            <option><!-- пустой option для placeholder --></option>
+                                            <option value="1">Для всех пород</option>
+                                            <option value="2">Мелкие породы</option>
+                                            <option value="3">Средние породы</option>
+                                            <option value="4">Крупные породы</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__footer">
+                                <div class="product-card__price price">
+                                    <p class="price__main">1 545 ₽</p>
+                                    <div class="price__calculation">
+                                        <p class="price__calculation-total">1 420 ₽</p>
+                                        <p class="price__calculation-accumulation">14 ББ</p>
+                                    </div>
+                                </div>
+
+                                <div class="product-card__cart">
+                                    <div class="quantity" data-quantity>
+                                        <div class="quantity__button" data-quantity-button>
+                                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="button__text">В корзину</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="quantity__actions">
+                                            <div class="quantity__decrease">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="quantity__total">
+                                                                        <span class="quantity__total-icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                            </div>
+
+                                            <div class="quantity__increase">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li class="product-cards__item">
+                        <article class="product-card box box--circle box--hovering box--grayish">
+                            <a href="#" class="product-card__link"></a>
+                            <div class="product-card__header">
+                                <div class="product-card__label label label--pink">сезонное предложение</div>
+
+                                <div class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                                <span class="button__icon button__icon--big">
+                                                                    <svg class="icon icon--heart">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                    </svg>
+                                                                </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__wrapper">
+                                    <div class="product-card__image box box--circle">
+                                        <div class="product-card__box">
+                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__content">
+                                <h6 class="product-card__title">Клиппер-переноска для кошек и собак Ferplast Jet 10 серый/фиолетовый серый/фиолетовыйсерый/фиолетовый серый/фиолетовый</h6>
+
+                                <p class="product-card__article">Арт. СХ-С-456013</p>
+
+                                <div class="product-card__packs product-card__packs--desktop packs">
+                                    <ul class="packs__list">
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r11" id="radio11p" checked>
+                                                    <label for="radio11p">
+                                                        <div class="pack__item">600 г</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r22" id="radio22p">
+                                                    <label for="radio22p">
+                                                        <div class="pack__item">1 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r33" id="radio33p">
+                                                    <label for="radio33p">
+                                                        <div class="pack__item">3 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r44" id="radio44p">
+                                                    <label for="radio44p">
+                                                        <div class="pack__item">5 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r55" id="radio55p">
+                                                    <label for="radio55p">
+                                                        <div class="pack__item">7 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r66" id="radio66p">
+                                                    <label for="radio66p">
+                                                        <div class="pack__item">10 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11p" value="r77" id="radio77p">
+                                                    <label for="radio77p">
+                                                        <div class="pack__item">15 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="product-card__packs product-card__packs--mobile">
+                                    <div class="select select--mini" data-select>
+                                        <select class="select__control" name="select1p" id="select1p" data-select-control data-placeholder="Выберите фасовку" data-option>
+                                            <option><!-- пустой option для placeholder --></option>
+                                            <option value="1">600 г</option>
+                                            <option value="2">1 кг</option>
+                                            <option value="3">3 кг</option>
+                                            <option value="4">5 кг</option>
+                                            <option value="5">7 кг</option>
+                                            <option value="6">10 кг</option>
+                                            <option value="7">15 кг</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__footer">
+                                <div class="product-card__price price">
+                                    <p class="price__main">1 545 ₽</p>
+                                    <div class="price__calculation">
+                                        <p class="price__calculation-total">1 420 ₽</p>
+                                        <p class="price__calculation-accumulation">14 ББ</p>
+                                    </div>
+                                </div>
+
+                                <div class="product-card__cart">
+                                    <div class="quantity" data-quantity>
+                                        <div class="quantity__button" data-quantity-button>
+                                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="button__text">В корзину</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="quantity__actions">
+                                            <div class="quantity__decrease">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="quantity__total">
+                                                                        <span class="quantity__total-icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                            </div>
+
+                                            <div class="quantity__increase">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li class="product-cards__item">
+                        <article class="product-card box box--circle box--hovering box--grayish">
+                            <a href="#" class="product-card__link"></a>
+                            <div class="product-card__header">
+                                <div class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                                <span class="button__icon button__icon--big">
+                                                                    <svg class="icon icon--heart">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                    </svg>
+                                                                </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__wrapper">
+                                    <div class="product-card__image box box--circle">
+                                        <div class="product-card__box">
+                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__content">
+                                <h6 class="product-card__title">Клиппер-переноска для кошек и собак Ferplast Jet 10 серый/фиолетовый серый/фиолетовыйсерый/фиолетовый серый/фиолетовый</h6>
+
+                                <p class="product-card__article">Арт. СХ-С-456013</p>
+
+                                <div class="product-card__colors colors">
+                                    <ul class="colors__list">
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radioc" checked>
+                                                    <label for="radioc">
+                                                        <div class="color__item color__item--pink"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2c">
+                                                    <label for="radio2c">
+                                                        <div class="color__item color__item--blue"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3c">
+                                                    <label for="radio3c">
+                                                        <div class="color__item color__item--green"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4c">
+                                                    <label for="radio4c">
+                                                        <div class="color__item color__item--yellow"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5c">
+                                                    <label for="radio5c">
+                                                        <div class="color__item color__item--red"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="colors__item">
+                                            <div class="color">
+                                                <div class="radio">
+                                                    <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6c">
+                                                    <label for="radio6c">
+                                                        <div class="color__item color__item--violet"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="product-card__breed">
+                                    <div class="select select--mini" data-select>
+                                        <select class="select__control" name="select11m" id="select11m" data-select-control data-placeholder="Выберите размер" data-option>
+                                            <option><!-- пустой option для placeholder --></option>
+                                            <option value="1">Для всех пород</option>
+                                            <option value="2">Мелкие породы</option>
+                                            <option value="3">Средние породы</option>
+                                            <option value="4">Крупные породы</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__footer">
+                                <div class="product-card__price price">
+                                    <p class="price__main">1 545 ₽</p>
+                                    <div class="price__calculation">
+                                        <p class="price__calculation-total">1 420 ₽</p>
+                                        <p class="price__calculation-accumulation">14 ББ</p>
+                                    </div>
+                                </div>
+
+                                <div class="product-card__cart">
+                                    <div class="quantity" data-quantity>
+                                        <div class="quantity__button" data-quantity-button>
+                                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="button__text">В корзину</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="quantity__actions">
+                                            <div class="quantity__decrease">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="quantity__total">
+                                                                        <span class="quantity__total-icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                            </div>
+
+                                            <div class="quantity__increase">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li class="product-cards__item">
+                        <article class="product-card box box--circle box--hovering box--grayish">
+                            <a href="#" class="product-card__link"></a>
+                            <div class="product-card__header">
+                                <div class="product-card__label label label--pink">сезонное предложение</div>
+
+                                <div class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                                <span class="button__icon button__icon--big">
+                                                                    <svg class="icon icon--heart">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                    </svg>
+                                                                </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__wrapper">
+                                    <div class="product-card__image box box--circle">
+                                        <div class="product-card__box">
+                                            <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__content">
+                                <h6 class="product-card__title">Клиппер-переноска для кошек и собак Ferplast Jet 10 серый/фиолетовый серый/фиолетовыйсерый/фиолетовый серый/фиолетовый</h6>
+
+                                <p class="product-card__article">Арт. СХ-С-456013</p>
+
+                                <div class="product-card__packs product-card__packs--desktop packs">
+                                    <ul class="packs__list">
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r11" id="radio111p" checked>
+                                                    <label for="radio111p">
+                                                        <div class="pack__item">600 г</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r22" id="radio221p">
+                                                    <label for="radio221p">
+                                                        <div class="pack__item">1 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r33" id="radio331p">
+                                                    <label for="radio331p">
+                                                        <div class="pack__item">3 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r44" id="radio441p">
+                                                    <label for="radio441p">
+                                                        <div class="pack__item">5 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r55" id="radio551p">
+                                                    <label for="radio551p">
+                                                        <div class="pack__item">7 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r66" id="radio661p">
+                                                    <label for="radio661p">
+                                                        <div class="pack__item">10 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="packs__item">
+                                            <div class="pack">
+                                                <div class="radio">
+                                                    <input type="radio" class="pack__input radio__input" name="radio11" value="r77" id="radio771p">
+                                                    <label for="radio771p">
+                                                        <div class="pack__item">15 кг</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="product-card__packs product-card__packs--mobile">
+                                    <div class="select select--mini" data-select>
+                                        <select class="select__control" name="select11p" id="select11p" data-select-control data-placeholder="Выберите фасовку" data-option>
+                                            <option><!-- пустой option для placeholder --></option>
+                                            <option value="1">600 г</option>
+                                            <option value="2">1 кг</option>
+                                            <option value="3">3 кг</option>
+                                            <option value="4">5 кг</option>
+                                            <option value="5">7 кг</option>
+                                            <option value="6">10 кг</option>
+                                            <option value="7">15 кг</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-card__footer">
+                                <div class="product-card__price price">
+                                    <p class="price__main">1 545 ₽</p>
+                                    <div class="price__calculation">
+                                        <p class="price__calculation-total">1 420 ₽</p>
+                                        <p class="price__calculation-accumulation">14 ББ</p>
+                                    </div>
+                                </div>
+
+                                <div class="product-card__cart">
+                                    <div class="quantity quantity--active" data-quantity>
+                                        <div class="quantity__button" data-quantity-button>
+                                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                                                                        <span class="button__icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="button__text">В корзину</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="quantity__actions">
+                                            <div class="quantity__decrease">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--minus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+
+                                            <div class="quantity__total">
+                                                                        <span class="quantity__total-icon">
+                                                                            <svg class="icon icon--basket">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                <span class="quantity__total-sum" data-quantity-sum="2">2</span>
+                                            </div>
+
+                                            <div class="quantity__increase">
+                                                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                                                            <span class="button__icon button__icon--small">
+                                                                                <svg class="icon icon--plus">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                    <?
+                }
+
+				unset($generalParams);
 			}
 			?>
             <!-- items-container -->
-		</div>
-        <div class="text-center mb-4" data-entity="lazy-<?=$containerName?>">
-            <button type="button"
-                    class="btn btn-primary btn-md"
-                    style="margin: 15px;"
-                    data-use="show-more-<?=$navParams['NavNum']?>">
-                <?=$arParams['MESS_BTN_LAZY_LOAD']?>
-            </button>
-        </div>
+		</ul>
         <?
 		$signer = new \Bitrix\Main\Security\Sign\Signer;
 		$signedTemplate = $signer->sign($templateName, 'catalog.section');
 		$signedParams = $signer->sign(base64_encode(serialize($arResult['ORIGINAL_PARAMETERS'])), 'catalog.section');
 		?>
-		<script>
-			BX.message({
-				BTN_MESSAGE_BASKET_REDIRECT: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_BASKET_REDIRECT')?>',
-				BASKET_URL: '<?=$arParams['BASKET_URL']?>',
-				ADD_TO_BASKET_OK: '<?=GetMessageJS('ADD_TO_BASKET_OK')?>',
-				TITLE_ERROR: '<?=GetMessageJS('CT_BCS_CATALOG_TITLE_ERROR')?>',
-				TITLE_BASKET_PROPS: '<?=GetMessageJS('CT_BCS_CATALOG_TITLE_BASKET_PROPS')?>',
-				TITLE_SUCCESSFUL: '<?=GetMessageJS('ADD_TO_BASKET_OK')?>',
-				BASKET_UNKNOWN_ERROR: '<?=GetMessageJS('CT_BCS_CATALOG_BASKET_UNKNOWN_ERROR')?>',
-				BTN_MESSAGE_SEND_PROPS: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_SEND_PROPS')?>',
-				BTN_MESSAGE_CLOSE: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_CLOSE')?>',
-				BTN_MESSAGE_CLOSE_POPUP: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_CLOSE_POPUP')?>',
-				COMPARE_MESSAGE_OK: '<?=GetMessageJS('CT_BCS_CATALOG_MESS_COMPARE_OK')?>',
-				COMPARE_UNKNOWN_ERROR: '<?=GetMessageJS('CT_BCS_CATALOG_MESS_COMPARE_UNKNOWN_ERROR')?>',
-				COMPARE_TITLE: '<?=GetMessageJS('CT_BCS_CATALOG_MESS_COMPARE_TITLE')?>',
-				PRICE_TOTAL_PREFIX: '<?=GetMessageJS('CT_BCS_CATALOG_PRICE_TOTAL_PREFIX')?>',
-				RELATIVE_QUANTITY_MANY: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_MANY'])?>',
-				RELATIVE_QUANTITY_FEW: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_FEW'])?>',
-				BTN_MESSAGE_COMPARE_REDIRECT: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_COMPARE_REDIRECT')?>',
-				BTN_MESSAGE_LAZY_LOAD: '<?=CUtil::JSEscape($arParams['MESS_BTN_LAZY_LOAD'])?>',
-				BTN_MESSAGE_LAZY_LOAD_WAITER: '<?=GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_LAZY_LOAD_WAITER')?>',
-				SITE_ID: '<?=CUtil::JSEscape($component->getSiteId())?>'
-			});
-			var <?=$obName?> = new JCCatalogSectionComponent({
-				siteId: '<?=CUtil::JSEscape($component->getSiteId())?>',
-				componentPath: '<?=CUtil::JSEscape($componentPath)?>',
-				navParams: <?=CUtil::PhpToJSObject($navParams)?>,
-				deferredLoad: false, // enable it for deferred load
-				initiallyShowHeader: '<?=!empty($arResult['ITEM_ROWS'])?>',
-				bigData: <?=CUtil::PhpToJSObject($arResult['BIG_DATA'])?>,
-				lazyLoad: !!'<?=$showLazyLoad?>',
-				loadOnScroll: !!'<?=($arParams['LOAD_ON_SCROLL'] === 'Y')?>',
-				template: '<?=CUtil::JSEscape($signedTemplate)?>',
-				ajaxId: '<?=CUtil::JSEscape($arParams['AJAX_ID'])?>',
-				parameters: '<?=CUtil::JSEscape($signedParams)?>',
-				container: '<?=$containerName?>'
-			});
-		</script>
+
 	</div>
+    <div data-entity="lazy-<?=$containerName?>">
+        <button type="button"
+                class="catalog__button button button--rounded-big button--outlined button--green button--full"
+                data-use="show-more-<?=$navParams['NavNum']?>"
+        >Показать больше</button>
+    </div>
+    <script>
+        BX.message({
+            BASKET_URL: '<?=$arParams['BASKET_URL']?>',
+            RELATIVE_QUANTITY_MANY: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_MANY'])?>',
+            RELATIVE_QUANTITY_FEW: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_FEW'])?>',
+            BTN_MESSAGE_LAZY_LOAD: '<?=CUtil::JSEscape($arParams['MESS_BTN_LAZY_LOAD'])?>',
+            SITE_ID: '<?=CUtil::JSEscape($component->getSiteId())?>'
+        });
+        var <?=$obName?> = new JCCatalogSectionComponent({
+            siteId: '<?=CUtil::JSEscape($component->getSiteId())?>',
+            componentPath: '<?=CUtil::JSEscape($componentPath)?>',
+            navParams: <?=CUtil::PhpToJSObject($navParams)?>,
+            deferredLoad: false, // enable it for deferred load
+            initiallyShowHeader: '<?=!empty($arResult['ITEM_ROWS'])?>',
+            bigData: <?=CUtil::PhpToJSObject($arResult['BIG_DATA'])?>,
+            lazyLoad: !!'<?=$showLazyLoad?>',
+            loadOnScroll: !!'<?=($arParams['LOAD_ON_SCROLL'] === 'Y')?>',
+            template: '<?=CUtil::JSEscape($signedTemplate)?>',
+            ajaxId: '<?=CUtil::JSEscape($arParams['AJAX_ID'])?>',
+            parameters: '<?=CUtil::JSEscape($signedParams)?>',
+            container: '<?=$containerName?>'
+        });
+    </script>
 </div>
 <!-- component-end -->

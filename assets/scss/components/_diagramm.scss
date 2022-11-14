@@ -11,10 +11,6 @@
                 width: percentage(1 / 2);
             }
 
-            @media #{$screen-desktop} {
-                width: auto;
-            }
-
             & + & {
                 margin-bottom: rem($gap-average);
 
@@ -22,6 +18,18 @@
                     margin-bottom: 0;
                     margin-left: rem($gap-big);
                 }
+
+                @media #{$screen-desktop} {
+                    margin-left: rem(48px);
+                }
+            }
+
+            &--diagramm {
+                width: rem(240px);
+            }
+
+            &--sum {
+                flex-grow: 1;
             }
         }
 

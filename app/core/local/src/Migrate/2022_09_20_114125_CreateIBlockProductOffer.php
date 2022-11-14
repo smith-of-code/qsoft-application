@@ -63,6 +63,8 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'NAME' => 'Фасовка',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'PACKAGING',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
             'MULTIPLE' => 'Y',
         ],
         [
@@ -91,6 +93,8 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'NAME' => 'Цвет',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'COLOR',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
             'USER_TYPE' => 'directory',
             'USER_TYPE_SETTINGS' => [
                 'TABLE_NAME' => 'eshop_color_reference',
@@ -104,21 +108,6 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'USER_TYPE_SETTINGS' => [
                 'TABLE_NAME' => 'size',
             ],
-        ],
-        [
-            'NAME' => 'Бонусы для уровня K1',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'BONUSES_K1',
-        ],
-        [
-            'NAME' => 'Бонусы для уровня K2',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'BONUSES_K2',
-        ],
-        [
-            'NAME' => 'Бонусы для уровня K3',
-            'PROPERTY_TYPE' => 'N',
-            'CODE' => 'BONUSES_K3',
         ],
     ];
 

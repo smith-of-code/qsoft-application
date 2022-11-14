@@ -10,6 +10,8 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Helper\TicketHelper;
+use QSoft\ORM\LegalEntityTable;
 use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
@@ -17,12 +19,7 @@ use QSoft\Notifiers\SupportTicketUpdateNotifier;
  */
 class SupportEventListner
 {
-    // Коды категорий
-    private const CHANGE_OF_PERSONAL_DATA = 'CHANGE_OF_PERSONAL_DATA';
-    private const REGISTRATION = 'REGISTRATION';
-    private const CHANGE_ROLE = 'CHANGE_ROLE';
-    private const SUPPORT = 'SUPPORT';
-    // XML_ID ответа о принятии заявки 
+    // XML_ID ответа о принятии заявки
     private const ACCEPTED = 'ACCEPTED';
     // Название символьного кода почтового события.
     private const TICKET_ACCEPTION_EVENT = 'TICKET_ACCEPTION_EVENT';
@@ -42,7 +39,7 @@ class SupportEventListner
         }
 
         switch ($category['SID']) {
-            case self::CHANGE_OF_PERSONAL_DATA:
+            case TicketHelper::CHANGE_PERSONAL_DATA_CATEGORY:
                 // Событие для смены персональных данных.
                 if (
                     !empty($ticketValues['UF_ACCEPT_REQUEST'])
@@ -51,7 +48,15 @@ class SupportEventListner
                     $this->changeUserFields($ticketValues);
                 }
                 break;
-            case self::REGISTRATION:
+            case TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY:
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->changeLegalEntitydata($ticketValues);
+                }
+                break;
+            case TicketHelper::REGISTRATION_CATEGORY:
                 // Событие для регистрации консультанта.
                 if (
                     !empty($ticketValues['UF_ACCEPT_REQUEST'])
@@ -60,7 +65,7 @@ class SupportEventListner
                     $this->registrateConsultant($ticketValues);
                 }
                 break;
-            case self::CHANGE_ROLE:
+            case TicketHelper::CHANGE_ROLE_CATEGORY:
                 // Событие для смены роли на консультанта.
                 if (
                     !empty($ticketValues['UF_ACCEPT_REQUEST'])
@@ -69,7 +74,7 @@ class SupportEventListner
                     $this->changeRole($ticketValues);
                 }
                 break;
-            case self::SUPPORT:
+            case TicketHelper::SUPPORT_CATEGORY:
                 // Событие для техподдержки.
                 break;
             default:
@@ -89,6 +94,10 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
+        if (empty($ticketValues['CATEGORY_ID']) || $ticketValues['CATEGORY_ID'] == 0) {
+            return; // возвращаем void если не выбрана категория.
+        }
+
         $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
@@ -100,7 +109,7 @@ class SupportEventListner
             $ticket['SITE_ID']
         );
 
-        if ($category['SID'] != self::SUPPORT) {
+        if ($category['SID'] != TicketHelper::SUPPORT_CATEGORY) {
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
@@ -247,12 +256,19 @@ class SupportEventListner
      */
     private function changeUserFields(array $ticketValues): void
     {
-        $fields = json_decode($ticketValues['UF_DATA'], true);
-        $user = new User($ticketValues['OWNER_USER_ID']);
-        if (!empty($fields['USER_INFO'])){
-            $user->Update($fields['USER_INFO']);
-            $user->legalEntity->update($ticketValues['LEGAL_ENTITY']);
-        }
+        (new User($ticketValues['OWNER_USER_ID']))->Update(json_decode($ticketValues['UF_DATA'], true));
+    }
+
+    private function changeLegalEntitydata(array $ticketValues): void
+    {
+        $data = json_decode($ticketValues['UF_DATA'], true);
+
+        LegalEntityTable::update($data['id'], [
+            'UF_USER_ID' => $data['user_id'],
+            'UF_IS_ACTIVE' => $data['active'],
+            'UF_STATUS' => $data['type']['id'],
+            'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
+        ]);
     }
 
     /**
@@ -390,6 +406,12 @@ class SupportEventListner
         ];
     }
 
+    /**
+     * Возвращает текущий протокол http
+     *
+     * @return string
+     * 
+     */
     private function getProtocol(): string
     {
         return (

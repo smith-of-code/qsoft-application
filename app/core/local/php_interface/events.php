@@ -13,6 +13,8 @@ $eventManager = \Bitrix\Main\EventManager::getInstance();
 $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
+$eventManager->addEventHandler('main', 'OnProlog', [\QSoft\Events\AuthRequired::class, 'checkAuth']);
+
 /**
  * Catalog module events
  */
