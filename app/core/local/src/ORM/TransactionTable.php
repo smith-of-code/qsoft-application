@@ -22,9 +22,9 @@ final class TransactionTable extends BaseTable
     ];
 
     const TYPES_LABELS = [
-        self::TYPES['purchase'] => 'Поступление',
-        self::TYPES['invite'] => 'За приглашение',
-        self::TYPES['referral'] => 'За рефералла',
+        self::TYPES['purchase'] => 'С личных покупок',
+        self::TYPES['invite'] => 'Лишний', // TODO
+        self::TYPES['referral'] => 'За приглашенных консультантов',
         self::TYPES['upgrade'] => 'За повышение уровня лояльности',
     ];
 

@@ -1016,101 +1016,103 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                         </div>
                     </div>
 
-                    <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
-                        <?php if ($arResult['promotion_orders']):?>
-                            <div class="section__box-inner">
-                                <h5 class="box__heading box__heading--middle">Участие в персональной акции</h5>
+                    <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
+                        <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
+                            <?php if ($arResult['promotion_orders']):?>
+                                <div class="section__box-inner">
+                                    <h5 class="box__heading box__heading--middle">Участие в персональной акции</h5>
 
-                                <?php foreach ($arResult['promotion_orders'] as $order):?>
-                                    <div class="profile__order box box--white box--circle">
-                                        <div class="profile__order-row">
-                                            <div class="profile__order-col">
-                                                <h5 class="profile__order-heading heading headding--small">
-                                                    Заказ от <?=$order['date_insert']->format('d.m.Y')?>
-                                                </h5>
-                                                <span class="profile__order-number">№<?=$order['account_number']?></span>
-                                            </div>
+                                    <?php foreach ($arResult['promotion_orders'] as $order):?>
+                                        <div class="profile__order box box--white box--circle">
+                                            <div class="profile__order-row">
+                                                <div class="profile__order-col">
+                                                    <h5 class="profile__order-heading heading headding--small">
+                                                        Заказ от <?=$order['date_insert']->format('d.m.Y')?>
+                                                    </h5>
+                                                    <span class="profile__order-number">№<?=$order['account_number']?></span>
+                                                </div>
 
-                                            <div class="profile__order-col">
-                                                <div class="price">
-                                                    <div class="price__calculation price__calculation--columned">
-                                                        <p class="price__calculation-total"><?=SaleFormatCurrency($order['price'], 'RUB')?></p>
-                                                        <p class="price__calculation-accumulation"><?=SaleFormatCurrency($order['bonuses'], 'RUB', true)?> ББ</p>
+                                                <div class="profile__order-col">
+                                                    <div class="price">
+                                                        <div class="price__calculation price__calculation--columned">
+                                                            <p class="price__calculation-total"><?=SaleFormatCurrency($order['price'], 'RUB')?></p>
+                                                            <p class="price__calculation-accumulation"><?=SaleFormatCurrency($order['bonuses'], 'RUB', true)?> ББ</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php endforeach;?>
-                            </div>
-                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </div>
+                            <?php endif;?>
 
-                        <?php if ($arResult['personal_promotions']):?>
-                            <div class="section__box-inner">
-                                <h5 class="box__heading box__heading--middle">Актуальные акции</h5>
+                            <?php if ($arResult['personal_promotions']):?>
+                                <div class="section__box-inner">
+                                    <h5 class="box__heading box__heading--middle">Актуальные акции</h5>
 
-                                <div class="profile__stocks cards-stock">
-                                    <ul class="cards-stock__list">
-                                        <?php foreach ($arResult['personal_promotions'] as $promotion):?>
-                                            <li class="cards-stock__item">
-                                                <div class="card-stock">
-                                                    <a href="#" class="card-stock__link"></a>
-                                                    <div class="card-stock__inner">
-                                                        <div class="card-stock__top">
-                                                            <div class="card-stock__wrapper">
-                                                                <div class="card-stock__image box box--circle">
-                                                                    <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
-                                                                </div>
-                                                                <div class="card-stock__finish date-finish">
-                                                            <span class="date-finish__icon">
-                                                                <svg class="date-finish__icon icon icon--clock">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                                                                </svg>
-                                                            </span>
-                                                                    <span class="date-finish__text">
-                                                                <span class="date-finish__text date-finish__text--desktop">
-                                                                    Действует
+                                    <div class="profile__stocks cards-stock">
+                                        <ul class="cards-stock__list">
+                                            <?php foreach ($arResult['personal_promotions'] as $promotion):?>
+                                                <li class="cards-stock__item">
+                                                    <div class="card-stock">
+                                                        <a href="#" class="card-stock__link"></a>
+                                                        <div class="card-stock__inner">
+                                                            <div class="card-stock__top">
+                                                                <div class="card-stock__wrapper">
+                                                                    <div class="card-stock__image box box--circle">
+                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                                    </div>
+                                                                    <div class="card-stock__finish date-finish">
+                                                                <span class="date-finish__icon">
+                                                                    <svg class="date-finish__icon icon icon--clock">
+                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                    </svg>
                                                                 </span>
-                                                                до
-                                                                <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
-                                                            </span>
+                                                                        <span class="date-finish__text">
+                                                                    <span class="date-finish__text date-finish__text--desktop">
+                                                                        Действует
+                                                                    </span>
+                                                                    до
+                                                                    <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
+                                                                </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-stock__devider dots">
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
+                                                                    <span class="dots__item"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="card-stock__devider dots">
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
-                                                                <span class="dots__item"></span>
+                                                            <div class="card-stock__bottom">
+                                                                <p class="card-stock__title">
+                                                                    <?=$promotion['name']?>
+                                                                </p>
+                                                                <p class="card-stock__text">
+                                                                    <!-- TODO Description -->
+                                                                </p>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-stock__bottom">
-                                                            <p class="card-stock__title">
-                                                                <?=$promotion['name']?>
-                                                            </p>
-                                                            <p class="card-stock__text">
-                                                                <!-- TODO Description -->
-                                                            </p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        <?php endforeach;?>
-                                    </ul>
+                                                </li>
+                                            <?php endforeach;?>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endif;?>
-                    </div>
+                            <?php endif;?>
+                        </div>
+                    <?php endif;?>
                 </div>
             </section>
 
