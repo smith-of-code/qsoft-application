@@ -140,7 +140,10 @@ global $APPLICATION;
                             $APPLICATION->IncludeComponent(
                                 'zolo:sale.personal.notifications.list',
                                 "notification_header",
-                                []
+                                [
+                                    'ONLY_UNREAD' => 'Y',
+                                    'LIMIT_COUNT_BY_PAGE' => 20
+                                ]
                             );
                         ?>
                         <!--выпадающий список уведомлений-->

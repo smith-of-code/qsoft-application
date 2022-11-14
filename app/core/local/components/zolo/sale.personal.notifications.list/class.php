@@ -36,6 +36,14 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
         $this->errorCollection = new ErrorCollection();
         $this->checkModules();
         $this->user = new User();
+
+        return $arParams;
+    }
+
+    private function tryParseInt($paramVal): ?int
+    {
+        $result = intval($paramVal);
+        return$result == 0 ? null : $result;
     }
 
     public function checkModules()
@@ -47,8 +55,18 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
 
     public function executeComponent()
     {
+        $filter = [];
+
+        if ($this->arParams['ONLY_UNREAD'] == 'Y') {
+            $filter = ['status' => 'Ждет прочтения'];
+        }
+
+        if ($countByPage = $this->tryParseInt($this->arParams['LIMIT_COUNT_BY_PAGE'])) {
+            $limit = $countByPage;
+        }
+
         if ($this->user->isAuthorized) {
-            $this->arResult = $this->loadNotificationsAction([], 0, self::NOTIFICATIONS_LIMIT);
+            $this->arResult = $this->loadNotificationsAction($filter, 0, $limit ?? self::NOTIFICATIONS_LIMIT);
             $this->includeComponentTemplate();
         }
     }
@@ -56,8 +74,8 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
     public function loadNotificationsAction(array $filter, int $offset, int $limit): array
     {
         $notifications = $this->user->notification->getNotifications($filter, $offset, $limit);
-
         $unreadNotificationsCount = $this->user->notification->getUnreadCount();
+
         return [
             'NOTIFICATIONS' => $notifications,
             'OFFSET' => $offset + count($notifications),

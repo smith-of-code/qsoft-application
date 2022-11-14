@@ -5,6 +5,8 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /**
  * @var array $arResult
  */
+
+use Bitrix\Main\Localization\Loc;
 ?>
 
 <div class="personal__item personal__item--hidden">
@@ -19,7 +21,7 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                             <span class="button__icon-counter button__icon-counter--red"><?=$arResult['UNREAD_COUNT']?></span>
                         </span>
 
-            <span class="personal__button-text button__text">Уведомления</span>
+            <span class="personal__button-text button__text"><?=Loc::getMessage('NOTIFICATION_BUTTON')?></span>
         </button>
 
         <!--выпадающий список уведомлений-->
@@ -31,7 +33,7 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                         <li class="notice__item">
                             <!--Статус-->
                             <article class="status">
-                                <a href="<?=$notification['LINK']?>" id="<?=$notification['ID']?>"  class="status__link"></a>
+                                <a href="<?=$notification['LINK']?>" id="<?=$notification['ID']?>" class="status__link"></a>
                                 <div class="status__header">
                                     <svg class="status__header-icon icon icon--notification">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
@@ -55,8 +57,9 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
             <div class="notice__action">
                 <a href="<?=$arResult['NOTIFICATIONS_URL']?>"
-                    class="button button--rounded-big button--bold button--outlined button--green button--full">Показать
-                    все</a>
+                    class="button button--rounded-big button--bold button--outlined button--green button--full">
+                    <?=Loc::getMessage('SHOW_ALL')?>
+                </a>
             </div>
         </div>
         <!--выпадающий список уведомлений-->
