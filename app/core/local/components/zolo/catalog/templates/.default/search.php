@@ -20,7 +20,7 @@ else
 	$basketAction = (isset($arParams['SECTION_ADD_TO_BASKET_ACTION']) ? $arParams['SECTION_ADD_TO_BASKET_ACTION'] : '');
 }
 
-// TODO: Ïîäêëþ÷èòü â øàïêå ñàéòà (ïîèñêîâàÿ ñòðîêà, ïîèñê ïî êàòàëîãó)
+// TODO: ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ Ð² ÑˆÐ°Ð¿ÐºÐµ ÑÐ°Ð¹Ñ‚Ð° (Ð¿Ð¾Ð¸ÑÐºÐ¾Ð²Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ°, Ð¿Ð¾Ð¸ÑÐº Ð¿Ð¾ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ñƒ)
 $APPLICATION->IncludeComponent("bitrix:catalog.search", "bootstrap_v4", array(
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 		"IBLOCK_ID" => $arParams["IBLOCK_ID"],

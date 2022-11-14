@@ -7,6 +7,7 @@ export const Pets = {
 
     data() {
         return {
+            originalPets: {},
             mutablePets: [],
         };
     },
@@ -35,10 +36,8 @@ export const Pets = {
     },
 
     created() {
+        this.originalPets = JSON.parse(JSON.stringify(this.pets));
         this.mutablePets = JSON.parse(JSON.stringify(Object.values(this.pets)));
-    },
-
-    mounted() {
     },
 
     methods: {
@@ -55,21 +54,23 @@ export const Pets = {
         checkPetAvailable(pet) {
             return pet.name && pet.kind && pet.breed && pet.birthdate && pet.gender;
         },
-        cancelEditing(pet) {
+        cancelEditing(pet, petKey) {
             if (pet.id.indexOf('new') !== -1) {
                 this.deletePet(pet);
             } else {
-                this.mutablePets[this.mutablePets.indexOf(pet)] = this.pets[pet.id];
+                this.mutablePets[petKey] = JSON.parse(JSON.stringify(this.originalPets[pet.id]));
             }
         },
-        savePet(pet) {
-            pet.editing = false;
-
+        async savePet(pet) {
             if (pet.id.indexOf('new') === -1) {
-                pet.id = this.petStore.changePet(pet).data.id;
+                await this.petStore.changePet(pet);
             } else {
-                this.petStore.addPet(pet);
+                const response = await this.petStore.addPet(pet);
+                pet.id = `${response.data.id}`;
             }
+
+            pet.editing = false;
+            this.originalPets[pet.id] = JSON.parse(JSON.stringify(pet));
         },
     },
 
@@ -93,12 +94,12 @@ export const Pets = {
                 <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                     <div class="pet-cards">
                         <ul class="pet-cards__list" data-pets-list>
-                            <li v-for="pet in mutablePets" :key="pet.id" class="pet-cards__item">
+                            <li v-for="(pet, petKey) in mutablePets" :key="pet.id" class="pet-cards__item">
                                 <article class="pet-card" :class="{ 'pet-card--editing': pet.editing }" data-pets-card>
                                     <div class="pet-card__main box box--circle" data-pets-main>
                                         <div class="pet-card__content">
                                             <div class="pet-card__avatar" data-pets-type>
-                                                <svg class="icon icon--dog">
+                                                <svg class="icon" :class="'icon--' + pet.kind?.code.toLowerCase().substring(5)">
                                                     <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + pet.kind?.code.toLowerCase().substring(5)"></use>
                                                 </svg>
                                             </div>
@@ -114,7 +115,7 @@ export const Pets = {
 
                                                 <div class="pet-card__info-record">
                                                     <div class="pet-card__gender" data-pets-gender>
-                                                        <svg class="icon icon--man">
+                                                        <svg class="icon" :class="'icon--' + (pet.gender?.code.indexOf('FEMALE') !== -1 ? 'woman' : 'man')">
                                                             <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (pet.gender?.code.indexOf('FEMALE') !== -1 ? 'woman' : 'man')"></use>
                                                         </svg>
                                                     </div>
@@ -167,7 +168,7 @@ export const Pets = {
                                                                     :options="kinds"
                                                                     :selected="pet.kind?.id"
                                                                     :iconed="true"
-                                                                    @change="(value) => { pet.kind = kinds[value] }"
+                                                                    @custom-change="(value) => { pet.kind = kinds[value]; pet.breed = null }"
                                                                 />
                                                             </div>
                                                         </div>
@@ -188,7 +189,7 @@ export const Pets = {
                                                                     :name="UF_GENDER"
                                                                     :options="genders"
                                                                     :selected="pet.gender?.id"
-                                                                    @change="(value) => { pet.gender = genders[value] }"
+                                                                    @custom-change="(value) => { pet.gender = genders[value] }"
                                                                 />
                                                             </div>
                                                         </div>
@@ -207,7 +208,7 @@ export const Pets = {
                                                            <DateInput
                                                                :name="UF_BIRTHDATE"
                                                                :value="pet.birthdate"
-                                                               @change="(value) => { pet.birthdate = value }"
+                                                               @custom-change="(value) => { pet.birthdate = value }"
                                                            />
                                                         </div>
                                                     </div>
@@ -227,7 +228,7 @@ export const Pets = {
                                                                     :name="UF_BREED"
                                                                     :options="breeds[pet.kind?.code] ?? {}"
                                                                     :selected="pet.breed?.id"
-                                                                    @change="(value) => { pet.breed = breeds[pet.kind.code][value] }"
+                                                                    @custom-change="(value) => { pet.breed = breeds[pet.kind.code][value] }"
                                                                 />
                                                             </div>
                                                         </div>
@@ -260,11 +261,11 @@ export const Pets = {
                                             </div>
 
                                             <div class="pet-card__buttons">
-                                                <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
+                                                <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
                                                     Сохранить изменения
                                                 </button>
                                             
-                                                <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" @click="cancelEditing(pet)">
+                                                <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" @click="() => cancelEditing(pet, petKey)">
                                                     Отменить изменения
                                                 </button>
                                             </div>

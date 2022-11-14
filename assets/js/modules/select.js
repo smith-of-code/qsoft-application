@@ -12,6 +12,11 @@ export default function () {
         const baseOptions = {
             templateResult: formatState,
             templateSelection: formatState,
+            "language": {
+                "noResults": function(){
+                    return "Выберите тип питомца";
+                }
+            },
         };
 
         function formatState (state) {
@@ -28,6 +33,11 @@ export default function () {
 
             return result;
         };
+
+        function searchDisabled (element) {
+            let searchfield = element.parent().find('.select2-search__field');
+            searchfield.prop('disabled', true);
+        }
 
         const scrollOptions = {
             autohidemode: "leave",
@@ -66,6 +76,9 @@ export default function () {
                             }
                         });
                     }
+                })
+                .on('select2:opening select2:closing', function() {
+                    searchDisabled($(this));
                 });
         });
     }

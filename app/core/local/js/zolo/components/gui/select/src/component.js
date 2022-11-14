@@ -1,8 +1,11 @@
 import select from "../../../../../../../../../assets/js/modules/select";
+import StringFormatMixin from "../../../../mixins/StringFormatMixin";
 
 let id = 0;
 
 export const Select = {
+    mixins: [StringFormatMixin],
+
     data() {
         return {
             componentId: 'select-' + ++id,
@@ -36,8 +39,14 @@ export const Select = {
         select();
 
         $(`#${this.componentId}`).on('change', () => {
-            this.$emit('change', $(`#${this.componentId}`).val());
+            this.$emit('custom-change', $(`#${this.componentId}`).val());
         });
+    },
+
+    methods: {
+        getIconPath(icon) {
+            return `<svg class="select__item-icon icon icon--${icon}"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use></svg>`;
+        },
     },
 
     template: `
@@ -48,10 +57,10 @@ export const Select = {
                     v-for="(option, optionId) in options"
                     :key="optionId"
                     :value="optionId"
-                    :data-option-icon="iconed ? option.icon : false"
+                    :data-option-before="iconed ? getIconPath(option.icon) : false"
                     :selected="optionId === selected"
                 >
-                    {{ option.name }}
+                    {{ uppercaseFirst(option.name) }}
                 </option>
             </select>
         </div>

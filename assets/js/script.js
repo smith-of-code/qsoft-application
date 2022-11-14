@@ -50,6 +50,7 @@
  import basket from './modules/basket';
  import calculator from './modules/calculator';
  import chart from './modules/chart';
+ import show from './modules/show';
 
 
 
@@ -97,6 +98,7 @@
         basket();
         calculator();
         chart();
+        show();
     },
 
     load() {

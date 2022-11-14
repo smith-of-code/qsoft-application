@@ -58,6 +58,10 @@
         border-radius: rem($border-radius-average);
         background: $white;
 
+        @media #{$screen-tablet} {
+            padding-right: rem(30px);
+        }
+
         &::before {
             position: absolute;
             bottom: 0;

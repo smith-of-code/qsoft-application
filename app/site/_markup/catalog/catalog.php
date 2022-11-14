@@ -1337,21 +1337,19 @@
 
                                     <div class="catalog__sort">
                                         <div class="catalog__select select select--small select--limited select--sorting select--borderless" data-select>
-                                            <div class="select__group">
-                                                <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
-                                                    <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">По цене</option>
-                                                    <option value="2">По популярности</option>
-                                                </select>
+                                            <select class="select__control" name="select5" id="sort" data-select-control data-placeholder="Сортировка">
+                                                <option><!-- пустой option для placeholder --></option>
+                                                <option value="1">По цене</option>
+                                                <option value="2">По популярности</option>
+                                            </select>
 
-                                                <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
-                                                    <span class="button__icon button__icon--medium">
-                                                        <svg class="icon icon--sort">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
+                                            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                                                <span class="button__icon button__icon--medium">
+                                                    <svg class="icon icon--sort">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
                                         </div>
 
                                         <div class="catalog__toggle">

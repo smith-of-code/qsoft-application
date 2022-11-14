@@ -44,7 +44,7 @@
         margin-bottom: rem($gap-normal);
 
         @media #{$screen-tablet} {
-            margin-bottom: rem(10px);
+            margin-bottom: rem($gap-small);
         }
     
         @media #{$screen-desktop} {
@@ -57,12 +57,16 @@
     }
 
     &__title {
+        font-size: rem($font-size-average);
+        line-height: $line-height-average;
+
         margin-bottom: rem($gap-average);
 
         @media #{$screen-tablet} {
             font-size: rem($font-size-medium);
             line-height: (22px / $font-size-medium);
 
+            min-height: rem(44px);
             margin-bottom: rem(6px);
         }
 
@@ -76,6 +80,7 @@
 
     &__description {
         font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
 
         color: $saltBox;
     }

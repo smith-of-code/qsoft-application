@@ -1,3 +1,5 @@
+ import scrollbar from '../modules/scrollbar';
+
 export default function showSupportPopup() {
     let body = $('body');
     body.append(setPopup());
@@ -19,21 +21,59 @@ function setPopup() {
 }
 
 function initSupportForms() {
-    $('[data-fancybox][data-src="#technical-support"]').one('click', function () {
-        let popup = $('#technical-support div section');
-        let selected = $(this).data('selected');
-        BX.ajax.runComponentAction('zolo:techsupport.form.handler', 'load', {
-            mode: 'class',
-            data: {}
-        }).then(function (response) {
-            let data = JSON.parse(response.data);
-            popup.append(setDataToPopup(data.data, selected));
-            initSelect();
-            initSendForm();
-        }, function (response) {
-            console.log("err", response.errors);
-        });
+    $('[data-src="#technical-support"]').one('click', function () {
+        let popup = $('#technical-support div section');console.log(popup.children().length === 0);
+        let selected = $(this).data('selected');console.log(selected);
+        let saveSelected = '';
+        if (popup.children().length === 0) {
+
+            BX.ajax.runComponentAction('zolo:techsupport.form.handler', 'load', {
+                mode: 'class',
+                data: {}
+            }).then(function (response) {
+                let data = JSON.parse(response.data);
+                popup.append(setDataToPopup(data.data, selected));
+                initSelect();
+                initSendForm();
+                scrollbar();
+            }, function (response) {
+                console.log("err", response.errors);
+            });
+            saveSelected = selected;
+        } else {
+        }
+        if (typeof selected !== "undefined" && saveSelected !== selected) {
+            changeForm(saveSelected, selected);
+            saveSelected = selected;
+        }
     });
+}
+
+function changeForm(Oldselected, savedSelected) {console.log(123, Oldselected, savedSelected, 123);
+    let selectedSuportType = $('#ticket-type');
+    let oldForm = '';
+    let selectedOption =  $('option[value='+savedSelected+']')
+
+    selectedSuportType.val(savedSelected);
+    selectedSuportType.trigger('change')
+
+    if (Oldselected !== "") {
+        oldForm = $('div').find('[data-variant-block='+Oldselected+']');
+
+        if (selectedForm.hasClass('modal__section-variant--active')) {
+            selectedForm.removeClass('modal__section-variant--active')
+        }
+    }
+
+    let selectedForm = $('div').find('[data-variant-block='+savedSelected+']');
+
+    if (!selectedForm.hasClass('modal__section-variant--active')) {
+        selectedForm.addClass('modal__section-variant--active')
+    }
+
+    
+
+    console.log(selectedSuportType, oldForm, selectedForm, selectedOption);
 }
 
 function setDataToPopup (data, selected) {
@@ -294,7 +334,6 @@ function initSendForm() {
         let error = '';
 
         if (selectedSuportType === '') {
-            console.log( $('#ticket-type').next('span'))
             $('span[attitude-id=ticket-type').removeAttr('hidden')
             return false;
         }

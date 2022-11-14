@@ -199,7 +199,7 @@ export const LoyaltyReport = {
 
                     <div class="diagramm diagramm--simple">
                         <div class="diagramm__row">
-                            <div class="diagramm__col">
+                            <div class="diagramm__col diagramm__col--diagramm">
                                 <div class="diagramm__main">
                                     <canvas
                                         width="227"
@@ -210,7 +210,7 @@ export const LoyaltyReport = {
                                     <div class="diagramm__sum">{{ formatNumber(mutableBonusesIncome.total) }}</div>
                                 </div>
                             </div>
-                            <div class="diagramm__col">
+                            <div class="diagramm__col diagramm__col--sum">
                                 <p class="diagramm__title">Сумма всех заработанных баллов:</p>
 
                                 <div class="diagramm__results">

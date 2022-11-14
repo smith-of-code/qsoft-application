@@ -37,6 +37,60 @@
                 left: rem($gap-small);
             }
         }
+
+        &__image {
+            &:before {
+                $card-width: rem(343px);
+                $card-height: rem(343px);
+
+                padding-top: percentage($card-height / $card-width);
+
+                @media #{$screen-tablet} {
+                    $card-width: rem(343px);
+                    $card-height: rem(488px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+
+                @media #{$screen-desktop} {
+                    $card-width: rem(370px);
+                    $card-height: rem(390px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+            }
+        }
+    }
+
+    &--marketing & {
+        &__image {
+            &:before {
+                @media #{$screen-desktop} {
+                    $card-width: rem(262px);
+                    $card-height: rem(262px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+            }
+        }
+
+        &__title {
+            font-weight: $font-weight-semibold;
+        }
+
+        &__text {
+            @include text-small;
+
+            @media #{$screen-desktop} {
+                max-width: rem(166px);
+            }
+        }
+
+        &__footer {
+            &-label {
+                text-align: right;
+            }
+        }
     }
 
     &__link {

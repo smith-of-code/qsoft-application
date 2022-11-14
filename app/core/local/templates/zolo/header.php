@@ -27,7 +27,7 @@ global $APPLICATION;
 
 <body class="page">
 <!--header-->
-<header class="page__header header <?= Page::isMain() ? 'header--main' : '' ?>">
+<header class="page__header <?= Page::isMain() ? 'header--main page__header--main' : 'header' ?>">
 
     <div class="header__row header__row--main">
         <div class="container">
@@ -554,7 +554,6 @@ global $APPLICATION;
 </header>
 <!--/header-->
 
-<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?>">
+<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?> <?= Page::isMain() ? 'page__content--main' : '' ?>">
     <div class="container">
-        <main class="<?= Page::isCatalog() ? 'page__catalog catalog' : '' ?>">
-<!--            <h1 class="page__heading">Личный кабинет</h1>-->
+        <main class="<?= Page::isMain() ? 'page__main main' : (Page::isCatalog() ? 'page__catalog catalog' : '') ?>">

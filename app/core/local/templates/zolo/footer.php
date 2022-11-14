@@ -1,4 +1,7 @@
-<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
+<?php if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+?>
         </main>
     </div>
 </div>
@@ -8,203 +11,93 @@
 <footer class="page__footer footer">
     <div class="footer__container container">
         <nav class="footer__nav">
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Для собак
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Сухой корм
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Влажный корм
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Лакомства
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Аксессуары
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Советы экспертов
-                    </a>
-                </li>
-            </ul>
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Для кошек
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Сухой корм
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Влажный корм
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Лакомства
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Аксессуары
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Советы экспертов
-                    </a>
-                </li>
-            </ul>
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Покупателям
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Акции
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Оплата и доставка
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        FAQ
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link" 
-                        data-fancybox data-modal-type="modal"
-                        data-src="#technical-support"
-                    >
-                        Обратиться в поддержку
-                    </a>
-                </li>
-            </ul>
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Компания AmeAppetite
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        AmeБизнес
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Новости
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Мероприятия
-                    </a>
-                </li>
-            </ul>
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Контакты
-                </li>
-                <li class="footer__item">
-                    <a href="tel:88001234567" class="footer__link">
-                        8 (800) 123-45-67
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="mailto:dogcathappy@ame.ru" class="footer__link">
-                        dogcathappy@ame.ru
-                    </a>
-                </li>
-                <li class="footer__item">
-                    Москва, Проспект Мира, 87
-                </li>
-            </ul>
-            <ul class="footer__list">
-                <li class="footer__item footer__item--heading">
-                    Правовая информация
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Правила компании
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Положение об обработке персональных данных
-                    </a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">
-                        Правила поведения в компании
-                    </a>
-                </li>
-            </ul>
+            <?php
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "dogs_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/for_dogs.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--dogs'
+                ]
+            );
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "cats_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/for_cats.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--cats'
+                ]
+            );
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "consumers_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/consumers.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--customers'
+                ]
+            );
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "company_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/company.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--company'
+                ]
+            );
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "contacts_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/contacts.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--contacts'
+                ]
+            );
+            $APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "bottom_home_main",
+                [
+                    "ROOT_MENU_TYPE" => "legal_bottom",
+                    "MAX_LEVEL" => "1",
+                    "HEAD_PATH" => "/include/legal.php",
+                    'COLUMN_ADDITIONAL_CLASS' => 'footer__list--info'
+                ]
+            );?>
         </nav>
-
         <div class="footer__social social">
             <ul class="social__list">
-                <li class="social__item">
-                    <a href="#" class="social__link">
-                        <svg class="icon icon--social">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-telegram"></use>
-                        </svg>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a href="#" class="social__link">
-                        <svg class="icon icon--social">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-youtube"></use>
-                        </svg>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a href="#" class="social__link">
-                        <svg class="icon icon--social">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-vk"></use>
-                        </svg>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a href="#" class="social__link">
-                        <svg class="icon icon--social">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-whatsapp"></use>
-                        </svg>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a href="#" class="social__link">
-                        <svg class="icon icon--social">
-                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-viber"></use>
-                        </svg>
-                    </a>
-                </li>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:menu",
+                    "bottom_home_social",
+                    [
+                        "ROOT_MENU_TYPE" => "social_bottom",
+                        "MAX_LEVEL" => "1",
+                    ]
+                );?>
             </ul>
         </div>
-
         <div class="footer__bottom">
             <p class="footer__copyright">
                 &copy; AmeAppetite, 2022
             </p>
+            <div class="footer__logo logo">
+                <a target="_blank" class="logo__link" href="https://qsoft.ru">
+                    <img class="logo__pic" src="/local/templates/.default/images/icons/qsoft-logo.svg" alt="logo">
+                </a>
+            </div>
         </div>
     </div>
 </footer>
 <!--/Футер-->
-
 </body>
 
 </html>
