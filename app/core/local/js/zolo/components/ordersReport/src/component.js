@@ -4,13 +4,20 @@ export const OrdersReport = {
     mixins: [NumberFormatMixin],
 
     data() {
-        return {}
+        return {
+            label: this.isGroup ? 'групповых' : 'личных',
+            label2: this.isGroup ? 'группового' : 'личного',
+        };
     },
 
     props: {
         ordersReport: {
             type: Object,
             required: true,
+        },
+        isGroup: {
+            type: Boolean,
+            default: false,
         },
     },
 
@@ -23,7 +30,7 @@ export const OrdersReport = {
                         <!--Результат-->
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Сумма всех личных заказов</p>
+                                <p class="result__title">Сумма всех {{ label }} заказов</p>
                                 <p class="result__total">{{ formatNumber(ordersReport.total_sum) }} ₽</p>
                             </div>
                         </div>
@@ -33,7 +40,7 @@ export const OrdersReport = {
                     <li class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Сумма личных заказов за текущий отчетный период</p>
+                                <p class="result__title">Сумма {{ label }} заказов за текущий отчетный период</p>
                                 <p class="result__total">{{ formatNumber(ordersReport.current_period_sum) }} ₽</p>
                             </div>
                         </div>
@@ -42,7 +49,7 @@ export const OrdersReport = {
                     <li class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Сумма личных баллов за текущий период</p>
+                                <p class="result__title">Сумма {{ label }} баллов за текущий период</p>
                                 <p class="result__total">{{ formatNumber(ordersReport.current_period_bonuses, false) }} ББ</p>
                             </div>
                         </div>
@@ -51,7 +58,7 @@ export const OrdersReport = {
                     <li class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Количество личных заказов со статусом «Оплачен»</p>
+                                <p class="result__title">Количество {{ label }} заказов со статусом «Оплачен»</p>
                                 <p class="result__total">{{ formatNumber(ordersReport.paid_orders_count, false) }}</p>
                             </div>
                         </div>
@@ -60,7 +67,7 @@ export const OrdersReport = {
                     <li class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Количество личных заказов со статусом «Возврат»</p>
+                                <p class="result__title">Количество {{ label }} заказов со статусом «Возврат»</p>
                                 <p class="result__total">
                                     {{ formatNumber(ordersReport.part_refunded_orders_count + ordersReport.full_refunded_orders_count, false) }}
                                 </p>
@@ -102,7 +109,7 @@ export const OrdersReport = {
                     <li class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Дата последнего личного заказа</p>
+                                <p class="result__title">Дата {{ label2 }} последнего заказа</p>
                                 <p class="result__total">{{ ordersReport.last_order_date }}</p>
                             </div>
                         </div>
@@ -111,7 +118,7 @@ export const OrdersReport = {
                     <li v-if="ordersReport.last_month_products" class="results__item">
                         <div class="result">
                             <div class="result__main">
-                                <p class="result__title">Количество товаров со всех заказов за последний месяц</p>
+                                <p class="result__title">Количество товаров со всех {{ label }} заказов за последний месяц</p>
                                 <p class="result__total">{{ ordersReport.last_month_products.length }}</p>
                             </div>
                             <div class="result__addition">

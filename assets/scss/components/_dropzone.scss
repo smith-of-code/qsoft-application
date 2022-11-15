@@ -192,6 +192,8 @@
 
     &__message--simple & {
         &__button {
+            font-size: rem($font-size-miniature);
+
             margin-top: rem($gap-average);
 
             @media #{$screen-tablet} {

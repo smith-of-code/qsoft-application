@@ -37,6 +37,29 @@
                 left: rem($gap-small);
             }
         }
+
+        &__image {
+            &:before {
+                $card-width: rem(343px);
+                $card-height: rem(343px);
+
+                padding-top: percentage($card-height / $card-width);
+
+                @media #{$screen-tablet} {
+                    $card-width: rem(343px);
+                    $card-height: rem(488px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+
+                @media #{$screen-desktop} {
+                    $card-width: rem(370px);
+                    $card-height: rem(390px);
+
+                    padding-top: percentage($card-height / $card-width);
+                }
+            }
+        }
     }
 
     &--marketing & {

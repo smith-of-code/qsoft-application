@@ -478,12 +478,14 @@
 
     &--underlined {
         text-decoration: underline;
+        text-underline-offset: rem(4px);
     }
 
     &--over {
         &:hover,
         &:focus {
             text-decoration: underline;
+            text-underline-offset: rem(4px);
         }
     }
 

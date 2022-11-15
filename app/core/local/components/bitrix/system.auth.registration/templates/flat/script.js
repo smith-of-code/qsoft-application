@@ -137,14 +137,14 @@ class CSystemAuthRegistrationComponent {
                     data[$(item).attr('name')] = $(item).val();
                 }
             });
-        }
 
-        if (data.currentStep === 'pets_data' && !Object.keys(data.pets).length) {
-            return;
-        }
+            if (data.currentStep === 'pets_data' && !Object.keys(data.pets).length) {
+                return;
+            }
 
-        if ($(`.${registrationData.currentStep} .input__control--error`).length) {
-            return;
+            if ($(`.${registrationData.currentStep} .input__control--error`).length) {
+                return;
+            }
         }
 
         const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'saveStep', {

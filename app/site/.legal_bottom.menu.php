@@ -1,7 +1,7 @@
 <?
 $aMenuLinks = Array(
 	Array(
-        'Правила компании',
+        'Условия использования Сайта',
 		"/legal/company_rules/",
 		Array(),
 		Array(),

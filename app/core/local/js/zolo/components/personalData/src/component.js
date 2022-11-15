@@ -9,6 +9,7 @@ export const PersonalData = {
             mutableUserInfo: {},
             editing: false,
             phoneError: false,
+            passwordError: false,
             phoneVerified: false,
             verifyError: false,
         };
@@ -37,6 +38,17 @@ export const PersonalData = {
         userCity() {
             return Object.values(this.cities).find(city => city.name === this.mutableUserInfo.city);
         },
+        validatePassword() {
+            switch (true) {
+                case this.mutableUserInfo.password !== this.mutableUserInfo.confirm_password:
+                case this.mutableUserInfo.password.length < 8:
+                case this.mutableUserInfo.password.match(/[А-я]+/i):
+                case this.mutableUserInfo.password.toUpperCase() === this.mutableUserInfo.password:
+                case this.mutableUserInfo.password.toLowerCase() === this.mutableUserInfo.password:
+                    return false;
+            }
+            return true;
+        },
     },
 
     setup() {
@@ -56,13 +68,18 @@ export const PersonalData = {
             this.initUserInfo();
         },
         saveUserInfo() {
-            // TODO validate
             if (this.userInfo.phone !== this.mutableUserInfo.phone && !this.phoneVerified) {
                 this.phoneError = true;
                 return;
             }
+            if ((this.mutableUserInfo.password || this.mutableUserInfo.confirm_password) && !this.validatePassword) {
+                this.passwordError = true;
+                return;
+            }
 
             this.phoneError = false;
+            this.passwordError = false;
+            this.mutableUserInfo.phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
 
             this.personalDataStore.savePersonalData(this.mutableUserInfo);
@@ -98,6 +115,8 @@ export const PersonalData = {
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
+                } else {
+                    this.phoneVerified = true;
                 }
             } catch (e) {
                 this.verifyError = true;
@@ -116,7 +135,7 @@ export const PersonalData = {
                         <div class="profile__accordeon-header accordeon__header section__header">
                             <h4 class="section__title section__title--closer">Персональные данные</h4>
                             <div class="profile__actions">
-                                <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
+                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -151,7 +170,10 @@ export const PersonalData = {
                                 <div class="profile__avatar">
                                     <div class="profile__avatar-box">
                                         <div class="profile__avatar-image">
-                                            <img :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <img v-if="mutableUserInfo.photo" :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <svg v-else class="dropzone__message-button-icon icon icon--camera">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                            </svg>
                                         </div>
                                     </div>
 
@@ -160,7 +182,8 @@ export const PersonalData = {
                                         <div class="dropzone__area" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true}'>
                                             <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
-                                                    <svg class="dropzone__message-button-icon icon icon--camera">
+                                                    <img v-if="mutableUserInfo.photo" :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
+                                                    <svg v-else class="dropzone__message-button-icon icon icon--camera">
                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
                                                     </svg>
                                                 </div>
@@ -413,16 +436,6 @@ export const PersonalData = {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <button
-                                                        v-if="editing"
-                                                        type="button"
-                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
-                                                        data-src="#approve-number"
-                                                        @click="sendCode"
-                                                    >
-                                                        Отправить проверочный код
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -496,6 +509,7 @@ export const PersonalData = {
                                                                 id="password" 
                                                                 placeholder="Введите пароль" 
                                                                 data-password-input
+                                                                :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.password"
                                                             >
                                                             <span class="input__icon input__icon-password" data-password-toggle>
@@ -529,6 +543,7 @@ export const PersonalData = {
                                                                 id="confirm_password" 
                                                                 placeholder="Введите пароль" 
                                                                 data-password-input
+                                                                :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.confirm_password"
                                                             >
                                                             <span class="input__icon input__icon-password" data-password-toggle>
@@ -573,7 +588,7 @@ export const PersonalData = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="cancelEditing">
+                                    <button type="button" class="button button--rounded button--mixed button--red button--full" @click="cancelEditing">
                                         <span class="button__text">Отменить изменения</span>
                                     </button>
                                 </div>

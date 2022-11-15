@@ -73,13 +73,16 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
 
     public function loadNotificationsAction(array $filter, int $offset, int $limit): array
     {
-        $notifications = $this->user->notification->getNotifications($filter, $offset, $limit);
+        $notifications = $this->user->notification->getNotifications($filter, $offset, $limit + 1);
+        $isLast = $limit >= count($notifications);
+        $notifications = $isLast ? $notifications : array_slice($notifications, 0, -1);
         $unreadNotificationsCount = $this->user->notification->getUnreadCount();
 
         return [
             'NOTIFICATIONS' => $notifications,
             'OFFSET' => $offset + count($notifications),
             'UNREAD_COUNT' => $unreadNotificationsCount,
+            'LAST' => $isLast,
             'NOTIFICATIONS_URL' => self::NOTIFICATIONS_URL
         ];
     }

@@ -40,7 +40,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                         <article class="card-order card-order--green">
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
-                                                    <a href="#" class="card-order__link"></a>
+                                                    <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="card-order__link"></a>
                                                     <ul class="card-order__list">
                                                         <li class="card-order__item">
                                                             <h2 class="card-order__title">
@@ -165,7 +165,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                             </ul>
                         </div>
 
-                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full"><?=getMessage('SHOW_MORE') ?></button>
+                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="<?=$arResult['IS_LAST'] ? 'display:none;' : '' ?>"><?=getMessage('SHOW_MORE') ?></button>
                     </section>
                 </div>
             </div>
@@ -175,6 +175,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
     let basketOfset = 0;
+    const SEF_FOLDER = <?=json_encode($arParams['SEF_FOLDER'])?>;
 
     $(document).ready(function () {
         $('#PAYD').on('select2:close', function(){
@@ -186,18 +187,12 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             filteringValues('status', $(this).val());
         });
 
+        $('#SORTING_BY').on('select2:close', function() {
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
+        });
+
         $('#SORTING').on('click', function(){
-            let orderSort = '';
-            if ($('#SORTING').hasClass('asc')) {
-                $(this).removeClass('asc');
-                $(this).addClass('desc');
-                orderSort = 'ASC';
-            } else {
-                $(this).addClass('asc');
-                $(this).removeClass('desc');
-                orderSort = 'DESC';
-            }
-            filteringValues('sorting', $('#sort').val(), orderSort);
+            filteringValues('sorting', $('#SORTING_BY').val(), setSortingType());
         });
 
         $('div').one('click', function () {
@@ -207,19 +202,18 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
 
         $('#search_button').on('click', function () {
-            if ($('#filter_id').val() != '') {
-                filteringValues('search', $('#filter_id').val());
-            }
+            filteringValues('search', $('#filter_id').val());
+            window.history.replaceState(null, null, "?filter_id=" + $('#filter_id').val());
         });
 
     });
 
     showMore.onclick = function (e) {
         let filter = {
-            by:  $('#sort').val(),
+            by:  $('#SORTING_BY').val(),
             status:  $('#STATUS').val(),
             payd:  $('#PAYD').val(),
-            order: $('#SORTING').hasClass('desc') ? 'desc' : 'asc',
+            order: $('#SORTING').hasClass('desc') ? 'DESC' : 'ASC',
         };
 
         e.preventDefault();
@@ -232,7 +226,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             }
         }).then(function (response) {
             let orders = JSON.parse(response.data);
-
+            orders.sefFolder = SEF_FOLDER;
             offset = orders.offset;
             if (orders.last) {
                 showMore.style.cssText = 'display:none;';

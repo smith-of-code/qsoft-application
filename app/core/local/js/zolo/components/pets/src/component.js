@@ -64,13 +64,13 @@ export const Pets = {
         async savePet(pet) {
             if (pet.id.indexOf('new') === -1) {
                 await this.petStore.changePet(pet);
-                pet.editing = false;
             } else {
                 const response = await this.petStore.addPet(pet);
                 pet.id = `${response.data.id}`;
-                pet.editing = false;
-                this.originalPets[pet.id] = JSON.parse(JSON.stringify(pet));
             }
+
+            pet.editing = false;
+            this.originalPets[pet.id] = JSON.parse(JSON.stringify(pet));
         },
     },
 
@@ -229,6 +229,7 @@ export const Pets = {
                                                                     :options="breeds[pet.kind?.code] ?? {}"
                                                                     :selected="pet.breed?.id"
                                                                     @custom-change="(value) => { pet.breed = breeds[pet.kind.code][value] }"
+                                                                    data-pets-breed
                                                                 />
                                                             </div>
                                                         </div>
