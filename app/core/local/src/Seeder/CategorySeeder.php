@@ -12,38 +12,47 @@ class CategorySeeder implements Seederable
         [
             'CODE' => 'dry_food_for_',
             'NAME' => 'Сухие корма',
+            'SORT' => '100',
         ],
         [
             'CODE' => 'wet_food_for_',
             'NAME' => 'Влажные корма',
+            'SORT' => '200',
         ],
         [
             'CODE' => 'treats_for_',
             'NAME' => 'Лакомства',
+            'SORT' => '300',
         ],
         [
             'CODE' => 'accessories_for_',
             'NAME' => 'Аксессуары',
+            'SORT' => '400',
             'CHILDREN' => [
                 [
                     'CODE' => 'toys_for_',
                     'NAME' => 'Игрушки',
+                    'SORT' => '100',
                 ],
                 [
                     'CODE' => 'houses_and_beds_for_',
                     'NAME' => 'Домики и лежанки',
+                    'SORT' => '200',
                 ],
                 [
                     'CODE' => 'walks_for_',
                     'NAME' => 'Для прогулок',
+                    'SORT' => '300',
                 ],
                 [
                     'CODE' => 'feeding_for_',
                     'NAME' => 'Для кормления',
+                    'SORT' => '400',
                 ],
                 [
                     'CODE' => 'smart_products_for_',
                     'NAME' => 'Умные товары',
+                    'SORT' => '500',
                 ],
             ],
         ],
@@ -51,6 +60,7 @@ class CategorySeeder implements Seederable
             // NOTE: Будет изменено кодом
             'CODE' => 'small_',
             'NAME' => 'Появились ',
+            'SORT' => '500',
         ],
     ];
 
@@ -58,10 +68,12 @@ class CategorySeeder implements Seederable
         [
             'CODE' => 'cats',
             'NAME' => 'Для кошек',
+            'SORT' => '500',
         ],
         [
             'CODE' => 'dogs',
             'NAME' => 'Для собак',
+            'SORT' => '400',
         ],
     ];
 
