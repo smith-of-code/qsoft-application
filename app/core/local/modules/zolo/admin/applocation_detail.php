@@ -24,7 +24,7 @@ $fields = [];
 if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 	$formHandler = (new FormHandler());
 	$fields = $formHandler->GetFormData($_REQUEST['ID']);
-}
+}dump($fields);
 ?>
 <div>
 	<div>

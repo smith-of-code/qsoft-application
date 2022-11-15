@@ -380,10 +380,6 @@ function sendForm(data) {
 function setSuccessMessage(id) {
     let successMessage = `
         <div class="gui__block">
-            <header class="modal__section modal__section--header">
-                <p class="heading heading--average">Техническая поддержка</p>
-            </header>
-
             <div class="notification">
                 <div class="notification__icon">
                     <svg class="icon icon--tick-circle">

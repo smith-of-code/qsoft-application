@@ -7,6 +7,7 @@ use CTicket;
 use CTicketDictionary;
 use QSoft\Entity\User;
 use RuntimeException;
+use Bitrix\Sale;
 
 class TicketHelper
 {
@@ -95,5 +96,28 @@ class TicketHelper
     public function getCategorySid(int $categoryId): string
     {
         return CTicketDictionary::GetList('', '', ['ID' => $categoryId])->GetNext()['SID'];
+    }
+
+    public function getMenthorData(string $id): ?array
+    {
+        if ($id === 0) {
+            return null;
+        }
+
+        return (new User($id))->getPersonalData();
+    }
+
+    public function getOrderStatus(string $id): ?string 
+    {
+		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
+        $orderStatusClassName = $registry->getOrderStatusClassName();
+        $listStatusNames = $orderStatusClassName::getAllStatusesNames(LANGUAGE_ID);
+
+        foreach($listStatusNames as $key => $data)
+        {
+            $result[$key] = $data;
+        }
+
+        return $result[$id] ?? null;
     }
 }

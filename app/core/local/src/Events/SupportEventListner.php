@@ -338,7 +338,7 @@ class SupportEventListner
      */
     private function changeMentor(array $ticketValues): void
     {
-        $fields = json_decode($ticketValues['UF_DATA'], true)['CHANGE_MENTOR'];
+        $fields = json_decode($ticketValues['UF_DATA'], true);
 
         $user = new User($ticketValues['OWNER_USER_ID']);
 
@@ -396,7 +396,7 @@ class SupportEventListner
             Ссылка на детальную страницу заявки: "
                 . $protocol 
                 . $_SERVER['HTTP_HOST']
-                . '/bitrix/admin/applocation_detail.php?ID='
+                . '/bitrix/admin/personal_data.php?ID='
                 . $ticketValues["ID"],
             "MESSAGE_SEARCH" => "",
             "IS_SPAM" => null,
