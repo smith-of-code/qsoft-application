@@ -57,9 +57,9 @@
         $size: 14px;
 
         position: relative;
+        overflow: hidden;
 
         width: rem($size);
-        height: rem($size);
 
         border-radius: 50%;
 
@@ -68,6 +68,14 @@
 
             width: rem($size);
             height: rem($size);
+        }
+
+        &::before {
+            display: block;
+
+            padding-top: 100%;
+
+            content: '';
         }
 
         &--medium {
@@ -111,6 +119,19 @@
         &--white {
             border: rem(1px) solid $alto;
             background-color: $white;
+        }
+
+        &-wrapper {
+            @include position-stretching;
+        }
+
+        &-pic {
+            @include position-stretching;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
         }
     }
 
