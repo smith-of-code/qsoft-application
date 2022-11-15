@@ -187,6 +187,24 @@
                     display: none;
                 }
             }
+
+            &--close {
+                display: none;
+            }
+
+            &-menu--active & {
+                &--close {
+                    @media #{$screen-desktop} {
+                        display: block;
+                    }
+                }
+
+                &--open {
+                    @media #{$screen-desktop} {
+                        display: none;
+                    }
+                }
+            }
         }
     }
 }

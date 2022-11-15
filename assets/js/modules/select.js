@@ -29,6 +29,11 @@ export default function () {
             return result;
         };
 
+        function searchDisabled (element) {
+            let searchfield = element.parent().find('.select2-search__field');
+            searchfield.prop('disabled', true);
+        }
+
         const scrollOptions = {
             autohidemode: "leave",
             railpadding: { top: 0, right: 0, left: 6, bottom: 0 },
@@ -36,6 +41,15 @@ export default function () {
 
         $(ELEMENTS_SELECTOR.selectControl).each(function(index, select) {
             const $selectBox = $(select).closest(ELEMENTS_SELECTOR.selectBox);
+
+            const petsBreed = $selectBox.data('pets-breed');
+            if (petsBreed != undefined) {
+                baseOptions.language = {
+                    "noResults": ()=>{
+                        return "Выберите тип питомца";
+                    }
+                };
+            }
 
             const placeholder = $(select).attr('data-placeholder');
 
@@ -66,6 +80,9 @@ export default function () {
                             }
                         });
                     }
+                })
+                .on('select2:opening select2:closing', function() {
+                    searchDisabled($(this));
                 });
         });
     }

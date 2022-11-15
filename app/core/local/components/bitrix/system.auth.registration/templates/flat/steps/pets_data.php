@@ -190,7 +190,7 @@ if (!$arResult['pets']) {
                                                             <option><!-- пустой option для placeholder --></option>
                                                             <?php foreach ($breed as $breedId => $breedValue):?>
                                                                 <option value="<?=$breedId?>" <?=$pet['breed'] == $breedId ? 'selected' : ''?>>
-                                                                    <?=$breedValue?>
+                                                                    <?=$breedValue['name']?>
                                                                 </option>
                                                             <?php endforeach;?>
                                                         </select>
