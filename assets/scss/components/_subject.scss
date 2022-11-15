@@ -22,6 +22,7 @@
         }
 
         @media #{$screen-desktop} {
+            padding-right: rem($gap-average);
             padding-left: rem(64px);
         }
 

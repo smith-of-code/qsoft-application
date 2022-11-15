@@ -12,5 +12,15 @@
         letter-spacing: 0.05em;
 
         color: $white;
+
+        &--big {
+            font-size: rem($font-size-middle);
+            line-height: (29px / $font-size-middle);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-huge);
+                line-height: (39px / $font-size-huge);
+            }
+        }
     }
 }
