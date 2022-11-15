@@ -1,9 +1,12 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-
-dump($arResult);
-?>
-
 <?php
+if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+/** @var $APPLICATION **/
+/** @var $arResult **/
+
+use Bitrix\Main\Localization\Loc;
+
 $APPLICATION->IncludeComponent(
     'bitrix:breadcrumb',
     '',
@@ -15,10 +18,9 @@ $APPLICATION->IncludeComponent(
 );?>
 
 <div class="content__main content__main--separated">
-    <section class="section news__section">
+    <section class="section common_section">
         <div class="section__header">
             <h2 class="section__title">
-                Новости
             </h2>
         </div>
 
@@ -27,19 +29,19 @@ $APPLICATION->IncludeComponent(
                 <?php foreach ($arResult['ITEMS'] as $item) :?>
                 <li class="cards-article__item">
                     <article class="card-article card-article--green box box--hovering box--circle">
-                        <a href="<?="detail/" . $item['ID']?>" class="card-article__link"></a>
+                        <a href="<?=$item['DETAIL_URL']?>" class="card-article__link"></a>
 
                         <div class="card-article__inner">
                             <div class="card-article__banner">
                                 <img
-                                        src="<?=$item['PICTURE']?>"
-                                        alt="Изображение - анонс новости"
-                                        class="card-article__banner-image"
+                                    src="<?=$item['PICTURE']?>"
+                                    alt="<?=Loc::getMessage('ALT_PICTURE')?>"
+                                    class="card-article__banner-image"
                                 />
                             </div>
 
-                            <div class="card-article__label label label--secondary label--green">
-                                <?=$item['MARKER']?>
+                            <div class="card-article__label label label--secondary label--<?=$item['MARKER_COLOR']?>">
+                                <?=$item['MARKER_NAME']?>
                             </div>
 
                             <div class="card-article__content">
@@ -61,13 +63,11 @@ $APPLICATION->IncludeComponent(
                     </article>
                 </li>
                 <?php endforeach; ?>
-
             </ul>
         </div>
-
         <?php if (! $arResult['LAST']) :?>
-        <button type="button" class="news__more news__button button button--show button--rounded-big button--outlined button--green">
-            Показать больше
+        <button type="button" class="common-button button button--show button--rounded-big button--outlined button--green">
+            <?=Loc::getMessage('SHOW_MORE_BUTTON')?>
         </button>
         <?php endif; ?>
     </section>
@@ -75,9 +75,25 @@ $APPLICATION->IncludeComponent(
 </main>
 </div>
 </div>
-<!--content-->
+
 <script>
     const IBLOCK_ID = <?=$arResult['IBLOCK_ID']?>;
-    let offset = <?=$arResult['OFFSET']?>;
-<script>
+    offset = <?=json_encode($arResult['OFFSET'])?>;
+
+    let templateType = {
+        <?=IBLOCK_NEWS?>: {
+            style: 'news',
+            title: '<?=Loc::getMessage('TITLE_NEWS')?>',
+        },
+        <?=IBLOCK_EVENT?>: {
+            style: 'events',
+            title: '<?=Loc::getMessage('TITLE_EVENTS')?>',
+        },
+        <?=IBLOCK_EXPERT_ADVICE?>: {
+            style: 'expert-advice',
+            title: '<?=Loc::getMessage('TITLE_ADVICES')?>',
+        },
+    }
+</script>
+
 

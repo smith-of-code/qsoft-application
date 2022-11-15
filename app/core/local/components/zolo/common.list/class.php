@@ -2,6 +2,7 @@
 
 use \Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
+use QSoft\ORM\MarkerTable;
 
 //zolo:common.list -"общий": из названия раздела "Сервис Общие страницы" в ВТЗ
 class CommonPageComponent extends CBitrixComponent implements Controllerable
@@ -59,23 +60,40 @@ class CommonPageComponent extends CBitrixComponent implements Controllerable
                 'PREVIEW_TEXT',
                 'DETAIL_PICTURE',
                 'DETAIL_PAGE_URL',
-                'PROPERTY_MARKER',
+                'PROPERTY_HL_MARKER',
                 'PROPERTY_PUBLISHED_AT',
             ]
         );
-
+        $markers = self::getMarkers();
         while($item = $dbItems->GetNext(true, false)) {
+            $marker = $markers[$item['PROPERTY_HL_MARKER_VALUE']];
             $result[] = [
                 'ID' => $item['ID'],
                 'NAME' => $item['NAME'],
                 'PREVIEW_TEXT' => $item['PREVIEW_TEXT'],
-                'MARKER' => $item['PROPERTY_MARKER_VALUE'],
                 'PUBLISHED_AT' => date_format(date_create($item['PROPERTY_PUBLISHED_AT_VALUE']), 'd.m.Y'),
                 'PICTURE' => CFile::GetPath($item['DETAIL_PICTURE']),
                 'DETAIL_URL' => $item['DETAIL_PAGE_URL'],
+                'MARKER_NAME' => $marker['NAME'],
+                'MARKER_COLOR' => $marker['COLOR'],
             ];
         }
         return $result ?? [];
+    }
+
+    private static function getMarkers(): array
+    {
+        $markers = MarkerTable::getList([
+            'select' => [
+                'NAME' => 'UF_NAME',
+                'XML_ID' => 'UF_XML_ID',
+                'COLOR' => 'UF_COLOR_NAME.UF_XML_ID',
+            ],
+        ])->fetchAll();
+        foreach ($markers as $marker) {
+            $markers[$marker['XML_ID']] = $marker;
+        }
+        return $markers ?? [];
     }
 
     private static function includeModules()
