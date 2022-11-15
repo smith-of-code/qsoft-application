@@ -15,7 +15,8 @@ class SaleOrderAjaxComponent {
 
     async createOrder() {
         let data = {};
-
+        console.log($(`.form#order-form`).find('input, select'));
+        return;
         $(`.form`).find('input, select').each((index, item) => {
             if ($(item).attr('type') !== 'hidden' && !$(item).val()) {
                 if ($(item).attr('name') !== 'comment') {

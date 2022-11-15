@@ -24,7 +24,7 @@ dump($arResult);
                     <div class="basket__col basket__col--full">
 
                         <div class="basket-order__box box box--gray box--rounded-sm">
-                            <form class="basket-order__form form form--wraped">
+                            <form class="basket-order__form form form--wraped" id="order-form">
                                 <div class="form__row">
                                     <div class="form__col">
                                         <div class="form__field">
@@ -36,7 +36,7 @@ dump($arResult);
 
                                             <div class="form__field-block form__field-block--input">
                                                 <div class="input">
-                                                    <input type="text" class="input__control" value="<?=$arResult['USER']['LAST_NAME'] ?>" name="subname-required" id="subname-required" placeholder="Фамилия">
+                                                    <input type="text" class="input__control" value="<?=$arResult['USER']['LAST_NAME'] ?>" name="last_name" id="subname-required" placeholder="Фамилия">
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@ dump($arResult);
 
                                             <div class="form__field-block form__field-block--input">
                                                 <div class="input">
-                                                    <input type="text" class="input__control" value="<?=$arResult['USER']['FIRST_NAME'] ?>" name="name-required" id="name-required" placeholder="Имя">
+                                                    <input type="text" class="input__control" value="<?=$arResult['USER']['FIRST_NAME'] ?>" name="first_name" id="name-required" placeholder="Имя">
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@ dump($arResult);
                                             <div class="form__field-block form__field-block--input">
                                                 <div class="form__control">
                                                     <div class="select select--mitigate" data-select>
-                                                        <select class="select__control" name="delivery-method" data-select-control data-placeholder="Способ доставки">
+                                                        <select class="select__control" name="delivery_service" data-select-control data-placeholder="Способ доставки">
                                                             <option><!-- пустой option для placeholder --></option>
                                                             <?php foreach ($arResult['DELIVERY'] as $deliveryType): ?>
                                                                 <option value="<?=$deliveryType['ID'] ?>"><?=$deliveryType['NAME'] ?></option>
@@ -90,7 +90,7 @@ dump($arResult);
 
                                             <div class="form__field-block form__field-block--input">
                                                 <div class="input">
-                                                    <input type="text" class="input__control" value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>" name="delivery-date-required" id="delivery-date-required" placeholder="Дата доставки">
+                                                    <input type="text" class="input__control" value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>" name="delivery_date" id="delivery-date-required" placeholder="Дата доставки">
                                                 </div>
                                             </div>
                                         </div>
@@ -201,7 +201,7 @@ dump($arResult);
                                         </button>
                                     </div>
                                     <div class="form__col">
-                                        <button type="button" class="button button--rounded button--covered button--green button--full">
+                                        <button type="button" class="button button--rounded button--covered button--green button--full" data-create-order>
                                             Оформить заказ
                                         </button>
                                     </div>
@@ -220,42 +220,44 @@ dump($arResult);
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--gray">Количество товаров</span>
                                             <span class="basket-card__elipse">
-                                                ...
+                                            ......................................
                                             </span>
                                             <span class="basket-card__total" data-basket-product-total><?=$arResult['BASKET_POSITIONS']?></span> 
                                         </div>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
                                             <span class="basket-card__elipse">
-                                                ...
+                                            ............................................................
                                             </span>
                                             <span class="basket-card__total"><?=$arResult['ORDER_TAX_FORMATED']?></span> 
                                         </div>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text">Сумма заказа</span>
                                             <span class="basket-card__elipse">
-                                                ...
+                                            ............................................................
                                             </span>
                                             <span class="basket-card__total" data-basket-order-amount><?=$arResult['PRICE_WITHOUT_DISCOUNT']?></span> 
                                         </div>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--green">Экономия</span>
                                             <span class="basket-card__elipse">
-                                                ...
+                                            ...................................................................
                                             </span>
                                             <span class="basket-card__total" data-basket-economy><?=$arResult['BASKET_PRICE_DISCOUNT_DIFF']?></span> 
                                         </div>
-                                        <div class="basket-card__item">
-                                            <span class="basket-card__text basket-card__text--green">Будет начислено</span>
-                                            <span class="basket-card__elipse">
-                                                ...
-                                            </span>
-                                            <span class="basket-card__total" data-basket-economy><?=$arResult['BASKET_PRICE_DISCOUNT_DIFF']?></span> 
-                                        </div>
+                                        <?php if ($arResult['USER']['IS_CONSULTANT']):?>
+                                            <div class="basket-card__item">
+                                                <span class="basket-card__text basket-card__text--green">Будет начислено</span>
+                                                <span class="basket-card__elipse">
+                                                ......................................
+                                                </span>
+                                                <span class="basket-card__total" data-basket-economy><?=$arResult['BASKET_PRICE_DISCOUNT_DIFF']?></span> 
+                                            </div>
+                                        <?php endif;?>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
                                             <span class="basket-card__elipse">
-                                                ...
+                                            ...................................................................
                                             </span>
                                             <span class="basket-card__total basket-card__total--bold" data-basket-total><?=$arResult['ORDER_PRICE_FORMATED']?></span> 
                                         </div>
