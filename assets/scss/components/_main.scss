@@ -37,6 +37,10 @@
                 @media #{$screen-tablet} {
                     margin-bottom: rem($gap-normal);
                 }
+
+                @media #{$screen-tablet} {
+                    margin-bottom: rem($gap-big);
+                }
             }
         }
 
