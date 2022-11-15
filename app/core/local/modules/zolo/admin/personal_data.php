@@ -317,10 +317,10 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                             <span class="form__label-text">Дата рождения: <?=$oldMenthor['birthdate']?></span>
                         </div>
                         <div class="form__field-block form__field-block--label">
-                            <span class="form__label-text">email: <?=$oldMenthor['email']?></span>
+                            <span class="form__label-text">Email: <?=$oldMenthor['email']?></span>
                         </div>
                         <div class="form__field-block form__field-block--label">
-                            <span class="form__label-text">phone: <?=$oldMenthor['phone'] != '' ? $oldMenthor['phone'] : 'Не указан'?></span>
+                            <span class="form__label-text">Телефон: <?=$oldMenthor['phone'] != '' ? $oldMenthor['phone'] : 'Не указан'?></span>
                         </div>
                         <div class="form__field-block form__field-block--label">
                             <span class="form__label-text">Пол: <?=$genders[$oldMenthor['gender']] ?></span>
@@ -355,10 +355,10 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                                 <span class="form__label-text">Дата рождения: <?=$newMenthor['birthdate']?></span>
                             </div>
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text">email: <?=$newMenthor['email']?></span>
+                                <span class="form__label-text">Email: <?=$newMenthor['email']?></span>
                             </div>
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text">phone: <?=$newMenthor['phone'] != '' ? $newMenthor['phone'] : 'Не указан'?></span>
+                                <span class="form__label-text">Телефон: <?=$newMenthor['phone'] != '' ? $newMenthor['phone'] : 'Не указан'?></span>
                             </div>
                             <div class="form__field-block form__field-block--label">
                                 <span class="form__label-text">Пол: <?=$genders[$newMenthor['gender']] ?></span>
@@ -382,7 +382,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                             </div>
                             <br>
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text"><b>Коментарий пользователя:</b> <?=$ticketData['MESSAGE'] ?></span>
+                                <span class="form__label-text"><b>Комментарий пользователя:</b> <?=$ticketData['MESSAGE'] ?></span>
                             </div>
                         </div>
                     </div>
@@ -390,7 +390,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                     <div class="form__col">
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text"><b>Пользватель c id <?=$ticketData['NEW_MENTOR_ID']?> не найден!</b></span>
+                                <span class="form__label-text"><b>Пользователь c id <?=$ticketData['NEW_MENTOR_ID']?> не найден!</b></span>
                             </div>
                         </div>
                     </div>
@@ -431,7 +431,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                             </div>
                             <br>
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text">Коментарий к обращению: <?=$ticketData['MESSAGE'] ?></span>
+                                <span class="form__label-text">Комментарий к обращению: <?=$ticketData['MESSAGE'] ?></span>
                             </div>
                         </div>
                     </div>
@@ -445,7 +445,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                                 <span class="form__label-text"><b>Заказ № <?=$ticketData['ORDER_NUMBER'] ?> не найден!</b></span>
                             </div>
                             <div class="form__field-block form__field-block--label">
-                                <span class="form__label-text">Коментарий к обращению: <?=$ticketData['MESSAGE'] ?></span>
+                                <span class="form__label-text">Комментарий к обращению: <?=$ticketData['MESSAGE'] ?></span>
                             </div>
                         </div>
                     </div>
