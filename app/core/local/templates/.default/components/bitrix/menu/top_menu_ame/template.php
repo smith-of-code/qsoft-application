@@ -11,7 +11,13 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
                     <ul class="navigation__list">
                         <?php foreach ($arResult as $menuTab): ?>
                         <li class="navigation__item">
-                            <a href="<?=$menuTab['LINK'] ?>" class="navigation__button button button--simple button--red">
+                            <a
+                                href="<?=$menuTab['LINK'] ?>" 
+                                <?=$menuTab['PARAMS']['IMAGE'] ? 'type="button"' : '' ?>
+                                class="navigation__button button button--simple <?=
+                                    $menuTab['PARAMS']['ADDITIONAL_CLASS_TAG'] ?? 'button--red'
+                                ?>"
+                            >
                                 <?php if ($menuTab['PARAMS']['IMAGE']): ?>
                                     <span class="button__icon">
                                         <svg class="icon icon--discount">

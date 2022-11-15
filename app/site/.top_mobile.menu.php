@@ -27,7 +27,10 @@ $aMenuLinks = [
 		"Акции",
 		"#",
 		['SVG' => '/local/templates/.default/images/icons/sprite.svg#icon-discount'],
-		['IMAGE' => true],
+		[
+			'IMAGE' => true,
+			'ADDITIONAL_CLASS_TAG' => 'button--dark-red'
+		],
 		""
 	],
 ];
