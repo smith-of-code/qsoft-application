@@ -1,55 +1,51 @@
 <?php
 
-use Bitrix\Sale\Discount;
-use Bitrix\Sale\Order;
-use QSoft\Basket\BasketBonus;
 use QSoft\Entity\User;
-use QSoft\Service\BonusAccountService;
-use Bitrix\Currency\CurrencyManager;
-use Bitrix\Main;
-use Bitrix\Main\Loader;
-use Bitrix\Sale\Basket;
-use Bitrix\Sale\BasketBase;
-use Bitrix\Sale\BasketItem;
-use Bitrix\Sale\Fuser;
+use QSoft\Helper\BasketHelper;
 
 class SaleBasketTotal extends CBitrixComponent
 {
-    public function executeComponent()
+    private User $user;
+    private BasketHelper $basketHelper;
+
+    public function __construct($component = null)
     {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+        parent::__construct($component);
 
-        $basket->refresh();
-
-        $order = Order::create(SITE_ID, currentUser()->id);
-        $order->setPersonTypeId(1);
-        $order->setBasket($basket);
-
-        $this->arResult = [
-            'BASKET_COUNT' => $basket->count(),
-            'BASKET_PRICE' => $order->getPrice(),
-            'BASKET_BASE_PRICE'=> $order->getBasePrice(),
-            'BASKET_TOTAL_VAT' => $order->getVatSum(),
-            'TOTAL_DISCOUNT' => $order->getBasePrice() - $order->getPrice(),
-        ];
-
-        if (currentUser() && currentUser()->groups->isConsultant()) {
-            $this->loadBonusesBlock($basket);
-        }
-
-        dump([
-            '$this->arResult' => $this->arResult,
-            '$order->getDiscountPrice()' => $order->getDiscountPrice(),
-            '$order->getDiscount()' => $order->getDiscount()
-        ]);
+        $this->user = new User;
+        $this->basketHelper = new BasketHelper;
     }
 
-    public function loadBonusesBlock($basket)
+    public function executeComponent()
     {
-        $this->arResult = array_merge($this->arResult, [
-            'ACTIVE_BONUSES' => currentUser()->bonusPoints,
-            'BASKET_ITEMS_BONUS_SUM' => (new BasketBonus($basket))->getBasketItemsBonusSum(currentUser()),
-            'USER_LOYALTY_LEVEL' => currentUser()->loyaltyLevel
-        ]);
+        $isConsultant = $this->user->isAuthorized && $this->user->groups->isConsultant();
+        $basket = $this->basketHelper->getBasket();
+        $basketItems = $basket->toArray();
+        $offers = $this->user->products->getOffersByIds(array_column($basketItems, 'PRODUCT_ID'));
+
+        $basketBonuses = 0;
+        foreach ($basketItems as &$basketItem) {
+            if ($isConsultant) {
+                $basketBonuses += $offers[$basketItem['PRODUCT_ID']]['BONUSES'] * $basketItem['QUANTITY'];
+            }
+            $basketItem['OFFER'] = $offers[$basketItem['PRODUCT_ID']];
+            $basketItem['TOTAL_PRICE'] = $basketItem['PRICE'] * $basketItem['QUANTITY'];
+            $basketItem['TOTAL_BASE_PRICE'] = $basketItem['BASE_PRICE'] * $basketItem['QUANTITY'];
+        }
+
+        $this->arResult = [
+            'IS_CONSULTANT' => $isConsultant,
+            'BASKET_COUNT' => $basket->count(),
+            'BASKET_PRICE' => $basket->getPrice(),
+            'BASKET_BASE_PRICE'=> $basket->getBasePrice(),
+            'BASKET_TOTAL_VAT' => $basket->getVatSum(),
+            'TOTAL_DISCOUNT' => $basket->getBasePrice() - $basket->getPrice(),
+            'BASKET_ITEMS' => $basketItems,
+            'ACTIVE_BONUSES' => $this->user->bonusPoints,
+            'BASKET_ITEMS_BONUS_SUM' => $basketBonuses,
+            'USER_LOYALTY_LEVEL' => $this->user->loyaltyLevel,
+        ];
+
+        $this->includeComponentTemplate();
     }
 }

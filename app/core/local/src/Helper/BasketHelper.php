@@ -2,8 +2,18 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\ArgumentNullException;
+use Bitrix\Main\ArgumentOutOfRangeException;
+use Bitrix\Main\ArgumentTypeException;
+use Bitrix\Main\InvalidOperationException;
+use Bitrix\Main\NotImplementedException;
+use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\Discount;
+use Bitrix\Sale\Fuser;
+use RuntimeException;
 
 class BasketHelper
 {
@@ -56,5 +66,32 @@ class BasketHelper
         return $result;
     }
 
-
+    /**
+     * @return BasketBase
+     * @throws ArgumentException
+     * @throws ArgumentNullException
+     * @throws ArgumentOutOfRangeException
+     * @throws ArgumentTypeException
+     * @throws InvalidOperationException
+     * @throws NotImplementedException
+     */
+    public function getBasket(): BasketBase
+    {
+        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+        $context = new Discount\Context\Fuser($basket->getFUserId());
+        if ($discounts = Discount::buildFromBasket($basket, $context)) {
+            $discountsResult = $discounts->calculate();
+            if (!$discountsResult->isSuccess()) {
+                throw new RuntimeException($discountsResult->getErrorMessages());
+            }
+            $discountsData = $discountsResult->getData();
+            if ($discountsData['BASKET_ITEMS']) {
+                $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
+                if (!$applyResult->isSuccess()) {
+                    throw new RuntimeException($applyResult->getErrorMessages());
+                }
+            }
+        }
+        return $basket;
+    }
 }

@@ -17,9 +17,12 @@ use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Discount;
 use Bitrix\Sale\Fuser;
+use QSoft\Helper\BasketHelper;
 
 class BasketLineController extends Controller
 {
+    private BasketHelper $basketHelper;
+
     /**
      * @throws LoaderException
      */
@@ -27,6 +30,8 @@ class BasketLineController extends Controller
     {
         parent::__construct($request);
         $this->initModules();
+
+        $this->basketHelper = new BasketHelper;
     }
 
     /**
@@ -70,21 +75,7 @@ class BasketLineController extends Controller
      */
     public function getBasketTotalsAction(): array
     {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        $context = new Discount\Context\Fuser($basket->getFUserId());
-        if ($discounts = Discount::buildFromBasket($basket, $context)) {
-            $discountsResult = $discounts->calculate();
-            if (!$discountsResult->isSuccess()) {
-                throw new RuntimeException($discountsResult->getErrorMessages());
-            }
-            $discountsData = $discountsResult->getData();
-            if ($discountsData['BASKET_ITEMS']) {
-                $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
-                if (!$applyResult->isSuccess()) {
-                    throw new RuntimeException($applyResult->getErrorMessages());
-                }
-            }
-        }
+        $basket = $this->basketHelper->getBasket();
         $basketItems = $basket->toArray();
         return [
             'status' => 'success',

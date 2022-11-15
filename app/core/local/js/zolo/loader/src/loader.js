@@ -8,6 +8,7 @@ export class Loader {
         const pinia = createPinia();
 
         setActivePinia(pinia);
+        window.stores = {};
         for (const dataRoot in storesToLoad) {
             this.loadStore(dataRoot, storesToLoad[dataRoot]);
         }
@@ -18,16 +19,16 @@ export class Loader {
     }
 
     loadStore(root, store) {
+        const storeInstance = store.instance();
+        window.stores[store.name] = storeInstance;
+
         const rootElement = document.querySelector(root);
         if (rootElement) {
             let props = this.loadProperties(rootElement);
 
-            window.stores = {};
             for (const attributeName in props) {
                 let data = props[attributeName];
                 if (data) {
-                    const storeInstance = store.instance();
-                    window.stores[store.name] = storeInstance;
                     // Для загрузки из атрибута store должен релизовывать метод load(имя_свойства, данные)
                     // имя пропсы prop-some-name преобразуется в имя свойства someName
                     storeInstance.load(attributeName, data);
