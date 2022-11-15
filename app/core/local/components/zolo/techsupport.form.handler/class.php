@@ -138,7 +138,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         $user = new User();
         $this->arResult['EMAIL'] = $user->email;
         $this->arResult['ID'] = $user->id;
-        $this->arResult['MENTHOR_ID'] = $user->menthor->id ?? false;
+        $this->arResult['MENTHOR_ID'] = $user->getMentor()->id ?? false;
         $this->arResult['NAME'] = $user->name;
         $this->arResult['LAST_NAME'] = $user->lastName;
         $this->arResult['SECOND_NAME'] = $user->secondName;
@@ -196,6 +196,8 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
      */
     private function getFields(array $fields): array
     {
+        $user = new User();
+
         return [
             self::TICKET_TYPES['REFUND_ORDER'] => [
                'TITLE' => 'Создано обращение по возврату товара',
@@ -207,7 +209,12 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                'STATUS_SID' => '',
                'MARK_ID' => '',
                'RESPONSIBLE_USER_ID' => '',
-               'UF_DATA' => '',
+               'UF_DATA' => json_encode(
+                        [
+                            'REFUND_ORDER' => ['ORDER_NUMBER' => $fields['ORDER_NUMBER']],
+                            'USER_ID' => $user->id,
+                        ]
+                    ),
                'UF_ACCEPT_REQUEST' => '',
             ],
             self::TICKET_TYPES['SUPPORT'] => [
@@ -235,7 +242,16 @@ ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.
                'STATUS_SID' => '',
                'MARK_ID' => '',
                'RESPONSIBLE_USER_ID' => '',
-               'UF_DATA' => '',
+               'UF_DATA' => json_encode([
+                    'CHANGE_MENTOR' => [
+                            'OLD_MENTOR_ID' => $fields['MENTOR_ID'],
+                            'MEW_MENTOR_ID' => $fields['NEW_MENTOR_ID'],
+                            'COUSES' => $fields['COUSES'],
+                            'MESSAGE' => $fields['MESSAGE'],
+                            'USER_ID' => $user->id,
+                        ]
+                    ]
+                ),
                'UF_ACCEPT_REQUEST' => '',
             ],
             self::TICKET_TYPES['OTHER'] => [

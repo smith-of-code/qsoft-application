@@ -5,6 +5,11 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
+
+global $USER;
+$isAuthorize = $USER->IsAuthorized();
+
+$loginLink = '/login/';
 ?>
 
 <ul class="footer__list <?= $arParams['COLUMN_ADDITIONAL_CLASS'] ?>">
@@ -22,8 +27,8 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     <?php foreach($arResult as $itemIndex => $arItem):?>
         <li class="footer__item">
             <a
-                href="<?=htmlspecialcharsbx($arItem["LINK"])?>"
-                class="footer__link" <?=$arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' ?>
+                href="<?=$isAuthorize ? htmlspecialcharsbx($arItem["LINK"]) : $loginLink ?>"
+                class="footer__link" <?=$isAuthorize ? $arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' : '' ?>
             ><?=htmlspecialcharsbx($arItem["TEXT"], ENT_COMPAT, false);?></a>
         </li>
     <?php endforeach;?>

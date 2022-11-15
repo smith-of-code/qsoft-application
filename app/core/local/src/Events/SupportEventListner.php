@@ -73,6 +73,15 @@ class SupportEventListner
                     $this->changeRole($ticketValues);
                 }
                 break;
+            case TicketHelper::CHANGE_MENTOR:
+                // Событие для смены наставника.
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->changeMentor($ticketValues);
+                }
+                break;
             case TicketHelper::SUPPORT_CATEGORY:
                 // Событие для техподдержки.
                 break;
@@ -320,6 +329,20 @@ class SupportEventListner
         if ($groups->isBuyer()) {
             $groups->removeFromGroup($groups->USER_GROUP_BUYER);
         }
+    }
+
+    /**
+     * @param array $formValues
+     * 
+     * @return void
+     */
+    private function changeMentor(array $ticketValues): void
+    {
+        $fields = json_decode($ticketValues['UF_DATA'], true)['CHANGE_MENTOR'];
+
+        $user = new User($ticketValues['OWNER_USER_ID']);
+
+        $user->update(['UF_MENTOR_ID' => $fields['NEW_MENTOR_ID']]);
     }
 
     /**

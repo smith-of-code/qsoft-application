@@ -31,9 +31,26 @@ if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 		<?php foreach ($fields as $key => $value): ?>
 				<div>
 					<hr>
-						<b><?=$key == 'USER_INFO' ? 'Информация о пользователе' : 'Юридическая информация'?></b>:
-					<hr>
-					<?=$formHandler->prepareFields($value)?>
+						<?php if ($key == 'USER_INFO'): ?> 
+							<b>Информация о пользователе</b>:
+							<hr>
+							<?=$formHandler->prepareFields($value)?>
+						<?php elseif ($key == 'LEGAL_ENTITY'): ?> 
+							<b>Юридическая информация</b>:
+							<hr>
+							<?=$formHandler->prepareFields($value)?>
+						<?php elseif ($key == 'REFUND_ORDER'): ?> 
+							<b>Информация по возврату товара</b>:
+							<hr>
+							<?=$formHandler->getOrderInfo($value)?>
+						<?php elseif ($key == 'CHANGE_MENTOR'): ?> 
+							<b>Информация по смене ментора</b>:
+							<hr>
+							<?=$formHandler->getMentorInfo($value)?>
+						<?php else: ?> 
+							<b>Иная информация</b>:
+							<hr>
+						<?php endif; ?>
 				</div>
 		<?php endforeach; ?>
 	</div>

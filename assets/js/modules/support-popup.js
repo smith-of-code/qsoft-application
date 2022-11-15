@@ -208,7 +208,7 @@ function setDataToPopup (data, selected) {
 
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input input--simple">
-                                        <input type="text" class="input__control" name="MENTOR_ID" id="mentor_id" value="${data.MENTOR_ID ?? 'Нет наставника'}" readonly  data-variant-value="CHANGE_MENTOR">
+                                        <input type="text" class="input__control" name="MENTOR_ID" id="mentor_id" value="${data.MENTHOR_ID ?? 'Нет наставника'}" readonly  data-variant-value="CHANGE_MENTOR">
                                     </div>
                                 </div>
                             </div>
