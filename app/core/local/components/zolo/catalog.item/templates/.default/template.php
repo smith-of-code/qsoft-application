@@ -130,7 +130,6 @@ if (isset($arResult['ITEM']))
 
             <div class="product-card__content">
                 <h6 id="<?=$domElementsIds['title']?>" class="product-card__title"><?= $productTitle ?></h6>
-
                 <p id="<?=$domElementsIds['article']?>" class="product-card__article"><?=$actualItem['article'] ?? ''?></p>
 
                 <?php if (isset($arParams['SKU_PROPS']['COLOR']) && $item['OFFERS_PROP']['COLOR']):
@@ -138,7 +137,9 @@ if (isset($arResult['ITEM']))
                     $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
                     ?>
                     <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
-                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    // Записываем параметры элемента ввода для дальнейшего удобного обращения через JS
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['name'] = $propName;
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['type'] = 'radio';
                     ?>
                         <div class="product-card__colors colors">
                             <ul class="colors__list">
@@ -176,7 +177,9 @@ if (isset($arResult['ITEM']))
                     $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
                     ?>
                     <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
-                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    // Записываем параметры элемента ввода для дальнейшего удобного обращения через JS
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['name'] = $propName;
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['type'] = 'select';
                     ?>
                         <div class="product-card__breed">
                             <div class="select select--mini" data-select>
@@ -207,7 +210,9 @@ if (isset($arResult['ITEM']))
                     $propName = $elementIdPrefix . 'PROP_' . $offerPropId;
                     ?>
                     <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
-                        $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop'] = $propName;
+                    // Записываем параметры элемента ввода для дальнейшего удобного обращения через JS
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['name'] = $propName;
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['type'] = 'radio';
                     ?>
                         <div class="product-card__packs product-card__packs--desktop packs">
                         <ul class="packs__list">
@@ -243,7 +248,9 @@ if (isset($arResult['ITEM']))
                     $propName = $elementIdPrefix . 'PROP_' . $offerPropId . '_M';
                     ?>
                     <?php if (is_numeric(array_key_first($item['SKU_TREE_VALUES'][$offerPropId]))):
-                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['mobile'] = $propName;
+                    // Записываем параметры элемента ввода для дальнейшего удобного обращения через JS
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['mobile']['name'] = $propName;
+                    $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['mobile']['type'] = 'select';
                     ?>
                         <div class="product-card__packs product-card__packs--mobile">
                         <div class="select select--mini" data-select>
