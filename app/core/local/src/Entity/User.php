@@ -19,6 +19,7 @@ use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
 use QSoft\Service\NotificationService;
 use QSoft\Service\OrderAmountService;
+use QSoft\Service\ProductService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
@@ -63,6 +64,7 @@ class User
      * @var PetService Объект для работы с питомцами пользователя
      */
     public PetService $pets;
+    public ProductService $products;
     public BonusAccountService $bonusAccount;
 
     /**
@@ -250,6 +252,7 @@ class User
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
+        $this->products = new ProductService($this);
         $this->bonusAccount = new BonusAccountService($this);
 
         if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {

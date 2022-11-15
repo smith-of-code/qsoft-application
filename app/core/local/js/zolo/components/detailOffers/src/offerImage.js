@@ -1,28 +1,29 @@
 import {detailOfferStore} from "../../../stores/detailOfferStore";
 import {mapState} from "ui.vue3.pinia";
+import initSwiper from "../../../../../../../../assets/js/modules/swiper";
 
 export const OfferImage = {
     data() {
-        return {}
+        return {};
     },
     computed: {
         ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'images']),
     },
+
     setup() {
-        const store = detailOfferStore();
-        return {
-            store
-        }
+        return { store: detailOfferStore() };
     },
+
     mounted() {
-        window.swiper.destroy();
-        window.initSlider();
+        window.swiper?.destroy();
+        initSwiper();
     },
+
     updated() {
-        window.swiper.destroy();
-        window.initSlider();
+        window.swiper?.destroy();
+        initSwiper();
     },
-     // language=Vue
+
     template: ` 
             <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>

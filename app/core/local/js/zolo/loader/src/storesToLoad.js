@@ -1,5 +1,8 @@
 import {detailOfferStore} from "../../stores/detailOfferStore";
 
 export default {
-    '#detailofferStore': detailOfferStore
+    '#detailofferStore': {
+        name: 'detailOfferStore',
+        instance: detailOfferStore,
+    },
 }

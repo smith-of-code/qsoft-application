@@ -7,7 +7,9 @@ use Bitrix\Iblock\Component\Tools;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Iblock\Model\PropertyFeature;
 use Bitrix\Iblock\Component\Element;
+use QSoft\Entity\User;
 use QSoft\Helper\HLReferencesHelper;
+use QSoft\Service\ProductService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -24,6 +26,15 @@ if (!Loader::includeModule('iblock'))
 class CatalogElementComponent extends Element
 {
     private bool $isError = false;
+
+    private User $user;
+
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+
+        $this->user = new User;
+    }
 
     /**
      * @param array $arParams
@@ -98,12 +109,11 @@ class CatalogElementComponent extends Element
                     'PREVIEW_TEXT_TYPE',
                 ];
 
-                $fileIds = [];
                 $product = $this->getProduct($baseSelect);
                 $this->arResult['PRODUCT'] = $product;
 
                 $fileIds = $this->getFilesByItem($product);
-                $offers = $this->getOffers($product['ID'], $baseSelect, $fileIds); // TODO filesids
+                $offers = $this->getOffers($product['ID'], $fileIds); // TODO filesids
                 $this->arResult['OFFERS'] = $offers;
 
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
@@ -189,58 +199,13 @@ class CatalogElementComponent extends Element
         return $product;
     }
 
-    private function getOffers(int $productId, array $arSelect, array &$fileIds): array
+    private function getOffers(int $productId, array &$fileIds): array
     {
-        $filter = [
-            'ACTIVE' => 'Y'
-        ];
-
-        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter , ['IBLOCK_ID']);
-        $offers = [];
-        if (!empty($offersResult) && !empty(current($offersResult))) {
-            $offersIblockIds = array_unique(array_column(current($offersResult), 'IBLOCK_ID'));
-            foreach ($offersIblockIds as $item) {
-                $properties = [];
-                CIBlockElement::GetPropertyValuesArray($properties, $item, []);
-
-                $keys = $this->getPropertyKeys($properties);
-                $arSelect = array_merge($arSelect, $keys);
-
-                $currentOffers = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], $filter, array_merge($arSelect, ['CATALOG_AVAILABLE']));
-                $offers = array_merge($offers, current($currentOffers));
-                foreach (current($currentOffers) as $offer) {
-                    $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
-                }
-            }
+        $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], ['ACTIVE' => 'Y'], ['IBLOCK_ID']);
+        $offers = $this->user->products->getOffersByIds(array_keys($offersResult[$productId]));
+        foreach ($offers as $offer) {
+            $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
         }
-
-        usort($offers, function ($a, $b) {
-            if ($a['CATALOG_AVAILABLE'] == $b['CATALOG_AVAILABLE']) {
-                return  $a['SORT'] > $b['SORT'];
-            } else if ($a['CATALOG_AVAILABLE'] == 'Y') {
-                return false;
-            } else {
-                return true;
-            }
-
-        });
-
-        if ($ids = array_column($offers, 'ID')) {
-            $prices = PriceTable::getList([
-                'filter' => ['=PRODUCT_ID' => $ids],
-            ])->fetchAll();
-            foreach ($offers as &$offer) {
-                // TODO получение баллов
-                $price = current(array_filter($prices, function ($item) use ($offer) {
-                    return (int) $item['PRODUCT_ID'] === $offer['ID'];
-                }));
-
-                if ($price) {
-                    $offer['PRICE'] = $price;
-                }
-            }
-        }
-
         return $offers;
     }
 
@@ -301,10 +266,12 @@ class CatalogElementComponent extends Element
     private function transformData(array $data): array
     {
         $result = [
+            'IS_CONSULTANT' => $this->user->isAuthorized && $this->user->groups->isConsultant(),
             'ID' => $data['PRODUCT']['ID'],
             'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
+            'BONUSES_PRICES' => [],
             'DISCOUNT_LABELS' => [],
             'COLORS' => [],
             'SIZES' => [],
@@ -334,7 +301,10 @@ class CatalogElementComponent extends Element
 
         foreach ($data['OFFERS'] as $offer) {
             $result['SORT'][] = $offer['ID'];
-            $result['PRICES'][$offer['ID']] = $offer['PRICE'];
+            $result['PRICES'][$offer['ID']] = $offer['PRICES'];
+            if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
+                $result['BONUSES_PRICES'][$offer['ID']] = $offer['BONUSES'];
+            }
 
             $result['DISCOUNT_LABELS'][$offer['ID']]['NAME'] = $offer['PROPERTY_DISCOUNT_LABEL_VALUE'];
             $result['DISCOUNT_LABELS'][$offer['ID']]['COLOR'] = $this->getDiscountLabelColor($offer['PROPERTY_DISCOUNT_LABEL_VALUE']);

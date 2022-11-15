@@ -2,28 +2,51 @@ import {defineStore} from 'ui.vue3.pinia';
 
 export const useBasketStore = defineStore('basket', {
     state: () => ({
-        items: [],
+        items: {},
         itemsCount: undefined,
         basketPrice: undefined,
-        loading: false
+        loading: false,
     }),
-    getters: {
-        getItemsCount: (state) => {
-            return state.items.length;
-        },
-    },
     actions: {
-        addItem(payload) {
-            items.push(payload);
+        getItem(id) {
+            return this.items[id];
         },
         async fetchBasketTotals() {
             this.loading = true;
-
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {})
                     .then((response) => response.data);
 
-                this.itemsCount = response.itemsCount;
+                this.items = response.items;
+                this.itemsCount = Object.values(response.items).length;
+                this.basketPrice = response.basketPrice;
+            } finally {
+                this.loading = false;
+            }
+        },
+        async increaseItem(offerId, bonuses) {
+            this.loading = true;
+            try {
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
+                    data: { offerId, bonuses }
+                }).then((response) => response.data);
+
+                this.items = response.items;
+                this.itemsCount = Object.values(response.items).length;
+                this.basketPrice = response.basketPrice;
+            } finally {
+                this.loading = false;
+            }
+        },
+        async decreaseItem(offerId) {
+            this.loading = true;
+            try {
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'decreaseItem', {
+                    data: { offerId }
+                }).then((response) => response.data);
+
+                this.items = response.items;
+                this.itemsCount = Object.values(response.items).length;
                 this.basketPrice = response.basketPrice;
             } finally {
                 this.loading = false;
