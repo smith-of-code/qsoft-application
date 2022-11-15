@@ -114,7 +114,7 @@
 
             @media #{$screen-tablet} {
                 margin-bottom: 0;
-                margin-left: rem($gap-big);
+                margin-left: rem($gap-normal);
             }
         }
 
@@ -132,6 +132,12 @@
             @media #{$screen-tablet} {
                 order: initial;
             }
+
+            @media #{$screen-desktop} {
+                flex-shrink: 0;
+
+                width: rem(274px);
+            }
         }
 
         &--composition {
@@ -139,6 +145,7 @@
 
             @media #{$screen-tablet} {
                 order: initial;
+                flex-shrink: 0;
             }
         }
     }
@@ -176,6 +183,14 @@
 
     &__main {
         position: relative;
+    }
+
+    &__piece {
+        position: relative;
+
+        max-width: rem(80px);
+        margin-right: auto;
+        margin-left: auto;
     }
 
     &__total {
@@ -226,16 +241,16 @@
 
     &__composition {
         display: flex;
-        align-items: center;
         justify-content: center;
         flex-wrap: wrap;
 
         margin: rem(-10px);
+        margin-top: rem(-20px);
         margin-bottom: 0;
 
         &-item {
             width: percentage(1 / 2);
-            margin-top: rem(10px);
+            margin-top: rem(20px);
             padding-right: rem(10px);
             padding-left: rem(10px);
         }

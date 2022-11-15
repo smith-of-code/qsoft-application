@@ -14,6 +14,7 @@ export default function () {
             layout: {
                 padding: 40
             },
+            borderWidth: 2,
 
             plugins: {
                 datalabels: {
@@ -23,7 +24,7 @@ export default function () {
                     color: '#3A3A43',
                     anchor: 'end',
                     align: 'end',
-                    offset: -2,
+                    offset: -1,
                     display: 'auto',
                 },
                 tooltip: {},
@@ -33,6 +34,7 @@ export default function () {
         if ($(chartItem).attr('data-chart-no-labels') != undefined) {
             baseOptions.plugins.datalabels.display = false;
             baseOptions.layout.padding = 0;
+            baseOptions.borderWidth = 0;
         }
 
         if ($(chartItem).attr('data-chart-no-tooltip') != undefined) {
