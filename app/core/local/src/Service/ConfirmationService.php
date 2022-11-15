@@ -8,6 +8,7 @@ use Bitrix\Main\Mail\Event;
 use Bitrix\Main\Localization\Loc;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Environment;
 use QSoft\ORM\ConfirmationTable;
 
 Loc::loadMessages(__FILE__);
@@ -91,9 +92,13 @@ class ConfirmationService
 
     public function verifySmsCode(string $code): bool
     {
-        $actualCode = ConfirmationTable::getActiveSmsCode($this->user->id);
+        if (Environment::isDev() || Environment::isTest()) {
+            return true;
+        } else {
+            $actualCode = ConfirmationTable::getActiveSmsCode($this->user->id);
 
-        return $actualCode && $actualCode === $code;
+            return $actualCode && $actualCode === $code;
+        }
     }
 
     public function verifyEmailCode(string $code, string $type): bool
