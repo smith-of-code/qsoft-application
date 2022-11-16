@@ -2,14 +2,11 @@
 
 namespace QSoft\Service;
 
-use	Bitrix\Main\Loader;
-use Bitrix\Iblock\Iblock;
-use Bitrix\Main\ORM\Data\DataManager;
-use Bitrix\Main\ORM\Fields\Relations\Reference;
+use Bitrix\Catalog\GroupTable;
+use Bitrix\Catalog\PriceTable;
 use Bitrix\Sale\Internals\BasketTable;
 use CCatalogProduct;
 use CIBlockElement;
-use Bitrix\Main\ORM\Query\Join;
 use QSoft\Entity\User;
 
 class ProductService
@@ -54,26 +51,88 @@ class ProductService
         return $offers;
     }
 
-    /**
-     * @return DataManager|string
-     */
-    public static function getProductOfferDataClass(): string
+    public static function getProductDataFromBasket(int $orderId, int $offset = 0, int $limit = 0): array
     {
-        self::includeModules();
-        $basketProductIdRef = new Reference('BASKET',
-            BasketTable::class,
-            Join::on('this.ID', 'ref.PRODUCT_ID'));
-        $offerProductEntity = IBlock::wakeUp(IBLOCK_PRODUCT_OFFER)
-            ->getEntityDataClass()
-            ::getEntity();
-        $offerProductEntity->addField($basketProductIdRef);
-        return $offerProductEntity->getDataClass();
+        return BasketTable::getList([
+            'select' => [
+                'PRODUCT_ID',
+                'PRICE',
+                'QUANTITY',
+            ],
+            'filter' => [
+                'ORDER_ID' => $orderId,
+            ],
+            'offset' => $offset,
+            'limit' => $limit,
+        ])->fetchAll();
     }
 
-
-    private static function includeModules(): void
+    public static function getProductByIds(array $productsIds): array
     {
-        Loader::includeModule('iblock');
-        Loader::includeModule('sale');
+        if (empty($productsIds)) {
+            return [];
+        }
+
+        $offersResult = \CIBlockElement::GetList(
+            [],
+            [
+                'ID' => $productsIds
+            ],
+            false,
+            false,
+            [
+                'ID',
+                'NAME',
+                'PROPERTY_ARTICLE',
+                'PROPERTY_IMAGES',
+            ]
+        );
+        $offers = [];
+        while ($offer = $offersResult->GetNext(true, false)) {
+            $offers[$offer['ID']] = $offer;
+        }
+        return $offers;
+    }
+
+    public static function getBonusByProductIds(array $productIds): array
+    {
+        if (empty($productIds)) {
+            return [];
+        }
+
+        $levelId = 0;
+
+        $levels = GroupTable::GetList(
+            [
+                'select' => ['*'],
+            ]
+        )->fetchAll();
+
+        $user = new User();
+
+        $level = $user->loyalty->getLoyaltyProgramInfo()['CURRENT_LEVEL'];
+
+        foreach ($levels as $lvl) {
+            if ($lvl['NAME'] == $level) {
+                $levelId = $lvl['ID'];
+                break;
+            }
+        }
+
+        $dbBonuses = PriceTable::GetList(
+            [
+                'select' => ['*'],
+                'filter' => [
+                    'PRODUCT_ID' => $productIds,
+                    'CATALOG_GROUP_ID' => $levelId,
+                ],
+            ]
+        );
+
+        while ($row = $dbBonuses->Fetch()) {
+            $bonuses[$row['PRODUCT_ID']] = $row;
+        }
+
+        return $bonuses ?? [];
     }
 }

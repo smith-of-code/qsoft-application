@@ -1,5 +1,6 @@
 const ELEMENTS_SELECTOR = {
     button: '[data-dropdown-button]',
+    buttonMenu: '[data-dropdown-burger]',
     dropdownBlock: '[data-dropdown-block]',
     dropdown: '[data-dropdown]',
     close: '[data-dropdown-close]',
@@ -22,6 +23,12 @@ export default function () {
             dropdown.removeClass('dropdown--active');
             $(this).off('click.dropdown'+rund);
         });
+
+        if (dropdown.hasClass('dropdown--active')) {
+            $(ELEMENTS_SELECTOR.buttonMenu).addClass('header__catalog-button-menu--active');
+        } else {
+            $(ELEMENTS_SELECTOR.buttonMenu).removeClass('header__catalog-button-menu--active');
+        }
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.close, function() {

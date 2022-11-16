@@ -111,7 +111,7 @@
     line-height: ($line-height-middle / $font-size);
 
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         $font-size: $font-size-huge;
 
         font-size: rem($font-size);
@@ -127,7 +127,7 @@
     line-height: ($line-height-normal / $font-size);
 
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         $font-size: $font-size-large;
 
         font-size: rem($font-size);

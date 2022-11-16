@@ -12,9 +12,11 @@
     }
 
     &__main {
-        font-size: rem($font-size-small);
+        font-size: rem($font-size-miniature);
 
         @media #{$screen-desktop} {
+            font-size: rem($font-size-small);
+
             margin-bottom: rem(6px);
         }
     }
@@ -34,9 +36,9 @@
         }
 
         &-total {
-            font-size: rem($font-size-medium);
+            font-size: rem($font-size-mini);
             font-weight: $font-weight-bold;
-            line-height: rem($line-height-medium);
+            line-height: ($line-height-small/$font-size-mini);
 
             margin-right: rem(6px);
 

@@ -1,5 +1,6 @@
 <?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
 $arResult = $_REQUEST['data']['orders'];
+define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
 ?>
 <!-- Карточка заказа -->
 <?php foreach ($arResult['ORDERS'] as $order): ?>
@@ -8,7 +9,7 @@ $arResult = $_REQUEST['data']['orders'];
         <article class="card-order card-order--green">
             <div class="card-order__inner">
                 <header class="card-order__header">
-                    <a href="#" class="card-order__link"></a>
+                    <a href="<?=SEF_FOLDER . $order['ORDER']['ID']?>" class="card-order__link"></a>
                     <ul class="card-order__list">
                         <li class="card-order__item">
                             <h2 class="card-order__title">
@@ -72,7 +73,7 @@ $arResult = $_REQUEST['data']['orders'];
                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                         </span>
                                     </p>
-                                    <p class="price__calculation-accumulation">119 ББ</p>
+                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['PROPERTIES']['POINTS'] ?? 0 ?> ББ</p>
                                 </div>
                             </div>
                         </li>
