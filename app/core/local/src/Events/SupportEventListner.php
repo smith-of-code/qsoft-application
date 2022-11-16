@@ -12,7 +12,6 @@ use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
-use QSoft\Notifiers\SupportTicketUpdateNotifier;
 
 /**
  * Класс обработки событий техподдержки.
@@ -74,16 +73,21 @@ class SupportEventListner
                     $this->changeRole($ticketValues);
                 }
                 break;
+            case TicketHelper::CHANGE_MENTOR:
+                // Событие для смены наставника.
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->changeMentor($ticketValues);
+                }
+                break;
             case TicketHelper::SUPPORT_CATEGORY:
                 // Событие для техподдержки.
                 break;
             default:
                 break;
         }
-
-        //Добавить уведомление
-        $notifier = new SupportTicketUpdateNotifier($ticketValues);
-        (new User($ticketValues['OWNER_USER_ID']))->notification->sendNotification($notifier->getTitle(), $notifier->getMessage(), $notifier->getLink());
     }
 
     /**
@@ -94,11 +98,10 @@ class SupportEventListner
      */
     public function onAfterTicketAdd(array $ticketValues): void
     {
-        if (empty($ticketValues['CATEGORY_ID']) || $ticketValues['CATEGORY_ID'] == 0) {
-            return; // возвращаем void если не выбрана категория.
+        if ($ticketValues['CATEGORY_ID'] != null && $ticketValues['CATEGORY_ID'] <= 0) {
+            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         }
 
-        $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
                 ->GetNext();
@@ -113,8 +116,6 @@ class SupportEventListner
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
-
-            $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
             
             $phoneNumberToSend
                 = (new \CUser)->GetList('', '', ['ID' => $ticket['RESPONSIBLE_USER_ID']])->GetNext()['PERSONAL_PHONE'];
@@ -220,7 +221,13 @@ class SupportEventListner
     private function prepareFieldsToMessageAddingTicket(array $ticket)
     {
         $status = CUserFieldEnum::GetList([], ['ID' => $ticket['UF_ACCEPT_REQUEST']])->GetNext();
-        $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID'])->GetNext();
+        
+        if ($ticket['CATEGORY_ID'] != null && $ticket['CATEGORY_ID'] <= 0) {
+            $category = (new CTicketDictionary())->GetByID($ticket['CATEGORY_ID']);
+            if ($category) {
+                $category = $category->GetNext();
+            }
+        }
         $rsSites = CSite::GetByID(SITE_ID)->Fetch();
         $siteEmail = $rsSites['EMAIL'];
 
@@ -325,6 +332,20 @@ class SupportEventListner
     }
 
     /**
+     * @param array $formValues
+     * 
+     * @return void
+     */
+    private function changeMentor(array $ticketValues): void
+    {
+        $fields = json_decode($ticketValues['UF_DATA'], true);
+
+        $user = new User($ticketValues['OWNER_USER_ID']);
+
+        $user->update(['UF_MENTOR_ID' => $fields['NEW_MENTOR_ID']]);
+    }
+
+    /**
      * @param mixed $formValues
      * @param mixed $userId
      * 
@@ -375,7 +396,7 @@ class SupportEventListner
             Ссылка на детальную страницу заявки: "
                 . $protocol 
                 . $_SERVER['HTTP_HOST']
-                . '/bitrix/admin/applocation_detail.php?ID='
+                . '/bitrix/admin/personal_data.php?ID='
                 . $ticketValues["ID"],
             "MESSAGE_SEARCH" => "",
             "IS_SPAM" => null,
