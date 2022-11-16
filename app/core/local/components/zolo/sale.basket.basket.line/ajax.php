@@ -140,7 +140,7 @@ class BasketLineController extends Controller
         /** @var BasketItem $basketItem */
         foreach ($basket->getBasketItems() as $basketItem) {
             if ($basketItem->getProductId() === $offerId) {
-                if ($basketItem->getQuantity() > $quantity) {
+                if ($quantity && $basketItem->getQuantity() > $quantity) {
                     $basketItem->setField('QUANTITY', $basketItem->getQuantity() - $quantity);
                     $result = $basketItem->save();
                 } else {

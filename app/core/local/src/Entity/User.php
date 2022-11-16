@@ -23,6 +23,7 @@ use QSoft\Service\ProductService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
+use QSoft\Service\WishlistService;
 use ReflectionProperty;
 use RuntimeException;
 
@@ -65,6 +66,7 @@ class User
      */
     public PetService $pets;
     public ProductService $products;
+    public WishlistService $wishlist;
     public BonusAccountService $bonusAccount;
 
     /**
@@ -253,6 +255,7 @@ class User
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
         $this->products = new ProductService($this);
+        $this->wishlist = new WishlistService($this);
         $this->bonusAccount = new BonusAccountService($this);
 
         if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {

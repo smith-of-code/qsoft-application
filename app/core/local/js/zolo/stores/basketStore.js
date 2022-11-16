@@ -24,7 +24,7 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = false;
             }
         },
-        async increaseItem(offerId, bonuses) {
+        async increaseItem(offerId, bonuses = 0) {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
@@ -38,11 +38,11 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = false;
             }
         },
-        async decreaseItem(offerId) {
+        async decreaseItem(offerId, quantity = 1) {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'decreaseItem', {
-                    data: { offerId }
+                    data: { offerId, quantity }
                 }).then((response) => response.data);
 
                 this.items = response.items;

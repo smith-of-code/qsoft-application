@@ -14,13 +14,13 @@ $APPLICATION->setTitle('Корзина');?>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
-                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item>
+                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-product-id="<?=$basketItem['OFFER']['PRODUCT_ID']?>">
                             <article class="card-cart">
-                                <a href="#" class="card-cart__link"></a>
+                                <a href="<?=$basketItem['OFFER']['DETAIL_PAGE_URL']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
-                                            <img src="/local/templates/.default/images/portage.png" alt="#" class="card-cart__image-picture">
+                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC']?>" alt="#" class="card-cart__image-picture">
                                         </div>
                                         <div class="card-cart__info">
                                             <h2 class="card-cart__title">
@@ -31,44 +31,40 @@ $APPLICATION->setTitle('Корзина');?>
                                             </p>
 
                                             <ul class="card-cart__types types">
-                                                <li class="types__item">
-                                                    <p class="types__value">
-                                                        600 г
-                                                    </p>
-                                                </li>
-                                                <li class="types__item">
-                                                    <p class="types__value">
-                                                        Для средних пород
-                                                    </p>
-                                                </li>
-                                                <li class="types__item">
-                                                    <p class="types__value">
-                                                        600 г
-                                                    </p>
-                                                </li>
+                                                <?php foreach ($basketItem['OFFER']['SELECTS'] as $select):?>
+                                                    <li class="types__item">
+                                                        <p class="types__value">
+                                                            <?=$select?>
+                                                        </p>
+                                                    </li>
+                                                <?php endforeach;?>
                                             </ul>
 
                                             <ul class="card-cart__status product-status">
-                                                <li class="product-status__item product-status__item--red">
-                                                                        <span class="product-status__icon">
-                                                                            <svg class="icon icon--personal-action product-status__icon-mark">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
-                                                                            </svg>
-                                                                        </span>
-                                                    <p class="product-status__name">
-                                                        Персональная акция
-                                                    </p>
-                                                </li>
-                                                <li class="product-status__item product-status__item--blue">
-                                                                        <span class="product-status__icon">
-                                                                            <svg class="icon icon--non-returnable product-status__icon-mark">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
-                                                                            </svg>
-                                                                        </span>
-                                                    <p class="product-status__name">
-                                                        Невозвратный товар
-                                                    </p>
-                                                </li>
+                                                <?php if ($basketItem['PERSONAL_PROMOTION']):?>
+                                                    <li class="product-status__item product-status__item--red">
+                                                        <span class="product-status__icon">
+                                                            <svg class="icon icon--personal-action product-status__icon-mark">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-personal-action"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <p class="product-status__name">
+                                                            Персональная акция
+                                                        </p>
+                                                    </li>
+                                                <?php endif;?>
+                                                <?php if ($basketItem['OFFER']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE']):?>
+                                                    <li class="product-status__item product-status__item--blue">
+                                                        <span class="product-status__icon">
+                                                            <svg class="icon icon--non-returnable product-status__icon-mark">
+                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-non-returnable"></use>
+                                                            </svg>
+                                                        </span>
+                                                        <p class="product-status__name">
+                                                            Невозвратный товар
+                                                        </p>
+                                                    </li>
+                                                <?php endif;?>
                                             </ul>
                                         </div>
                                     </header>
@@ -142,10 +138,10 @@ $APPLICATION->setTitle('Корзина');?>
                                     </div>
 
                                     <div class="card-cart__actions">
-                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
                                             <span class="button__icon">
                                                 <svg class="icon">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-card-favourite-icon></use>
                                                 </svg>
                                             </span>
                                         </button>
@@ -167,120 +163,12 @@ $APPLICATION->setTitle('Корзина');?>
         <div class="basket__col basket__col--limited">
             <div class="basket__progress">
                 <div class="card-progress card-progress--mini">
-                    <div class="card-progress__inner">
-                        <p class="card-progress__title">
-                            Повышения уровня по личным покупкам
-                        </p>
-                        <div class="card-progress__mark">
-                            <svg class="card-progress__icon icon icon--cat-serious">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
-                            </svg>
-                            <span class="card-progress__mark-text">
-                                                    Осталось еще немного
-                                                </span>
-                        </div>
-                        <div class="card-progress__wrapper">
-                            <div class="card-progress__progress progress-bar">
-                                <div style="width: 80%;" class="progress-bar__filler progress-bar__filler--red"></div>
-                            </div>
-                            <div class="card-progress__bottom">
-                                <div class="card-progress__amount amount">
-                                    <p class="amount__target amount__target--red">
-                                        124 000 ₽
-                                    </p>
-                                    <p class="amount__total">
-                                        из 175 000 ₽
-                                    </p>
-                                </div>
-
-                                <div class="card-progress__status">
-                                    <p class="card-progress__text">
-                                        Осталось
-                                    </p>
-                                    <p class="card-progress__text">
-                                        56 000 ₽
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-progress__warning warning">
-                            <div class="warning__mark">
-                                <button type="button"
-                                        class="button button--iconed button--simple button--red"
-                                        data-fancybox data-modal-type="modal"
-                                        data-src="#conditions"
-                                >
-                                                        <span class="button__icon">
-                                                            <svg class="icon icon--basket warning__icon">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-attention"></use>
-                                                            </svg>
-                                                        </span>
-                                </button>
-                            </div>
-                            <p class="warning__text">
-                                Условия повышения уровня
-                            </p>
-                        </div>
-                    </div>
+                    <div
+                        id="loyaltyStatusReport"
+                        prop-current-value="<?=$arResult['LOYALTY_STATUS']['self']['current_value']?>"
+                        prop-upgrade-value="<?=$arResult['LOYALTY_STATUS']['self']['upgrade_value']?>"
+                    ></div>
                 </div>
-                <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
-                    <div class="modal__content">
-                        <header class="modal__section modal__section--header">
-                            <p class="heading heading--average">Условия поддержания уровня</p>
-                        </header>
-
-                        <section class="modal__section modal__section--content">
-                            <div class="conditions">
-                                <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
-
-                                    <ul class="conditions__list">
-                                        <li class="conditions__item">
-                                            Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
-
-                                    <ul class="conditions__list">
-                                        <li class="conditions__item">
-                                            Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
-                                        </li>
-
-                                        <li class="conditions__item">
-                                            Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
-                                        </li>
-                                    </ul>
-
-                                    <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
-                                    </p>
-                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
-                                </div>
-
-                                <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
-
-                                    <ul class="conditions__list">
-                                        <li class="conditions__item">
-                                            Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
-                                        </li>
-
-                                        <li class="conditions__item">
-                                            Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
-                                        </li>
-                                    </ul>
-
-                                    <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
-
-                                    </p>
-                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </article>
             </div>
             <div class="basket__order">
                 <div class="basket-card" data-basket-card>
