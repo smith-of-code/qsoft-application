@@ -136,7 +136,7 @@
                                                                 <select class="select__control" name="address" data-select-control data-placeholder="Адрес доставки">
                                                                     <option><!-- пустой option для placeholder --></option>
                                                                     <option value="1">Адрес доставки</option>
-                                                                    <option value="2">Адрес доставки Адрес доставки Адрес доставкиАдрес доставкиАдрес доставкиАдрес доставкиАдрес доставкиАдрес доставкиАдрес доставкиАдрес доставкиАдрес доставки</option>
+                                                                    <option value="2">Адрес доставки</option>
                                                                 </select>
                                                             </div>
                                                         </div>

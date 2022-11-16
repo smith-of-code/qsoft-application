@@ -31,6 +31,9 @@
             flex-grow: 1;
             order: 2;
 
+            width: 100%;
+            min-width: 0;
+
             @media #{$screen-desktop} {
                 order: 1;
             }
