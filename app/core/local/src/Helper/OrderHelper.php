@@ -140,7 +140,7 @@ class OrderHelper
 
         $propertyCollection = $order->getPropertyCollection();
         $propertyCollection->getPhone()->setValue($data['phone']);
-        $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
         $propertyCollection->getUserEmail()->setValue($data['email']);
         $propertyCollection->getAddress()->setValue($data['delivery_address']);
         /** @var PropertyValue $property */
@@ -163,11 +163,11 @@ class OrderHelper
         $order->doFinalAction(true);
         $orderId = $order->save()->getId();
 
-        $user->notification->sendNotification(
-            NotificationTable::TYPES['order_created'],
-            'Создан новый заказ',
-            "/personal/orders/$orderId"
-        );
+        // $user->notification->sendNotification(
+        //     NotificationTable::TYPES['order_created'],
+        //     'Создан новый заказ',
+        //     "/personal/orders/$orderId"
+        // );
 
         return $orderId;
     }
