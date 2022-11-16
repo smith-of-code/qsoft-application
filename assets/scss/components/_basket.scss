@@ -21,6 +21,7 @@
 
             @media #{$screen-desktop} {
                 width: rem(300px);
+                margin-top: rem(6px);
                 margin-bottom: 0;
                 margin-left: rem(100px);
             }
@@ -29,6 +30,9 @@
         &--full {
             flex-grow: 1;
             order: 2;
+
+            width: 100%;
+            min-width: 0;
 
             @media #{$screen-desktop} {
                 order: 1;

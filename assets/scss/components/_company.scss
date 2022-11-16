@@ -13,7 +13,6 @@
     &__row {
         @media #{$screen-desktop} {
             display: flex;
-            align-items: center;
         }
     }
 
@@ -23,6 +22,7 @@
 
             @media #{$screen-desktop} {
                 width: percentage(1 / 2);
+                max-width: rem(500px);
                 margin-top: 0;
                 margin-left: rem(70px);
             }

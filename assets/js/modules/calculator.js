@@ -40,11 +40,6 @@ const ELEMENTS_SELECTOR = {
     chartOneTimeCharges: '[data-calculator-chart-onetime-charges]',
 };
 
-// Удалить 
-function dd(item) {
-    console.log(item);
-}
-
 function getCurrentLevel(property) {
     if (property == undefined) {
         return bigData.level[bigData.currentLevel - 1];

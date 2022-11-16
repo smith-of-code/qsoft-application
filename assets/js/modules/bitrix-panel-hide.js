@@ -17,11 +17,13 @@ export default function () {
     const hider = bitrixPanel.querySelector(ID.hider);
 
     document.querySelector('body').style.paddingTop = `${bitrixPanel.offsetHeight}px`;
+    document.querySelector('[data-dropdown-block]').style.top = `${bitrixPanel.offsetHeight}px`;
     bitrixPanel.classList.add(CLASS.fixed);
 
     [expander, hider].forEach((el) => {
         el.addEventListener('click', () => {
             document.querySelector('body').style.paddingTop = `${bitrixPanel.offsetHeight}px`;
+            document.querySelector('[data-dropdown-block]').style.top = `${bitrixPanel.offsetHeight}px`;
         });
     });
 };

@@ -1,5 +1,5 @@
 <?
-$sSectionName = "О магазине";
+$sSectionName = "О Компании";
 $arDirProperties = array(
 );
 ?>
