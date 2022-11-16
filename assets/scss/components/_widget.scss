@@ -74,6 +74,7 @@
             font-size: rem($font-size-average);
             line-height: ($line-height-middle / $font-size-average);
 
+            min-height: auto;
             margin-bottom: rem($gap-average);
         }
     }
