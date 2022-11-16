@@ -23,7 +23,11 @@
 			}
 		};
 
-		this.refreshProductCard = function (id, isMobile = false) {
+		this.refreshProductCard = function (id, obj, isMobile = false) {
+			// Если у элемента есть флаг, запрещающий обновление параметров ТП - ничего не делаем
+			if (typeof $(obj).attr('data-not-update-offers') != 'undefined') {
+				return;
+			}
 			// Получим торговое предложение по выбранным параметрам в карточке товара
 			let offerId = this.getSelectedOffer(id, isMobile);
 			// Обновим отображение параметров торговых предложений
@@ -64,6 +68,24 @@
 				}
 			}
 		};
+
+		this.firstRefresh = function () {
+			for (let id in this.products) {
+				if (typeof this.products[id].elementsIds.props == 'undefined') {
+					continue;
+				}
+				for (let propCode in this.products[id].elementsIds.props) {
+					if (typeof this.products[id].elementsIds.props[propCode].desktop.name == 'undefined' || this.products[id].elementsIds.props[propCode].desktop.name === null) {
+						continue;
+					}
+					let element = this.products[id].container.find('[name=' + this.products[id].elementsIds.props[propCode].desktop.name + ']');
+					if (element.length > 0) {
+						element.eq(0).trigger('change');
+						break;
+					}
+				}
+			}
+		}
 
 		this.refreshOffersProps = function (id, offerId) {
 			let visibilityTree = [];
@@ -179,10 +201,9 @@
 				// Переключим выбранный элемент, если требуется
 				if (typeof visibilityTree[propCode][value] != 'undefined' && value == offer.tree[propCode]) {
 					select.val(value);
-					/*select.select2({
-						'selectControl' : false,
-						'option' : false,
-					});*/
+					select.attr('data-not-update-offers', 'Y');
+					select.trigger('change.select2');
+					select.removeAttr('data-not-update-offers');
 				}
 			});
 		}
@@ -212,9 +233,17 @@
 			});
 		}
 
+		/**
+		 * Получение торгового предложения по полям карточки товара
+		 * @param id ID контейнера товара
+		 * @param isMobile Флаг, указывающий, что нужно проверять мобильную версию поля ввода
+		 * @returns {number}
+		 */
 		this.getSelectedOffer = function (id, isMobile = false) {
 			// Получаем выбранные значения из полей ввода
 			let result = [];
+			let offerId = 0;
+
 			if (typeof this.products[id].container != 'undefined' && this.products[id].container !== null) {
 				for (let propCode in this.products[id].elementsIds.props) {
 
@@ -238,39 +267,64 @@
 					}
 				}
 			}
-			// Ищем среди торговых предложений одно, соответствующее выбранным параметрам
+
+			let totalCount = Object.keys(result).length;
+			let count = 1;
+			// Ищем подходящее торговое предложение, постепенно увеличивая количество совпадающих параметров
+			while (count <= totalCount) {
+				let oId = this.searchExistingOffer(id, result, count);
+				if (oId === 0) {
+					break;
+				}
+				offerId = oId; // Записывем успешно найденное ТП
+				count += 1;
+			}
+			return offerId;
+		};
+
+		/**
+		 * Ищет подходящие торговые предложения, проверя equalPropsCount параметров
+		 * @param id ID контейнера товара
+		 * @param result Перечень параметров со значениями, используемый для поиска
+		 * @param equalPropsCount Количество параметров, которые нужно проверить
+		 * @returns {number} Торговое предложение, подходящее под заданные параметры (или 0, если подходящее ТП не найдено)
+		 */
+		this.searchExistingOffer = function (id, result, equalPropsCount) {
+			let resultOfferId = 0;
+
+			// Ищем торговые предложения по N-му числу совпадающих параметров
 			for (let offerId in this.products[id].offers) {
 
-				let count = 0;
-				let totalCount = Object.keys(this.products[id].offers[offerId].tree).length;
+				let checkedLimit = 0; // Счетчик проверенных параметров
+				let count = 0; // Счетчик совпавших параметров
 
+				// Перебираем параметры ТП
 				for (let propCode in this.products[id].offers[offerId].tree) {
+
 					if (String(result[propCode]) === String(this.products[id].offers[offerId].tree[propCode])) {
 						count += 1;
 					}
+					checkedLimit += 1;
+					// Если проверено N параметров - прерываем проверку
+					if (checkedLimit >= equalPropsCount) {
+						break
+					}
 				}
 
-				if (count === totalCount) {
-					return parseInt(offerId);
+				// Если найдено ТП, совпадающее по выбранным параметрам - прерываем проверку
+				if (count === equalPropsCount) {
+					resultOfferId = parseInt(offerId);
+					break;
 				}
 			}
-			// Находим торговое предложение, совпадающее по первому параметру
-			let propCodes = Object.keys(result);
-			for (let offerId in this.products[id].offers) {
-				let offerProp = this.products[id].offers[offerId].tree[propCodes[0]];
-				if(typeof offerProp == 'undefined' || offerProp === null) {
-					return 0;
-				}
-				if (String(result[propCodes[0]]) === String(offerProp)) {
-					return parseInt(offerId);
-				}
-			}
-			return 0;
-		};
+			
+			return resultOfferId;
+		}
 	};
 
 	$(document).ready(function () {
 		window.CatalogItemHelperZolo.setContainers();
+		window.CatalogItemHelperZolo.firstRefresh();
 	});
 
 })(window);

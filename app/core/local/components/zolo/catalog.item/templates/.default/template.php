@@ -158,7 +158,7 @@ if (isset($arResult['ITEM']))
                                                        value="<?=$value['ID']?>"
                                                        id="<?=$propId?>"
                                                        <?= $isChecked ? 'checked' : '' ?>
-                                                       onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                                       onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
                                                 >
                                                 <label for="<?=$propId?>">
                                                     <div class="color__item color__item--<?=$value['XML_ID']?>"></div>
@@ -188,7 +188,7 @@ if (isset($arResult['ITEM']))
                                         id="<?=$propName?>"
                                         data-select-control
                                         data-option
-                                        onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                        onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
                                 >
                                     <? foreach ($arParams['SKU_PROPS']['SIZE']['VALUES'] as $value):
                                         if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
@@ -231,7 +231,7 @@ if (isset($arResult['ITEM']))
                                                    value="<?=$value['ID']?>"
                                                    id="<?=$propId?>"
                                                    <?= $isChecked ? 'checked' : '' ?>
-                                                   onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>)"
+                                                   onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
                                             >
                                             <label for="<?=$propId?>">
                                                 <div class="pack__item"><?=$value['NAME']?></div>
@@ -259,7 +259,7 @@ if (isset($arResult['ITEM']))
                                     id="<?=$propName?>"
                                     data-select-control
                                     data-option
-                                    onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, true)"
+                                    onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this, true)"
                             >
                                 <? foreach ($arParams['SKU_PROPS']['PACKAGING']['VALUES'] as $value):
                                     if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
