@@ -10,7 +10,7 @@
     background-color: $white;
 
     @media #{$screen-desktop} {
-        padding: rem(20px) rem(20px) rem(38px) rem(20px);
+        padding: rem(20px) rem(20px) rem(46px) rem(20px);
     }
 
     &::before {
@@ -19,7 +19,7 @@
         right: 0;
         left: 0;
 
-        height: rem(4px);
+        height: rem(8px);
 
         content: "";
     }

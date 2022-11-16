@@ -221,37 +221,22 @@
                                             <div class="basket-card__list">
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text basket-card__text--gray">Количество товаров</span>
-                                                    <span class="basket-card__elipse">
-                                                        ......................................
-                                                    </span>
                                                     <span class="basket-card__total" data-basket-product-total>0</span> 
                                                 </div>
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
-                                                    <span class="basket-card__elipse">
-                                                        ............................................................
-                                                    </span>
                                                     <span class="basket-card__total">70 ₽</span> 
                                                 </div>
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text">Сумма заказа</span>
-                                                    <span class="basket-card__elipse">
-                                                        ............................................................
-                                                    </span>
                                                     <span class="basket-card__total" data-basket-order-amount>0 ₽</span> 
                                                 </div>
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                                    <span class="basket-card__elipse">
-                                                        ...................................................................
-                                                    </span>
                                                     <span class="basket-card__total" data-basket-economy>0 ₽</span> 
                                                 </div>
                                                 <div class="basket-card__item">
                                                     <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
-                                                    <span class="basket-card__elipse">
-                                                        ...................................................................
-                                                    </span>
                                                     <span class="basket-card__total basket-card__total--bold" data-basket-total>0 ₽</span> 
                                                 </div>
                                             </div>

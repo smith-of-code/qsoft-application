@@ -46,6 +46,7 @@
             background-color: rgba($white, .65);
     
             backdrop-filter: blur(4px);
+            box-shadow: 0 rem(8px) rem(12px) rgba($black, .28);
 
             &:hover {
                 background-color: $white;
