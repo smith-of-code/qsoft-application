@@ -6,6 +6,7 @@
  * @var $APPLICATION
  */
 
+use QSoft\Entity\User;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 
@@ -25,13 +26,17 @@ $APPLICATION->SetTitle(GetMessage('admin_index_title'));
 
 require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_admin_after.php");
 
-$ticketId = $_REQUEST['ID'];
-
-if (!$ticketId) {
+$userId = $_REQUEST['user_id'];
+$ticketId = $_REQUEST['ticket_id'];
+if (!$userId && !$ticketId) {
     die();
 }
 
-$ticketData = (new TicketHelper)->getTicketData($ticketId);
+if ($userId) {
+    $ticketData = (new User)->legalEntity->getData();
+} else {
+    $ticketData = (new TicketHelper)->getTicketData($ticketId);
+}
 $arResult = $ticketData['documents']?>
 
 <div class="registration__form form form--separated form--wraped">
