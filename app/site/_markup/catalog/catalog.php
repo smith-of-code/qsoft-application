@@ -1405,7 +1405,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r1" id="radio" checked>
                                                                             <label for="radio">
-                                                                                <div class="color__item color__item--pink"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1416,7 +1421,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r2" id="radio2">
                                                                             <label for="radio2">
-                                                                                <div class="color__item color__item--blue"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1427,7 +1437,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio3">
                                                                             <label for="radio3">
-                                                                                <div class="color__item color__item--green"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1438,7 +1453,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r4" id="radio4">
                                                                             <label for="radio4">
-                                                                                <div class="color__item color__item--yellow"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1449,7 +1469,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio5">
                                                                             <label for="radio5">
-                                                                                <div class="color__item color__item--red"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1460,7 +1485,12 @@
                                                                         <div class="radio">
                                                                             <input type="radio" class="color__input radio__input" name="radio2" value="r3" id="radio6">
                                                                             <label for="radio6">
-                                                                                <div class="color__item color__item--violet"></div>
+                                                                                <div class="color__item">
+                                                                                    <div class="color__item-wrapper">
+                                                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                                                        class="color__item-pic">
+                                                                                    </div>
+                                                                                </div>
                                                                             </label>
                                                                         </div>
                                                                     </div>
