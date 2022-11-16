@@ -139,6 +139,25 @@
 						}
 					}
 				}
+				// Проверяем доступность ТП с указанным значением параметра
+				for (let propCode in visibilityTree) {
+					for (let propValue in visibilityTree[propCode]) {
+						let isAvailable = false;
+
+						for (let offerId in offers) {
+
+							if (offers[offerId].available && offers[offerId].tree[propCode] == propValue) {
+								isAvailable = true;
+								break;
+							}
+						}
+
+						if (! isAvailable) {
+							visibilityTree[propCode][propValue] = undefined;
+						}
+
+					}
+				}
 			}
 
 			// Применяем изменения в видимости значений параметров ТП
@@ -210,19 +229,24 @@
 
 		this.refreshVisibilityForRadioButtons = function (id, offer, propCode, visibilityTree, inputs) {
 
+			let thisObject = this;
+
 			inputs.each(function(index) {
 
 				let value = $(this).val();
+
+
 				// Обновим видимость элементов списка
 				if (typeof value == 'undefined' || value === null) {
-					$(this).parent().hide();
+					thisObject.disableRadioButton($(this));
 				} else {
 					if (typeof visibilityTree[propCode][value] == 'undefined') {
-						$(this).parent().hide();
+						thisObject.disableRadioButton($(this));
 					} else {
-						$(this).parent().show();
+						thisObject.enableRadioButton($(this));
 					}
 				}
+
 				// Переключим выбранный элемент, если требуется
 				if (typeof visibilityTree[propCode][value] == 'undefined' && $(this).is(":checked")) {
 					$(this).prop('checked', false);
@@ -231,6 +255,56 @@
 					$(this).prop('checked', 'checked');
 				}
 			});
+		}
+
+		/**
+		 * "Включает" радиокнопку, выполняя необходимые изменения в смежных элементах
+		 * @param obj объект JQuery
+		 */
+		this.enableRadioButton = function (obj) {
+			obj.prop('disabled', false);
+
+			// Обновляем класс для радиокнопки выбора цвета
+			let colorScope = obj.closest('.color');
+			if (colorScope.length > 0 && colorScope.hasClass('color--disabled')) {
+				colorScope.removeClass('color--disabled');
+				return;
+			}
+			// Обновляем параметры для радиокнопки выбора фасовки
+			let packScope = obj.closest('.pack');
+			if (packScope.length > 0 && packScope.attr('data-tippy-content')) {
+				packScope.removeAttr('data-tippy-content');
+				let packDiv = obj.closest().find('.pack__item');
+				if (packDiv.length > 0 && packDiv.hasClass('pack__item--disabled')) {
+					packDiv.removeClass('pack__item--disabled');
+				}
+				return;
+			}
+		}
+
+		/**
+		 * "Выключает" радиокнопку, выполняя необходимые изменения в смежных элементах
+		 * @param obj объект JQuery
+		 */
+		this.disableRadioButton = function (obj) {
+			obj.prop('disabled', 'disabled');
+
+			// Обновляем класс для радиокнопки выбора цвета
+			let colorScope = obj.closest('.color');
+			if (colorScope.length > 0 && ! colorScope.hasClass('color--disabled')) {
+				colorScope.addClass('color--disabled');
+				return;
+			}
+			// Обновляем параметры для радиокнопки выбора фасовки
+			let packScope = obj.closest('.pack');
+			if (packScope.length > 0 && ! packScope.attr('data-tippy-content')) {
+				packScope.attr('data-tippy-content', 'нет в наличии');
+				let packDiv = obj.parent().find('.pack__item');
+				if (packDiv.length > 0 && ! packDiv.hasClass('pack__item--disabled')) {
+					packDiv.addClass('pack__item--disabled');
+				}
+				return;
+			}
 		}
 
 		/**

@@ -161,7 +161,12 @@ if (isset($arResult['ITEM']))
                                                        onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
                                                 >
                                                 <label for="<?=$propId?>">
-                                                    <div class="color__item color__item--<?=$value['XML_ID']?>"></div>
+                                                    <div class="color__item">
+                                                        <div class="color__item-wrapper">
+                                                            <img src="<?=$value['PICT']['SRC']?>"
+                                                                 class="color__item-pic">
+                                                        </div>
+                                                    </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -180,6 +185,8 @@ if (isset($arResult['ITEM']))
                     // Записываем параметры элемента ввода для дальнейшего удобного обращения через JS
                     $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['name'] = $propName;
                     $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['type'] = 'select';
+                    // Сортируем по ключу (ID значения);
+                    ksort($arParams['SKU_PROPS']['SIZE']['VALUES']);
                     ?>
                         <div class="product-card__breed">
                             <div class="select select--mini" data-select>
