@@ -2730,6 +2730,210 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <h3 style="margin-top: 50px;">Маленькие c изображением</h3>
+
+                        <div class="colors">
+                            <ul class="colors__list">
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r1" id="radio100" checked>
+                                            <label for="radio100">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r2" id="radio110">
+                                            <label for="radio110">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r3" id="radio120">
+                                            <label for="radio120">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r4" id="radio130">
+                                            <label for="radio130">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r3" id="radio140">
+                                            <label for="radio140">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r3" id="radio150">
+                                            <label for="radio150">
+                                                <div class="color__item">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Большие c изображением</h3>
+
+                        <div class="colors colors--big">
+                            <ul class="colors__list">
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r1" id="radio200" checked>
+                                            <label for="radio200">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r2" id="radio210">
+                                            <label for="radio210">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r3" id="radio220">
+                                            <label for="radio220">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r4" id="radio230">
+                                            <label for="radio230">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r3" id="radio240">
+                                            <label for="radio240">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="colors__item">
+                                    <div class="color">
+                                        <div class="radio">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r3" id="radio250">
+                                            <label for="radio250">
+                                                <div class="color__item color__item--big">
+                                                    <div class="color__item-wrapper">
+                                                        <img src="/local/templates/.default/images/cat2.png"
+                                                        class="color__item-pic">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <!--/Варианты цветов-->
 

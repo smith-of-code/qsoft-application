@@ -75,6 +75,16 @@ const baseConfig = {
                             </span>
                         </button>
                     </div>
+
+                    <div class="file__upload">
+                        <a class="button button--iconed button--simple button--gray" href="/" download>
+                            <span class="button__icon">
+                                <svg class="icon icon--import">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <input type="hidden" data-dropzone-file>

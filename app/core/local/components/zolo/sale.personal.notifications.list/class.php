@@ -16,6 +16,7 @@ use \Bitrix\Main\Engine\ActionFilter;
 class NotificationListComponent extends CBitrixComponent implements Controllerable, Errorable
 {
     private const NOTIFICATIONS_LIMIT = 20;
+    const NOTIFICATIONS_URL = '/personal/notifications/';
     protected ErrorCollection $errorCollection;
     private User $user;
 
@@ -35,6 +36,14 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
         $this->errorCollection = new ErrorCollection();
         $this->checkModules();
         $this->user = new User();
+
+        return $arParams;
+    }
+
+    private function tryParseInt($paramVal): ?int
+    {
+        $result = intval($paramVal);
+        return$result == 0 ? null : $result;
     }
 
     public function checkModules()
@@ -46,8 +55,20 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
 
     public function executeComponent()
     {
-        $this->arResult = $this->loadNotificationsAction([], 0, self::NOTIFICATIONS_LIMIT);
-        $this->includeComponentTemplate();
+        $filter = [];
+
+        if ($this->arParams['ONLY_UNREAD'] == 'Y') {
+            $filter = ['status' => 'Ждет прочтения'];
+        }
+
+        if ($countByPage = $this->tryParseInt($this->arParams['LIMIT_COUNT_BY_PAGE'])) {
+            $limit = $countByPage;
+        }
+
+        if ($this->user->isAuthorized) {
+            $this->arResult = $this->loadNotificationsAction($filter, 0, $limit ?? self::NOTIFICATIONS_LIMIT);
+            $this->includeComponentTemplate();
+        }
     }
 
     public function loadNotificationsAction(array $filter, int $offset, int $limit): array
@@ -55,10 +76,14 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
         $notifications = $this->user->notification->getNotifications($filter, $offset, $limit + 1);
         $isLast = $limit >= count($notifications);
         $notifications = $isLast ? $notifications : array_slice($notifications, 0, -1);
+        $unreadNotificationsCount = $this->user->notification->getUnreadCount();
+
         return [
             'NOTIFICATIONS' => $notifications,
             'OFFSET' => $offset + count($notifications),
+            'UNREAD_COUNT' => $unreadNotificationsCount,
             'LAST' => $isLast,
+            'NOTIFICATIONS_URL' => self::NOTIFICATIONS_URL
         ];
     }
 

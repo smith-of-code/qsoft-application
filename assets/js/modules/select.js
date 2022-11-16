@@ -12,11 +12,6 @@ export default function () {
         const baseOptions = {
             templateResult: formatState,
             templateSelection: formatState,
-            "language": {
-                "noResults": function(){
-                    return "Выберите тип питомца";
-                }
-            },
         };
 
         function formatState (state) {
@@ -46,6 +41,15 @@ export default function () {
 
         $(ELEMENTS_SELECTOR.selectControl).each(function(index, select) {
             const $selectBox = $(select).closest(ELEMENTS_SELECTOR.selectBox);
+
+            const petsBreed = $selectBox.data('pets-breed');
+            if (petsBreed != undefined) {
+                baseOptions.language = {
+                    "noResults": ()=>{
+                        return "Выберите тип питомца";
+                    }
+                };
+            }
 
             const placeholder = $(select).attr('data-placeholder');
 
