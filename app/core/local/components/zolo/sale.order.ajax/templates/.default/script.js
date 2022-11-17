@@ -11,6 +11,8 @@ class SaleOrderAjaxComponent {
 
     removeError() {
         $(this).removeClass('input__control--error');
+        $('[data-create-order]').removeAttr('disabled');
+        $('[data-create-order]').removeClass('button--disabled');
     }
 
     async createOrder() {
@@ -23,6 +25,9 @@ class SaleOrderAjaxComponent {
                 if ($(item).attr('name') !== 'comment') {
                     $(item).addClass('input__control--error');
                 }
+
+                $('[data-create-order]').attr('disabled', '');
+                $('[data-create-order]').addClass('button--disabled');
                 return;
             }
 
