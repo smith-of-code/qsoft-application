@@ -59,16 +59,16 @@ class ProductService
         return $offers;
     }
 
-    public static function getProductDataFromBasket(int $orderId, int $offset = 0, int $limit = 0): array
+    public static function getProductDataFromBasket($orderId, int $offset = 0, int $limit = 0): array
     {
         return BasketTable::getList([
+            'filter' => [
+                '=ORDER_ID' => $orderId,
+            ],
             'select' => [
                 'PRODUCT_ID',
                 'PRICE',
                 'QUANTITY',
-            ],
-            'filter' => [
-                'ORDER_ID' => $orderId,
             ],
             'offset' => $offset,
             'limit' => $limit,
