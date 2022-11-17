@@ -52,8 +52,6 @@
  import chart from './modules/chart';
  import show from './modules/show';
 
-
-
  const app = {
     ready() {
         if (typeof Zolo !== 'undefined') {

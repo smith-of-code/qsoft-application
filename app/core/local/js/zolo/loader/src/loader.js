@@ -18,16 +18,20 @@ export class Loader {
     }
 
     loadStore(root, store) {
+        const storeInstance = store.instance();
+        window.stores[store.name] = storeInstance;
+
         const rootElement = document.querySelector(root);
         if (rootElement) {
-            let props = this.loadProperties(rootElement);
 
+            let props = this.loadProperties(rootElement);
+            window.stores = {};
             for (const attributeName in props) {
                 let data = props[attributeName];
                 if (data) {
                     // Для загрузки из атрибута store должен релизовывать метод load(имя_свойства, данные)
                     // имя пропсы prop-some-name преобразуется в имя свойства someName
-                    store().load(attributeName, data);
+                    storeInstance.load(attributeName, data);
                 } else {
                     console.log('Error getting data from root ' + root + ' ' + attributeName);
                 }

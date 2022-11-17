@@ -24,9 +24,9 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 
 $offerId = $arResult['OFFER_FIRST'];
 ?>
-<div id="offerStore"
+<div id="detailofferStore"
     prop-offers='<?= phpToVueObject($arResult) ?>'
-    prop-current-offer-id='<?= $arResult['OFFER_FIRST'] ?>'
+    prop-current-offer-id='<?= $offerId ?>'
 ></div>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
@@ -286,70 +286,26 @@ $offerId = $arResult['OFFER_FIRST'];
                 </div>
                 <!-- Блок селекта фассовки малый вариант-->
 
-                <?php if ($USER->isAuthorized()): ?>
-
-                    <div class="cart__price price">
-                        <p class="price__main">1 545 ₽</p>
+                <!-- Блок цены ТП -->
+                <div id="offerPrice"
+                     class="cart__price price"
+                     prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>"
+                    prop-is-consultant="<?= json_encode($arResult['IS_CONSULTANT']) ?>">
+                    <?php if ($USER->isAuthorized()): ?>
+                        <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?> ₽</p>
                         <div class="price__calculation">
-                            <p class="price__calculation-total">1 420 ₽</p>
-                            <p class="price__calculation-accumulation">14 ББ</p>
+                            <p class="price__calculation-total">? ₽</p>
+                            <p class="price__calculation-accumulation">? ББ</p>
                         </div>
-                    </div>
-
-                <?php else: ?>
-
-                    <!-- Если не авторизован -->
-                    <div class="cart__price price">
+                    <?php else: ?>
+                        <!-- Если не авторизован -->
                         <div class="price__calculation" >
-                            <p class="price__calculation-total price__calculation-total--red">1 420 ₽</p>
-                            <p class="price__main">1 545 ₽</p>
+                            <p class="price__calculation-total price__calculation-total--red">? ₽</p>
+                            <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?></p>
                         </div>
-                    </div>
-
-                <?php endif; ?>
-                <div class="cart__quantity quantity" data-quantity>
-                    <div class="quantity__button" data-quantity-button>
-                        <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
-                            <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                </svg>
-                            </span>
-                            <span class="button__text">В корзину</span>
-                        </button>
-                    </div>
-
-                    <div class="quantity__actions">
-                        <div class="quantity__decrease">
-                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
-                                <span class="button__icon button__icon--small">
-                                    <svg class="icon icon--minus">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-
-                        <div class="quantity__total">
-                            <span class="quantity__total-icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                </svg>
-                            </span>
-                            <span class="quantity__total-sum" data-quantity-sum="0">0</span>
-                        </div>
-
-                        <div class="quantity__increase">
-                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
-                                <span class="button__icon button__icon--small">
-                                    <svg class="icon icon--plus">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
+                <!-- Блок цены ТП -->
             </div>
             <!-- Блок  Ваш заказ -->
         </div>
