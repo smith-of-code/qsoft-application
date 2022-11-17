@@ -17,6 +17,8 @@ class SaleBasketTotal extends CBitrixComponent
 {
     public function executeComponent()
     {
+        \Bitrix\Main\Loader::includeModule('sale');
+        \Bitrix\Main\Loader::includeModule('catalog');
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
 
         $basket->refresh();
@@ -36,11 +38,28 @@ class SaleBasketTotal extends CBitrixComponent
         if (currentUser() && currentUser()->groups->isConsultant()) {
             $this->loadBonusesBlock($basket);
         }
+        
+        $product = array('PRODUCT_ID' => 574, 'QUANTITY' => 1);
+        $result = \Bitrix\Catalog\Product\Basket::addProductToBasket($basket, $product, array('SITE_ID' => SITE_ID));
+
+        // TODO: Оставил код для формирования корзины,
+        // для заполнения корзины необходимо указать id торгового предложения и количество(по умолчанию 1)
+        // После зайти на страницу /cart/
+        // один заход будет выполнять одну итерацию с корзиной.
+        // затем можно переходить на страницу оформления заказа.
+        // После реализации корзины удалить.
+        Add2BasketByProductID(
+            574,
+            2
+        );
 
         dump([
             '$this->arResult' => $this->arResult,
             '$order->getDiscountPrice()' => $order->getDiscountPrice(),
-            '$order->getDiscount()' => $order->getDiscount()
+            '$order->getDiscount()' => $order->getDiscount(),
+            'add' => $result,
+            'basket' => $basket,
+            'test' => [Fuser::getId(), SITE_ID],
         ]);
     }
 

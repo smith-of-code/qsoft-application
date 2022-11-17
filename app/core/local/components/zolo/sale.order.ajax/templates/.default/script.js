@@ -15,29 +15,43 @@ class SaleOrderAjaxComponent {
 
     async createOrder() {
         let data = {};
-        console.log($(`.form#order-form`).find('input, select'));
-        $(`.form`).find('input, select').each((index, item) => {
+
+        $(`.form`).find('input, select, textarea').each((index, item) => {
 
             if ($(item).attr('type') !== 'hidden' && !$(item).val()) {
-                console.log('check', 1, [($(item).attr('name') ?? $(item).attr('id')), $(item).val()]);
+
                 if ($(item).attr('name') !== 'comment') {
-                    console.log('check', 2, [($(item).attr('name') ?? $(item).attr('id')), $(item).val()]);
                     $(item).addClass('input__control--error');
                 }
                 return;
             }
-            console.log('arr', [($(item).attr('name') ?? $(item).attr('id')), $(item).val()]);
-            data[$(item).attr('name') ?? $(item).attr('id')] = $(item).val();
+
+            data[$(item).attr('name') ?? $(item).attr('id')] = $(item).val() ?? $(item).text();
         });
 
-        if ($(`.input__control--error`).length) {                    console.log('check', 3);
+        if ($(`.input__control--error`).length) {
             return;
         }
-        console.log('check', data);
+
         const response = await BX.ajax.runComponentAction('zolo:sale.order.ajax', 'createOrder', {
             mode: 'class',
             data: { data },
         });
+
+        let id =  response.data.id;
+
+        if (response.status = 'success') {
+            $('.content__main').addClass('hidden');
+            $('.page__heading').addClass('hidden');
+            let notification = $('#notification-block');
+
+            notification.removeClass('hidden');
+            notification.find('.notification__title').text('Ваш заказ № '+ response.data.id + ' успешно создан!')
+
+            $('button[data-order-direct]').on('click', function () {
+                window.location.href = '/personal/orders/' + id + '/';
+            });
+        }
 
         console.log(response);
     }
