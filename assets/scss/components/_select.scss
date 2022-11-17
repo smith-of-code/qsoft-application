@@ -118,6 +118,7 @@
                     line-height: rem(22px);
 
                     padding: rem($gap-small) rem($gap-average);
+                    padding-right: rem(44px);
                 }
             }
 
@@ -548,6 +549,10 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+
+                .select2-selection__rendered {
+                    position: relative;
+                }
             }
         }
     }
@@ -555,8 +560,16 @@
     &__item {
         font-weight: $font-weight-medium;
 
-        display: flex;
-        align-items: center;
+        display: block;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &--inlined {
+            display: flex;
+            align-items: center;
+        }
 
         &-icon {
             $size: 20px;

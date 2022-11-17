@@ -24,9 +24,9 @@ $aMenuLinks = Array(
 	),
 	Array(
         'Обратиться в поддержку',
-		"/contact_support/",
+		"",
 		Array(),
-		Array(),
+		Array('ADDITIONAL_ATTRS' => 'data-fancybox data-modal-type="modal" data-src="#technical-support"'),
 		""
 	),
 );

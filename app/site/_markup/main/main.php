@@ -3034,7 +3034,7 @@
                                                             </svg>
                                                         </div>
                                                         <p class="adventages-card__text">
-                                                            Без ГМО и вредных добавок
+                                                            Без ГМО<br> и вредных добавок
                                                         </p>
                                                     </div>
                                                 </li>

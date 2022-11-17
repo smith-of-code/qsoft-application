@@ -27,7 +27,9 @@ class DiscountsHelper
     private static function getRawDiscounts(int $offset = 0, int $limit = 0): array
     {
         $rowDiscountsResult = \CIBlockElement::GetList(
-            [],
+            [
+                'created' => 'desc'
+            ],
             [
                 'IBLOCK_ID' => IBLOCK_DISCOUNTS
             ],

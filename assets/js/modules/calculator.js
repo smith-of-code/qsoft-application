@@ -40,11 +40,6 @@ const ELEMENTS_SELECTOR = {
     chartOneTimeCharges: '[data-calculator-chart-onetime-charges]',
 };
 
-// Удалить 
-function dd(item) {
-    console.log(item);
-}
-
 function getCurrentLevel(property) {
     if (property == undefined) {
         return bigData.level[bigData.currentLevel - 1];
@@ -132,7 +127,7 @@ function chartSum(elem, num) {
 export default function () {
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
-        let value = +$(this).val();
+        let value = +$(this).val().replace(/\s/g, "");
 
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
@@ -141,7 +136,7 @@ export default function () {
         currentPoint = Math.floor(currentPoint);
 
         let rangeInputPoint = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputPoint);
-        rangeInputPoint.val(currentPoint);
+        rangeInputPoint.val(currentPoint.toLocaleString());
         rangeInputPoint.trigger('changeRange');
 
         setDataVariables(property.typeCalc, value, currentPoint);
@@ -149,7 +144,7 @@ export default function () {
 
     // Событие изменение ползунка point / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputPoint, function() {
-        let value = +$(this).val();
+        let value = +$(this).val().replace(/\s/g, "");
 
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
@@ -158,7 +153,7 @@ export default function () {
         currentRub = Math.floor(currentRub);
 
         let rangeInputRub = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputRub);
-        rangeInputRub.val(currentRub);
+        rangeInputRub.val(currentRub.toLocaleString());
         rangeInputRub.trigger('changeRange');
 
         setDataVariables(property.typeCalc, currentRub, value);
@@ -190,7 +185,7 @@ export default function () {
 
             let property = getDataLevelProperty(calcRange);
 
-            let currentRub = +calcRange.find(ELEMENTS_SELECTOR.calculatorRangeInputRub).val();
+            let currentRub = +calcRange.find(ELEMENTS_SELECTOR.calculatorRangeInputRub).val().replace(/\s/g, "");
             let currentPoint = currentRub / property.standardPoints * property.stepPoints;
             currentPoint = Math.floor(currentPoint);
             if (currentPoint < property.minPoints) {
@@ -199,7 +194,7 @@ export default function () {
                 currentPoint = property.maxPoints;
             }
 
-            $(input).val(currentPoint);
+            $(input).val(currentPoint.toLocaleString());
 
             rangePoints.slider('option', {
                 min: property.minPoints,
@@ -216,7 +211,7 @@ export default function () {
     // Изменение количества покупателей и консультантов
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorQuantity, function() {
         let type = $(this).data('calculator-quantity');
-        let value = +$(this).val();
+        let value = +$(this).val().replace(/\s/g, "");
 
         if (type == 'buyer') {
             setData('groupBuyer', value);
@@ -271,8 +266,8 @@ export default function () {
 
                     <div class="group__sum price price--inlined">
                         <div class="price__calculation">
-                            <p class="price__calculation-total">${bigData.consultantRub} ₽</p>
-                            <p class="price__calculation-accumulation">${bigData.consultantPoints} ББ</p>
+                            <p class="price__calculation-total">${bigData.consultantRub.toLocaleString()} ₽</p>
+                            <p class="price__calculation-accumulation">${bigData.consultantPoints.toLocaleString()} ББ</p>
                         </div>
                     </div>
 

@@ -1,4 +1,4 @@
-import {defineStore} from 'ui.vue3.pinia';
+import { defineStore } from 'ui.vue3.pinia';
 
 export const detailOfferStore = defineStore('detailOffer', {
     state: () => ({
@@ -31,8 +31,11 @@ export const detailOfferStore = defineStore('detailOffer', {
             return this.offers.SIZE2COLOR;
         },
         price() {
-            return this.offers.PRICES[this.currentOfferId]
-        }
+            return this.offers.PRICES[this.currentOfferId];
+        },
+        bonuses() {
+            return this.offers.BONUSES_PRICES[this.currentOfferId];
+        },
     },
     actions: {
         getIdByColor(color){

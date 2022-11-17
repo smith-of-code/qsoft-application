@@ -7,12 +7,14 @@ use CTicket;
 use CTicketDictionary;
 use QSoft\Entity\User;
 use RuntimeException;
+use Bitrix\Sale;
 
 class TicketHelper
 {
     public const CHANGE_PERSONAL_DATA_CATEGORY = 'CHANGE_OF_PERSONAL_DATA';
     public const CHANGE_LEGAL_ENTITY_DATA_CATEGORY = 'CHANGE_OF_LEGAL_ENTITY_DATA';
     public const CHANGE_MENTOR = 'CHANGE_MENTOR';
+    public const REFUND_ORDER = 'REFUND_ORDER';
     public const REGISTRATION_CATEGORY = 'REGISTRATION';
     public const CHANGE_ROLE_CATEGORY = 'CHANGE_ROLE';
     public const SUPPORT_CATEGORY = 'SUPPORT';
@@ -99,5 +101,28 @@ class TicketHelper
     public function getCategorySid(int $categoryId): string
     {
         return CTicketDictionary::GetList('', '', ['ID' => $categoryId])->GetNext()['SID'];
+    }
+
+    public function getMenthorData(string $id): ?array
+    {
+        if ($id === 0) {
+            return null;
+        }
+
+        return (new User($id))->getPersonalData();
+    }
+
+    public function getOrderStatus(string $id): ?string 
+    {
+		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
+        $orderStatusClassName = $registry->getOrderStatusClassName();
+        $listStatusNames = $orderStatusClassName::getAllStatusesNames(LANGUAGE_ID);
+
+        foreach($listStatusNames as $key => $data)
+        {
+            $result[$key] = $data;
+        }
+
+        return $result[$id] ?? null;
     }
 }

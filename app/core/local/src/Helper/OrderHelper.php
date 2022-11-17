@@ -258,36 +258,35 @@ class OrderHelper
                 ) $result[$source]['current_period_sum'] += $transaction['UF_AMOUNT'];
 
                 if ($date->getDiff($now)->days <= 30) {
-                    $lastMonthOrders[] = $transaction['UF_ORDER_ID'];
+                    $lastMonthOrders[$source][] = $transaction['UF_ORDER_ID'];
                 }
             }
         }
 
-        if (count($lastMonthOrders)) {
-            $products = ProductService::getProductOfferDataClass()::getList([
-                'filter' => [
-                    '=BASKET.ORDER_ID' => $lastMonthOrders,
-                ],
-                'select' => [
-                    'NAME',
-                    'VENDOR_CODE' => 'ARTICLE.VALUE',
-                    'PRICE' => 'BASKET.PRICE',
-                    'QUANTITY' => 'BASKET.QUANTITY',
-                    'PICTURE' => 'PREVIEW_PICTURE',
-                ],
-            ])->fetchAll();
-
-            foreach ($products as $product) {
-                $result['last_month_products'][] = [
-                    'name' => $product['NAME'],
-                    'article' => $product['VENDOR_CODE'],
-                    'price' => $product['PRICE'],
-                    'quantity' => $product['QUANTITY'],
-                    'picture' => CFile::GetPath($product['PICTURE']),
-                ];
-            }
+        if (count($lastMonthOrders['self'])) {
+            $result['self']['last_month_products'] = $this->getOrderProducts($lastMonthOrders['self']);
+        }
+        if (count($lastMonthOrders['team'])) {
+            $result['team']['last_month_products'] = $this->getOrderProducts($lastMonthOrders['team']);
         }
 
+        return $result;
+    }
+
+    private function getOrderProducts($orderId): array
+    {
+        $result = [];
+        $products = ProductService::getProductDataFromBasket($orderId);
+        $offers = ProductService::getProductByIds(array_column($products, 'PRODUCT_ID'));
+        foreach ($products as $product) {
+            $result[] = [
+                'name' => $offers[$product['PRODUCT_ID']]['NAME'],
+                'article' => $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'],
+                'price' => $product['PRICE'],
+                'quantity' => (int)$product['QUANTITY'],
+                'picture' => CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE']),
+            ];
+        }
         return $result;
     }
 }
