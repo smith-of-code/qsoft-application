@@ -18,7 +18,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
             <li class="appreciates__item">
                 <div class="appreciate-card appreciate-card--green">
                     <img class="appreciate-card__icon" src="/local/templates/.default/images/icons/handshake.svg" alt="solidarity">
-                    <p class="appreciate-card__text">Ответсвенность</p>
+                    <p class="appreciate-card__text">Ответственность</p>
                 </div>
             </li>
 

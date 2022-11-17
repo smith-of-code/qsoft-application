@@ -1,16 +1,18 @@
 .card-preference {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 
+    height: 100%;
     padding: rem(24px) rem(10px);
 
     border-radius: rem(16px);
     background: $white;
 
     &__icon {
-        $size: 42px; 
+        $size: 42px;
+
+        flex-shrink: 0;
 
         width: rem($size);
         height: rem($size);
@@ -25,7 +27,7 @@
         }
     }
 
-    &__stext {
+    &__text {
         font-weight: $font-weight-medium;
         font-size: rem($font-size-miniature);
         line-height: ($line-height-miniature/$font-size-miniature);
