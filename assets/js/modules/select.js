@@ -18,8 +18,10 @@ export default function () {
             let before = $(state.element).data('option-before') ? $(state.element).data('option-before') : '';
             let after = $(state.element).data('option-after') ? $(state.element).data('option-after') : '';
 
+            let classItem = (before || after) ? 'select__item--inlined' : '';
+
             let result = $(`
-                <span class="select__item">
+                <span class="select__item ${classItem}">
                     ${before}
                     ${state.text}
                     ${after}
