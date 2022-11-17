@@ -32,26 +32,17 @@ class SaleBasketTotal extends CBitrixComponent
         $oldBasket = $this->basketHelper->getBasket();
         $oldBasketItems = $oldBasket->toArray();
 
-        $order = Order::create(SITE_ID, $this->user->id);
-        $order->setBasket($oldBasket);
-
-        DiscountCouponsManager::getUserId();
-        $coupons = $this->orderHelper->getUserCoupons($this->user->id);
-        foreach ($coupons as $coupon) {
-            DiscountCouponsManager::add($coupon['coupon']);
-        }
-        $newBasket = $this->basketHelper->getBasket();
+        $newBasket = $this->basketHelper->getBasket(true);
         $newBasketItems = $newBasket->toArray();
-        DiscountCouponsManager::clear(true);
 
         $offers = $this->user->products->getOffersByIds(array_column($oldBasketItems, 'PRODUCT_ID'));
 
         $basketBonuses = 0;
         foreach ($newBasketItems as $index => &$basketItem) {
             if ($isConsultant) {
-                $basketBonuses += $offers[$basketItem['PRODUCT_ID']]['BONUSES'] * $basketItem['QUANTITY'];
+                $basketBonuses += $this->user->loyalty->calculateBonusesByPrice($basketItem['PRICE']) * $basketItem['QUANTITY'];
             }
-            if ($basketItem['PRICE'] < $oldBasketItems[$index]['PRICE']) {
+            if ($basketItem['PRICE'] !== $oldBasketItems[$index]['PRICE']) {
                 $basketItem['PERSONAL_PROMOTION'] = true;
             }
             $basketItem['OFFER'] = $offers[$basketItem['PRODUCT_ID']];

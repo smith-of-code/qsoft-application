@@ -123,7 +123,7 @@ class ProductService
     private function getOfferBonuses(array $offer): int
     {
         if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
-            return $offer["PROPERTY_BONUSES_{$this->user->loyaltyLevel}_VALUE"] ?? 0;
+            return $this->user->loyalty->calculateBonusesByPrice($offer['PRICE']);
         }
         return 0;
     }

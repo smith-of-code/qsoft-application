@@ -15,7 +15,6 @@ use Bitrix\Main\ObjectNotFoundException;
 use Bitrix\Main\Request;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketItem;
-use Bitrix\Sale\Discount;
 use Bitrix\Sale\Fuser;
 use QSoft\Helper\BasketHelper;
 
@@ -73,9 +72,9 @@ class BasketLineController extends Controller
      * @throws NotImplementedException
      * @throws InvalidOperationException
      */
-    public function getBasketTotalsAction(): array
+    public function getBasketTotalsAction($withPersonalPromotions): array
     {
-        $basket = $this->basketHelper->getBasket();
+        $basket = $this->basketHelper->getBasket($withPersonalPromotions === 'true');
         $basketItems = $basket->toArray();
         return [
             'status' => 'success',
@@ -98,7 +97,7 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function increaseItemAction(int $offerId, int $bonuses, int $quantity = 1): array
+    public function increaseItemAction(int $offerId, int $bonuses, $withPersonalPromotions, int $quantity = 1): array
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         if ($item = $basket->getExistsItem('catalog', $offerId)) {
@@ -119,7 +118,7 @@ class BasketLineController extends Controller
         if (!$result->isSuccess()) {
             throw new RuntimeException($result->getErrorMessages());
         }
-        return $this->getBasketTotalsAction();
+        return $this->getBasketTotalsAction($withPersonalPromotions);
     }
 
     /**
@@ -134,7 +133,7 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function decreaseItemAction(int $offerId, int $quantity = 1): array
+    public function decreaseItemAction(int $offerId, $withPersonalPromotions, int $quantity = 1): array
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         /** @var BasketItem $basketItem */
@@ -153,6 +152,6 @@ class BasketLineController extends Controller
         if (isset($result) && !$result->isSuccess()) {
             throw new RuntimeException($result->getErrorMessages());
         }
-        return $this->getBasketTotalsAction();
+        return $this->getBasketTotalsAction($withPersonalPromotions);
     }
 }

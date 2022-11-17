@@ -14,8 +14,9 @@ export const useBasketStore = defineStore('basket', {
         async fetchBasketTotals() {
             this.loading = true;
             try {
-                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {})
-                    .then((response) => response.data);
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {
+                    data: { withPersonalPromotions: window.location.pathname === '/cart/' },
+                }).then((response) => response.data);
 
                 this.items = response.items;
                 this.itemsCount = Object.values(response.items).length;
@@ -28,7 +29,7 @@ export const useBasketStore = defineStore('basket', {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
-                    data: { offerId, bonuses }
+                    data: { offerId, bonuses, withPersonalPromotions: window.location.pathname === '/cart/' }
                 }).then((response) => response.data);
 
                 this.items = response.items;
@@ -42,7 +43,7 @@ export const useBasketStore = defineStore('basket', {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'decreaseItem', {
-                    data: { offerId, quantity }
+                    data: { offerId, quantity, withPersonalPromotions: window.location.pathname === '/cart/' }
                 }).then((response) => response.data);
 
                 this.items = response.items;

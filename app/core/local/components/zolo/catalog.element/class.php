@@ -9,7 +9,6 @@ use Bitrix\Iblock\Model\PropertyFeature;
 use Bitrix\Iblock\Component\Element;
 use QSoft\Entity\User;
 use QSoft\Helper\HLReferencesHelper;
-use QSoft\Service\ProductService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();

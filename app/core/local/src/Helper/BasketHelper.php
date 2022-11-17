@@ -12,11 +12,19 @@ use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Discount;
+use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
+use Bitrix\Sale\Order;
 use RuntimeException;
 
 class BasketHelper
 {
+    private OrderHelper $orderHelper;
+
+    public function __construct()
+    {
+        $this->orderHelper = new OrderHelper;
+    }
 
     public static function getOfferProperties(BasketBase $basket, array $properties = []): array
     {
@@ -75,7 +83,7 @@ class BasketHelper
      * @throws InvalidOperationException
      * @throws NotImplementedException
      */
-    public function getBasket(): BasketBase
+    public function getBasket(bool $withPersonalPromotions = false, bool $clearPersonalPromotions = true): BasketBase
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         $context = new Discount\Context\Fuser($basket->getFUserId());
@@ -90,6 +98,20 @@ class BasketHelper
                 if (!$applyResult->isSuccess()) {
                     throw new RuntimeException($applyResult->getErrorMessages());
                 }
+            }
+        }
+        if ($withPersonalPromotions) {
+            $order = Order::create(SITE_ID);
+            $order->setBasket($basket);
+
+            DiscountCouponsManager::getUserId();
+            $coupons = $this->orderHelper->getUserCoupons(currentUser()->id);
+            foreach ($coupons as $coupon) {
+                DiscountCouponsManager::add($coupon['coupon']);
+            }
+            $basket = $this->getBasket();
+            if ($clearPersonalPromotions) {
+                DiscountCouponsManager::clear(true);
             }
         }
         return $basket;
