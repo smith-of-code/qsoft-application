@@ -179,6 +179,10 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
         try {
             $this->user = new User;
+			
+			if ($user->isAuthorised) {
+				localRedirect('/login/');
+			}
         } catch (\Exception $e) {}
 
 		$siteId = $this->getSiteId();
@@ -519,9 +523,9 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     {
         global $USER;
 
-        //$orderId = (new OrderHelper)->createOrder($USER->GetID(), $data);
+        $orderId = (new OrderHelper)->createOrder($USER->GetID(), $data);
 
-        return ['status' => 'success', 'id' => 1];
+        return ['status' => 'success', 'id' => $orderId];
     }
 
 	/**

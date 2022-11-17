@@ -50,7 +50,7 @@ class SaleBasketTotal extends CBitrixComponent
         // После реализации корзины удалить.
         Add2BasketByProductID(
             574,
-            2
+            1
         );
 
         dump([

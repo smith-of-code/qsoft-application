@@ -156,7 +156,7 @@ else:?>
                                         </div>
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="tel" class="input__control" name="phone_number" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                                <input type="tel" class="input__control" name="phone" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
                                             </div>
                                         </div>
                                     </div>
@@ -223,46 +223,28 @@ else:?>
                                 <div class="basket-card__list">
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--gray">Количество товаров</span>
-                                        <span class="basket-card__elipse">
-                                            ......................................
-                                        </span>
                                         <span class="basket-card__total"><?=$arResult['BASKET_POSITIONS']?></span> 
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
-                                        <span class="basket-card__elipse">
-                                            ............................................................
-                                        </span>
                                         <span class="basket-card__total"><?=$arResult['ORDER_TAX_FORMATED']?></span> 
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text">Сумма заказа</span>
-                                        <span class="basket-card__elipse">
-                                            ............................................................
-                                        </span>
                                         <span class="basket-card__total"><?=$arResult['PRICE_WITHOUT_DISCOUNT']?></span> 
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__elipse">
-                                            ...................................................................
-                                        </span>
                                         <span class="basket-card__total"><?=$arResult['BASKET_PRICE_DISCOUNT_DIFF']?></span> 
                                     </div>
                                     <?php if ($arResult['USER']['IS_CONSULTANT']):?>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--green">Будет начислено</span>
-                                            <span class="basket-card__elipse">
-                                            ......................................
-                                            </span>
-                                            <span class="basket-card__total"><?=$arResult['ORDER_BONUSES']?></span> 
+                                            <span class="basket-card__total"><?=$arResult['ORDER_BONUSES']?> ББ</span> 
                                         </div>
                                     <?php endif;?>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
-                                        <span class="basket-card__elipse">
-                                            ...................................................................
-                                        </span>
                                         <span class="basket-card__total basket-card__total--bold"><?=$arResult['ORDER_PRICE_FORMATED']?></span> 
                                     </div>
                                 </div>

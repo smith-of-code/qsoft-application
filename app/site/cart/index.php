@@ -6,11 +6,13 @@ $APPLICATION->SetTitle("Корзина");
     <main class="page__main main">
 <!--        --><?php
         $APPLICATION->IncludeComponent(
-            "bitrix:sale.basket.basket",
-            "",
-            [],
-            false
-        ); ?>
+	"bitrix:sale.basket.basket", 
+	".default", 
+    [
+		"PATH_TO_ORDER" => "/order/make/",
+    ],
+	false
+); ?>
         <?php 
         $APPLICATION->IncludeComponent(
             "zolo:sale.basket.total",
