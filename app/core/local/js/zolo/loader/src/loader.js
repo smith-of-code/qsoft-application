@@ -7,6 +7,7 @@ export class Loader {
     run() {
         const pinia = createPinia();
 
+        window.stores = {};
         setActivePinia(pinia);
         for (const dataRoot in storesToLoad) {
             this.loadStore(dataRoot, storesToLoad[dataRoot]);
@@ -23,9 +24,7 @@ export class Loader {
 
         const rootElement = document.querySelector(root);
         if (rootElement) {
-
             let props = this.loadProperties(rootElement);
-            window.stores = {};
             for (const attributeName in props) {
                 let data = props[attributeName];
                 if (data) {
