@@ -59,7 +59,7 @@ class CategorySeeder implements Seederable
         [
             // NOTE: Будет изменено кодом
             'CODE' => 'small_',
-            'NAME' => 'Появились ',
+            'NAME' => 'Появился ',
             'SORT' => '500',
         ],
     ];
@@ -123,14 +123,14 @@ class CategorySeeder implements Seederable
         if ($parentCategory === 'cats') {
             if ($category['CODE'] === 'small_') {
                 $category['CODE'] = 'small_cats';
-                $category['NAME'] .= 'котята';
+                $category['NAME'] .= 'котенок';
             } else {
                 $category['CODE'] .= 'cats';
             }
         } else if ($parentCategory === 'dogs') {
             if ($category['CODE'] === 'small_') {
                 $category['CODE'] = 'small_dogs';
-                $category['NAME'] .= 'щенки';
+                $category['NAME'] .= 'щенок';
             } else {
                 $category['CODE'] .= 'dogs';
             }

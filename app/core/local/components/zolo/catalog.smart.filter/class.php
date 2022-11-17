@@ -352,15 +352,16 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             'BONUSES_K1',
             'BONUSES_K2',
             'BONUSES_K3',
-            'AGE',
             'BREED',
+            'AGE',
+            'SIZE',
             'PACKAGING',
-            'MATERIAL',
-            'APPOINTMENT',
             'LINE',
             'FEED_TASTE',
-            'SPECIAL_INDICATIONS',
+            'APPOINTMENT',
+            'MATERIAL',
             'COLOR',
+            'SPECIAL_INDICATIONS',
         ];
 
         // Устанавливаем соответствие CODE => index, чтобы не потерять ключи элементов
