@@ -524,7 +524,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -559,7 +559,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
@@ -619,7 +619,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-quantity="buyer"
@@ -652,7 +652,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -687,7 +687,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
@@ -734,7 +734,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-quantity="consultant"
@@ -767,7 +767,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -802,7 +802,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
