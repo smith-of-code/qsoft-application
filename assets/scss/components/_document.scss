@@ -20,6 +20,8 @@
 
                 width: rem($size);
                 height: rem($size);
+                margin-top: 0;
+                margin-bottom: rem($gap-average);
             }
         }
     }
