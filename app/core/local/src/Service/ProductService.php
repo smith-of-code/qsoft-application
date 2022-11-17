@@ -76,14 +76,29 @@ class ProductService
             $offers[$offer['ID']] = $offer;
         }
 
-        $products = CIBlockElement::GetList([], ['ID' => array_keys(array_flip($productIds))]);
+        $productIds = array_keys(array_flip($productIds));
+        $productProperties = [];
+        CIBlockElement::GetPropertyValuesArray($productProperties, IBLOCK_PRODUCT, ['ID' => current($productIds)]);
+        $products = CIBlockElement::GetList(
+            [],
+            ['ID' => $productIds],
+            false,
+            false,
+            array_merge(
+                array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($productProperties))),
+                [
+                    'ID',
+                    'DETAIL_PAGE_URL',
+                ],
+            ),
+        );
         $preparedProducts = [];
         while ($product = $products->GetNext()) {
             $preparedProducts[$product['ID']] = $product;
         }
 
         foreach ($offers as &$offer) {
-            $offer['DETAIL_PAGE_URL'] = $preparedProducts[$offer['PRODUCT_ID']]['DETAIL_PAGE_URL'];
+            $offer['PRODUCT'] = $preparedProducts[$offer['PRODUCT_ID']];
         }
 
         return $offers;
@@ -95,7 +110,7 @@ class ProductService
         if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
             return [
                 'PRICE' => $prices['DISCOUNT_PRICE'],
-                'BASE_PRICE' => $prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
+                'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
                     ? $prices['PRICE']['PRICE']
                     : null,
             ];

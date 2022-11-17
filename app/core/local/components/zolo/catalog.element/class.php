@@ -301,7 +301,10 @@ class CatalogElementComponent extends Element
 
         foreach ($data['OFFERS'] as $offer) {
             $result['SORT'][] = $offer['ID'];
-            $result['PRICES'][$offer['ID']] = $offer['PRICES'];
+            $result['PRICES'][$offer['ID']] = [
+                'PRICE' => $offer['PRICE'],
+                'BASE_PRICE' => $offer['BASE_PRICE'],
+            ];
             if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
                 $result['BONUSES_PRICES'][$offer['ID']] = $offer['BONUSES'];
             }

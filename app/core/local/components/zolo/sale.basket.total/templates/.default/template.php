@@ -16,7 +16,7 @@ $APPLICATION->setTitle('Корзина');?>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
                         <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-product-id="<?=$basketItem['OFFER']['PRODUCT_ID']?>">
                             <article class="card-cart">
-                                <a href="<?=$basketItem['OFFER']['DETAIL_PAGE_URL']?>" class="card-cart__link"></a>
+                                <a href="<?=$basketItem['OFFER']['PRODUCT']['DETAIL_PAGE_URL']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
@@ -53,7 +53,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                         </p>
                                                     </li>
                                                 <?php endif;?>
-                                                <?php if ($basketItem['OFFER']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE']):?>
+                                                <?php if ($basketItem['OFFER']['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE']):?>
                                                     <li class="product-status__item product-status__item--blue">
                                                         <span class="product-status__icon">
                                                             <svg class="icon icon--non-returnable product-status__icon-mark">
