@@ -13,6 +13,7 @@ class SaleOrderAjaxComponent {
         $(this).removeClass('input__control--error');
         $('[data-create-order]').removeAttr('disabled');
         $('[data-create-order]').removeClass('button--disabled');
+        $(this).parent().find('.input__control-error').remove();
     }
 
     async createOrder() {
@@ -28,6 +29,9 @@ class SaleOrderAjaxComponent {
 
                 $('[data-create-order]').attr('disabled', '');
                 $('[data-create-order]').addClass('button--disabled');
+
+                let span = $('<span class="input__control-error">Поле обязательно к заполнению</span>');
+                $(item).parent().append(span);
                 return;
             }
 

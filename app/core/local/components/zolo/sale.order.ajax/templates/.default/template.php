@@ -158,6 +158,7 @@ else:?>
                                             <div class="input">
                                                 <input type="tel" class="input__control" name="phone" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
