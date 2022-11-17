@@ -624,6 +624,20 @@
             height: rem($size);
         }
 
+        &--average {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-desktop} {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+            }
+        }
+
         &--big {
             $size: 24px;
 

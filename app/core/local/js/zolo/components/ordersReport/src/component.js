@@ -115,7 +115,7 @@ export const OrdersReport = {
                         </div>
                     </li>
 
-                    <li v-if="ordersReport.last_month_products" class="results__item">
+                    <li v-if="ordersReport.last_month_products.length" class="results__item">
                         <div class="result">
                             <div class="result__main">
                                 <p class="result__title">Количество товаров со всех {{ label }} заказов за последний месяц</p>
@@ -162,7 +162,7 @@ export const OrdersReport = {
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
                                                             <div class="product-line__image">
-                                                                <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
+                                                                <img :src="product.picture" alt="#" class="product-line__image-picture">
                                                             </div>
                                                             <div class="product-line__wrapper">
                                                                 <h2 class="product-line__title">

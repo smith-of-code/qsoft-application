@@ -25,7 +25,6 @@ export class Loader {
         const rootElement = document.querySelector(root);
         if (rootElement) {
             let props = this.loadProperties(rootElement);
-
             for (const attributeName in props) {
                 let data = props[attributeName];
                 if (data) {
@@ -39,7 +38,6 @@ export class Loader {
         }
     }
 
-    // TODO загрузка свойств скопирована из 227010, вынесена в метод. Нужно убрать дубли
     loadProperties(rootElement) {
         let props = {};
         for (const attribute of rootElement.attributes) {

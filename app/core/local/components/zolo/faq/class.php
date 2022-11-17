@@ -8,6 +8,7 @@ use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use QSoft\ORM\FaqTable;
+use QSoft\Entity\User;
 
 class FaqComponent extends CBitrixComponent
 {
@@ -17,6 +18,7 @@ class FaqComponent extends CBitrixComponent
         try {
             $this->checkModules();
             $this->arResult['GROUPS'] = $this->getGroupedQuestions();
+            $this->arResult['IS_AUTHORIZED'] = (new User())->isAuthorized;
             $this->includeComponentTemplate();
         } catch (Exception $e) {
             ShowError($e->getMessage());

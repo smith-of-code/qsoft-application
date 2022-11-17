@@ -107,7 +107,7 @@ export const LegalEntity = {
 
                         <div class="accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" data-profile-edit>
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" @click="edit">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -2630,7 +2630,8 @@ export const LegalEntity = {
 
                             <div class="profile__toggle profile__toggle--inline section__actions">
                                 <div class="section__actions-col">
-                                  <button type="button" class="button button--rounded button--outlined button--red button--full" @click="cancelEditing">
+
+                                  <button type="button" class="button button--rounded button--mixed button--red button--full" @click="() => cancelEditing(pet, petKey)">
                                     <span class="button__text">Отменить изменения</span>
                                   </button>
                                 </div>

@@ -40,7 +40,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                         <article class="card-order card-order--green">
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
-                                                    <a href="#" class="card-order__link"></a>
+                                                    <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="card-order__link"></a>
                                                     <ul class="card-order__list">
                                                         <li class="card-order__item">
                                                             <h2 class="card-order__title">
@@ -175,6 +175,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
     let basketOfset = 0;
+    const SEF_FOLDER = <?=json_encode($arParams['SEF_FOLDER'])?>;
 
     $(document).ready(function () {
         $('#PAYD').on('select2:close', function(){
@@ -225,7 +226,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             }
         }).then(function (response) {
             let orders = JSON.parse(response.data);
-
+            orders.sefFolder = SEF_FOLDER;
             offset = orders.offset;
             if (orders.last) {
                 showMore.style.cssText = 'display:none;';
