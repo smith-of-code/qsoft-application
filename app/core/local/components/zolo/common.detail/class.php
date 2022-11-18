@@ -15,7 +15,7 @@ class CommonDetailPageComponent extends CBitrixComponent
         $this->arResult['ITEM'] = [
             'NAME' => $commonItem['NAME'],
             'DETAIL_TEXT' => $commonItem['DETAIL_TEXT'],
-            'PUBLISHED_AT' => $commonItem['PUBLISHED_AT_VALUE'],
+            'PUBLISHED_AT' => date_format(date_create($commonItem['PROPERTY_PUBLISHED_AT_VALUE']),'d.m.Y'),
             'DETAIL_PICTURE' => CFile::GetPath($commonItem['DETAIL_PICTURE']),
         ];
 

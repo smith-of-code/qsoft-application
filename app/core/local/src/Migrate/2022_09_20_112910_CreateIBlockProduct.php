@@ -124,7 +124,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'DISPLAY_TYPE' => 'F',
         ],
         [
-            'NAME' => 'Возраст',
+            'NAME' => 'Возраст питомца',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'AGE',
             'LIST_TYPE' => 'L',
@@ -150,7 +150,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             ],
         ],
         [
-            'NAME' => 'Размер породы',
+            'NAME' => 'Размер питомца',
             'PROPERTY_TYPE' => 'L',
             'CODE' => 'BREED',
             'LIST_TYPE' => 'L',
@@ -169,7 +169,7 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
                     'SORT' => 200,
                 ],
                 [
-                    'VALUE' => 'Для больших пород',
+                    'VALUE' => 'Для крупных пород',
                     'XML_ID' => 'BIG',
                     'SORT' => 300,
                 ],

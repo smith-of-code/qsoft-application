@@ -5,70 +5,62 @@ namespace QSoft\Service;
 use Bitrix\Catalog\GroupTable;
 use Bitrix\Catalog\PriceTable;
 use Bitrix\Sale\Internals\BasketTable;
-use CFile;
+use CCatalogProduct;
 use CIBlockElement;
 use QSoft\Entity\User;
 
 class ProductService
 {
+    private User $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function getOffersByIds(array $offerIds): array
     {
         $properties = [];
         CIBlockElement::GetPropertyValuesArray($properties, IBLOCK_PRODUCT_OFFER, ['ID' => current($offerIds)]);
 
-        $offerIterator = CIBlockElement::GetList(
-            [],
-            ['ID' => $offerIds],
-            false,
-            false,
-            array_merge(
-                array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($properties))),
-                [
-                    'ID',
-                    'NAME',
-                    'CODE',
-                    'DETAIL_PAGE_URL',
-                    'PREVIEW_PICTURE',
-                    'DETAIL_PICTURE',
-                    'DETAIL_TEXT',
-                    'DETAIL_TEXT_TYPE',
-                    'PREVIEW_TEXT',
-                    'PREVIEW_TEXT_TYPE',
-                ]
-            )
-        );
+        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, array_merge(
+            array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($properties))),
+            [
+                'ID',
+                'NAME',
+                'CODE',
+                'DETAIL_PAGE_URL',
+                'PREVIEW_PICTURE',
+                'DETAIL_PICTURE',
+                'DETAIL_TEXT',
+                'DETAIL_TEXT_TYPE',
+                'PREVIEW_TEXT',
+                'PREVIEW_TEXT_TYPE',
+                'CATALOG_AVAILABLE',
+            ],
+        ));
 
         $offers = [];
-        $fileIds = [];
         while ($offer = $offerIterator->Fetch()) {
+            $offer['PRICES'] = CCatalogProduct::GetOptimalPrice($offer['ID']);
+            if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
+                $offer['BONUSES'] = (int) $offer["PROPERTY_BONUSES_{$this->user->loyaltyLevel}_VALUE"];
+            }
             $offers[$offer['ID']] = $offer;
-            if ($offer['PREVIEW_PICTURE']) {
-                $fileIds[$offer['ID']] = $offer['PREVIEW_PICTURE'];
-            }
         }
-
-        if ($fileIds) {
-            $fileIterator = CFile::GetList([], ['ID' => $fileIds]);
-            foreach ($fileIds as $offerId => $fileId) {
-                if ($file = $fileIterator->Fetch()) {
-                    $offers[$offerId]['PREVIEW_PICTURE'] = CFile::GetFileSRC($file);
-                }
-            }
-        }
-
         return $offers;
     }
 
-    public static function getProductDataFromBasket(int $orderId, int $offset = 0, int $limit = 0): array
+    public static function getProductDataFromBasket($orderId, int $offset = 0, int $limit = 0): array
     {
         return BasketTable::getList([
+            'filter' => [
+                '=ORDER_ID' => $orderId,
+            ],
             'select' => [
                 'PRODUCT_ID',
                 'PRICE',
                 'QUANTITY',
-            ],
-            'filter' => [
-                'ORDER_ID' => $orderId,
             ],
             'offset' => $offset,
             'limit' => $limit,
