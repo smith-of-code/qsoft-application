@@ -16,6 +16,9 @@ class WishlistService
 
     public function add(int $productId): int
     {
+        if (!$this->user->isAuthorized) {
+            return 0;
+        }
         return WishlistTable::add([
             'UF_USER_ID' => $this->user->id,
             'UF_PRODUCT_ID' => $productId,
@@ -24,11 +27,17 @@ class WishlistService
 
     public function remove(int $productId): bool
     {
+        if (!$this->user->isAuthorized) {
+            return true;
+        }
         return WishlistTable::delete($this->get($productId)['ID'])->isSuccess();
     }
 
     public function get(int $productId): array
     {
+        if (!$this->user->isAuthorized) {
+            return [];
+        }
         return WishlistTable::getRow([
             'filter' => [
                 '=UF_USER_ID' => $this->user->id,
@@ -39,6 +48,9 @@ class WishlistService
 
     public function getAll(): array
     {
+        if (!$this->user->isAuthorized) {
+            return [];
+        }
         return WishlistTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $this->user->id,

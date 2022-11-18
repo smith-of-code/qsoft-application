@@ -70,7 +70,7 @@ class ProductService
             $offer = array_merge($offer, $this->getOfferFiles($offer));
             $offer = array_merge($offer, $this->getOfferImages($offer));
             $offer = array_merge($offer, $this->getOfferPrices($offer['ID']));
-            $offer['BONUSES'] = $this->getOfferBonuses($offer);
+            $offer['BONUSES'] = $this->user->loyalty->calculateBonusesByPrice($offer['PRICE']);
             $offer['DISCOUNT_LABELS'] = $this->getOfferDiscountLabels($offer);
             $offer['SELECTS'] = $this->getOfferSelects($offer);
             $offers[$offer['ID']] = $offer;
@@ -115,17 +115,7 @@ class ProductService
                     : null,
             ];
         }
-        return [
-            'PRICE' => $prices['DISCOUNT_PRICE'],
-        ];
-    }
-
-    private function getOfferBonuses(array $offer): int
-    {
-        if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
-            return $this->user->loyalty->calculateBonusesByPrice($offer['PRICE']);
-        }
-        return 0;
+        return ['PRICE' => $prices['DISCOUNT_PRICE']];
     }
 
     private function getOfferDiscountLabels(array $offer): array
