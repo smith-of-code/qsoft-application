@@ -44,7 +44,7 @@
 
                 display: block;
 
-                width: rem(19px);
+                width: rem(15px);
                 height: rem(2px);
 
                 content: '';
@@ -130,6 +130,10 @@
 
         &--violet {
             background-color: #9348df;
+        }
+
+        &--grey {
+            background-color: #4e4e4e;
         }
 
         &--white {

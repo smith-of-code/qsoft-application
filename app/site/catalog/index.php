@@ -151,7 +151,7 @@ $APPLICATION->IncludeComponent(
 			2 => "COLOR_REF",
 			3 => "",
 		),
-		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "Y",
 		"SHOW_OLD_PRICE" => "Y",
 		"MESS_BTN_BUY" => "Купить",
 		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
