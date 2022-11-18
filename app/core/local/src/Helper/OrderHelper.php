@@ -140,7 +140,12 @@ class OrderHelper
 
         $propertyCollection = $order->getPropertyCollection();
         $propertyCollection->getPhone()->setValue($data['phone']);
-        $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
+
+        // TODO: Выяснить причину отсутствия результата выполнения кода. Закоментировал на это время.
+        // Закоментировал, так-как не обнаружил причину бага,
+        // но при этом технически отсутствие этих данных не скажется на функционале.
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
+
         $propertyCollection->getUserEmail()->setValue($data['email']);
         $propertyCollection->getAddress()->setValue($data['delivery_address']);
         /** @var PropertyValue $property */

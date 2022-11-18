@@ -17,6 +17,8 @@ class SaleBasketTotal extends CBitrixComponent
 {
     public function executeComponent()
     {
+        \Bitrix\Main\Loader::includeModule('sale');
+        \Bitrix\Main\Loader::includeModule('catalog');
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
 
         $basket->refresh();
@@ -40,7 +42,10 @@ class SaleBasketTotal extends CBitrixComponent
         dump([
             '$this->arResult' => $this->arResult,
             '$order->getDiscountPrice()' => $order->getDiscountPrice(),
-            '$order->getDiscount()' => $order->getDiscount()
+            '$order->getDiscount()' => $order->getDiscount(),
+            'add' => $result,
+            'basket' => $basket,
+            'test' => [Fuser::getId(), SITE_ID],
         ]);
     }
 
