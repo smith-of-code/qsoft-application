@@ -38,9 +38,6 @@ class SaleBasketTotal extends CBitrixComponent
         if (currentUser() && currentUser()->groups->isConsultant()) {
             $this->loadBonusesBlock($basket);
         }
-        
-        $product = array('PRODUCT_ID' => 574, 'QUANTITY' => 1);
-        $result = \Bitrix\Catalog\Product\Basket::addProductToBasket($basket, $product, array('SITE_ID' => SITE_ID));
 
         dump([
             '$this->arResult' => $this->arResult,
