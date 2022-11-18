@@ -47,16 +47,16 @@ export const OfferPrice = {
     template: `
         <div class="cart__price price">
             <template v-if="this.isConsultant">
-              <p v-if="price.DISCOUNT_LIST.length" class="price__main">{{ formatNumber(price.PRICE.PRICE) }} ₽</p>
+              <p v-if="price.BASE_PRICE" class="price__main">{{ formatNumber(price.BASE_PRICE) }} ₽</p>
               <div class="price__calculation">
-                <p class="price__calculation-total">{{ formatNumber(price.DISCOUNT_PRICE) }} ₽</p>
+                <p class="price__calculation-total">{{ formatNumber(price.PRICE) }} ₽</p>
                 <p class="price__calculation-accumulation">{{ formatNumber(bonuses) }} ББ</p>
               </div>
             </template>
             <template v-else>
               <div class="price__calculation" >
                 <p class="price__calculation-total">
-                  {{ formatNumber(price.DISCOUNT_PRICE) }} ₽
+                  {{ formatNumber(price.PRICE) }} ₽
                 </p>
               </div>
             </template>

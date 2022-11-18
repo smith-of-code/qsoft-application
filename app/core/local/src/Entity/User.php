@@ -23,6 +23,7 @@ use QSoft\Service\ProductService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
+use QSoft\Service\WishlistService;
 use ReflectionProperty;
 use RuntimeException;
 
@@ -65,6 +66,7 @@ class User
      */
     public PetService $pets;
     public ProductService $products;
+    public WishlistService $wishlist;
     public BonusAccountService $bonusAccount;
 
     /**
@@ -132,7 +134,6 @@ class User
      */
     public string $loyaltyLevel;
 
-
     /**
      * @var bool Согласен на использование персональных данных
      */
@@ -160,7 +161,7 @@ class User
     /**
      * @var int Бонусные баллы
      */
-    public int $bonusPoints;
+    public int $bonusPoints = 0;
     /**
      * @var Carbon Дата проверки условий поддержания уровня программы лояльности
      */
@@ -211,19 +212,16 @@ class User
      */
     public function __construct(?int $userId = null)
     {
-        $this->cUser = new CUser;
+        $this->initServices();
 
-        // Получаем поля и свойства пользователя
         if ($userId === null) {
             global $USER;
-
             $userId = $USER->GetID();
+        }
+        $this->isAuthorized = $userId !== null;
 
-            $this->isAuthorized = $userId !== null;
-
-            if ($userId === null) {
-                return;
-            }
+        if ($userId === null) {
+            return;
         }
 
         $user = CUser::GetByID($userId);
@@ -240,24 +238,25 @@ class User
 
         $this->setObjectProperties($user);
 
-        //Задаем необходимые связанные объекты
+        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
+            $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
+        }
+    }
+
+    private function initServices(): void
+    {
+        $this->cUser = new CUser;
         $this->legalEntity = new LegalEntityService($this);
         $this->groups = new UserGroupsService($this);
-
-        //Задаем уровень в программе лояльности в зависимости от группы пользователя
         $this->loyalty = new LoyaltyService($this);
-        
         $this->notification = new NotificationService($this);
         $this->confirmation = new ConfirmationService($this);
         $this->orderAmount = new OrderAmountService($this);
         $this->discounts = new UserDiscountsService($this);
         $this->pets = new PetService($this);
         $this->products = new ProductService($this);
+        $this->wishlist = new WishlistService($this);
         $this->bonusAccount = new BonusAccountService($this);
-
-        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
-            $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
-        }
     }
 
     /**

@@ -1,7 +1,10 @@
 import {useBasketStore} from "../../../stores/basketStore";
 import {computed} from "ui.vue3";
+import NumberFormatMixin from "../../../mixins/NumberFormatMixin";
 
 export const MiniBasket = {
+    mixins: [NumberFormatMixin],
+
     data() {
         return {}
     },
@@ -15,7 +18,6 @@ export const MiniBasket = {
         }
     },
     
-    // language=Vue
     template: `
       <button type="button" class="button button--simple button--red button--vertical">
       <span class="button__icon button__icon--mixed">
@@ -24,7 +26,7 @@ export const MiniBasket = {
         </svg>
         <span class="button__icon-counter button__icon-counter--dark">{{ itemsCount }}</span>
         </span>
-      <span class="personal__button-text button__text">{{ basketPrice }}</span>
+      <span class="personal__button-text button__text">{{ formatNumber(basketPrice) }} &#8381;</span>
       </button>
     `
 };

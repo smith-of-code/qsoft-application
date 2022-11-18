@@ -100,3 +100,11 @@ if (!function_exists('numberToRoman')) {
         return $result;
     }
 }
+
+if (!function_exists('filesizeFormat')) {
+    function filesizeFormat(int $bytes, int $decimals = 2): string
+    {
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @[' ', ' K', ' M', ' G', ' T'][$factor] . 'B';
+    }
+}
