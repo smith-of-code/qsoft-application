@@ -10,7 +10,7 @@ $aMenuLinks = Array(
 
 	Array(
         'Оплата и доставка',
-		"/info/payment_and_delivery/",
+		"/info/faq/#payment",
 		Array(), 
 		Array(), 
 		"" 
