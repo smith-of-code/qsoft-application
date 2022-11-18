@@ -42,6 +42,12 @@ final class ConnectProductPropertiesToCatalogSections extends AbstractMigration
             'accessories_for_cats',
             'accessories_for_dogs',
         ],
+        'BREED' => [
+            'wet_food_for_cats',
+            'dry_food_for_cats',
+            'wet_food_for_dogs',
+            'dry_food_for_dogs',
+        ],
     ];
     private $offersPropsLinks = [
         'PACKAGING' => [
@@ -51,6 +57,10 @@ final class ConnectProductPropertiesToCatalogSections extends AbstractMigration
             'dry_food_for_dogs',
         ],
         'COLOR' => [
+            'accessories_for_cats',
+            'accessories_for_dogs',
+        ],
+        'SIZE' => [
             'accessories_for_cats',
             'accessories_for_dogs',
         ],

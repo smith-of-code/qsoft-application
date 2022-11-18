@@ -22,6 +22,10 @@ final class NotificationTable extends BaseTable
         'read' => 'NOTIFICATION_STATUS_READ',
     ];
 
+    const TYPES = [
+        'order_created' => 'создание заказа',
+    ];
+
     protected static array $decorators = [
         'UF_STATUS' => EnumDecorator::class,
     ];

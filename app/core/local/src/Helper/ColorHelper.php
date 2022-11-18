@@ -48,4 +48,11 @@ class ColorHelper
         }
         return $colorNames;
     }
+
+    public static function getTable()
+    {
+        $hlblock = HighloadBlockTable::getById(HIGHLOAD_BLOCK_COLORREFERENCE)->fetch();
+        $entity = HighloadBlockTable::compileEntity($hlblock);
+        return $entity->getDataClass();
+    }
 }

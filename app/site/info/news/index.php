@@ -1,7 +1,9 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+<?php
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+
 $APPLICATION->SetTitle("Новости");
-?><?$APPLICATION->IncludeComponent("bitrix:news", "", array(
+
+$APPLICATION->IncludeComponent("bitrix:news", "", array(
 	"IBLOCK_TYPE" => "news",
 	"IBLOCK_ID" => IBLOCK_NEWS,
     "SEF_MODE" => "Y",
@@ -13,6 +15,5 @@ $APPLICATION->SetTitle("Новости");
 	"SHOW_404" => "Y",
 	),
 	false
-);?>
-
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");

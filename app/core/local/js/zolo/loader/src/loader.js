@@ -7,6 +7,7 @@ export class Loader {
     run() {
         const pinia = createPinia();
 
+        window.stores = {};
         setActivePinia(pinia);
         window.stores = {};
         for (const dataRoot in storesToLoad) {
