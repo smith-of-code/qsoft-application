@@ -42,17 +42,6 @@ class SaleBasketTotal extends CBitrixComponent
         $product = array('PRODUCT_ID' => 574, 'QUANTITY' => 1);
         $result = \Bitrix\Catalog\Product\Basket::addProductToBasket($basket, $product, array('SITE_ID' => SITE_ID));
 
-        // TODO: Оставил код для формирования корзины,
-        // для заполнения корзины необходимо указать id торгового предложения и количество(по умолчанию 1)
-        // После зайти на страницу /cart/
-        // один заход будет выполнять одну итерацию с корзиной.
-        // затем можно переходить на страницу оформления заказа.
-        // После реализации корзины удалить.
-        Add2BasketByProductID(
-            574,
-            1
-        );
-
         dump([
             '$this->arResult' => $this->arResult,
             '$order->getDiscountPrice()' => $order->getDiscountPrice(),
