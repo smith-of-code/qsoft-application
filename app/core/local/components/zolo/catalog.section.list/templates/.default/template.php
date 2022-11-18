@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<!-- НАЧАЛО СПИСКА РАЗДЕЛОВ КАТАЛОГА -->
 <?
 $TOP_DEPTH = $arResult["SECTION"]["DEPTH_LEVEL"];
 $CURRENT_DEPTH = $TOP_DEPTH;
@@ -191,11 +191,12 @@ while($CURRENT_DEPTH > $TOP_DEPTH) {
 
 // Закрывающий участок блока списка разделов
 if (! empty($arResult["SECTIONS"])):
-if ($TOP_DEPTH == 0): ?>
-    </div>
-<?php else: ?>
-        </ul>
-    </div>
-<?php endif;
+    if ($TOP_DEPTH == 0): ?>
+        </div>
+    <?php else: ?>
+            </ul>
+        </div>
+    <?php endif;
 endif;
 ?>
+<!-- КОНЕЦ СПИСКА РАЗДЕЛОВ КАТАЛОГА -->

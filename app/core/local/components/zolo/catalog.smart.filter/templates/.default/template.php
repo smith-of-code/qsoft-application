@@ -46,8 +46,6 @@ $this->setFrameMode(true);
                             "HIDE_SECTION_NAME" => $arParams["HIDE_SECTION_NAME"],
                             "ADD_SECTIONS_CHAIN" => "N", // Отключено, т. к. уже добавляется
                         );
-                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
-                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
                         $APPLICATION->IncludeComponent(
                             "zolo:catalog.section.list",
                             "",
