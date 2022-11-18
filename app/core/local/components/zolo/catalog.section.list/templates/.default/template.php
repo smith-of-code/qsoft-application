@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<!-- НАЧАЛО СПИСКА РАЗДЕЛОВ КАТАЛОГА -->
 <?
 $TOP_DEPTH = $arResult["SECTION"]["DEPTH_LEVEL"];
 $CURRENT_DEPTH = $TOP_DEPTH;
@@ -94,7 +94,6 @@ LINK;
             $closeExpandable = true;
         }
 
-
         $openLevel1 = <<<OPEN_LEVEL_1
         <li class="category__item">
 OPEN_LEVEL_1;
@@ -105,6 +104,7 @@ CLOSE_LEVEL_1;
 
         if ($openExpandable) {
             $openLevel1 = <<<OPEN_LEVEL_1
+            <!-- ОТКРЫТИЕ ВЛОЖЕННОГО СПИСКА -->
             <li class="category__item">
                 <div class="accordeon accordeon--small" data-accordeon>
                     <div class="accordeon__header" data-accordeon-toggle>
@@ -131,6 +131,7 @@ OPEN_LEVEL_1;
                     </div>
                 </div>
             </li>
+            <!-- ЗАКРЫТИЕ ВЛОЖЕННОГО СПИСКА -->
 CLOSE_LEVEL_1;
         }
 
@@ -182,20 +183,27 @@ while($CURRENT_DEPTH > $TOP_DEPTH) {
     if ($CURRENT_DEPTH > $TOP_DEPTH + 1) {
         echo $closeLevel2;
     } else {
+        // Если последний раз закрывался разворачиваемый раздел - надо поменять верстку,
+        // иначе повторно закроет разворачиваемый список
+        if ($TOP_DEPTH != 0 && $closeExpandable) {
+            $closeLevel1 = <<<CLOSE_LEVEL_1
+        </li>
+CLOSE_LEVEL_1;
+        }
         echo $closeLevel1;
     }
     $CURRENT_DEPTH--;
 }
 
-
-
 // Закрывающий участок блока списка разделов
 if (! empty($arResult["SECTIONS"])):
-if ($TOP_DEPTH == 0): ?>
-    </div>
-<?php else: ?>
-        </ul>
-    </div>
-<?php endif;
+    if ($TOP_DEPTH == 0): ?>
+        </div>
+    <?php else: ?>
+            </ul>
+        </div>
+    <?php endif;
 endif;
 ?>
+<!-- КОНЕЦ СПИСКА РАЗДЕЛОВ КАТАЛОГА -->
+
