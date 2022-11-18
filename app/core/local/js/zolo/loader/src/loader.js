@@ -9,6 +9,7 @@ export class Loader {
 
         window.stores = {};
         setActivePinia(pinia);
+        window.stores = {};
         for (const dataRoot in storesToLoad) {
             this.loadStore(dataRoot, storesToLoad[dataRoot]);
         }
@@ -38,7 +39,6 @@ export class Loader {
         }
     }
 
-    // TODO загрузка свойств скопирована из 227010, вынесена в метод. Нужно убрать дубли
     loadProperties(rootElement) {
         let props = {};
         for (const attribute of rootElement.attributes) {
