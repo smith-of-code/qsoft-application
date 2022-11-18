@@ -75,7 +75,7 @@ export const OfferPrice = {
     
             <div v-else class="quantity__actions">
               <div class="quantity__decrease">
-                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" @click="decreaseItem">
+                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red button--counter" @click="decreaseItem">
                     <span class="button__icon button__icon--small">
                         <svg class="icon icon--minus">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -94,7 +94,7 @@ export const OfferPrice = {
               </div>
     
               <div class="quantity__increase">
-                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" @click="increaseItem">
+                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green button--counter" @click="increaseItem">
                     <span class="button__icon button__icon--small">
                         <svg class="icon icon--plus">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>

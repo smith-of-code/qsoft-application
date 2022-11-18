@@ -91,6 +91,10 @@
         height: rem($size-huge);
     }
 
+    &--counter {
+        width: rem(64px) !important;
+    }
+
     &--back {
         font-size: rem($font-size-mini);
     }

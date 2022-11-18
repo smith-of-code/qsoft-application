@@ -315,26 +315,26 @@ $offerId = $arResult['OFFER_FIRST'];
     <div class="detail__information">
         <div class="detail__information-tabs tabs tabs--accordeon tabs--red tabs--bordered" data-tabs>
             <nav class="tabs__items">
-                <ul class="tabs__list">
+                <ul class="detail__information-tabs-list tabs__list">
                     <?php if (1): ?>
-                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                        <li class="detail__information-tabs-item tabs__item tabs__item--active" data-tab="block1">
                             Описание
                         </li>
                     <?php endif; ?>
 
                     <?php if ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE']): ?>
-                        <li class="tabs__item" data-tab="block2">
+                        <li class="detail__information-tabs-item tabs__item" data-tab="block2">
                             Состав
                         </li>
                     <?php endif; ?>
 
                     <?php if ($arResult['FEEDING_RECOMMENDATIONS']): ?>
-                        <li class="tabs__item" data-tab="block3">
+                        <li class="detail__information-tabs-item tabs__item" data-tab="block3">
                             Рекомендации по кормлению
                         </li>
                     <?php endif; ?>
 
-                    <li class="tabs__item" data-tab="block4">
+                    <li class="detail__information-tabs-item tabs__item" data-tab="block4">
                         Документы
                     </li>
                 </ul>
@@ -343,7 +343,7 @@ $offerId = $arResult['OFFER_FIRST'];
             <div class="detail__information-tabs-body tabs__body accordeon accordeon--simple-bordered">
                 <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Описание</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Описание</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -442,7 +442,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                 <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle="">
-                        <h6 class="accordeon__title">Состав</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Состав</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -483,7 +483,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                 <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Рекомендации по кормлению</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Рекомендации по кормлению</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -501,7 +501,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                 <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Документы</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Документы</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
