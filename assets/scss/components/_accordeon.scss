@@ -198,6 +198,12 @@
             border-radius: rem($border-radius-average);
             background-color: $white;
         }
+
+        &--mobile-active {
+            @media #{$screen-tablet} {
+                display: none !important;
+            }
+        }
     }
 
     &__icon {

@@ -888,7 +888,7 @@
                                 </nav>
 
                                 <div class="detail__information-tabs-body tabs__body accordeon accordeon--simple-bordered">
-                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                                         <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                                             <h6 class="accordeon__title">Описание</h6>
 
@@ -992,7 +992,7 @@
                                     </div>
 
 
-                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                                         <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle="">
                                             <h6 class="accordeon__title">Состав</h6>
 
@@ -1065,7 +1065,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                                         <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                                             <h6 class="accordeon__title">Рекомендации по кормлению</h6>
 
@@ -1083,7 +1083,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                                    <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                                         <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                                             <h6 class="accordeon__title">Документы</h6>
 

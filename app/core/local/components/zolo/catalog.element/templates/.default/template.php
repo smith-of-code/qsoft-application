@@ -341,7 +341,7 @@ $offerId = $arResult['OFFER_FIRST'];
             </nav>
 
             <div class="detail__information-tabs-body tabs__body accordeon accordeon--simple-bordered">
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                         <h6 class="accordeon__title accordeon__title--dark">Описание</h6>
 
@@ -440,7 +440,7 @@ $offerId = $arResult['OFFER_FIRST'];
                 </div>
 
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle="">
                         <h6 class="accordeon__title accordeon__title--dark">Состав</h6>
 
@@ -481,7 +481,7 @@ $offerId = $arResult['OFFER_FIRST'];
                     </div>
                 </div>
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                         <h6 class="accordeon__title accordeon__title--dark">Рекомендации по кормлению</h6>
 
@@ -499,7 +499,7 @@ $offerId = $arResult['OFFER_FIRST'];
                     </div>
                 </div>
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
                         <h6 class="accordeon__title accordeon__title--dark">Документы</h6>
 
