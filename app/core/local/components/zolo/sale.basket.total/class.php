@@ -1,55 +1,64 @@
 <?php
 
-use Bitrix\Sale\Discount;
-use Bitrix\Sale\Order;
-use QSoft\Basket\BasketBonus;
 use QSoft\Entity\User;
-use QSoft\Service\BonusAccountService;
-use Bitrix\Currency\CurrencyManager;
-use Bitrix\Main;
-use Bitrix\Main\Loader;
-use Bitrix\Sale\Basket;
-use Bitrix\Sale\BasketBase;
-use Bitrix\Sale\BasketItem;
-use Bitrix\Sale\Fuser;
+use QSoft\Helper\BasketHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
 
 class SaleBasketTotal extends CBitrixComponent
 {
-    public function executeComponent()
+    private User $user;
+    private BasketHelper $basketHelper;
+    private LoyaltyProgramHelper $loyaltyProgramHelper;
+
+    public function __construct($component = null)
     {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+        parent::__construct($component);
 
-        $basket->refresh();
-
-        $order = Order::create(SITE_ID, currentUser()->id);
-        $order->setPersonTypeId(1);
-        $order->setBasket($basket);
-
-        $this->arResult = [
-            'BASKET_COUNT' => $basket->count(),
-            'BASKET_PRICE' => $order->getPrice(),
-            'BASKET_BASE_PRICE'=> $order->getBasePrice(),
-            'BASKET_TOTAL_VAT' => $order->getVatSum(),
-            'TOTAL_DISCOUNT' => $order->getBasePrice() - $order->getPrice(),
-        ];
-
-        if (currentUser() && currentUser()->groups->isConsultant()) {
-            $this->loadBonusesBlock($basket);
-        }
-
-        dump([
-            '$this->arResult' => $this->arResult,
-            '$order->getDiscountPrice()' => $order->getDiscountPrice(),
-            '$order->getDiscount()' => $order->getDiscount()
-        ]);
+        $this->user = new User;
+        $this->basketHelper = new BasketHelper;
+        $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
     }
 
-    public function loadBonusesBlock($basket)
+    public function executeComponent()
     {
-        $this->arResult = array_merge($this->arResult, [
-            'ACTIVE_BONUSES' => currentUser()->bonusPoints,
-            'BASKET_ITEMS_BONUS_SUM' => (new BasketBonus($basket))->getBasketItemsBonusSum(currentUser()),
-            'USER_LOYALTY_LEVEL' => currentUser()->loyaltyLevel
-        ]);
+        $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
+        $isConsultant = $this->user->isAuthorized && $this->user->groups->isConsultant();
+
+        $oldBasket = $this->basketHelper->getBasket();
+        $oldBasketItems = $oldBasket->toArray();
+
+        $newBasket = $this->basketHelper->getBasket(true);
+        $newBasketItems = $newBasket->toArray();
+
+        $offers = $this->user->products->getOffersByIds(array_column($oldBasketItems, 'PRODUCT_ID'));
+
+        foreach ($newBasketItems as $index => &$basketItem) {
+            if ($basketItem['PRICE'] !== $oldBasketItems[$index]['PRICE']) {
+                $basketItem['PERSONAL_PROMOTION'] = true;
+            }
+            $basketItem['OFFER'] = $offers[$basketItem['PRODUCT_ID']];
+            $basketItem['TOTAL_PRICE'] = $basketItem['PRICE'] * $basketItem['QUANTITY'];
+            $basketItem['TOTAL_BASE_PRICE'] = $basketItem['BASE_PRICE'] * $basketItem['QUANTITY'];
+        }
+
+        $this->arResult = [
+            'IS_CONSULTANT' => $isConsultant,
+            'BASKET_COUNT' => $newBasket->count(),
+            'BASKET_PRICE' => $newBasket->getPrice(),
+            'BASKET_BASE_PRICE'=> $newBasket->getBasePrice(),
+            'BASKET_TOTAL_VAT' => $newBasket->getVatSum(),
+            'TOTAL_DISCOUNT' => $newBasket->getBasePrice() - $newBasket->getPrice(),
+            'BASKET_ITEMS' => $newBasketItems,
+            'ACTIVE_BONUSES' => $this->user->bonusPoints,
+            'BASKET_ITEMS_BONUS_SUM' => $this->user->loyalty->calculateBonusesByPrice($newBasket->getPrice()),
+            'USER_LOYALTY_LEVEL' => $isConsultant ? $this->user->loyaltyLevel : null,
+            'LOYALTY_STATUS' => $isConsultant ? $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+                $this->user->id,
+                $currentAccountingPeriod['from'],
+                $currentAccountingPeriod['to'],
+            ) : null,
+        ];
+
+        $this->includeComponentTemplate();
     }
 }

@@ -104,6 +104,8 @@
     &__wrapper {
         padding: rem($gap-small);
 
+        pointer-events: none;
+
         @media #{$screen-desktop} {
             padding: rem($gap-mini);
             padding-bottom: rem($gap-average);

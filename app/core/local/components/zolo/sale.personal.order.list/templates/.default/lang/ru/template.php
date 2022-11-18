@@ -2,7 +2,6 @@
 $MESS['ORDER_FROM'] = 'Заказ от';
 $MESS['ORDER_NUMBER'] = '№';
 $MESS['ORDER_USER'] = 'Кем заказан';
-$MESS['ORDER_STATUS'] = 'Статус заказа';
 $MESS['ORDER_PAYD_STATUS'] = 'Статус оплаты';
 $MESS['ORDER_PAYD'] = 'Оплачен';
 $MESS['ORDER_NOT_PAYD'] = 'Не оплачен';

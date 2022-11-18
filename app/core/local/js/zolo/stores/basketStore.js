@@ -14,21 +14,8 @@ export const useBasketStore = defineStore('basket', {
         async fetchBasketTotals() {
             this.loading = true;
             try {
-                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {})
-                    .then((response) => response.data);
-
-                this.items = response.items;
-                this.itemsCount = Object.values(response.items).length;
-                this.basketPrice = response.basketPrice;
-            } finally {
-                this.loading = false;
-            }
-        },
-        async increaseItem(offerId, bonuses) {
-            this.loading = true;
-            try {
-                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
-                    data: { offerId, bonuses }
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {
+                    data: { withPersonalPromotions: window.location.pathname === '/cart/' },
                 }).then((response) => response.data);
 
                 this.items = response.items;
@@ -38,11 +25,25 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = false;
             }
         },
-        async decreaseItem(offerId) {
+        async increaseItem(offerId, bonuses = 0) {
+            this.loading = true;
+            try {
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
+                    data: { offerId, bonuses, withPersonalPromotions: window.location.pathname === '/cart/' }
+                }).then((response) => response.data);
+
+                this.items = response.items;
+                this.itemsCount = Object.values(response.items).length;
+                this.basketPrice = response.basketPrice;
+            } finally {
+                this.loading = false;
+            }
+        },
+        async decreaseItem(offerId, quantity = 1) {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'decreaseItem', {
-                    data: { offerId }
+                    data: { offerId, quantity, withPersonalPromotions: window.location.pathname === '/cart/' }
                 }).then((response) => response.data);
 
                 this.items = response.items;

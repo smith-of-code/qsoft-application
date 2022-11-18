@@ -7870,7 +7870,7 @@
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -7880,7 +7880,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -7892,9 +7892,6 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
@@ -7902,7 +7899,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
@@ -8156,13 +8153,13 @@
                                             </div>
                                         </article>
                                     </li>
-                                    
+
                                     <li class="cards-order__item">
                                         <article class="card-order card-order--blue">
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -8172,7 +8169,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8184,17 +8181,14 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
-                                                                    Размещен
+                                                                    Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
@@ -8388,7 +8382,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8454,7 +8448,7 @@
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -8464,7 +8458,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8476,27 +8470,24 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
-                                                                    Отменен
+                                                                    Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
                                                                 <p class="info-slot__value info-slot__value--icon">
                                                                     <span class="info-slot__icon">
                                                                         <svg class="icon icon--credit-not-paid info-slot__icon-mark">
-                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-not-paid"></use>
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
                                                                         </svg>
                                                                     </span>
-                                                                    Не оплачен
+                                                                    Оплачен
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -8570,7 +8561,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8625,7 +8616,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8680,7 +8671,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8767,7 +8758,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8779,9 +8770,6 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
@@ -8789,7 +8777,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>

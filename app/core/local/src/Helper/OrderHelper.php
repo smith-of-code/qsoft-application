@@ -5,6 +5,7 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Sale\Basket\Storage;
+use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Internals\DiscountCouponTable;
 use Bitrix\Sale\Internals\DiscountTable;
@@ -62,12 +63,10 @@ class OrderHelper
             ],
         ])->fetchAll();
 
-        return array_map(static function (array $order): array {
-            return array_combine(
-                array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
-                $order
-            );
-        }, $result);
+        return array_map(static fn (array $order): array => array_combine(
+            array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
+            $order
+        ), $result);
     }
 
     public function getUserCoupons(int $userId): array
@@ -94,12 +93,10 @@ class OrderHelper
             ],
         ])->fetchAll();
 
-        return array_map(static function (array $coupon): array {
-            return array_combine(
-                array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
-                $coupon
-            );
-        }, $result);
+        return array_map(static fn (array $coupon): array => array_combine(
+            array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
+            $coupon
+        ), $result);
     }
 
     public function createOrder(int $userId, array $data)
@@ -140,7 +137,12 @@ class OrderHelper
 
         $propertyCollection = $order->getPropertyCollection();
         $propertyCollection->getPhone()->setValue($data['phone']);
-        $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
+
+        // TODO: Выяснить причину отсутствия результата выполнения кода. Закоментировал на это время.
+        // Закоментировал, так-как не обнаружил причину бага,
+        // но при этом технически отсутствие этих данных не скажется на функционале.
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
+
         $propertyCollection->getUserEmail()->setValue($data['email']);
         $propertyCollection->getAddress()->setValue($data['delivery_address']);
         /** @var PropertyValue $property */

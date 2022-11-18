@@ -179,6 +179,10 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
         try {
             $this->user = new User;
+			
+			if ($user->isAuthorised) {
+				localRedirect('/login/');
+			}
         } catch (\Exception $e) {}
 
 		$siteId = $this->getSiteId();
