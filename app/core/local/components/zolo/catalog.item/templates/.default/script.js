@@ -272,6 +272,7 @@
 			}
 			// Обновляем параметры для радиокнопки выбора фасовки
 			let packScope = obj.closest('.pack');
+
 			if (packScope.length > 0 && packScope.attr('data-tippy-content')) {
 				packScope.removeAttr('data-tippy-content');
 				let packDiv = obj.closest().find('.pack__item');
@@ -303,6 +304,12 @@
 				if (packDiv.length > 0 && ! packDiv.hasClass('pack__item--disabled')) {
 					packDiv.addClass('pack__item--disabled');
 				}
+                tippy('[data-tippy-content]', {
+                    theme: 'light',
+                    arrow: false,
+                    appendTo: 'parent',
+                });
+
 				return;
 			}
 		}
