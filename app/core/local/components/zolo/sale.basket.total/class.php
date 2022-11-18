@@ -1,16 +1,12 @@
 <?php
 
-use Bitrix\Sale\DiscountCouponsManager;
-use Bitrix\Sale\Order;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
-use QSoft\Helper\OrderHelper;
 
 class SaleBasketTotal extends CBitrixComponent
 {
     private User $user;
-    private OrderHelper $orderHelper;
     private BasketHelper $basketHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
@@ -19,7 +15,6 @@ class SaleBasketTotal extends CBitrixComponent
         parent::__construct($component);
 
         $this->user = new User;
-        $this->orderHelper = new OrderHelper;
         $this->basketHelper = new BasketHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
     }
@@ -37,11 +32,7 @@ class SaleBasketTotal extends CBitrixComponent
 
         $offers = $this->user->products->getOffersByIds(array_column($oldBasketItems, 'PRODUCT_ID'));
 
-        $basketBonuses = 0;
         foreach ($newBasketItems as $index => &$basketItem) {
-            if ($isConsultant) {
-                $basketBonuses += $this->user->loyalty->calculateBonusesByPrice($basketItem['PRICE']) * $basketItem['QUANTITY'];
-            }
             if ($basketItem['PRICE'] !== $oldBasketItems[$index]['PRICE']) {
                 $basketItem['PERSONAL_PROMOTION'] = true;
             }
@@ -59,13 +50,13 @@ class SaleBasketTotal extends CBitrixComponent
             'TOTAL_DISCOUNT' => $newBasket->getBasePrice() - $newBasket->getPrice(),
             'BASKET_ITEMS' => $newBasketItems,
             'ACTIVE_BONUSES' => $this->user->bonusPoints,
-            'BASKET_ITEMS_BONUS_SUM' => $basketBonuses,
-            'USER_LOYALTY_LEVEL' => $this->user->loyaltyLevel,
-            'LOYALTY_STATUS' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
+            'BASKET_ITEMS_BONUS_SUM' => $this->user->loyalty->calculateBonusesByPrice($newBasket->getPrice()),
+            'USER_LOYALTY_LEVEL' => $isConsultant ? $this->user->loyaltyLevel : null,
+            'LOYALTY_STATUS' => $isConsultant ? $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
                 $this->user->id,
                 $currentAccountingPeriod['from'],
                 $currentAccountingPeriod['to'],
-            ),
+            ) : null,
         ];
 
         $this->includeComponentTemplate();

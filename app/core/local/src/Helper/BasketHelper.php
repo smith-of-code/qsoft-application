@@ -100,12 +100,12 @@ class BasketHelper
                 }
             }
         }
-        if ($withPersonalPromotions) {
+        if ($withPersonalPromotions && $user = currentUser()) {
             $order = Order::create(SITE_ID);
             $order->setBasket($basket);
 
             DiscountCouponsManager::getUserId();
-            $coupons = $this->orderHelper->getUserCoupons(currentUser()->id);
+            $coupons = $this->orderHelper->getUserCoupons($user->id);
             foreach ($coupons as $coupon) {
                 DiscountCouponsManager::add($coupon['coupon']);
             }

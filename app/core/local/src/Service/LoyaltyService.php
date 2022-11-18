@@ -2,13 +2,11 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Main\Type\DateTime;
-use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
-use QSoft\Helper\LoyaltyProgramHelper;
+use RuntimeException;
 
 /**
  * Класс для работы с программой лояльности
@@ -43,7 +41,7 @@ class LoyaltyService
             $loyaltyHelper = new BuyerLoyaltyProgramHelper();
         }
 
-        if (! isset($loyaltyHelper)) {
+        if (!isset($loyaltyHelper)) {
             throw new RuntimeException('Пользователь не является участником программы лояльности');
         }
 
@@ -107,7 +105,10 @@ class LoyaltyService
 
     public function calculateBonusesByPrice(float $price): int
     {
-        $rules = $this->getLoyaltyProgramInfo()['PERSONAL_BONUSES_FOR_COST'];
-        return intdiv($price, $rules['step']) * $rules['size'];
+        if ($this->user->groups->isConsultant()) {
+            $rules = $this->getLoyaltyProgramInfo()['PERSONAL_BONUSES_FOR_COST'];
+            return intdiv($price, $rules['step']) * $rules['size'];
+        }
+        return 0;
     }
 }
