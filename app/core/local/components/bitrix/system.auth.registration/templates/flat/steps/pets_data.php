@@ -122,7 +122,7 @@ if (!$arResult['pets']) {
                                                 <div class="select select--mitigate" data-select>
                                                     <select class="select__control" name="pets-<?=$index?>-gender" id="pets-<?=$index?>-gender" data-select-control data-placeholder="Выбрать" data-pets-gender-input data-pets-change>
                                                         <option><!-- пустой option для placeholder --></option>
-                                                        <?php foreach ($arResult['pet_genders'] as $index => $petsGender):?>
+                                                        <?php foreach ($arResult['pet_genders'] as $petsGender):?>
                                                             <option
                                                                     value="<?=$petsGender['XML_ID']?>"
                                                                 <?=$pet['gender'] === $petsGender['XML_ID'] ? 'selected' : ''?>
@@ -314,12 +314,14 @@ if (!$arResult['pets']) {
                                     <div class="form__field-block form__field-block--input">
                                         <div class="form__control">
                                             <div class="select select--mitigate select--iconed" data-select>
-                                                <select class="select__control" name="pets-#ID#-type" id="pets-#ID#-type" data-select-control data-pet-kind data-placeholder="Выбрать" data-pets-type-input data-pets-change>
+                                                <select class="select__control" name="pets-#ID#-type" id="pets--#ID#-type" data-select-control data-pet-kind data-placeholder="Выбрать" data-pets-type-input data-pets-change>
                                                     <option><!-- пустой option для placeholder --></option>
                                                     <?php foreach ($arResult['pet_kinds'] as $petsKind):?>
                                                         <option
                                                                 value="<?=$petsKind['XML_ID']?>"
-                                                                data-option-icon="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
+                                                                data-pets-species="<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"
+                                                                data-option-before='<svg class="select__item-icon icon icon--<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"><use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=strtolower(str_replace('KIND_', '', $petsKind['XML_ID']))?>"></use></svg>'
+                                                                data-pets-card
                                                         >
                                                             <?=mb_ucfirst($petsKind['VALUE'])?>
                                                         </option>
@@ -408,7 +410,7 @@ if (!$arResult['pets']) {
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <?php foreach ($breed as $breedId => $breedValue):?>
                                                             <option value="<?=$breedId?>">
-                                                                <?=$breedValue?>
+                                                                <?=$breedValue['name']?>
                                                             </option>
                                                         <?php endforeach;?>
                                                     </select>
