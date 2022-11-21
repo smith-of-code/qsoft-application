@@ -59,10 +59,37 @@ export const SalesReportPage = {
                     ? this.consultantsLoyaltyLevelFilter.includes(consultant.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                if (this.consultantsSortAsc) {
-                    return a.user_info[this.consultantsSort] > b.user_info[this.consultantsSort];
-                } else {
-                    return a.user_info[this.consultantsSort] < b.user_info[this.consultantsSort];
+                let aPrepared, bPrepared, aDate, bDate;
+
+                switch (this.consultantsSort) {
+                    case 'id':
+                        return this.consultantsSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                    case 'loyalty_level':
+                        return this.consultantsSortAsc ? a.user_info.loyalty_level > b.user_info.loyalty_level : a.user_info.loyalty_level < b.user_info.loyalty_level;
+                    case 'date_register':
+                        aPrepared = a.user_info.date_register.split('.');
+                        bPrepared = b.user_info.date_register.split('.');
+                        aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
+                        bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
+                        return this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                    case 'paid_orders':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count);
+                    case 'refunded_orders':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count);
+                    case 'orders_count':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.orders_count) < parseInt(b.orders_report.self.orders_count) : parseInt(a.orders_report.self.orders_count) > parseInt(b.orders_report.self.orders_count);
+                    case 'current_bonuses_count':
+                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total);
+                    case 'current_orders_count':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.current_orders_count) < parseInt(b.orders_report.self.current_orders_count) : parseInt(a.orders_report.self.current_orders_count) > parseInt(b.orders_report.self.current_orders_count);
+                    case 'last_order_date':
+                        aPrepared = a.orders_report.self.last_order_date.split('.');
+                        bPrepared = b.orders_report.self.last_order_date.split('.');
+                        aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
+                        bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
+                        return this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                    case 'bonuses_count':
+                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total);
                 }
             });
         },
@@ -72,10 +99,35 @@ export const SalesReportPage = {
                     ? this.buyersLoyaltyLevelFilter.includes(buyer.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                if (this.buyersSortAsc) {
-                    return a.user_info[this.buyersSort] > b.user_info[this.buyersSort];
-                } else {
-                    return a.user_info[this.buyersSort] < b.user_info[this.buyersSort];
+                let aPrepared, bPrepared, aDate, bDate;
+
+                switch (this.buyersSort) {
+                    case 'id':
+                        return this.buyersSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                    case 'date_register':
+                        aPrepared = a.user_info.date_register.split('.');
+                        bPrepared = b.user_info.date_register.split('.');
+                        aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
+                        bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
+                        return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                    case 'paid_orders':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count);
+                    case 'refunded_orders':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count);
+                    case 'orders_count':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.orders_count) < parseInt(b.orders_report.self.orders_count) : parseInt(a.orders_report.self.orders_count) > parseInt(b.orders_report.self.orders_count);
+                    case 'current_bonuses_count':
+                        return this.buyersSortAsc ? parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total);
+                    case 'current_orders_count':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.current_orders_count) < parseInt(b.orders_report.self.current_orders_count) : parseInt(a.orders_report.self.current_orders_count) > parseInt(b.orders_report.self.current_orders_count);
+                    case 'last_order_date':
+                        aPrepared = a.orders_report.self.last_order_date.split('.');
+                        bPrepared = b.orders_report.self.last_order_date.split('.');
+                        aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
+                        bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
+                        return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                    case 'bonuses_count':
+                        return this.buyersSortAsc ? parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total);
                 }
             });
         },
@@ -114,6 +166,9 @@ export const SalesReportPage = {
                 period[1],
             );
             this.mutableConsultants = response.data;
+            for (const i in response.data) {
+                this.$refs[`consultant-${response.data[i].user_info.id}`][0].changeAccountingPeriod(response.data[i]);
+            }
         },
         async changeBuyerAccountingPeriod() {
             const period = $('select[name=buyer_accounting_periods]').val().split('-');
@@ -123,6 +178,9 @@ export const SalesReportPage = {
                 period[1],
             );
             this.mutableBuyers = response.data;
+            for (const i in response.data) {
+                this.$refs[`buyer-${response.data[i].user_info.id}`][0].changeAccountingPeriod(response.data[i]);
+            }
         },
     },
 
@@ -218,12 +276,15 @@ export const SalesReportPage = {
                                                                     <div class="filter__sort select select--small select--sorting select--borderless" data-select>
                                                                         <select class="select__control" name="consultants_sort" data-select-control data-placeholder="Сортировать по">
                                                                             <option><!-- пустой option для placeholder --></option>
-                                                                            <option value="name_initials">ФИО</option>
-                                                                            <option selected value="id">ID</option>
-                                                                            <option value="loyalty_level">Уровень</option>
-                                                                            <option value="date_register">На сайте с</option>
-                                                                            <option value="phone">Телефон</option>
-                                                                            <option value="email">Email</option>
+                                                                            <option value="loyalty_level">По уровню консультанта</option>
+                                                                            <option value="date_register">По дате регистрации</option>
+                                                                            <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
+                                                                            <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
+                                                                            <option value="orders_count">По сумме всех личных заказов</option>
+                                                                            <option value="current_bonuses_count">По сумме личных баллов за текущий отчетный период</option>
+                                                                            <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
+                                                                            <option value="last_order_date">По дате последнего личного заказа</option>
+                                                                            <option value="bonuses_count">По количеству всех заработанных баллов</option>
                                                                         </select>
                             
                                                                         <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="consultantsSortAsc = !consultantsSortAsc">
@@ -256,6 +317,7 @@ export const SalesReportPage = {
                                                 <LoyaltyReport
                                                     v-for="member in consultantsMembers"
                                                     :key="member.user_info.id"
+                                                    :ref="'consultant-' + member.user_info.id"
                                                     :user="member.user_info"
                                                     :orders-report="member.orders_report"
                                                     :current-accounting-period="currentAccountingPeriod"
@@ -304,11 +366,14 @@ export const SalesReportPage = {
                                                                     <div class="filter__sort select select--small select--sorting select--borderless" data-select>
                                                                         <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
                                                                             <option><!-- пустой option для placeholder --></option>
-                                                                            <option value="name_initials">ФИО</option>
-                                                                            <option selected value="id">ID</option>
-                                                                            <option value="date_register">На сайте с</option>
-                                                                            <option value="phone">Телефон</option>
-                                                                            <option value="email">Email</option>
+                                                                            <option value="date_register">По дате регистрации</option>
+                                                                            <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
+                                                                            <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
+                                                                            <option value="orders_count">По сумме всех личных заказов</option>
+                                                                            <option value="current_bonuses_count">По сумме личных баллов за текущий отчетный период</option>
+                                                                            <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
+                                                                            <option value="last_order_date">По дате последнего личного заказа</option>
+                                                                            <option value="bonuses_count">По количеству всех заработанных баллов</option>
                                                                         </select>
                             
                                                                         <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
@@ -341,6 +406,7 @@ export const SalesReportPage = {
                                                 <LoyaltyReport
                                                     v-for="member in buyersMembers"
                                                     :key="member.user_info.id"
+                                                    :ref="'buyer-' + member.user_info.id"
                                                     :user="member.user_info"
                                                     :orders-report="member.orders_report"
                                                     :current-accounting-period="currentAccountingPeriod"
