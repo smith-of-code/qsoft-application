@@ -47,7 +47,7 @@ if (Loader::includeModule('search'))
 			]	,
 			"USE_TITLE_RANK" => $arParams['USE_TITLE_RANK'],
 			"DEFAULT_SORT" => "rank",
-			"FILTER_NAME" => "",
+			"FILTER_NAME" => "sf",
 			"SHOW_WHERE" => "N",
 			"arrWHERE" => [],
 			"SHOW_WHEN" => "N",
@@ -217,8 +217,10 @@ if (!empty($searchFilter) && is_array($searchFilter))
 		'USE_COMPARE_LIST' => ($arParams['USE_COMPARE_LIST'] ?? ''),
 	] + $elementOrder;
 
+	dump($componentParams);
+
 	$APPLICATION->IncludeComponent(
-		"bitrix:catalog.section",
+		"zolo:catalog.section",
 		".default",
 		$componentParams,
 		$arResult["THEME_COMPONENT"],

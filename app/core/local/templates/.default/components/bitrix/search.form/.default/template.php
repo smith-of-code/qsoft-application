@@ -44,7 +44,7 @@ $this->setFrameMode(true);?>
                                                name="q"
                                                id="q"
                                                placeholder="Я ищу..."
-                                               value=""
+                                               value="<?=$_REQUEST['q'] ? htmlspecialcharsbx($_REQUEST['q']) : ''?>"
                                         />
                                         <button type="submit"
                                                 class="input__button input__button--search button button--iconed button--covered button--square button--dark">
@@ -74,7 +74,7 @@ $this->setFrameMode(true);?>
                            name="q"
                            id="q"
                            placeholder="Я ищу..."
-                           value=""
+                           value="<?=$_REQUEST['q'] ? htmlspecialcharsbx($_REQUEST['q']) : ''?>"
                     />
                     <button type="submit"
                             class="input__button input__button--search button button--iconed button--covered button--square button--dark">
