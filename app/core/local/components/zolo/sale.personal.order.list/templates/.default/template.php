@@ -42,7 +42,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                 <header class="card-order__header">
                                                     <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="card-order__link"></a>
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 <?=getMessage('ORDER_FROM') ?> <?=$order['ORDER']['DATE_INSERT_FORMATED'] ?>
                                                             </h2>
