@@ -20,7 +20,7 @@ export const OfferImage = {
     },
 
     updated() {
-        window.swiper?.destroy();
+        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
         initSwiper();
     },
 
@@ -28,7 +28,7 @@ export const OfferImage = {
             <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
-                    <template v-if="images.length > 0">
+                    <template v-if="images && images.length > 0">
                         <div v-for="(image) in images" class="swiper-slide slider__slide">
                             <article class="product-card product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
@@ -79,7 +79,7 @@ export const OfferImage = {
                                     <div class="product-card__wrapper">
                                         <div class="product-card__image box box--circle">
                                             <div class="product-card__box">
-                                                <img src="https://fakeimg.pl/366x312/" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                                <img src="/local/templates/.default/images/no-image-placeholder.png" v-bind:alt="offers.TITLE" class="product-card__pic">
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@ export const OfferImage = {
                     </div>
                 </div>
 
-                <div class="slider__buttons">
+                <div v-if="images && images.length > 0" class="slider__buttons">
                     <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
                         <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
