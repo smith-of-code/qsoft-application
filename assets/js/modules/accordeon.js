@@ -10,6 +10,11 @@ export default function accordeon() {
         const $content = $parent.find(ELEMENTS_SELECTOR.content);
 
         $parent.toggleClass('accordeon__item--opened');
+
+        if ($parent.data('accordeon') == 'mobile-accordeon') {
+            $content.toggleClass('accordeon__body--mobile-active');
+        }
+
         $content.slideToggle();
     });
 }
