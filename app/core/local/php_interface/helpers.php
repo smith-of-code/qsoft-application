@@ -69,7 +69,7 @@ if (!function_exists('mb_ucfirst')) {
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
-        return str_replace('\'', '"', CUtil::PhpToJSObject($array));
+        return str_replace("'", '"', CUtil::PhpToJSObject($array));
     }
 }
 if (!function_exists('numberToRoman')) {
@@ -93,8 +93,7 @@ if (!function_exists('numberToRoman')) {
 
         $result = '';
         foreach ($romanNumbersMap as $roman => $value) {
-            $matches = intval($number / $value);
-            $result .= str_repeat($roman, $matches);
+            $result .= str_repeat($roman, intval($number / $value));
             $number = $number % $value;
         }
         return $result;

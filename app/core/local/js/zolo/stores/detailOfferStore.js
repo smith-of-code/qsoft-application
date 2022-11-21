@@ -36,6 +36,9 @@ export const detailOfferStore = defineStore('detailOffer', {
         bonuses() {
             return this.offers.BONUSES_PRICES[this.currentOfferId];
         },
+        catalogQuantity() {
+            return this.offers.OFFERS[this.currentOfferId].CATALOG_QUANTITY;
+        },
     },
     actions: {
         getIdByColor(color){

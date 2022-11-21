@@ -34,6 +34,33 @@ class ProductService
         $this->user = $user;
     }
 
+    public function getProduct(int $productId): array
+    {
+        if (!$productId) {
+            return [];
+        }
+
+        $productProperties = [];
+        CIBlockElement::GetPropertyValuesArray($productProperties, IBLOCK_PRODUCT, ['ID' => $productId]);
+        $product = CIBlockElement::GetList([], ['ID' => $productId], false, false, array_merge(
+            array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($productProperties))),
+            [
+                'ID',
+                'DETAIL_PAGE_URL',
+            ],
+        ));
+
+        if (!$product || !$product = $product->GetNext()) {
+            return [];
+        }
+
+        $offers = CCatalogSKU::getOffersList($productId, IBLOCK_PRODUCT, ['ACTIVE' => 'Y'], ['IBLOCK_ID']);
+        $offersIds = array_keys($offers);
+        $product['OFFERS'] = $this->getOffersByIds($offersIds);
+
+        return $product;
+    }
+
     public function getOffersByIds(array $offerIds): array
     {
         if (!$offerIds) {
@@ -60,13 +87,9 @@ class ProductService
         ));
 
         $offers = [];
-        $productIds = [];
         $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
         while ($offer = $offerIterator->Fetch()) {
-            $productId = CCatalogSku::GetProductInfo($offer['ID'])['ID'];
-            $productIds[] = $productId;
-            $offer['PRODUCT_ID'] = $productId;
-            $offer['IN_WISHLIST'] = isset($wishlist[$productId]);
+            $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
             $offer = array_merge($offer, $this->getOfferFiles($offer));
             $offer = array_merge($offer, $this->getOfferImages($offer));
             $offer = array_merge($offer, $this->getOfferPrices($offer['ID']));
@@ -75,32 +98,6 @@ class ProductService
             $offer['SELECTS'] = $this->getOfferSelects($offer);
             $offers[$offer['ID']] = $offer;
         }
-
-        $productIds = array_keys(array_flip($productIds));
-        $productProperties = [];
-        CIBlockElement::GetPropertyValuesArray($productProperties, IBLOCK_PRODUCT, ['ID' => current($productIds)]);
-        $products = CIBlockElement::GetList(
-            [],
-            ['ID' => $productIds],
-            false,
-            false,
-            array_merge(
-                array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($productProperties))),
-                [
-                    'ID',
-                    'DETAIL_PAGE_URL',
-                ],
-            ),
-        );
-        $preparedProducts = [];
-        while ($product = $products->GetNext()) {
-            $preparedProducts[$product['ID']] = $product;
-        }
-
-        foreach ($offers as &$offer) {
-            $offer['PRODUCT'] = $preparedProducts[$offer['PRODUCT_ID']];
-        }
-
         return $offers;
     }
 
