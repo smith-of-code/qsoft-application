@@ -230,12 +230,18 @@ $this->setFrameMode(true);
                     <?php endforeach;?>
 
                     <div class="filter__action">
-                        <input class="button button--rounded-big button--covered button--green button--full"
+                        <input class="filter__row"
+                               style="display: none;"
                                type="submit"
                                id="set_filter"
                                name="set_filter"
-                               value="Применить"
-                        />
+                               value="Y"
+                        >
+                        <label class="button button--rounded-big button--covered button--green button--full"
+                               for="set_filter"
+                        >
+                            Применить
+                        </label>
                     </div>
                 </form>
             </div>
