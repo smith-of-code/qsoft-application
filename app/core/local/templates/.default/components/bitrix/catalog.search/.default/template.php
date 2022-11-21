@@ -157,14 +157,14 @@ if (!empty($searchFilter) && is_array($searchFilter))
 		"PAGER_DESC_NUMBERING" => $arParams["PAGER_DESC_NUMBERING"],
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"],
 		"PAGER_SHOW_ALL" => $arParams["PAGER_SHOW_ALL"],
-		"LAZY_LOAD" => ($arParams["LAZY_LOAD"] ?? 'N'),
+		"LAZY_LOAD" => 'Y',
 		"MESS_BTN_LAZY_LOAD" => ($arParams["~MESS_BTN_LAZY_LOAD"] ?? ''),
-		"LOAD_ON_SCROLL" => ($arParams["LOAD_ON_SCROLL"] ?? 'N'),
+		"LOAD_ON_SCROLL" => 'N',
 		"FILTER_NAME" => "searchFilter",
 		"SECTION_ID" => "",
 		"SECTION_CODE" => "",
 		"SECTION_USER_FIELDS" => [],
-		"INCLUDE_SUBSECTIONS" => "Y",
+		"INCLUDE_SUBSECTIONS" => "A",
 		"SHOW_ALL_WO_SECTION" => "Y",
 		"META_KEYWORDS" => "",
 		"META_DESCRIPTION" => "",
@@ -192,8 +192,8 @@ if (!empty($searchFilter) && is_array($searchFilter))
 		'OFFER_TREE_PROPS' => ($arParams['OFFER_TREE_PROPS'] ?? []),
 		'PRODUCT_SUBSCRIPTION' => ($arParams['PRODUCT_SUBSCRIPTION'] ?? ''),
 		'SHOW_DISCOUNT_PERCENT' => ($arParams['SHOW_DISCOUNT_PERCENT'] ?? ''),
-		'SHOW_OLD_PRICE' => ($arParams['SHOW_OLD_PRICE'] ?? ''),
-		'SHOW_MAX_QUANTITY' => ($arParams['SHOW_MAX_QUANTITY'] ?? ''),
+		'SHOW_OLD_PRICE' => 'Y',
+		'SHOW_MAX_QUANTITY' => 'N',
 		'MESS_SHOW_MAX_QUANTITY' => ($arParams['~MESS_SHOW_MAX_QUANTITY'] ?? ''),
 		'RELATIVE_QUANTITY_FACTOR' => ($arParams['RELATIVE_QUANTITY_FACTOR'] ?? ''),
 		'MESS_RELATIVE_QUANTITY_MANY' => ($arParams['~MESS_RELATIVE_QUANTITY_MANY'] ?? ''),
@@ -217,10 +217,8 @@ if (!empty($searchFilter) && is_array($searchFilter))
 		'USE_COMPARE_LIST' => ($arParams['USE_COMPARE_LIST'] ?? ''),
 	] + $elementOrder;
 
-	dump($componentParams);
-
 	$APPLICATION->IncludeComponent(
-		"zolo:catalog.section",
+		"bitrix:catalog.section",
 		".default",
 		$componentParams,
 		$arResult["THEME_COMPONENT"],
