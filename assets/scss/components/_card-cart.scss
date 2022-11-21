@@ -19,6 +19,8 @@
         display: flex;
 
         @media #{$screen-desktop} {
+            flex-grow: 1;
+
             max-width: percentage(362px / 770px);
         }
     }
