@@ -120,6 +120,43 @@ $generalParams = array(
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
 ?>
+<div class="catalog__panel">
+    <p class="catalog__results">Найдено <span class="catalog__results-count"><?= count($arResult['ELEMENTS']) ?></span> товаров</p>
+
+    <div class="catalog__sort">
+        <form id="sort_selector" class="catalog__select select select--small select--limited select--sorting select--sorting-big select--borderless select--groups" data-select
+              action="<?= $APPLICATION->GetCurPageParam('');?>"
+              method="get"
+              class="form">
+            <select class="select__control" name="sort" id="sort" data-select-control data-placeholder="Сортировка">
+                <option value="popularity" <?= $arParams['ELEMENT_SORT_FIELD'] === 'SORT' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
+                <option value="price-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
+                <option value="price-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
+                <option value="date-desc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
+                <option value="date-asc" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
+            </select>
+            <button type="submit" class="input__button input__button--select button button--iconed button--covered button--square button--dark">
+                <span class="button__icon button__icon--medium">
+                    <svg class="icon icon--sort">
+                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
+                    </svg>
+                </span>
+            </button>
+        </form>
+
+        <div class="catalog__toggle">
+            <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
+                            <span class="button__icon button__icon--right button__icon--medium">
+                                <svg class="icon icon--filter">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                                </svg>
+                            </span>
+                <span class="button__text">Фильтр</span>
+            </button>
+        </div>
+    </div>
+</div>
+
 <div class="catalog__products">
     <ul class="product-cards product-cards--catalog">
         <ul class="product-cards__list" data-entity="<?=$containerName?>">
@@ -172,12 +209,12 @@ $containerName = 'container-'.$navParams['NavNum'];
 		?>
 
 	</div>
-    <div data-entity="lazy-<?=$containerName?>">
+    <!--<div data-entity="lazy-<?/*=$containerName*/?>">
         <button type="button"
                 class="catalog__button button button--rounded-big button--outlined button--green button--full"
-                data-use="show-more-<?=$navParams['NavNum']?>"
+                data-use="show-more-<?/*=$navParams['NavNum']*/?>"
         >Показать больше</button>
-    </div>
+    </div>-->
     <script>
         BX.message({
             BASKET_URL: '<?=$arParams['BASKET_URL']?>',

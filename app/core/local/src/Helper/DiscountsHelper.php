@@ -92,10 +92,13 @@ class DiscountsHelper
     private static function getFirstWordForAccent(array $discounts): array
     {   $accent = [];
         foreach ($discounts as &$discount) {
+            $announce = strip_tags($discount['TEXT']);
+            $announce = str_replace(['&nbsp;', PHP_EOL], '', $announce);
+            $announce = trim($announce);
             //получить первое слово до пробела в массив $accent
-            preg_match('/^\S+/', $discount['TEXT'], $accent);
+            preg_match('/^\S+/', $announce, $accent);
             $discount['ACCENT'] = $accent[0];
-            $discount['TEXT'] = mb_substr($discount['TEXT'], mb_strlen($accent[0]));
+            $discount['TEXT'] = mb_substr($announce, mb_strlen($accent[0]));
         }
         return $discounts;
     }
