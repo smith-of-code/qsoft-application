@@ -1,12 +1,34 @@
-<?
+<?php
+
 include_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/urlrewrite.php');
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-global $USER;
-$APPLICATION->SetTitle("404");?>
+CHTTP::SetStatus("404 Not Found");
 
-    <div class="page__error error">
-        <div class="error__content">
+require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
+
+global $APPLICATION, $USER;
+
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title><?php $APPLICATION->ShowTitle();?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?= SITE_DIR ?>favicon.ico"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css"/>
+        <script src="/local/templates/.default/js/script.js"></script>
+        <?php $APPLICATION->ShowHead()?>
+    </head>
+
+    <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
+
+    <body class="page">
+    <?php $APPLICATION->SetTitle("404");?>
+        <div class="page__error error">
+            <div class="error__content">
 
             <div class="error__image">
                 <picture>
@@ -30,7 +52,6 @@ $APPLICATION->SetTitle("404");?>
                 Если пользователь не авторизован, то открывается
                 станица с Формой авторизации.
              -->
-
             <?php if ($USER->IsAuthorized()) {?>
                 <button type="button" class="error__button button button--rounded button--covered button--red" data-fancybox data-modal-type="modal" data-src="#technical-support" data-selected="OTHER">
                     Обратиться в техподдержку
@@ -42,6 +63,7 @@ $APPLICATION->SetTitle("404");?>
                     </button>
                 </a>
             <?php }?>
+            </div>
         </div>
-    </div>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+    </body>
+</html>
