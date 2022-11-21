@@ -22,7 +22,7 @@ export const OfferPrice = {
     },
 
     computed: {
-        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId']),
+        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity']),
         basketItem() {
             return this.basketStore.getItem(this.offerStore.currentOfferId) ?? {};
         },
@@ -45,7 +45,7 @@ export const OfferPrice = {
     },
 
     template: `
-        <div class="cart__price price">
+        <div class="cart__price price" data-quantity>
             <template v-if="this.isConsultant">
               <p v-if="price.BASE_PRICE" class="price__main">{{ formatNumber(price.BASE_PRICE) }} ₽</p>
               <div class="price__calculation">
@@ -90,7 +90,7 @@ export const OfferPrice = {
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
                         </svg>
                     </span>
-                <span class="quantity__total-sum" data-quantity-sum="0">{{ formatNumber(basketItem.QUANTITY) }}</span>
+                <span class="quantity__total-sum" :data-quantity-max="catalogQuantity" :data-quantity-sum="formatNumber(basketItem.QUANTITY)">{{ formatNumber(basketItem.QUANTITY) }}</span>
               </div>
     
               <div class="quantity__increase">

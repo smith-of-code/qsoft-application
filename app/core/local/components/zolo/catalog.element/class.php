@@ -281,6 +281,7 @@ class CatalogElementComponent extends Element
             'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
             'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
+            'PRODUCT_FEATURES' => $data['PRODUCT']['PROPERTY_PRODUCT_FEATURES_VALUE'] ? $data['PRODUCT']['PROPERTY_PRODUCT_FEATURES_VALUE']['TEXT'] : null,
             'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
             'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
             'AGE' => $data['PRODUCT']['PROPERTY_AGE_VALUE'],

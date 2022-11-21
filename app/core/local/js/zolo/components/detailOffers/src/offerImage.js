@@ -34,7 +34,7 @@ export const OfferImage = {
                                 <div class="product-card__header">
                                     <div v-if="offers.DISCOUNT_LABELS[currentOfferId].NAME"
                                          v-bind:class="'product-card__label label label--' +  offers.DISCOUNT_LABELS[currentOfferId].COLOR">
-                                      {{ offers.DISCOUNT_LABELS[currentOfferId].NAME}}
+                                      {{ offers.DISCOUNT_LABELS[currentOfferId].NAME }}
                                       </div>
                                     <div class="product-card__favourite">
                                         <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">

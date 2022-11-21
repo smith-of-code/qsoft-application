@@ -358,55 +358,8 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description description--tablet">
 
                         <div class="description__col">
-                            <h5 class="description__title">Особенности нашего корма</h5>
+                            <?=$arResult['PRODUCT_FEATURES']?>
 
-                            <div class="description__features features">
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--chemistry">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Сбалансированная формула</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--diagnosis">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--protection">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Профилактика здоровья ежедневно</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--diploma">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            
                             <?php if ($arResult['DESCRIPTION']): ?>
                                 <h5>Общее</h5>
 
