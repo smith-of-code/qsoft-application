@@ -8,7 +8,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                 <ul class="widgets__list">
                     <li class="widgets__item">
                         <div class="widget">
-                            <a class="widget__link" href="#"></a>
+                            <a class="widget__link" href="/info/news/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
                                     <img class="widget__image" src="/local/templates/.default/images/megaphone.png">
@@ -38,7 +38,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                     </li>
                     <li class="widgets__item">
                         <div class="widget">
-                            <a class="widget__link" href="#"></a>
+                            <a class="widget__link" href="/info/events/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
                                     <img class="widget__image" src="/local/templates/.default/images/calendar.png">
@@ -68,7 +68,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                     </li>
                     <li class="widgets__item">
                         <div class="widget">
-                            <a class="widget__link" href="#"></a>
+                            <a class="widget__link" href="/info/expert-advice/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
                                     <img class="widget__image"
