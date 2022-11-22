@@ -117,7 +117,7 @@
         min-height: rem(48px);
         margin-bottom: rem($gap-small);
 
-        word-break: break-all;
+        word-break: break-word;
 
         color: $tuna;
     }
@@ -130,7 +130,7 @@
 
         margin-bottom: rem($gap-small);
         
-        word-break: break-all;
+        word-break: break-word;
         letter-spacing: 0.02em;
 
         color: $tuna;
