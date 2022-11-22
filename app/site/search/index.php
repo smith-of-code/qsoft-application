@@ -26,7 +26,7 @@ $APPLICATION->SetTitle("Поиск");
 		"ELEMENT_SORT_ORDER2" => "desc",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-		"IBLOCK_ID" => "134",
+		"IBLOCK_ID" => IBLOCK_PRODUCT,
 		"IBLOCK_TYPE" => "catalog",
 		"LINE_ELEMENT_COUNT" => "3",
 		"NO_WORD_LOGIC" => "Y",
@@ -117,7 +117,7 @@ $APPLICATION->SetTitle("Поиск");
 			7 => "IS_BESTSELLER",
 			8 => "COLOR",
 			9 => "CML2_LINK",
-		)
+		),
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -221,7 +221,7 @@ if (!empty($searchFilter) && is_array($searchFilter))
         'LABEL_PROP_MOBILE' => ($arParams['LABEL_PROP_MOBILE'] ?? ''),
         'LABEL_PROP_POSITION' => ($arParams['LABEL_PROP_POSITION'] ?? ''),
         'ADD_PICT_PROP' => ($arParams['ADD_PICT_PROP'] ?? ''),
-        'PRODUCT_DISPLAY_MODE' => ($arParams['PRODUCT_DISPLAY_MODE'] ?? ''),
+        'PRODUCT_DISPLAY_MODE' => 'Y',
         'PRODUCT_BLOCKS_ORDER' => ($arParams['PRODUCT_BLOCKS_ORDER'] ?? ''),
         'PRODUCT_ROW_VARIANTS' => ($arParams['PRODUCT_ROW_VARIANTS'] ?? ''),
         'ENLARGE_PRODUCT' => ($arParams['ENLARGE_PRODUCT'] ?? ''),

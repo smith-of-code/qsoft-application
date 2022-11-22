@@ -717,17 +717,17 @@ class CatalogSectionComponent extends ElementList
 
         if (!empty($elementIterator))
         {
-            if (!empty($elementIterator->arSectionContext))
+            for ($i = 0; $i < count($elementIterator->arResult); $i++)
             {
-                for ($i = 0; $i < count($elementIterator->arResult); $i++)
+                if (!empty($elementIterator->arSectionContext))
                 {
                     $elementIterator->arSectionContext["ID"] = $elementIterator->arResult[$i]["IBLOCK_SECTION_ID"];
-                    $element = $elementIterator->GetNext();
-                    if (empty($element))
-                        break;
-                    $this->processElement($element);
-                    $iblockElements[$element['ID']] = $element;
                 }
+                $element = $elementIterator->GetNext();
+                if (empty($element))
+                    break;
+                $this->processElement($element);
+                $iblockElements[$element['ID']] = $element;
             }
         }
 
