@@ -4,102 +4,14 @@ $APPLICATION->SetTitle("Интернет-магазин");
 ?>
     <div class="content__main content__main--primary">
         <!--Слайдер-->
-        <section class="main__section">
-            <div class="slider slider--main" data-carousel="main">
-                <div class="swiper-container" data-carousel-container>
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide slider__slide">
-                            <div class="slider__image">
-                                <picture>
-                                    <source media="(min-width: 1440px)"
-                                            srcset="/local/templates/.default/images/main-slider-desktop.jpg">
-                                    <source media="(min-width: 768px)"
-                                            srcset="/local/templates/.default/images/main-slider-tablet.jpg">
-                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg"
-                                         alt="Слайд на главной" class="slider__image-picture">
-                                </picture>
-                            </div>
-
-                            <article class="slider__card card-banner">
-                                <a href="#" class="card-banner__link"></a>
-                                <div class="card-banner__inner">
-                                    <h2 class="card-banner__title">
-                                        Это точно понравится вам и вашим питомцам:
-                                    </h2>
-                                    <p class="card-banner__text">
-                                        Скидка на популярные товары для собак в июне
-                                    </p>
-
-                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default"
-                                         data-carousel-pagination></div>
-
-                                    <div class="card-banner__sale sale">
-                                        <p class="sale__text">
-                                            -50%
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-
-                        <div class="swiper-slide slider__slide">
-                            <div class="slider__image">
-                                <picture>
-                                    <source media="(min-width: 1440px)"
-                                            srcset="/local/templates/.default/images/main-slider-desktop.jpg">
-                                    <source media="(min-width: 768px)"
-                                            srcset="/local/templates/.default/images/main-slider-tablet.jpg">
-                                    <img src="/local/templates/.default/images/main-slider-mobile.jpg"
-                                         alt="Слайд на главной" class="slider__image-picture">
-                                </picture>
-                            </div>
-
-                            <article class="slider__card card-banner">
-                                <a href="#" class="card-banner__link"></a>
-                                <div class="card-banner__inner">
-                                    <h2 class="card-banner__title">
-                                        Это точно понравится вам и вашим питомцам:
-                                    </h2>
-                                    <p class="card-banner__text">
-                                        Скидка на популярные товары для собак в июне
-                                    </p>
-
-                                    <div class="card-banner__pagination swiper-pagination pagination pagination--default"
-                                         data-carousel-pagination></div>
-
-                                    <div class="card-banner__sale sale">
-                                        <p class="sale__text">
-                                            -50%
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-
-                    </div>
-
-                    <div class="swiper-pagination pagination" data-carousel-pagination></div>
-
-                    <div class="slider__buttons">
-                        <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
-                            <button type="button" class="slider__button slider__button--prev">
-                                <svg class="slider__button-icon icon icon--arrow">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="slider__buttons-item swiper-button-next" data-carousel-next>
-                            <button type="button" class="slider__button slider__button--next">
-                                <svg class="slider__button-icon icon icon--arrow">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-left"></use>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <?php
+        $APPLICATION->IncludeComponent(
+                'bitrix:advertising.banner',
+        '',
+            [
+                "QUANTITY" => "2",
+                "TYPE" => "MAIN",
+            ]);?>
         <!--/Слайдер-->
 
         <!--Каталоги-->
