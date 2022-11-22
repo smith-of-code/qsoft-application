@@ -18,8 +18,8 @@ $eventManager->addEventHandler('main', 'OnProlog', [\QSoft\Events\AuthRequired::
 /**
  * Catalog module events
  */
-$eventManager->addEventHandler('catalog', 'OnPriceAdd', [OfferEventsListener::class, 'OnPriceAdd']);
-$eventManager->addEventHandler('catalog', 'OnPriceUpdate', [OfferEventsListener::class, 'OnPriceUpdate']);
+$eventManager->addEventHandler('catalog', '\Bitrix\Catalog\Price::OnAfterAdd', [OfferEventsListener::class, 'OnPriceAdd']);
+$eventManager->addEventHandler('catalog', '\Bitrix\Catalog\Price::OnAfterUpdate', [OfferEventsListener::class, 'OnPriceUpdate']);
 
 /**
  * техподдержка.
