@@ -4,6 +4,10 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 }
 
 use Bitrix\Main\Localization\Loc;
+
+$loginLink = '/login/';
+
+$isAuthorized = $arResult['IS_AUTHORIZED'];
 ?>
 
 <main class="page__faq faq">
@@ -31,8 +35,8 @@ use Bitrix\Main\Localization\Loc;
                         <div class="question__accordeon accordeon">
                             <?php $i = 1;
                             foreach ($group['questions'] as $question) : ?>
-                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
-                                <div class="accordeon__header" data-accordeon-toggle>
+                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon data-accordeon-toggle>
+                                <div class="accordeon__header">
                                     <h5 class="question__accordeon-title accordeon__title">
                                         <span class="question__accordeon-number"><?=$i?>.</span>
                                         <?=$question['UF_QUESTION']?>
@@ -69,8 +73,11 @@ use Bitrix\Main\Localization\Loc;
                 <p class="setask__subtext"><?=Loc::getMessage('FAQ_SUPPORT_MESSAGE_US')?></p>
                 <button type="button"
                         class="setask__button button button--rounded button--covered button--green button--full"
-                        data-fancybox data-modal-type="modal"
-                        data-src="#technical-support"
+                        <?=$isAuthorized
+                            ? 'data-fancybox data-modal-type="modal" data-src="#technical-support"'
+                            : 'onClick="window.location.href = \'/login/\';"'
+                        ?>
+                        
                 >
                     <?=Loc::getMessage('FAQ_SUPPORT_ASK_US')?>
                 </button>

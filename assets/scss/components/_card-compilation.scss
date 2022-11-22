@@ -77,6 +77,8 @@
             font-weight: $font-weight-medium;
             line-height: ($line-height-small / $font-size-small);
 
+            word-break: break-word;
+
             color: #19191c;
             
             @media #{$screen-tablet} {

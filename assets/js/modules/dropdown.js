@@ -1,6 +1,6 @@
 const ELEMENTS_SELECTOR = {
     button: '[data-dropdown-button]',
-    dropdownBlock: '[data-dropdown-block]',
+    buttonMenu: '[data-dropdown-burger]',
     dropdown: '[data-dropdown]',
     close: '[data-dropdown-close]',
 };
@@ -22,6 +22,10 @@ export default function () {
             dropdown.removeClass('dropdown--active');
             $(this).off('click.dropdown'+rund);
         });
+    });
+
+    $(document).on('click', ELEMENTS_SELECTOR.buttonMenu, function() {
+        $(this).toggleClass('header__catalog-button-menu--active');
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.close, function() {

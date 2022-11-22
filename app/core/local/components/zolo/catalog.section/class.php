@@ -8,6 +8,8 @@ use \Bitrix\Main\Type\DateTime;
 use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Iblock;
 use \Bitrix\Iblock\Component\ElementList;
+use QSoft\Entity\User;
+use QSoft\Service\WishlistService;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
@@ -398,6 +400,16 @@ class CatalogSectionComponent extends ElementList
 	protected function makeOutputResult()
 	{
 		parent::makeOutputResult();
+
+        $user = new User;
+        $wishlist = array_flip(array_column($user->wishlist->getAll(), 'UF_PRODUCT_ID'));
+        foreach ($this->arResult['ITEMS'] as &$product) {
+            foreach ($product['OFFERS'] as &$offer) {
+                $offer = array_merge($offer, $user->products->getOfferPrices($offer['ID']));
+                $offer['BONUSES'] = $user->loyalty->calculateBonusesByPrice($offer['PRICE']);
+                $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
+            }
+        }
 		$this->arResult['USE_CATALOG_BUTTONS'] = $this->storage['USE_CATALOG_BUTTONS'];
 	}
 
@@ -653,6 +665,15 @@ class CatalogSectionComponent extends ElementList
 	protected function initElementList()
 	{
 		parent::initElementList();
+
+		// Подсчитываем количество элементов через дополнительный запрос к БД
+        $this->arResult['TOTAL_PRODUCTS_COUNT'] = \CIBlockElement::GetList(
+            array(),
+            array_merge($this->globalFilter, $this->filterFields + array('IBLOCK_ID' => $this->arParams['IBLOCK_ID'])),
+            [],
+            false,
+            array('ID')
+        );
 
 		// compatibility for old components
 		if ($this->isEnableCompatible() && empty($this->arResult['NAV_RESULT']))

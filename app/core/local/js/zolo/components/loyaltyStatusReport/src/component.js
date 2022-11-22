@@ -83,7 +83,7 @@ export const LoyaltyStatusReport = {
                                 <div class="card-progress__bottom">
                                     <div class="card-progress__amount amount">
                                         <p
-                                            class="amount__target amount__target--green"
+                                            class="amount__target"
                                             :class="{
                                                 'amount__target--green': holdValue - currentValue <= 0,
                                                 'amount__target--red': holdValue - currentValue > 0,

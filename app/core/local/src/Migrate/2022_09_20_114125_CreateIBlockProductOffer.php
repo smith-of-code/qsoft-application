@@ -104,6 +104,8 @@ final class CreateIBlockProductOffer extends BaseCreateIBlockMigration
             'NAME' => 'Размер',
             'PROPERTY_TYPE' => 'S',
             'CODE' => 'SIZE',
+            'SMART_FILTER' => 'Y',
+            'DISPLAY_TYPE' => 'F',
             'USER_TYPE' => 'directory',
             'USER_TYPE_SETTINGS' => [
                 'TABLE_NAME' => 'size',

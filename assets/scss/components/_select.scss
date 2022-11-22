@@ -118,6 +118,7 @@
                     line-height: rem(22px);
 
                     padding: rem($gap-small) rem($gap-average);
+                    padding-right: rem(44px);
                 }
             }
 
@@ -395,6 +396,13 @@
                 padding: rem(14px) rem(44px) rem(12px) rem(16px);
 
                 color: $tuna;
+
+                .select__item {
+                    overflow: hidden;
+
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
 
             .select2-selection__arrow {
@@ -470,6 +478,8 @@
     }
 
     .select2-results__options {
+        display: block;
+
         padding: 0 rem(16px);
     }
 
@@ -533,6 +543,8 @@
             .select2-selection {
                 &::after {
                     transform: rotate(180deg);
+
+                    background-image: url('/local/templates/.default/images/icons/arrow-down-red.svg');
                 }
             }
         }
@@ -548,6 +560,10 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+
+                .select2-selection__rendered {
+                    position: relative;
+                }
             }
         }
     }
@@ -555,8 +571,12 @@
     &__item {
         font-weight: $font-weight-medium;
 
-        display: flex;
-        align-items: center;
+        display: block;
+
+        &--inlined {
+            display: flex;
+            align-items: center;
+        }
 
         &-icon {
             $size: 20px;

@@ -76,6 +76,10 @@
 
         &__title {
             font-weight: $font-weight-semibold;
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-average);
+            }
         }
 
         &__text {
@@ -99,6 +103,8 @@
 
     &__wrapper {
         padding: rem($gap-small);
+
+        pointer-events: none;
 
         @media #{$screen-desktop} {
             padding: rem($gap-mini);
@@ -162,7 +168,15 @@
     &__title {
         @include text-truncate-by-row(3);
 
+        font-size: rem($font-size-miniature);
+        line-height: ($line-height-mini / $font-size-miniature);
+
         margin-bottom: rem($gap-small);
+
+        @media #{$screen-desktop} {
+            font-size: rem($font-size-small);
+            line-height: ($line-height-small / $font-size-small);
+        }
     }
 
     &__article {
@@ -174,7 +188,7 @@
         @media #{$screen-tablet} {
             line-height: rem($line-height-small);
 
-            margin-bottom: rem($gap-medium);
+            margin-bottom: rem($gap-average);
         }
     }
 
@@ -195,6 +209,8 @@
 
             @media #{$screen-desktop} {
                 display: block;
+
+                margin-bottom: 0;
             }
         }
     }
@@ -206,6 +222,10 @@
         margin-bottom: rem(10px);
 
         @media #{$screen-tablet} {
+            margin-bottom: rem($gap-small);
+        }
+
+        @media #{$screen-desktop} {
             margin-bottom: rem($gap-medium);
         }
     }

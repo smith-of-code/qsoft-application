@@ -2,13 +2,11 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Main\Type\DateTime;
-use http\Exception\RuntimeException;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
-use QSoft\Helper\LoyaltyProgramHelper;
+use RuntimeException;
 
 /**
  * Класс для работы с программой лояльности
@@ -43,7 +41,7 @@ class LoyaltyService
             $loyaltyHelper = new BuyerLoyaltyProgramHelper();
         }
 
-        if (! isset($loyaltyHelper)) {
+        if (!isset($loyaltyHelper)) {
             throw new RuntimeException('Пользователь не является участником программы лояльности');
         }
 
@@ -69,6 +67,7 @@ class LoyaltyService
                 // Достижения
                 $result['CURRENT_LEVEL'] = $levels[$this->user->loyaltyLevel]['label'];
                 $result['PERSONAL_DISCOUNT'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_discount'];
+                $result['PERSONAL_BONUSES_FOR_COST'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_bonuses_for_cost'];
                 $result['CURRENT_AMOUNT_OF_BONUSES'] = $bonusesHelper->getTotalBonusesForCurrentQuarter($this->user);
 
                 // Получим необходимые данные по затратам для удержания текущего уровня
@@ -102,5 +101,14 @@ class LoyaltyService
             }
         }
         return $result;
+    }
+
+    public function calculateBonusesByPrice(float $price): int
+    {
+        if ($this->user->groups->isConsultant()) {
+            $rules = $this->getLoyaltyProgramInfo()['PERSONAL_BONUSES_FOR_COST'];
+            return intdiv($price, $rules['step']) * $rules['size'];
+        }
+        return 0;
     }
 }

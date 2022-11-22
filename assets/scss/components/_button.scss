@@ -91,6 +91,10 @@
         height: rem($size-huge);
     }
 
+    &--counter {
+        width: rem(64px) !important;
+    }
+
     &--back {
         font-size: rem($font-size-mini);
     }
@@ -622,6 +626,20 @@
 
             width: rem($size);
             height: rem($size);
+        }
+
+        &--average {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+
+            @media #{$screen-desktop} {
+                $size: 24px;
+
+                width: rem($size);
+                height: rem($size);
+            }
         }
 
         &--big {

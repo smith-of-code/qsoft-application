@@ -115,6 +115,11 @@ class NotificationService
 
     private static function getUserFieldEnumTable(): string
     {
+        // Доп проверка для возвожности подключения класса более одного раза за итерацию.
+        if (class_exists('PROPSTable')) {
+            return \PROPSTable::class;
+        }
+
         return Entity::compileEntity('PROPS',
             [
                 (new IntegerField('ID'))

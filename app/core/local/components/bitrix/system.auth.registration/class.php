@@ -157,11 +157,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ConfirmationTable::TYPES['confirm_email'],
         );
 
-        if ($confirmResult) {
-            $user->activate();
+        if ($confirmResult && $user->activate()) {
+            LocalRedirect('/personal');
+        } else {
+            LocalRedirect('/');
         }
-
-        LocalRedirect('/');
     }
 
     public function configureActions(): array
@@ -307,16 +307,19 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
-            'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
+            'PERSONAL_PHOTO' => $data['photo'] ? (int)$data['photo']['id'] : null,
             'PERSONAL_PHONE' => $data['phone'],
             'PERSONAL_GENDER' => $data['gender'],
-            'PERSONAL_CITY' => $data['cities'][$data['city']],
+            'PERSONAL_CITY' => array_first(array_filter(
+                $data['cities'],
+                static fn (array $city): bool => $city['XML_ID'] === $data['city'],
+            ))['VALUE'],
             'GROUP_ID' => [$userGroupId],
             'UF_MENTOR_ID' => $data['mentor_id'],
-            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],
-            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'],
-            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'],
-            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'],
+            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'] === 'true',
+            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'] === 'true',
+            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'] === 'true',
+            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'] === 'true',
         ]);
 
         $user->ChangePassword(
@@ -332,16 +335,20 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $registrationData['password'],
         );
 
-//        foreach ($data['pets'] as $pet) {
-//            PetTable::add([
-//                'UF_USER_ID' => $registrationData['user_id'],
-//                'UF_NAME' => $pet['name'],
-//                'UF_KIND' => $pet['type'],
-//                'UF_BREED' => $pet['breed'],
-//                'UF_GENDER' => $pet['gender'],
-//                'UF_BIRTHDATE' => new Date($pet['birthdate']),
-//            ]);
-//        }
+        $kinds = HlBlockHelper::getPreparedEnumFieldValues(PetTable::getTableName(), 'UF_KIND');
+        $kinds = array_combine(array_column($kinds, 'code'), $kinds);
+        $genders = HlBlockHelper::getPreparedEnumFieldValues(PetTable::getTableName(), 'UF_GENDER');
+        $genders = array_combine(array_column($genders, 'code'), $genders);
+        foreach ($data['pets'] as $pet) {
+            PetTable::add([
+                'UF_USER_ID' => $registrationData['user_id'],
+                'UF_NAME' => $pet['name'],
+                'UF_KIND' => $kinds[$pet['type']]['id'],
+                'UF_BREED' => $pet['breed'],
+                'UF_GENDER' => $genders[$pet['gender']]['id'],
+                'UF_BIRTHDATE' => new Date($pet['birthdate']),
+            ]);
+        }
 
         if ($data['status']) {
             $documents = [

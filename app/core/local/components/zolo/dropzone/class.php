@@ -1,12 +1,13 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Main\Context;
+use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\HttpRequest;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Loader;
 
-class DropzoneComponent extends CBitrixComponent
+class DropzoneComponent extends CBitrixComponent implements Controllerable
 {
     private HttpRequest $myRequest;
     private array $arRequest;
@@ -118,5 +119,39 @@ class DropzoneComponent extends CBitrixComponent
         }
         $types = implode(', ', $types);
         $this->arResult['DROPZONE_JS_TYPES'] = $types;
+    }
+
+    public function configureActions(): array
+    {
+        return [
+            'upload' => [
+                'prefilters' => [],
+            ],
+            'delete' => [
+                'prefilters' => [],
+            ],
+        ];
+    }
+
+    public function uploadAction(): array
+    {
+        $result = [];
+        $files = Context::getCurrent()->getRequest()->getFileList()->toArray();
+        foreach ($files as $file) {
+            $fileId = CFile::SaveFile($file, 'dropzone');
+            $result[] = [
+                'id' => $fileId,
+                'name' => $file['name'],
+                'format' => explode('/', strtoupper($file['type']))[1],
+                'size' => filesizeFormat($file['size']),
+                'src' => CFile::GetPath($fileId),
+            ];
+        }
+        return $result;
+    }
+
+    public function deleteAction(int $id): void
+    {
+        CFile::Delete($id);
     }
 }

@@ -524,7 +524,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -559,7 +559,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
@@ -619,7 +619,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-quantity="buyer"
@@ -652,7 +652,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -687,7 +687,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
@@ -734,7 +734,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-quantity="consultant"
@@ -767,7 +767,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-rub
@@ -802,7 +802,7 @@
                                                                                     <div class="card-counting__value">
                                                                                         <!-- скрипт выводит значение data-current в value-count -->
                                                                                         <input
-                                                                                            type="number"
+                                                                                            type="text"
                                                                                             class="card-counting__value-count"
                                                                                             data-range-min
                                                                                             data-calculator-range-input-point
@@ -1119,35 +1119,34 @@
                                                     <div class="diagramm__col diagramm__col--main">
                                                         <div class="diagramm__main">
                                                             <canvas width="400" height="400" data-chart='{"labels": [" Доход от личных продаж", " Прибыль от личных покупок", " Доход от группы", " Разовые начисления"],"datasets": [{"data": [0, 0, 0, 0],"backgroundColor": ["#3887b5","#2c877f","#945dab","#d82f49"]}]}' data-calculator-chart></canvas>
-                                                            <div class="diagramm__sum">0</div>
                                                         </div>
                                                     </div>
 
                                                     <div class="diagramm__col diagramm__col--composition">
                                                         <div class="diagramm__composition">
                                                             <div class="diagramm__composition-item">
-                                                                <div class="diagramm__main">
-                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#3887b5","#D0EDFE"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-income-sales></canvas>
+                                                                <div class="diagramm__piece">
+                                                                    <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#3887b5", "#D0EDFE"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-income-sales></canvas>
                                                                 </div>
-                                                                <div class="diagramm__composition-text">Доход от личных продаж</div>
+                                                                <div class="diagramm__composition-text">Доход<br> от личных продаж</div>
                                                             </div>
                                                             <div class="diagramm__composition-item">
-                                                                <div class="diagramm__main">
+                                                                <div class="diagramm__piece">
                                                                     <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#2C877F","#C5F2F2"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-profit-purchases></canvas>
                                                                 </div>
-                                                                <div class="diagramm__composition-text">Прибыль от личных покупок</div>
+                                                                <div class="diagramm__composition-text">Прибыль<br> от личных покупок</div>
                                                             </div>
                                                             <div class="diagramm__composition-item">
-                                                                <div class="diagramm__main">
+                                                                <div class="diagramm__piece">
                                                                     <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#945DAB","#DDCFE3"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-income-group></canvas>
                                                                 </div>
                                                                 <div class="diagramm__composition-text">Доход от группы <br><br></div>
                                                             </div>
                                                             <div class="diagramm__composition-item">
-                                                                <div class="diagramm__main">
+                                                                <div class="diagramm__piece">
                                                                     <canvas width="80" height="80" data-chart='{"datasets": [{"data": [0, 1],"backgroundColor": ["#C73C5E","#FAD0D3"]}]}' data-chart-no-labels data-chart-no-tooltip data-calculator-chart-onetime-charges></canvas>
                                                                 </div>
-                                                                <div class="diagramm__composition-text">Разовые начисления</div>
+                                                                <div class="diagramm__composition-text">Разовые<br> начисления</div>
                                                             </div>
                                                         </div>
                                                     </div>

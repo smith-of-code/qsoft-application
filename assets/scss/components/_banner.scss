@@ -25,6 +25,8 @@
 
             margin-bottom: rem(18px);
 
+            letter-spacing: 0;
+
             @media #{$screen-tablet} {
                 margin-bottom: rem($gap-normal);
             }
@@ -41,6 +43,8 @@
 
             max-width: rem(808px);
             margin-bottom: 0;
+
+            letter-spacing: 0.02em;
 
             @media #{$screen-tablet} {
                 font-size: rem($font-size-average);

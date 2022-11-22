@@ -229,6 +229,7 @@ export const Pets = {
                                                                     :options="breeds[pet.kind?.code] ?? {}"
                                                                     :selected="pet.breed?.id"
                                                                     @custom-change="(value) => { pet.breed = breeds[pet.kind.code][value] }"
+                                                                    data-pets-breed
                                                                 />
                                                             </div>
                                                         </div>
