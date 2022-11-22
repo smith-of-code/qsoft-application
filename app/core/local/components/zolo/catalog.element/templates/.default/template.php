@@ -31,17 +31,8 @@ $offerId = $arResult['OFFER_FIRST'];
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
-
-        <div class="detail__card-specification detail__card-specification--mobile specification">
-            <p class="specification__title"><?= $arResult['TITLE']?></p>
-            <?php foreach ($arResult['ARTICLES'] as $articul): ?>
-                <p class="specification__article">Арт. <?= $articul?></p>
-            <?php endforeach; ?>
-        </div>
-
-
         <!--  Слайдер  в картинками ТП -->
-        <div id="imageSlider">
+        <div id="imageSlider" prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>">
         <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>

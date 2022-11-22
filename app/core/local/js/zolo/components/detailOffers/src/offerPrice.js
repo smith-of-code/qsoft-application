@@ -22,7 +22,7 @@ export const OfferPrice = {
     },
 
     computed: {
-        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity']),
+        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity', 'isNonreturnable']),
         basketItem() {
             return this.basketStore.getItem(this.offerStore.currentOfferId) ?? {};
         },
@@ -37,7 +37,7 @@ export const OfferPrice = {
 
     methods: {
         increaseItem() {
-            this.basketStore.increaseItem(this.currentOfferId, this.bonuses);
+            this.basketStore.increaseItem(this.currentOfferId, window.location.pathname, this.isNonreturnable);
         },
         decreaseItem() {
             this.basketStore.decreaseItem(this.currentOfferId);
@@ -94,7 +94,7 @@ export const OfferPrice = {
               </div>
     
               <div class="quantity__increase">
-                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" @click="increaseItem">
+                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" @click="increaseItem" :disabled="basketItem.QUANTITY >= catalogQuantity" :class="{ 'button--disabled': basketItem.QUANTITY >= catalogQuantity }">
                     <span class="button__icon button__icon--small">
                         <svg class="icon icon--plus">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>

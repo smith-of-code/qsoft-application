@@ -14,9 +14,9 @@ $APPLICATION->setTitle('Корзина');?>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
-                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-product-id="<?=$basketItem['OFFER']['PRODUCT_ID']?>">
+                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>">
                             <article class="card-cart">
-                                <a href="<?=$basketItem['OFFER']['PRODUCT']['DETAIL_PAGE_URL']?>" class="card-cart__link"></a>
+                                <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
@@ -53,7 +53,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                         </p>
                                                     </li>
                                                 <?php endif;?>
-                                                <?php if ($basketItem['OFFER']['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE']):?>
+                                                <?php if ($basketItem['PROPERTIES']['NONRETURNABLE']):?>
                                                     <li class="product-status__item product-status__item--blue">
                                                         <span class="product-status__icon">
                                                             <svg class="icon icon--non-returnable product-status__icon-mark">
@@ -138,13 +138,15 @@ $APPLICATION->setTitle('Корзина');?>
                                     </div>
 
                                     <div class="card-cart__actions">
-                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
-                                            <span class="button__icon">
-                                                <svg class="icon">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-card-favourite-icon></use>
-                                                </svg>
-                                            </span>
-                                        </button>
+                                        <?php if ($arResult['IS_AUTHORIZED']):?>
+                                            <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                <span class="button__icon">
+                                                    <svg class="icon">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-card-favourite-icon></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        <?php endif;?>
                                         <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                             <span class="button__icon">
                                                 <svg class="icon">

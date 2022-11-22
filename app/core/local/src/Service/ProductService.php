@@ -10,15 +10,10 @@ use CCatalogSku;
 use CFile;
 use CIBlockElement;
 use QSoft\Entity\User;
+use QSoft\Helper\HLReferencesHelper;
 
 class ProductService
 {
-    private const SELECT_OFFER_PROPERTIES = [
-        'COLOR',
-        'SIZE',
-        'PACKAGING',
-    ];
-
     private const FILE_FIELDS = [
         'DETAIL_PICTURE',
         'PREVIEW_PICTURE',
@@ -131,12 +126,29 @@ class ProductService
     private function getOfferSelects(array $offer): array
     {
         $result = [];
-        foreach (self::SELECT_OFFER_PROPERTIES as $property) {
-            if ($offer["PROPERTY_{$property}_VALUE"]) {
-                $result[] = $offer["PROPERTY_{$property}_VALUE"];
+        foreach ($this->getSelectFields() as $property) {
+            if ($value = $offer["PROPERTY_{$property['name']}_VALUE"]) {
+                $result[] = $property['values'] ? $property['values'][$value] : $value;
             }
         }
         return $result;
+    }
+
+    private function getSelectFields(): array
+    {
+        return [
+            [
+                'name' => 'COLOR',
+                'values' => HLReferencesHelper::getColorNames(),
+            ],
+            [
+                'name' => 'SIZE',
+                'values' => HLReferencesHelper::getSizeNames(),
+            ],
+            [
+                'name' => 'PACKAGING',
+            ],
+        ];
     }
 
     private function getOfferFiles(array $offer): array

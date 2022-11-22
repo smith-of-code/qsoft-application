@@ -9,7 +9,6 @@ export class Loader {
 
         window.stores = {};
         setActivePinia(pinia);
-        window.stores = {};
         for (const dataRoot in storesToLoad) {
             this.loadStore(dataRoot, storesToLoad[dataRoot]);
         }

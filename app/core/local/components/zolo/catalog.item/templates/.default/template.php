@@ -54,6 +54,7 @@ if (isset($arResult['ITEM']))
     ];
 
     foreach ($item['OFFERS'] as $offer) {
+        $jsInfo['offers'][$offer['ID']]['id'] = $offer['ID'];
         // Артикул
         if (isset($offer['PROPERTIES']['ARTICLE']['VALUE'])) {
             $jsInfo['offers'][$offer['ID']]['article'] = 'Арт. ' . $offer['PROPERTIES']['ARTICLE']['VALUE'];
@@ -86,6 +87,9 @@ if (isset($arResult['ITEM']))
         $jsInfo['offers'][$offer['ID']]['tree'] = $offer['TREE'];
         $jsInfo['offers'][$offer['ID']]['available'] = $offer['CAN_BUY'];
         $jsInfo['offers'][$offer['ID']]['quantity'] = $offer['CATALOG_QUANTITY'];
+        $jsInfo['offers'][$offer['ID']]['inWishlist'] = (bool) $offer['IN_WISHLIST'];
+        $jsInfo['offers'][$offer['ID']]['basketCount'] = (int) $offer['BASKET_COUNT'];
+        $jsInfo['offers'][$offer['ID']]['nonreturnable'] = (bool) $item['PROPERTIES']['NONRETURNABLE_PRODUCT']['VALUE'];
     }
 
     $actualItem = reset($jsInfo['offers']);
@@ -106,15 +110,17 @@ if (isset($arResult['ITEM']))
                 >ограниченное предложение</div>
 
                 <!-- Кнопка "Добавить в избранное" -->
-                <div class="product-card__favourite">
-                    <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                        <span class="button__icon button__icon--big">
-                            <svg class="icon">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
+                <?php if ($USER->IsAuthorized()):?>
+                    <div class="product-card__favourite">
+                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                            <span class="button__icon button__icon--big">
+                                <svg class="icon">
+                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                <?php endif;?>
                 <!-- Кнопка "Добавить в избранное" -->
 
                 <!-- Картинка товара -->
@@ -336,7 +342,7 @@ if (isset($arResult['ITEM']))
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
                                     </svg>
                                 </span>
-                                <span class="quantity__total-sum" data-quantity-sum="0">0</span>
+                                <span class="quantity__total-sum" data-quantity-sum="0" data-quantity-max="10">0</span>
                             </div>
 
                             <div class="quantity__increase">

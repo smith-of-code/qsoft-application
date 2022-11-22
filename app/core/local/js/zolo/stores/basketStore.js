@@ -25,11 +25,16 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = false;
             }
         },
-        async increaseItem(offerId, bonuses = 0) {
+        async increaseItem(offerId, detailPage = '', nonreturnable = false) {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'increaseItem', {
-                    data: { offerId, bonuses, withPersonalPromotions: window.location.pathname === '/cart/' }
+                    data: {
+                        offerId,
+                        detailPage,
+                        nonreturnable,
+                        withPersonalPromotions: window.location.pathname === '/cart/',
+                    }
                 }).then((response) => response.data);
 
                 this.items = response.items;

@@ -1,13 +1,25 @@
 import {detailOfferStore} from "../../../stores/detailOfferStore";
 import {mapState} from "ui.vue3.pinia";
 import initSwiper from "../../../../../../../../assets/js/modules/swiper";
+import {useWishlistStore} from "../../../stores/wishlistStore";
 
 export const OfferImage = {
-    data() {
-        return {};
+    props: {
+        isAuthorized: {
+            type: Boolean,
+            required: true,
+        },
     },
+
+    data() {
+        return {
+            inWishlistTemp: {},
+        };
+    },
+
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'images']),
+        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'images', 'inWishlist', 'toggleInWishlist']),
+        ...mapState(useWishlistStore, ['add', 'remove']),
     },
 
     setup() {
@@ -15,13 +27,22 @@ export const OfferImage = {
     },
 
     mounted() {
-        window.swiper?.destroy();
+        this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
+        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
         initSwiper();
     },
 
     updated() {
+        this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
         if (window.swiper && window.swiper.destroy) window.swiper.destroy();
         initSwiper();
+    },
+
+    methods: {
+        toggleWishlist() {
+            this.inWishlistTemp[this.currentOfferId] ? this.remove(this.currentOfferId) : this.add(this.currentOfferId);
+            this.inWishlistTemp[this.currentOfferId] = !this.inWishlistTemp[this.currentOfferId];
+        },
     },
 
     template: ` 
@@ -36,11 +57,11 @@ export const OfferImage = {
                                          v-bind:class="'product-card__label label label--' +  offers.DISCOUNT_LABELS[currentOfferId].COLOR">
                                       {{ offers.DISCOUNT_LABELS[currentOfferId].NAME }}
                                       </div>
-                                    <div class="product-card__favourite">
-                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                    <div v-if="isAuthorized" class="product-card__favourite">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" :data-card-favourite="inWishlist ? 'heart-fill' : 'heart'" @click="toggleWishlist">
                                             <span class="button__icon button__icon--big">
                                                 <svg class="icon icon--heart">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                    <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (inWishlist ? 'heart-fill' : 'heart')" data-card-favourite-icon></use>
                                                 </svg>
                                             </span>
                                         </button>
@@ -66,8 +87,8 @@ export const OfferImage = {
                                     {{ offers.DISCOUNT_LABELS[currentOfferId].NAME}}
                                   </div>
     
-                                    <div class="product-card__favourite">
-                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                    <div v-if="isAuthorized" class="product-card__favourite">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" @click="toggleWishlist">
                                             <span class="button__icon button__icon--big">
                                                 <svg class="icon icon--heart">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
@@ -95,8 +116,8 @@ export const OfferImage = {
                                   v-bind:class="'product-card__label label label--' +  offers.DISCOUNT_LABELS[currentOfferId].COLOR">
                                   {{ offers.DISCOUNT_LABELS[currentOfferId].NAME}}
                                 </div>
-                                <div class="product-card__favourite">
-                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                <div v-if="isAuthorized" class="product-card__favourite">
+                                    <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" @click="toggleWishlist">
                                     <span class="button__icon button__icon--big">
                                         <svg class="icon icon--heart">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>

@@ -278,6 +278,7 @@ class CatalogElementComponent extends Element
             'BESTSELLERS' => [],
             'PACKAGINGS' => [],
             'PHOTOS' => [],
+            'NONRETURNABLE' => (bool)$data['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE'],
             'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
             'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
