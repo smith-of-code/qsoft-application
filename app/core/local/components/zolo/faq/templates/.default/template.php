@@ -35,8 +35,8 @@ $isAuthorized = $arResult['IS_AUTHORIZED'];
                         <div class="question__accordeon accordeon">
                             <?php $i = 1;
                             foreach ($group['questions'] as $question) : ?>
-                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
-                                <div class="accordeon__header" data-accordeon-toggle>
+                            <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon data-accordeon-toggle>
+                                <div class="accordeon__header">
                                     <h5 class="question__accordeon-title accordeon__title">
                                         <span class="question__accordeon-number"><?=$i?>.</span>
                                         <?=$question['UF_QUESTION']?>
