@@ -36,12 +36,17 @@ class SaleBasketTotal extends CBitrixComponent
             if ($basketItem['PRICE'] !== $oldBasketItems[$index]['PRICE']) {
                 $basketItem['PERSONAL_PROMOTION'] = true;
             }
+            $basketItem['PROPERTIES'] = array_combine(
+                array_column($basketItem['PROPERTIES'], 'CODE'),
+                array_column($basketItem['PROPERTIES'], 'VALUE'),
+            );
             $basketItem['OFFER'] = $offers[$basketItem['PRODUCT_ID']];
             $basketItem['TOTAL_PRICE'] = $basketItem['PRICE'] * $basketItem['QUANTITY'];
             $basketItem['TOTAL_BASE_PRICE'] = $basketItem['BASE_PRICE'] * $basketItem['QUANTITY'];
         }
 
         $this->arResult = [
+            'IS_AUTHORIZED' => $this->user->isAuthorized,
             'IS_CONSULTANT' => $isConsultant,
             'BASKET_COUNT' => $newBasket->count(),
             'BASKET_PRICE' => $newBasket->getPrice(),

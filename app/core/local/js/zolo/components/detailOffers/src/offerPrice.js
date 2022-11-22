@@ -22,10 +22,8 @@ export const OfferPrice = {
     },
 
     computed: {
-        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity']),
-        basketItem() {
-            return this.basketStore.getItem(this.offerStore.currentOfferId) ?? {};
-        },
+        ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity', 'isNonreturnable']),
+        ...mapState(useBasketStore, ['items']),
     },
 
     setup() {
@@ -37,7 +35,7 @@ export const OfferPrice = {
 
     methods: {
         increaseItem() {
-            this.basketStore.increaseItem(this.currentOfferId, this.bonuses);
+            this.basketStore.increaseItem(this.currentOfferId, window.location.pathname, this.isNonreturnable);
         },
         decreaseItem() {
             this.basketStore.decreaseItem(this.currentOfferId);
@@ -61,8 +59,8 @@ export const OfferPrice = {
               </div>
             </template>
         </div>
-        <div class="cart__quantity quantity" :class="{ 'quantity--active': basketItem.QUANTITY }">
-            <div v-if="!basketItem.QUANTITY" class="quantity__button">
+        <div class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
+            <div v-if="!items[currentOfferId]?.QUANTITY" class="quantity__button">
               <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green" @click="increaseItem">
                 <span class="button__icon">
                     <svg class="icon icon--basket">
@@ -90,11 +88,11 @@ export const OfferPrice = {
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
                         </svg>
                     </span>
-                <span class="quantity__total-sum" :data-quantity-max="catalogQuantity" :data-quantity-sum="formatNumber(basketItem.QUANTITY)">{{ formatNumber(basketItem.QUANTITY) }}</span>
+                <span class="quantity__total-sum" :data-quantity-max="catalogQuantity" :data-quantity-sum="formatNumber(items[currentOfferId]?.QUANTITY)">{{ formatNumber(items[currentOfferId]?.QUANTITY) }}</span>
               </div>
     
               <div class="quantity__increase">
-                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green button--counter" @click="increaseItem">
+                <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green button--counter" @click="increaseItem" :disabled="items[currentOfferId]?.QUANTITY >= catalogQuantity" :class="{ 'button--disabled': items[currentOfferId]?.QUANTITY >= catalogQuantity }">
                     <span class="button__icon button__icon--small">
                         <svg class="icon icon--plus">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>

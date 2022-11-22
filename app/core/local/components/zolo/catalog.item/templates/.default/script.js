@@ -52,20 +52,14 @@
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
 				// Отображение цен
-				$('#' + this.products[id].elementsIds.mainPrice).html(offer.mainPrice);
-				if (offer.hasDiscount) {
-					$('#' + this.products[id].elementsIds.mainPrice).show();
-				} else {
-					$('#' + this.products[id].elementsIds.mainPrice).hide();
-				}
-				$('#' + this.products[id].elementsIds.totalPrice).html(offer.totalPrice);
+				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
+				mainPrice.html(`${offer.mainPrice} ₽`);
+				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
+				$('#' + this.products[id].elementsIds.totalPrice).html(`${offer.totalPrice} ₽`);
 				// Отображение баллов
-				$('#' + this.products[id].elementsIds.bonuses).html(offer.bonuses);
-				if (offer.showBonuses) {
-					$('#' + this.products[id].elementsIds.bonuses).show();
-				} else {
-					$('#' + this.products[id].elementsIds.bonuses).hide();
-				}
+				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
+				bonuses.html(`${offer.bonuses} ББ`);
+				offer.bonuses ? bonuses.show() : bonuses.hide();
 			}
 		};
 
@@ -167,6 +161,9 @@
 					continue;
 				}
 
+				this.refreshBasketCount(id, offer, this.products[id].container);
+				this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
+
 				// Переключаем видимость в соответствии с перечнем
 				if (typeof this.products[id].elementsIds.props[propCode].desktop != 'undefined') {
 
@@ -200,6 +197,41 @@
 			}
 
 			return offerId;
+		}
+
+		this.refreshWishlistButton = function (id, offer, container, inWishlist) {
+			const button = container.find('[data-card-favourite]');
+			if (button && button.length) {
+				const value = inWishlist ? 'heart-fill' : 'heart';
+				button.find('[data-card-favourite-icon]').attr('xlink:href', `/local/templates/.default/images/icons/sprite.svg#icon-${value}`);
+				button.data('card-favourite', value);
+				button.data('offer-id', offer.id);
+			}
+		}
+
+		this.refreshBasketCount = async function (id, offer, container) {
+			const basketItem = await window.stores.basketStore.getItem(offer.id);
+			const basketCount = parseInt(basketItem?.QUANTITY ?? 0);
+			const quantity = container.find('[data-quantity]');
+			const increase = container.find('[data-quantity-increase]');
+			const sum = quantity.find('[data-quantity-sum]');
+			quantity.data('product-id', id);
+			quantity.data('offer-id', offer.id);
+			sum.data('quantity-sum', basketCount);
+			sum.data('quantity-max', offer.quantity);
+			if (basketCount >= offer.quantity) {
+				increase.prop('disabled', true);
+				increase.addClass('button--disabled');
+			} else {
+				increase.prop('disabled', false);
+				increase.removeClass('button--disabled');
+			}
+			sum.html(basketCount);
+			if (basketCount > 0) {
+				quantity.addClass('quantity--active');
+			} else {
+				quantity.removeClass('quantity--active');
+			}
 		}
 
 		this.refreshVisibilityForSelect = function (id, offer, propCode, visibilityTree, select) {
@@ -404,6 +436,30 @@
 	};
 
 	$(document).ready(function () {
+		$('[data-card-favourite]').on('click', function () {
+			const offerId = $(this).data('offer-id');
+			if ($(this).data('card-favourite') === 'heart') {
+				window.stores.wishlistStore.add(offerId);
+			} else {
+				window.stores.wishlistStore.remove(offerId);
+			}
+		});
+
+		$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
+			const quantity = $(this).closest('[data-quantity]');
+			const offerId = quantity.data('offer-id');
+			const product = window.CatalogItemHelperZolo.products[quantity.data('product-id')];
+			window.stores.basketStore.increaseItem(
+				offerId,
+				product.container.find('a.product-card__link').attr('href'),
+				product.offers[offerId].nonreturnable
+			);
+		});
+
+		$('[data-quantity-decrease]').on('click', function () {
+			window.stores.basketStore.decreaseItem($(this).closest('[data-quantity]').data('offer-id'));
+		});
+
 		window.CatalogItemHelperZolo.setContainers();
 		window.CatalogItemHelperZolo.firstRefresh();
 	});

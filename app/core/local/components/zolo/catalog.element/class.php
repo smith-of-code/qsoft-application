@@ -1,6 +1,7 @@
 <?php
 
 use Bitrix\Main;
+use Bitrix\Main\Data\Cache;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
@@ -24,6 +25,8 @@ if (!Loader::includeModule('iblock'))
 
 class CatalogElementComponent extends Element
 {
+    private const CACHE_TTL = 3600;
+
     private bool $isError = false;
 
     private User $user;
@@ -73,9 +76,7 @@ class CatalogElementComponent extends Element
     {
         $this->checkModules();
         try {
-            if ($this->isError) {
-                return;
-            }
+            if ($this->isError)  return;
 
             if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
@@ -85,7 +86,11 @@ class CatalogElementComponent extends Element
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
-            if ($this->startResultCache()) {
+            $cache = Cache::createInstance();
+            $loyaltyLevel = $this->user->isAuthorized ? $this->user->loyaltyLevel : 0;
+            if ($cache->initCache(self::CACHE_TTL, "product-detail-{$this->arParams['ELEMENT_CODE']}-$loyaltyLevel")) {
+                $this->arResult = $cache->getVars();
+            } elseif ($cache->startDataCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
                     throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
                 }
@@ -135,25 +140,9 @@ class CatalogElementComponent extends Element
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
 
-                $this->setResultCacheKeys([]);
+                $this->arResult = $this->transformData($this->arResult);
+                $cache->endDataCache($this->arResult);
             }
-
-            $basketFilter = [
-                'FUSER_ID' => CSaleBasket::GetBasketUserID(),
-                'LID' => SITE_ID,
-            ];
-            $basketIterator = CSaleBasket::GetList([], $basketFilter, false, false, ['*']);
-
-            $basketInfo = [];
-            $productIdsString = array_column($this->arResult['OFFERS'], 'ID');
-            while($basket = $basketIterator->Fetch()) {
-                if (in_array($basket['PRODUCT_ID'], $productIdsString)) {
-                    $basketInfo[$basket['PRODUCT_ID']] = $basket;
-                }
-            }
-
-            $this->arResult['BASKET'] = $basketInfo;
-            $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -278,6 +267,7 @@ class CatalogElementComponent extends Element
             'BESTSELLERS' => [],
             'PACKAGINGS' => [],
             'PHOTOS' => [],
+            'NONRETURNABLE' => (bool)$data['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE'],
             'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
             'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],

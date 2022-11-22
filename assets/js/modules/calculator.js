@@ -30,8 +30,8 @@ const ELEMENTS_SELECTOR = {
     switcher: '[data-consultants-switcher]',
     quantity: '[data-consultants-quantity]',
     quantitySum: '[data-quantity-sum]',
-    quantityDecrease: '[data-quantity-decrease]',
-    quantityIncrease: '[data-quantity-increase]',
+    quantityDecrease: '[data-quantity-decrease-temp]', // TODO
+    quantityIncrease: '[data-quantity-increase-temp]', // TODO
 
     chart: '[data-calculator-chart]',
     chartIncomeSales: '[data-calculator-chart-income-sales]',

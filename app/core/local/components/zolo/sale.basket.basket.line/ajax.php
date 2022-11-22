@@ -72,7 +72,7 @@ class BasketLineController extends Controller
      * @throws NotImplementedException
      * @throws InvalidOperationException
      */
-    public function getBasketTotalsAction($withPersonalPromotions): array
+    public function getBasketTotalsAction(string $withPersonalPromotions = 'false'): array
     {
         $basket = $this->basketHelper->getBasket($withPersonalPromotions === 'true');
         $basketItems = $basket->toArray();
@@ -97,8 +97,13 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function increaseItemAction(int $offerId, int $bonuses, $withPersonalPromotions, int $quantity = 1): array
-    {
+    public function increaseItemAction(
+        int $offerId,
+        ?string $detailPage = null,
+        string $nonreturnable = 'false',
+        string $withPersonalPromotions = 'false',
+        int $quantity = 1
+    ): array {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         if ($item = $basket->getExistsItem('catalog', $offerId)) {
             $result = $item->setField('QUANTITY', $item->getQuantity() + 1);
@@ -108,9 +113,14 @@ class BasketLineController extends Controller
                 'QUANTITY' => $quantity,
                 'PROPS' => [
                     [
-                        'NAME' => 'Бонусы',
-                        'CODE' => 'BONUSES',
-                        'VALUE' => $bonuses,
+                        'NAME' => 'Детальная страница',
+                        'CODE' => 'DETAIL_PAGE',
+                        'VALUE' => $detailPage,
+                    ],
+                    [
+                        'NAME' => 'Невозвратный товар',
+                        'CODE' => 'NONRETURNABLE',
+                        'VALUE' => $nonreturnable === 'true',
                     ],
                 ],
             ]);
@@ -133,7 +143,7 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function decreaseItemAction(int $offerId, $withPersonalPromotions, int $quantity = 1): array
+    public function decreaseItemAction(int $offerId, string $withPersonalPromotions = 'false', int $quantity = 1): array
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         /** @var BasketItem $basketItem */
