@@ -11,14 +11,10 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     for ($i = 0; $i < count($params); $i++) {
         $slider = array_merge($params[$i], $files[$i]);
         $slider['IMG'] = CFile::GetPath($slider['IMG']);
+        $slider['IMG_MOBILE'] = CFile::GetPath($slider['IMG_MOBILE']);
+        $slider['IMG_TABLET'] = CFile::GetPath($slider['IMG_TABLET']);
         $sliders[] = $slider;
     }
-/*
- * Необходимые параметры
- * 'SALE'
- * 'IMG_MOBILE'
- * 'IMG_TABLET'
- */
 ?>
 
 <section class="main__section">
@@ -29,12 +25,11 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                 <div class="swiper-slide slider__slide">
                     <div class="slider__image">
                         <picture>
-                            <!--<source media="(min-width: 1440px)"
-                                    srcset="/local/templates/.default/images/main-slider-desktop.jpg">
+                            <source media="(min-width: 1440px)"
+                                    srcset="<?=$slider['IMG']?>">
                             <source media="(min-width: 768px)"
-                                    srcset="/local/templates/.default/images/main-slider-tablet.jpg">
-                                    -->
-                            <img src="<?=$slider['IMG']?>"
+                                    srcset="<?=$slider['IMG_TABLET']?>">
+                            <img src="<?=$slider['IMG_MOBILE']?>"
                                  alt="Слайд на главной" class="slider__image-picture">
                         </picture>
                     </div>
