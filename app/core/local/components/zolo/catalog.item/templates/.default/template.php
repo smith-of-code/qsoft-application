@@ -64,31 +64,15 @@ if (isset($arResult['ITEM']))
             $jsInfo['offers'][$offer['ID']]['label'] = $offer['PROPERTIES']['DISCOUNT_LABEL']['VALUE_XML_ID'];
         }
         // Параметры цен и баллов
-        $jsInfo['offers'][$offer['ID']]['hasDiscount'] = (int) $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['DISCOUNT'] > 0;
-        $jsInfo['offers'][$offer['ID']]['mainPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_BASE_PRICE'];
-        $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_BASE_PRICE'];
-        $jsInfo['offers'][$offer['ID']]['showBonuses'] = false;
-        $jsInfo['offers'][$offer['ID']]['bonuses'] = '';
-        if (isset($currentUser) && $currentUser->groups->isConsultant()) { // Показываем базовую цену, цену со скидками и баллы для Консультантов
-            if ($jsInfo['offers'][$offer['ID']]['hasDiscount']) {
-                $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_PRICE'];
-            }
-            if ($currentUser->loyaltyLevel && ! empty($offer['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'])) {
-                $jsInfo['offers'][$offer['ID']]['showBonuses'] = true;
-                $jsInfo['offers'][$offer['ID']]['bonuses'] = $offer['PROPERTIES']['BONUSES_' . $currentUser->loyaltyLevel]['VALUE'] . ' ББ';
-            }
-        } elseif (isset($currentUser) && $currentUser->groups->isBuyer()) { // Показываем цену со скидками для Конечных покупателей
-            if ($jsInfo['offers'][$offer['ID']]['hasDiscount']) {
-                $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['ITEM_PRICES'][$offer['ITEM_PRICE_SELECTED']]['PRINT_PRICE'];
-            }
-        }
+        $jsInfo['offers'][$offer['ID']]['mainPrice'] = $offer['BASE_PRICE'];
+        $jsInfo['offers'][$offer['ID']]['totalPrice'] = $offer['PRICE'];
+        $jsInfo['offers'][$offer['ID']]['bonuses'] = $offer['BONUSES'];
 
         // Параметры торговых предложений
         $jsInfo['offers'][$offer['ID']]['tree'] = $offer['TREE'];
         $jsInfo['offers'][$offer['ID']]['available'] = $offer['CAN_BUY'];
         $jsInfo['offers'][$offer['ID']]['quantity'] = $offer['CATALOG_QUANTITY'];
         $jsInfo['offers'][$offer['ID']]['inWishlist'] = (bool) $offer['IN_WISHLIST'];
-        $jsInfo['offers'][$offer['ID']]['basketCount'] = (int) $offer['BASKET_COUNT'];
         $jsInfo['offers'][$offer['ID']]['nonreturnable'] = (bool) $item['PROPERTIES']['NONRETURNABLE_PRODUCT']['VALUE'];
     }
 
@@ -294,7 +278,7 @@ if (isset($arResult['ITEM']))
                 <div class="product-card__price price">
                     <p id="<?=$domElementsIds['mainPrice']?>"
                        class="price__main"
-                       style="<?= $actualItem['hasDiscount'] ? '' : 'display: none;' ?>"
+                       style="<?= $actualItem['mainPrice'] ? '' : 'display: none;' ?>"
                     >
                         <?=$actualItem['mainPrice']?>
                     </p>
@@ -305,7 +289,7 @@ if (isset($arResult['ITEM']))
                         </p>
                         <p id="<?=$domElementsIds['bonuses']?>"
                            class="price__calculation-accumulation"
-                           style="<?= $actualItem['showBonuses'] ? '' : 'display: none;' ?>"
+                           style="<?= $actualItem['bonuses'] ? '' : 'display: none;' ?>"
                         >
                             <?=$actualItem['bonuses']?>
                         </p>

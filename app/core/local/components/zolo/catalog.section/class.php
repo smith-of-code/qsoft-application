@@ -403,20 +403,11 @@ class CatalogSectionComponent extends ElementList
 
         $user = new User;
         $wishlist = array_flip(array_column($user->wishlist->getAll(), 'UF_PRODUCT_ID'));
-
-        $basketIterator = CSaleBasket::GetList([], [
-            'FUSER_ID' => CSaleBasket::GetBasketUserID(),
-            'LID' => SITE_ID,
-        ], false, false, ['*']);
-        $basketInfo = [];
-        while ($basket = $basketIterator->Fetch()) {
-            $basketInfo[$basket['PRODUCT_ID']] = $basket;
-        }
-
         foreach ($this->arResult['ITEMS'] as &$product) {
             foreach ($product['OFFERS'] as &$offer) {
+                $offer = array_merge($offer, $user->products->getOfferPrices($offer['ID']));
+                $offer['BONUSES'] = $user->loyalty->calculateBonusesByPrice($offer['PRICE']);
                 $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
-                $offer['BASKET_COUNT'] = $basketInfo[$offer['ID']]['QUANTITY'];
             }
         }
 		$this->arResult['USE_CATALOG_BUTTONS'] = $this->storage['USE_CATALOG_BUTTONS'];

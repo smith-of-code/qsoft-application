@@ -96,7 +96,7 @@ class ProductService
         return $offers;
     }
 
-    private function getOfferPrices(int $offerId): array
+    public function getOfferPrices(int $offerId): array
     {
         $prices = CCatalogProduct::GetOptimalPrice($offerId);
         if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {

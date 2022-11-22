@@ -52,20 +52,14 @@
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
 				// Отображение цен
-				$('#' + this.products[id].elementsIds.mainPrice).html(offer.mainPrice);
-				if (offer.hasDiscount) {
-					$('#' + this.products[id].elementsIds.mainPrice).show();
-				} else {
-					$('#' + this.products[id].elementsIds.mainPrice).hide();
-				}
-				$('#' + this.products[id].elementsIds.totalPrice).html(offer.totalPrice);
+				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
+				mainPrice.html(`${offer.mainPrice} ₽`);
+				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
+				$('#' + this.products[id].elementsIds.totalPrice).html(`${offer.totalPrice} ₽`);
 				// Отображение баллов
-				$('#' + this.products[id].elementsIds.bonuses).html(offer.bonuses);
-				if (offer.showBonuses) {
-					$('#' + this.products[id].elementsIds.bonuses).show();
-				} else {
-					$('#' + this.products[id].elementsIds.bonuses).hide();
-				}
+				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
+				bonuses.html(`${offer.bonuses} ББ`);
+				offer.bonuses ? bonuses.show() : bonuses.hide();
 			}
 		};
 
@@ -167,7 +161,7 @@
 					continue;
 				}
 
-				this.refreshBasketCount(id, offer, this.products[id].container, offer.basketCount);
+				this.refreshBasketCount(id, offer, this.products[id].container);
 				this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
 
 				// Переключаем видимость в соответствии с перечнем
@@ -215,7 +209,9 @@
 			}
 		}
 
-		this.refreshBasketCount = function (id, offer, container, basketCount) {
+		this.refreshBasketCount = async function (id, offer, container) {
+			const basketItem = await window.stores.basketStore.getItem(offer.id);
+			const basketCount = parseInt(basketItem?.QUANTITY ?? 0);
 			const quantity = container.find('[data-quantity]');
 			const increase = container.find('[data-quantity-increase]');
 			const sum = quantity.find('[data-quantity-sum]');
@@ -452,21 +448,16 @@
 		$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
 			const quantity = $(this).closest('[data-quantity]');
 			const offerId = quantity.data('offer-id');
-			const productId = quantity.data('product-id');
-			const product = window.CatalogItemHelperZolo.products[productId];
-			const offer = product.offers[offerId];
-			offer.basketCount++;
-			window.stores.basketStore.increaseItem(offerId, product.container.find('a.product-card__link').attr('href'), offer.nonreturnable);
+			const product = window.CatalogItemHelperZolo.products[quantity.data('product-id')];
+			window.stores.basketStore.increaseItem(
+				offerId,
+				product.container.find('a.product-card__link').attr('href'),
+				product.offers[offerId].nonreturnable
+			);
 		});
 
 		$('[data-quantity-decrease]').on('click', function () {
-			const quantity = $(this).closest('[data-quantity]');
-			const offerId = quantity.data('offer-id');
-			const productId = quantity.data('product-id');
-			const product = window.CatalogItemHelperZolo.products[productId];
-			const offer = product.offers[offerId];
-			offer.basketCount--;
-			window.stores.basketStore.decreaseItem(offerId);
+			window.stores.basketStore.decreaseItem($(this).closest('[data-quantity]').data('offer-id'));
 		});
 
 		window.CatalogItemHelperZolo.setContainers();
