@@ -183,7 +183,10 @@ class OrderHelper
                 'total_sum' => .0,
                 'current_period_sum' => .0,
                 'current_period_bonuses' => 0,
+                'orders_count' => 0,
+                'current_orders_count' => 0,
                 'paid_orders_count' => 0,
+                'refunded_orders_count' => 0,
                 'part_refunded_orders_count' => 0,
                 'full_refunded_orders_count' => 0,
                 'last_month_products' => [],
@@ -193,7 +196,10 @@ class OrderHelper
                 'total_sum' => .0,
                 'current_period_sum' => .0,
                 'current_period_bonuses' => 0,
+                'orders_count' => 0,
+                'current_orders_count' => 0,
                 'paid_orders_count' => 0,
+                'refunded_orders_count' => 0,
                 'part_refunded_orders_count' => 0,
                 'full_refunded_orders_count' => 0,
                 'last_month_products' => [],
@@ -225,25 +231,32 @@ class OrderHelper
         ]);
 
         $now = new Date;
+        $checkedOrders = [];
         $lastMonthOrders = [];
+        $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
         $groupSourceFieldId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']);
         $pointsMeasureFieldId = EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']);
         foreach ($transactions as $transaction) {
             $date = new Date($transaction['UF_CREATED_AT']);
+            $orderAccountingPeriod = $this->loyaltyProgramHelper->getAccountingPeriod($date);
             $source = $transaction['UF_SOURCE'] === $groupSourceFieldId ? 'team' : 'self';
 
             $result[$source]['last_order_date'] = $date;
 
-            switch ($transaction['ORDER_STATUS']) {
-                case self::ACCOMPLISHED_STATUS:
-                    $result[$source]['paid_orders_count']++;
-                    break;
-                case self::PARTLY_REFUNDED_STATUS:
-                    $result[$source]['part_refunded_orders_count']++;
-                    break;
-                case self::FULL_REFUNDED_STATUS:
-                    $result[$source]['full_refunded_orders_count']++;
-                    break;
+            if (!in_array($transaction['UF_ORDER_ID'], $checkedOrders)) {
+                switch ($transaction['ORDER_STATUS']) {
+                    case self::ACCOMPLISHED_STATUS:
+                        $result[$source]['paid_orders_count']++;
+                        break;
+                    case self::PARTLY_REFUNDED_STATUS:
+                        $result[$source]['refunded_orders_count']++;
+                        $result[$source]['part_refunded_orders_count']++;
+                        break;
+                    case self::FULL_REFUNDED_STATUS:
+                        $result[$source]['refunded_orders_count']++;
+                        $result[$source]['full_refunded_orders_count']++;
+                        break;
+                }
             }
 
             if ($transaction['UF_MEASURE'] === $pointsMeasureFieldId) {
@@ -252,7 +265,12 @@ class OrderHelper
                     && !$date->getDiff($to)->invert
                 ) $result[$source]['current_period_bonuses'] += $transaction['UF_AMOUNT'];
             } else {
+                $result[$source]['orders_count']++;
                 $result[$source]['total_sum'] += $transaction['UF_AMOUNT'];
+
+                if ($currentAccountingPeriod['name'] === $orderAccountingPeriod['name']) {
+                    $result[$source]['current_orders_count']++;
+                }
 
                 if (
                     $date->getDiff($from)->invert
@@ -263,6 +281,7 @@ class OrderHelper
                     $lastMonthOrders[$source][] = $transaction['UF_ORDER_ID'];
                 }
             }
+            $checkedOrders[] = $transaction['UF_ORDER_ID'];
         }
 
         if (count($lastMonthOrders['self'])) {

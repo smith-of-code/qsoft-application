@@ -125,6 +125,11 @@ function chartSum(elem, num) {
 }
 
 export default function () {
+
+    if ($(ELEMENTS_SELECTOR.calculator).length == 0) {
+        return;
+    }
+
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
         let value = +$(this).val().replace(/\s/g, "");

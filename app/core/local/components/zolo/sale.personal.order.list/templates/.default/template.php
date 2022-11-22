@@ -42,7 +42,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                 <header class="card-order__header">
                                                     <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="card-order__link"></a>
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 <?=getMessage('ORDER_FROM') ?> <?=$order['ORDER']['DATE_INSERT_FORMATED'] ?>
                                                             </h2>
@@ -52,7 +52,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     <?=getMessage('ORDER_USER') ?>
                                                                 </p>
@@ -64,9 +64,6 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    <?=getMessage('ORDER_STATUS') ?>
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     <?=$arResult['INFO']['STATUS'][$order['ORDER']['STATUS_ID']]['NAME'] ?>
                                                                 </p>
@@ -74,7 +71,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     <?=getMessage('ORDER_PAYD_STATUS') ?>
                                                                 </p>

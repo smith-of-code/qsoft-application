@@ -265,7 +265,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => true])) {
+        if ($this->update(['ACTIVE' => 'Y'])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;

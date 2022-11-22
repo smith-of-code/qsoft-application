@@ -206,9 +206,6 @@
     &__list {
         display: flex;
         align-items: center;
-
-        margin-right: rem(-4px);
-        margin-left: rem(-4px);
     }
 
     &__item {
@@ -216,13 +213,15 @@
         font-weight: $font-weight-semibold;
         line-height: ($line-height-normal/$font-size-normal);
 
-        margin-right: rem(4px);
-        margin-left: rem(4px);
         padding: rem(6px) rem(32px);
 
         cursor: pointer;
 
         border-radius: rem($border-radius-average);
+
+        & + & {
+            margin-left: rem(8px);
+        }
     }
 
     &__block {

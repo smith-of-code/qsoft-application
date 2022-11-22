@@ -396,6 +396,13 @@
                 padding: rem(14px) rem(44px) rem(12px) rem(16px);
 
                 color: $tuna;
+
+                .select__item {
+                    overflow: hidden;
+
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
 
             .select2-selection__arrow {
@@ -471,6 +478,8 @@
     }
 
     .select2-results__options {
+        display: block;
+
         padding: 0 rem(16px);
     }
 
@@ -561,10 +570,6 @@
         font-weight: $font-weight-medium;
 
         display: block;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
 
         &--inlined {
             display: flex;
