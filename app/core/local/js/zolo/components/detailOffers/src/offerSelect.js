@@ -23,7 +23,7 @@ export const SelectOffer = {
         window.initSelect();
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
+        ...mapState(detailOfferStore, ['allColors', 'offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
     },
     methods: {
         setOffer(event) {
@@ -95,7 +95,11 @@ export const SelectOffer = {
                                        v-bind:checked="currentOfferId == getColorOffer(color)"
                                 >
                                 <label v-bind:for="'radio' + getColorOffer(color)">
-                                    <div v-bind:class="'color__item color__item--big color__item--' + color"></div>
+                                  <div class="color__item">
+                                    <div class="color__item-wrapper">
+                                      <img :src="allColors[color].file_src" class="color__item-pic" alt="Color">
+                                    </div>
+                                  </div>
                                 </label>
                             </div>
                         </div>

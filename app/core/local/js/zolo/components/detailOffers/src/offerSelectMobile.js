@@ -24,7 +24,7 @@ export const SelectOfferMobile = {
 
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
+        ...mapState(detailOfferStore, ['allColors', 'offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
     },
     methods: {
         setOffer(name, selectFlag) {
@@ -80,7 +80,7 @@ export const SelectOfferMobile = {
                                 v-bind:value="getColorOffer(color)"
                                 v-bind:selected="currentOfferId == getColorOffer(color)"
                                 v-bind:disabled="!offers.AVAILABLE[getColorOffer(color)]"
-                                v-bind:data-option-before="'<span class=&quot;color color--option&quot;><span class=&quot;color__item color__item--medium color__item--' + color + '&quot;></span></span>'"
+                                v-bind:data-option-before="'<div class=&quot;color__item&quot;><div class=&quot;color__item-wrapper&quot;><img src=&quot;' + allColors[color].file_src + '&quot; class=&quot;color__item-pic&quot;></div></div>'"
                         >
                             {{ offers.COLOR_NAMES[color] }}
                             &lt;span class=&quot;stock {{ (offers.AVAILABLE[getColorOffer(color)] ? ' stock--yes' : '') }} &quot;&gt;

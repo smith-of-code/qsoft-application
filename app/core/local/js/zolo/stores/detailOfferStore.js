@@ -30,6 +30,9 @@ export const detailOfferStore = defineStore('detailOffer', {
         size2Color() {
             return this.offers.SIZE2COLOR;
         },
+        allColors() {
+            return this.offers.ALL_COLORS;
+        },
         price() {
             return this.offers.PRICES[this.currentOfferId];
         },
