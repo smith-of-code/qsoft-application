@@ -114,6 +114,7 @@
 
         @include text-truncate-by-row(2);
 
+        min-height: rem(48px);
         margin-bottom: rem($gap-small);
 
         word-break: break-word;
