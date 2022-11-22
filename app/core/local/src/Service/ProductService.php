@@ -128,7 +128,7 @@ class ProductService
         $result = [];
         foreach ($this->getSelectFields() as $property) {
             if ($value = $offer["PROPERTY_{$property['name']}_VALUE"]) {
-                $result[] = $property['values'] ? $property['values'][$value] : $value;
+                $result[] = $property['values'] ? $property['values'][$value]['name'] : $value;
             }
         }
         return $result;

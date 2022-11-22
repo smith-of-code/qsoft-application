@@ -5,6 +5,7 @@ namespace QSoft\Helper;
 
 
 use Bitrix\Highloadblock\HighloadBlockTable;
+use CFile;
 
 class HLReferencesHelper
 {
@@ -58,7 +59,10 @@ class HLReferencesHelper
     {
         $result = [];
         foreach ($data as $item) {
-            $result[$item['UF_XML_ID']] = $item['UF_NAME'];
+            $result[$item['UF_XML_ID']] = [
+                'name' => $item['UF_NAME'],
+                'file_src' => $item['UF_FILE'] ? CFile::GetPath($item['UF_FILE']) : null,
+            ];
         }
 
         return $result;
