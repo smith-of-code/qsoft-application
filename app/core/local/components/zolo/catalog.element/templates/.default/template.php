@@ -264,7 +264,11 @@ $offerId = $arResult['OFFER_FIRST'];
                             ?>
                             <? if ($item['color']) :?>
                                 <option value="<?=$item['offerId']?>"
-                                        data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$item['color']?>"></span></span>'
+                                            data-option-before='<div class="color__item">
+                                                <div class="color__item-wrapper">
+                                                    <img src="<?=$arResult['ALL_COLORS'][$item['color']]['file_src']?>" class="color__item-pic">
+                                                </div>
+                                            </div>'
                                         data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
                                     <?= ($arResult['COLOR_NAMES'][$item['color']]) ??  '' ?>
                                 </option>
