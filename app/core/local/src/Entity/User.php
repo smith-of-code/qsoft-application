@@ -2,6 +2,9 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Security\Password;
@@ -134,6 +137,7 @@ class User
      */
     public string $loyaltyLevel;
 
+    public bool $emailConfirmed;
     /**
      * @var bool Согласен на использование персональных данных
      */
@@ -197,6 +201,7 @@ class User
         'DATE_REGISTER' => 'dateRegister',
         'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
+        'UF_EMAIL_CONFIRMED' => 'emailConfirmed',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
         'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
@@ -209,8 +214,12 @@ class User
     /**
      * User constructor.
      * @param int|null $userId ID пользователя
+     * @param bool $ghostMode
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
-    public function __construct(?int $userId = null)
+    public function __construct(?int $userId = null, bool $ghostMode = false)
     {
         $this->initServices();
 
@@ -219,6 +228,11 @@ class User
             $userId = $USER->GetID();
         }
         $this->isAuthorized = $userId !== null;
+
+        if ($ghostMode) {
+            $this->id = $userId;
+            return;
+        }
 
         if ($userId === null) {
             return;
@@ -265,7 +279,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => 'Y'])) {
+        if ($this->update(['ACTIVE' => 'Y', 'UF_EMAIL_CONFIRMED' => 'Y'])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;

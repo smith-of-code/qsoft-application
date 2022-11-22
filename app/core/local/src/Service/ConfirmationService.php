@@ -26,7 +26,7 @@ class ConfirmationService
         $this->smsClient = new SmsClient;
     }
 
-    public function sendSmsConfirmation(): void
+    public function sendSmsConfirmation(?string $phone = null): void
     {
         $code = $this->generateCode();
 
@@ -42,7 +42,7 @@ class ConfirmationService
                 Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
                 $code
             ),
-            $this->user->phone
+            $phone ?? $this->user->phone
         );
     }
 

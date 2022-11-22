@@ -2,6 +2,7 @@
 
 namespace QSoft\Events;
 
+use CUser;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
@@ -50,5 +51,10 @@ class UserEventsListener
         if (! $fields['UF_LOYALTY_LEVEL']) {
             $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[$firstLevel];
         }
+    }
+
+    public static function OnBeforeUserLogin(array $params): bool
+    {
+        return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByLogin($params['LOGIN'])->GetNext()['UF_EMAIL_CONFIRMED']);
     }
 }
