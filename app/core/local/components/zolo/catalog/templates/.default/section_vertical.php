@@ -33,6 +33,33 @@ else
         ],
         false
     );
+
+    // Проверяем необходимость применения сортировки
+    if (isset($_GET['sort'])) {
+        switch ($_GET['sort']) {
+            case 'price-asc':
+                $arParams["ELEMENT_SORT_FIELD"] = 'catalog_PRICE_1';
+                $arParams["ELEMENT_SORT_ORDER"] = 'asc';
+                break;
+            case 'price-desc':
+                $arParams["ELEMENT_SORT_FIELD"] = 'catalog_PRICE_1';
+                $arParams["ELEMENT_SORT_ORDER"] = 'desc';
+                break;
+            case 'date-asc':
+                $arParams["ELEMENT_SORT_FIELD"] = 'timestamp_x';
+                $arParams["ELEMENT_SORT_ORDER"] = 'asc';
+                break;
+            case 'date-desc':
+                $arParams["ELEMENT_SORT_FIELD"] = 'timestamp_x';
+                $arParams["ELEMENT_SORT_ORDER"] = 'desc';
+                break;
+            case 'popularity':
+            default:
+                $arParams["ELEMENT_SORT_FIELD"] = 'sort';
+                $arParams["ELEMENT_SORT_ORDER"] = 'desc';
+                break;
+        }
+    }
     ?>
 
 <h1 class="page__heading">Каталог товаров</h1>

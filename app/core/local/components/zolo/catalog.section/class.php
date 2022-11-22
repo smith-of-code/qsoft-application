@@ -666,6 +666,15 @@ class CatalogSectionComponent extends ElementList
 	{
 		parent::initElementList();
 
+		// Подсчитываем количество элементов через дополнительный запрос к БД
+        $this->arResult['TOTAL_PRODUCTS_COUNT'] = \CIBlockElement::GetList(
+            array(),
+            array_merge($this->globalFilter, $this->filterFields + array('IBLOCK_ID' => $this->arParams['IBLOCK_ID'])),
+            [],
+            false,
+            array('ID')
+        );
+
 		// compatibility for old components
 		if ($this->isEnableCompatible() && empty($this->arResult['NAV_RESULT']))
 		{
