@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="form__row">
+            <div class="form__row" data-password-container>
                 <div class="form__col form__col--full">
                     <div class="form__field">
                         <div class="form__field-block form__field-block--label">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
 
-                        <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny">
+                        <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny" data-password-generate>
                             Сгенерировать пароль
                         </button>
                     </div>

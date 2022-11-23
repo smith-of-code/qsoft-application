@@ -44,6 +44,7 @@ class CSystemAuthRegistrationComponent {
       if ($(`#${$(this).attr('id')}:checked`).length) {
           input.val('');
           input.removeClass('input__control--error');
+          input.parent().find('.input__control-error').remove();
           input.attr('disabled', true);
       } else {
           input.attr('disabled', null);
@@ -51,10 +52,25 @@ class CSystemAuthRegistrationComponent {
     }
 
     async changeStepListener() {
+        $('[data-send-code]').css('color', 'red');
+
+        const mentorInput = $('#mentor_id');
+        mentorInput.removeClass('input__control--error');
+        mentorInput.parent().find('.input__control-error').remove();
+
+        const emailInput = $('#email');
+        emailInput.removeClass('input__control--error');
+        emailInput.parent().find('.input__control-error').remove();
+
         const isForwardDirection = $(this).data('direction') === 'next';
         let data = registrationData;
 
         if (isForwardDirection) {
+            if (data.currentStep === 'personal_data' && data.confirmedPhone !== $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '')) {
+                $('[data-send-code]').css('color', 'red');
+                return;
+            }
+
             if (data.currentStep === 'pets_data' && data.pets) {
                 data.pets = {};
             }
@@ -92,6 +108,12 @@ class CSystemAuthRegistrationComponent {
 
                     if (separateKey[2] === 'type' || separateKey[2] === 'gender') {
                         data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] = $(item).val().split('_')[1].toLowerCase();
+                        if (data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] === 'female') {
+                            data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] = 'woman';
+                        }
+                        if (data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] === 'male') {
+                            data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] = 'man';
+                        }
                     }
                 } else if ($(item).attr('type') === 'file') {
                     if ($(item).attr('multiple')) {
@@ -107,6 +129,8 @@ class CSystemAuthRegistrationComponent {
 
                         if (!data[$(item).attr('name')].files.length) {
                             $(item).parent().addClass('dropzone--error');
+                        } else {
+                            $(item).parent().removeClass('dropzone--error');
                         }
                     } else {
                         const fileContainer = $(item).parent().find('img.dropzone__previews-picture-image-pic').last();
@@ -116,7 +140,6 @@ class CSystemAuthRegistrationComponent {
                                 data: fileContainer.attr('src'),
                             };
                         }
-
                     }
                 } else if ($(item).attr('type') === 'checkbox') {
                     data[$(item).attr('name')] = !!$(`#${$(item).attr('id')}:checked`).length;
@@ -142,7 +165,7 @@ class CSystemAuthRegistrationComponent {
                 return;
             }
 
-            if ($(`.${registrationData.currentStep} .input__control--error`).length) {
+            if ($(`.${registrationData.currentStep} .input__control--error`).length || $(`.${registrationData.currentStep} .dropzone--error`).length) {
                 return;
             }
         }
@@ -156,6 +179,14 @@ class CSystemAuthRegistrationComponent {
         });
 
         if (!response.data || response.data.status === 'error') {
+            if (data.currentStep === 'choose_mentor') {
+                mentorInput.addClass('input__control--error');
+                mentorInput.parent().append(`<span class="input__control-error">${response.data.message}</span>`);
+            }
+            if (response.data.message.indexOf('email') !== -1) {
+                emailInput.addClass('input__control--error');
+                emailInput.parent().append(`<span class="input__control-error">${response.data.message}</span>`);
+            }
             return;
         }
 
@@ -233,7 +264,7 @@ class CSystemAuthRegistrationComponent {
           }
       } catch (e) {
           $(this).parent().find('input[name=phone]').addClass('input__control--error');
-          if (e.message) {
+          if (e.message && !$(this).parent().find('.input__control-error')?.length) {
               $(this).parent().find('div.input').append(`<span class="input__control-error">${e.message}</span>`)
           }
           return;
@@ -245,6 +276,8 @@ class CSystemAuthRegistrationComponent {
   async verifyCode() {
       const input = $('input[name=verify_code]');
 
+      input.removeClass('input__control--error');
+      input.parent().find('.input__control-error').remove();
       try {
           const response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'verifyPhoneCode', {
               mode: 'class',
@@ -258,9 +291,15 @@ class CSystemAuthRegistrationComponent {
           }
       } catch (e) {
           input.addClass('input__control--error');
-          input.parent().append('<span class="input__control-error">Неверный или просроченный код</span>');
+          if (!input.parent().find('.input__control-error')?.length) {
+              input.parent().append('<span class="input__control-error">Неверный или просроченный код</span>');
+          }
           return;
       }
+
+      input.val('');
+      $('[data-send-code]').css('color', 'black');
+      registrationData.confirmedPhone = $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '');
 
       $.fancybox.close({ src: '#approve-number' });
 

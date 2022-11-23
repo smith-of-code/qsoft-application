@@ -83,7 +83,8 @@
                                         name="second_name"
                                         id="second_name"
                                         placeholder="Введите отчество"
-                                        value="<?=$arResult['second_name']?>"
+                                        value="<?=$arResult['without_second_name'] === 'true' ? '' : $arResult['second_name']?>"
+                                        <?=$arResult['without_second_name'] === 'true' ? 'disabled' : ''?>
                                 >
                             </div>
                         </div>
@@ -361,7 +362,7 @@
             </div>
 
             <div class="registration__actions-col">
-                <button class="button button--rounded button--covered button--red button--full <?=$arResult['phone'] ? '' : 'button--disabled'?>" <?=$arResult['phone'] ? '' : 'disabled'?> data-change-step data-direction="next">
+                <button class="button button--rounded button--covered button--red button--full" data-change-step data-direction="next">
                     <span class="button__text">Далее</span>
                 </button>
             </div>

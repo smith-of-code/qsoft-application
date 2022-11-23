@@ -10,6 +10,7 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use Bitrix\Sale\Fuser;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
@@ -206,14 +207,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
-                return ['status' => 'error', 'message' => 'User with this email already exist'];
-            } else if ($field === 'mentor_id' && $value) {
+                return ['status' => 'error', 'message' => 'Пользователь с таким email уже существует'];
+            } else if ($field === 'mentor_id' && $data['without_mentor_id'] !== 'true' && $value) {
                 try {
                     if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
                 } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Mentor not found'];
+                    return ['status' => 'error', 'message' => 'Пользователь не найден'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
@@ -241,29 +242,22 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     public function sendPhoneCodeAction(string $phoneNumber): array
     {
         if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
-            throw new InvalidArgumentException('Invalid phone number');
+            return ['status' => 'error', 'message' => 'Невалидный номер телефона'];
         }
         if (UserTable::getCount(['PERSONAL_PHONE' => $phoneNumber])) {
-            throw new InvalidArgumentException('Пользователь с таким номером телефона уже существует');
+            return ['status' => 'error', 'message' => 'Пользователь с таким номером телефона уже существует'];
         }
 
-        do {
-            $id = rand(1000000, 9999999);
-        } while (UserTable::getCount(['ID' => $id]));
+        $this->setRegisterData(['phone' => $phoneNumber]);
 
-        $this->setRegisterData([
-            'user_id' => $id,
-            'phone' => $phoneNumber,
-        ]);
-
-        (new User($id, true))->confirmation->sendSmsConfirmation($phoneNumber);
+        (new User)->confirmation->sendSmsConfirmation($phoneNumber);
 
         return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
     {
-        $verifyResult = (new User($this->getRegisterData()['user_id'], true))->confirmation->verifySmsCode($code);
+        $verifyResult = (new User)->confirmation->verifySmsCode($code);
 
         return ['status' => $verifyResult ? 'success' : 'error'];
     }
@@ -288,7 +282,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $data['confirm_password'],
             $data['email'],
         );
-
+        $user->Logout();
         $user->Update($result['ID'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
