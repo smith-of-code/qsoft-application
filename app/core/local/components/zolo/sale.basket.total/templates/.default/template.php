@@ -86,6 +86,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                             </button>
                                                         </div>
 
+                                                        <input type="hidden" name="bonuses" value="<?=$basketItem['OFFER']['BONUSES']?>" data-item-bonuses="<?=$basketItem['OFFER']['BONUSES']?>" />
                                                         <div class="quantity__total">
                                                             <span
                                                                 class="quantity__total-sum"

@@ -14,6 +14,7 @@ use Bitrix\Main\NotImplementedException;
 use Bitrix\Main\ObjectNotFoundException;
 use Bitrix\Main\Request;
 use Bitrix\Sale\Basket;
+use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
 use QSoft\Helper\BasketHelper;
@@ -105,8 +106,9 @@ class BasketLineController extends Controller
         int $quantity = 1
     ): array {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        if ($item = $basket->getExistsItem('catalog', $offerId)) {
-            $result = $item->setField('QUANTITY', $item->getQuantity() + 1);
+        if ($item = $this->getExistBasketItem($basket, $offerId)) {
+            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
+            $basket->save();
         } else {
             $result = \Bitrix\Catalog\Product\Basket::addProduct([
                 'PRODUCT_ID' => $offerId,
@@ -129,6 +131,17 @@ class BasketLineController extends Controller
             throw new RuntimeException($result->getErrorMessages());
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
+    }
+
+    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
+    {
+        /** @var BasketItem $basketItem */
+        foreach ($basket->getBasketItems() as $basketItem) {
+            if ($basketItem->getProductId() === $offerId) {
+                return $basketItem;
+            }
+        }
+        return null;
     }
 
     /**
