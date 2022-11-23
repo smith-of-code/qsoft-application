@@ -573,6 +573,8 @@
 
         display: block;
 
+        word-break: break-word;
+
         &--inlined {
             display: flex;
             align-items: center;
