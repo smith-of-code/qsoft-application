@@ -20,7 +20,9 @@ class BonusesPriceJob extends BaseJob
      */
     protected function process($data)
     {
-        OffersService::setOfferBonusesPrices($data['offerId'], $data['priceValue']);
+        $offersService = new OffersService();
+        $offersService->setOfferBonuses($data['offerId'], $data['priceValue']);
+        $offersService->setOfferDiscountPrices($data['offerId'], $data['priceValue']);
     }
 
     protected function validateInputData($data): bool
