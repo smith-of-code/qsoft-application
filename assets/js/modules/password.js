@@ -17,4 +17,8 @@ export default function showPassword() {
             $input.attr('type', 'password');
         }
     });
+
+    $(document).on('input', ELEMENTS_SELECTOR.input, function(){
+        this.value = this.value.replace(/[А-Яа-я]/gi, '');
+    });
 }
