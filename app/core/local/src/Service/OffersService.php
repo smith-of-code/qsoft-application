@@ -78,7 +78,7 @@ class OffersService
         foreach (array_keys($levels) as $levelCode) {
             // Вычисляем количество бонусов
             $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
-            $discountPrice = intdiv($priceValue * (100 - $discountPercent), 100);
+            $discountPrice = ceil($priceValue * (100 - $discountPercent)) / 100;
 
             $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $discountPrice;
         }
