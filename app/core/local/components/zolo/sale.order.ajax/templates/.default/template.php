@@ -211,7 +211,7 @@ else:?>
                             </div>
                             <div class="form__row">
                                 <div class="form__col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
+                                    <button onclick="location.href='/cart/';" type="button" class="button button--rounded button--covered button--white-green button--full">
                                         Вернуться к корзине
                                     </button>
                                 </div>
