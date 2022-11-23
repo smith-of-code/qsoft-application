@@ -94,7 +94,17 @@ else:?>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>" name="delivery_date" id="delivery-date-required" placeholder="Дата доставки">
+                                                <input type="text" 
+                                                    class="input__control" 
+                                                    value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>"
+                                                    name="delivery_date"
+                                                    id="delivery-date-required" 
+                                                    placeholder="Дата доставки"
+                                                    placeholder="ДД.ММ.ГГГГ"
+                                                    data-mask-date 
+                                                    data-inputmask-alias="date"
+                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                >
                                             </div>
                                         </div>
                                     </div>

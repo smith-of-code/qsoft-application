@@ -23,7 +23,11 @@ export default function () {
 
     $('[data-modal-type="modal"]').fancybox({
         baseClass : 'modal',
-        showNavArrows: false,
+    });
+
+    $('[data-modal-type="modal-order"]').fancybox({
+        baseClass : 'modal',
+        clickSlide: false,
     });
 
 }
