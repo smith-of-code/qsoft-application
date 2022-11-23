@@ -7,6 +7,7 @@ class CSystemAuthRegistrationComponent {
   initPage() {
       this.checkBreedSelects();
       $('.legal_entity').hide();
+      $(`.legal_entity.${$('select[name=status]').val()}`)?.show();
   }
 
   initListeners() {
@@ -15,9 +16,9 @@ class CSystemAuthRegistrationComponent {
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
-      $(`.${registrationData.currentStep} .form select`).on('change', this.removeError);
-      $(`.${registrationData.currentStep} .form input[type=checkbox]`).on('change', this.removeError);
-      $(`.${registrationData.currentStep} .form input`).on('keyup', this.removeError);
+      $(`.form select`).on('change', this.removeError);
+      $(`.form input[type=checkbox]`).on('change', this.removeError);
+      $(`.form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
