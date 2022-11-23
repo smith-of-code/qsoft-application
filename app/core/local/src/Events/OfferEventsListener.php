@@ -24,8 +24,8 @@ class OfferEventsListener
             //BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
 
             $offersService = new OffersService();
-            $offersService->setOfferBonuses($res['PRODUCT_ID'], $res['PRICE']);
-            $offersService->setOfferDiscountPrices($res['PRODUCT_ID'], $res['PRICE']);
+            $offersService->setOfferBonuses((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
+            $offersService->setOfferDiscountPrices((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
         }
     }
 
@@ -43,20 +43,20 @@ class OfferEventsListener
             //BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
 
             $offersService = new OffersService();
-            $offersService->setOfferBonuses($res['PRODUCT_ID'], $res['PRICE']);
-            $offersService->setOfferDiscountPrices($res['PRODUCT_ID'], $res['PRICE']);
+            $offersService->setOfferBonuses((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
+            $offersService->setOfferDiscountPrices((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
         }
     }
 
     /**
      * Убирает из формы редактирования свойства торговых предложений, которые заполняются автоматически
      * и не должны быть доступны для редактирования
-     * @param \CAdminForm $form
+     * @param mixed $form
      * @throws \Bitrix\Main\ArgumentException
      * @throws \Bitrix\Main\ObjectPropertyException
      * @throws \Bitrix\Main\SystemException
      */
-    public static function OnOffersEditFormShow(\CAdminForm $form): void
+    public static function OnOffersEditFormShow($form): void
     {
         global $USER;
         if (
@@ -64,6 +64,7 @@ class OfferEventsListener
                 $GLOBALS['APPLICATION']->GetCurPage() == '/bitrix/admin/iblock_element_edit.php'
                 || $GLOBALS['APPLICATION']->GetCurPage() == '/bitrix/admin/iblock_subelement_edit.php'
             )
+            && $form instanceof \CAdminForm
             && ! $USER->isAdmin()
             && isset($_REQUEST['type'])
             && $_REQUEST['type'] === 'offers'
