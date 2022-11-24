@@ -57,7 +57,9 @@ class UserEventsListener
 
     public static function OnBeforeUserLogin(array &$params): bool
     {
-        if (ADMIN_SECTION === true) return true;
+        if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
+            return true;
+        }
         if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
             $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
         } elseif (check_email($params['LOGIN'])) {
