@@ -37,7 +37,7 @@ $APPLICATION->SetTitle("Поиск");
 		"PAGER_SHOW_ALWAYS" => "N",
 		"PAGER_TEMPLATE" => "",
 		"PAGER_TITLE" => "Товары",
-		"PAGE_ELEMENT_COUNT" => "30",
+		"PAGE_ELEMENT_COUNT" => "5",
 		"PRICE_CODE" => array(
 			0 => "BASE",
 		),

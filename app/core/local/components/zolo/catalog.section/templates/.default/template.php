@@ -192,7 +192,7 @@ $containerName = 'container-'.$navParams['NavNum'];
                     // TODO: Интегрировать карточку товара (верстку) в компонент ниже
                     $APPLICATION->IncludeComponent(
                         'zolo:catalog.item',
-                        '',
+                        '.default',
                         array(
                             'RESULT' => array(
                                 'ITEM' => $item,
@@ -222,12 +222,12 @@ $containerName = 'container-'.$navParams['NavNum'];
 		?>
 
 	</div>
-    <!--<div data-entity="lazy-<?/*=$containerName*/?>">
+    <div data-entity="lazy-<?=$containerName?>">
         <button type="button"
                 class="catalog__button button button--rounded-big button--outlined button--green button--full"
-                data-use="show-more-<?/*=$navParams['NavNum']*/?>"
+                data-use="show-more-<?=$navParams['NavNum']?>"
         >Показать больше</button>
-    </div>-->
+    </div>
     <script>
         BX.message({
             BASKET_URL: '<?=$arParams['BASKET_URL']?>',

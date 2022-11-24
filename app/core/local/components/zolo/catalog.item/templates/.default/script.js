@@ -7,6 +7,37 @@
 	{
 		this.products = [];
 
+		this.startActions = function () {
+
+			$('[data-card-favourite]').on('click', function () {
+				const offerId = $(this).data('offer-id');
+				if ($(this).data('card-favourite') === 'heart') {
+					window.stores.wishlistStore.add(offerId);
+				} else {
+					window.stores.wishlistStore.remove(offerId);
+				}
+			});
+
+			$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
+				const quantity = $(this).closest('[data-quantity]');
+				const offerId = quantity.data('offer-id');
+				const product = window.CatalogItemHelperZolo.products[quantity.data('product-id')];
+				window.stores.basketStore.increaseItem(
+					offerId,
+					product.container.find('a.product-card__link').attr('href'),
+					product.offers[offerId].nonreturnable
+				);
+			});
+
+			$('[data-quantity-decrease]').on('click', function () {
+				window.stores.basketStore.decreaseItem($(this).closest('[data-quantity]').data('offer-id'));
+			});
+
+			window.CatalogItemHelperZolo.setContainers();
+			window.CatalogItemHelperZolo.firstRefresh();
+
+		}
+
 		this.addProduct = function (item) {
 			var itemContainer = $('#' + item.id);
 			if (typeof item.id != 'undefined' && item.id !== null) {
@@ -65,9 +96,10 @@
 
 		this.firstRefresh = function () {
 			for (let id in this.products) {
-				if (typeof this.products[id].elementsIds.props == 'undefined') {
+				if (typeof this.products[id].elementsIds.props == 'undefined' || this.products[id].firstlyRefreshed) {
 					continue;
 				}
+				
 				for (let propCode in this.products[id].elementsIds.props) {
 					if (typeof this.products[id].elementsIds.props[propCode].desktop.name == 'undefined' || this.products[id].elementsIds.props[propCode].desktop.name === null) {
 						continue;
@@ -78,6 +110,7 @@
 						break;
 					}
 				}
+				this.products[id].firstlyRefreshed = true;
 			}
 		}
 
@@ -436,32 +469,7 @@
 	};
 
 	$(document).ready(function () {
-		$('[data-card-favourite]').on('click', function () {
-			const offerId = $(this).data('offer-id');
-			if ($(this).data('card-favourite') === 'heart') {
-				window.stores.wishlistStore.add(offerId);
-			} else {
-				window.stores.wishlistStore.remove(offerId);
-			}
-		});
-
-		$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
-			const quantity = $(this).closest('[data-quantity]');
-			const offerId = quantity.data('offer-id');
-			const product = window.CatalogItemHelperZolo.products[quantity.data('product-id')];
-			window.stores.basketStore.increaseItem(
-				offerId,
-				product.container.find('a.product-card__link').attr('href'),
-				product.offers[offerId].nonreturnable
-			);
-		});
-
-		$('[data-quantity-decrease]').on('click', function () {
-			window.stores.basketStore.decreaseItem($(this).closest('[data-quantity]').data('offer-id'));
-		});
-
-		window.CatalogItemHelperZolo.setContainers();
-		window.CatalogItemHelperZolo.firstRefresh();
+		window.CatalogItemHelperZolo.startActions();
 	});
 
 })(window);

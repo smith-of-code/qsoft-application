@@ -194,7 +194,7 @@ if (!empty($searchFilter) && is_array($searchFilter))
         "PAGER_DESC_NUMBERING" => $arParams["PAGER_DESC_NUMBERING"],
         "PAGER_DESC_NUMBERING_CACHE_TIME" => $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"],
         "PAGER_SHOW_ALL" => $arParams["PAGER_SHOW_ALL"],
-        "LAZY_LOAD" => 'N',
+        "LAZY_LOAD" => 'Y',
         "MESS_BTN_LAZY_LOAD" => ($arParams["~MESS_BTN_LAZY_LOAD"] ?? ''),
         "LOAD_ON_SCROLL" => 'N',
 

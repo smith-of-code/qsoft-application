@@ -243,7 +243,7 @@
 			var items, k, origRows;
 
 			temporaryNode.innerHTML = processed.HTML;
-			items = temporaryNode.querySelectorAll('[data-entity="items-row"]');
+			items = temporaryNode.querySelectorAll('[data-entity="item"]');
 
 			if (items.length)
 			{
@@ -253,7 +253,7 @@
 				{
 					if (items.hasOwnProperty(k))
 					{
-						origRows = position ? this.container.querySelectorAll('[data-entity="items-row"]') : false;
+						origRows = position ? this.container.querySelectorAll('[data-entity="item"]') : false;
 						items[k].style.opacity = 0;
 
 						if (origRows && BX.type.isDomNode(origRows[position[k]]))
@@ -294,6 +294,9 @@
 			}
 
 			BX.ajax.processScripts(processed.SCRIPT);
+
+			// Дополнительно выполняем определенные действия над полученными карточками товаров, для работы функционала переключения ТП
+			window.CatalogItemHelperZolo.startActions();
 		},
 
 		processPagination: function(paginationHtml)
