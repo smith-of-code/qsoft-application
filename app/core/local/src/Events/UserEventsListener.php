@@ -2,6 +2,9 @@
 
 namespace QSoft\Events;
 
+use Bitrix\Main\UserPhoneAuthTable;
+use Bitrix\Main\UserTable;
+use CUser;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
@@ -50,5 +53,24 @@ class UserEventsListener
         if (! $fields['UF_LOYALTY_LEVEL']) {
             $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[$firstLevel];
         }
+    }
+
+    public static function OnBeforeUserLogin(array &$params): bool
+    {
+        if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
+            return true;
+        }
+        if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
+        } elseif (check_email($params['LOGIN'])) {
+            $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
+        } else {
+            return false;
+        }
+        if (!$user) {
+            return false;
+        }
+        $params['LOGIN'] = $user['LOGIN'];
+        return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByID($user['ID'])->GetNext()['UF_EMAIL_CONFIRMED']);
     }
 }

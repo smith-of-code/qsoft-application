@@ -2,9 +2,14 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Loader;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Security\Password;
+use Bitrix\Sale\Fuser;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
@@ -73,6 +78,8 @@ class User
      * @var int ID пользователя
      */
     public int $id;
+
+    public int $fUserID;
     /**
      * @var string Логин (он же номер телефона)
      */
@@ -134,6 +141,7 @@ class User
      */
     public string $loyaltyLevel;
 
+    public bool $emailConfirmed;
     /**
      * @var bool Согласен на использование персональных данных
      */
@@ -197,6 +205,7 @@ class User
         'DATE_REGISTER' => 'dateRegister',
         'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
+        'UF_EMAIL_CONFIRMED' => 'emailConfirmed',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
         'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
@@ -209,15 +218,20 @@ class User
     /**
      * User constructor.
      * @param int|null $userId ID пользователя
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function __construct(?int $userId = null)
     {
+        $this->initModules();
         $this->initServices();
 
         if ($userId === null) {
             global $USER;
             $userId = $USER->GetID();
         }
+        $this->fUserID = $userId ? Fuser::getIdByUserId($userId) : Fuser::getId();
         $this->isAuthorized = $userId !== null;
 
         if ($userId === null) {
@@ -238,9 +252,15 @@ class User
 
         $this->setObjectProperties($user);
 
-        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
+        if ($this->groups->isConsultant()) {
             $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
         }
+    }
+
+    private function initModules(): void
+    {
+        Loader::includeModule('sale');
+        Loader::includeModule('catalog');
     }
 
     private function initServices(): void
@@ -265,7 +285,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => 'Y'])) {
+        if ($this->update(['ACTIVE' => 'Y', 'UF_EMAIL_CONFIRMED' => 'Y'])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;
