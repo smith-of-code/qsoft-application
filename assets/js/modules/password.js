@@ -23,6 +23,9 @@ export default function showPassword() {
     $(document).on('click', ELEMENTS_SELECTOR.generate, function () {
         $(this).closest(ELEMENTS_SELECTOR.container).find(ELEMENTS_SELECTOR.input).val(Password.generate());
     });
+    $(document).on('input', ELEMENTS_SELECTOR.input, function(){
+        this.value = this.value.replace(/[А-Яа-я]/gi, '');
+    });
 }
 
 const Password = {

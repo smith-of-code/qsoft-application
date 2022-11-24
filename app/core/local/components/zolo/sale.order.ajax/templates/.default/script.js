@@ -20,12 +20,13 @@ class SaleOrderAjaxComponent {
         let data = {};
 
         $(`.form`).find('input, select, textarea').each((index, item) => {
+            if ($(item).attr('name') === 'comment') {
+                return;
+            }
+
 
             if ($(item).attr('type') !== 'hidden' && !$(item).val()) {
-
-                if ($(item).attr('name') !== 'comment') {
-                    $(item).addClass('input__control--error');
-                }
+                $(item).addClass('input__control--error');
 
                 $('[data-create-order]').attr('disabled', '');
                 $('[data-create-order]').addClass('button--disabled');

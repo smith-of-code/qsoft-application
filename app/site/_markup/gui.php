@@ -3595,6 +3595,16 @@
                                     Спасибо за обращение
                                 </button>
                             </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal-order"
+                                        data-src="#orderMake"
+                                    >
+                                    Заказ создан
+                                </button>
+                            </li>
                         </ul>
 
                         <article id="technical-support" class="modal modal--limited modal--wide modal--scrolled box box--circle box--hanging" style="display: none" data-support>
@@ -4192,6 +4202,27 @@
                             </div>
                         </article>
                         <!--/Спасибо за обращение-->
+
+                        <!--Заказ создан-->
+                        <article id="orderMake" class="modal modal--wide modal--centered modal--outer box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--tick-circle-bold">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle-bold"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title notification__title--centered">Ваш заказ №47 успешно создан!</h4>
+                                        <a href="" class="notification__button button button--square button--covered button--green button--full">
+                                            Перейти к заказу
+                                        </a>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Заказ создан-->
 
 
                     </div>

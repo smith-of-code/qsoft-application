@@ -94,7 +94,17 @@ else:?>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>" name="delivery_date" id="delivery-date-required" placeholder="Дата доставки">
+                                                <input type="text" 
+                                                    class="input__control" 
+                                                    value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>"
+                                                    name="delivery_date"
+                                                    id="delivery-date-required" 
+                                                    placeholder="Дата доставки"
+                                                    placeholder="ДД.ММ.ГГГГ"
+                                                    data-mask-date 
+                                                    data-inputmask-alias="date"
+                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                >
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +211,7 @@ else:?>
                             </div>
                             <div class="form__row">
                                 <div class="form__col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
+                                    <button onclick="location.href='/cart/';" type="button" class="button button--rounded button--covered button--white-green button--full">
                                         Вернуться к корзине
                                     </button>
                                 </div>

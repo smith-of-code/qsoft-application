@@ -126,7 +126,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		$arParams['PATH_TO_BASKET'] = isset($arParams['PATH_TO_BASKET']) ? trim($arParams['PATH_TO_BASKET']) : '';
 		if ($arParams['PATH_TO_BASKET'] == '')
 		{
-			$arParams['PATH_TO_BASKET'] = '/personal/cart/';
+			$arParams['PATH_TO_BASKET'] = '/cart/';
 		}
 
 		$arParams['NO_PERSONAL'] = isset($arParams['NO_PERSONAL']) && $arParams['NO_PERSONAL'] === 'Y' ? 'Y' : 'N';
@@ -180,7 +180,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
         try {
             $this->user = new User;
 			
-			if ($user->isAuthorised) {
+			if (!$this->user->isAuthorised) {
 				localRedirect('/login/');
 			}
         } catch (\Exception $e) {}

@@ -253,6 +253,7 @@ class CatalogElementComponent extends Element
 
     private function transformData(array $data): array
     {
+        $colors = HLReferencesHelper::getColorNames();
         $result = [
             'IS_CONSULTANT' => $this->user->isAuthorized && $this->user->groups->isConsultant(),
             'ID' => $data['PRODUCT']['ID'],
@@ -283,8 +284,9 @@ class CatalogElementComponent extends Element
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
-            'COLOR_NAMES' => HLReferencesHelper::getColorNames(),
-            'SIZE_NAMES' => HLReferencesHelper::getSizeNames(),
+            'COLOR_NAMES' => array_map(static fn (array $color) => $color['name'], $colors),
+            'ALL_COLORS' => $colors,
+            'SIZE_NAMES' => array_map(static fn (array $size) => $size['name'], HLReferencesHelper::getSizeNames()),
             'OFFERS' => $data['OFFERS'], // TODO format
             'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
         ];
