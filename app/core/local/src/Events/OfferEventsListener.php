@@ -102,4 +102,11 @@ class OfferEventsListener
             }
         }
     }
+
+    public static function UpdateBonuses(Event $event) {
+
+        //UpdateAllOffersBonusesJob::pushJob([]);
+        $offersService = new OffersService();
+        $offersService->updateAllOffersBonuses();
+    }
 }

@@ -103,4 +103,50 @@ class OffersService
         // Записываем свойства
         \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
     }
+
+    /**
+     * Пересчитывает бонусные баллы для всех ТП
+     */
+    public function updateAllOffersBonuses() {
+
+        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $loyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
+
+        $levelsCodes = array_keys($loyaltyLevels);
+
+        // Получим ID группы Консультантов
+        $groups = UserGroupHelper::getAllUserGroups();
+
+        // Получаем торговые предложения
+        $offers = \Bitrix\Iblock\ElementTable::getList([
+            'select' => ['ID'],
+            'filter' => ['=IBLOCK_ID' => $this->offersIbId],
+            'cache' => ['ttl' => 86400],
+        ])->fetchAll();
+
+        foreach ($offers as $offer) {
+
+            // Получим цену с учетом скидок
+            $prices = \CCatalogProduct::GetOptimalPrice(
+                $offer['ID'],
+                1,
+                [$groups['consultant']],
+                'N',
+                [],
+                's1'
+            );
+
+            // Вычисляем количество бонусов
+            $propsToSet = [];
+            foreach ($levelsCodes as $code) {
+                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
+                $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
+
+                $propsToSet['BONUSES_' . $code] = $bonuses;
+            }
+
+            // Записываем свойства
+            \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
+        }
+    }
 }

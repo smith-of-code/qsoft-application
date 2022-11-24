@@ -44,3 +44,6 @@ $eventManager->addEventHandler('support', 'OnAfterTicketAdd', [new SupportEventL
  */
 $eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'sendChangeOrderStatusNotification']);
 $eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [\QSoft\BasketRules\LoyaltyLevelEquals::class, 'GetControlDescr']);
+$eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterAdd', [OfferEventsListener::class, 'UpdateBonuses']);
+$eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterUpdate', [OfferEventsListener::class, 'UpdateBonuses']);
+$eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterDelete', [OfferEventsListener::class, 'UpdateBonuses']);
