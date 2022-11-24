@@ -6,6 +6,7 @@ use Bitrix\Iblock\PropertyTable;
 use Bitrix\Main\Loader;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
+use QSoft\Helper\UserGroupHelper;
 use RuntimeException;
 
 /**
@@ -47,9 +48,25 @@ class OffersService
 
         $levelsCodes = array_keys($loyaltyLevels);
 
+        // Получим ID группы Консультантов
+        $groups = UserGroupHelper::getAllUserGroups();
+
+        // Получим цену с учетом скидок
+        $prices = \CCatalogProduct::GetOptimalPrice(
+            $offerId,
+            1,
+            [$groups['consultant']],
+            'N',
+            [],
+            's1'
+        );
+        if (isset($prices['DISCOUNT_PRICE']) && $priceValue > (float) $prices['DISCOUNT_PRICE']) {
+            $priceValue = $prices['DISCOUNT_PRICE'];
+        }
+
+        // Вычисляем количество бонусов
         $propsToSet = [];
         foreach ($levelsCodes as $code) {
-            // Вычисляем количество бонусов
             $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
             $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
 
