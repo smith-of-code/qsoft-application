@@ -55,8 +55,22 @@ class UserEventsListener
         }
     }
 
-    public static function OnBeforeUserLogin(array $params): bool
+    public static function OnBeforeUserLogin(array &$params): bool
     {
-        return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByLogin($params['LOGIN'])->GetNext()['UF_EMAIL_CONFIRMED']);
+        if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
+            return true;
+        }
+        if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
+        } elseif (check_email($params['LOGIN'])) {
+            $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
+        } else {
+            return false;
+        }
+        if (!$user) {
+            return false;
+        }
+        $params['LOGIN'] = $user['LOGIN'];
+        return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByID($user['ID'])->GetNext()['UF_EMAIL_CONFIRMED']);
     }
 }
