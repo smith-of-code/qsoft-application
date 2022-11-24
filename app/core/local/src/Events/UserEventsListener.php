@@ -2,6 +2,8 @@
 
 namespace QSoft\Events;
 
+use Bitrix\Main\UserPhoneAuthTable;
+use Bitrix\Main\UserTable;
 use CUser;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;

@@ -6,8 +6,10 @@ class CSystemAuthRegistrationComponent {
 
   initPage() {
       this.checkBreedSelects();
-      $('.legal_entity').hide();
-      $(`.legal_entity.${$('select[name=status]').val()}`)?.show();
+      if (registrationData.type === 'consultant') {
+          $('.legal_entity')?.hide();
+          $(`.legal_entity.${$('select[name=status]').val()}`)?.show();
+      }
   }
 
   initListeners() {
@@ -53,7 +55,7 @@ class CSystemAuthRegistrationComponent {
     }
 
     async changeStepListener() {
-        $('[data-send-code]').css('color', 'red');
+        $('[data-send-code]').css('color', 'black');
 
         const mentorInput = $('#mentor_id');
         mentorInput.removeClass('input__control--error');
@@ -313,14 +315,23 @@ class CSystemAuthRegistrationComponent {
       const password = $('input[name=password]').val();
       const confirmPassword = $('input[name=password_confirm]').val();
 
+      $('input[name=password]').removeClass('input__control--error');
+      $('input[name=password_confirm]').removeClass('input__control--error');
+      $('input[name=password_confirm]').parent().find('.input__control-error').remove();
+
       switch (true) {
           case password !== confirmPassword:
+              $('input[name=password]').addClass('input__control--error');
+              $('input[name=password_confirm]').addClass('input__control--error');
+              $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароли не совпадают</span>');
+              return;
           case password.length < 8:
           case password.match(/[А-я]+/i):
           case password.toUpperCase() === password:
           case password.toLowerCase() === password:
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
+              $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароль не удовлетворяет требованиям</span>');
               return;
       }
 
