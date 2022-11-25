@@ -17,6 +17,7 @@ use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
 use Bitrix\Sale\PropertyValue;
 use CFile;
 use QSoft\Entity\User;
+use QSoft\ORM\BeneficiariesTable;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\NotificationTable;
 use QSoft\ORM\TransactionTable;
@@ -143,17 +144,35 @@ class OrderHelper
         // но при этом технически отсутствие этих данных не скажется на функционале.
         // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
 
+        $orderBonusesData = [];
+        if ($user->groups->isConsultant()) {
+            $orderBonusesData[] = [
+                'user_id' => $userId,
+                'value' => $user->loyalty->calculateBonusesByPrice($order->getPrice()),
+            ];
+        }
+        foreach (BeneficiariesTable::getUserBeneficiaries($userId) as $beneficiaryId) {
+            $beneficiary = new User($beneficiaryId);
+            $orderBonusesData[] = [
+                [
+                    'user_id' => $beneficiaryId,
+                    'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
+                ],
+            ];
+        }
+
         $propertyCollection->getUserEmail()->setValue($data['email']);
         $propertyCollection->getAddress()->setValue($data['delivery_address']);
         /** @var PropertyValue $property */
         foreach ($propertyCollection as $property) {
-            if ($property->getField('CODE') === 'city') {
-                $property->setValue($data['city']);
+            switch ($property->getField('CODE')) {
+                case 'city':
+                    $property->setValue($data['city']);
+                    break;
+                case 'BONUSES_DATA':
+                    $property->setValue(json_encode($orderBonusesData));
+                    break;
             }
-        }
-
-        if ($data['order_bonuses']) {
-            $this->bonusAccountHelper->addOrderBonuses($user, $data['order_bonuses']);
         }
 
         if ($data['bonuses_subtract']) {

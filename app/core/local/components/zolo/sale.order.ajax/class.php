@@ -180,7 +180,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
         try {
             $this->user = new User;
 			
-			if (!$this->user->isAuthorised) {
+			if (!$this->user->isAuthorized) {
 				localRedirect('/login/');
 			}
         } catch (\Exception $e) {}
@@ -515,7 +515,9 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     public function configureActions(): array
     {
         return [
-            'createOrder' => [],
+            'createOrder' => [
+                'prefilters' => [],
+            ],
         ];
     }
 
