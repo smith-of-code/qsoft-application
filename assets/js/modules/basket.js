@@ -5,6 +5,8 @@ const ELEMENTS_SELECTOR = {
     card: '[data-basket-card]',
     item_button_remove: '[data-basket-item-remove]',
     item_button_count: '[data-basket-item-count]',
+    item_prices: '[data-item-price]',
+    item_base_prices: '[data-base-price]',
     
     productTotal: '[data-basket-product-total]',
     nds: '[data-basket-product-nds]',
@@ -100,6 +102,10 @@ export default function () {
             const priceDefault = $(item).find('.product-price__item');
             const priceOld = $(item).find('.product-price__item.product-price__item--old');
             const priceSale = $(item).find('.product-price__item.product-price__item--new');
+            const priceItem = $(item).find('.card-cart__price-value').text().replace(/\s/g,'')
+            const priceItemNumber = parseFloat(priceItem);
+            const priceBaseItem = $(item).attr('data-base-price')
+            const priceBaseItemNumber = parseFloat(priceBaseItem);
             const amountProduct = $(item)
             .find('.quantity__total-sum')
             .text();
@@ -117,16 +123,23 @@ export default function () {
                 priceProductValue = priceDefault.text().replace(/\s/g,'');
                 priceNoDiscountsValue  = priceDefault.text().replace(/\s/g,'');
             }
-          
-            let priceProductNumber = parseInt(priceProductValue);
-            let priceNoDiscounts = parseInt(priceNoDiscountsValue);
-            const currentPrice = priceСalc(priceProductNumber, amountProduct);
-            const currentPriceDefault = priceСalc(priceNoDiscounts, amountProduct);
+            
+            let priceProductNumber = parseFloat(priceProductValue);
+            let priceNoDiscounts = parseFloat(priceNoDiscountsValue);
             const currentProductTotal = Number(amountProduct);
-        
-            basketAmoutOrder += currentPriceDefault;
+            const currentPrice = priceСalc(priceItemNumber, amountProduct);
+            const currentPriceDefault = priceСalc(priceBaseItemNumber, amountProduct);
+
+            if (priceSale.length > 0) {
+                priceSale.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+                priceOld.html(currentPriceDefault.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+            } else {
+                priceDefault.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+            }
+
+            basketAmoutOrder += priceNoDiscounts;
             basketProductTotal += currentProductTotal;
-            basketAmoutOrderSale += currentPrice;
+            basketAmoutOrderSale += priceProductNumber;
         });
 
         const basketTotal = basketAmoutOrder; 
@@ -207,7 +220,7 @@ export default function () {
     }
 
     function priceСalc(price, amount) {
-        return parseInt(amount) * parseInt(price);
+        return amount * price;
     }
 
     function calcNds(total) {
