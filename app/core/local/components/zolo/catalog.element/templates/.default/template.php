@@ -55,13 +55,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                         </button>
                                     </div>
 
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                    <a href="<?= $image['SRC'] ?>" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>
@@ -84,13 +86,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                     </button>
                                 </div>
 
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="https://fakeimg.pl/366x312/" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                <a href="https://fakeimg.pl/366x312/" data-fancybox="gallery">
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <img src="https://fakeimg.pl/366x312/" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -112,13 +116,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                         </button>
                                     </div>
 
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                    <a href="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>

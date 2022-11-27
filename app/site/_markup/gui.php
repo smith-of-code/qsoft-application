@@ -478,6 +478,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: video">
+                                    <svg class="icon icon--video gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-video"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">

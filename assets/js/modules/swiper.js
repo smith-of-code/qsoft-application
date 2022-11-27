@@ -55,15 +55,28 @@ export default function () {
                 const images = $(ELEMENTS_SELECTOR.productImage, wrap);
 
                 paramsCustom = {
-                    slidesPerView: 1,
+                    slidesPerView: 'auto',
                     pagination: {
                         el: pagination,
                         type: 'bullets',
                         clickable: true,
                         renderBullet: function (index, classname) {
                             const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
+                            const video = images[index]?.getAttribute('poster') != undefined;
+
+                            let vodeoIcon = '';
+                            if (video) {
+                                vodeoIcon = `
+                                    <span class="swiper-pagination-bullet__video">
+                                        <svg class="icon icon--video">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-video"></use>
+                                        </svg>
+                                    </span>
+                                `;
+                            }
 
                             return `<div class="${classname}">
+                                        ${vodeoIcon}
                                         <img
                                             src="${currentImage}"
                                             alt="вид товара ${index}"
@@ -79,6 +92,13 @@ export default function () {
                         768: {
                             spaceBetween: 20,
                         },
+                        1440: {
+                            spaceBetween: 5,
+                            pagination: {
+                                dynamicBullets: true,
+                                dynamicMainBullets: 8,
+                            }
+                        }
                     },
                     on: {
                         slideChange() {
