@@ -257,6 +257,8 @@ class CatalogElementComponent extends Element
         $result = [
             'IS_CONSULTANT' => $this->user->isAuthorized && $this->user->groups->isConsultant(),
             'ID' => $data['PRODUCT']['ID'],
+            'IBLOCK_ID' => $data['PRODUCT']['IBLOCK_ID'],
+            'SECTION_ID' => $data['PRODUCT']['IBLOCK_SECTION_ID'],
             'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
