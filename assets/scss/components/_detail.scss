@@ -32,6 +32,12 @@
             }
         }
 
+        &-specification {
+            @media #{$screen-desktop} {
+                flex-grow: 1;
+            }
+        }
+
         &-order {
             margin-top: rem(10px);
 
