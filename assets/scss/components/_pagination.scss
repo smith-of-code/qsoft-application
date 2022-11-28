@@ -25,6 +25,30 @@
             
             background: $brickRed;
         }
+
+        &__video {
+            display: none;
+
+            @media #{$screen-desktop} {
+                @include position-stretching(absolute, 100);
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: rem(24px);
+                height: rem(24px);
+                margin: auto;
+
+                text-align: center;
+
+                border-radius: 50%;
+                background: rgba($white, .25);
+                backdrop-filter: blur(2px);
+
+                color: $white;
+            }
+        }
     }
 
     &--image {
@@ -33,6 +57,7 @@
                 $size: 56px;
     
                 position: relative;
+                flex-shrink: 0;
     
                 overflow: hidden;
     
@@ -61,9 +86,14 @@
 
                 @media #{$screen-desktop} {
                     display: block;
+
+                    object-fit: cover;
                 }
             }
         }
-        
+
+        &.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+            transform: scale(1);
+        }
     }
 }

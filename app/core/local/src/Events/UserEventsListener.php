@@ -61,7 +61,7 @@ class UserEventsListener
             return true;
         }
         if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
-            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => UserPhoneAuthTable::normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
         } elseif (check_email($params['LOGIN'])) {
             $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
         } else {

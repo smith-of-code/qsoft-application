@@ -87,6 +87,15 @@ class CSystemAuthRegistrationComponent {
                     return;
                 }
 
+                if ($(item).parent().data('breed') === 'empty') {
+                    if ($(item).parent().css('display') !== 'none') {
+                        $(item).parent().parent().find('[data-breed] select').addClass('input__control--error');
+                        return;
+                    } else {
+                        $(item).parent().parent().find('[data-breed] select').removeClass('input__control--error');
+                    }
+                }
+
                 if ($(item).attr('type') === 'hidden' || !$(item).attr('name')) {
                     return;
                 }

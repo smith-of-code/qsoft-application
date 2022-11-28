@@ -61,8 +61,15 @@
         }
     }
 
+    &--textarea {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     &--textarea & {
         &__control {
+            flex-shrink: 0;
+
             height: rem(108px);
             padding-top: rem(14px);
             padding-bottom: rem(14px);
@@ -75,6 +82,10 @@
             &::-webkit-scrollbar {
                 width: 0;
                 background: transparent;
+            }
+
+            &-error {
+                margin-top: rem(6px);
             }
         }
     }
@@ -178,6 +189,11 @@
             margin-left: rem($gap-medium);
 
             color: $brickRed;
+        }
+
+        &-static {
+            display: flex;
+            align-items: center;
         }
     }
 
@@ -286,8 +302,11 @@
     &__counter {
         @include text-tiny;
 
+        order: 2;
+
         margin-top: rem(6px);
         margin-right: rem($gap-medium);
+        margin-left: auto;
 
         text-align: right;
 

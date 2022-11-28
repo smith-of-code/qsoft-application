@@ -510,6 +510,7 @@
                                     <div class="swiper-wrapper" data-card-favourite-block>
 
                                         <div class="swiper-slide slider__slide">
+                                        
                                             <article class="product-card product-card--slide box box--circle box--hovering box--border">
                                                 <div class="product-card__header">
                                                     <div class="product-card__label label label--violet">ограниченное предложение</div>
@@ -524,13 +525,99 @@
                                                         </button>
                                                     </div>
 
-                                                    <div class="product-card__wrapper">
-                                                        <div class="product-card__image box box--circle">
-                                                            <div class="product-card__box">
-                                                                <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
+                                                    <a href="/local/templates/.default/images/detail-slide.png" data-fancybox="gallery">
+                                                        <div class="product-card__wrapper">
+                                                            <div class="product-card__image box box--circle">
+                                                                <div class="product-card__box">
+                                                                    <img src="/local/templates/.default/images/detail-slide.png" alt="Название товара" class="product-card__pic">
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
                                                     </div>
+
+                                                    <a href="/local/templates/.default/images/portage.png" data-fancybox="gallery">
+                                                        <div class="product-card__wrapper">
+                                                            <div class="product-card__image box box--circle">
+                                                                <div class="product-card__box">
+                                                                    <img src="/local/templates/.default/images/portage.png" alt="Название товара" class="product-card__pic">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <a href="https://fakeimg.pl/500x500/" data-fancybox="gallery">
+                                                        <div class="product-card__wrapper">
+                                                            <div class="product-card__image box box--circle">
+                                                                <div class="product-card__box">
+                                                                    <img src="https://fakeimg.pl/366x312/" alt="Название товара" class="product-card__pic">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="swiper-slide slider__slide">
+                                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                                                <div class="product-card__header">
+                                                    <div class="product-card__label label label--violet">ограниченное предложение</div>
+
+                                                    <div class="product-card__favourite">
+                                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                                            <span class="button__icon button__icon--big">
+                                                                <svg class="icon icon--heart">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <a href="/local/templates/.default/images/video-slide.webm" data-fancybox="gallery">
+                                                        <div class="product-card__wrapper">
+                                                            <div class="product-card__image box box--circle">
+                                                                <div class="product-card__box">
+                                                                    <video src="/local/templates/.default/images/video-slide.webm" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </article>
                                         </div>
@@ -664,7 +751,6 @@
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 

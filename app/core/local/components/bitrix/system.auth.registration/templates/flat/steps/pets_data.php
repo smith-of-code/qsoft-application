@@ -81,7 +81,7 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="pets-<?=$index?>-type" class="form__label">
+                                            <label for="pets-<?=$index?>-type" class="form__label form__label--required">
                                                 <span class="form__label-text">Тип питомца</span>
                                             </label>
                                         </div>
@@ -112,7 +112,7 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__col pet-card__col--1-3 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="pets-<?=$index?>-gender" class="form__label">
+                                            <label for="pets-<?=$index?>-gender" class="form__label form__label--required">
                                                 <span class="form__label-text">Пол</span>
                                             </label>
                                         </div>
@@ -140,7 +140,7 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__col pet-card__col--1-3 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="pets-<?=$index?>-birthdate" class="form__label">
+                                            <label for="pets-<?=$index?>-birthdate" class="form__label form__label--required">
                                                 <span class="form__label-text">Дата рождения</span>
                                             </label>
                                         </div>
@@ -172,7 +172,7 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="pets-<?=$index?>-breed" class="form__label">
+                                            <label for="pets-<?=$index?>-breed" class="form__label form__label--required">
                                                 <span class="form__label-text">Порода</span>
                                             </label>
                                         </div>
@@ -204,7 +204,7 @@ if (!$arResult['pets']) {
                                 <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
-                                            <label for="pets-<?=$index?>-name" class="form__label">
+                                            <label for="pets-<?=$index?>-name" class="form__label form__label--required">
                                                 <span class="form__label-text">Кличка</span>
                                             </label>
                                         </div>
