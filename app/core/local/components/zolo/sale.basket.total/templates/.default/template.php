@@ -14,7 +14,7 @@ $APPLICATION->setTitle('Корзина');?>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
-                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-base-price=1200>
+                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-base-price="<?=$basketItem['BASE_PRICE']?>">
                             <article class="card-cart">
                                 <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
