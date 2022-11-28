@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main;
 use Bitrix\Main\Data\Cache;
 use Bitrix\Main\Loader;
@@ -289,6 +290,7 @@ class CatalogElementComponent extends Element
             'SIZE_NAMES' => array_map(static fn (array $size) => $size['name'], HLReferencesHelper::getSizeNames()),
             'OFFERS' => $data['OFFERS'], // TODO format
             'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
+            'RELATED_PRODUCTS' => $this->getRelatedProductsIds($data['PRODUCT']['ID']),
         ];
 
         foreach ($data['OFFERS'] as $offer) {
@@ -429,6 +431,35 @@ class CatalogElementComponent extends Element
         ];
 
         return $color[$typeName] ?? 'violet';
+    }
+
+    private function getRelatedProductsIds($id) {
+        if (! CModule::IncludeModule('iblock')) {
+            throw new \Exception('Модуль iblock не найден');
+        }
+        if (! CModule::IncludeModule('highloadblock')) {
+            throw new \Exception('Модуль highloadblock не найден');
+        }
+
+        $hlblock = HighloadBlockTable::getList([
+            'filter' => ['=NAME' => 'HlRelatedProduct']
+        ])->fetch();
+
+        if(! $hlblock){
+            throw new \Exception('HL-блок сопутствующих товаров не найден');
+        }
+
+        $hlClassName = (HighloadBlockTable::compileEntity($hlblock))->getDataClass();
+
+        $res = $hlClassName::getList([
+            'filter' => ['=UF_MAIN_PRODUCT_ID' => $id],
+        ])->fetch();
+
+        if ($res) {
+            return $res['UF_RELATED_PRODUCT_ID'];
+        }
+
+        return [];
     }
 }
 
