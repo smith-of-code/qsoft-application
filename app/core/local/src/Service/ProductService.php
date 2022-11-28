@@ -99,15 +99,12 @@ class ProductService
     public function getOfferPrices(int $offerId): array
     {
         $prices = CCatalogProduct::GetOptimalPrice($offerId);
-        if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
-            return [
-                'PRICE' => $prices['DISCOUNT_PRICE'],
-                'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
-                    ? $prices['PRICE']['PRICE']
-                    : null,
-            ];
-        }
-        return ['PRICE' => $prices['DISCOUNT_PRICE']];
+        return $this->user->isAuthorized ? [
+            'PRICE' => $prices['DISCOUNT_PRICE'],
+            'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
+                ? $prices['PRICE']['PRICE']
+                : null,
+        ] : ['PRICE' => $prices['DISCOUNT_PRICE']];
     }
 
     private function getOfferDiscountLabels(array $offer): array
