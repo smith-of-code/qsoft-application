@@ -10,8 +10,14 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 
 global $APPLICATION, $USER;
 
-if ($arParams['SET_TITLE'] === 'Y') {
-    $APPLICATION->SetTitle($arResult['NAME']);
+$navChain = CIBlockSection::GetNavChain($arResult['IBLOCK_ID'], $arResult['SECTION_ID']);
+while ($navChainItem = $navChain->GetNext()) {
+    $APPLICATION->AddChainItem($navChainItem['NAME'], $navChainItem['SECTION_PAGE_URL']);
+}
+
+if ($arParams['SET_TITLE']) {
+    $APPLICATION->SetTitle($arResult['TITLE']);
+    $APPLICATION->AddChainItem($arResult['TITLE']);
 }
 
 if ($arParams['SET_META_KEYWORDS'] === 'Y') {
