@@ -296,7 +296,7 @@
 			BX.ajax.processScripts(processed.SCRIPT);
 
 			// Дополнительно выполняем определенные действия над полученными карточками товаров, для работы функционала переключения ТП
-			window.CatalogItemHelperZolo.startActions();
+			window.CatalogItemHelperZolo.startActions(true);
 		},
 
 		processPagination: function(paginationHtml)
