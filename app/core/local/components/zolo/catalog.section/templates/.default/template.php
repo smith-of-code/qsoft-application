@@ -222,7 +222,7 @@ $containerName = 'container-'.$navParams['NavNum'];
 		?>
 
 	</div>
-    <div data-entity="lazy-<?=$containerName?>">
+    <div data-entity="lazy-<?=$containerName?>" style="<?= ((int) $arResult['TOTAL_PRODUCTS_COUNT'] === count($arResult['ITEMS'])) ? 'display: none;' : '' ?>">
         <button type="button"
                 class="catalog__button button button--rounded-big button--outlined button--green button--full"
                 data-use="show-more-<?=$navParams['NavNum']?>"
