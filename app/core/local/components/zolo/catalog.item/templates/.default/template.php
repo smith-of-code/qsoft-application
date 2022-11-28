@@ -343,10 +343,10 @@ if (isset($arResult['ITEM']))
                 </div>
             </div>
         </article>
+        <script>
+            window.CatalogItemHelperZolo.addProduct(<?=CUtil::PhpToJSObject($jsInfo, false, true)?>);
+        </script>
     </li>
-    <script>
-        window.CatalogItemHelperZolo.addProduct(<?=CUtil::PhpToJSObject($jsInfo, false, true)?>);
-    </script>
 	<?
 	unset($item, $actualItem, $jsInfo);
 }
