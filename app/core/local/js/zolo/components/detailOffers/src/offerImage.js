@@ -28,13 +28,10 @@ export const OfferImage = {
 
     mounted() {
         this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
-        initSwiper();
     },
 
     updated() {
         this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
         initSwiper();
     },
 
