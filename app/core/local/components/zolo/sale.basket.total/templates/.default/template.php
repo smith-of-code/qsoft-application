@@ -14,7 +14,7 @@ $APPLICATION->setTitle('Корзина');?>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
-                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>">
+                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-base-price="<?=$basketItem['BASE_PRICE']?>">
                             <article class="card-cart">
                                 <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
@@ -86,6 +86,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                             </button>
                                                         </div>
 
+                                                        <input type="hidden" name="bonuses" value="<?=$basketItem['OFFER']['BONUSES']?>" data-item-bonuses="<?=$basketItem['OFFER']['BONUSES']?>" />
                                                         <div class="quantity__total">
                                                             <span
                                                                 class="quantity__total-sum"
@@ -113,7 +114,7 @@ $APPLICATION->setTitle('Корзина');?>
 
                                             <div class="card-cart__price">
                                                 <p class="card-cart__price-item">
-                                                    <span class="card-cart__price-value">
+                                                    <span class="card-cart__price-value" data-item-price>
                                                         <?=$basketItem['PRICE']?> ₽
                                                     </span>
                                                     <span class="card-cart__price-sufix">

@@ -117,7 +117,7 @@
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${offer.bonuses} ББ`);
-				offer.bonuses ? bonuses.show() : bonuses.hide();
+				offer.bonuses > 0 ? bonuses.show() : bonuses.hide();
 			}
 		};
 
