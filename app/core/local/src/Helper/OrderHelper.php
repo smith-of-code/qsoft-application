@@ -26,11 +26,13 @@ use QSoft\Service\ProductService;
 class OrderHelper
 {
     public const ACCOMPLISHED_STATUS = 'F';
+    public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
     public const FULL_REFUNDED_STATUS = 'FR';
 
     public const ORDER_STATUSES = [
         'accomplished' => self::ACCOMPLISHED_STATUS,
+        'cancelled' => self::CANCELLED_STATUS,
         'partly_refunded' => self::PARTLY_REFUNDED_STATUS,
         'full_refunded' => self::FULL_REFUNDED_STATUS,
     ];
@@ -168,6 +170,11 @@ class OrderHelper
             switch ($property->getField('CODE')) {
                 case 'city':
                     $property->setValue($data['city']);
+                    break;
+                case 'POINTS':
+                    if ($data['bonuses_subtract']) {
+                        $property->setValue($data['bonuses_subtract']);
+                    }
                     break;
                 case 'BONUSES_DATA':
                     $property->setValue(json_encode($orderBonusesData));

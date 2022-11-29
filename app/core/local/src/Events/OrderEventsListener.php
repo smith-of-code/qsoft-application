@@ -14,6 +14,8 @@ class OrderEventsListener
 {
     public static function OnSaleStatusOrder(int $orderId, string $status): void
     {
+        $bonusAccountHelper = new BonusAccountHelper;
+
         $order = Order::load($orderId);
         $user = new User(Order::load($orderId)->getUserId());
 
@@ -24,22 +26,46 @@ class OrderEventsListener
             $notifier->getLink()
         );
 
-        if ($status === OrderHelper::ACCOMPLISHED_STATUS) {
-            $bonusesData = null;
-            /** @var PropertyValue $property */
-            foreach ($order->getPropertyCollection() as $property) {
-                if ($property->getField('CODE') === 'BONUSES_DATA') {
-                    $bonusesData = json_decode($property->getField('VALUE'), true);
-                    break;
+        switch ($status) {
+            case OrderHelper::ACCOMPLISHED_STATUS:
+                $bonusesData = null;
+                /** @var PropertyValue $property */
+                foreach ($order->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES_DATA') {
+                        $bonusesData = json_decode($property->getField('VALUE'), true);
+                        break;
+                    }
                 }
-            }
-            if ($bonusesData) {
-                $bonusAccountHelper = new BonusAccountHelper;
-                foreach ($bonusesData as $data) {
-                    $tmpUser = new User($data['user_id']);
-                    $bonusAccountHelper->addOrderBonuses($tmpUser, $data['value'], TransactionTable::SOURCES['group']);
+                if ($bonusesData) {
+                    foreach ($bonusesData as $data) {
+                        $tmpUser = new User($data['user_id']);
+                        $bonusAccountHelper->addOrderBonuses($tmpUser, $data['value'], TransactionTable::SOURCES['group']);
+                    }
                 }
-            }
+                break;
+            case OrderHelper::CANCELLED_STATUS:
+            case OrderHelper::FULL_REFUNDED_STATUS:
+            case OrderHelper::PARTLY_REFUNDED_STATUS:
+                $bonuses = null;
+                $bonusesAreReturned = null;
+                /** @var PropertyValue $property */
+                foreach ($order->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES_ARE_RETURNED') {
+                        $bonusesAreReturned = $property->getField('VALUE') === 'Y';
+                        if (!$bonusesAreReturned) {
+                            $property->setField('VALUE', 'Y');
+                        }
+                    } elseif ($property->getField('CODE') === 'POINTS') {
+                        $bonuses = (int)$property->getField('VALUE');
+                    }
+                }
+
+                if (!$bonusesAreReturned && $bonuses) {
+                    $bonusAccountHelper->refundOrderBonuses($user, $bonuses);
+                }
+                break;
         }
+
+        $order->save();
     }
 }
