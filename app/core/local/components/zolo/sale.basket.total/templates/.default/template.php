@@ -331,7 +331,7 @@ $APPLICATION->setTitle('Корзина');?>
             <?php endif;?>
             <?php if($arResult['BASKET_ITEMS']):?>
                 <div class="basket__order">
-                    <div class="basket-card" data-basket-card>
+                    <form class="basket-card" data-basket-card action="/order/make/" method="post">
                         <div class="basket-card__title">Ваш заказ</div>
 
                         <div class="basket-card__wrapper">
@@ -369,7 +369,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input input--small input--buttoned input--placeholder" data-basket-bonus-input>
-                                                                <input type="number" class="input__control" name="bonuses" id="bonuses" value="">
+                                                                <input type="number" class="input__control" name="bonuses" id="bonuses">
                                                                 <span class="input__placeholder">Сколько баллов списать</span>
                                                                 <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark" data-basket-bonus-accept>
                                                                     <span class="button__icon button__icon--small">
@@ -394,11 +394,11 @@ $APPLICATION->setTitle('Корзина');?>
                                     <span class="basket-card__total basket-card__total--bold" data-basket-total><?=$arResult['BASKET_PRICE']?> ₽</span>
                                 </div>
                             </div>
-                            <button type="button" class="basket-card__button button button--rounded button--covered button--green button--full">
+                            <button type="submit" class="basket-card__button button button--rounded button--covered button--green button--full">
                                 Оформить заказ
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             <?php endif;?>
         </div>
