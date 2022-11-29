@@ -32,7 +32,7 @@ export const OfferImage = {
 
     updated() {
         this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-        initSwiper();
+        initSwiper(true);
     },
 
     methods: {
