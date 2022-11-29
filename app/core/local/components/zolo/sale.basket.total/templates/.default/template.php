@@ -361,7 +361,7 @@ $APPLICATION->setTitle('Корзина');?>
                                             </div>
                                             <div class="basket-card__bonus-inner">
                                                 <span class="basket-card__bonus-text">ББ за заказ</span>
-                                                <span class="basket-card__bonus-count"><?=$arResult['BASKET_ITEMS_BONUS_SUM']?> ББ</span>
+                                                <span class="basket-card__bonus-count" data-basket-bonus-order><?=$arResult['BASKET_ITEMS_BONUS_SUM']?> ББ</span>
                                             </div>
 
                                             <div class="form__row">

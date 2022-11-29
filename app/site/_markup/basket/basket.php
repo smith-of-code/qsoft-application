@@ -176,7 +176,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -297,7 +297,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -444,7 +444,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -742,7 +742,7 @@
                                                         </div>
                                                         <div class="basket-card__bonus-inner">
                                                             <span class="basket-card__bonus-text">ББ за заказ</span>
-                                                            <span class="basket-card__bonus-count">356 ББ</span>
+                                                            <span class="basket-card__bonus-count" data-basket-bonus-order>356 ББ</span>
                                                         </div>
 
                                                         <div class="form__row">
