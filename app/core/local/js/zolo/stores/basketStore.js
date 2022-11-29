@@ -7,6 +7,8 @@ export const useBasketStore = defineStore('basket', {
         itemsCount: undefined,
         basketPrice: undefined,
         loading: false,
+        missing: {},
+        isBasketOldEmpty: true
     }),
     actions: {
         async getItem(id) {
@@ -70,13 +72,23 @@ export const useBasketStore = defineStore('basket', {
             this.loading = true;
             try {
                 const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'repeatOrder', {
-                    data: {
-                    }
+                    data: { orderId }
                 }).then((response) => response.data);
-                this.test = response.test;
+                this.items = response.items;
+                this.itemsCount = Object.values(response.items).length;
+                this.basketPrice = response.basketPrice;
+                this.missing = response.missing;
+                this.isBasketOldEmpty = response.isBasketOldEmpty;
             } finally {
                 this.loading = false;
             }
+            return {
+                'items': this.items,
+                'itemsCount': this.itemsCount,
+                'basketPrice': this.basketPrice,
+                'missing': this.missing,
+                'isBasketOldEmpty': this.isBasketOldEmpty
+            };
         },
     },
 })

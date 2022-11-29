@@ -240,8 +240,4 @@ $details = $arResult['ORDER_DETAILS'];
     const orderId = <?=$arParams['ORDER_ID']?>;
     const RUBLE_SYMBOL = "<?=Loc::getMessage("RUBLE_SYMBOL")?>";
     const ARTICLE = "<?=Loc::getMessage("PRODUCT_ARTICLE")?>";
-    $(document).on('click', '.card-order__button', function () {
-        window.stores.basketStore.repeatOrder();
-        console.log("button click");
-    });
 </script>

@@ -16,7 +16,11 @@ use Bitrix\Main\Request;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
+use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
+use \QSoft\Service\ProductService;
+use \http\Exception\RuntimeException;
+use Bitrix\Sale\Order;
 
 class BasketLineController extends Controller
 {
@@ -171,11 +175,72 @@ class BasketLineController extends Controller
         return $this->getBasketTotalsAction($withPersonalPromotions);
     }
 
-    public function repeatOrderAction()
+    public function repeatOrderAction(int $orderId): array
     {
-        return [
-            'status' => 'success',
-            'test' => 'hello world',
-        ];
+        //очистка корзины
+        $this->clearBasket();
+
+        //повторить заказ
+        //объект заказа
+        $orderOld = Order::load($orderId);
+
+        if ($orderOld == null) {
+            throw new RuntimeException('Заказ с номером ' . $orderId . ' не найден');
+        }
+
+        $basketOld = $orderOld->getBasket();
+
+        if ($basketOld->isEmpty()) {
+            return [
+                'status' => 'success',
+                'items' => [],
+                'missing' => [],
+                'basketPrice' => 0,
+                'isBasketOldEmpty' => 'true'
+            ];
+        }
+
+        $ids = array_map(fn($item) => $item->getProductId(), $basketOld->getBasketItems());
+
+        $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
+
+        $missing = [];//позиции старой корзины, которые не добавятся в новую корзину
+
+        foreach ($basketOld as $key => $basketItem) {
+            $offer = $offers[$basketItem->getProductId()];
+            $requiredQuantity = $basketItem->getQuantity();
+            $availableQuantity = $offer['CATALOG_QUANTITY'];
+            if ($availableQuantity == 0) {
+                $missing[] = $offer;
+                continue;
+            }
+
+            $props = $basketItem->getPropertyCollection()->getPropertyValues();
+
+            $this->increaseItemAction(
+                $offer['ID'],
+                $props['DETAIL_PAGE']['VALUE'],
+                $props['NONRETURNABLE']['VALUE'],
+                'false',
+                min($requiredQuantity, $availableQuantity),
+            );
+        }
+        $result = $this->getBasketTotalsAction();
+        $result['missing'] = $missing;
+        $result['isBasketOldEmpty'] = 'false';
+        return $result;
+    }
+
+    private function clearBasket(): void
+    {
+        $res = CSaleBasket::GetList(array(), array(
+            'FUSER_ID' => Fuser::getId(),
+            'LID' => SITE_ID,
+            'ORDER_ID' => 'null',
+            'DELAY' => 'N',
+            'CAN_BUY' => 'Y'));
+        while ($row = $res->fetch()) {
+            CSaleBasket::Delete($row['ID']);
+        }
     }
 }

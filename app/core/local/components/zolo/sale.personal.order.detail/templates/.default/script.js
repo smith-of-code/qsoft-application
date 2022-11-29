@@ -4,6 +4,12 @@ window.onload = function () {
     if (buttonShowMore != null) {
         buttonShowMore.addEventListener('click', loadOrders);
     }
+    document.querySelector('.card-order__button').addEventListener('click', repeatOrder);
+}
+
+function repeatOrder() {
+    let result = window.stores.basketStore.repeatOrder(orderId);
+    console.log(result);
 }
 
 //пагинация товаров
