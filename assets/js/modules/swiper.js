@@ -11,7 +11,7 @@ const ELEMENTS_SELECTOR = {
     slide: '.slider__slide',
 };
 
-export default function () {
+export default function (update) {
     $(ELEMENTS_SELECTOR.slider).each(function () {
         const wrap = $(this);
         const type = wrap.data('carousel');
@@ -19,6 +19,12 @@ export default function () {
         const prev = $(ELEMENTS_SELECTOR.prev, wrap);
         const next = $(ELEMENTS_SELECTOR.next, wrap);
         const pagination = $(ELEMENTS_SELECTOR.pagination, wrap);
+
+        if (update) {
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
+            return;
+        }
+
 
         let params = {
             speed: 700,
@@ -60,9 +66,9 @@ export default function () {
                         el: pagination,
                         type: 'bullets',
                         clickable: true,
-                        renderBullet: function (index, classname) {
+                        renderBullet(index, classname) {
                             const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
-                            const video = images[index]?.getAttribute('poster') != undefined;
+                            const video = images[index]?.getAttribute('poster') !== undefined;
 
                             let vodeoIcon = '';
                             if (video) {
@@ -119,6 +125,6 @@ export default function () {
 
         params = $.extend(params, paramsCustom);
 
-        window.swiper = new Swiper(container, params);
+        new Swiper(container, params);
     });
 };

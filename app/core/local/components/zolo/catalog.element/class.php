@@ -291,7 +291,7 @@ class CatalogElementComponent extends Element
             'ALL_COLORS' => $colors,
             'SIZE_NAMES' => array_map(static fn (array $size) => $size['name'], HLReferencesHelper::getSizeNames()),
             'OFFERS' => $data['OFFERS'], // TODO format
-            'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
+            'OFFER_FIRST' => array_first(array_filter($data['OFFERS'],fn($offer)=>$offer['CATALOG_AVAILABLE']==='Y'))['ID'],
             'RELATED_PRODUCTS' => $this->getRelatedProductsIds($data['PRODUCT']['ID']),
         ];
 
@@ -352,7 +352,7 @@ class CatalogElementComponent extends Element
             }
         }
 
-        $index = 1;
+        $index = 0;
         foreach ($properties as $property) {
             if ($index++ > $this->arParams['PROPERTY_COUNT_DETAIL']) {
                 break;

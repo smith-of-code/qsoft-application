@@ -51,6 +51,12 @@ export const OfferPrice = {
                 <p class="price__calculation-accumulation">{{ formatNumber(bonuses) }} ББ</p>
               </div>
             </template>
+            <template v-else-if="isAuthorized && price.BASE_PRICE">
+                <div class="price__calculation" >
+                    <p class="price__calculation-total price__calculation-total--red">{{ formatNumber(price.PRICE) }} ₽</p>
+                    <p class="price__main">{{ formatNumber(price.BASE_PRICE) }} ₽</p>
+                </div>
+            </template>
             <template v-else>
               <div class="price__calculation" >
                 <p class="price__calculation-total">
