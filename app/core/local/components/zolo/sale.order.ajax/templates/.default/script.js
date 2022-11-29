@@ -1,12 +1,25 @@
 class SaleOrderAjaxComponent {
     constructor() {
         this.initListeners();
+        this.initPage();
     }
 
     initListeners() {
         $('[data-create-order]').on('click', this.createOrder);
         $(`.form select`).on('change', this.removeError);
         $(`.form input`).on('keyup', this.removeError);
+        $('[name=city]').on ('change', this.changePickupPointsSelect)
+    }
+
+    initPage() {
+        this.changePickupPointsSelect();
+    }
+
+    changePickupPointsSelect() {
+        const city = $('[name=city]').val();
+        console.log(city);
+        $('[data-city]').hide();
+        $(`[data-city="${city}"]`).show();
     }
 
     removeError() {
@@ -20,7 +33,7 @@ class SaleOrderAjaxComponent {
         let data = {};
 
         $(`.form`).find('input, select, textarea').each((index, item) => {
-            if ($(item).attr('name') === 'comment') {
+            if ($(item).attr('name') === 'comment' || $(item).closest('.form__field-block').css('display') === 'none') {
                 return;
             }
 

@@ -6,6 +6,7 @@
 
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Helper\PickupPointHelper;
 use QSoft\ORM\PickupPointTable;
 
 try {
@@ -17,10 +18,13 @@ try {
         'IS_CONSULTANT' => $user->groups->isConsultant(),
         'EMAIL' => $user->email,
         'CITY' => $user->city,
+        'UF_PICKUP_POINT_ID' => $user->pickupPointId,
+        'PHONE' => $user->phone,
     ];
 } catch (\Exception $e) {
     $arResult['USER'] = [];
 }
 
-$arResult['CITIES'] = HlBlockHelper::getEnumFieldValues(PickupPointTable::getTableName(), 'UF_CITY');
-$arResult['ADDRESSES'] = array_column(PickupPointTable::getList(['select' => ['ID', 'UF_ADDRESS']])->fetchAll(), 'UF_ADDRESS');
+$pickupPointHelper = new PickupPointHelper;
+$arResult['CITIES'] = $pickupPointHelper->getCities();
+$arResult['ADDRESSES'] = $pickupPointHelper->getPickupPoints();
