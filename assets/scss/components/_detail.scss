@@ -32,6 +32,12 @@
             }
         }
 
+        &-specification {
+            @media #{$screen-desktop} {
+                flex-grow: 1;
+            }
+        }
+
         &-order {
             margin-top: rem(10px);
 
@@ -102,6 +108,28 @@
             &-body {
                 @media #{$screen-tablet} {
                     margin-top: rem($gap-big);
+                }
+            }
+
+            &-list {
+                @media #{$screen-tablet} {
+                    justify-content: space-between;
+                }
+
+                @media #{$screen-desktop} {
+                    justify-content: flex-start;
+                }
+            }
+
+            &-item {
+                @media #{$screen-tablet} {
+                    padding-right: rem($gap-medium) !important;
+                    padding-left: rem($gap-medium) !important;
+                }
+
+                @media #{$screen-desktop} {
+                    padding-right: rem($gap-big);
+                    padding-left: rem($gap-big);
                 }
             }
         }

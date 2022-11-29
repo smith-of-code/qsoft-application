@@ -183,59 +183,59 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </form>
+                                                    </div>
 
-                                                            <div class="accounting__diagramm">
-                                                                <h5 class="accounting__diagramm-title">Мой заработок</h5>
+                                                    <div class="accounting__diagramm">
+                                                        <h5 class="accounting__diagramm-title">Мой заработок</h5>
 
-                                                                <div class="diagramm diagramm--simple">
-                                                                    <div class="diagramm__row">
-                                                                        <div class="diagramm__col diagramm__col--diagramm">
-                                                                            <div class="diagramm__main">
-                                                                                <canvas width="227" height="227" data-chart='{"labels": [" с личных покупок", " с товаров по персональной акции", " за приглашенных Консультантов", " за переход на К1", " за переход на К2", " за переход на К3", " за удержание на К3", " за покупки группы"],"datasets": [{"data": [100, 100, 200, 150, 100, 150, 200, 80],"backgroundColor": ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"]}]}'></canvas>
-                                                                                <div class="diagramm__sum">1 200</div>
-                                                                            </div>
+                                                        <div class="diagramm diagramm--simple">
+                                                            <div class="diagramm__row">
+                                                                <div class="diagramm__col diagramm__col--diagramm">
+                                                                    <div class="diagramm__main">
+                                                                        <canvas width="227" height="227" data-chart='{"labels": [" с личных покупок", " с товаров по персональной акции", " за приглашенных Консультантов", " за переход на К1", " за переход на К2", " за переход на К3", " за удержание на К3", " за покупки группы"],"datasets": [{"data": [100, 100, 200, 150, 100, 150, 200, 80],"backgroundColor": ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"]}]}'></canvas>
+                                                                        <div class="diagramm__sum">1 200</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="diagramm__col diagramm__col--sum">
+                                                                    <p class="diagramm__title">Сумма всех заработанных баллов:</p>
+                                                                    <div class="diagramm__results">
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#2C877F"></span>
+                                                                            <span class="diagramm__result-text">с личных покупок</span>
                                                                         </div>
-                                                                        <div class="diagramm__col diagramm__col--sum">
-                                                                            <p class="diagramm__title">Сумма всех заработанных баллов:</p>
-                                                                            <div class="diagramm__results">
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#2c877f"></span>
-                                                                                    <span class="diagramm__result-text">с личных покупок</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#c99308"></span>
-                                                                                    <span class="diagramm__result-text">за переход на К2</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#2d8859"></span>
-                                                                                    <span class="diagramm__result-text">с товаров по персональной акции</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#d82f49"></span>
-                                                                                    <span class="diagramm__result-text">за переход на К3</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
-                                                                                    <span class="diagramm__result-text">за приглашенных Консультантов</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#3887b5"></span>
-                                                                                    <span class="diagramm__result-text">за удержание на К3</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#d26925"></span>
-                                                                                    <span class="diagramm__result-text">за переход на К1</span>
-                                                                                </div>
-                                                                                <div class="diagramm__result">
-                                                                                    <span class="diagramm__result-icon" style="background-color:#945dab"></span>
-                                                                                    <span class="diagramm__result-text">за покупки группы</span>
-                                                                                </div>
-                                                                            </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#C99308"></span>
+                                                                            <span class="diagramm__result-text">за переход на К2</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#C73C5E"></span>
+                                                                            <span class="diagramm__result-text">с товаров по персональной акции</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#2D8859"></span>
+                                                                            <span class="diagramm__result-text">за переход на К3</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#D82F49"></span>
+                                                                            <span class="diagramm__result-text">за приглашенных Консультантов</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#3887B5"></span>
+                                                                            <span class="diagramm__result-text">за удержание на К3</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#D26925"></span>
+                                                                            <span class="diagramm__result-text">за переход на К1</span>
+                                                                        </div>
+                                                                        <div class="diagramm__result">
+                                                                            <span class="diagramm__result-icon" style="background-color:#945DAB"></span>
+                                                                            <span class="diagramm__result-text">за покупки группы</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
 
                                                     <div class="participant__section">
@@ -308,6 +308,64 @@
                                                                                                         </span>
                                                                                                     </button>
                                                                                                 </div>
+                                                                                                <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
+                                                                                                    <div class="modal__content">
+                                                                                                        <header class="modal__section modal__section--header">
+                                                                                                            <p class="heading heading--average">Условия поддержания уровня</p>
+                                                                                                        </header>
+
+                                                                                                        <section class="modal__section modal__section--content">
+                                                                                                            <div class="conditions">
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                </div>
+
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+
+                                                                                                                    <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                                                                                                    </p>
+                                                                                                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                                                                                                </div>
+
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+
+                                                                                                                    <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+
+                                                                                                                    </p>
+                                                                                                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </section>
+                                                                                                    </div>
+                                                                                                </article>
                                                                                                 <p class="warning__text">
                                                                                                     Условия повышения уровня
                                                                                                 </p>

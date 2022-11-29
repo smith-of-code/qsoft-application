@@ -68,7 +68,7 @@ class BonusAccountHelper
         return false;
     }
 
-    public function addOrderBonuses(User $user, float $amount): bool
+    public function addOrderBonuses(User $user, float $amount, string $source = TransactionTable::SOURCES['personal']): bool
     {
         if (!$user->active) {
             throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
@@ -80,7 +80,7 @@ class BonusAccountHelper
         $this->transactions->add(
             $user->id,
             TransactionTable::TYPES['purchase'],
-            TransactionTable::SOURCES['personal'],
+            $source,
             TransactionTable::MEASURES['points'],
             $amount,
         );

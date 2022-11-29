@@ -15,7 +15,11 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
             </h3>
             <p class="about__advantages-text">
                 Мы выбираем только качественную продукцию, которую не стыдно порекомендовать маме, лучшему другу или коллегам в офисе.
+            </p>
+            <p class="about__advantages-text">
                 Наша цель - объединить людей, которые любят животных и стремятся дать лучшее нашим меньшим братьям, ведь они нам доверяют.
+            </p>
+            <p class="about__advantages-text">
                 Поэтому мы предлагаем широкий ассортимент сухих и влажных кормов Premium и Super Premium класса, а также современные и качественные аксессуары по привлекательной цене.
             </p>
             <div class="cards-preference">
@@ -30,14 +34,14 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                     <li class="cards-preference__item">
                         <div class="card-preference">
                             <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-vet.svg" alt="">
-                            <p class="card-preference__text">На любой вкус</p>
+                            <p class="card-preference__text"> Полезно для здоровья</p>
                         </div>
                     </li>
 
                     <li class="cards-preference__item">
                         <div class="card-preference">
                             <img class="card-preference__icon" src="/local/templates/.default/images/icons/about-dog.svg" alt="">
-                            <p class="card-preference__text">На любой вкус</p>
+                            <p class="card-preference__text">Высокое качество</p>
                         </div>
                     </li>
                 </ul>

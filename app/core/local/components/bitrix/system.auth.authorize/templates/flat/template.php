@@ -82,7 +82,9 @@
                     </a>
                 </div>
 
-                <?php if ($arResult['POST']):?>
+                <?php if ($_POST['NOT_ACTIVE_ERROR']):?>
+                    <span style="color: red;">Email не подтвержден</span>
+                <?php elseif ($arResult['POST']):?>
                     <span style="color: red;">Неверный логин или пароль</span>
                 <?php endif;?>
 

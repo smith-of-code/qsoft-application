@@ -6,6 +6,7 @@
  * @var $APPLICATION
  */
 
+use QSoft\Entity\User;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 
@@ -25,14 +26,18 @@ $APPLICATION->SetTitle(GetMessage('admin_index_title'));
 
 require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_admin_after.php");
 
-$ticketId = $_REQUEST['ID'];
-
-if (!$ticketId) {
+$userId = $_REQUEST['user_id'];
+$ticketId = $_REQUEST['ticket_id'];
+if (!$userId && !$ticketId) {
     die();
 }
 
-$ticketData = (new TicketHelper)->getTicketData($ticketId);
-$arResult = $ticketData['documents']?>
+if ($userId) {
+    $ticketData = (new User)->legalEntity->getData();
+} else {
+    $ticketData = (new TicketHelper)->getTicketData($ticketId);
+}
+$arResult = $ticketData['documents'];?>
 
 <div class="registration__form form form--separated form--wraped">
     <div class="section__box box box--gray box--rounded-sm">
@@ -197,7 +202,7 @@ $arResult = $ticketData['documents']?>
                 <div class="section__box-block">
                     <h6 class="box__heading box__heading--small">Копия паспорта</h6>
                     <?php foreach ($arResult['passport'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -507,7 +512,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -616,7 +621,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -624,7 +629,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
                     <?php foreach ($arResult['personal_tax_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
             </div>
@@ -768,7 +773,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -776,7 +781,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -812,7 +817,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия устава ООО</h6>
 
                     <?php foreach ($arResult['llc_charter'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -820,7 +825,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия протокола участников (решения участника) ООО об избрании руководителя организации</h6>
 
                     <?php foreach ($arResult['llc_members'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -828,7 +833,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия приказа о вступлнеии в должность генерального директора</h6>
 
                     <?php foreach ($arResult['ceo_appointment'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -836,7 +841,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
 
                     <?php foreach ($arResult['llc_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -864,7 +869,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                     <?php foreach ($arResult['procuration'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -973,7 +978,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -1186,7 +1191,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -1194,7 +1199,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -1230,7 +1235,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
 
                     <?php foreach ($arResult['ip_registration_certificate'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
 
@@ -1339,7 +1344,7 @@ $arResult = $ticketData['documents']?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=CFile::GetPath($file['id'])?>" style="max-width: 300px;" />
+                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
                     <?php endforeach;?>
                 </div>
             </div>

@@ -10,8 +10,14 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 
 global $APPLICATION, $USER;
 
-if ($arParams['SET_TITLE'] === 'Y') {
-    $APPLICATION->SetTitle($arResult['NAME']);
+$navChain = CIBlockSection::GetNavChain($arResult['IBLOCK_ID'], $arResult['SECTION_ID']);
+while ($navChainItem = $navChain->GetNext()) {
+    $APPLICATION->AddChainItem($navChainItem['NAME'], $navChainItem['SECTION_PAGE_URL']);
+}
+
+if ($arParams['SET_TITLE']) {
+    $APPLICATION->SetTitle($arResult['TITLE']);
+    $APPLICATION->AddChainItem($arResult['TITLE']);
 }
 
 if ($arParams['SET_META_KEYWORDS'] === 'Y') {
@@ -24,24 +30,15 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 
 $offerId = $arResult['OFFER_FIRST'];
 ?>
-<div id="offerStore"
+<div id="detailofferStore"
     prop-offers='<?= phpToVueObject($arResult) ?>'
-    prop-current-offer-id='<?= $arResult['OFFER_FIRST'] ?>'
+    prop-current-offer-id='<?= $offerId ?>'
 ></div>
 <!-- Каталог товаров -->
 <div class="content__main content__main--separated">
     <div class="detail__card">
-
-        <div class="detail__card-specification detail__card-specification--mobile specification">
-            <p class="specification__title"><?= $arResult['TITLE']?></p>
-            <?php foreach ($arResult['ARTICLES'] as $articul): ?>
-                <p class="specification__article">Арт. <?= $articul?></p>
-            <?php endforeach; ?>
-        </div>
-
-
         <!--  Слайдер  в картинками ТП -->
-        <div id="imageSlider">
+        <div id="imageSlider" prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>">
         <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
@@ -64,13 +61,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                         </button>
                                     </div>
 
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                    <a href="<?= $image['SRC'] ?>" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>
@@ -93,13 +92,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                     </button>
                                 </div>
 
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <img src="https://fakeimg.pl/366x312/" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                <a href="https://fakeimg.pl/366x312/" data-fancybox="gallery">
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <img src="https://fakeimg.pl/366x312/" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -121,13 +122,15 @@ $offerId = $arResult['OFFER_FIRST'];
                                         </button>
                                     </div>
 
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                    <a href="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <video src="<?= $arResult['PRODUCT_VIDEO']['path'] ?>" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>
@@ -273,7 +276,11 @@ $offerId = $arResult['OFFER_FIRST'];
                             ?>
                             <? if ($item['color']) :?>
                                 <option value="<?=$item['offerId']?>"
-                                        data-option-before='<span class="color color--option"><span class="color__item color__item--medium color__item--<?=$item['color']?>"></span></span>'
+                                            data-option-before='<div class="color__item">
+                                                <div class="color__item-wrapper">
+                                                    <img src="<?=$arResult['ALL_COLORS'][$item['color']]['file_src']?>" class="color__item-pic">
+                                                </div>
+                                            </div>'
                                         data-option-after='<span class="stock <?= $isAvailable ? 'stock--yes' : ''?>"><?= !$isAvailable ? 'нет ' : ''?>в наличии</span>'>
                                     <?= ($arResult['COLOR_NAMES'][$item['color']]) ??  '' ?>
                                 </option>
@@ -286,70 +293,26 @@ $offerId = $arResult['OFFER_FIRST'];
                 </div>
                 <!-- Блок селекта фассовки малый вариант-->
 
-                <?php if ($USER->isAuthorized()): ?>
-
-                    <div class="cart__price price">
-                        <p class="price__main">1 545 ₽</p>
+                <!-- Блок цены ТП -->
+                <div id="offerPrice"
+                     class="cart__price price"
+                     prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>"
+                    prop-is-consultant="<?= json_encode($arResult['IS_CONSULTANT']) ?>">
+                    <?php if ($USER->isAuthorized()): ?>
+                        <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?> ₽</p>
                         <div class="price__calculation">
-                            <p class="price__calculation-total">1 420 ₽</p>
-                            <p class="price__calculation-accumulation">14 ББ</p>
+                            <p class="price__calculation-total">? ₽</p>
+                            <p class="price__calculation-accumulation">? ББ</p>
                         </div>
-                    </div>
-
-                <?php else: ?>
-
-                    <!-- Если не авторизован -->
-                    <div class="cart__price price">
+                    <?php else: ?>
+                        <!-- Если не авторизован -->
                         <div class="price__calculation" >
-                            <p class="price__calculation-total price__calculation-total--red">1 420 ₽</p>
-                            <p class="price__main">1 545 ₽</p>
+                            <p class="price__calculation-total price__calculation-total--red">? ₽</p>
+                            <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?></p>
                         </div>
-                    </div>
-
-                <?php endif; ?>
-                <div class="cart__quantity quantity" data-quantity>
-                    <div class="quantity__button" data-quantity-button>
-                        <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
-                            <span class="button__icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                </svg>
-                            </span>
-                            <span class="button__text">В корзину</span>
-                        </button>
-                    </div>
-
-                    <div class="quantity__actions">
-                        <div class="quantity__decrease">
-                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
-                                <span class="button__icon button__icon--small">
-                                    <svg class="icon icon--minus">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-
-                        <div class="quantity__total">
-                            <span class="quantity__total-icon">
-                                <svg class="icon icon--basket">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
-                                </svg>
-                            </span>
-                            <span class="quantity__total-sum" data-quantity-sum="0">0</span>
-                        </div>
-
-                        <div class="quantity__increase">
-                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
-                                <span class="button__icon button__icon--small">
-                                    <svg class="icon icon--plus">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
+                <!-- Блок цены ТП -->
             </div>
             <!-- Блок  Ваш заказ -->
         </div>
@@ -359,35 +322,35 @@ $offerId = $arResult['OFFER_FIRST'];
     <div class="detail__information">
         <div class="detail__information-tabs tabs tabs--accordeon tabs--red tabs--bordered" data-tabs>
             <nav class="tabs__items">
-                <ul class="tabs__list">
+                <ul class="detail__information-tabs-list tabs__list">
                     <?php if (1): ?>
-                        <li class="tabs__item tabs__item--active" data-tab="block1">
+                        <li class="detail__information-tabs-item tabs__item tabs__item--active" data-tab="block1">
                             Описание
                         </li>
                     <?php endif; ?>
 
                     <?php if ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE']): ?>
-                        <li class="tabs__item" data-tab="block2">
+                        <li class="detail__information-tabs-item tabs__item" data-tab="block2">
                             Состав
                         </li>
                     <?php endif; ?>
 
                     <?php if ($arResult['FEEDING_RECOMMENDATIONS']): ?>
-                        <li class="tabs__item" data-tab="block3">
+                        <li class="detail__information-tabs-item tabs__item" data-tab="block3">
                             Рекомендации по кормлению
                         </li>
                     <?php endif; ?>
 
-                    <li class="tabs__item" data-tab="block4">
+                    <li class="detail__information-tabs-item tabs__item" data-tab="block4">
                         Документы
                     </li>
                 </ul>
             </nav>
 
             <div class="detail__information-tabs-body tabs__body accordeon accordeon--simple-bordered">
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Описание</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Описание</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -402,55 +365,8 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description description--tablet">
 
                         <div class="description__col">
-                            <h5 class="description__title">Особенности нашего корма</h5>
+                            <?=$arResult['PRODUCT_FEATURES']?>
 
-                            <div class="description__features features">
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--chemistry">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-chemistry"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Сбалансированная формула</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--diagnosis">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diagnosis"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--protection">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-protection"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Профилактика здоровья ежедневно</div>
-                                    </div>
-                                </div>
-
-                                <div class="features__item">
-                                    <div class="feature">
-                                        <div class="feature__icon">
-                                            <svg class="icon icon--diploma">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-diploma"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="feature__text">Гипоаллергенные ингредиенты</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            
                             <?php if ($arResult['DESCRIPTION']): ?>
                                 <h5>Общее</h5>
 
@@ -484,9 +400,9 @@ $offerId = $arResult['OFFER_FIRST'];
                 </div>
 
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle="">
-                        <h6 class="accordeon__title">Состав</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Состав</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -525,9 +441,9 @@ $offerId = $arResult['OFFER_FIRST'];
                     </div>
                 </div>
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Рекомендации по кормлению</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Рекомендации по кормлению</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">
@@ -543,9 +459,9 @@ $offerId = $arResult['OFFER_FIRST'];
                     </div>
                 </div>
 
-                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon>
+                <div class="accordeon__item box box--rounded-sm tabs__accordeon" data-accordeon="mobile-accordeon">
                     <div class="accordeon__header tabs__accordeon-header" data-accordeon-toggle>
-                        <h6 class="accordeon__title">Документы</h6>
+                        <h6 class="accordeon__title accordeon__title--dark">Документы</h6>
 
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                             <span class="accordeon__toggle-icon button__icon">

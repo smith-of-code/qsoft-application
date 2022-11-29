@@ -54,7 +54,7 @@ final class ConfirmationTable extends BaseTable
                 'autocomplete' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_ID_FIELD'),
             ]),
-            new IntegerField('UF_USER_ID', [
+            new IntegerField('UF_FUSER_ID', [
                 'required' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_USER_ID_FIELD'),
             ]),
@@ -82,12 +82,12 @@ final class ConfirmationTable extends BaseTable
      * @throws SystemException
      * @throws ArgumentException
      */
-    public static function getActiveSmsCode(int $userId)
+    public static function getActiveSmsCode(int $fuserId)
     {
         $result = self::getRow([
             'order' => ['ID' => 'DESC'],
             'filter' => [
-                '=UF_USER_ID' => $userId,
+                '=UF_FUSER_ID' => $fuserId,
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['sms']),
                 '>UF_CREATED_AT' => (new DateTime)->add('-' . self::ACTIVE_TIME . ' seconds'),
             ],
@@ -102,7 +102,7 @@ final class ConfirmationTable extends BaseTable
      * @throws SystemException
      * @throws ArgumentException
      */
-    public static function getActiveEmailCode(int $userId, string $type)
+    public static function getActiveEmailCode(int $fuserId, string $type)
     {
         if ($type !== self::TYPES['confirm_email'] && $type !== self::TYPES['reset_password']) {
             throw new RuntimeException('Incorrect email message type');
@@ -111,7 +111,7 @@ final class ConfirmationTable extends BaseTable
         $result = self::getRow([
             'order' => ['ID' => 'DESC'],
             'filter' => [
-                '=UF_USER_ID' => $userId,
+                '=UF_FUSER_ID' => $fuserId,
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['email']),
                 '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', $type),
             ],

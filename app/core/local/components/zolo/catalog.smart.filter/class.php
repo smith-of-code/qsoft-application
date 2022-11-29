@@ -285,10 +285,10 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 			}
 		}
 
-        // Добавим параметр "Со скидкой"
+        // Добавим параметр "Товары со скидкой"
         $items['WITH_DISCOUNT'] = [
             'CODE' => 'WITH_DISCOUNT',
-            'NAME' => 'Со скидкой',
+            'NAME' => 'Товары со скидкой',
             'PROPERTY_TYPE' => 'N',
             'DISPLAY_TYPE' => 'F',
             'DISPLAY_EXPANDED' => 'Y',
@@ -337,6 +337,11 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             }
         }
 
+        // Обновим название поля "Хит продаж"
+        if (isset($items[$propsCodes['IS_BESTSELLER']])) {
+            $items[$propsCodes['IS_BESTSELLER']]['NAME'] = 'Хиты продаж';
+        }
+
         /* Выполним пересортировку элементов фильтра в нужном порядке */
 
         // Порядок сортировки элементов фильтра
@@ -347,15 +352,16 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             'BONUSES_K1',
             'BONUSES_K2',
             'BONUSES_K3',
-            'AGE',
             'BREED',
+            'AGE',
+            'SIZE',
             'PACKAGING',
-            'MATERIAL',
-            'APPOINTMENT',
             'LINE',
             'FEED_TASTE',
-            'SPECIAL_INDICATIONS',
+            'APPOINTMENT',
+            'MATERIAL',
             'COLOR',
+            'SPECIAL_INDICATIONS',
         ];
 
         // Устанавливаем соответствие CODE => index, чтобы не потерять ключи элементов

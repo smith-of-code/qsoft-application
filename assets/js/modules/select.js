@@ -8,7 +8,11 @@ const ELEMENTS_SELECTOR = {
 }
 
 export default function () {
-    function initSelect() {
+    /**
+     * Инициализирует селекты с плагином select2
+     * @param jqObj объект JQuery (контейнер, в котором нужно проинициализировать селекты). Если не задан - инициализирует все селекты в BODY
+     */
+    function initSelect(jqObj = undefined) {
         const baseOptions = {
             templateResult: formatState,
             templateSelection: formatState,
@@ -41,7 +45,13 @@ export default function () {
             railpadding: { top: 0, right: 0, left: 6, bottom: 0 },
         }
 
-        $(ELEMENTS_SELECTOR.selectControl).each(function(index, select) {
+        var selectsContainer = $(document.body);
+
+        if (typeof jqObj != 'undefined') {
+            selectsContainer = jqObj;
+        }
+
+        selectsContainer.find(ELEMENTS_SELECTOR.selectControl).each(function(index, select) {
             const $selectBox = $(select).closest(ELEMENTS_SELECTOR.selectBox);
 
             const petsBreed = $selectBox.data('pets-breed');

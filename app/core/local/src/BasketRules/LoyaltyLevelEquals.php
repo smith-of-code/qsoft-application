@@ -3,6 +3,7 @@
 namespace QSoft\BasketRules;
 
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Diag\Debug;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\ObjectPropertyException;
@@ -128,18 +129,10 @@ class LoyaltyLevelEquals extends \CSaleActionCtrlAction
      * @param $row
      * @param $loyaltyLevelValue
      * @return bool
-     * @throws ArgumentException
-     * @throws ObjectPropertyException
-     * @throws SystemException
      */
-    public static function applyProductDiscount($row, $loyaltyLevelValue)
+    public static function applyProductDiscount($row, $loyaltyLevelValue): bool
     {
-        if (empty($row['FUSER_ID'])) {
-            return false;
-        }
-
-        $userId = FuserTable::getRowById($row['FUSER_ID'])['USER_ID'];
-
-        return (new User($userId))->loyaltyLevel == $loyaltyLevelValue;
+        $user = new User;
+        return $user->isAuthorized && $user->loyaltyLevel === $loyaltyLevelValue;
     }
 }

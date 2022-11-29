@@ -478,6 +478,12 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-refresh"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: video">
+                                    <svg class="icon icon--video gui__icon">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-video"></use>
+                                    </svg>
+                                </li>
                             </ul>
 
                             <ul class="icons__list gui__block">
@@ -2424,8 +2430,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="radio111" checked>
-                                            <label for="radio111">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r111" id="radio0111" checked>
+                                            <label for="radio0111">
                                                 <div class="pack__item">600 г</div>
                                             </label>
                                         </div>
@@ -2435,8 +2441,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="radio222">
-                                            <label for="radio222">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r222" id="radio0222">
+                                            <label for="radio0222">
                                                 <div class="pack__item">1 кг</div>
                                             </label>
                                         </div>
@@ -2446,8 +2452,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="radio333">
-                                            <label for="radio333">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r333" id="radio0333">
+                                            <label for="radio0333">
                                                 <div class="pack__item">3 кг</div>
                                             </label>
                                         </div>
@@ -2457,8 +2463,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="radio444">
-                                            <label for="radio444">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r444" id="radio0444">
+                                            <label for="radio0444">
                                                 <div class="pack__item">5 кг</div>
                                             </label>
                                         </div>
@@ -2468,8 +2474,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="radio555">
-                                            <label for="radio555">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r555" id="radio0555">
+                                            <label for="radio0555">
                                                 <div class="pack__item">7 кг</div>
                                             </label>
                                         </div>
@@ -2479,8 +2485,8 @@
                                 <li class="packs__item">
                                     <div class="pack">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="radio666">
-                                            <label for="radio666">
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r666" id="radio0666">
+                                            <label for="radio0666">
                                                 <div class="pack__item">10 кг</div>
                                             </label>
                                         </div>
@@ -2488,11 +2494,93 @@
                                 </li>
 
                                 <li class="packs__item">
-                                    <div class="pack">
+                                    <div class="pack" data-tippy-content="нет в наличии">
                                         <div class="radio">
-                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="radio777">
-                                            <label for="radio777">
-                                                <div class="pack__item">15 кг</div>
+                                            <input type="radio" class="pack__input radio__input" name="radio0111" value="r777" id="radio0777" disabled>
+                                            <label for="radio0777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Простые большие</h3>
+                        <div class="packs">
+                            <ul class="packs__list">
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r111" id="radio1111" checked>
+                                            <label for="radio1111">
+                                                <div class="pack__item">600 г</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r222" id="radio2222">
+                                            <label for="radio2222">
+                                                <div class="pack__item">1 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r333" id="radio3333">
+                                            <label for="radio3333">
+                                                <div class="pack__item">3 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r444" id="radio4444">
+                                            <label for="radio4444">
+                                                <div class="pack__item">5 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r555" id="radio5555">
+                                            <label for="radio5555">
+                                                <div class="pack__item">7 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r666" id="radio6666">
+                                            <label for="radio6666">
+                                                <div class="pack__item">10 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--big"  data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio1111" value="r777" id="radio7777" disabled>
+                                            <label for="radio7777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
                                             </label>
                                         </div>
                                     </div>
@@ -2574,6 +2662,88 @@
                                         <div class="radio">
                                             <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="r777" disabled>
                                             <label for="r777">
+                                                <div class="pack__item pack__item--disabled">15 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 50px;">Обведенные большие</h3>
+                        <div class="packs">
+                            <ul class="packs__list">
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r111" id="r1110" checked>
+                                            <label for="r1110">
+                                                <div class="pack__item">600 г</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r222" id="r2220">
+                                            <label for="r2220">
+                                                <div class="pack__item">1 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r333" id="r3330">
+                                            <label for="r3330">
+                                                <div class="pack__item">3 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r444" id="r4440">
+                                            <label for="r4440">
+                                                <div class="pack__item">5 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r555" id="r5550">
+                                            <label for="r5550">
+                                                <div class="pack__item">7 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r666" id="r6660" disabled>
+                                            <label for="r6660">
+                                                <div class="pack__item pack__item--disabled">10 кг</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="packs__item">
+                                    <div class="pack pack--bordered pack--big" data-tippy-content="нет в наличии">
+                                        <div class="radio">
+                                            <input type="radio" class="pack__input radio__input" name="radio111" value="r777" id="r7770" disabled>
+                                            <label for="r7770">
                                                 <div class="pack__item pack__item--disabled">15 кг</div>
                                             </label>
                                         </div>
@@ -2816,9 +2986,9 @@
                                 </li>
 
                                 <li class="colors__item">
-                                    <div class="color">
+                                    <div class="color color--disabled">
                                         <div class="radio">
-                                            <input type="radio" class="color__input radio__input" name="radio3" value="r3" id="radio150">
+                                            <input type="radio" class="color__input radio__input" name="radio3" value="r3" id="radio150" disabled>
                                             <label for="radio150">
                                                 <div class="color__item">
                                                     <div class="color__item-wrapper">
@@ -2918,9 +3088,9 @@
                                 </li>
 
                                 <li class="colors__item">
-                                    <div class="color">
+                                    <div class="color color--disabled">
                                         <div class="radio">
-                                            <input type="radio" class="color__input radio__input" name="radio4" value="r3" id="radio250">
+                                            <input type="radio" class="color__input radio__input" name="radio4" value="r3" id="radio250" disabled>
                                             <label for="radio250">
                                                 <div class="color__item color__item--big">
                                                     <div class="color__item-wrapper">
@@ -3429,6 +3599,16 @@
                                         data-src="#thanks"
                                     >
                                     Спасибо за обращение
+                                </button>
+                            </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal-order"
+                                        data-src="#orderMake"
+                                    >
+                                    Заказ создан
                                 </button>
                             </li>
                         </ul>
@@ -4028,6 +4208,27 @@
                             </div>
                         </article>
                         <!--/Спасибо за обращение-->
+
+                        <!--Заказ создан-->
+                        <article id="orderMake" class="modal modal--wide modal--centered modal--outer box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content">
+                                    <div class="notification notification--simple">
+                                        <div class="notification__icon">
+                                            <svg class="icon icon--tick-circle-bold">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle-bold"></use>
+                                            </svg>
+                                        </div>
+
+                                        <h4 class="notification__title notification__title--centered">Ваш заказ №47 успешно создан!</h4>
+                                        <a href="" class="notification__button button button--square button--covered button--green button--full">
+                                            Перейти к заказу
+                                        </a>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Заказ создан-->
 
 
                     </div>
@@ -7706,7 +7907,7 @@
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -7716,7 +7917,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -7728,9 +7929,6 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
@@ -7738,7 +7936,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
@@ -7992,13 +8190,13 @@
                                             </div>
                                         </article>
                                     </li>
-                                    
+
                                     <li class="cards-order__item">
                                         <article class="card-order card-order--blue">
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -8008,7 +8206,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8020,17 +8218,14 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
-                                                                    Размещен
+                                                                    Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
@@ -8224,7 +8419,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8290,7 +8485,7 @@
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <ul class="card-order__list">
-                                                        <li class="card-order__item">
+                                                        <li class="card-order__item card-order__item--inlined">
                                                             <h2 class="card-order__title">
                                                                 Заказ от 02.08.2022
                                                             </h2>
@@ -8300,7 +8495,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8312,27 +8507,24 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
-                                                                    Отменен
+                                                                    Доставлен
                                                                 </p>
                                                             </div>
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>
                                                                 <p class="info-slot__value info-slot__value--icon">
                                                                     <span class="info-slot__icon">
                                                                         <svg class="icon icon--credit-not-paid info-slot__icon-mark">
-                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-not-paid"></use>
+                                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-credit-paid"></use>
                                                                         </svg>
                                                                     </span>
-                                                                    Не оплачен
+                                                                    Оплачен
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -8406,7 +8598,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8461,7 +8653,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8516,7 +8708,7 @@
                                                                             <div class="product-line__inner">
                                                                                 <div class="product-line__info">
                                                                                     <div class="product-line__image">
-                                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                                                        <img src="/local/templates/.default/images/portage.png" alt="#" class="product-line__image-picture">
                                                                                     </div>
                                                                                     <div class="product-line__wrapper">
                                                                                         <h2 class="product-line__title">
@@ -8603,7 +8795,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--span">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--inlined">
                                                                 <p class="info-slot__name">
                                                                     Кем заказан
                                                                 </p>
@@ -8615,9 +8807,6 @@
 
                                                         <li class="card-order__item card-order__item--delivery">
                                                             <div class="info-slot">
-                                                                <p class="info-slot__name">
-                                                                    Статус заказа
-                                                                </p>
                                                                 <p class="info-slot__value info-slot__value--marked">
                                                                     Доставлен
                                                                 </p>
@@ -8625,7 +8814,7 @@
                                                         </li>
 
                                                         <li class="card-order__item card-order__item--pay">
-                                                            <div class="info-slot">
+                                                            <div class="info-slot info-slot--pay">
                                                                 <p class="info-slot__name">
                                                                     Статус оплаты
                                                                 </p>

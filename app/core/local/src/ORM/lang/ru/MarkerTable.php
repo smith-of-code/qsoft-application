@@ -1,0 +1,5 @@
+<?php
+
+$MESS['MARKER_ENTITY_ID_FIELD'] = 'ID';
+$MESS['MARKER_ENTITY_UF_NAME_FIELD'] = 'Название';
+$MESS['MARKER_ENTITY_UF_XML_ID_FIELD'] = 'Внешний код';

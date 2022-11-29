@@ -468,7 +468,7 @@ class NewPropertiesForCatalogProduct extends Migration
             ],
             [
                 "IBLOCK_ID" => $iblockId,
-                'NAME' => 'Возраст',
+                'NAME' => 'Возраст питомца',
                 'ACTIVE' => 'Y',
                 'SORT' => '500',
                 'CODE' => 'AGE',
@@ -493,7 +493,7 @@ class NewPropertiesForCatalogProduct extends Migration
             ],
             [
                 "IBLOCK_ID" => $iblockId,
-                'NAME' => 'Размер породы',
+                'NAME' => 'Размер питомца',
                 'ACTIVE' => 'Y',
                 'SORT' => '500',
                 'CODE' => 'BREED',

@@ -1,4 +1,22 @@
 .info-slot {
+    &--inlined {
+        display: flex;
+        align-items: center;
+    }
+
+    &--inlined & {
+        &__name {
+            margin-right: rem($gap-small);
+            margin-bottom: 0;
+        }
+    }
+
+    &--pay & {
+        &__name {
+            text-align: end;
+        }
+    }
+
     &__name {
         @include text-miniature($font-weight-medium);
         

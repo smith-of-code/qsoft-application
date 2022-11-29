@@ -21,7 +21,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
                                 <?php if ($menuTab['PARAMS']['IMAGE']): ?>
                                     <span class="button__icon">
                                         <svg class="icon icon--discount">
-                                            <use xlink:href="<?=$menuTab['ADDITIONAL_LINKS']['SVG'] ?>"></use>
+                                            <use xlink:href="<?=$menuTab['PARAMS']['SVG'] ?>"></use>
                                         </svg>
                                     </span>
                                 <?php endif; ?>

@@ -56,8 +56,10 @@ class BasketBonus
 
         $bonus = 0;
 
+
         foreach ($offerPropertiesByBasketItems as $basketItemId => $offerProperties) {
-            $bonus += (int)$offerProperties[$propLevel] * $this->basket->getItemById($basketItemId)->getQuantity();
+            $basketBonus = $this->basket->getItemById($basketItemId);
+            $bonus += (int)$offerProperties[$propLevel] * $basketBonus ? $basketBonus->getQuantity() : 0;
         }
 
         return $bonus;

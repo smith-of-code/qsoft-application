@@ -10,6 +10,7 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use Bitrix\Sale\Fuser;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
@@ -157,11 +158,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ConfirmationTable::TYPES['confirm_email'],
         );
 
-        if ($confirmResult) {
-            $user->activate();
+        if ($confirmResult && $user->activate()) {
+            LocalRedirect('/personal');
+        } else {
+            LocalRedirect('/');
         }
-
-        LocalRedirect('/');
     }
 
     public function configureActions(): array
@@ -206,14 +207,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         foreach ($data as $field => &$value) {
             if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
-                return ['status' => 'error', 'message' => 'User with this email already exist'];
-            } else if ($field === 'mentor_id' && $value) {
+                return ['status' => 'error', 'message' => 'Пользователь с таким email уже существует'];
+            } else if ($field === 'mentor_id' && $data['without_mentor_id'] !== 'true' && $value) {
                 try {
                     if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
                 } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Mentor not found'];
+                    return ['status' => 'error', 'message' => 'Пользователь не найден'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
@@ -241,50 +242,22 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     public function sendPhoneCodeAction(string $phoneNumber): array
     {
         if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
-            throw new InvalidArgumentException('Invalid phone number');
+            return ['status' => 'error', 'message' => 'Невалидный номер телефона'];
         }
         if (UserTable::getCount(['PERSONAL_PHONE' => $phoneNumber])) {
-            throw new InvalidArgumentException('Пользователь с таким номером телефона уже существует');
+            return ['status' => 'error', 'message' => 'Пользователь с таким номером телефона уже существует'];
         }
 
-        $password = uniqid();
-        $user = new CUser;
-        $result = $user->Register(
-            uniqid('user_', true),
-            '',
-            '',
-            $password,
-            $password,
-            '',
-        );
+        $this->setRegisterData(['phone' => $phoneNumber]);
 
-        if ($result['TYPE'] === 'ERROR') {
-            return [
-                'status' => 'error',
-                'message' => $result['MESSAGE'],
-            ];
-        }
-
-        $user->Update($result['ID'], [
-            'ACTIVE' => 'N',
-            'PERSONAL_PHONE' => $phoneNumber,
-        ]);
-        $user->Logout();
-
-        $this->setRegisterData([
-            'phone' => $phoneNumber,
-            'password' => $password,
-            'user_id' => $result['ID'],
-        ]);
-
-        (new User($result['ID']))->confirmation->sendSmsConfirmation();
+        (new User)->confirmation->sendSmsConfirmation($phoneNumber);
 
         return ['status' => 'success'];
     }
 
     public function verifyPhoneCodeAction(string $code): array
     {
-        $verifyResult = (new User($this->getRegisterData()['user_id']))->confirmation->verifySmsCode($code);
+        $verifyResult = (new User)->confirmation->verifySmsCode($code);
 
         return ['status' => $verifyResult ? 'success' : 'error'];
     }
@@ -301,47 +274,50 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'select' => ['ID'],
         ])['ID'];
 
-        $user->Update($registrationData['user_id'], [
+        $result = $user->Register(
+            uniqid('user_', true),
+            $data['first_name'],
+            $data['last_name'],
+            $data['password'],
+            $data['confirm_password'],
+            $data['email'],
+        );
+        $user->Logout();
+        $user->Update($result['ID'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
-            'PERSONAL_PHOTO' => $data['photo'] ? $data['photo']['id'] : null,
+            'PERSONAL_PHOTO' => $data['photo'] ? (int)$data['photo']['id'] : null,
             'PERSONAL_PHONE' => $data['phone'],
             'PERSONAL_GENDER' => $data['gender'],
-            'PERSONAL_CITY' => $data['cities'][$data['city']],
+            'PERSONAL_CITY' => array_first(array_filter(
+                $data['cities'],
+                static fn (array $city): bool => $city['XML_ID'] === $data['city'],
+            ))['VALUE'],
             'GROUP_ID' => [$userGroupId],
             'UF_MENTOR_ID' => $data['mentor_id'],
-            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'],
-            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'],
-            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'],
-            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'],
+            'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'] === 'true',
+            'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'] === 'true',
+            'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'] === 'true',
+            'UF_AGREE_TO_RECEIVE_INFORMATION_ABOUT_PROMOTIONS' => $data['agree_to_receive_information__about_promotions'] === 'true',
         ]);
 
-        $user->ChangePassword(
-            UserTable::getRowById($registrationData['user_id'])['LOGIN'],
-            '',
-            $data['password'],
-            $data['confirm_password'],
-            SITE_ID,
-            '',
-            0,
-            true,
-            '',
-            $registrationData['password'],
-        );
-
-//        foreach ($data['pets'] as $pet) {
-//            PetTable::add([
-//                'UF_USER_ID' => $registrationData['user_id'],
-//                'UF_NAME' => $pet['name'],
-//                'UF_KIND' => $pet['type'],
-//                'UF_BREED' => $pet['breed'],
-//                'UF_GENDER' => $pet['gender'],
-//                'UF_BIRTHDATE' => new Date($pet['birthdate']),
-//            ]);
-//        }
+        $kinds = HlBlockHelper::getPreparedEnumFieldValues(PetTable::getTableName(), 'UF_KIND');
+        $kinds = array_combine(array_column($kinds, 'code'), $kinds);
+        $genders = HlBlockHelper::getPreparedEnumFieldValues(PetTable::getTableName(), 'UF_GENDER');
+        $genders = array_combine(array_column($genders, 'code'), $genders);
+        foreach ($data['pets'] as $pet) {
+            PetTable::add([
+                'UF_USER_ID' => $result['ID'],
+                'UF_NAME' => $pet['name'],
+                'UF_KIND' => $kinds[$pet['type']]['id'],
+                'UF_BREED' => $pet['breed'],
+                'UF_GENDER' => $genders[$pet['gender']]['id'],
+                'UF_BIRTHDATE' => new Date($pet['birthdate']),
+            ]);
+        }
 
         if ($data['status']) {
             $documents = [
@@ -422,14 +398,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             }
 
             LegalEntityTable::add([
-                'UF_USER_ID' => $registrationData['user_id'],
+                'UF_USER_ID' => $result['ID'],
                 'UF_STATUS' => EnumDecorator::prepareField('UF_STATUS', LegalEntityTable::STATUSES[$data['status']]),
                 'UF_IS_ACTIVE' => true,
                 'UF_DOCUMENTS' => json_encode($documents, JSON_UNESCAPED_UNICODE),
             ]);
         }
 
-        (new User($registrationData['user_id']))->confirmation->sendEmailConfirmation();
+        (new User($result['ID']))->confirmation->sendEmailConfirmation();
 
         $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 

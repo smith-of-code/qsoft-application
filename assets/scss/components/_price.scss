@@ -26,12 +26,16 @@
         align-items: center;
 
         &--columned {
-            flex-direction: column
+            flex-direction: column;
+
+            @media #{$screen-desktop} {
+                flex-direction: row;
+            }
         }
 
         &--columned & {
             &-total {
-                margin-right: 0
+                margin-right: 0;
             }
         }
 

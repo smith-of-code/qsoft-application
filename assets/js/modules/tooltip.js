@@ -19,4 +19,6 @@ export default function tooltip() {
         arrow: false,
         appendTo: 'parent',
     });
+
+    window.tippy = tippy;
 }

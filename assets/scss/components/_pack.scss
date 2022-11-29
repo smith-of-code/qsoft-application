@@ -15,6 +15,16 @@
         }
     }
 
+    &--big & {
+        &__item {
+            font-size: rem($font-size-small);
+            font-weight: $font-weight-semibold;
+            line-height: rem($line-height-small);
+
+            padding: rem($gap-mini) rem($gap-small);
+        }
+    }
+
     &__item {
         font-size: rem($font-size-mini);
         font-weight: $font-weight-semibold;

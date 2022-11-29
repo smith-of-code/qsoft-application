@@ -7,12 +7,14 @@ use CTicket;
 use CTicketDictionary;
 use QSoft\Entity\User;
 use RuntimeException;
+use Bitrix\Sale;
 
 class TicketHelper
 {
     public const CHANGE_PERSONAL_DATA_CATEGORY = 'CHANGE_OF_PERSONAL_DATA';
     public const CHANGE_LEGAL_ENTITY_DATA_CATEGORY = 'CHANGE_OF_LEGAL_ENTITY_DATA';
     public const CHANGE_MENTOR = 'CHANGE_MENTOR';
+    public const REFUND_ORDER = 'REFUND_ORDER';
     public const REGISTRATION_CATEGORY = 'REGISTRATION';
     public const CHANGE_ROLE_CATEGORY = 'CHANGE_ROLE';
     public const SUPPORT_CATEGORY = 'SUPPORT';
@@ -24,7 +26,7 @@ class TicketHelper
         ],
         self::CHANGE_LEGAL_ENTITY_DATA_CATEGORY => [
             'TITLE' => 'Заявка на смену юридических данных',
-            'DETAIL_PAGE' => '/bitrix/admin/legal_entity_data.php?ID=%s',
+            'DETAIL_PAGE' => '/bitrix/admin/legal_entity_data.php?%s=%s',
         ],
         self::CHANGE_MENTOR => [
             'TITLE' => 'Заявка на смену ментора',
@@ -61,10 +63,15 @@ class TicketHelper
         ], $messageId);
 
         $files = null;
+        $message = '';
+        if ($category === self::CHANGE_LEGAL_ENTITY_DATA_CATEGORY) {
+            $message .= 'Текущие юридические данные пользователя: ' . $this->getCurrentUrl() . sprintf(self::CATEGORIES[$category]['DETAIL_PAGE'], 'user_id', $ticketId) . "\n";
+        }
+        $message .= 'Детальная страница обращения: ' . $this->getCurrentUrl() . sprintf(self::CATEGORIES[$category]['DETAIL_PAGE'], 'ticket_id', $ticketId);
         CTicket::AddMessage($ticketId, [
             'MESSAGE_AUTHOR_SID' => $user->phone,
             'MESSAGE_AUTHOR_USER_ID' => $user->id,
-            'MESSAGE' => 'Детальная страница обращения: ' . $this->getCurrentUrl() . sprintf(self::CATEGORIES[$category]['DETAIL_PAGE'], $ticketId),
+            'MESSAGE' => $message,
         ], $files);
 
         return $ticketId;
@@ -94,5 +101,28 @@ class TicketHelper
     public function getCategorySid(int $categoryId): string
     {
         return CTicketDictionary::GetList('', '', ['ID' => $categoryId])->GetNext()['SID'];
+    }
+
+    public function getMenthorData(string $id): ?array
+    {
+        if ($id === 0) {
+            return null;
+        }
+
+        return (new User($id))->getPersonalData();
+    }
+
+    public function getOrderStatus(string $id): ?string 
+    {
+		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
+        $orderStatusClassName = $registry->getOrderStatusClassName();
+        $listStatusNames = $orderStatusClassName::getAllStatusesNames(LANGUAGE_ID);
+
+        foreach($listStatusNames as $key => $data)
+        {
+            $result[$key] = $data;
+        }
+
+        return $result[$id] ?? null;
     }
 }

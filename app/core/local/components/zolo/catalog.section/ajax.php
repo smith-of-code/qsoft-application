@@ -42,7 +42,7 @@ else
 }
 
 $APPLICATION->IncludeComponent(
-	'bitrix:catalog.section',
+	'zolo:catalog.section',
 	$template,
 	$parameters,
 	$parent

@@ -155,7 +155,16 @@ class LoyaltyProgramHelper
 
     public function getPersonalBonusesIncomeByPeriod(int $userId, Date $from, Date $to): array
     {
-        $transactions = TransactionTable::getList([
+        $allTransactions = TransactionTable::getList([
+            'filter' => [
+                '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
+                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+            ],
+            'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
+        ])->fetchAll();
+
+        $currentAccountingPeriodTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
                 '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
@@ -172,15 +181,16 @@ class LoyaltyProgramHelper
         $typeFieldValues = HlBlockHelper::getPreparedEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
 
         return [
-            'total' => array_sum(array_column($transactions, 'UF_AMOUNT')),
+            'all_total' => array_sum(array_column($allTransactions, 'UF_AMOUNT')),
+            'total' => array_sum(array_column($currentAccountingPeriodTransactions, 'UF_AMOUNT')),
             'js_data' => [
                 'labels' => array_map(
                     fn (array $transaction): string => TransactionTable::TYPES_LABELS[$typeFieldValues[$transaction['UF_TYPE']]['code']],
-                    $transactions
+                    $currentAccountingPeriodTransactions
                 ),
                 'datasets' => [
                     [
-                        'data' => array_column($transactions, 'UF_AMOUNT'),
+                        'data' => array_column($currentAccountingPeriodTransactions, 'UF_AMOUNT'),
                         'backgroundColor' => ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"],
                     ],
                 ],
