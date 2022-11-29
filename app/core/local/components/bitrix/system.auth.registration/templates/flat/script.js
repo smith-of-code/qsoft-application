@@ -7,8 +7,10 @@ class CSystemAuthRegistrationComponent {
   initPage() {
       this.checkBreedSelects();
       if (registrationData.type === 'consultant') {
-          $('.legal_entity')?.hide();
-          $(`.legal_entity.${$('select[name=status]').val()}`)?.show();
+          $('.legal_entity').hide();
+          if ($('select[name=status]').val()) {
+              $(`.legal_entity.${$('select[name=status]').val()}`).show();
+          }
       }
   }
 
