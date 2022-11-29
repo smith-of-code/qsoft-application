@@ -29,7 +29,7 @@
                                     <div class="basket__cart-null heading heading--average">Корзина пуста</div>
 
                                     <ul class="cards-cart__list basket__list" data-basket-list>
-                                        <li class="cards-cart__item basket__item"data-basket-item data-remove-item>
+                                        <li class="cards-cart__item basket__item"data-basket-item data-remove-item data-base-price=1200>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -110,11 +110,11 @@
                                                                         <div class="quantity__total">
                                                                             <span
                                                                                 class="quantity__total-sum"
-                                                                                data-quantity-sum="1"
+                                                                                data-quantity-sum="15"
                                                                                 data-quantity-min="1"
                                                                                 data-quantity-max="15"
                                                                             >
-                                                                                1
+                                                                                15
                                                                             </span>
                                                                         </div>
 

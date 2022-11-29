@@ -78,7 +78,7 @@
 
             &__image {
                 display: none;
-                
+
                 @include position-stretching(absolute);
 
                 width: 100%;

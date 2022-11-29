@@ -96,7 +96,7 @@ class LoyaltyService
                     $selfPeriodStart = DateTimeService::getStartOfMonth(($levels[$nextLevel]['upgrade_level_terms']['self_period_months'] - 1) * (-1));
                     $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'] = $this->user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart);
                     $left = $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LIMIT'] - $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES'];
-                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = $left > 0 ? $left : 0;
+                    $result['UPGRADE_LEVEL_DETAILS']['PERSONAL_PURCHASES_LEFT'] = max($left, 0);
                 }
             }
         }

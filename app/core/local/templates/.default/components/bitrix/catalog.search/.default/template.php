@@ -120,31 +120,31 @@ if (!empty($searchFilter) && is_array($searchFilter))
     if (isset($_GET['sort'])) {
         switch ($_GET['sort']) {
             case 'price-asc':
-                $arParams["ELEMENT_SORT_FIELD"] = 'catalog_PRICE_1';
+                $arParams["ELEMENT_SORT_FIELD"] = 'CATALOG_PRICE_1';
                 $arParams["ELEMENT_SORT_ORDER"] = 'asc';
                 break;
             case 'price-desc':
-                $arParams["ELEMENT_SORT_FIELD"] = 'catalog_PRICE_1';
+                $arParams["ELEMENT_SORT_FIELD"] = 'CATALOG_PRICE_1';
                 $arParams["ELEMENT_SORT_ORDER"] = 'desc';
                 break;
             case 'date-asc':
-                $arParams["ELEMENT_SORT_FIELD"] = 'timestamp_x';
+                $arParams["ELEMENT_SORT_FIELD"] = 'TIMESTAMP_X';
                 $arParams["ELEMENT_SORT_ORDER"] = 'asc';
                 break;
             case 'date-desc':
-                $arParams["ELEMENT_SORT_FIELD"] = 'timestamp_x';
+                $arParams["ELEMENT_SORT_FIELD"] = 'TIMESTAMP_X';
                 $arParams["ELEMENT_SORT_ORDER"] = 'desc';
                 break;
             case 'popularity':
             default:
-                $arParams["ELEMENT_SORT_FIELD"] = 'sort';
+                $arParams["ELEMENT_SORT_FIELD"] = 'SORT';
                 $arParams["ELEMENT_SORT_ORDER"] = 'desc';
                 break;
         }
     }
 
     $componentParams = $elementOrder;
-	$componentParams += [
+	$componentParamsAdditional = [
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
         "ELEMENT_SORT_FIELD" => $arParams["ELEMENT_SORT_FIELD"],
@@ -194,7 +194,7 @@ if (!empty($searchFilter) && is_array($searchFilter))
         "PAGER_DESC_NUMBERING" => $arParams["PAGER_DESC_NUMBERING"],
         "PAGER_DESC_NUMBERING_CACHE_TIME" => $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"],
         "PAGER_SHOW_ALL" => $arParams["PAGER_SHOW_ALL"],
-        "LAZY_LOAD" => 'N',
+        "LAZY_LOAD" => 'Y',
         "MESS_BTN_LAZY_LOAD" => ($arParams["~MESS_BTN_LAZY_LOAD"] ?? ''),
         "LOAD_ON_SCROLL" => 'N',
 
@@ -263,6 +263,7 @@ if (!empty($searchFilter) && is_array($searchFilter))
         "SHOW_ALL_WO_SECTION" => "Y",
         "DISABLE_INIT_JS_IN_COMPONENT" => "N",
 	];
+	$componentParams = array_merge($componentParams, $componentParamsAdditional);
 
 	$APPLICATION->IncludeComponent(
 		"zolo:catalog.section",

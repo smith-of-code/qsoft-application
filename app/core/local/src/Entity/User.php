@@ -13,10 +13,12 @@ use Bitrix\Sale\Fuser;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
+use CMain;
 use CModule;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Service\BeneficiariesService;
 use QSoft\Service\ConfirmationService;
 use QSoft\Entity\Mutators\UserPropertiesMutator;
 use QSoft\Service\BonusAccountService;
@@ -72,6 +74,7 @@ class User
     public PetService $pets;
     public ProductService $products;
     public WishlistService $wishlist;
+    public BeneficiariesService $beneficiariesService;
     public BonusAccountService $bonusAccount;
 
     /**
@@ -200,7 +203,6 @@ class User
         'EMAIL' => 'email',
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
-        'PERSONAL_CITY' => 'city',
         'PERSONAL_PHOTO' => 'photo',
         'DATE_REGISTER' => 'dateRegister',
         'PERSONAL_PHONE' => 'phone',
@@ -267,6 +269,7 @@ class User
     {
         $this->cUser = new CUser;
         $this->legalEntity = new LegalEntityService($this);
+        $this->beneficiariesService = new BeneficiariesService($this);
         $this->groups = new UserGroupsService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->notification = new NotificationService($this);
@@ -380,7 +383,7 @@ class User
 
     public function changePassword(string $password, string $confirmPassword): bool
     {
-        $checkWord = md5(uniqid().\CMain::GetServerUniqID());
+        $checkWord = md5(uniqid() . CMain::GetServerUniqID());
         $checkWordHash = Password::hash($checkWord);
 
         global $DB;
@@ -392,7 +395,7 @@ class User
             where ID = '$this->id'
         SQL);
 
-        $result = (new CUser)->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
+        $result = $this->cUser->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
 
         return $result['TYPE'] === 'OK';
     }
