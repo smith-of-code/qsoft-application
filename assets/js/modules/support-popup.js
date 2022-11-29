@@ -323,9 +323,12 @@ function setDataToPopup (data, selected) {
 function initSendForm() {
     $('[data-validation]').validate({
         submitHandler: () => {
-            let fields = {};
-            fields['TICKET_TYPE'] = $('#ticket-type').val();
-            fields['EMAIL'] = $('#EMAIL').val();
+            let fields = {
+                TICKET_TYPE: $('#ticket-type').val(),
+                MESSAGE: $('#other-message').val(),
+                NEW_MENTOR_ID: $('#new-mentor-id').val(),
+                COUSES: $('#couses-change').find(":selected").text()
+            };
 
             sendForm(fields);
         }
