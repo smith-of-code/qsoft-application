@@ -62,6 +62,12 @@ class BasketLineController extends Controller
                     Csrf::class,
                 ],
             ],
+            'repeatOrder' => [
+                '-prefilters' => [
+                    Authentication::class,
+                    Csrf::class,
+                ],
+            ],
         ];
     }
 
@@ -163,5 +169,13 @@ class BasketLineController extends Controller
             throw new RuntimeException($result->getErrorMessages());
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
+    }
+
+    public function repeatOrderAction()
+    {
+        return [
+            'status' => 'success',
+            'test' => 'hello world',
+        ];
     }
 }
