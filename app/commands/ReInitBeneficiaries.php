@@ -23,7 +23,7 @@ class ReInitBeneficiaries extends Command
         while ($zeroLevelMentors = $this->getZeroLevelMentors()) {
             $beneficiaries = $this->getBeneficiaries(
                 $zeroLevelMentors,
-                array_map(fn ($mentor) => ['ID' => $mentor, 'MENTOR_ID' => null], $zeroLevelMentors)
+                array_map(static fn ($mentor) => ['ID' => $mentor, 'MENTOR_ID' => null], $zeroLevelMentors)
             );
 
             $this->saveBeneficiaries($beneficiaries);
@@ -39,11 +39,11 @@ class ReInitBeneficiaries extends Command
     {
         static $offset = 0;
 
-        $mentors =  UserTable::getList([
+        $mentors = UserTable::getList([
             'filter' => [
                 '=ACTIVE' => true,
                 '=BLOCKED' => false,
-                '=PROPERTIES.UF_MENTOR_ID' => false
+                '=PROPERTIES.UF_MENTOR_ID' => false,
             ],
             'select' => ['ID'],
             'limit' => self::USERS_SELECT_BATCH_SIZE,
@@ -59,7 +59,7 @@ class ReInitBeneficiaries extends Command
 
         $offset += self::USERS_SELECT_BATCH_SIZE;
 
-        return array_map(fn ($mentor) => $mentor['ID'], $mentors);
+        return array_map(static fn ($mentor) => $mentor['ID'], $mentors);
     }
 
     protected function getBeneficiaries(array $mentors, array $usersToMentors): array
@@ -93,7 +93,7 @@ class ReInitBeneficiaries extends Command
             'filter' => [
                 '=ACTIVE' => true,
                 '=BLOCKED' => false,
-                '=PROPERTIES.UF_MENTOR_ID' => $mentors
+                '=PROPERTIES.UF_MENTOR_ID' => $mentors,
             ],
             'select' => ['ID', 'MENTOR_ID' => 'PROPERTIES.UF_MENTOR_ID'],
             'runtime' => [
@@ -102,7 +102,7 @@ class ReInitBeneficiaries extends Command
                     UserPropertiesTable::class,
                     ['=this.ID' => 'ref.VALUE_ID']
                 ),
-            ]
+            ],
         ])->fetchAll();
     }
 

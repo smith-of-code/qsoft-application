@@ -1,11 +1,13 @@
 <?php
 
-use QSoft\Events\OfferEventsListener;
+use Bitrix\Main\EventManager;
+use QSoft\BasketRules\LoyaltyLevelEquals;
+use QSoft\Events\AuthRequired;
 use QSoft\Events\SupportEventListner;
 use QSoft\Events\UserEventsListener;
 use QSoft\Events\OrderEventsListener;
 
-$eventManager = \Bitrix\Main\EventManager::getInstance();
+$eventManager = EventManager::getInstance();
 
 /**
  * Main module events
@@ -14,13 +16,7 @@ $eventManager->addEventHandler('main', 'OnBeforeUserLogin', [UserEventsListener:
 $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
-$eventManager->addEventHandler('main', 'OnProlog', [\QSoft\Events\AuthRequired::class, 'checkAuth']);
-
-/**
- * Catalog module events
- */
-$eventManager->addEventHandler('catalog', 'OnPriceAdd', [OfferEventsListener::class, 'OnPriceAdd']);
-$eventManager->addEventHandler('catalog', 'OnPriceUpdate', [OfferEventsListener::class, 'OnPriceUpdate']);
+$eventManager->addEventHandler('main', 'OnProlog', [AuthRequired::class, 'checkAuth']);
 
 /**
  * техподдержка.
@@ -33,12 +29,9 @@ $eventManager->addEventHandler('support', 'OnAfterTicketUpdate', [new SupportEve
 
 // Прослушиваем запрос на создание тикета.
 $eventManager->addEventHandler('support', 'OnAfterTicketAdd', [new SupportEventListner(), 'onAfterTicketAdd']);
-/**
- * техподдержка конец.
-*/
 
 /**
  * Sale module events
  */
-$eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'sendChangeOrderStatusNotification']);
-$eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [\QSoft\BasketRules\LoyaltyLevelEquals::class, 'GetControlDescr']);
+$eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'OnSaleStatusOrder']);
+$eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [LoyaltyLevelEquals::class, 'GetControlDescr']);
