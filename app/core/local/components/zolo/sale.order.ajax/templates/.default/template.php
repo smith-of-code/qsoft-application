@@ -27,6 +27,7 @@ else:?>
 
                     <div class="basket-order__box box box--gray box--rounded-sm">
                         <form class="basket-order__form form form--wraped" id="order-form">
+                            <input type="hidden" value="<?=$arResult['BONUSES_SUBTRACT']?>" name="bonuses_subtract" id="bonuses_subtract">
                             <div class="form__row">
                                 <div class="form__col">
                                     <div class="form__field">
