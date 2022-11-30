@@ -28,7 +28,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 {
     private const SESSION_KEY = 'registrationData';
 
-    private const FILE_FIELDS = [
+    public const FILE_FIELDS = [
         'photo',
         'passport',
         'tax_registration_certificate',
