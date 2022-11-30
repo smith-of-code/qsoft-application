@@ -1,8 +1,8 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-//dump($arResult);
-?>
-<?php
+$APPLICATION->SetTitle($arResult['ITEM']['NAME']);
+$APPLICATION->AddChainItem($arResult['ITEM']['NAME']);
+
 $APPLICATION->IncludeComponent(
     'bitrix:breadcrumb',
     '',
