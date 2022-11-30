@@ -11,7 +11,7 @@ const ELEMENTS_SELECTOR = {
     slide: '.slider__slide',
 };
 
-export default function () {
+export default function (update) {
     $(ELEMENTS_SELECTOR.slider).each(function () {
         const wrap = $(this);
         const type = wrap.data('carousel');
@@ -19,6 +19,12 @@ export default function () {
         const prev = $(ELEMENTS_SELECTOR.prev, wrap);
         const next = $(ELEMENTS_SELECTOR.next, wrap);
         const pagination = $(ELEMENTS_SELECTOR.pagination, wrap);
+
+        if (update) {
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
+            return;
+        }
+
 
         let params = {
             speed: 700,
@@ -55,15 +61,28 @@ export default function () {
                 const images = $(ELEMENTS_SELECTOR.productImage, wrap);
 
                 paramsCustom = {
-                    slidesPerView: 1,
+                    slidesPerView: 'auto',
                     pagination: {
                         el: pagination,
                         type: 'bullets',
                         clickable: true,
-                        renderBullet: function (index, classname) {
+                        renderBullet(index, classname) {
                             const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
+                            const video = images[index]?.getAttribute('poster') !== undefined;
+
+                            let vodeoIcon = '';
+                            if (video) {
+                                vodeoIcon = `
+                                    <span class="swiper-pagination-bullet__video">
+                                        <svg class="icon icon--video">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-video"></use>
+                                        </svg>
+                                    </span>
+                                `;
+                            }
 
                             return `<div class="${classname}">
+                                        ${vodeoIcon}
                                         <img
                                             src="${currentImage}"
                                             alt="вид товара ${index}"
@@ -79,6 +98,13 @@ export default function () {
                         768: {
                             spaceBetween: 20,
                         },
+                        1440: {
+                            spaceBetween: 5,
+                            pagination: {
+                                dynamicBullets: true,
+                                dynamicMainBullets: 8,
+                            }
+                        }
                     },
                     on: {
                         slideChange() {
@@ -99,6 +125,6 @@ export default function () {
 
         params = $.extend(params, paramsCustom);
 
-        window.swiper = new Swiper(container, params);
+        new Swiper(container, params);
     });
 };

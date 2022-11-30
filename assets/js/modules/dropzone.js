@@ -111,11 +111,13 @@ function uploadFiles(el) {
         acceptedFiles,
         previewTemplate,
         maxFiles,
+        maxFileSize,
         paramName;
 
     acceptedFiles = (_acceptedFiles && _acceptedFiles.length) ? _acceptedFiles : baseConfig.acceptedFiles;
     paramName = (_paramName && _paramName.length) ? _paramName : baseConfig.paramName;
     maxFiles = initParams.single ? 1 : baseConfig.maxFiles;
+    maxFileSize = initParams.single ? 1 : baseConfig.maxFileSize;
 
     function fileNameCut(line) {
         if (line.length > 12) {
@@ -158,7 +160,7 @@ function uploadFiles(el) {
         url: newUrl,
         acceptedFiles: acceptedFiles,
         maxFiles: maxFiles,
-        maxFileSize: baseConfig.maxFileSize,
+        maxFilesize: maxFileSize,
         previewsContainer: $previewsContainer,
         previewTemplate: previewTemplate,
         init: function () {

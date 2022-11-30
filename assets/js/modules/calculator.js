@@ -30,8 +30,8 @@ const ELEMENTS_SELECTOR = {
     switcher: '[data-consultants-switcher]',
     quantity: '[data-consultants-quantity]',
     quantitySum: '[data-quantity-sum]',
-    quantityDecrease: '[data-quantity-decrease]',
-    quantityIncrease: '[data-quantity-increase]',
+    quantityDecrease: '[data-quantity-decrease-temp]', // TODO
+    quantityIncrease: '[data-quantity-increase-temp]', // TODO
 
     chart: '[data-calculator-chart]',
     chartIncomeSales: '[data-calculator-chart-income-sales]',
@@ -125,6 +125,11 @@ function chartSum(elem, num) {
 }
 
 export default function () {
+
+    if ($(ELEMENTS_SELECTOR.calculator).length == 0) {
+        return;
+    }
+
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
         let value = +$(this).val().replace(/\s/g, "");

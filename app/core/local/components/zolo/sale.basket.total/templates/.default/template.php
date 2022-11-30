@@ -14,9 +14,9 @@ $APPLICATION->setTitle('Корзина');?>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
-                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-product-id="<?=$basketItem['OFFER']['PRODUCT_ID']?>">
+                        <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-base-price="<?=$basketItem['BASE_PRICE']?>">
                             <article class="card-cart">
-                                <a href="<?=$basketItem['OFFER']['PRODUCT']['DETAIL_PAGE_URL']?>" class="card-cart__link"></a>
+                                <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
@@ -53,7 +53,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                         </p>
                                                     </li>
                                                 <?php endif;?>
-                                                <?php if ($basketItem['OFFER']['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE']):?>
+                                                <?php if ($basketItem['PROPERTIES']['NONRETURNABLE']):?>
                                                     <li class="product-status__item product-status__item--blue">
                                                         <span class="product-status__icon">
                                                             <svg class="icon icon--non-returnable product-status__icon-mark">
@@ -86,6 +86,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                             </button>
                                                         </div>
 
+                                                        <input type="hidden" name="bonuses" value="<?=$basketItem['OFFER']['BONUSES']?>" data-item-bonuses="<?=$basketItem['OFFER']['BONUSES']?>" />
                                                         <div class="quantity__total">
                                                             <span
                                                                 class="quantity__total-sum"
@@ -113,7 +114,7 @@ $APPLICATION->setTitle('Корзина');?>
 
                                             <div class="card-cart__price">
                                                 <p class="card-cart__price-item">
-                                                    <span class="card-cart__price-value">
+                                                    <span class="card-cart__price-value" data-item-price>
                                                         <?=$basketItem['PRICE']?> ₽
                                                     </span>
                                                     <span class="card-cart__price-sufix">
@@ -138,13 +139,15 @@ $APPLICATION->setTitle('Корзина');?>
                                     </div>
 
                                     <div class="card-cart__actions">
-                                        <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
-                                            <span class="button__icon">
-                                                <svg class="icon">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-card-favourite-icon></use>
-                                                </svg>
-                                            </span>
-                                        </button>
+                                        <?php if ($arResult['IS_AUTHORIZED']):?>
+                                            <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-tippy-content="В&#160;избранное" data-tippy-placement="right-end">
+                                                <span class="button__icon">
+                                                    <svg class="icon">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$basketItem['OFFER']['IN_WISHLIST'] ? 'heart-fill' : 'heart'?>" data-card-favourite-icon></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        <?php endif;?>
                                         <button type="button" class="card-cart__actions-item button button--ordinary button--iconed button--simple button--big button--red" data-remove-button data-tippy-content="Удалить" data-tippy-placement="right-end" data-basket-item-remove>
                                             <span class="button__icon">
                                                 <svg class="icon">
@@ -328,7 +331,7 @@ $APPLICATION->setTitle('Корзина');?>
             <?php endif;?>
             <?php if($arResult['BASKET_ITEMS']):?>
                 <div class="basket__order">
-                    <div class="basket-card" data-basket-card>
+                    <form class="basket-card" data-basket-card action="/order/make/" method="post">
                         <div class="basket-card__title">Ваш заказ</div>
 
                         <div class="basket-card__wrapper">
@@ -358,7 +361,7 @@ $APPLICATION->setTitle('Корзина');?>
                                             </div>
                                             <div class="basket-card__bonus-inner">
                                                 <span class="basket-card__bonus-text">ББ за заказ</span>
-                                                <span class="basket-card__bonus-count"><?=$arResult['BASKET_ITEMS_BONUS_SUM']?> ББ</span>
+                                                <span class="basket-card__bonus-count" data-basket-bonus-order><?=$arResult['BASKET_ITEMS_BONUS_SUM']?> ББ</span>
                                             </div>
 
                                             <div class="form__row">
@@ -366,7 +369,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input input--small input--buttoned input--placeholder" data-basket-bonus-input>
-                                                                <input type="number" class="input__control" name="bonuses" id="bonuses" value="">
+                                                                <input type="number" class="input__control" name="bonuses" id="bonuses">
                                                                 <span class="input__placeholder">Сколько баллов списать</span>
                                                                 <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark" data-basket-bonus-accept>
                                                                     <span class="button__icon button__icon--small">
@@ -391,11 +394,11 @@ $APPLICATION->setTitle('Корзина');?>
                                     <span class="basket-card__total basket-card__total--bold" data-basket-total><?=$arResult['BASKET_PRICE']?> ₽</span>
                                 </div>
                             </div>
-                            <button type="button" class="basket-card__button button button--rounded button--covered button--green button--full">
+                            <button type="submit" class="basket-card__button button button--rounded button--covered button--green button--full">
                                 Оформить заказ
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             <?php endif;?>
         </div>

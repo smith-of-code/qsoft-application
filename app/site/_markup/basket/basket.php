@@ -29,7 +29,7 @@
                                     <div class="basket__cart-null heading heading--average">Корзина пуста</div>
 
                                     <ul class="cards-cart__list basket__list" data-basket-list>
-                                        <li class="cards-cart__item basket__item"data-basket-item data-remove-item>
+                                        <li class="cards-cart__item basket__item"data-basket-item data-remove-item data-base-price=1200>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -110,11 +110,11 @@
                                                                         <div class="quantity__total">
                                                                             <span
                                                                                 class="quantity__total-sum"
-                                                                                data-quantity-sum="1"
+                                                                                data-quantity-sum="15"
                                                                                 data-quantity-min="1"
                                                                                 data-quantity-max="15"
                                                                             >
-                                                                                1
+                                                                                15
                                                                             </span>
                                                                         </div>
 
@@ -176,7 +176,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -297,7 +297,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -444,7 +444,7 @@
                                             </article>
 
                                         </li>
-                                        <li class="cards-cart__item" data-basket-item data-remove-item>
+                                        <li class="cards-cart__item" data-basket-item data-remove-item data-base-price=1600>
 
                                             <article class="card-cart">
                                                 <a href="#" class="card-cart__link"></a>
@@ -742,7 +742,7 @@
                                                         </div>
                                                         <div class="basket-card__bonus-inner">
                                                             <span class="basket-card__bonus-text">ББ за заказ</span>
-                                                            <span class="basket-card__bonus-count">356 ББ</span>
+                                                            <span class="basket-card__bonus-count" data-basket-bonus-order>356 ББ</span>
                                                         </div>
 
                                                         <div class="form__row">

@@ -86,6 +86,7 @@ class BasketHelper
     public function getBasket(bool $withPersonalPromotions = false, bool $clearPersonalPromotions = true): BasketBase
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+
         $context = new Discount\Context\Fuser($basket->getFUserId());
         if ($discounts = Discount::buildFromBasket($basket, $context)) {
             $discountsResult = $discounts->calculate();

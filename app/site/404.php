@@ -1,73 +1,69 @@
-<?
+<?php
+
 include_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/urlrewrite.php');
 
 CHTTP::SetStatus("404 Not Found");
-@define("ERROR_404","Y");
-define("HIDE_SIDEBAR", true);
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
 
-$APPLICATION->SetTitle("Страница не найдена");?>
+global $APPLICATION, $USER;
 
-	<div class="bx-404-container">
-		<div class="bx-404-block"><img src="<?=SITE_DIR?>images/404.png" alt=""></div>
-		<div class="bx-404-text-block">Неправильно набран адрес, <br>или такой страницы на сайте больше не существует.</div>
-		<div class="">Вернитесь на <a href="<?=SITE_DIR?>">главную</a> или воспользуйтесь картой сайта.</div>
-	</div>
-	<div class="map-columns row">
-		<div class="col-sm-10 col-sm-offset-1">
-			<div class="bx-maps-title">Карта сайта:</div>
-		</div>
-	</div>
+?>
 
-	<div class="col-sm-offset-2 col-sm-4">
-		<div class="bx-map-title"><i class="fa fa-leanpub"></i> Каталог</div>
-		<?$APPLICATION->IncludeComponent(
-			"bitrix:catalog.section.list",
-			"tree",
-			array(
-				"COMPONENT_TEMPLATE" => "tree",
-				"IBLOCK_TYPE" => "catalog",
-				"IBLOCK_ID" => "2",
-				"SECTION_ID" => $_REQUEST["SECTION_ID"],
-				"SECTION_CODE" => "",
-				"COUNT_ELEMENTS" => "Y",
-				"TOP_DEPTH" => "2",
-				"SECTION_FIELDS" => array(
-					0 => "",
-					1 => "",
-				),
-				"SECTION_USER_FIELDS" => array(
-					0 => "",
-					1 => "",
-				),
-				"SECTION_URL" => "",
-				"CACHE_TYPE" => "A",
-				"CACHE_TIME" => "36000000",
-				"CACHE_GROUPS" => "Y",
-				"ADD_SECTIONS_CHAIN" => "Y"
-			),
-			false
-		);
-		?>
-	</div>
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title><?php $APPLICATION->ShowTitle();?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?= SITE_DIR ?>favicon.ico"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css"/>
+        <script src="/local/templates/.default/js/script.js"></script>
+        <?php $APPLICATION->ShowHead()?>
+    </head>
 
-	<div class="col-sm-offset-1 col-sm-4">
-		<div class="bx-map-title"><i class="fa fa-info-circle"></i> О магазине</div>
-		<?
-		$APPLICATION->IncludeComponent(
-			"bitrix:main.map",
-			".default",
-			array(
-				"CACHE_TYPE" => "A",
-				"CACHE_TIME" => "36000000",
-				"SET_TITLE" => "N",
-				"LEVEL" => "3",
-				"COL_NUM" => "2",
-				"SHOW_DESCRIPTION" => "Y",
-				"COMPONENT_TEMPLATE" => ".default"
-			),
-			false
-		);?>
-	</div>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+    <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
+
+    <body class="page">
+    <?php $APPLICATION->SetTitle("404");?>
+        <div class="page__error error">
+            <div class="error__content">
+
+            <div class="error__image">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="/local/templates/.default/images/cat-404.png">
+                    <img src="/local/templates/.default/images/cat-404-mobile.png" alt="cat-404" class="error__image-picture">
+                </picture>
+            </div>
+
+            <p class="error__status">
+                Error 404
+            </p>
+
+            <div class="error__message">
+                <p class="error__text">Приносим извинения, такой страницы не существует.</p>
+                <p class="error__text">Если Вы не нашли то, что ищете, обратитесь в нашу службу поддержки. Мы постараемся Вам помочь.</p>
+            </div>
+
+            <!--
+                Кнопка "Обратиться в техподдержку" -
+                при клике открывается модальное окно с формой поддержки.
+                Если пользователь не авторизован, то открывается
+                станица с Формой авторизации.
+             -->
+            <?php if ($USER->IsAuthorized()) {?>
+                <button type="button" class="error__button button button--rounded button--covered button--red" data-fancybox data-modal-type="modal" data-src="#technical-support" data-selected="OTHER">
+                    Обратиться в техподдержку
+                </button>
+            <?php } else { ?>
+                <a href="/auth/" class="button">
+                    <button type="button" class="error__button button button--rounded button--covered button--red">
+                        Обратиться в техподдержку
+                    </button>
+                </a>
+            <?php }?>
+            </div>
+        </div>
+    </body>
+</html>

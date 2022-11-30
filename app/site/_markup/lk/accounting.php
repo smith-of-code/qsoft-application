@@ -308,6 +308,64 @@
                                                                                                         </span>
                                                                                                     </button>
                                                                                                 </div>
+                                                                                                <article id="conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
+                                                                                                    <div class="modal__content">
+                                                                                                        <header class="modal__section modal__section--header">
+                                                                                                            <p class="heading heading--average">Условия поддержания уровня</p>
+                                                                                                        </header>
+
+                                                                                                        <section class="modal__section modal__section--content">
+                                                                                                            <div class="conditions">
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на общую сумму 5000 рублей за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                </div>
+
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на сумму 5000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение групповых покупок на сумму 7000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+
+                                                                                                                    <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                                                                                                    </p>
+                                                                                                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                                                                                                </div>
+
+                                                                                                                <div class="conditions__block">
+                                                                                                                    <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+
+                                                                                                                    <ul class="conditions__list">
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение личных покупок на сумму 10000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+
+                                                                                                                        <li class="conditions__item">
+                                                                                                                            Совершение групповых покупок на сумму 20000 рублей каждый месяц за период в 3 последовательных месяца (квартал);
+                                                                                                                        </li>
+                                                                                                                    </ul>
+
+                                                                                                                    <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+
+                                                                                                                    </p>
+                                                                                                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </section>
+                                                                                                    </div>
+                                                                                                </article>
                                                                                                 <p class="warning__text">
                                                                                                     Условия повышения уровня
                                                                                                 </p>

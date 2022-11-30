@@ -14,6 +14,7 @@ use Bitrix\Main\NotImplementedException;
 use Bitrix\Main\ObjectNotFoundException;
 use Bitrix\Main\Request;
 use Bitrix\Sale\Basket;
+use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
 use QSoft\Helper\BasketHelper;
@@ -72,7 +73,7 @@ class BasketLineController extends Controller
      * @throws NotImplementedException
      * @throws InvalidOperationException
      */
-    public function getBasketTotalsAction($withPersonalPromotions): array
+    public function getBasketTotalsAction(string $withPersonalPromotions = 'false'): array
     {
         $basket = $this->basketHelper->getBasket($withPersonalPromotions === 'true');
         $basketItems = $basket->toArray();
@@ -97,20 +98,31 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function increaseItemAction(int $offerId, int $bonuses, $withPersonalPromotions, int $quantity = 1): array
-    {
+    public function increaseItemAction(
+        int $offerId,
+        ?string $detailPage = null,
+        string $nonreturnable = 'false',
+        string $withPersonalPromotions = 'false',
+        int $quantity = 1
+    ): array {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        if ($item = $basket->getExistsItem('catalog', $offerId)) {
-            $result = $item->setField('QUANTITY', $item->getQuantity() + 1);
+        if ($item = $this->getExistBasketItem($basket, $offerId)) {
+            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
+            $basket->save();
         } else {
             $result = \Bitrix\Catalog\Product\Basket::addProduct([
                 'PRODUCT_ID' => $offerId,
                 'QUANTITY' => $quantity,
                 'PROPS' => [
                     [
-                        'NAME' => 'Бонусы',
-                        'CODE' => 'BONUSES',
-                        'VALUE' => $bonuses,
+                        'NAME' => 'Детальная страница',
+                        'CODE' => 'DETAIL_PAGE',
+                        'VALUE' => $detailPage,
+                    ],
+                    [
+                        'NAME' => 'Невозвратный товар',
+                        'CODE' => 'NONRETURNABLE',
+                        'VALUE' => $nonreturnable === 'true',
                     ],
                 ],
             ]);
@@ -119,6 +131,17 @@ class BasketLineController extends Controller
             throw new RuntimeException($result->getErrorMessages());
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
+    }
+
+    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
+    {
+        /** @var BasketItem $basketItem */
+        foreach ($basket->getBasketItems() as $basketItem) {
+            if ($basketItem->getProductId() === $offerId) {
+                return $basketItem;
+            }
+        }
+        return null;
     }
 
     /**
@@ -133,7 +156,7 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function decreaseItemAction(int $offerId, $withPersonalPromotions, int $quantity = 1): array
+    public function decreaseItemAction(int $offerId, string $withPersonalPromotions = 'false', int $quantity = 1): array
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         /** @var BasketItem $basketItem */

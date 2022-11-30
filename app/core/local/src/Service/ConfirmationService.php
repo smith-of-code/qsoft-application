@@ -6,6 +6,7 @@ use Bitrix\Main\Authentication\Context;
 use Bitrix\Main\Authentication\ShortCode;
 use Bitrix\Main\Mail\Event;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Sale\Fuser;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
 use QSoft\Environment;
@@ -26,12 +27,12 @@ class ConfirmationService
         $this->smsClient = new SmsClient;
     }
 
-    public function sendSmsConfirmation(): void
+    public function sendSmsConfirmation(?string $phone = null): void
     {
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $this->user->id,
+            'UF_FUSER_ID' => $this->user->fUserID,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['sms'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_phone'],
             'UF_CODE' => $code,
@@ -42,7 +43,7 @@ class ConfirmationService
                 Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
                 $code
             ),
-            $this->user->phone
+            $phone ?? $this->user->phone
         );
     }
 
@@ -51,7 +52,7 @@ class ConfirmationService
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $this->user->id,
+            'UF_USER_ID' => $this->user->fUserID,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
@@ -73,7 +74,7 @@ class ConfirmationService
         $code = $this->generateCodeOTP($this->user->id);
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $this->user->id,
+            'UF_USER_ID' => $this->user->fUserID,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
@@ -95,7 +96,7 @@ class ConfirmationService
         if (Environment::isDev() || Environment::isTest()) {
             return true;
         } else {
-            $actualCode = ConfirmationTable::getActiveSmsCode($this->user->id);
+            $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
 
             return $actualCode && $actualCode === $code;
         }
@@ -103,7 +104,7 @@ class ConfirmationService
 
     public function verifyEmailCode(string $code, string $type): bool
     {
-        $actualCode = ConfirmationTable::getActiveEmailCode($this->user->id, $type);
+        $actualCode = ConfirmationTable::getActiveEmailCode($this->user->fUserID, $type);
 
         return $actualCode && $actualCode === $code;
     }

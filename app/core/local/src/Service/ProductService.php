@@ -10,15 +10,10 @@ use CCatalogSku;
 use CFile;
 use CIBlockElement;
 use QSoft\Entity\User;
+use QSoft\Helper\HLReferencesHelper;
 
 class ProductService
 {
-    private const SELECT_OFFER_PROPERTIES = [
-        'COLOR',
-        'SIZE',
-        'PACKAGING',
-    ];
-
     private const FILE_FIELDS = [
         'DETAIL_PICTURE',
         'PREVIEW_PICTURE',
@@ -32,6 +27,33 @@ class ProductService
     public function __construct(User $user)
     {
         $this->user = $user;
+    }
+
+    public function getProduct(int $productId): array
+    {
+        if (!$productId) {
+            return [];
+        }
+
+        $productProperties = [];
+        CIBlockElement::GetPropertyValuesArray($productProperties, IBLOCK_PRODUCT, ['ID' => $productId]);
+        $product = CIBlockElement::GetList([], ['ID' => $productId], false, false, array_merge(
+            array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($productProperties))),
+            [
+                'ID',
+                'DETAIL_PAGE_URL',
+            ],
+        ));
+
+        if (!$product || !$product = $product->GetNext()) {
+            return [];
+        }
+
+        $offers = CCatalogSKU::getOffersList($productId, IBLOCK_PRODUCT, ['ACTIVE' => 'Y'], ['IBLOCK_ID']);
+        $offersIds = array_keys($offers);
+        $product['OFFERS'] = $this->getOffersByIds($offersIds);
+
+        return $product;
     }
 
     public function getOffersByIds(array $offerIds): array
@@ -60,13 +82,9 @@ class ProductService
         ));
 
         $offers = [];
-        $productIds = [];
         $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
         while ($offer = $offerIterator->Fetch()) {
-            $productId = CCatalogSku::GetProductInfo($offer['ID'])['ID'];
-            $productIds[] = $productId;
-            $offer['PRODUCT_ID'] = $productId;
-            $offer['IN_WISHLIST'] = isset($wishlist[$productId]);
+            $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
             $offer = array_merge($offer, $this->getOfferFiles($offer));
             $offer = array_merge($offer, $this->getOfferImages($offer));
             $offer = array_merge($offer, $this->getOfferPrices($offer['ID']));
@@ -75,47 +93,18 @@ class ProductService
             $offer['SELECTS'] = $this->getOfferSelects($offer);
             $offers[$offer['ID']] = $offer;
         }
-
-        $productIds = array_keys(array_flip($productIds));
-        $productProperties = [];
-        CIBlockElement::GetPropertyValuesArray($productProperties, IBLOCK_PRODUCT, ['ID' => current($productIds)]);
-        $products = CIBlockElement::GetList(
-            [],
-            ['ID' => $productIds],
-            false,
-            false,
-            array_merge(
-                array_map(static fn ($item) => "PROPERTY_$item", array_keys(current($productProperties))),
-                [
-                    'ID',
-                    'DETAIL_PAGE_URL',
-                ],
-            ),
-        );
-        $preparedProducts = [];
-        while ($product = $products->GetNext()) {
-            $preparedProducts[$product['ID']] = $product;
-        }
-
-        foreach ($offers as &$offer) {
-            $offer['PRODUCT'] = $preparedProducts[$offer['PRODUCT_ID']];
-        }
-
         return $offers;
     }
 
-    private function getOfferPrices(int $offerId): array
+    public function getOfferPrices(int $offerId): array
     {
         $prices = CCatalogProduct::GetOptimalPrice($offerId);
-        if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
-            return [
-                'PRICE' => $prices['DISCOUNT_PRICE'],
-                'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
-                    ? $prices['PRICE']['PRICE']
-                    : null,
-            ];
-        }
-        return ['PRICE' => $prices['DISCOUNT_PRICE']];
+        return $this->user->isAuthorized ? [
+            'PRICE' => $prices['DISCOUNT_PRICE'],
+            'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
+                ? $prices['PRICE']['PRICE']
+                : null,
+        ] : ['PRICE' => $prices['DISCOUNT_PRICE']];
     }
 
     private function getOfferDiscountLabels(array $offer): array
@@ -134,12 +123,29 @@ class ProductService
     private function getOfferSelects(array $offer): array
     {
         $result = [];
-        foreach (self::SELECT_OFFER_PROPERTIES as $property) {
-            if ($offer["PROPERTY_{$property}_VALUE"]) {
-                $result[] = $offer["PROPERTY_{$property}_VALUE"];
+        foreach ($this->getSelectFields() as $property) {
+            if ($value = $offer["PROPERTY_{$property['name']}_VALUE"]) {
+                $result[] = $property['values'] ? $property['values'][$value]['name'] : $value;
             }
         }
         return $result;
+    }
+
+    private function getSelectFields(): array
+    {
+        return [
+            [
+                'name' => 'COLOR',
+                'values' => HLReferencesHelper::getColorNames(),
+            ],
+            [
+                'name' => 'SIZE',
+                'values' => HLReferencesHelper::getSizeNames(),
+            ],
+            [
+                'name' => 'PACKAGING',
+            ],
+        ];
     }
 
     private function getOfferFiles(array $offer): array

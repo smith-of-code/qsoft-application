@@ -14,7 +14,7 @@ $(document).on('click', 'button[data-basket-item-remove]', function () {
 });
 
 $(document).on('click', 'button[data-card-favourite]', function () {
-    const id = $(this).closest('[data-basket-item]').data('product-id');
+    const id = $(this).closest('[data-basket-item]').data('offer-id');
     if ($(this).data('card-favourite') === 'heart') {
         window.stores.wishlistStore.add(id);
     } else {

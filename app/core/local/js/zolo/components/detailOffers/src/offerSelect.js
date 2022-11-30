@@ -23,7 +23,7 @@ export const SelectOffer = {
         window.initSelect();
     },
     computed: {
-        ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
+        ...mapState(detailOfferStore, ['allColors', 'offers', 'currentOfferId', 'packagings', 'color2Size', 'size2Color', 'currentColor', 'currentSize']),
     },
     methods: {
         setOffer(event) {
@@ -62,7 +62,7 @@ export const SelectOffer = {
                     <li class="packs__item" v-for="(item) in packagings">
                         <div class="pack pack--bordered">
                             <div class="radio">
-                                <input type="radio" class="pack__input radio__input" name="radio_pack"
+                                <input autocomplete="off" type="radio" class="pack__input radio__input" name="radio_pack"
                                        @click="setOffer"
                                        v-bind:value="item.offerId"
                                        v-bind:id="'radio' + item.offerId"
@@ -84,10 +84,10 @@ export const SelectOffer = {
             <div class="specification__colors colors colors--big">
                 <p class="specification__category">Цвет</p>
                 <ul class="colors__list">
-                    <li class="colors__item" v-for="(item, color) in color2Size">
+                    <li class="colors__item" v-for="(item, color) in color2Size" :class="'colors__item-' + color">
                         <div v-bind:class="'color ' + ((offers.AVAILABLE[getColorOffer(color)]) ? '' : ' color--disabled')">
                             <div class="radio">
-                                <input type="radio" class="color__input radio__input" name="radio_color"
+                                <input autocomplete="off" type="radio" class="color__input radio__input" name="radio_color"
                                        @click="setOffer"
                                        v-bind:value="getColorOffer(color)"
                                        v-bind:id="'radio' + getColorOffer(color)"
@@ -95,7 +95,11 @@ export const SelectOffer = {
                                        v-bind:checked="currentOfferId == getColorOffer(color)"
                                 >
                                 <label v-bind:for="'radio' + getColorOffer(color)">
-                                    <div v-bind:class="'color__item color__item--big color__item--' + color"></div>
+                                  <div class="color__item">
+                                    <div class="color__item-wrapper">
+                                      <img :src="allColors[color].file_src" class="color__item-pic" alt="Color">
+                                    </div>
+                                  </div>
                                 </label>
                             </div>
                         </div>

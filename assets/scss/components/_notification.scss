@@ -67,6 +67,10 @@
         @media #{$screen-tablet} {
             margin-bottom: rem(15px);
         }
+
+        &--centered {
+            text-align: center;
+        }
     }
 
     &__text {
@@ -81,5 +85,9 @@
                 line-height: rem(22px);
             }
         }
+    }
+
+    &__button {
+        margin-top: rem(20px);
     }
 }

@@ -126,7 +126,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		$arParams['PATH_TO_BASKET'] = isset($arParams['PATH_TO_BASKET']) ? trim($arParams['PATH_TO_BASKET']) : '';
 		if ($arParams['PATH_TO_BASKET'] == '')
 		{
-			$arParams['PATH_TO_BASKET'] = '/personal/cart/';
+			$arParams['PATH_TO_BASKET'] = '/cart/';
 		}
 
 		$arParams['NO_PERSONAL'] = isset($arParams['NO_PERSONAL']) && $arParams['NO_PERSONAL'] === 'Y' ? 'Y' : 'N';
@@ -180,7 +180,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
         try {
             $this->user = new User;
 			
-			if ($user->isAuthorised) {
+			if (!$this->user->isAuthorized) {
 				localRedirect('/login/');
 			}
         } catch (\Exception $e) {}
@@ -188,7 +188,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		$siteId = $this->getSiteId();
 
 		$this->arResult = [
-            'BONUSES_SUBTRACT' => ((float) $_REQUEST['BONUSES_SUBTRACT']) ?: .0,
+            'BONUSES_SUBTRACT' => ((float) $_POST['bonuses']) ?: .0,
             'PERSON_TYPE' => [],
 			'PAY_SYSTEM' => [],
 			'ORDER_PROP' => [],
@@ -515,7 +515,9 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     public function configureActions(): array
     {
         return [
-            'createOrder' => [],
+            'createOrder' => [
+                'prefilters' => [],
+            ],
         ];
     }
 
@@ -3497,19 +3499,13 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
 		$arResult['BASKET_POSITIONS'] = $basket->count();
 
-        if ($this->user && $this->user->groups->isConsultant()) {
-            $bonuses = .0;
-            foreach ($arResult['BASKET_ITEMS'] as $basketItem)
-            {
-                $bonuses += $basketItem['BONUSES'];
-            }
-
-            $arResult['ORDER_BONUSES'] = $bonuses;
-            $arResult['ORDER_BONUSES_FORMATED'] = SaleFormatCurrency($arResult['BONUSES'], $this->order->getCurrency());
-        }
-
 		$arResult['ORDER_PRICE'] = $basket->getPrice() - $arResult['BONUSES_SUBTRACT'];
 		$arResult['ORDER_PRICE_FORMATED'] = SaleFormatCurrency($arResult['ORDER_PRICE'], $this->order->getCurrency());
+
+        if ($this->user && $this->user->groups->isConsultant()) {
+            $arResult['ORDER_BONUSES'] = $this->user->loyalty->calculateBonusesByPrice($arResult['ORDER_PRICE']);
+            $arResult['ORDER_BONUSES_FORMATED'] = SaleFormatCurrency($arResult['BONUSES'], $this->order->getCurrency());
+        }
 
         $arResult['ORDER_TAX'] = $arResult['ORDER_PRICE'] * .2;
         $arResult['ORDER_TAX_FORMATED'] = SaleFormatCurrency($arResult['ORDER_TAX'], $this->order->getCurrency());

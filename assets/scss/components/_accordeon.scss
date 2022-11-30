@@ -106,6 +106,8 @@
     &__item {
         padding: rem(20px) rem($gap-medium);
 
+        cursor: pointer;
+
         background-color: $athensGray;
 
         & + & {

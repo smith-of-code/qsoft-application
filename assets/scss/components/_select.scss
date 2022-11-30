@@ -543,6 +543,8 @@
             .select2-selection {
                 &::after {
                     transform: rotate(180deg);
+
+                    background-image: url('/local/templates/.default/images/icons/arrow-down-red.svg');
                 }
             }
         }
@@ -570,6 +572,8 @@
         font-weight: $font-weight-medium;
 
         display: block;
+
+        word-break: break-word;
 
         &--inlined {
             display: flex;

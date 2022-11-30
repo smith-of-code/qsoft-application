@@ -93,5 +93,6 @@ import './svg/cat-glasses.svg';
 import './svg/cat-think.svg';
 import './svg/dog-seating.svg';
 import './svg/cat-seating.svg';
+import './svg/video.svg';
 
 

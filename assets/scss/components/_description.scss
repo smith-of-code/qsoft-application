@@ -6,6 +6,7 @@
     &--tablet {
         @media #{$screen-tablet} {
             display: flex;
+            justify-content: space-between;
         }
     }
 
