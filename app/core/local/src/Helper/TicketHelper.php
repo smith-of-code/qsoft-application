@@ -13,6 +13,7 @@ class TicketHelper
 {
     public const CHANGE_PERSONAL_DATA_CATEGORY = 'CHANGE_OF_PERSONAL_DATA';
     public const CHANGE_LEGAL_ENTITY_DATA_CATEGORY = 'CHANGE_OF_LEGAL_ENTITY_DATA';
+    public const BECOME_CONSULTANT_CATEGORY = 'BECOME_CONSULTANT';
     public const CHANGE_MENTOR = 'CHANGE_MENTOR';
     public const REFUND_ORDER = 'REFUND_ORDER';
     public const REGISTRATION_CATEGORY = 'REGISTRATION';
@@ -26,6 +27,10 @@ class TicketHelper
         ],
         self::CHANGE_LEGAL_ENTITY_DATA_CATEGORY => [
             'TITLE' => 'Заявка на смену юридических данных',
+            'DETAIL_PAGE' => '/bitrix/admin/legal_entity_data.php?%s=%s',
+        ],
+        self::BECOME_CONSULTANT_CATEGORY => [
+            'TITLE' => 'Заявка на становление консультантом',
             'DETAIL_PAGE' => '/bitrix/admin/legal_entity_data.php?%s=%s',
         ],
         self::CHANGE_MENTOR => [
