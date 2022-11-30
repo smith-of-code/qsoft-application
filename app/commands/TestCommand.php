@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace QSoft\Commands;
 
 use Illuminate\Console\Command;
@@ -21,9 +22,11 @@ class TestCommand extends Command
         dump($this->option('key3'));
 
         // Кладём сообщение в очередь:
-	app('queue')->push(\QSoft\Jobs\TestJob::class, ['aaa' => 12345], 'queue-name-123');
+        app('queue')->push(\QSoft\Jobs\TestJob::class, ['aaa' => 12345], 'queue-name-123');
         // Для обработки надо запустить: ./disposer queue:work --queue=queue-name-123
         // Больше разных опций: ./disposer queue:work --help
+
+        dump(app('config')->get('loyalty_level_terms.types'));
 
         $this->output->writeln('Done.');
     }
