@@ -3,6 +3,7 @@
 use Bitrix\Main\EventManager;
 use QSoft\BasketRules\LoyaltyLevelEquals;
 use QSoft\Events\AuthRequired;
+use QSoft\Events\OfferEventsListener;
 use QSoft\Events\SupportEventListner;
 use QSoft\Events\UserEventsListener;
 use QSoft\Events\OrderEventsListener;
@@ -17,6 +18,13 @@ $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::c
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
 $eventManager->addEventHandler('main', 'OnProlog', [AuthRequired::class, 'checkAuth']);
+
+/**
+ * Catalog module events
+ */
+$eventManager->addEventHandler('catalog', 'OnPriceAdd', [OfferEventsListener::class, 'OnPriceAdd']);
+$eventManager->addEventHandler('catalog', 'OnPriceUpdate', [OfferEventsListener::class, 'OnPriceUpdate']);
+
 
 /**
  * техподдержка.
