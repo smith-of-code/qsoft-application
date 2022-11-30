@@ -6,6 +6,7 @@ use Bitrix\Catalog\Model\Price;
 use Bitrix\Main\ORM\Event;
 use CCatalogGroup;
 use QSoft\Queue\Jobs\BonusesPriceJob;
+use QSoft\Queue\Jobs\UpdateAllOffersBonusesJob;
 use QSoft\Service\OffersService;
 
 class OfferEventsListener
@@ -21,11 +22,7 @@ class OfferEventsListener
         ])->fetch();
         $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
         if ((int) $fields['CATALOG_GROUP_ID'] == (int) $basePrice['ID']) {
-            //BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
-
-            $offersService = new OffersService();
-            $offersService->setOfferBonuses((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
-            $offersService->setOfferDiscountPrices((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
+            BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
         }
     }
 
@@ -40,11 +37,7 @@ class OfferEventsListener
         ])->fetch();
         $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
         if ((int) $fields['CATALOG_GROUP_ID'] == (int) $basePrice['ID']) {
-            //BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
-
-            $offersService = new OffersService();
-            $offersService->setOfferBonuses((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
-            $offersService->setOfferDiscountPrices((int) $res['PRODUCT_ID'], (float) $res['PRICE']);
+            BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
         }
     }
 
@@ -105,8 +98,6 @@ class OfferEventsListener
 
     public static function UpdateBonuses(Event $event) {
 
-        //UpdateAllOffersBonusesJob::pushJob([]);
-        $offersService = new OffersService();
-        $offersService->updateAllOffersBonuses();
+        UpdateAllOffersBonusesJob::pushJob([]);
     }
 }

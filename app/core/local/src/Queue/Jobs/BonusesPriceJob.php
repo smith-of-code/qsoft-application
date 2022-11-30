@@ -2,6 +2,7 @@
 
 namespace QSoft\Queue\Jobs;
 
+use QSoft\Foundation\Component\Exception;
 use QSoft\Service\OffersService;
 
 class BonusesPriceJob extends BaseJob
@@ -21,8 +22,8 @@ class BonusesPriceJob extends BaseJob
     protected function process($data)
     {
         $offersService = new OffersService();
-        $offersService->setOfferBonuses($data['offerId'], $data['priceValue']);
-        $offersService->setOfferDiscountPrices($data['offerId'], $data['priceValue']);
+        $offersService->setOfferBonuses((int)$data['offerId'], (float)$data['priceValue']);
+        $offersService->setOfferDiscountPrices((int)$data['offerId'], (float)$data['priceValue']);
     }
 
     protected function validateInputData($data): bool

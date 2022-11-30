@@ -25,6 +25,10 @@ class OffersService
      */
     public function __construct() {
 
+        if (! Loader::includeModule('iblock')) {
+            throw new RuntimeException('Не найден модуль "iblock"');
+        }
+        
         $this->offersIbId = (int) \CIBlock::GetList([], ['CODE' => 'product_offer'])->Fetch()['ID'];
 
         if (! Loader::includeModule('sale')) {
