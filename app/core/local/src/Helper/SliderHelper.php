@@ -18,7 +18,7 @@ class SliderHelper
      * @param string $sliderCode Символьный код слайдера
      * @return array Массив с параметрами:
      * ['FILTER'] - Перечень ID товаров для компонента раздела каталога;
-     * ['BANNERS'] - Перечень ID баннеров;
+     * ['BANNERS'] - Перечень баннеров;
      * ['SORTED'] - Общий перечень отсортированных ID товаров и баннеров;
      * @throws \Bitrix\Main\LoaderException
      */
@@ -87,10 +87,11 @@ class SliderHelper
                 $banner = \CAdvBanner::GetByID($element['UF_ELEMENT_ID'])->Fetch();
 
                 if ($banner && $banner['CODE_TYPE'] === 'html') {
-                    $result['BANNERS'][] = $banner;
+                    $result['BANNERS'][$banner['ID']] = $banner;
                 }
 
             }
+            $element['UF_TYPE'] = $sliderElementTypes[$element['UF_TYPE']];
             $result['SORTED'][] = $element;
         }
 

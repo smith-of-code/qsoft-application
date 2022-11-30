@@ -27,15 +27,21 @@ $APPLICATION->SetTitle("Интернет-магазин");
 
         <!--Хиты продаж-->
         <?php
-        $bestSellersProducts = QSoft\Helper\SliderHelper::prepareDataForComponent('main_hits_food');
+        $bestSellersProductsFood = QSoft\Helper\SliderHelper::prepareDataForComponent('main_hits_food');
+        $bestSellersProductsAccessories = QSoft\Helper\SliderHelper::prepareDataForComponent('main_hits_accessories');
 
         global $bestSellersProductsFilter;
-        $bestSellersProductsFilter = $bestSellersProducts['FILTER'];
+
+        $bestSellersProductsFilter = array_merge($bestSellersProductsFood['FILTER'], $bestSellersProductsAccessories['FILTER']);
+        $bestSellersProductsFilter['ID'] = array_merge($bestSellersProductsFood['FILTER']['ID'], $bestSellersProductsAccessories['FILTER']['ID']);
 
         if (! empty($bestSellersProductsFilter['ID'])) {
 
             $bestSellersProductsSectionComponentParams = [
-                "SLIDER_PARAMS" => $bestSellersProducts,
+                "SLIDER_PARAMS" => [
+                    'FOOD' => $bestSellersProductsFood,
+                    'ACCESSORIES' => $bestSellersProductsAccessories,
+                ],
                 "IBLOCK_TYPE" => "catalog",
                 "IBLOCK_ID" => IBLOCK_PRODUCT,
                 "ELEMENT_SORT_FIELD" => "sort",
