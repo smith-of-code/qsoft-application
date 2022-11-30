@@ -35,7 +35,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                     </div>
 
                     <article class="slider__card card-banner">
-                        <a href="<?=$slider['LINK_URL']?>" class="card-banner__link"></a>
+                        <a href="<?=$slider['LINK']?>" class="card-banner__link"></a>
                         <div class="card-banner__inner">
                             <h2 class="card-banner__title">
                                 <?=$slider['HEADING']?>

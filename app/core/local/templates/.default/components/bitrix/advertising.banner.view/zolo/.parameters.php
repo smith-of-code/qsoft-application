@@ -82,7 +82,14 @@ if ($arCurrentValues['EXTENDED_MODE'] == 'N')
     $arTemplateParameters["PARAMETERS"]["SALE"] = Array(
         "NAME" => GetMessage("ADV_BS_PARAMETER_SALE_TEXT"),
         "TYPE" => "STRING",
-        "DEFAULT" => "-10%",
+        "DEFAULT" => "",
         "SORT" => 200,
+    );
+
+    $arTemplateParameters["PARAMETERS"]["LINK"] = Array(
+        "NAME" => GetMessage("ADV_BS_PARAMETER_LINK"),
+        "TYPE" => "STRING",
+        "DEFAULT" => "",
+        "SORT" => 220,
     );
 }

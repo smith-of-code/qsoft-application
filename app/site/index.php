@@ -6,10 +6,10 @@ $APPLICATION->SetTitle("Интернет-магазин");
         <!--Слайдер-->
         <?php
         $APPLICATION->IncludeComponent(
-                'bitrix:advertising.banner',
-        '',
+            'bitrix:advertising.banner',
+            '',
             [
-                "QUANTITY" => "2",
+                "QUANTITY" => "1",
                 "TYPE" => "MAIN",
             ]);?>
         <!--/Слайдер-->
@@ -17,8 +17,8 @@ $APPLICATION->SetTitle("Интернет-магазин");
         <!--Каталоги-->
         <?php
         $APPLICATION->IncludeComponent(
-                'bitrix:main.include',
-        '',
+            'bitrix:main.include',
+            '',
         [
             'AREA_FILE_SHOW' => 'file',
             'PATH' => 'include/mainPage/catalog.php'

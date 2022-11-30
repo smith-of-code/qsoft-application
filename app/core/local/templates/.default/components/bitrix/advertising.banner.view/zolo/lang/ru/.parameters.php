@@ -11,4 +11,5 @@ $MESS ['ADV_BS_PARAMETER_HEADING'] = "Заголовок";
 $MESS ['ADV_BS_PARAMETER_ANNOUNCEMENT_SHOW'] = "Показать анонс";
 $MESS ['ADV_BS_PARAMETER_ANNOUNCEMENT_TEXT'] = "Текст анонса";
 $MESS ['ADV_BS_PARAMETER_ANNOUNCEMENT'] = "Анонс";
-$MESS ['ADV_BS_PARAMETER_SALE_TEXT'] = "Введите размер скидки";
+$MESS ['ADV_BS_PARAMETER_SALE_TEXT'] = "Введите размер скидки (например \"-10%\")";
+$MESS ['ADV_BS_PARAMETER_LINK'] = "Ссылка (относительная, например \"/catalog/\")";
