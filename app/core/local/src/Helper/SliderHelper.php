@@ -84,7 +84,7 @@ class SliderHelper
                 $result['FILTER']['ID'][] = $element['UF_ELEMENT_ID'];
 
             } elseif ($sliderElementTypes[$element['UF_TYPE']] === 'BANNER') {
-                $banner = \CAdvBanner::GetByID($element['UF_ELEMENT_ID'])->Fetch();
+                $banner = \CAdvBanner::GetByID($element['UF_ELEMENT_ID'], 'N')->Fetch();
 
                 if ($banner && $banner['CODE_TYPE'] === 'html') {
                     $result['BANNERS'][$banner['ID']] = $banner;
