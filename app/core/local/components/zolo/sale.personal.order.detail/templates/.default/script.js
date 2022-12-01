@@ -8,8 +8,7 @@ window.onload = function () {
 }
 
 function repeatOrder() {
-    let result = window.stores.basketStore.repeatOrder(orderId);
-    console.log(result);
+    window.stores.basketStore.repeatOrder(orderId);
 }
 
 //пагинация товаров

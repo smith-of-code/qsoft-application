@@ -19,8 +19,8 @@ use Bitrix\Sale\Fuser;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use \QSoft\Service\ProductService;
-use \http\Exception\RuntimeException;
 use Bitrix\Sale\Order;
+use Bitrix\Sale\Internals\BasketTable;
 
 class BasketLineController extends Controller
 {
@@ -191,16 +191,10 @@ class BasketLineController extends Controller
         $basketOld = $orderOld->getBasket();
 
         if ($basketOld->isEmpty()) {
-            return [
-                'status' => 'success',
-                'items' => [],
-                'missing' => [],
-                'basketPrice' => 0,
-                'isBasketOldEmpty' => 'true'
-            ];
+            throw new RuntimeException('Заказ с номером ' . $orderId . ' имеет пустую корзину');
         }
 
-        $ids = array_map(fn($item) => $item->getProductId(), $basketOld->getBasketItems());
+        $ids = array_map(static fn($item) => $item->getProductId(), $basketOld->getBasketItems());
 
         $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
 
@@ -211,7 +205,10 @@ class BasketLineController extends Controller
             $requiredQuantity = $basketItem->getQuantity();
             $availableQuantity = $offer['CATALOG_QUANTITY'];
             if ($availableQuantity == 0) {
-                $missing[] = $offer;
+                $missing[] = [
+                    'ID' => $offer['ID'],
+                    'NAME' => $offer['NAME'],
+                ];
                 continue;
             }
 
@@ -227,20 +224,25 @@ class BasketLineController extends Controller
         }
         $result = $this->getBasketTotalsAction();
         $result['missing'] = $missing;
-        $result['isBasketOldEmpty'] = 'false';
         return $result;
     }
 
     private function clearBasket(): void
     {
-        $res = CSaleBasket::GetList(array(), array(
-            'FUSER_ID' => Fuser::getId(),
-            'LID' => SITE_ID,
-            'ORDER_ID' => 'null',
-            'DELAY' => 'N',
-            'CAN_BUY' => 'Y'));
-        while ($row = $res->fetch()) {
-            CSaleBasket::Delete($row['ID']);
+        $res = BasketTable::getList([
+            'select' => [
+                'ID'
+            ],
+            'filter' => [
+                'FUSER_ID' => Fuser::getId(),
+                'LID' => SITE_ID,
+                'ORDER_ID' => 'null',
+                'DELAY' => 'N',
+                'CAN_BUY' => 'Y'
+            ]
+        ])->fetchAll();
+        foreach ($res as $item) {
+            CSaleBasket::Delete($item['ID']);
         }
     }
 }
