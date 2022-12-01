@@ -200,7 +200,7 @@ class BasketLineController extends Controller
             ];
         }
 
-        $ids = array_map(fn($item) => $item->getProductId(), $basketOld->getBasketItems());
+        $ids = array_map(static fn($item) => $item->getProductId(), $basketOld->getBasketItems());
 
         $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
 
