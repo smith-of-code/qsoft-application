@@ -46,13 +46,7 @@ $APPLICATION->IncludeComponent(
             'AREA_FILE_SHOW' => 'file',
             'PATH' => '/include/about/advantages.php',
         ]);
-        $APPLICATION->IncludeComponent(
-            'bitrix:main.include',
-            '',
-        [
-            'AREA_FILE_SHOW' => 'file',
-            'PATH' => '/include/about/cert.php',
-        ]);
+        $APPLICATION->IncludeComponent('zolo:about.cert', '');
         $APPLICATION->IncludeComponent(
             'bitrix:main.include',
             '',
@@ -67,13 +61,7 @@ $APPLICATION->IncludeComponent(
             'AREA_FILE_SHOW' => 'file',
             'PATH' => '/include/about/preview.php',
         ]);
-        $APPLICATION->IncludeComponent(
-        'bitrix:main.include',
-        '',
-        [
-            'AREA_FILE_SHOW' => 'file',
-            'PATH' => '/include/about/howbecome.php',
-        ]);
+        $APPLICATION->IncludeComponent('zolo:about.howbecome', '');
         $APPLICATION->IncludeComponent(
             'bitrix:main.include',
             '',
@@ -81,13 +69,7 @@ $APPLICATION->IncludeComponent(
             'AREA_FILE_SHOW' => 'file',
             'PATH' => '/include/about/contacts.php',
         ]);
-        $APPLICATION->IncludeComponent(
-            'bitrix:main.include',
-            '',
-        [
-            'AREA_FILE_SHOW' => 'file',
-            'PATH' => '/include/about/info.php',
-        ]);?>
+        $APPLICATION->IncludeComponent('zolo:about.info', '');?>
     </div>
 </div>
 </main>
