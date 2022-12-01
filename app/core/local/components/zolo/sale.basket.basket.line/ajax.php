@@ -178,7 +178,7 @@ class BasketLineController extends Controller
     public function repeatOrderAction(int $orderId): array
     {
         //очистка корзины
-        $this->clearBasket();
+        (Basket::loadItemsForFUser(Fuser::getId(), SITE_ID))->clearCollection();
 
         //повторить заказ
         //объект заказа
@@ -225,24 +225,5 @@ class BasketLineController extends Controller
         $result = $this->getBasketTotalsAction();
         $result['missing'] = $missing;
         return $result;
-    }
-
-    private function clearBasket(): void
-    {
-        $res = BasketTable::getList([
-            'select' => [
-                'ID'
-            ],
-            'filter' => [
-                'FUSER_ID' => Fuser::getId(),
-                'LID' => SITE_ID,
-                'ORDER_ID' => 'null',
-                'DELAY' => 'N',
-                'CAN_BUY' => 'Y'
-            ]
-        ])->fetchAll();
-        foreach ($res as $item) {
-            CSaleBasket::Delete($item['ID']);
-        }
     }
 }
