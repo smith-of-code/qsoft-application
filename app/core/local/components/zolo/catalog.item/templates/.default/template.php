@@ -78,7 +78,11 @@ if (isset($arResult['ITEM']))
 
     $actualItem = reset($jsInfo['offers']);
     ?>
-    <li class="product-cards__item" id="<?=$arResult['AREA_ID']?>" data-entity="item">
+    <li class="product-cards__item<?= $arParams['EXPANDABLE']['CONTAINER_CLASS'] ? ' ' . $arParams['EXPANDABLE']['CONTAINER_CLASS'] : '' ?>"
+        id="<?=$arResult['AREA_ID']?>"
+        data-entity="item"
+        <?= $arParams['EXPANDABLE']['CONTAINER_DATA'] ?? ''?>
+    >
         <article class="product-card box box--circle box--hovering box--grayish" id="<?=$jsInfo['id']?>">
 
             <a href="<?=$item['DETAIL_PAGE_URL']?>" class="product-card__link"></a>
