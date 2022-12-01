@@ -163,7 +163,7 @@ $APPLICATION->SetTitle("Интернет-магазин");
                 "SECTION_ID" => "",
                 "SECTION_CODE" => "",
                 "SECTION_URL" => "/catalog/#SECTION_CODE_PATH#/",
-                "DETAIL_URL" => "/catalog/#SECTION_CODE_PATH#/#CODE#",
+                "DETAIL_URL" => "/catalog/#SECTION_CODE_PATH#/#CODE#/",
                 "USE_MAIN_ELEMENT_SECTION" => "N",
                 "CONVERT_CURRENCY" => "N",
                 "CURRENCY_ID" => "",
