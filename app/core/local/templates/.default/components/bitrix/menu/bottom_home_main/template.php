@@ -26,10 +26,16 @@ $loginLink = '/login/';
     </li>
     <?php foreach($arResult as $itemIndex => $arItem):?>
         <li class="footer__item">
+            <?php if (! empty($arItem["LINK"])): ?>
             <a
                 href="<?=$isAuthorize ? htmlspecialcharsbx($arItem["LINK"]) : $loginLink ?>"
                 class="footer__link" <?=$isAuthorize ? $arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' : '' ?>
             ><?=htmlspecialcharsbx($arItem["TEXT"], ENT_COMPAT, false);?></a>
+            <?php else: ?>
+            <p
+                <?=$isAuthorize ? $arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' : '' ?>
+            ><?=htmlspecialcharsbx($arItem["TEXT"], ENT_COMPAT, false);?></p>
+            <?php endif; ?>
         </li>
     <?php endforeach;?>
 </ul>   
