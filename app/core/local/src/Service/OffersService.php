@@ -113,6 +113,10 @@ class OffersService
      */
     public function updateAllOffersBonuses() {
 
+        $limit = 100;
+        $offset = 0;
+        $isAllProcessed = false;
+
         $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
         $loyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
 
@@ -121,36 +125,58 @@ class OffersService
         // Получим ID группы Консультантов
         $groups = UserGroupHelper::getAllUserGroups();
 
-        // Получаем торговые предложения
-        $offers = \Bitrix\Iblock\ElementTable::getList([
-            'select' => ['ID'],
-            'filter' => ['=IBLOCK_ID' => $this->offersIbId],
-            'cache' => ['ttl' => 86400],
-        ])->fetchAll();
+        $count = 0;
 
-        foreach ($offers as $offer) {
+        while (! $isAllProcessed) {
 
-            // Получим цену с учетом скидок
-            $prices = \CCatalogProduct::GetOptimalPrice(
-                $offer['ID'],
-                1,
-                [$groups['consultant']],
-                'N',
-                [],
-                's1'
-            );
+            // Получаем торговые предложения
+            $offers = \Bitrix\Iblock\ElementTable::getList([
+                'select' => ['ID'],
+                'filter' => ['=IBLOCK_ID' => $this->offersIbId],
+                'cache' => ['ttl' => 86400],
+                'limit' => $limit,
+                'offset' => $offset,
+            ])->fetchAll();
 
-            // Вычисляем количество бонусов
-            $propsToSet = [];
-            foreach ($levelsCodes as $code) {
-                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
-                $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
+            if (empty($offers)) {
+                $isAllProcessed = true;
+            } else {
 
-                $propsToSet['BONUSES_' . $code] = $bonuses;
+                $offset += $limit;
+
+                foreach ($offers as $offer) {
+
+                    $count += 1;
+
+                    // Получим цену с учетом скидок
+                    $prices = \CCatalogProduct::GetOptimalPrice(
+                        $offer['ID'],
+                        1,
+                        [$groups['consultant']],
+                        'N',
+                        [],
+                        's1'
+                    );
+
+                    if ($prices) {
+
+                        // Вычисляем количество бонусов
+                        $propsToSet = [];
+                        foreach ($levelsCodes as $code) {
+                            $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
+                            $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
+
+                            $propsToSet['BONUSES_' . $code] = $bonuses;
+                        }
+
+                        // Записываем свойства
+                        \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
+
+                    }
+                }
             }
-
-            // Записываем свойства
-            \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
         }
+
+        //dump('Обработано ' . $count . ' ТП');
     }
 }
