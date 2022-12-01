@@ -33,7 +33,8 @@ abstract class BaseJob
         try {
             $this->process($data);
         } catch (Throwable $e) {
-            // TODO: Log it
+            //TODO: Запись в логи
+            echo 'ERROR: ' . $e;
         }
     }
 

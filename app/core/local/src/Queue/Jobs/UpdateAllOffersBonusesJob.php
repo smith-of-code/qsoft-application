@@ -2,10 +2,9 @@
 
 namespace QSoft\Queue\Jobs;
 
-use QSoft\Foundation\Component\Exception;
 use QSoft\Service\OffersService;
 
-class BonusesPriceJob extends BaseJob
+class UpdateAllOffersBonusesJob extends BaseJob
 {
     public function __construct()
     {
@@ -13,7 +12,7 @@ class BonusesPriceJob extends BaseJob
 
     protected function getQueueName(): string
     {
-        return 'bonuses-price';
+        return 'update-all-offers-bonuses';
     }
 
     /**
@@ -22,12 +21,11 @@ class BonusesPriceJob extends BaseJob
     protected function process($data)
     {
         $offersService = new OffersService();
-        $offersService->setOfferBonuses((int)$data['offerId'], (float)$data['priceValue']);
-        $offersService->setOfferDiscountPrices((int)$data['offerId'], (float)$data['priceValue']);
+        $offersService->updateAllOffersBonuses();
     }
 
     protected function validateInputData($data): bool
     {
-        return is_array($data) && !empty($data['offerId']) && !empty($data['priceValue']);
+        return true;
     }
 }
