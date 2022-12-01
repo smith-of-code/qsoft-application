@@ -4,7 +4,7 @@ $aMenuLinks = Array(
         '8 (800) 123-45-67',
 		"",
 		Array(),
-		Array(),
+		Array('NO_LINK' => true),
 		""
 	),
 
@@ -12,14 +12,14 @@ $aMenuLinks = Array(
         'dogcathappy@ame.ru',
 		"",
 		Array(), 
-		Array(), 
+		Array('NO_LINK' => true),
 		"" 
 	),
 	Array(
         'Москва, Проспект Мира, 87',
 		"",
 		Array(), 
-		Array(), 
+		Array('NO_LINK' => true),
 		"" 
 	),
 );
