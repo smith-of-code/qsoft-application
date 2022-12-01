@@ -23,31 +23,23 @@ export default function (update) {
         if (update) {
             document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopDestroy();
             document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopCreate();
-            //document.querySelector(ELEMENTS_SELECTOR.container).swiper.pagination.render();
-            //document.querySelector(ELEMENTS_SELECTOR.container).swiper.slideTo(0);
-            //document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.pagination.render();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.slideToLoop(0, 1000);
            
             const images = $(ELEMENTS_SELECTOR.productImage, wrap);
             const imagesPag = pagination.find('.swiper-pagination-bullet__image');
-            console.log(imagesPag);
-            //const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
-            //const video = images[index]?.getAttribute('poster') !== undefined;
-          
+            
             images.each((index, item) => {
                 const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
                 const video = images[index]?.getAttribute('poster') !== undefined;
-                
-                console.log(currentImage, 'img');
-                //console.log(video, 'video');
-
+            
                 imagesPag.each((indexItem, element) => {
                     const indexBullets = $(element).attr('data-index');
-                    console.log(indexBullets);
-                    console.log(indexItem === index);
+
                     if (indexItem === index) {
                         $(element).attr('src', currentImage);
                     }
-                    
                 })
             })
             
