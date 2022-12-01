@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="form__row">
+    <div class="form__row" data-password-container>
         <div class="form__col">
             <div class="form__field">
                 <div class="form__field-block form__field-block--label">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny">
+                <button type="button" class="form__field-button button button--simple button--red button--underlined button--tiny" data-password-generate>
                     Сгенерировать пароль
                 </button>
             </div>
@@ -100,7 +100,7 @@
         </div>
 
         <div class="registration__actions-col">
-            <button class="button button--rounded button--covered button--red button--full" data-register>
+            <button class="button button--rounded button--covered button--green button--full" data-register>
                 <span class="button__text">Зарегистрироваться</span>
             </button>
         </div>

@@ -46,8 +46,6 @@ $this->setFrameMode(true);
                             "HIDE_SECTION_NAME" => $arParams["HIDE_SECTION_NAME"],
                             "ADD_SECTIONS_CHAIN" => "N", // Отключено, т. к. уже добавляется
                         );
-                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
-                        $sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
                         $APPLICATION->IncludeComponent(
                             "zolo:catalog.section.list",
                             "",
@@ -95,7 +93,8 @@ $this->setFrameMode(true);
                                         <p class="range__heading heading heading--small"><?=$arItem["NAME"]?></p>
                                     </div>
                                     <div class="range-slider"
-                                         data-range-slider data-min="<?= floor($arItem["VALUES"]["MIN"]["VALUE"])?>"
+                                         data-range-slider
+                                         data-min="<?= floor($arItem["VALUES"]["MIN"]["VALUE"])?>"
                                          data-max="<?= ceil($arItem["VALUES"]["MAX"]["VALUE"])?>"
                                          data-step="1"
                                     ></div>
@@ -108,11 +107,10 @@ $this->setFrameMode(true);
                                                 <div class="input input--mini input--prefix">
                                                     <input type="number"
                                                            data-range-min="min"
-                                                           value="<?= floor($arItem["VALUES"]["MIN"]["VALUE"])?>"
+                                                           value="<?= floor($arItem["VALUES"]["MIN"]["HTML_VALUE"] ?? $arItem["VALUES"]["MIN"]["VALUE"])?>"
                                                            id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"
                                                            name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
                                                            class="range__input input__control"
-                                                           onkeyup="smartFilter.keyup(this)"
                                                     >
                                                 </div>
                                             </div>
@@ -126,11 +124,10 @@ $this->setFrameMode(true);
                                                 <div class="input input--mini input--prefix">
                                                     <input type="number"
                                                            data-range-max="max"
-                                                           value="<?= ceil($arItem["VALUES"]["MAX"]["VALUE"])?>"
+                                                           value="<?= ceil($arItem["VALUES"]["MAX"]["HTML_VALUE"] ?? $arItem["VALUES"]["MAX"]["VALUE"])?>"
                                                            id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"
                                                            name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
                                                            class="range__input input__control"
-                                                           onkeyup="smartFilter.keyup(this)"
                                                     >
                                                 </div>
                                             </div>
@@ -156,9 +153,7 @@ $this->setFrameMode(true);
                                                                id="<?= $ar["CONTROL_ID"] ?>"
                                                                value="<?= $ar["HTML_VALUE"] ?>"
                                                                name="<?= $ar["CONTROL_NAME"] ?>"
-                                                               <? echo $ar["CHECKED"]? 'checked="checked"': '' ?>
-                                                               <? echo $ar["DISABLED"] ? 'disabled': '' ?>
-                                                               onclick="smartFilter.click(this)"
+                                                               <? echo $ar["CHECKED"] ? 'checked="checked"': '' ?>
                                                         >
                                                         <label for="<?= $ar["CONTROL_ID"] ?>" class="filter__swither-label switcher__label" data-role="label_<?=$ar["CONTROL_ID"]?>">
                                                             <span class="switcher__text switcher__text--left"><?= $arItem["NAME"] ?></span>
@@ -195,8 +190,6 @@ $this->setFrameMode(true);
                                                                name="<?= $ar["CONTROL_NAME"] ?>"
                                                                id="<?= $ar["CONTROL_ID"] ?>"
                                                                <?= $ar["CHECKED"] ? 'checked="checked"': '' ?>
-                                                               <?= $ar["DISABLED"] ? 'disabled': '' ?>
-                                                               onclick="smartFilter.click(this)"
                                                         >
 
                                                         <label data-role="label_<?= $ar["CONTROL_ID"] ?>"
@@ -237,12 +230,18 @@ $this->setFrameMode(true);
                     <?php endforeach;?>
 
                     <div class="filter__action">
-                        <input class="button button--rounded-big button--covered button--green button--full"
+                        <input class="filter__row"
+                               style="display: none;"
                                type="submit"
                                id="set_filter"
                                name="set_filter"
-                               value="Применить"
-                        />
+                               value="Y"
+                        >
+                        <label class="button button--rounded-big button--covered button--green button--full"
+                               for="set_filter"
+                        >
+                            Применить
+                        </label>
                     </div>
                 </form>
             </div>

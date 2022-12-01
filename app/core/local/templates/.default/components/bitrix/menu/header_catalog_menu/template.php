@@ -87,9 +87,9 @@ global $USER;
 
                     <div class="menu__content">
                         <div class="menu__row">
-                            
-                            <?php foreach ($arResult as $parentSection): ?>
-                                <div class="menu__col">
+
+                            <?php foreach (array_values($arResult) as $index => $parentSection): ?>
+                                <div class="menu__col <?=$index ? 'menu__col--right' : ''?>">
                                     <ul class="menu__list">
                                         <li class="menu__item menu__item--heading">
                                             <a href="<?=$parentSection['LINK']?>"

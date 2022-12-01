@@ -67,14 +67,16 @@ export const LoyaltyReport = {
     },
 
     methods: {
-        async changeAccountingPeriod() {
-            const period = $('select[name=accounting_periods]').val().split('-');
+        async changeAccountingPeriod(data) {
+            if (!data) {
+                const period = $('select[name=accounting_periods]').val().split('-');
+                const response = await this.loyaltySalesReportStore.getDataByPeriod(period[0], period[1]);
+                data = response.data;
+            }
 
-            const response = await this.loyaltySalesReportStore.getDataByPeriod(period[0], period[1]);
-
-            this.mutableLoyaltyStatus = response.data.loyalty_status;
-            this.mutableOrdersReport = response.data.orders_report;
-            this.mutableBonusesIncome = response.data.bonuses_income;
+            this.mutableLoyaltyStatus = data.loyalty_status;
+            this.mutableOrdersReport = data.orders_report;
+            this.mutableBonusesIncome = data.bonuses_income;
 
             const diagram = $(`#${this.componentId}`)[0];
             diagram.myChart.data = this.mutableBonusesIncome.js_data;
@@ -111,8 +113,13 @@ export const LoyaltyReport = {
 
                     <div v-if="user.pets" class="participant__col participant__col--pets">
                         <div class="participant__info">
-                            <span class="participant__info-name">Уровень</span>
-                            <div class="participant__info-pets">
+                            <span class="participant__info-name">Питомец</span>
+                            <div v-if="!user.pets.length" class="participant__info-pets">
+                                <div class="participant__info-pet">
+                                    Нет
+                                </div>
+                            </div>
+                            <div v-else class="participant__info-pets">
                                 <div v-for="pet in user.pets" :key="pet" class="participant__info-pet" :class="'participant__info-pet--' + pet">
                                     <svg class="icon" :class="'icon--' + pet">
                                         <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + pet + '-seating'"></use>
@@ -194,7 +201,7 @@ export const LoyaltyReport = {
                     </form>
                 </div>
 
-                <div class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
+                <div v-if="user.is_consultant === 'true'" class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
                     <h5 class="accounting__diagramm-title">Мой заработок</h5>
 
                     <div class="diagramm diagramm--simple">
@@ -228,7 +235,7 @@ export const LoyaltyReport = {
                     </div>
                 </div>
 
-                <div class="participant__section">
+                <div v-if="user.is_consultant === 'true'" class="participant__section">
                     <h5 class="participant__section-title">
                         Плановые показатели
                     </h5>
@@ -285,7 +292,7 @@ export const LoyaltyReport = {
                     </h5>
 
                     <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
-                        <nav class="tabs__items">
+                        <nav v-if="user.is_consultant === 'true'" class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">
                                     Личные

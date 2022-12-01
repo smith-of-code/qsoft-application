@@ -132,7 +132,7 @@ class UserGroupsService
      */
     public function isConsultant(): bool
     {
-        return $this->isInAGroup(self::USER_GROUP_CONSULTANT);
+        return $this->user->isAuthorized && $this->isInAGroup(self::USER_GROUP_CONSULTANT);
     }
 
     /**
@@ -141,6 +141,6 @@ class UserGroupsService
      */
     public function isBuyer(): bool
     {
-        return $this->isInAGroup(self::USER_GROUP_BUYER);
+        return $this->user->isAuthorized && $this->isInAGroup(self::USER_GROUP_BUYER);
     }
 }

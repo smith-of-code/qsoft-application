@@ -15,7 +15,15 @@
     &__heading {
         margin-bottom: rem($gap-average);
 
+        @media #{$screen-tablet} {
+            font-size: rem($font-size-normal);
+            line-height: ($line-height-normal / $font-size-normal);
+        }
+
         @media #{$screen-desktop} {
+            font-size: rem($font-size-average);
+            line-height: ($line-height-average / $font-size-average);
+
             margin-bottom: rem($gap-medium);
         }
     }

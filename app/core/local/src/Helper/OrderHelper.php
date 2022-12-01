@@ -5,6 +5,7 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Sale\Basket\Storage;
+use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Internals\DiscountCouponTable;
 use Bitrix\Sale\Internals\DiscountTable;
@@ -16,6 +17,7 @@ use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
 use Bitrix\Sale\PropertyValue;
 use CFile;
 use QSoft\Entity\User;
+use QSoft\ORM\BeneficiariesTable;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\NotificationTable;
 use QSoft\ORM\TransactionTable;
@@ -24,11 +26,13 @@ use QSoft\Service\ProductService;
 class OrderHelper
 {
     public const ACCOMPLISHED_STATUS = 'F';
+    public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
     public const FULL_REFUNDED_STATUS = 'FR';
 
     public const ORDER_STATUSES = [
         'accomplished' => self::ACCOMPLISHED_STATUS,
+        'cancelled' => self::CANCELLED_STATUS,
         'partly_refunded' => self::PARTLY_REFUNDED_STATUS,
         'full_refunded' => self::FULL_REFUNDED_STATUS,
     ];
@@ -62,12 +66,10 @@ class OrderHelper
             ],
         ])->fetchAll();
 
-        return array_map(static function (array $order): array {
-            return array_combine(
-                array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
-                $order
-            );
-        }, $result);
+        return array_map(static fn (array $order): array => array_combine(
+            array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
+            $order
+        ), $result);
     }
 
     public function getUserCoupons(int $userId): array
@@ -94,12 +96,10 @@ class OrderHelper
             ],
         ])->fetchAll();
 
-        return array_map(static function (array $coupon): array {
-            return array_combine(
-                array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
-                $coupon
-            );
-        }, $result);
+        return array_map(static fn (array $coupon): array => array_combine(
+            array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
+            $coupon
+        ), $result);
     }
 
     public function createOrder(int $userId, array $data)
@@ -140,18 +140,46 @@ class OrderHelper
 
         $propertyCollection = $order->getPropertyCollection();
         $propertyCollection->getPhone()->setValue($data['phone']);
-        $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
+
+        // TODO: Выяснить причину отсутствия результата выполнения кода. Закоментировал на это время.
+        // Закоментировал, так-как не обнаружил причину бага,
+        // но при этом технически отсутствие этих данных не скажется на функционале.
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
+
+        $orderBonusesData = [];
+        if ($user->groups->isConsultant()) {
+            $orderBonusesData[] = [
+                'user_id' => $userId,
+                'value' => $user->loyalty->calculateBonusesByPrice($order->getPrice()),
+            ];
+        }
+        foreach (BeneficiariesTable::getUserBeneficiaries($userId) as $beneficiaryId) {
+            $beneficiary = new User($beneficiaryId);
+            $orderBonusesData[] = [
+                [
+                    'user_id' => $beneficiaryId,
+                    'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
+                ],
+            ];
+        }
+
         $propertyCollection->getUserEmail()->setValue($data['email']);
         $propertyCollection->getAddress()->setValue($data['delivery_address']);
         /** @var PropertyValue $property */
         foreach ($propertyCollection as $property) {
-            if ($property->getField('CODE') === 'city') {
-                $property->setValue($data['city']);
+            switch ($property->getField('CODE')) {
+                case 'city':
+                    $property->setValue($data['city']);
+                    break;
+                case 'POINTS':
+                    if ($data['bonuses_subtract']) {
+                        $property->setValue($data['bonuses_subtract']);
+                    }
+                    break;
+                case 'BONUSES_DATA':
+                    $property->setValue(json_encode($orderBonusesData));
+                    break;
             }
-        }
-
-        if ($data['order_bonuses']) {
-            $this->bonusAccountHelper->addOrderBonuses($user, $data['order_bonuses']);
         }
 
         if ($data['bonuses_subtract']) {
@@ -181,7 +209,10 @@ class OrderHelper
                 'total_sum' => .0,
                 'current_period_sum' => .0,
                 'current_period_bonuses' => 0,
+                'orders_count' => 0,
+                'current_orders_count' => 0,
                 'paid_orders_count' => 0,
+                'refunded_orders_count' => 0,
                 'part_refunded_orders_count' => 0,
                 'full_refunded_orders_count' => 0,
                 'last_month_products' => [],
@@ -191,7 +222,10 @@ class OrderHelper
                 'total_sum' => .0,
                 'current_period_sum' => .0,
                 'current_period_bonuses' => 0,
+                'orders_count' => 0,
+                'current_orders_count' => 0,
                 'paid_orders_count' => 0,
+                'refunded_orders_count' => 0,
                 'part_refunded_orders_count' => 0,
                 'full_refunded_orders_count' => 0,
                 'last_month_products' => [],
@@ -223,25 +257,32 @@ class OrderHelper
         ]);
 
         $now = new Date;
+        $checkedOrders = [];
         $lastMonthOrders = [];
+        $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
         $groupSourceFieldId = EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['group']);
         $pointsMeasureFieldId = EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']);
         foreach ($transactions as $transaction) {
             $date = new Date($transaction['UF_CREATED_AT']);
+            $orderAccountingPeriod = $this->loyaltyProgramHelper->getAccountingPeriod($date);
             $source = $transaction['UF_SOURCE'] === $groupSourceFieldId ? 'team' : 'self';
 
             $result[$source]['last_order_date'] = $date;
 
-            switch ($transaction['ORDER_STATUS']) {
-                case self::ACCOMPLISHED_STATUS:
-                    $result[$source]['paid_orders_count']++;
-                    break;
-                case self::PARTLY_REFUNDED_STATUS:
-                    $result[$source]['part_refunded_orders_count']++;
-                    break;
-                case self::FULL_REFUNDED_STATUS:
-                    $result[$source]['full_refunded_orders_count']++;
-                    break;
+            if (!in_array($transaction['UF_ORDER_ID'], $checkedOrders)) {
+                switch ($transaction['ORDER_STATUS']) {
+                    case self::ACCOMPLISHED_STATUS:
+                        $result[$source]['paid_orders_count']++;
+                        break;
+                    case self::PARTLY_REFUNDED_STATUS:
+                        $result[$source]['refunded_orders_count']++;
+                        $result[$source]['part_refunded_orders_count']++;
+                        break;
+                    case self::FULL_REFUNDED_STATUS:
+                        $result[$source]['refunded_orders_count']++;
+                        $result[$source]['full_refunded_orders_count']++;
+                        break;
+                }
             }
 
             if ($transaction['UF_MEASURE'] === $pointsMeasureFieldId) {
@@ -250,7 +291,12 @@ class OrderHelper
                     && !$date->getDiff($to)->invert
                 ) $result[$source]['current_period_bonuses'] += $transaction['UF_AMOUNT'];
             } else {
+                $result[$source]['orders_count']++;
                 $result[$source]['total_sum'] += $transaction['UF_AMOUNT'];
+
+                if ($currentAccountingPeriod['name'] === $orderAccountingPeriod['name']) {
+                    $result[$source]['current_orders_count']++;
+                }
 
                 if (
                     $date->getDiff($from)->invert
@@ -261,6 +307,7 @@ class OrderHelper
                     $lastMonthOrders[$source][] = $transaction['UF_ORDER_ID'];
                 }
             }
+            $checkedOrders[] = $transaction['UF_ORDER_ID'];
         }
 
         if (count($lastMonthOrders['self'])) {

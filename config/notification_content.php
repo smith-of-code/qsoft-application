@@ -25,6 +25,14 @@ return  [
                 'message' => 'Ваша заявка на смену персональных данных была рассмотрена и одобрена. Данные изменены.',
                 'link_template' => '/personal/'
             ],
+            'CHANGE_OF_LEGAL_ENTITY_DATA' => [
+                'message' => 'Ваша заявка на смену юридических данных была рассмотрена и одобрена. Данные изменены.',
+                'link_template' => '/personal/'
+            ],
+            'BECOME_CONSULTANT' => [
+                'message' => 'Ваша заявка на смену роли была рассмотрена и одобрена. Данные изменены.',
+                'link_template' => '/personal/'
+            ],
             'REGISTRATION' => [
                 'message' => 'Ваша заявка на регистрацию была рассмотрена была рассмотрена и одобрена.',
                 'link_template' => '',
@@ -42,6 +50,14 @@ return  [
         'REJECTED' => [
             'CHANGE_OF_PERSONAL_DATA' => [
                 'message' => 'Ваша заявка на смену персональных данных была отклонена.',
+                'link_template' => ''
+            ],
+            'CHANGE_OF_LEGAL_ENTITY_DATA' => [
+                'message' => 'Ваша заявка на смену юридических данных была отклонена.',
+                'link_template' => ''
+            ],
+            'BECOME_CONSULTANT' => [
+                'message' => 'Ваша заявка на смену роли была отклонена.',
                 'link_template' => ''
             ],
             'REGISTRATION' => [

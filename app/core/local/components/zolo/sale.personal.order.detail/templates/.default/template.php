@@ -217,7 +217,8 @@ $details = $arResult['ORDER_DETAILS'];
                             </div>
 
                             <!-- Кнопка Вернуть заказ -->
-                            <button type="button" class="card-order__return button button--simple button--red">
+                            <button type="button" class="card-order__return button button--simple button--red" data-fancybox data-modal-type="modal"
+                                    data-src="#technical-support" data-selected="REFUND_ORDER">
                                 <span class="button__icon">
                                     <svg class="icon icon--return">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-return"></use>

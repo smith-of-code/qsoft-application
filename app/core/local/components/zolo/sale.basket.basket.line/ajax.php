@@ -14,12 +14,15 @@ use Bitrix\Main\NotImplementedException;
 use Bitrix\Main\ObjectNotFoundException;
 use Bitrix\Main\Request;
 use Bitrix\Sale\Basket;
+use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
-use Bitrix\Sale\Discount;
 use Bitrix\Sale\Fuser;
+use QSoft\Helper\BasketHelper;
 
 class BasketLineController extends Controller
 {
+    private BasketHelper $basketHelper;
+
     /**
      * @throws LoaderException
      */
@@ -27,6 +30,8 @@ class BasketLineController extends Controller
     {
         parent::__construct($request);
         $this->initModules();
+
+        $this->basketHelper = new BasketHelper;
     }
 
     /**
@@ -68,23 +73,9 @@ class BasketLineController extends Controller
      * @throws NotImplementedException
      * @throws InvalidOperationException
      */
-    public function getBasketTotalsAction(): array
+    public function getBasketTotalsAction(string $withPersonalPromotions = 'false'): array
     {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        $context = new Discount\Context\Fuser($basket->getFUserId());
-        if ($discounts = Discount::buildFromBasket($basket, $context)) {
-            $discountsResult = $discounts->calculate();
-            if (!$discountsResult->isSuccess()) {
-                throw new RuntimeException($discountsResult->getErrorMessages());
-            }
-            $discountsData = $discountsResult->getData();
-            if ($discountsData['BASKET_ITEMS']) {
-                $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
-                if (!$applyResult->isSuccess()) {
-                    throw new RuntimeException($applyResult->getErrorMessages());
-                }
-            }
-        }
+        $basket = $this->basketHelper->getBasket($withPersonalPromotions === 'true');
         $basketItems = $basket->toArray();
         return [
             'status' => 'success',
@@ -107,20 +98,31 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function increaseItemAction(int $offerId, int $bonuses, int $quantity = 1): array
-    {
+    public function increaseItemAction(
+        int $offerId,
+        ?string $detailPage = null,
+        string $nonreturnable = 'false',
+        string $withPersonalPromotions = 'false',
+        int $quantity = 1
+    ): array {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        if ($item = $basket->getExistsItem('catalog', $offerId)) {
-            $result = $item->setField('QUANTITY', $item->getQuantity() + 1);
+        if ($item = $this->getExistBasketItem($basket, $offerId)) {
+            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
+            $basket->save();
         } else {
             $result = \Bitrix\Catalog\Product\Basket::addProduct([
                 'PRODUCT_ID' => $offerId,
                 'QUANTITY' => $quantity,
                 'PROPS' => [
                     [
-                        'NAME' => 'Бонусы',
-                        'CODE' => 'BONUSES',
-                        'VALUE' => $bonuses,
+                        'NAME' => 'Детальная страница',
+                        'CODE' => 'DETAIL_PAGE',
+                        'VALUE' => $detailPage,
+                    ],
+                    [
+                        'NAME' => 'Невозвратный товар',
+                        'CODE' => 'NONRETURNABLE',
+                        'VALUE' => $nonreturnable === 'true',
                     ],
                 ],
             ]);
@@ -128,7 +130,18 @@ class BasketLineController extends Controller
         if (!$result->isSuccess()) {
             throw new RuntimeException($result->getErrorMessages());
         }
-        return $this->getBasketTotalsAction();
+        return $this->getBasketTotalsAction($withPersonalPromotions);
+    }
+
+    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
+    {
+        /** @var BasketItem $basketItem */
+        foreach ($basket->getBasketItems() as $basketItem) {
+            if ($basketItem->getProductId() === $offerId) {
+                return $basketItem;
+            }
+        }
+        return null;
     }
 
     /**
@@ -143,13 +156,13 @@ class BasketLineController extends Controller
      * @throws ObjectNotFoundException
      * @throws InvalidOperationException
      */
-    public function decreaseItemAction(int $offerId, int $quantity = 1): array
+    public function decreaseItemAction(int $offerId, string $withPersonalPromotions = 'false', int $quantity = 1): array
     {
         $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
         /** @var BasketItem $basketItem */
         foreach ($basket->getBasketItems() as $basketItem) {
             if ($basketItem->getProductId() === $offerId) {
-                if ($basketItem->getQuantity() > $quantity) {
+                if ($quantity && $basketItem->getQuantity() > $quantity) {
                     $basketItem->setField('QUANTITY', $basketItem->getQuantity() - $quantity);
                     $result = $basketItem->save();
                 } else {
@@ -162,6 +175,6 @@ class BasketLineController extends Controller
         if (isset($result) && !$result->isSuccess()) {
             throw new RuntimeException($result->getErrorMessages());
         }
-        return $this->getBasketTotalsAction();
+        return $this->getBasketTotalsAction($withPersonalPromotions);
     }
 }

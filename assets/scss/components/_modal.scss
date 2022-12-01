@@ -139,6 +139,14 @@
         }
     }
 
+    &--outer {
+        .fancybox {
+            &-close {
+                display: none;
+            }
+        }
+    }
+
     &__content {
         display: flex;
         flex-direction: column;
@@ -152,6 +160,10 @@
         @media #{$screen-tablet} {
             padding-top: rem(48px);
             padding-bottom: rem(64px);
+        }
+
+        &--support-notification {
+            background-color: $athensGray;
         }
     }
 
@@ -250,7 +262,7 @@
         }
 
         &-navigation {
-            display: none;
+            display: none !important;
         }
     }
 }

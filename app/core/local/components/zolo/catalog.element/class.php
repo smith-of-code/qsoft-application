@@ -1,6 +1,8 @@
 <?php
 
+use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main;
+use Bitrix\Main\Data\Cache;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
@@ -9,7 +11,6 @@ use Bitrix\Iblock\Model\PropertyFeature;
 use Bitrix\Iblock\Component\Element;
 use QSoft\Entity\User;
 use QSoft\Helper\HLReferencesHelper;
-use QSoft\Service\ProductService;
 
 if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
     die();
@@ -25,6 +26,8 @@ if (!Loader::includeModule('iblock'))
 
 class CatalogElementComponent extends Element
 {
+    private const CACHE_TTL = 3600;
+
     private bool $isError = false;
 
     private User $user;
@@ -74,9 +77,7 @@ class CatalogElementComponent extends Element
     {
         $this->checkModules();
         try {
-            if ($this->isError) {
-                return;
-            }
+            if ($this->isError)  return;
 
             if (!Loader::includeModule('iblock') || !Loader::includeModule('catalog')) {
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
@@ -86,7 +87,11 @@ class CatalogElementComponent extends Element
                 throw new Main\LoaderException(Loc::getMessage('IBLOCK_MODULE_NOT_INSTALLED'));
             }
 
-            if ($this->startResultCache()) {
+            $cache = Cache::createInstance();
+            $loyaltyLevel = $this->user->isAuthorized ? $this->user->loyaltyLevel : 0;
+            if ($cache->initCache(self::CACHE_TTL, "product-detail-{$this->arParams['ELEMENT_CODE']}-$loyaltyLevel")) {
+                $this->arResult = $cache->getVars();
+            } elseif ($cache->startDataCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
                     throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
                 }
@@ -136,25 +141,9 @@ class CatalogElementComponent extends Element
                 $this->arResult['EDIT_LINK'] = $buttons['edit']['edit_element']['ACTION_URL'];
                 $this->arResult['DELETE_LINK'] = $buttons['edit']['delete_element']['ACTION_URL'];
 
-                $this->setResultCacheKeys([]);
+                $this->arResult = $this->transformData($this->arResult);
+                $cache->endDataCache($this->arResult);
             }
-
-            $basketFilter = [
-                'FUSER_ID' => CSaleBasket::GetBasketUserID(),
-                'LID' => SITE_ID,
-            ];
-            $basketIterator = CSaleBasket::GetList([], $basketFilter, false, false, ['*']);
-
-            $basketInfo = [];
-            $productIdsString = array_column($this->arResult['OFFERS'], 'ID');
-            while($basket = $basketIterator->Fetch()) {
-                if (in_array($basket['PRODUCT_ID'], $productIdsString)) {
-                    $basketInfo[$basket['PRODUCT_ID']] = $basket;
-                }
-            }
-
-            $this->arResult['BASKET'] = $basketInfo;
-            $this->arResult = $this->transformData($this->arResult);
 
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -265,9 +254,12 @@ class CatalogElementComponent extends Element
 
     private function transformData(array $data): array
     {
+        $colors = HLReferencesHelper::getColorNames();
         $result = [
             'IS_CONSULTANT' => $this->user->isAuthorized && $this->user->groups->isConsultant(),
             'ID' => $data['PRODUCT']['ID'],
+            'IBLOCK_ID' => $data['PRODUCT']['IBLOCK_ID'],
+            'SECTION_ID' => $data['PRODUCT']['IBLOCK_SECTION_ID'],
             'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
@@ -279,9 +271,11 @@ class CatalogElementComponent extends Element
             'BESTSELLERS' => [],
             'PACKAGINGS' => [],
             'PHOTOS' => [],
+            'NONRETURNABLE' => (bool)$data['PRODUCT']['PROPERTY_NONRETURNABLE_PRODUCT_VALUE'],
             'PRODUCT_VIDEO' => $data['PRODUCT']['PROPERTY_VIDEO_VALUE'],
             'PRODUCT_IMAGE' => $data['FILES'][$data['PRODUCT']['DETAIL_PICTURE']],
             'DESCRIPTION' => $data['PRODUCT']['DETAIL_TEXT'],
+            'PRODUCT_FEATURES' => $data['PRODUCT']['PROPERTY_PRODUCT_FEATURES_VALUE'] ? $data['PRODUCT']['PROPERTY_PRODUCT_FEATURES_VALUE']['TEXT'] : null,
             'COMPOSITION' => $data['PRODUCT']['PROPERTY_COMPOSITION_VALUE'],
             'BREED' => $data['PRODUCT']['PROPERTY_BREED_VALUE'],
             'AGE' => $data['PRODUCT']['PROPERTY_AGE_VALUE'],
@@ -293,15 +287,20 @@ class CatalogElementComponent extends Element
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],
             'DOCUMENTS' => [],
-            'COLOR_NAMES' => HLReferencesHelper::getColorNames(),
-            'SIZE_NAMES' => HLReferencesHelper::getSizeNames(),
+            'COLOR_NAMES' => array_map(static fn (array $color) => $color['name'], $colors),
+            'ALL_COLORS' => $colors,
+            'SIZE_NAMES' => array_map(static fn (array $size) => $size['name'], HLReferencesHelper::getSizeNames()),
             'OFFERS' => $data['OFFERS'], // TODO format
-            'OFFER_FIRST' => array_first ($data['OFFERS']) ['ID'],
+            'OFFER_FIRST' => array_first(array_filter($data['OFFERS'],fn($offer)=>$offer['CATALOG_AVAILABLE']==='Y'))['ID'],
+            'RELATED_PRODUCTS' => $this->getRelatedProductsIds($data['PRODUCT']['ID']),
         ];
 
         foreach ($data['OFFERS'] as $offer) {
             $result['SORT'][] = $offer['ID'];
-            $result['PRICES'][$offer['ID']] = $offer['PRICES'];
+            $result['PRICES'][$offer['ID']] = [
+                'PRICE' => $offer['PRICE'],
+                'BASE_PRICE' => $offer['BASE_PRICE'],
+            ];
             if ($this->user->isAuthorized && $this->user->groups->isConsultant()) {
                 $result['BONUSES_PRICES'][$offer['ID']] = $offer['BONUSES'];
             }
@@ -353,7 +352,7 @@ class CatalogElementComponent extends Element
             }
         }
 
-        $index = 1;
+        $index = 0;
         foreach ($properties as $property) {
             if ($index++ > $this->arParams['PROPERTY_COUNT_DETAIL']) {
                 break;
@@ -434,6 +433,35 @@ class CatalogElementComponent extends Element
         ];
 
         return $color[$typeName] ?? 'violet';
+    }
+
+    private function getRelatedProductsIds($id) {
+        if (! CModule::IncludeModule('iblock')) {
+            throw new \Exception('Модуль iblock не найден');
+        }
+        if (! CModule::IncludeModule('highloadblock')) {
+            throw new \Exception('Модуль highloadblock не найден');
+        }
+
+        $hlblock = HighloadBlockTable::getList([
+            'filter' => ['=NAME' => 'HlRelatedProduct']
+        ])->fetch();
+
+        if(! $hlblock){
+            throw new \Exception('HL-блок сопутствующих товаров не найден');
+        }
+
+        $hlClassName = (HighloadBlockTable::compileEntity($hlblock))->getDataClass();
+
+        $res = $hlClassName::getList([
+            'filter' => ['=UF_MAIN_PRODUCT_ID' => $id],
+        ])->fetch();
+
+        if ($res) {
+            return $res['UF_RELATED_PRODUCT_ID'];
+        }
+
+        return [];
     }
 }
 

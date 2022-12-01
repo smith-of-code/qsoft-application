@@ -68,7 +68,22 @@ class BonusAccountHelper
         return false;
     }
 
-    public function addOrderBonuses(User $user, float $amount): bool
+    public function refundOrderBonuses(User $user, float $amount): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
+        }
+
+        return $user->update([
+            'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
+            'UF_LOYALTY_CHECK_DATE' => new DateTime,
+        ]);
+    }
+
+    public function addOrderBonuses(User $user, float $amount, string $source = TransactionTable::SOURCES['personal']): bool
     {
         if (!$user->active) {
             throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
@@ -80,7 +95,7 @@ class BonusAccountHelper
         $this->transactions->add(
             $user->id,
             TransactionTable::TYPES['purchase'],
-            TransactionTable::SOURCES['personal'],
+            $source,
             TransactionTable::MEASURES['points'],
             $amount,
         );

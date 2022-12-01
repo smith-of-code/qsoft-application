@@ -6,6 +6,7 @@
     &--tablet {
         @media #{$screen-tablet} {
             display: flex;
+            justify-content: space-between;
         }
     }
 
@@ -31,6 +32,7 @@
             }
 
             @media #{$screen-desktop} {
+                width: rem(470px);
                 margin-left: rem(130px);
             }
         }
