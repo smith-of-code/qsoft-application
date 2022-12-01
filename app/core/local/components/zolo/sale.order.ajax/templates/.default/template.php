@@ -27,6 +27,7 @@ else:?>
 
                     <div class="basket-order__box box box--gray box--rounded-sm">
                         <form class="basket-order__form form form--wraped" id="order-form">
+                            <input type="hidden" value="<?=$arResult['BONUSES_SUBTRACT']?>" name="bonuses_subtract" id="bonuses_subtract">
                             <div class="form__row">
                                 <div class="form__col">
                                     <div class="form__field">
@@ -94,7 +95,18 @@ else:?>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>" name="delivery_date" id="delivery-date-required" placeholder="Дата доставки">
+                                                <input type="text" 
+                                                    class="input__control" 
+                                                    value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>"
+                                                    name="delivery_date"
+                                                    id="delivery-date-required" 
+                                                    placeholder="Дата доставки"
+                                                    placeholder="ДД.ММ.ГГГГ"
+                                                    data-mask-date
+                                                       readonly
+                                                    data-inputmask-alias="date"
+                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                >
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +127,10 @@ else:?>
                                                     <select class="select__control" name="city" data-select-control data-placeholder="Город">
                                                         <option><!-- пустой option для placeholder --></option>
                                                         <?php foreach ($arResult['CITIES'] as $city): ?>
-                                                            <option value="<?=$city['ID'] ?>"><?=$city['VALUE'] ?></option>
+                                                            <option
+                                                                value="<?=$city['id'] ?>"
+                                                                <?=$arResult['USER']['CITY'] === $city['name'] ? 'selected' : ''?>
+                                                            ><?=$city['name'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -131,18 +146,23 @@ else:?>
                                             </label>
                                         </div>
 
-                                        <div class="form__field-block form__field-block--input">
-                                            <div class="form__control">
-                                                <div class="select select--mitigate" data-select>
-                                                    <select class="select__control" name="delivery_address" data-select-control data-placeholder="Адрес доставки">
-                                                        <option><!-- пустой option для placeholder --></option>
-                                                        <?php foreach ($arResult['ADDRESSES'] as $address): ?>
-                                                            <option value="<?=$address ?>"><?=$address ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                        <?php foreach ($arResult['ADDRESSES'] as $cityId => $addresses): ?>
+                                            <div class="form__field-block form__field-block--input" data-city="<?=$cityId?>">
+                                                <div class="form__control">
+                                                    <div class="select select--mitigate" data-select>
+                                                            <select class="select__control" name="delivery_address" data-select-control data-placeholder="Адрес доставки">
+                                                                <option><!-- пустой option для placeholder --></option>
+                                                                <?php foreach ($addresses as $addressId => $address): ?>
+                                                                    <option
+                                                                        value="<?=$addressId?>"
+                                                                        <?=$arResult['USER']['UF_PICKUP_POINT_ID'] === $addressId ? 'selected' : ''?>
+                                                                    ><?=$address['name'] ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +176,7 @@ else:?>
                                         </div>
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="tel" class="input__control" name="phone" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text">
+                                                <input type="tel" class="input__control" name="phone" id="text-required1" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" value="<?=$arResult['USER']['PHONE']?>">
                                             </div>
 
                                         </div>
@@ -201,7 +221,7 @@ else:?>
                             </div>
                             <div class="form__row">
                                 <div class="form__col">
-                                    <button type="button" class="button button--rounded button--covered button--white-green button--full">
+                                    <button onclick="location.href='/cart/';" type="button" class="button button--rounded button--covered button--white-green button--full">
                                         Вернуться к корзине
                                     </button>
                                 </div>

@@ -54,7 +54,8 @@
                                         name="mentor_id"
                                         id="mentor_id"
                                         placeholder="Введите ID <?=$arResult['type'] === 'buyer' ? 'контактного лица' : 'наставника'?>"
-                                        value="<?=$arResult['mentor_id']?>"
+                                        value="<?=$arResult['without_mentor_id'] === 'true' ? '' : $arResult['mentor_id']?>"
+                                        <?=$arResult['without_mentor_id'] === 'true' ? 'disabled' : ''?>
                                 >
                             </div>
                         </div>

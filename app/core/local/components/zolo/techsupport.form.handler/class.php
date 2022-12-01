@@ -13,21 +13,6 @@ use QSoft\Entity\User;
 class TechsupportFormHandlerComponent extends CBitrixComponent implements Controllerable
 {
     /**
-     * id обращения
-     *
-     * @var int
-     */
-    private int $ticketId;
-    
-    /**
-     * Тип справочника "категории".
-     * CATEGORY_DICTIONARY_TYPE
-     *
-     * @var string
-     */
-    private const CATEGORY_DICTIONARY_TYPE = 'C';
-
-    /**
      * TICKET_TYPES категории обращений
      *
      * @var array
@@ -120,10 +105,10 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     public function sendTicketAction(array $fields): string
     {
         $this->checkRequiredModules();
-        $this->sendTicket($fields);
+        $ticketId = $this->createTicket($fields);
 
         return json_encode([
-            'ticket_id' => $this->ticketId,
+            'ticket_id' => $ticketId,
         ]);
     }
 
@@ -145,11 +130,11 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         $this->arResult['BIRTH_DATE'] = $user->birthday;
     }
 
-    public function sendTicket($fields)
+    public function createTicket($fields)
     {
         $arFields = $this->prepareFields($fields);
 
-        $this->ticketId = (new CTicket())->set($arFields, $MID, '', 'N', 'Y', 'Y');
+        return (new CTicket())->set($arFields, $MID, '', 'N');
     }
 
     /**
@@ -237,7 +222,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
             self::TICKET_TYPES['CHANGE_MENTOR'] => [
                'TITLE' => 'Создано обращение по поводу смены наставника',
                'MESSAGE' => 'Пользователь желает сменить наставника по причине "' . $fields['COUSES'] . '
-ID старого наставника: ' . $fields['MENTOR_ID'] . '
+ID старого наставника: ' . $user->mentorId . '
 ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.
 Коментарий: ' . $fields['MESSAGE'] . '.'
 ,
@@ -250,7 +235,7 @@ ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.
                'OWNER_USER_ID' => $user->id,
                'CREATED_USER_ID' => $user->id,
                'UF_DATA' => json_encode([
-                        'OLD_MENTOR_ID' => $fields['MENTOR_ID'],
+                        'OLD_MENTOR_ID' => $user->mentorId,
                         'NEW_MENTOR_ID' => $fields['NEW_MENTOR_ID'],
                         'COUSES' => $fields['COUSES'],
                         'MESSAGE' => $fields['MESSAGE'],

@@ -2,16 +2,23 @@
 
 namespace QSoft\Entity;
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Loader;
+use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Security\Password;
+use Bitrix\Sale\Fuser;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
+use CMain;
 use CModule;
 use CUser;
 use CUserFieldEnum;
 
+use QSoft\Service\BeneficiariesService;
 use QSoft\Service\ConfirmationService;
 use QSoft\Entity\Mutators\UserPropertiesMutator;
 use QSoft\Service\BonusAccountService;
@@ -67,12 +74,15 @@ class User
     public PetService $pets;
     public ProductService $products;
     public WishlistService $wishlist;
+    public BeneficiariesService $beneficiariesService;
     public BonusAccountService $bonusAccount;
 
     /**
      * @var int ID пользователя
      */
     public int $id;
+
+    public int $fUserID;
     /**
      * @var string Логин (он же номер телефона)
      */
@@ -134,6 +144,7 @@ class User
      */
     public string $loyaltyLevel;
 
+    public bool $emailConfirmed;
     /**
      * @var bool Согласен на использование персональных данных
      */
@@ -192,11 +203,11 @@ class User
         'EMAIL' => 'email',
         'PERSONAL_GENDER' => 'gender',
         'PERSONAL_BIRTHDAY' => 'birthday',
-        'PERSONAL_CITY' => 'city',
         'PERSONAL_PHOTO' => 'photo',
         'DATE_REGISTER' => 'dateRegister',
         'PERSONAL_PHONE' => 'phone',
         'UF_LOYALTY_LEVEL' => 'loyaltyLevel',
+        'UF_EMAIL_CONFIRMED' => 'emailConfirmed',
         'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => 'agreeWithPersonalDataProcessing',
         'UF_AGREE_WITH_TERMS_OF_USE' => 'agreeWithTermsOfUse',
         'UF_AGREE_WITH_COMPANY_RULES' => 'agreeWithCompanyRules',
@@ -209,15 +220,20 @@ class User
     /**
      * User constructor.
      * @param int|null $userId ID пользователя
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
      */
     public function __construct(?int $userId = null)
     {
+        $this->initModules();
         $this->initServices();
 
         if ($userId === null) {
             global $USER;
             $userId = $USER->GetID();
         }
+        $this->fUserID = $userId ? Fuser::getIdByUserId($userId) : Fuser::getId();
         $this->isAuthorized = $userId !== null;
 
         if ($userId === null) {
@@ -238,15 +254,22 @@ class User
 
         $this->setObjectProperties($user);
 
-        if ($this->groups->isConsultant() && CModule::IncludeModule('catalog')) {
+        if ($this->groups->isConsultant()) {
             $this->catalogGroupId = CCatalogGroup::GetList([], ['NAME' => $this->loyaltyLevel])->Fetch()['ID'];
         }
+    }
+
+    private function initModules(): void
+    {
+        Loader::includeModule('sale');
+        Loader::includeModule('catalog');
     }
 
     private function initServices(): void
     {
         $this->cUser = new CUser;
         $this->legalEntity = new LegalEntityService($this);
+        $this->beneficiariesService = new BeneficiariesService($this);
         $this->groups = new UserGroupsService($this);
         $this->loyalty = new LoyaltyService($this);
         $this->notification = new NotificationService($this);
@@ -265,7 +288,7 @@ class User
      */
     public function activate(): bool
     {
-        if ($this->update(['ACTIVE' => 'Y'])) {
+        if ($this->update(['ACTIVE' => 'Y', 'UF_EMAIL_CONFIRMED' => 'Y'])) {
             return $this->cUser->Authorize($this->id);
         }
         return false;
@@ -360,7 +383,7 @@ class User
 
     public function changePassword(string $password, string $confirmPassword): bool
     {
-        $checkWord = md5(uniqid().\CMain::GetServerUniqID());
+        $checkWord = md5(uniqid() . CMain::GetServerUniqID());
         $checkWordHash = Password::hash($checkWord);
 
         global $DB;
@@ -372,7 +395,7 @@ class User
             where ID = '$this->id'
         SQL);
 
-        $result = (new CUser)->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
+        $result = $this->cUser->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
 
         return $result['TYPE'] === 'OK';
     }

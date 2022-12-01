@@ -8,6 +8,7 @@ const ELEMENTS_SELECTOR = {
 $.extend($.validator.messages, {
     required: "Обязательное поле",
     email: "Указан некорректный почтовый адрес",
+    number: "Укажите целое число",
 });
 
 $.validator.setDefaults({
@@ -15,7 +16,13 @@ $.validator.setDefaults({
     errorElement: 'span',
 
     errorPlacement: function (error, element) {
-        error.addClass('input__control-error').appendTo(element.closest('.form__field'));
+        error.addClass('input__control-error')
+
+        if (element.is("textarea")) {
+            error.appendTo(element.closest('.input--textarea'));
+        } else {
+            error.appendTo(element.closest('.form__field'));
+        }
     },
 });
 
@@ -46,6 +53,9 @@ $.validator.addClassRules("js-required", {
 });
 $.validator.addClassRules("js-email", {
     email: true,
+});
+$.validator.addClassRules("js-number", {
+    number: true,
 });
 $.validator.addClassRules("js-date", {
     validDate: true,

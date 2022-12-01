@@ -4,6 +4,8 @@ composer
 /app/site/test
 /app/site/upload
 /app/site/c_sitemaps
+/app/site/sitemap*.xml
+/app/site/robots.txt
 
 /app/core/local/templates/.default/css
 /app/core/local/templates/.default/js

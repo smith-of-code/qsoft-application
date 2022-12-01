@@ -54,7 +54,7 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="form__control">
                                         <div class="select select--mitigate" data-select>
-                                            <select class="select__control" name="nationality" id="nationality" data-select-control data-placeholder="Выберите пол">
+                                            <select class="select__control" name="nationality" id="nationality" data-select-control data-placeholder="Выберите гражданство">
                                                 <option><!-- пустой option для placeholder --></option>
                                                 <option value="russian" <?=$arResult['nationality'] === 'russian' ? 'selected' : ''?>>Резидент РФ</option>
                                                 <option value="not_russian" <?=$arResult['nationality'] === 'not_russian' ? 'selected' : ''?>>Незезидент РФ</option>

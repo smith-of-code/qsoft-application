@@ -28,14 +28,11 @@ export const OfferImage = {
 
     mounted() {
         this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
-        initSwiper();
     },
 
     updated() {
         this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-        if (window.swiper && window.swiper.destroy) window.swiper.destroy();
-        initSwiper();
+        initSwiper(true);
     },
 
     methods: {
@@ -67,13 +64,15 @@ export const OfferImage = {
                                         </button>
                                     </div>
 
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <img v-bind:src="image.SRC" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                    <a v-bind:href="image.SRC" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <img v-bind:src="image.SRC" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>
@@ -97,13 +96,15 @@ export const OfferImage = {
                                         </button>
                                     </div>
     
-                                    <div class="product-card__wrapper">
-                                        <div class="product-card__image box box--circle">
-                                            <div class="product-card__box">
-                                                <img src="/local/templates/.default/images/no-image-placeholder.png" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                    <a href="/local/templates/.default/images/no-image-placeholder.png" data-fancybox="gallery">
+                                        <div class="product-card__wrapper">
+                                            <div class="product-card__image box box--circle">
+                                                <div class="product-card__box">
+                                                    <img src="/local/templates/.default/images/no-image-placeholder.png" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </article>
                         </div>
@@ -126,13 +127,15 @@ export const OfferImage = {
                                     </button>
                                 </div>
 
-                                <div class="product-card__wrapper">
-                                    <div class="product-card__image box box--circle">
-                                        <div class="product-card__box">
-                                            <video v-bind:src="offers.PRODUCT_VIDEO.path" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                <a v-bind:href="offers.PRODUCT_VIDEO.path" data-fancybox="gallery">
+                                    <div class="product-card__wrapper">
+                                        <div class="product-card__image box box--circle">
+                                            <div class="product-card__box">
+                                                <video v-bind:src="offers.PRODUCT_VIDEO.path" poster="/local/templates/.default/images/detail-slide.png" controls class="product-card__pic"></video>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </article>
                     </div>

@@ -5,6 +5,9 @@ const ELEMENTS_SELECTOR = {
     card: '[data-basket-card]',
     item_button_remove: '[data-basket-item-remove]',
     item_button_count: '[data-basket-item-count]',
+    item_prices: '[data-item-price]',
+    item_base_prices: '[data-base-price]',
+    item_bonus: '[data-item-bonuses]',
     
     productTotal: '[data-basket-product-total]',
     nds: '[data-basket-product-nds]',
@@ -15,6 +18,7 @@ const ELEMENTS_SELECTOR = {
     bonusBalance: '[data-basket-bonus-balance]',
     bonusInput: '[data-basket-bonus-input]',
     bonusButton: '[data-basket-bonus-accept]',
+    bonusOrder: '[data-basket-bonus-order]'
 };
 
 export default function () {
@@ -37,8 +41,6 @@ export default function () {
     let errorCard = false;
     let bonusAccept = false;
     let totalBonus = 0;
-
-    checkStatusBasket();
 
     $(document).on('click', ELEMENTS_SELECTOR.item_button_remove, checkStatusBasket);
 
@@ -79,12 +81,41 @@ export default function () {
         .addClass('button--green');
     });
 
-    function checkStatusBasket() {
+    async function checkPriceProduct() {
+        const basketList = $(ELEMENTS_SELECTOR.item);
+
+        basketList.each(function(index, item) {
+            const priceDefault = $(item).find('.product-price__item');
+            const priceOld = $(item).find('.product-price__item.product-price__item--old');
+            const priceSale = $(item).find('.product-price__item.product-price__item--new');
+            const priceItem = $(item).find('.card-cart__price-value').text().replace(/\s/g,'')
+            const priceItemNumber = parseFloat(priceItem);
+            const priceBaseItem = $(item).attr('data-base-price')
+            const priceBaseItemNumber = parseFloat(priceBaseItem);
+            const amountProduct = $(item)
+            .find('.quantity__total-sum')
+            .text();
+
+            const currentPrice =  priceСalc(priceItemNumber, amountProduct);
+            const currentPriceDefault = priceСalc(priceBaseItemNumber, amountProduct);
+
+            if (priceSale.length > 0) {
+                priceSale.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+                priceOld.html(currentPriceDefault.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+            } else {
+                priceDefault.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+            }
+        })
+    }
+
+    async function checkStatusBasket() {
+        await checkPriceProduct();
         const basketList = $(ELEMENTS_SELECTOR.item);
         let lengthBasket = basketList.length;
         let basketAmoutOrder = 0;
         let basketAmoutOrderSale = 0;
         let basketProductTotal = 0;
+        let baseketBonusItem = 0;
         
         if (lengthBasket === 0) {
             $(ELEMENTS_SELECTOR.cart)
@@ -100,6 +131,8 @@ export default function () {
             const priceDefault = $(item).find('.product-price__item');
             const priceOld = $(item).find('.product-price__item.product-price__item--old');
             const priceSale = $(item).find('.product-price__item.product-price__item--new');
+            const bonusItem = $(item).find(ELEMENTS_SELECTOR.item_bonus);
+            const bonusValue = parseFloat(bonusItem.attr("data-item-bonuses"));
             const amountProduct = $(item)
             .find('.quantity__total-sum')
             .text();
@@ -108,37 +141,38 @@ export default function () {
             let priceNoDiscountsValue;
             
             if (priceSale.length > 0) {
-                priceProductValue = priceSale.text().replace(/\s/g,'');
-                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'');
+                priceProductValue = priceSale.text().replace(/\s/g,'').replace(/,/g, '.');
+                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'').replace(/,/g, '.');
             } else if (priceOld.length > 0) {
-                priceProductValue = priceOld.text().replace(/\s/g,'');
-                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'');
+                priceProductValue = priceOld.text().replace(/\s/g,'').replace(/,/g, '.');
+                priceNoDiscountsValue = priceOld.text().replace(/\s/g,'').replace(/,/g, '.');
             } else {
-                priceProductValue = priceDefault.text().replace(/\s/g,'');
-                priceNoDiscountsValue  = priceDefault.text().replace(/\s/g,'');
+                priceProductValue = priceDefault.text().replace(/\s/g,'').replace(/,/g, '.');
+                priceNoDiscountsValue  = priceDefault.text().replace(/\s/g,'',).replace(/,/g, '.');
             }
-          
-            let priceProductNumber = parseInt(priceProductValue);
-            let priceNoDiscounts = parseInt(priceNoDiscountsValue);
-            const currentPrice = priceСalc(priceProductNumber, amountProduct);
-            const currentPriceDefault = priceСalc(priceNoDiscounts, amountProduct);
-            const currentProductTotal = Number(amountProduct);
-        
-            basketAmoutOrder += currentPriceDefault;
+            
+            let priceProductNumber = parseFloat(priceProductValue);
+            let priceNoDiscounts = parseFloat(priceNoDiscountsValue);
+            let currentProductTotal = Number(amountProduct);
+            let bonusOrder = calcBonusOrder(bonusValue, currentProductTotal)
+            
+            basketAmoutOrder += priceNoDiscounts;
             basketProductTotal += currentProductTotal;
-            basketAmoutOrderSale += currentPrice;
+            basketAmoutOrderSale += priceProductNumber;
+            baseketBonusItem += bonusOrder;
         });
 
-        const basketTotal = basketAmoutOrder; 
+        const basketTotal = basketAmoutOrder;
         const basketTotalSale = basketAmoutOrderSale;
         const ndsTotal = calcNds(basketTotalSale);
         const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
 
         acceptProductTotal(basketProductTotal);
         acceptNds(ndsTotal);
-        acceptAmount(basketAmoutOrder);
+        acceptAmount(basketTotal);
         acceptEconomy(economyTotal);
         acceptTotal(basketTotalSale);
+        acceptBonusOrder(baseketBonusItem);
 
         return basketAmoutOrder
     }
@@ -207,7 +241,7 @@ export default function () {
     }
 
     function priceСalc(price, amount) {
-        return parseInt(amount) * parseInt(price);
+        return amount * price;
     }
 
     function calcNds(total) {
@@ -228,6 +262,10 @@ export default function () {
 
     function calcBonusPercent(bonusInput, totalBalance) {
         return parseInt(bonusInput) / parseInt(totalBalance);
+    }
+
+    function calcBonusOrder(bonusValue, basketTotal) {
+        return bonusValue * basketTotal;
     }
 
     function resetBonus() {
@@ -283,4 +321,9 @@ export default function () {
         $(ELEMENTS_SELECTOR.productTotal).html(total.toLocaleString('ru-RU'));
     }
 
+    function acceptBonusOrder(total) {
+        $(ELEMENTS_SELECTOR.bonusOrder).html(total.toLocaleString('ru-RU') + ' ББ');
+    }
+
+    checkStatusBasket();
 }
