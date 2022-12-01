@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
         'AmeBusiness',
-		"/info/ame_business/",
+		"/info/ame-business/",
 		Array(),
 		Array(),
 		""

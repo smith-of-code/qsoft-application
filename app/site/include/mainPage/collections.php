@@ -4,7 +4,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
 }?> <section class="main__section">
 <div class="cards-compilation">
 	<ul class="cards-compilation__list">
-		<li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra"> <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle"> <a href="/info/ame_business/" class="card-compilation__link"></a>
+		<li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra"> <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle"> <a href="/info/ame-business/" class="card-compilation__link"></a>
 		<div class="card-compilation__inner">
 			<div class="card-compilation__banner">
  <img alt="изображение подборки" src="https://placeimg.com/640/480/any" class="card-compilation__banner-image">
