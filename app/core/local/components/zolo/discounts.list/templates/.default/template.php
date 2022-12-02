@@ -37,9 +37,11 @@ use Bitrix\Main\Localization\Loc;
                                     class="card-compilation__banner-image"/>
                                 </div>
 
-                                <div class="card-compilation__label label label--primary label--red">
-                                    <?=Loc::getMessage('DISCOUNT', ['#VALUE#' => $item['DISCOUNT']])?>
-                                </div>
+                                <?php if ($item['DISCOUNT']):?>
+                                    <div class="card-compilation__label label label--primary label--red">
+                                        <?=Loc::getMessage('DISCOUNT', ['#VALUE#' => $item['DISCOUNT']])?>
+                                    </div>
+                                <?php endif;?>
 
                                 <div class="card-compilation__content">
                                     <p class="card-compilation__text">
