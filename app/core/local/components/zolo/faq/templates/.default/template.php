@@ -8,6 +8,8 @@ use Bitrix\Main\Localization\Loc;
 $loginLink = '/login/';
 
 $isAuthorized = $arResult['IS_AUTHORIZED'];
+
+//dump($arResult);
 ?>
 
 <main class="page__faq faq">
@@ -28,10 +30,10 @@ $isAuthorized = $arResult['IS_AUTHORIZED'];
         <div class="faq__wrapper">
             <section class="faq__questions questions">
                 <?php foreach ($arResult['GROUPS'] as $group) : ?>
+                <p><a name="<?=strtolower(substr($group['XML_ID'], strlen('GROUP_')))?>"></a></p>
                 <div class="questions__item">
                     <div class="question">
                         <h3 class="question__theme"><?=$group['VALUE']?></h3>
-
                         <div class="question__accordeon accordeon">
                             <?php $i = 1;
                             foreach ($group['questions'] as $question) : ?>
