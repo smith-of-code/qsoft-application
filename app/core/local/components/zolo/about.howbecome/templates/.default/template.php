@@ -3,7 +3,7 @@
 <section class="about__howbecome section section--margin-xl">
     <div class="about__howbecome-box section__box box">
         <h3 class="section__title section__title--small">
-            <?=$arResult['title']?>
+            Как стать консультантом
         </h3>
         <div class="about__howbecome-list">
             <div class="about__howbecome-row">
@@ -28,59 +28,34 @@
 
                 <div class="about__howbecome-col about__howbecome-col--column">
 
-                    <div class="about__howbecome-item about__howbecome-item--mini">
-                        <div class="about__howbecome-card about__howbecome-card--mini">
-                            <div class="about__howbecome-card-wrapper">
-                                <div class="document document--big">
-                                    <a href="<?=$arResult['documents'][0]['src']?>" class="about__howbecome-card-document document__link" download>
-                                        <div class="document__icon">
-                                            <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="document__text">
-                                            <span class="document__text-name">Открыть</span>
-                                        </div>
-                                    </a>
+                    <?php foreach ($arResult['documents'] as $index => $document):?>
+                        <div class="about__howbecome-item about__howbecome-item--mini">
+                            <div class="about__howbecome-card about__howbecome-card--mini">
+                                <div class="about__howbecome-card-wrapper">
+                                    <div class="document document--big">
+                                        <a href="<?=$document['document']['src']?>" class="about__howbecome-card-document document__link" download>
+                                            <div class="document__icon">
+                                                <svg class="icon icon--pdf">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                </svg>
+                                            </div>
+                                            <div class="document__text">
+                                                <span class="document__text-name">Открыть</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="about__howbecome-card-content">
+                                    <h4 class="about__howbecome-card-title">
+                                        <?=$document['title']?>
+                                    </h4>
+                                    <p class="about__howbecome-card-text">
+                                        <?=$index ? 'Выберите своего консультанта' : 'Ознакомьтесь подробнее с условиями сотрудничества'?>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="about__howbecome-card-content">
-                                <h4 class="about__howbecome-card-title">
-                                    Маркетинговый план
-                                </h4>
-                                <p class="about__howbecome-card-text">
-                                    Ознамьтесь подробнее с условиями сотрудническая
-                                </p>
-                            </div>
                         </div>
-                    </div>
-
-                    <div class="about__howbecome-item about__howbecome-item--mini">
-                        <div class="about__howbecome-card about__howbecome-card--mini">
-                            <div class="about__howbecome-card-wrapper">
-                                <div class="document document--big">
-                                    <a href="<?=$arResult['documents'][1]['src']?>" class="about__howbecome-card-document document__link" download>
-                                        <div class="document__icon">
-                                            <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="document__text">
-                                            <span class="document__text-name">Открыть</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="about__howbecome-card-content">
-                                <h4 class="about__howbecome-card-title">
-                                    Список наших консультантов
-                                </h4>
-                                <p class="about__howbecome-card-text">
-                                    Выберите своего консультанта
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
                 </div>
             </div>
         </div>

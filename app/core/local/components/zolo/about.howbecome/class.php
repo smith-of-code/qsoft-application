@@ -2,12 +2,12 @@
 
 use QSoft\Entity\User;
 use QSoft\Helper\FileHelper;
+use QSoft\Helper\HlBlockHelper;
+use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\DocumentsTable;
 
 class AboutHowbecomeComponent extends CBitrixComponent
 {
-    public const BLOCK = 'Как стать консультантом';
-
     private User $user;
 
     public function __construct($component = null)
@@ -23,20 +23,28 @@ class AboutHowbecomeComponent extends CBitrixComponent
             return;
         }
 
-        $document = DocumentsTable::getRow([
+        $documents = DocumentsTable::getList([
             'filter' => [
-                '=UF_NAME' => self::BLOCK,
+                '=UF_NAME' => [
+                    EnumDecorator::prepareField('UF_NAME', DocumentsTable::NAMES['market_plan']),
+                    EnumDecorator::prepareField('UF_NAME', DocumentsTable::NAMES['consultants_list']),
+                ],
             ],
         ]);
 
         $this->arResult['is_authorized'] = $this->user->isAuthorized;
 
-        if ($document['UF_DOCUMENT']) {
-            $this->arResult['title'] = $document['UF_NAME'];
-            $this->arResult['documents'] = array_map(
-                static fn(int $fileId): array => FileHelper::getFileArray($fileId),
-                unserialize($document['UF_DOCUMENT'])
-            );
+        $names = HlBlockHelper::getPreparedEnumFieldValues(DocumentsTable::getTableName(), 'UF_NAME');
+        foreach ($documents as $document) {
+            if ($document['UF_DOCUMENT']) {
+                $this->arResult['documents'][] = [
+                    'title' => $names[$document['UF_NAME']]['name'],
+                    'document' => FileHelper::getFileArray(unserialize($document['UF_DOCUMENT'])[0]),
+                ];
+            }
+        }
+
+        if ($this->arResult['documents']) {
             $this->includeComponentTemplate();
         }
     }
