@@ -20,7 +20,7 @@ use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use \QSoft\Service\ProductService;
 use Bitrix\Sale\Order;
-use Bitrix\Sale\Internals\BasketTable;
+use Bitrix\Main\Error;
 
 class BasketLineController extends Controller
 {
@@ -136,7 +136,8 @@ class BasketLineController extends Controller
             ]);
         }
         if (!$result->isSuccess()) {
-            throw new RuntimeException($result->getErrorMessages());
+            $this->errorCollection = $result->getErrorCollection();
+            return [];
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
     }
@@ -178,20 +179,24 @@ class BasketLineController extends Controller
     public function repeatOrderAction(int $orderId): array
     {
         //очистка корзины
-        (Basket::loadItemsForFUser(Fuser::getId(), SITE_ID))->clearCollection();
-
-        //повторить заказ
+        if (! $this->clearBasket()) {
+            $this->errorCollection[] = new Error('Корзина не была очищена');
+            return [];
+        }
+        
         //объект заказа
         $orderOld = Order::load($orderId);
 
         if ($orderOld == null) {
-            throw new RuntimeException('Заказ с номером ' . $orderId . ' не найден');
+            $this->errorCollection[] = new Error('Заказ с номером ' . $orderId . ' не найден');
+            return [];
         }
 
         $basketOld = $orderOld->getBasket();
 
         if ($basketOld->isEmpty()) {
-            throw new RuntimeException('Заказ с номером ' . $orderId . ' имеет пустую корзину');
+            $this->errorCollection[] = new Error('Заказ с номером ' . $orderId . ' имеет пустую корзину');
+            return [];
         }
 
         $ids = array_map(static fn($item) => $item->getProductId(), $basketOld->getBasketItems());
@@ -225,5 +230,20 @@ class BasketLineController extends Controller
         $result = $this->getBasketTotalsAction();
         $result['missing'] = $missing;
         return $result;
+    }
+
+    private function clearBasket(): bool
+    {
+        $res = CSaleBasket::GetList(array(), array(
+            'FUSER_ID' => Fuser::getId(),
+            'LID' => SITE_ID,
+            'ORDER_ID' => 'null',
+            'DELAY' => 'N',
+            'CAN_BUY' => 'Y'));
+        while ($row = $res->fetch()) {
+            CSaleBasket::Delete($row['ID']);
+        }
+
+        return count(Basket::loadItemsForFUser(Fuser::getId(), SITE_ID)->getQuantityList()) == 0;
     }
 }
