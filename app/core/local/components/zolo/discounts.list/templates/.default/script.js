@@ -1,5 +1,5 @@
 window.onload = function () {
-    document.querySelector('.button--show').addEventListener('click', loadDiscounts);
+    document.querySelector('.button--show')?.addEventListener('click', loadDiscounts);
 }
 
 function loadDiscounts() {
@@ -9,7 +9,6 @@ function loadDiscounts() {
             offset: offset
         },
     }).then(function (response) {
-        console.log(response['status']);
         offset = response['data']['OFFSET'];
         attach(response['data']['ITEMS']);
         if (response['data']['LAST']) {
@@ -29,6 +28,7 @@ function attach(discounts) {
         addition.querySelector('.card-compilation__banner-image').setAttribute('src', discount['PICTURE']);
         addition.querySelector('.card-compilation__link').setAttribute('href', discount['CATALOG']);
         addition.querySelector('.card-compilation__label').innerText = '-' + discount['DISCOUNT'] + '%';
+        addition.querySelector('.card-compilation__label').style.display = parseInt(discount['DISCOUNT']) ? 'block' : 'none';
         document.querySelector('.cards-sale__list').appendChild(addition);
     }
 }
