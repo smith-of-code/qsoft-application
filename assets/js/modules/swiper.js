@@ -68,7 +68,7 @@ export default function (update) {
                         clickable: true,
                         renderBullet(index, classname) {
                             const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
-                            const video = images[index]?.getAttribute('poster') !== undefined;
+                            const video = images[index]?.getAttribute('poster');
 
                             let vodeoIcon = '';
                             if (video) {
