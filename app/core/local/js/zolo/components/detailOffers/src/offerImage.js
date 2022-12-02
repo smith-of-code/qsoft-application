@@ -43,12 +43,12 @@ export const OfferImage = {
     },
 
     template: ` 
-            <div class="detail__card-slider slider slider--product" data-carousel="product">
-            <div class="swiper-container" data-carousel-container>
-                <div class="swiper-wrapper" data-card-favourite-block>
+            <div class="detail__card-slider slider slider--product" data-carousel="product" :class="'test-' + currentOfferId">
+            <div class="swiper-container" data-carousel-container :class="'test-' + currentOfferId">
+                <div class="swiper-wrapper" data-card-favourite-block :class="'test-' + currentOfferId">
                     <template v-if="images && images.length > 0">
                         <div v-for="(image) in images" class="swiper-slide slider__slide">
-                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                            <article v-bind:key="image.ID" class="product-card product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
                                     <div v-if="offers.DISCOUNT_LABELS[currentOfferId].NAME"
                                          v-bind:class="'product-card__label label label--' +  offers.DISCOUNT_LABELS[currentOfferId].COLOR">
@@ -141,7 +141,7 @@ export const OfferImage = {
                     </div>
                 </div>
 
-                <div v-if="images && images.length > 0" class="slider__buttons">
+                <div class="slider__buttons">
                     <div class="slider__buttons-item swiper-button-prev" data-carousel-prev>
                         <button type="button" class="slider__button slider__button--prev button button--circular button--small button--mixed button--gray-red button--shadow">
                             <span class="button__icon">
