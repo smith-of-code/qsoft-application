@@ -365,12 +365,12 @@ class CatalogElementComponent extends Element
         }
 
         $result['ENERGY_VALUE'] = [
+            'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
+            'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
+            'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
             'CALCIUM' => $data['PRODUCT']['PROPERTY_CALCIUM_VALUE'],
             'PRHOSPHORUS' => $data['PRODUCT']['PROPERTY_PRHOSPHORUS_VALUE'],
             'ROW_ASH' => $data['PRODUCT']['PROPERTY_ROW_ASH_VALUE'],
-            'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
-            'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
-            'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
         ];
 
         $result['ENERGY_VALUE'] = array_filter($result['ENERGY_VALUE'], fn ($value) => !empty($value));
