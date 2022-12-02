@@ -52,6 +52,11 @@ class Page
         return strpos(self::getRequestUri(), '/info/discounts/') === 0;
     }
 
+    public static function isAmeBusiness(): bool
+    {
+        return strpos(self::getRequestUri(), '/info/ame-business/') === 0;
+    }
+
     public static function hasBreadcrumbs(): bool
     {
         return self::isCatalog()
@@ -60,6 +65,7 @@ class Page
             || self::isExpertAdvice()
             || self::isFaq()
             || self::isDiscounts()
+            || self::isAmeBusiness()
         ;
     }
 }
