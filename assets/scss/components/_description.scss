@@ -68,6 +68,24 @@
         border: rem(0.355319px) solid $alto;
         border-radius: rem($border-radius-average);
 
+        &--mobile {
+            display: block;
+            margin-top: rem(24px);
+
+            @media #{$screen-tablet} {
+                display: none;
+            }
+
+        }
+
+        &--desktop {
+            display: none;
+            
+            @media #{$screen-tablet} {
+                display: block;
+            }
+        }
+
         &:before {
             $card-width: rem(343px);
             $card-height: rem(426px);
