@@ -85,7 +85,11 @@ class OrderHelper
                     ['<ACTIVE_FROM' => $now],
                     ['=ACTIVE_FROM' => null],
                 ],
-                '>ACTIVE_TO' => $now,
+                [
+                    'LOGIC' => 'OR',
+                    ['>ACTIVE_TO' => $now],
+                    ['=ACTIVE_TO' => null],
+                ],
             ],
             'select' => ['ID', 'COUPON', 'ACTIVE_TO', 'NAME' => 'DISCOUNT.NAME'],
             'runtime' => [
