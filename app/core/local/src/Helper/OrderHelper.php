@@ -80,6 +80,7 @@ class OrderHelper
             'filter' => [
                 '=USER_ID' => $userId,
                 '=ACTIVE' => true,
+                '=DISCOUNT.ACTIVE' => true,
                 [
                     'LOGIC' => 'OR',
                     ['<ACTIVE_FROM' => $now],
