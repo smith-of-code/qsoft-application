@@ -1064,20 +1064,22 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                     <div class="card-stock__image box box--circle">
                                                                         <img src="<?=$promotion['image'] ?: '/local/templates/.default/images/no-image-placeholder.png'?>" alt="Image" class="card-stock__image-picture">
                                                                     </div>
-                                                                    <div class="card-stock__finish date-finish">
-                                                                        <span class="date-finish__icon">
-                                                                            <svg class="date-finish__icon icon icon--clock">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                                                                            </svg>
-                                                                        </span>
-                                                                        <span class="date-finish__text">
-                                                                            <span class="date-finish__text date-finish__text--desktop">
-                                                                                Действует
+                                                                    <?php if ($promotion['active_to']):?>
+                                                                        <div class="card-stock__finish date-finish">
+                                                                            <span class="date-finish__icon">
+                                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                                </svg>
                                                                             </span>
-                                                                            до
-                                                                            <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
-                                                                        </span>
-                                                                    </div>
+                                                                            <span class="date-finish__text">
+                                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                                    Действует
+                                                                                </span>
+                                                                                до
+                                                                                <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
+                                                                            </span>
+                                                                        </div>
+                                                                    <?php endif;?>
                                                                 </div>
                                                                 <div class="card-stock__devider dots">
                                                                     <span class="dots__item"></span>

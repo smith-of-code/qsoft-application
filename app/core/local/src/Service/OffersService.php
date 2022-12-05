@@ -2,6 +2,7 @@
 
 namespace QSoft\Service;
 
+use Bitrix\Catalog\Model\Price;
 use Bitrix\Iblock\PropertyTable;
 use Bitrix\Main\Loader;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
@@ -97,7 +98,7 @@ class OffersService
         $levels = array_merge($levels, $consultantLoyalty->getLoyaltyLevels(), $buyerLoyalty->getLoyaltyLevels());
 
         foreach (array_keys($levels) as $levelCode) {
-            // Вычисляем количество бонусов
+            // Вычисляем акционную цену
             $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
             $discountPrice = ceil($priceValue * (100 - $discountPercent)) / 100;
 
@@ -167,6 +168,77 @@ class OffersService
                             $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
 
                             $propsToSet['BONUSES_' . $code] = $bonuses;
+                        }
+
+                        // Записываем свойства
+                        \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
+
+                    }
+                }
+            }
+        }
+
+        //dump('Обработано ' . $count . ' ТП');
+    }
+
+    /**
+     * Пересчитывает бонусные баллы для всех ТП
+     */
+    public function updateAllOffersDiscountPrices() {
+
+        $limit = 100;
+        $offset = 0;
+        $isAllProcessed = false;
+
+        // Получаем коды свойств с ценами по уровням программы лояльности
+        $levels = [];
+        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $buyerLoyalty = new BuyerLoyaltyProgramHelper();
+        $levels = array_merge($levels, $consultantLoyalty->getLoyaltyLevels(), $buyerLoyalty->getLoyaltyLevels());
+        $levelsCodes = array_keys($levels);
+
+        $basePrice = \CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
+
+        $count = 0;
+
+        while (! $isAllProcessed) {
+
+            // Получаем торговые предложения
+            $offers = \Bitrix\Iblock\ElementTable::getList([
+                'select' => ['ID'],
+                'filter' => ['=IBLOCK_ID' => $this->offersIbId],
+                'cache' => ['ttl' => 86400],
+                'limit' => $limit,
+                'offset' => $offset,
+            ])->fetchAll();
+
+            if (empty($offers)) {
+                $isAllProcessed = true;
+            } else {
+
+                $offset += $limit;
+
+                foreach ($offers as $offer) {
+
+                    $count += 1;
+
+                    // Получим цену
+                    $price = Price::getList([
+                        'filter' => [
+                            '=PRODUCT_ID' => $offer['ID'],
+                            'CATALOG_GROUP_ID' => $basePrice['ID'],
+                        ]
+                    ])->fetch();
+
+                    if ($price) {
+
+                        $propsToSet = [];
+                        foreach ($levelsCodes as $levelCode) {
+                            // Вычисляем акционную цену
+                            $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
+                            $discountPrice = ceil($price['PRICE'] * (100 - $discountPercent)) / 100;
+
+                            $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $discountPrice;
                         }
 
                         // Записываем свойства
