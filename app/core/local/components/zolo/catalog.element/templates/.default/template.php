@@ -367,6 +367,12 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description__col">
                             <?=$arResult['PRODUCT_FEATURES']?>
 
+                            <? if ($arResult['PRODUCT_IMAGE']) :?>
+                            <div class="description__image description__image--mobile">
+                                <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
+                            </div>
+                            <? endif; ?>
+
                             <?php if ($arResult['DESCRIPTION']): ?>
                                 <h5>Общее</h5>
 
@@ -389,7 +395,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                         <div class="description__col description__col--right">
                             <? if ($arResult['PRODUCT_IMAGE']) :?>
-                            <div class="description__image">
+                            <div class="description__image description__image--desktop">
                                 <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
                             </div>
                             <? endif; ?>

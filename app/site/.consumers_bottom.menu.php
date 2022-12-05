@@ -10,7 +10,7 @@ $aMenuLinks = Array(
 
 	Array(
         'Оплата и доставка',
-		"/info/payment_and_delivery/",
+		"/info/faq/#payment",
 		Array(), 
 		Array(), 
 		"" 
@@ -26,7 +26,7 @@ $aMenuLinks = Array(
         'Обратиться в поддержку',
 		"",
 		Array(),
-		Array('ADDITIONAL_ATTRS' => 'data-fancybox data-modal-type="modal" data-src="#technical-support"'),
+		Array('ADDITIONAL_ATTRS' => 'data-fancybox data-modal-type="modal" data-src="#technical-support"', 'NEED_AUTH' => true),
 		""
 	),
 );

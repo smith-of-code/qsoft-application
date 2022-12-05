@@ -56,6 +56,22 @@ class ProductService
         return $product;
     }
 
+    public function getOffersByRepeatedIds(array $offerIds): array
+    {
+        if (!$offerIds) {
+            return [];
+        }
+
+        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, ['ID', 'NAME', 'QUANTITY']);
+
+        $offers = [];
+        while ($offer = $offerIterator->Fetch()) {
+            $offers[$offer['ID']] = $offer;
+        }
+
+        return $offers ?? [];
+    }
+
     public function getOffersByIds(array $offerIds): array
     {
         if (!$offerIds) {
@@ -99,12 +115,17 @@ class ProductService
     public function getOfferPrices(int $offerId): array
     {
         $prices = CCatalogProduct::GetOptimalPrice($offerId);
+
+        $discountPrice = $prices['DISCOUNT_PRICE'];
+        $basePrice = (float)$prices['PRICE']['PRICE'];
+        if ($prices['PRICE']['VAT_INCLUDED'] === 'N' && $prices['PRICE']['VAT_RATE'] > .0) {
+            $basePrice += $basePrice * $prices['PRICE']['VAT_RATE'];
+        }
+
         return $this->user->isAuthorized ? [
-            'PRICE' => $prices['DISCOUNT_PRICE'],
-            'BASE_PRICE' => (float)$prices['PRICE']['PRICE'] !== $prices['DISCOUNT_PRICE']
-                ? $prices['PRICE']['PRICE']
-                : null,
-        ] : ['PRICE' => $prices['DISCOUNT_PRICE']];
+            'PRICE' => $discountPrice,
+            'BASE_PRICE' => $basePrice !== $discountPrice ? $basePrice : null,
+        ] : ['PRICE' => $discountPrice];
     }
 
     private function getOfferDiscountLabels(array $offer): array

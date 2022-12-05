@@ -2,6 +2,7 @@
 
 namespace QSoft\Events;
 
+use Bitrix\Main\GroupTable;
 use Bitrix\Main\Mail\Event as EmailEvent;
 use CSite;
 use \CTicketDictionary;
@@ -10,6 +11,9 @@ use DateTime;
 use CTicket;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
+use QSoft\Helper\BuyerLoyaltyProgramHelper;
+use QSoft\Helper\ConsultantLoyaltyProgramHelper;
+use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\TicketHelper;
 use QSoft\ORM\LegalEntityTable;
 
@@ -53,6 +57,14 @@ class SupportEventListner
                     && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
                 ) {
                     $this->changeLegalEntitydata($ticketValues);
+                }
+                break;
+            case TicketHelper::BECOME_CONSULTANT_CATEGORY:
+                if (
+                    !empty($ticketValues['UF_ACCEPT_REQUEST'])
+                    && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
+                ) {
+                    $this->becomeConsultant($ticketValues);
                 }
                 break;
             case TicketHelper::REGISTRATION_CATEGORY:
@@ -272,9 +284,36 @@ class SupportEventListner
 
         LegalEntityTable::update($data['id'], [
             'UF_USER_ID' => $data['user_id'],
-            'UF_IS_ACTIVE' => $data['active'],
             'UF_STATUS' => $data['type']['id'],
             'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
+        ]);
+    }
+
+    private function becomeConsultant(array $ticketValues): void
+    {
+        $data = json_decode($ticketValues['UF_DATA'], true);
+
+        LegalEntityTable::add([
+            'UF_USER_ID' => $data['user_id'],
+            'UF_IS_ACTIVE' => true,
+            'UF_STATUS' => $data['type']['id'],
+            'UF_DOCUMENTS' => json_encode($data['documents'], JSON_UNESCAPED_UNICODE),
+        ]);
+
+        $userGroupId = GroupTable::getRow([
+            'filter' => [
+                '=STRING_ID' => 'consultant',
+            ],
+            'select' => ['ID'],
+        ])['ID'];
+
+        $loyaltyProgramHelper = new ConsultantLoyaltyProgramHelper;
+        $firstLevel = $loyaltyProgramHelper->getLowestLevel();
+        $levelsIDs = $loyaltyProgramHelper->getLevelsIDs();
+
+        (new User($data['user_id']))->update([
+            'UF_LOYALTY_LEVEL' => $levelsIDs[$firstLevel],
+            'GROUP_ID' => [$userGroupId],
         ]);
     }
 

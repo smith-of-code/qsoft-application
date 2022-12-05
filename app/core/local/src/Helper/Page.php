@@ -42,8 +42,30 @@ class Page
         return strpos(self::getRequestUri(), '/info/expert-advice/') === 0;
     }
 
+    public static function isFaq(): bool
+    {
+        return strpos(self::getRequestUri(), '/info/faq/') === 0;
+    }
+
+    public static function isDiscounts(): bool
+    {
+        return strpos(self::getRequestUri(), '/info/discounts/') === 0;
+    }
+
+    public static function isAmeBusiness(): bool
+    {
+        return strpos(self::getRequestUri(), '/info/ame-business/') === 0;
+    }
+
     public static function hasBreadcrumbs(): bool
     {
-        return self::isCatalog() || self::isNews() || self::isEvents() || self::isExpertAdvice();
+        return self::isCatalog()
+            || self::isNews()
+            || self::isEvents()
+            || self::isExpertAdvice()
+            || self::isFaq()
+            || self::isDiscounts()
+            || self::isAmeBusiness()
+        ;
     }
 }

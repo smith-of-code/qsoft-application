@@ -1,5 +1,6 @@
 <?
 use Bitrix\Main\Loader;
+use \Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Text\Encoding;
 use QSoft\Entity\User;
 use QSoft\Service\UserGroupsService;
@@ -250,7 +251,14 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 
                         // Обновим наименования цен для отображения в фильтре
                         if ($items[$arPrice["NAME"]]['CODE'] === 'BASE')
-                            $items[$arPrice["NAME"]]['NAME'] = 'Цена, ₽';
+                            $currentUser = currentUser();
+                            if (isset($currentUser)
+                                && ($currentUser->groups->isConsultant() || $currentUser->groups->isBuyer())
+                            ) {
+                                unset($items[$arPrice["NAME"]]);
+                            } else {
+                                $items[$arPrice["NAME"]]['NAME'] = Loc::getMessage('SMF_PRICE_LABEL');
+                            }
                     }
                 }
             }
@@ -308,11 +316,12 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             ],
         ];
 
-        // Уберем лишние фильтры по баллам, в зависимости от уровня в программе лояльности
+        // Уберем лишние фильтры по баллам и ценам, в зависимости от уровня в программе лояльности
         $currentUser = currentUser();
 
-        $loyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
-        $loyaltyLevelsXmlIds = array_keys($loyalty->getLoyaltyLevels());
+        $consultantLoyalty = new \QSoft\Helper\ConsultantLoyaltyProgramHelper();
+        $buyerLoyalty = new \QSoft\Helper\BuyerLoyaltyProgramHelper();
+        $loyaltyLevelsXmlIds = array_merge(array_keys($consultantLoyalty->getLoyaltyLevels()), array_keys($buyerLoyalty->getLoyaltyLevels()));
 
         $propsCodes = [];
         foreach ($items as $index => $item) {
@@ -337,9 +346,33 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             }
         }
 
+        foreach ($loyaltyLevelsXmlIds as $levelCode) {
+            $pricePropName = 'DISCOUNT_PRICE_' . $levelCode;
+            if (in_array($pricePropName, array_keys($propsCodes), true)) {
+                // Для консультанта - оставляем только тип цены, соответствующий уровню программы лояльности
+                if (is_null($currentUser)) {
+                    unset($items[$propsCodes[$pricePropName]]);
+                    continue;
+                }
+                if ($currentUser->groups->isConsultant() && $levelCode === $currentUser->loyaltyLevel
+                ) {
+                    // Обновим наименование для отображения в фильтре
+                    $items[$propsCodes[$pricePropName]]['NAME'] = Loc::getMessage('SMF_PRICE_LABEL');
+                    continue;
+                }
+                if ($currentUser->groups->isBuyer() && $levelCode === $currentUser->loyaltyLevel
+                ) {
+                    // Обновим наименование для отображения в фильтре
+                    $items[$propsCodes[$pricePropName]]['NAME'] = Loc::getMessage('SMF_PRICE_LABEL');
+                    continue;
+                }
+                unset($items[$propsCodes[$pricePropName]]);
+            }
+        }
+
         // Обновим название поля "Хит продаж"
         if (isset($items[$propsCodes['IS_BESTSELLER']])) {
-            $items[$propsCodes['IS_BESTSELLER']]['NAME'] = 'Хиты продаж';
+            $items[$propsCodes['IS_BESTSELLER']]['NAME'] = Loc::getMessage('SMF_BEST_SELLER');
         }
 
         /* Выполним пересортировку элементов фильтра в нужном порядке */
@@ -349,6 +382,12 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
             'IS_BESTSELLER',
             'WITH_DISCOUNT',
             'BASE',
+            'DISCOUNT_PRICE_K1',
+            'DISCOUNT_PRICE_K2',
+            'DISCOUNT_PRICE_K3',
+            'DISCOUNT_PRICE_B1',
+            'DISCOUNT_PRICE_B2',
+            'DISCOUNT_PRICE_B3',
             'BONUSES_K1',
             'BONUSES_K2',
             'BONUSES_K3',
