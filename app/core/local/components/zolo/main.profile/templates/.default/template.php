@@ -1055,26 +1055,28 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                             <?php foreach ($arResult['personal_promotions'] as $promotion):?>
                                                 <li class="cards-stock__item">
                                                     <div class="card-stock">
-                                                        <a href="#" class="card-stock__link"></a>
+                                                        <?php if ($promotion['link']):?>
+                                                            <a href="<?=$promotion['link']?>" class="card-stock__link"></a>
+                                                        <?php endif;?>
                                                         <div class="card-stock__inner">
                                                             <div class="card-stock__top">
                                                                 <div class="card-stock__wrapper">
                                                                     <div class="card-stock__image box box--circle">
-                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                                        <img src="<?=$promotion['image'] ?: '/local/templates/.default/images/no-image-placeholder.png'?>" alt="Image" class="card-stock__image-picture">
                                                                     </div>
                                                                     <div class="card-stock__finish date-finish">
-                                                                <span class="date-finish__icon">
-                                                                    <svg class="date-finish__icon icon icon--clock">
-                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                                                                    </svg>
-                                                                </span>
+                                                                        <span class="date-finish__icon">
+                                                                            <svg class="date-finish__icon icon icon--clock">
+                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                            </svg>
+                                                                        </span>
                                                                         <span class="date-finish__text">
-                                                                    <span class="date-finish__text date-finish__text--desktop">
-                                                                        Действует
-                                                                    </span>
-                                                                    до
-                                                                    <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
-                                                                </span>
+                                                                            <span class="date-finish__text date-finish__text--desktop">
+                                                                                Действует
+                                                                            </span>
+                                                                            до
+                                                                            <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-stock__devider dots">
@@ -1097,11 +1099,13 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
                                                             <div class="card-stock__bottom">
                                                                 <p class="card-stock__title">
-                                                                    <?=$promotion['name']?>
+                                                                    <?=$promotion['amount'] ? "Скидка {$promotion['amount']}%" : $promotion['name']?>
                                                                 </p>
-                                                                <p class="card-stock__text">
-                                                                    <!-- TODO Description -->
-                                                                </p>
+                                                                <?php if ($promotion['amount']):?>
+                                                                    <p class="card-stock__text">
+                                                                        <?=$promotion['name']?>
+                                                                    </p>
+                                                                <?php endif;?>
                                                             </div>
                                                         </div>
                                                     </div>
