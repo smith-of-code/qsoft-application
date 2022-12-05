@@ -22,10 +22,6 @@ export const LoyaltyStatusTale = {
         },
     },
 
-    mounted() {
-        console.log('a');
-    },
-
     template: `
         <div v-if="targetValue" class="card-progress card-progress--unbordered">
             <div class="card-progress__inner">
