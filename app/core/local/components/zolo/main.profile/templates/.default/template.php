@@ -602,6 +602,9 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <span class="profile__period-text"><?=$arResult['current_accounting_period']['name']?></span>
                             </div>
                         </div>
+
+                        <?php if ($arResult['personal_data']['is_consultant']):?>
+
                         <div class="section__box-inner">
                             <h5 class="box__heading box__heading--middle">Достижения в системе лояльности</h5>
 
@@ -1009,6 +1012,43 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 </div>
                             </div>
                         </div>
+
+                        <?php else:?>
+
+                        <div class="section__box-inner">
+                            <div class="section__box-row">
+                                <div class="section__box-col">
+                                    <div class="success-cards success-cards--full">
+                                        <div class="success-cards__item success-cards__item--full">
+                                            <div class="success-card success-card--red">
+                                                <span class="success-card__title heading heading--large"><?=$arResult['loyalty_level_info']['benefits']['personal_discount']?>%</span>
+                                                <span class="success-card__info">Персональная скидка</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section__box-col">
+                                    <div class="cards-progress">
+                                        <div class="participant__progress cards-progress">
+                                            <ul class="cards-progress__list">
+                                                <?php if ($arResult['loyalty_status']['self']['hold_value']):?>
+                                                    <li class="cards-progress__item cards-progress__item--full">
+                                                        <div
+                                                            id="loyaltyStatusTale"
+                                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                                            prop-label="Поддержание уровня по личным покупкам"
+                                                        ></div>
+                                                    </li>
+                                                <?php endif;?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif;?>
                     </div>
                 </div>
             </section>
