@@ -18,6 +18,26 @@
     }
     
     &--main & {
+        &__slide {
+            height: 480px;
+
+            @media #{$screen-tablet} {
+                height: 560px;
+            }
+        }
+
+        &__image {
+            height: 100%;
+
+            picture {
+                height: 100%;  
+            }
+
+            &-picture {
+                height: 100%;
+            }
+        }
+
         &__buttons {
             position: absolute;
             right: rem($gap-normal);
