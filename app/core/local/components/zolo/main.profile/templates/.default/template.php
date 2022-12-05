@@ -999,24 +999,24 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--/Система лояльности-->
 
         <!--Персональные акции-->
-        <div class="profile__block" data-accordeon>
-            <section class="section">
-                <div class="section__box box box--gray box--rounded-sm">
-                    <div class="profile__accordeon-header accordeon__header section__header">
-                        <h4 class="section__title section__title--closer">Персональные акции</h4>
+        <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
+            <div class="profile__block" data-accordeon>
+                <section class="section">
+                    <div class="section__box box box--gray box--rounded-sm">
+                        <div class="profile__accordeon-header accordeon__header section__header">
+                            <h4 class="section__title section__title--closer">Персональные акции</h4>
 
-                        <div class="profile__actions">
-                            <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
-                                <span class="accordeon__toggle-icon button__icon">
-                                    <svg class="icon icon--arrow-down">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                    </svg>
-                                </span>
-                            </button>
+                            <div class="profile__actions">
+                                <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
+                                    <span class="accordeon__toggle-icon button__icon">
+                                        <svg class="icon icon--arrow-down">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                             <?php if ($arResult['promotion_orders']):?>
                                 <div class="section__box-inner">
@@ -1118,11 +1118,10 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 </div>
                             <?php endif;?>
                         </div>
-                    <?php endif;?>
-                </div>
-            </section>
-
-        </div>
+                    </div>
+                </section>
+            </div>
+        <?php endif;?>
         <!--/Персональные акции-->
     </div>
 </div>
