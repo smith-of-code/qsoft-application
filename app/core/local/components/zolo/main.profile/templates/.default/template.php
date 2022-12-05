@@ -633,12 +633,29 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                             <h5 class="box__heading box__heading--middle">Плановые показатели</h5>
 
                             <div class="cards-progress">
-                                <div
-                                    id="loyaltyStatusReport"
-                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                    prop-hold-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
-                                    prop-upgrade-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                ></div>
+                                <div class="participant__progress cards-progress">
+                                    <ul class="cards-progress__list">
+                                        <?php if ($arResult['loyalty_status']['self']['hold_value']):?>
+                                            <li class="cards-progress__item">
+                                                <div
+                                                    id="loyaltyStatusTale"
+                                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                    prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                                    prop-label="Поддержание уровня по личным покупкам"
+                                                ></div>
+                                            </li>
+                                        <?php endif;?>
+                                        <li class="cards-progress__item">
+                                            <div
+                                                id="loyaltyStatusTale"
+                                                prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                                prop-label="Повышение уровня по личным покупкам"
+                                                prop-is-hold="<?=json_encode(false)?>"
+                                            ></div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 

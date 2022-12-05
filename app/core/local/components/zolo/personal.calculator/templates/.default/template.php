@@ -79,13 +79,28 @@
                 <?php endif;?>
 
                 <div class="profitability__row">
-<!--                    TODO: Разобратьсяс плашками-->
-                    <div
-                        id="loyaltyStatusReport"
-                        prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                        prop-hold-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
-                        prop-upgrade-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                    ></div>
+                    <div class="participant__progress cards-progress">
+                        <ul class="cards-progress__list">
+                            <li class="cards-progress__item">
+                                <div
+                                    id="loyaltyStatusTale"
+                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                    prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                    prop-label="Повышение уровня по личным покупкам"
+                                    prop-is-hold="<?=json_encode(false)?>"
+                                ></div>
+                            </li>
+                            <li class="cards-progress__item">
+                                <div
+                                    id="loyaltyStatusTale"
+                                    prop-current-value="<?=$arResult['loyalty_status']['team']['current_value']?>"
+                                    prop-target-value="<?=$arResult['loyalty_status']['team']['upgrade_value']?>"
+                                    prop-label="Повышение уровня по групповым покупкам"
+                                    prop-is-hold="<?=json_encode(false)?>"
+                                ></div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,43 +115,43 @@
                     let bigData = {
                         level: [
                             {
-                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K1']['max_bonuses']?>,
+                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K1']['self_max_bonuses']?>,
                                 minPointsPersonal: 0,
                                 stepPointsPersonal: <?=$arResult['levels']['consultant']['K1']['benefits']['personal_bonuses_for_cost']['size']?>,
-                                maxPointsGroup: 50000,
+                                maxPointsGroup: <?=$arResult['levels']['consultant']['K1']['team_max_bonuses']?>,
                                 minPointsGroup: 0,
-                                stepPointsGroup: 1,
-                                standardPersonal: 100,
-                                standardGroup: 200,
+                                stepPointsGroup: <?=$arResult['levels']['consultant']['K1']['benefits']['group_bonuses_for_cost']['size']?>,
+                                standardPersonal: <?=$arResult['levels']['consultant']['K1']['benefits']['personal_bonuses_for_cost']['step']?>,
+                                standardGroup: <?=$arResult['levels']['consultant']['K1']['benefits']['group_bonuses_for_cost']['step']?>,
                                 percent: <?=$arResult['levels']['consultant']['K1']['benefits']['personal_discount']?>,
-                                invitation: 100,
+                                invitation: <?=$arResult['levels']['consultant']['K1']['benefits']['referral_size']?>,
                                 transitionToLevel: 0,
                             },
                             {
-                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K2']['max_bonuses']?>,
+                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K2']['self_max_bonuses']?>,
                                 minPointsPersonal: 0,
                                 stepPointsPersonal: <?=$arResult['levels']['consultant']['K2']['benefits']['personal_bonuses_for_cost']['size']?>,
-                                maxPointsGroup: 100000,
+                                maxPointsGroup: <?=$arResult['levels']['consultant']['K2']['team_max_bonuses']?>,
                                 minPointsGroup: 0,
-                                stepPointsGroup: 2,
-                                standardPersonal: 100,
-                                standardGroup: 200,
+                                stepPointsGroup: <?=$arResult['levels']['consultant']['K2']['benefits']['group_bonuses_for_cost']['size']?>,
+                                standardPersonal: <?=$arResult['levels']['consultant']['K2']['benefits']['personal_bonuses_for_cost']['step']?>,
+                                standardGroup: <?=$arResult['levels']['consultant']['K2']['benefits']['group_bonuses_for_cost']['step']?>,
                                 percent: <?=$arResult['levels']['consultant']['K2']['benefits']['personal_discount']?>,
-                                invitation: 150,
-                                transitionToLevel: 100,
+                                invitation: <?=$arResult['levels']['consultant']['K2']['benefits']['referral_size']?>,
+                                transitionToLevel: <?=$arResult['levels']['consultant']['K2']['benefits']['upgrade_level_bonuses']?>,
                             },
                             {
-                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K3']['max_bonuses']?>,
+                                maxPointsPersonal: <?=$arResult['levels']['consultant']['K3']['self_max_bonuses']?>,
                                 minPointsPersonal: 0,
-                                stepPointsPersonal: <?=$arResult['levels']['consultant']['K1']['benefits']['personal_bonuses_for_cost']['size']?>,
-                                maxPointsGroup: 200000,
+                                stepPointsPersonal: <?=$arResult['levels']['consultant']['K3']['benefits']['personal_bonuses_for_cost']['size']?>,
+                                maxPointsGroup: <?=$arResult['levels']['consultant']['K3']['team_max_bonuses']?>,
                                 minPointsGroup: 0,
-                                stepPointsGroup: 4,
-                                standardPersonal: 100,
-                                standardGroup: 200,
+                                stepPointsGroup: <?=$arResult['levels']['consultant']['K3']['benefits']['group_bonuses_for_cost']['size']?>,
+                                standardPersonal: <?=$arResult['levels']['consultant']['K3']['benefits']['personal_bonuses_for_cost']['step']?>,
+                                standardGroup: <?=$arResult['levels']['consultant']['K3']['benefits']['group_bonuses_for_cost']['step']?>,
                                 percent: <?=$arResult['levels']['consultant']['K3']['benefits']['personal_discount']?>,
-                                invitation: 200,
-                                transitionToLevel: 400,
+                                invitation: <?=$arResult['levels']['consultant']['K3']['benefits']['referral_size']?>,
+                                transitionToLevel: <?=$arResult['levels']['consultant']['K3']['benefits']['upgrade_level_bonuses']?>,
                             },
                         ],
                         currentLevel: <?=$arResult['current_level']['level']?>,

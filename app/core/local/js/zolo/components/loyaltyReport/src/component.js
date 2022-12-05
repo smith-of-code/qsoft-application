@@ -1,12 +1,12 @@
 import { useLoyaltySalesReportStore } from '../../../stores/loyaltySalesReportStore';
-import { LoyaltyStatusReport } from "../../loyaltyStatusReport/src/component";
+import { LoyaltyStatusTale } from "../../loyaltyStatusTale/src/component";
 import { OrdersReport } from "../../ordersReport/src/component";
 import NumberFormatMixin from "../../../mixins/NumberFormatMixin";
 
 let id = 0;
 
 export const LoyaltyReport = {
-    components: { LoyaltyStatusReport, OrdersReport },
+    components: { LoyaltyStatusTale, OrdersReport },
 
     mixins: [NumberFormatMixin],
 
@@ -79,8 +79,10 @@ export const LoyaltyReport = {
             this.mutableBonusesIncome = data.bonuses_income;
 
             const diagram = $(`#${this.componentId}`)[0];
-            diagram.myChart.data = this.mutableBonusesIncome.js_data;
-            diagram.myChart.update();
+            if (diagram) {
+                diagram.myChart.data = this.mutableBonusesIncome.js_data;
+                diagram.myChart.update();
+            }
         },
     },
 
@@ -201,7 +203,7 @@ export const LoyaltyReport = {
                     </form>
                 </div>
 
-                <div v-if="user.is_consultant === 'true'" class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
+                <div v-if="user.is_consultant" class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
                     <h5 class="accounting__diagramm-title">Мой заработок</h5>
 
                     <div class="diagramm diagramm--simple">
@@ -235,7 +237,7 @@ export const LoyaltyReport = {
                     </div>
                 </div>
 
-                <div v-if="user.is_consultant === 'true'" class="participant__section">
+                <div v-if="user.is_consultant" class="participant__section">
                     <h5 class="participant__section-title">
                         Плановые показатели
                     </h5>
@@ -258,11 +260,23 @@ export const LoyaltyReport = {
                             <div class="tabs__block tabs__block--active" data-tab-section="block1">
                                 <div class="participant__block">
                                     <div class="participant__progress cards-progress">
-                                        <LoyaltyStatusReport
-                                            :current-value="mutableLoyaltyStatus.self.current_value"
-                                            :hold-value="mutableLoyaltyStatus.self.hold_value"
-                                            :upgrade-value="mutableLoyaltyStatus.self.upgrade_value"
-                                        />
+                                        <ul class="cards-progress__list">
+                                            <li v-if="mutableLoyaltyStatus.self.hold_value" class="cards-progress__item">
+                                                <LoyaltyStatusTale
+                                                    :current-value="mutableLoyaltyStatus.self.current_value"
+                                                    :target-value="mutableLoyaltyStatus.self.hold_value"
+                                                    label="Поддержание уровня по личным покупкам"
+                                                />
+                                            </li>
+                                            <li class="cards-progress__item">
+                                                <LoyaltyStatusTale
+                                                    :current-value="mutableLoyaltyStatus.self.current_value"
+                                                    :target-value="mutableLoyaltyStatus.self.upgrade_value"
+                                                    :is-hold="false"
+                                                    label="Повышение уровня по личным покупкам"
+                                                />
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -272,12 +286,23 @@ export const LoyaltyReport = {
                             <div class="tabs__block" data-tab-section="block2">
                                 <div class="participant__block">
                                     <div class="participant__progress cards-progress">
-                                        <LoyaltyStatusReport
-                                            :current-value="mutableLoyaltyStatus.team.current_value"
-                                            :hold-value="mutableLoyaltyStatus.team.hold_value"
-                                            :upgrade-value="mutableLoyaltyStatus.team.upgrade_value"
-                                            :is-group="true"
-                                        />
+                                        <ul class="cards-progress__list">
+                                            <li v-if="mutableLoyaltyStatus.team.hold_value" class="cards-progress__item">
+                                                <LoyaltyStatusTale
+                                                    :current-value="mutableLoyaltyStatus.team.current_value"
+                                                    :target-value="mutableLoyaltyStatus.team.hold_value"
+                                                    label="Поддержание уровня по групповым покупкам"
+                                                />
+                                            </li>
+                                            <li class="cards-progress__item">
+                                                <LoyaltyStatusTale
+                                                    :current-value="mutableLoyaltyStatus.team.current_value"
+                                                    :target-value="mutableLoyaltyStatus.team.upgrade_value"
+                                                    :is-hold="false"
+                                                    label="Повышение уровня по групповым покупкам"
+                                                />
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +317,7 @@ export const LoyaltyReport = {
                     </h5>
 
                     <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
-                        <nav v-if="user.is_consultant === 'true'" class="tabs__items">
+                        <nav v-if="user.is_consultant" class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">
                                     Личные
