@@ -5,10 +5,21 @@ class SystemAuthForgotPasswordComponent {
 
   initListeners() {
       $('[data-send]').on('click', this.sendListener);
+      $('#login').on('input', this.removeError);
+  }
+
+  removeError() {
+      $(this).removeClass('input__control--error');
+      $(this).parent().find('span.input__control-error').remove();
   }
 
   async sendListener() {
       const loginInput = $('#login');
+
+      if (!loginInput.val()) {
+          loginInput.addClass('input__control--error');
+          return;
+      }
 
       const response = await BX.ajax.runComponentAction('bitrix:system.auth.forgotpasswd', 'sendEmailMessage', {
           mode: 'class',
