@@ -8,6 +8,18 @@ const ELEMENTS_SELECTOR = {
 };
 
 export default function(){
+    let $card = $(".card-counting");
+
+    $card.each( function() {
+        let $input = $card.find('.card-counting__value-count');
+
+        $($input).on('input', function() {
+            console.log('ss');
+            $(this).val($(this).val().replace(/[A-Za-zА-Яа-яЁё]/, ''))
+            return
+        });
+    })
+    
     $(ELEMENTS_SELECTOR.ranges).each(function() {
         let slider = $(this).find(ELEMENTS_SELECTOR.rangeSlider),
             min = slider.data('min'),
