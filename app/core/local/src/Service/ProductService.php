@@ -62,7 +62,7 @@ class ProductService
             return [];
         }
 
-        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, ['ID', 'NAME', 'QUANTITY']);
+        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, ['ID', 'NAME', 'QUANTITY', 'CATALOG_AVAILABLE']);
 
         $offers = [];
         while ($offer = $offerIterator->Fetch()) {

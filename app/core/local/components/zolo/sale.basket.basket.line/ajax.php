@@ -191,12 +191,6 @@ class BasketLineController extends Controller
 
     public function repeatOrderAction(int $orderId): array
     {
-        //очистка корзины
-        if (! $this->clearBasket()) {
-            $this->errorCollection[] = new Error('Корзина не была очищена');
-            return [];
-        }
-        
         //объект заказа
         $orderOld = Order::load($orderId);
 
@@ -217,28 +211,41 @@ class BasketLineController extends Controller
         $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
 
         $missing = [];//позиции старой корзины, которые не добавятся в новую корзину
-
-        foreach ($basketOld as $key => $basketItem) {
+        foreach ($basketOld as $basketItem) {
             $offer = $offers[$basketItem->getProductId()];
-            $requiredQuantity = $basketItem->getQuantity();
-            $availableQuantity = $offer['CATALOG_QUANTITY'];
-            if ($availableQuantity == 0) {
+            if ($offer['CATALOG_QUANTITY'] == 0) {
                 $missing[] = [
                     'ID' => $offer['ID'],
                     'NAME' => $offer['NAME'],
                 ];
-                continue;
+            }
+        }
+
+        if (count($missing) !== $basketOld->count()) {
+            //очистка корзины
+            if (!$this->clearBasket()) {
+                $this->errorCollection[] = new Error('Корзина не была очищена');
+                return [];
             }
 
-            $props = $basketItem->getPropertyCollection()->getPropertyValues();
+            foreach ($basketOld as $basketItem) {
+                $offer = $offers[$basketItem->getProductId()];
+                $requiredQuantity = $basketItem->getQuantity();
+                $availableQuantity = $offer['CATALOG_QUANTITY'];
+                if ($availableQuantity == 0) {
+                    continue;
+                }
 
-            $this->increaseItemAction(
-                $offer['ID'],
-                $props['DETAIL_PAGE']['VALUE'],
-                $props['NONRETURNABLE']['VALUE'],
-                'false',
-                min($requiredQuantity, $availableQuantity),
-            );
+                $props = $basketItem->getPropertyCollection()->getPropertyValues();
+
+                $this->increaseItemAction(
+                    $offer['ID'],
+                    $props['DETAIL_PAGE']['VALUE'],
+                    $props['NONRETURNABLE']['VALUE'],
+                    'false',
+                    min($requiredQuantity, $availableQuantity),
+                );
+            }
         }
         $result = $this->getBasketTotalsAction();
         $result['missing'] = $missing;
