@@ -9,6 +9,7 @@ window.onload = function () {
 
 function repeatOrder() {
     window.stores.basketStore.repeatOrder(orderId);
+    $.fancybox.open({ src: '#thanks' });
 }
 
 //пагинация товаров
