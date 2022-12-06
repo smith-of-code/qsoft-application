@@ -493,7 +493,7 @@ $offerId = $arResult['OFFER_FIRST'];
                             <? foreach ($arResult['DOCUMENTS'] as $document) : ?>
                             <div class="documents__item">
                                 <div class="document">
-                                    <a href="<?= $document['SRC'] ?>" class="document__link" target="_blank">
+                                    <a href="<?= $document['SRC'] ?>" class="document__link" download>
                                         <div class="document__icon">
                                             <svg class="icon icon--pdf">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
