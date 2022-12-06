@@ -14,7 +14,7 @@ export const MiniBasket = {
         store.fetchBasketTotals();
         return {
             itemsCount: computed(() => store.itemsCount),
-            basketPrice: computed(() => store.basketPrice)
+            basketPrice: computed(() => Math.round(store.basketPrice))
         }
     },
     
