@@ -62,12 +62,15 @@ class UserEventsListener
         if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
             return true;
         }
-        if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
-            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => UserPhoneAuthTable::normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
-        } elseif (check_email($params['LOGIN'])) {
+        if (check_email($params['LOGIN'])) {
             $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
         } else {
-            return false;
+            if (str_starts_with($params['LOGIN'], '8')) {
+                $params['LOGIN'] = '+7' . substr($params['LOGIN'], 1);
+            } elseif (str_starts_with($params['LOGIN'], '7')) {
+                $params['LOGIN'] = "+{$params['LOGIN']}";
+            }
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => UserPhoneAuthTable::normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
         }
         if (!$user) {
             return false;
