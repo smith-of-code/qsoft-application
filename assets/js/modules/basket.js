@@ -154,7 +154,7 @@ export default function () {
             let priceProductNumber = parseFloat(priceProductValue);
             let priceNoDiscounts = parseFloat(priceNoDiscountsValue);
             let currentProductTotal = Number(amountProduct);
-            let bonusOrder = calcBonusOrder(bonusValue, currentProductTotal)
+            let bonusOrder = calcBonusOrder(bonusValue, currentProductTotal);
             
             basketAmoutOrder += priceNoDiscounts;
             basketProductTotal += currentProductTotal;
@@ -162,8 +162,8 @@ export default function () {
             baseketBonusItem += bonusOrder;
         });
 
-        const basketTotal = basketAmoutOrder;
-        const basketTotalSale = basketAmoutOrderSale;
+        const basketTotal = Math.round(basketAmoutOrder);
+        const basketTotalSale = Math.round(basketAmoutOrderSale);
         const ndsTotal = calcNds(basketTotalSale);
         const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
 
@@ -298,23 +298,23 @@ export default function () {
     }
 
     function acceptNds(total) {
-        $(ELEMENTS_SELECTOR.nds).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.nds).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptEconomy(total) {
-        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptTotal(total) {
-        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptBonusBalance(total) {
-        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU') + ' ББ');
+        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
     }
 
     function acceptAmount(total) {
-        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptProductTotal(total) {
