@@ -294,21 +294,30 @@ $offerId = $arResult['OFFER_FIRST'];
                 <!-- Блок селекта фассовки малый вариант-->
 
                 <!-- Блок цены ТП -->
-                <div id="offerPrice"
-                     class="cart__price price"
-                     prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>"
-                    prop-is-consultant="<?= json_encode($arResult['IS_CONSULTANT']) ?>">
-                    <?php if ($USER->isAuthorized()): ?>
-                        <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?> ₽</p>
+                <div
+                    id="offerPrice"
+                    class="cart__price price"
+                    prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>"
+                    prop-is-consultant="<?= json_encode($arResult['IS_CONSULTANT']) ?>"
+                >
+                    <?php if ($arResult['IS_CONSULTANT']):?>
+                        <?php if ($arResult['PRICES'][$offerId]['BASE_PRICE']):?>
+                            <p class="price__main"><?=number_format($arResult['PRICES'][$offerId]['BASE_PRICE'], 0, ' ', ' ')?> ₽</p>
+                        <?php endif;?>
                         <div class="price__calculation">
-                            <p class="price__calculation-total">? ₽</p>
-                            <p class="price__calculation-accumulation">? ББ</p>
+                            <p class="price__calculation-total"><?=number_format($arResult['PRICES'][$offerId]['PRICE'], 0, ' ', ' ')?> ₽</p>
+                            <p class="price__calculation-accumulation"><?=number_format($arResult['BONUSES_PRICES'][$offerId], 0, ' ', ' ')?> ББ</p>
+                        </div>
+                    <?php elseif ($USER->isAuthorized() && $arResult['PRICES'][$offerId]['BASE_PRICE']): ?>
+                        <div class="price__calculation" >
+                            <p class="price__calculation-total price__calculation-total--red"><?=number_format($arResult['PRICES'][$offerId]['PRICE'], 0, ' ', ' ')?> ₽</p>
+                            <p class="price__main"><?=number_format($arResult['PRICES'][$offerId]['BASE_PRICE'], 0, ' ', ' ')?> ₽</p>
                         </div>
                     <?php else: ?>
-                        <!-- Если не авторизован -->
                         <div class="price__calculation" >
-                            <p class="price__calculation-total price__calculation-total--red">? ₽</p>
-                            <p class="price__main"><?=intval($arResult['PRICES'][$offerId]['PRICE'])?></p>
+                            <p class="price__calculation-total">
+                                <?=number_format($arResult['PRICES'][$offerId]['PRICE'], 0, ' ', ' ')?> ₽
+                            </p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -367,6 +376,12 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description__col">
                             <?=$arResult['PRODUCT_FEATURES']?>
 
+                            <? if ($arResult['PRODUCT_IMAGE']) :?>
+                            <div class="description__image description__image--mobile">
+                                <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
+                            </div>
+                            <? endif; ?>
+
                             <?php if ($arResult['DESCRIPTION']): ?>
                                 <h5>Общее</h5>
 
@@ -389,7 +404,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                         <div class="description__col description__col--right">
                             <? if ($arResult['PRODUCT_IMAGE']) :?>
-                            <div class="description__image">
+                            <div class="description__image description__image--desktop">
                                 <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
                             </div>
                             <? endif; ?>
@@ -478,7 +493,7 @@ $offerId = $arResult['OFFER_FIRST'];
                             <? foreach ($arResult['DOCUMENTS'] as $document) : ?>
                             <div class="documents__item">
                                 <div class="document">
-                                    <a href="<?= $document['SRC'] ?>" class="document__link" target="_blank">
+                                    <a href="<?= $document['SRC'] ?>" class="document__link" download>
                                         <div class="document__icon">
                                             <svg class="icon icon--pdf">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>

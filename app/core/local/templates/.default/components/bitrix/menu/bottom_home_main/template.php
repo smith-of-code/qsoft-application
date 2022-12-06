@@ -1,5 +1,5 @@
 <?php
-if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 }
 /** @var array $arParams */
@@ -7,9 +7,10 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 
 global $USER;
-$isAuthorize = $USER->IsAuthorized();
+$isAuthorized = $USER->IsAuthorized();
 
 $loginLink = '/login/';
+
 ?>
 
 <ul class="footer__list <?= $arParams['COLUMN_ADDITIONAL_CLASS'] ?>">
@@ -22,14 +23,17 @@ $loginLink = '/login/';
                 "AREA_FILE_SHOW" => "file",
                 "PATH" => $arParams['HEAD_PATH'],
             ]
-        );?>
+        ); ?>
     </li>
-    <?php foreach($arResult as $itemIndex => $arItem):?>
+    <?php foreach ($arResult as $itemIndex => $arItem): ?>
         <li class="footer__item">
-            <a
-                href="<?=$isAuthorize ? htmlspecialcharsbx($arItem["LINK"]) : $loginLink ?>"
-                class="footer__link" <?=$isAuthorize ? $arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' : '' ?>
-            ><?=htmlspecialcharsbx($arItem["TEXT"], ENT_COMPAT, false);?></a>
+            <?php $needAuth = !$isAuthorized && $arItem['PARAMS']['NEED_AUTH']; ?>
+            <a href="<?= !$needAuth ? htmlspecialcharsbx($arItem['LINK']) : $loginLink ?>"
+               class="footer__link" <?= $isAuthorized ? $arItem['PARAMS']['ADDITIONAL_ATTRS'] ?? '' : '' ?>
+                <?= $arItem['PARAMS']['NO_LINK'] ? 'style="pointer-events: none"' : '' ?>
+            >
+                <?= htmlspecialcharsbx($arItem["TEXT"], ENT_COMPAT, false); ?>
+            </a>
         </li>
-    <?php endforeach;?>
+    <?php endforeach; ?>
 </ul>   

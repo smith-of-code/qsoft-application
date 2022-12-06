@@ -19,9 +19,30 @@ export default function (update) {
         const prev = $(ELEMENTS_SELECTOR.prev, wrap);
         const next = $(ELEMENTS_SELECTOR.next, wrap);
         const pagination = $(ELEMENTS_SELECTOR.pagination, wrap);
-
+       
         if (update) {
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopDestroy();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopCreate();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.pagination.render();
             document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
+            document.querySelector(ELEMENTS_SELECTOR.container).swiper.slideToLoop(0, 1000);
+           
+            const images = $(ELEMENTS_SELECTOR.productImage, wrap);
+            const imagesPag = pagination.find('.swiper-pagination-bullet__image');
+            
+            images.each((index, item) => {
+                const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
+                const video = images[index]?.getAttribute('poster') !== undefined;
+            
+                imagesPag.each((indexItem, element) => {
+                    const indexBullets = $(element).attr('data-index');
+
+                    if (indexItem === index) {
+                        $(element).attr('src', currentImage);
+                    }
+                })
+            })
+            
             return;
         }
 
@@ -62,13 +83,16 @@ export default function (update) {
 
                 paramsCustom = {
                     slidesPerView: 'auto',
+                    observer: true,
+                    observeParents: true,
+                    observeSlideChildren: true,
                     pagination: {
                         el: pagination,
                         type: 'bullets',
                         clickable: true,
                         renderBullet(index, classname) {
                             const currentImage = images[index]?.getAttribute('poster') || images[index]?.getAttribute('src');
-                            const video = images[index]?.getAttribute('poster') !== undefined;
+                            const video = images[index]?.getAttribute('poster');
 
                             let vodeoIcon = '';
                             if (video) {
@@ -87,8 +111,9 @@ export default function (update) {
                                             src="${currentImage}"
                                             alt="вид товара ${index}"
                                             class="${classname}__image"
+                                            data-index="${index}"
                                         />
-                                    </div>`;
+                                    </div>`;   
                         },
                     },
                     breakpoints: {
@@ -122,6 +147,7 @@ export default function (update) {
             default:
                 break;
         }
+
 
         params = $.extend(params, paramsCustom);
 

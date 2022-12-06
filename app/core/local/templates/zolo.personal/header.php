@@ -62,74 +62,14 @@ global $APPLICATION;
                 <!--Каталог-->
 
                 <!--Поиск-->
-                <div class="header__block header__block--search search">
-                    <div class="header__search header__search--tablet">
-                        <button type="button" class="button button--iconed button--simple button--red"
-                                data-fancybox data-modal-type="modal"
-                                data-src="#search"
-                        >
-                                        <span class="button__icon">
-                                            <svg class="icon icon--search">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                            </svg>
-                                        </span>
-                        </button>
-
-                        <!--Попап поиска-->
-                        <article id="search" class="modal modal--whole" style="display: none">
-                            <div class="modal__content">
-                                <header class="modal__section modal__section--header">
-                                    <h4 class="heading heading--average">Поиск</h4>
-                                </header>
-
-                                <section class="modal__section modal__section--content">
-                                    <div class="form__row">
-                                        <div class="form__col">
-                                            <div class="form__field">
-                                                <div class="form__field-block form__field-block--input">
-                                                    <div class="header__search-input input input--small input--buttoned">
-                                                        <input type="text"
-                                                               class="header__search-input-control input__control"
-                                                               name="text" id="text5" placeholder="Я ищу...">
-                                                        <button type="button"
-                                                                class="input__button input__button--search button button--iconed button--covered button--square button--dark">
-                                                                        <span class="button__icon button__icon--medium">
-                                                                            <svg class="icon icon--search">
-                                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                                                            </svg>
-                                                                        </span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-                        <!--/Попап поиска-->
-                    </div>
-
-                    <div class="header__search header__search--desktop">
-                        <div class="form__field">
-                            <div class="form__field-block form__field-block--input">
-                                <div class="header__search-input input input--small input--buttoned">
-                                    <input type="text" class="header__search-input-control input__control" name="text"
-                                           id="text5" placeholder="Я ищу...">
-                                    <button type="button"
-                                            class="input__button input__button--search button button--iconed button--covered button--square button--dark">
-                                                    <span class="button__icon button__icon--medium">
-                                                        <svg class="icon icon--search">
-                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-search"></use>
-                                                        </svg>
-                                                    </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:search.form",
+                    "",
+                    [
+                        "USE_SUGGEST" => "N",
+                        "PAGE" => "#SITE_DIR#search/index.php"
+                    ]
+                );?>
                 <!--/Поиск-->
 
                 <div class="header__block header__block--personal personal">

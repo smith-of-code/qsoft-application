@@ -602,6 +602,9 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <span class="profile__period-text"><?=$arResult['current_accounting_period']['name']?></span>
                             </div>
                         </div>
+
+                        <?php if ($arResult['personal_data']['is_consultant']):?>
+
                         <div class="section__box-inner">
                             <h5 class="box__heading box__heading--middle">Достижения в системе лояльности</h5>
 
@@ -633,12 +636,29 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                             <h5 class="box__heading box__heading--middle">Плановые показатели</h5>
 
                             <div class="cards-progress">
-                                <div
-                                    id="loyaltyStatusReport"
-                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                    prop-hold-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
-                                    prop-upgrade-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                ></div>
+                                <div class="participant__progress cards-progress">
+                                    <ul class="cards-progress__list">
+                                        <?php if ($arResult['loyalty_status']['self']['hold_value']):?>
+                                            <li class="cards-progress__item">
+                                                <div
+                                                    id="loyaltyStatusTale"
+                                                    prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                    prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                                    prop-label="Поддержание уровня по личным покупкам"
+                                                ></div>
+                                            </li>
+                                        <?php endif;?>
+                                        <li class="cards-progress__item">
+                                            <div
+                                                id="loyaltyStatusTale"
+                                                prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                                prop-label="Повышение уровня по личным покупкам"
+                                                prop-is-hold="<?=json_encode(false)?>"
+                                            ></div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
@@ -992,6 +1012,43 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 </div>
                             </div>
                         </div>
+
+                        <?php else:?>
+
+                        <div class="section__box-inner">
+                            <div class="section__box-row">
+                                <div class="section__box-col">
+                                    <div class="success-cards success-cards--full">
+                                        <div class="success-cards__item success-cards__item--full">
+                                            <div class="success-card success-card--red">
+                                                <span class="success-card__title heading heading--large"><?=$arResult['loyalty_level_info']['benefits']['personal_discount']?>%</span>
+                                                <span class="success-card__info">Персональная скидка</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section__box-col">
+                                    <div class="cards-progress">
+                                        <div class="participant__progress cards-progress">
+                                            <ul class="cards-progress__list">
+                                                <?php if ($arResult['loyalty_status']['self']['hold_value']):?>
+                                                    <li class="cards-progress__item cards-progress__item--full">
+                                                        <div
+                                                            id="loyaltyStatusTale"
+                                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                                            prop-label="Поддержание уровня по личным покупкам"
+                                                        ></div>
+                                                    </li>
+                                                <?php endif;?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif;?>
                     </div>
                 </div>
             </section>
@@ -999,24 +1056,24 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--/Система лояльности-->
 
         <!--Персональные акции-->
-        <div class="profile__block" data-accordeon>
-            <section class="section">
-                <div class="section__box box box--gray box--rounded-sm">
-                    <div class="profile__accordeon-header accordeon__header section__header">
-                        <h4 class="section__title section__title--closer">Персональные акции</h4>
+        <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
+            <div class="profile__block" data-accordeon>
+                <section class="section">
+                    <div class="section__box box box--gray box--rounded-sm">
+                        <div class="profile__accordeon-header accordeon__header section__header">
+                            <h4 class="section__title section__title--closer">Персональные акции</h4>
 
-                        <div class="profile__actions">
-                            <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
-                                <span class="accordeon__toggle-icon button__icon">
-                                    <svg class="icon icon--arrow-down">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
-                                    </svg>
-                                </span>
-                            </button>
+                            <div class="profile__actions">
+                                <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
+                                    <span class="accordeon__toggle-icon button__icon">
+                                        <svg class="icon icon--arrow-down">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-down"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                             <?php if ($arResult['promotion_orders']):?>
                                 <div class="section__box-inner">
@@ -1055,27 +1112,31 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                             <?php foreach ($arResult['personal_promotions'] as $promotion):?>
                                                 <li class="cards-stock__item">
                                                     <div class="card-stock">
-                                                        <a href="#" class="card-stock__link"></a>
+                                                        <?php if ($promotion['link']):?>
+                                                            <a href="<?=$promotion['link']?>" class="card-stock__link"></a>
+                                                        <?php endif;?>
                                                         <div class="card-stock__inner">
                                                             <div class="card-stock__top">
                                                                 <div class="card-stock__wrapper">
                                                                     <div class="card-stock__image box box--circle">
-                                                                        <img src="https://fakeimg.pl/366x312/" alt="#" class="card-stock__image-picture">
+                                                                        <img src="<?=$promotion['image'] ?: '/local/templates/.default/images/no-image-placeholder.png'?>" alt="Image" class="card-stock__image-picture">
                                                                     </div>
-                                                                    <div class="card-stock__finish date-finish">
-                                                                <span class="date-finish__icon">
-                                                                    <svg class="date-finish__icon icon icon--clock">
-                                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                                                                    </svg>
-                                                                </span>
-                                                                        <span class="date-finish__text">
-                                                                    <span class="date-finish__text date-finish__text--desktop">
-                                                                        Действует
-                                                                    </span>
-                                                                    до
-                                                                    <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
-                                                                </span>
-                                                                    </div>
+                                                                    <?php if ($promotion['active_to']):?>
+                                                                        <div class="card-stock__finish date-finish">
+                                                                            <span class="date-finish__icon">
+                                                                                <svg class="date-finish__icon icon icon--clock">
+                                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
+                                                                                </svg>
+                                                                            </span>
+                                                                            <span class="date-finish__text">
+                                                                                <span class="date-finish__text date-finish__text--desktop">
+                                                                                    Действует
+                                                                                </span>
+                                                                                до
+                                                                                <time datetime="<?=$promotion['active_to']->format('Y-m-d')?>"><?=$promotion['active_to']->format('d.m.Y')?></time>
+                                                                            </span>
+                                                                        </div>
+                                                                    <?php endif;?>
                                                                 </div>
                                                                 <div class="card-stock__devider dots">
                                                                     <span class="dots__item"></span>
@@ -1097,11 +1158,13 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
                                                             <div class="card-stock__bottom">
                                                                 <p class="card-stock__title">
-                                                                    <?=$promotion['name']?>
+                                                                    <?=$promotion['amount'] ? "Скидка {$promotion['amount']}%" : $promotion['name']?>
                                                                 </p>
-                                                                <p class="card-stock__text">
-                                                                    <!-- TODO Description -->
-                                                                </p>
+                                                                <?php if ($promotion['amount']):?>
+                                                                    <p class="card-stock__text">
+                                                                        <?=$promotion['name']?>
+                                                                    </p>
+                                                                <?php endif;?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1112,11 +1175,10 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 </div>
                             <?php endif;?>
                         </div>
-                    <?php endif;?>
-                </div>
-            </section>
-
-        </div>
+                    </div>
+                </section>
+            </div>
+        <?php endif;?>
         <!--/Персональные акции-->
     </div>
 </div>

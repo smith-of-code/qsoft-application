@@ -8,7 +8,7 @@ import { OfferArticle } from "../../components/detailOffers/src/offerArticle";
 import { OfferPrice } from "../../components/detailOffers/src/offerPrice";
 import { SelectOfferMobile } from "../../components/detailOffers/src/offerSelectMobile";
 import { OfferImage } from "../../components/detailOffers/src/offerImage";
-import { LoyaltyStatusReport } from "../../components/loyaltyStatusReport/src/component";
+import { LoyaltyStatusTale } from "../../components/loyaltyStatusTale/src/component";
 
 export default {
     // Обязательно сверху
@@ -19,7 +19,7 @@ export default {
     '#legalEntity': LegalEntity,
     '#salesReportPage': SalesReportPage,
 
-    '#loyaltyStatusReport': LoyaltyStatusReport,
+    '#loyaltyStatusTale': LoyaltyStatusTale,
     // DetailOfferPage components
     '#offerSelect':  SelectOffer,
     '#offerArticle':  OfferArticle,

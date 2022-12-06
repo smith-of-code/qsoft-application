@@ -258,6 +258,13 @@ class LoyaltyProgramHelper
             }
         }
 
+        foreach ($result as &$loyaltyType) {
+            $holdProgress = round($loyaltyType['current_value'] * 100 / $loyaltyType['hold_value']);
+            $upgradeProgress = round($loyaltyType['current_value'] * 100 / $loyaltyType['hold_value']);
+            $loyaltyType['hold_progress'] = min($holdProgress, 100);
+            $loyaltyType['upgrade_progress'] = min($upgradeProgress, 100);
+        }
+
         return $result;
     }
 

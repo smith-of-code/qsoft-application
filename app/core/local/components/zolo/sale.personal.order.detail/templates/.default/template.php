@@ -235,6 +235,22 @@ $details = $arResult['ORDER_DETAILS'];
     </div>
 </section>
 
+<article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+    <div class="modal__content">
+        <section class="modal__section modal__section--content">
+            <div class="notification notification--simple">
+                <div class="notification__icon">
+                    <svg class="icon icon--cat-serious">
+                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                    </svg>
+                </div>
+
+                <h4 class="notification__title">Товары из заказа были добавлены в Вашу корзину</h4>
+            </div>
+        </section>
+    </div>
+</article>
+
 <script>
     let offset = <?=$arResult['OFFSET']?>;
     const orderId = <?=$arParams['ORDER_ID']?>;

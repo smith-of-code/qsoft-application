@@ -4,10 +4,9 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\TicketHelper;
-use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
 
-class PersonalCalculatorComponent extends CBitrixComponent implements Controllerable
+class BecomeConsultantComponent extends CBitrixComponent implements Controllerable
 {
     public const FILE_FIELDS = [
         'photo',
