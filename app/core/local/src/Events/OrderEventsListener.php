@@ -39,7 +39,7 @@ class OrderEventsListener
                 if ($bonusesData) {
                     foreach ($bonusesData as $data) {
                         $tmpUser = new User($data['user_id']);
-                        $bonusAccountHelper->addOrderBonuses($tmpUser, $data['value'], TransactionTable::SOURCES['group']);
+                        $bonusAccountHelper->addOrderBonuses($tmpUser, $data['value'], $data['source'], $data['type']);
                     }
                 }
                 break;

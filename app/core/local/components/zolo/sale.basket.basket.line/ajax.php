@@ -25,6 +25,7 @@ use Bitrix\Main\Error;
 
 class BasketLineController extends Controller
 {
+    private User $user;
     private BasketHelper $basketHelper;
 
     /**
@@ -35,6 +36,7 @@ class BasketLineController extends Controller
         parent::__construct($request);
         $this->initModules();
 
+        $this->user = new User;
         $this->basketHelper = new BasketHelper;
     }
 
@@ -133,6 +135,16 @@ class BasketLineController extends Controller
                         'NAME' => 'Невозвратный товар',
                         'CODE' => 'NONRETURNABLE',
                         'VALUE' => $nonreturnable === 'true',
+                    ],
+                    [
+                        'NAME' => 'Персональная акция',
+                        'CODE' => 'PERSONAL_PROMOTION',
+                        'VALUE' => false,
+                    ],
+                    [
+                        'NAME' => 'Баллы',
+                        'CODE' => 'BONUSES',
+                        'VALUE' => $this->user->loyalty->calculateBonusesByPrice(CCatalogProduct::GetOptimalPrice($offerId)['DISCOUNT_PRICE']),
                     ],
                 ],
             ]);

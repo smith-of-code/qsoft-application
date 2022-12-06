@@ -41,7 +41,7 @@ $APPLICATION->setTitle('Корзина');?>
                                             </ul>
 
                                             <ul class="card-cart__status product-status">
-                                                <?php if ($basketItem['PERSONAL_PROMOTION']):?>
+                                                <?php if ($basketItem['PROPERTIES']['PERSONAL_PROMOTION']):?>
                                                     <li class="product-status__item product-status__item--red">
                                                         <span class="product-status__icon">
                                                             <svg class="icon icon--personal-action product-status__icon-mark">

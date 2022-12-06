@@ -21,7 +21,6 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 }
 
 $this->addExternalJS($this->GetFolder(). "/script.js"); 
-
 if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
     <div class="private__row">
@@ -57,7 +56,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                     <?=getMessage('ORDER_USER') ?>
                                                                 </p>
                                                                 <p class="info-slot__value">
-                                                                    <?=$order['ORDER']['FIO'] ?>
+                                                                    <?=$order['ORDER']['PROPERTIES']['NAME'] ?>
                                                                 </p>
                                                             </div>
                                                         </li>
@@ -90,7 +89,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                             <div class="card-order__price price">
                                                                 <div class="price__calculation price__calculation--columned">
                                                                     <p class="price__calculation-total price__calculation-total--has-icon">
-                                                                        <?php if ($order['ORDER']['PERSONAL_DISCOUNT']): ?>
+                                                                        <?php if ($order['ORDER']['PERSONAL_PROMOTION']): ?>
                                                                             <span class="price__calculation-picture">
                                                                                 <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="<?=getMessage('ORDER_PERSONAL_ACTION') ?>" data-tippy-placement="bottom-start">
                                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
@@ -101,7 +100,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                                                         </span>
                                                                     </p>
-                                                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['PROPERTIES']['POINTS'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
+                                                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
                                                                 </div>
                                                             </div>
                                                         </li>
