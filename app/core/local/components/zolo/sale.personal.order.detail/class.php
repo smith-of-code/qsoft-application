@@ -64,14 +64,13 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         $products = $isLast ? $products : array_slice($products, 0, -1);
         $productIds = array_map(fn($product) => $product['PRODUCT_ID'], $products);
         $offers = ProductService::getProductByIds($productIds);
-        $bonuses = ProductService::getBonusByProductIds($productIds);
         foreach ($products as &$product) {
             $product['NAME'] = $offers[$product['PRODUCT_ID']]['NAME'];
             $product['PICTURE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'] && $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0] ? CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0]) : '/local/templates/.default/images/no-image-placeholder.png';
             $product['ARTICLE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'];
             $product['PRICE'] = self::formatPrice($product['PRICE']);
             $product['QUANTITY'] = intVal($product['QUANTITY']);
-            $product['BONUS'] = $bonuses[$product['PRODUCT_ID']]['PRICE'] * $product['QUANTITY'] ?? 0;
+            $product['BONUS'] = (new User)->loyalty->calculateBonusesByPrice($product['PRICE']);
         }
         return [
             'PRODUCTS' => $products,

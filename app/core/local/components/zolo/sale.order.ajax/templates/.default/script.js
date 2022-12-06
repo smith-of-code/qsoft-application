@@ -72,7 +72,7 @@ class SaleOrderAjaxComponent {
             notification.find('.notification__title').text('Ваш заказ № '+ response.data.id + ' успешно создан!')
 
             $('button[data-order-direct]').on('click', function () {
-                window.location.href = '/personal/orders/' + id + '/';
+                window.location.href = '/personal/orders/' + id;
             });
         }
 
