@@ -424,7 +424,13 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <div class="profile__avatar">
                                     <div class="profile__avatar-box">
                                         <div class="profile__avatar-image">
-                                            <img src="<?=$mentor['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <?php if ($mentor['PERSONAL_PHOTO_URL']):?>
+                                                <img src="<?=$mentor['PERSONAL_PHOTO_URL']?>" alt="Персональное фото" class="profile__avatar-image-pic">
+                                            <?php else:?>
+                                                <svg class="dropzone__message-button-icon icon icon--camera">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>
+                                                </svg>
+                                            <?php endif;?>
                                         </div>
                                     </div>
 
