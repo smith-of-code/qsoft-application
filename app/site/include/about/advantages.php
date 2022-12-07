@@ -4,10 +4,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <section class="about__advantages section section--margin-xl">
     <div class="about__advantages-top section__box box box--gray box--rounded-sm">
         <div class="about__advantages-wrapper">
-            <picture class="about__advantages-picture">
-                <source srcset="/local/templates/.default/images/about-adventages-mobile.png" media="(max-width: 767px)" />
-                <img class="about__advantages-images" src="/local/templates/.default/images/about-adventages.png" alt="">
-            </picture>
+            <div class="about__advantages-picture">
+                <img class="about__advantages-images" src="/local/templates/.default/images/about-adventages-mobile.png" alt="">
+            </div>
         </div>
         <div class="about__advantages-content">
             <h3 class="about__advantages-title section__title section__title--closer">
