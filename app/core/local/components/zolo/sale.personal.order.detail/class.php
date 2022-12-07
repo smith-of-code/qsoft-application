@@ -3,6 +3,8 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\Internals\OrderPropsValueTable;
 use QSoft\Service\ProductService;
 use Bitrix\Main\Loader;
@@ -70,7 +72,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             $product['ARTICLE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'];
             $product['PRICE'] = self::formatPrice($product['PRICE']);
             $product['QUANTITY'] = intVal($product['QUANTITY']);
-            $product['BONUS'] = (new User)->loyalty->calculateBonusesByPrice($product['PRICE']);
+            $product['BONUSES'] *= $product['QUANTITY'];
         }
         return [
             'PRODUCTS' => $products,
@@ -91,6 +93,24 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'select' => ['NAME' => 'STATUS_LANG.NAME'],
             'filter' => ['ID' => $order->getField('STATUS_ID')],
         ]);
+
+        $bonuses = 0;
+        $withPersonalPromotion = false;
+        if ((new User)->groups->isConsultant()) {
+            /** @var BasketItem $basketItem */
+            foreach ($order->getBasket() as $basketItem) {
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES') {
+                        $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                    }
+                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                        $withPersonalPromotion = true;
+                    }
+                }
+            }
+        }
+
         return [
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
@@ -98,8 +118,8 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'ORDER_STATUS' => $statusName['NAME'],
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => self::formatPrice($order->getPrice()),
-            'IS_PROMOTION' => (bool)$order->getField(['PAY_VOUCHER_NUM']),
-            'BONUS' => self::loadOrderBonus($order->getId()),
+            'IS_PROMOTION' => $withPersonalPromotion,
+            'BONUSES' => $bonuses,
         ];
     }
 
@@ -115,23 +135,5 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         }
 
         return $userName;
-    }
-
-    /**
-     * Fetches Order Properties by CODEs
-     * @param $orderIdList
-     * @return array
-     */
-    protected function loadOrderBonus(int $orderId): int
-    {
-        $prop = OrderPropsValueTable::getList([
-            'filter' => [
-                'CODE' => [
-                    'POINTS'
-                ],
-                'ORDER_ID' => $orderId
-            ],
-        ])->fetchRaw();
-        return $prop['VALUE'] ?? 0;
     }
 }

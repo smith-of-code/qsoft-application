@@ -43,7 +43,7 @@ function attach(products) {
         addition.querySelector('.product-article').innerText = ARTICLE + item['ARTICLE'];
         addition.querySelector('.product-price').innerText = item['PRICE'] + RUBLE_SYMBOL;
         addition.querySelector('.product-quantity').innerText = item['QUANTITY'];
-        addition.querySelector('.product-bonus').innerText = item['BONUS'];
+        addition.querySelector('.product-bonus').innerText = item['BONUSES'] + ' ББ';
         document.querySelector('.table-list__list').appendChild(addition);
     }
 }

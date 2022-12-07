@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Sale\Basket\Storage;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Internals\DiscountCouponTable;
@@ -26,8 +28,6 @@ use QSoft\Service\ProductService;
 
 class OrderHelper
 {
-    public const MAX_PERSONAL_PROMOTIONS = 6;
-
     public const ACCOMPLISHED_STATUS = 'F';
     public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
@@ -40,11 +40,13 @@ class OrderHelper
         'full_refunded' => self::FULL_REFUNDED_STATUS,
     ];
 
+    private BasketHelper $basketHelper;
     private BonusAccountHelper $bonusAccountHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
     public function __construct()
     {
+        $this->basketHelper = new BasketHelper;
         $this->bonusAccountHelper = new BonusAccountHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
     }
@@ -75,72 +77,6 @@ class OrderHelper
         ), $result);
     }
 
-    public function getUserCoupons(int $userId): array
-    {
-        $now = new DateTime;
-        $coupons = DiscountCouponTable::getList([
-            'filter' => [
-                '=USER_ID' => $userId,
-                '=ACTIVE' => true,
-                '=DISCOUNT.ACTIVE' => true,
-                [
-                    'LOGIC' => 'OR',
-                    ['<ACTIVE_FROM' => $now],
-                    ['=ACTIVE_FROM' => null],
-                ],
-                [
-                    'LOGIC' => 'OR',
-                    ['>ACTIVE_TO' => $now],
-                    ['=ACTIVE_TO' => null],
-                ],
-            ],
-            'limit' => self::MAX_PERSONAL_PROMOTIONS,
-            'select' => [
-                'ID',
-                'COUPON',
-                'ACTIVE_TO',
-                'NAME' => 'DISCOUNT.NAME',
-                'LINK' => 'ADVANCE.UF_LINK',
-                'IMAGE' => 'ADVANCE.UF_IMAGE',
-                'AMOUNT' => 'ADVANCE.UF_AMOUNT',
-            ],
-            'runtime' => [
-                'DISCOUNT' => [
-                    'data_type' => DiscountTable::class,
-                    'reference' => ['=this.DISCOUNT_ID' => 'ref.ID'],
-                ],
-                'ADVANCE' => [
-                    'data_type' => DiscountsHelperTable::class,
-                    'reference' => ['=this.DISCOUNT_ID' => 'ref.UF_DISCOUNT_ID'],
-                ],
-            ],
-        ]);
-
-        $result = [];
-        $imagesMap = [];
-        foreach ($coupons as $coupon) {
-            $coupon = array_combine(
-                array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
-                $coupon
-            );
-
-            if ($coupon['image']) {
-                $imagesMap[$coupon['image']] = $coupon['coupon'];
-            }
-
-            $result[$coupon['coupon']] = $coupon;
-        }
-
-        if ($imagesMap) {
-            $images = CFile::GetList([], ['@ID' => implode(',', array_keys($imagesMap))]);
-            while ($image = $images->Fetch()) {
-                $result[$imagesMap[$image['ID']]]['image'] = CFile::GetFileSRC($image);
-            }
-        }
-
-        return $result;
-    }
-
     public function createOrder(int $userId, array $data)
     {
         $user = new User($userId);
@@ -148,7 +84,7 @@ class OrderHelper
         $order = Order::create(SITE_ID, $userId);
         $order->setPersonTypeId(1); // TODO: Cut hardcode
 
-        $basket = Storage::getInstance(Fuser::getId(), SITE_ID)->getBasket();
+        $basket = $this->basketHelper->getBasket(true, false);
         $order->setBasket($basket);
 
         $shipmentCollection = $order->getShipmentCollection();
@@ -183,14 +119,50 @@ class OrderHelper
         // TODO: Выяснить причину отсутствия результата выполнения кода. Закоментировал на это время.
         // Закоментировал, так-как не обнаружил причину бага,
         // но при этом технически отсутствие этих данных не скажется на функционале.
-        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
 
         $orderBonusesData = [];
         if ($user->groups->isConsultant()) {
+            $bonuses = 0;
+            $bonusesWithPersonalPromotions = 0;
+            /** @var BasketItem $basketItem */
+            foreach ($basket as $basketItem) {
+                $basketItemBonuses = 0;
+                $withPersonalPromotions = null;
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    switch ($property->getField('CODE')) {
+                        case 'BONUSES':
+                            $basketItemBonuses = $property->getField('VALUE');
+                            break;
+                        case 'PERSONAL_PROMOTION':
+                            $withPersonalPromotions = $property->getField('VALUE');
+                            break;
+                    }
+                }
+
+                if ($withPersonalPromotions) {
+                    $bonusesWithPersonalPromotions += $basketItemBonuses;
+                } else {
+                    $bonuses += $basketItemBonuses;
+                }
+            }
+
             $orderBonusesData[] = [
                 'user_id' => $userId,
-                'value' => $user->loyalty->calculateBonusesByPrice($order->getPrice()),
+                'value' => $bonuses,
+                'source' => TransactionTable::SOURCES['personal'],
+                'type' => TransactionTable::TYPES['purchase'],
             ];
+
+            if ($bonusesWithPersonalPromotions) {
+                $orderBonusesData[] = [
+                    'user_id' => $userId,
+                    'value' => $bonuses,
+                    'source' => TransactionTable::SOURCES['personal'],
+                    'type' => TransactionTable::TYPES['purchase_with_personal_promotion'],
+                ];
+            }
         }
         foreach (BeneficiariesTable::getUserBeneficiaries($userId) as $beneficiaryId) {
             $beneficiary = new User($beneficiaryId);
@@ -198,6 +170,8 @@ class OrderHelper
                 [
                     'user_id' => $beneficiaryId,
                     'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
+                    'source' => TransactionTable::SOURCES['group'],
+                    'type' => TransactionTable::TYPES['group_purchase'],
                 ],
             ];
         }
@@ -209,6 +183,9 @@ class OrderHelper
             switch ($property->getField('CODE')) {
                 case 'city':
                     $property->setValue($data['city']);
+                    break;
+                case 'NAME':
+                    $property->setValue($user->getPersonalData()['name_initials']);
                     break;
                 case 'POINTS':
                     if ($data['bonuses_subtract']) {

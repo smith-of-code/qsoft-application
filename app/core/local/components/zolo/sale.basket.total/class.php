@@ -1,5 +1,7 @@
 <?php
 
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
@@ -28,14 +30,36 @@ class SaleBasketTotal extends CBitrixComponent
         $oldBasketItems = $oldBasket->toArray();
 
         $newBasket = $this->basketHelper->getBasket(true);
-        $newBasketItems = $newBasket->toArray();
 
         $offers = $this->user->products->getOffersByIds(array_column($oldBasketItems, 'PRODUCT_ID'));
 
-        foreach ($newBasketItems as $index => &$basketItem) {
-            if ($basketItem['PRICE'] !== $oldBasketItems[$index]['PRICE']) {
+        $i = 0;
+        $basketBonuses = 0;
+        $basketItems = [];
+        /** @var BasketItem $newBasketItem */
+        foreach ($newBasket as $newBasketItem) {
+            $basketItem = $newBasketItem->toArray();
+            if ($basketItem['PRICE'] !== $oldBasketItems[$i++]['PRICE']) {
                 $basketItem['PERSONAL_PROMOTION'] = true;
             }
+
+            $propertiesCollection = $newBasketItem->getPropertyCollection();
+            /** @var BasketPropertyItem $property */
+            foreach ($propertiesCollection as $property) {
+                if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                    $property->setField('VALUE', (bool)$basketItem['PERSONAL_PROMOTION']);
+                }
+                if ($property->getField('CODE') === 'BONUSES') {
+                    $basketItemBonuses = $this->user->loyalty->calculateBonusesByPrice(
+                        $basketItem['PRICE'],
+                        (bool)$basketItem['PERSONAL_PROMOTION']
+                    );
+                    $basketBonuses += $basketItemBonuses;
+                    $property->setField('VALUE', $basketItemBonuses);
+                }
+            }
+            $basketItem = $newBasketItem->toArray();
+
             $basketItem['PROPERTIES'] = array_combine(
                 array_column($basketItem['PROPERTIES'], 'CODE'),
                 array_column($basketItem['PROPERTIES'], 'VALUE'),
@@ -43,6 +67,8 @@ class SaleBasketTotal extends CBitrixComponent
             $basketItem['OFFER'] = $offers[$basketItem['PRODUCT_ID']];
             $basketItem['TOTAL_PRICE'] = $basketItem['PRICE'] * $basketItem['QUANTITY'];
             $basketItem['TOTAL_BASE_PRICE'] = $basketItem['BASE_PRICE'] * $basketItem['QUANTITY'];
+
+            $basketItems[] = $basketItem;
         }
 
         $this->arResult = [
@@ -53,9 +79,9 @@ class SaleBasketTotal extends CBitrixComponent
             'BASKET_BASE_PRICE'=> $newBasket->getBasePrice(),
             'BASKET_TOTAL_VAT' => $newBasket->getVatSum(),
             'TOTAL_DISCOUNT' => $newBasket->getBasePrice() - $newBasket->getPrice(),
-            'BASKET_ITEMS' => $newBasketItems,
+            'BASKET_ITEMS' => $basketItems,
             'ACTIVE_BONUSES' => $this->user->bonusPoints,
-            'BASKET_ITEMS_BONUS_SUM' => $this->user->loyalty->calculateBonusesByPrice($newBasket->getPrice()),
+            'BASKET_ITEMS_BONUS_SUM' => $basketBonuses,
             'USER_LOYALTY_LEVEL' => $isConsultant ? $this->user->loyaltyLevel : null,
             'LOYALTY_STATUS' => $isConsultant ? $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
                 $this->user->id,

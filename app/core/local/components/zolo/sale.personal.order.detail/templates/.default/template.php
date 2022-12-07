@@ -102,7 +102,7 @@ $details = $arResult['ORDER_DETAILS'];
                                             </p>
 
                                             <!-- итоговое количество баллов ББ -->
-                                            <p class="price__calculation-accumulation"><?=$details['BONUS']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
+                                            <p class="price__calculation-accumulation"><?=$details['BONUSES']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
                                         </div>
                                     </div>
                                 </li>
@@ -196,7 +196,7 @@ $details = $arResult['ORDER_DETAILS'];
                                                                 <li class="product-line__params product-line__params--bold">
                                                                     <p class="product-line__text">
                                                                         <span class="product-line__params-value product-credit product-bonus">
-                                                                            <?=$product['BONUS']?>
+                                                                            <?=$product['BONUSES']?> ББ
                                                                         </span>
                                                                     </p>
                                                                 </li>

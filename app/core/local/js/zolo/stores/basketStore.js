@@ -22,7 +22,7 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = true;
                 try {
                     const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'getBasketTotals', {
-                        data: { withPersonalPromotions: window.location.pathname === '/cart/' },
+                        data: { withPersonalPromotions: window.location.pathname === '/cart/' || window.location.pathname === '/order/make/' },
                     }).then((response) => response.data);
 
                     this.items = response.items;

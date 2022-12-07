@@ -179,7 +179,7 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], numberFormat(item.PRICE) ?? '0');
+        span = createElement('span', ['product-line__params-value'], [], `${item.PRICE} ₽` ?? '0');
 
         p.append(span);
 
@@ -219,7 +219,7 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], numberFormat(item.BONUS) ?? 0 + ' ББ');
+        span = createElement('span', ['product-line__params-value'], [], (numberFormat(item.BONUSES) ?? 0) + ' ББ');
 
         p.append(span);
 

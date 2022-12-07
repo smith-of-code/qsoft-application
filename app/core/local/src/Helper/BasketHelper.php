@@ -19,11 +19,11 @@ use RuntimeException;
 
 class BasketHelper
 {
-    private OrderHelper $orderHelper;
+    private CouponHelper $couponHelper;
 
     public function __construct()
     {
-        $this->orderHelper = new OrderHelper;
+        $this->couponHelper = new CouponHelper;
     }
 
     public static function getOfferProperties(BasketBase $basket, array $properties = []): array
@@ -106,7 +106,7 @@ class BasketHelper
             $order->setBasket($basket);
 
             DiscountCouponsManager::getUserId();
-            $coupons = $this->orderHelper->getUserCoupons($user->id);
+            $coupons = $this->couponHelper->getUserCoupons($user->id);
             foreach ($coupons as $coupon) {
                 DiscountCouponsManager::add($coupon['coupon']);
             }

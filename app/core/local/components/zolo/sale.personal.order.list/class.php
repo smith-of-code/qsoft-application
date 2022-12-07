@@ -14,7 +14,10 @@ use Bitrix\Main,
 	Bitrix\Main\Data,
 	Bitrix\Sale,
 	Bitrix\Sale\Internals\OrderPropsValueTable;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\Order;
+use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
@@ -999,7 +1002,25 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			],
 		]);
 
-		foreach ($orderInfo as $orderObject) {
+        $user = new User;
+        /** @var Order $orderObject */
+        foreach ($orderInfo as $orderObject) {
+            if ($user->groups->isConsultant()) {
+                $orderBonuses = 0;
+                /** @var BasketItem $basketItem */
+                foreach ($orderObject->getBasket() as $basketItem) {
+                    /** @var BasketPropertyItem $property */
+                    foreach ($basketItem->getPropertyCollection() as $property) {
+                        if ($property->getField('CODE') === 'BONUSES') {
+                            $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                        }
+                        if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                            $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
+                        }
+                    }
+                }
+                $listOrders[$orderObject->getField('ID')]['BONUSES'] = $orderBonuses;
+            }
 			$orders[$orderObject->getField('ID')] = $orderObject->getField('PAY_VOUCHER_NUM');
 		}
 
@@ -1168,7 +1189,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             $props = OrderPropsValueTable::getList([
                 'filter' => [
                     'CODE' => [
-                        'FIO', 'POINTS'
+                        'FIO', 'NAME',
                     ],
                     '@ORDER_ID' => $orderIdList
                 ],
