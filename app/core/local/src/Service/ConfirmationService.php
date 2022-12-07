@@ -52,7 +52,7 @@ class ConfirmationService
         $code = $this->generateCode();
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $this->user->fUserID,
+            'UF_FUSER_ID' => $this->user->fUserID,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
@@ -74,7 +74,7 @@ class ConfirmationService
         $code = $this->generateCodeOTP($this->user->id);
 
         ConfirmationTable::add([
-            'UF_USER_ID' => $this->user->fUserID,
+            'UF_FUSER_ID' => $this->user->fUserID,
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
