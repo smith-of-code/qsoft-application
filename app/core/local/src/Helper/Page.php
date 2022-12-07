@@ -14,7 +14,8 @@ class Page
 
     public static function isMain(): bool
     {
-        return self::getRequestUri() === '/';
+        $uri = self::getRequestUri();
+        return $uri === '/' || ! empty(preg_grep('/^\/[?]/', [$uri]));
     }
 
     public static function isPersonal(): bool
