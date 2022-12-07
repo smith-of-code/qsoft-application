@@ -215,18 +215,24 @@ class ProductService
         return BasketTable::getList([
             'filter' => [
                 '=ORDER_ID' => $orderId,
-                '=PROPERTIES.CODE' => 'DETAIL_PAGE',
+                '=PROPERTY_DETAIL_PAGE.CODE' => 'DETAIL_PAGE',
+                '=PROPERTY_BONUSES.CODE' => 'BONUSES',
             ],
             'select' => [
                 'PRODUCT_ID',
                 'PRICE',
                 'QUANTITY',
-                'DETAIL_PAGE' => 'PROPERTIES.VALUE',
+                'DETAIL_PAGE' => 'PROPERTY_DETAIL_PAGE.VALUE',
+                'BONUSES' => 'PROPERTY_BONUSES.VALUE',
             ],
             'offset' => $offset,
             'limit' => $limit,
             'runtime' => [
-                'PROPERTIES' => [
+                'PROPERTY_DETAIL_PAGE' => [
+                    'data_type' => BasketPropertyTable::class,
+                    'reference' => ['=this.ID' => 'ref.BASKET_ID'],
+                ],
+                'PROPERTY_BONUSES' => [
                     'data_type' => BasketPropertyTable::class,
                     'reference' => ['=this.ID' => 'ref.BASKET_ID'],
                 ],
