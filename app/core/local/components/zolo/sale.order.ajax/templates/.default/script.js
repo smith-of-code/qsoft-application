@@ -63,7 +63,7 @@ class SaleOrderAjaxComponent {
 
         let id =  response.data.id;
 
-        if (response.status = 'success') {
+        if (response.status === 'success') {
             $('.content__main').addClass('hidden');
             $('.page__heading').addClass('hidden');
             let notification = $('#notification-block');
@@ -74,9 +74,9 @@ class SaleOrderAjaxComponent {
             $('button[data-order-direct]').on('click', function () {
                 window.location.href = '/personal/orders/' + id;
             });
-        }
 
-        console.log(response);
+            await window.stores.basketStore.fetchBasketTotals();
+        }
     }
 }
 

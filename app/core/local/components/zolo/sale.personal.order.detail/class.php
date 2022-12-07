@@ -23,6 +23,15 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 {
     private const PRODUCT_LIMIT = 20;
 
+    private User $user;
+
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+
+        $this->user = new User;
+    }
+
     public function configureActions()
     {
         return [
@@ -42,6 +51,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
                 throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
             }
             $this->arResult = $this->loadProducts($order->getId());
+            $this->arResult['IS_CONSULTANT'] = $this->user->groups->isConsultant();
             $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -96,7 +106,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
         $bonuses = 0;
         $withPersonalPromotion = false;
-        if ((new User)->groups->isConsultant()) {
+        if ($this->user->groups->isConsultant()) {
             /** @var BasketItem $basketItem */
             foreach ($order->getBasket() as $basketItem) {
                 /** @var BasketPropertyItem $property */
@@ -113,6 +123,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
         return [
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
+            'STATUS_ID' => $order->getField('STATUS_ID'),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => $this->formUserName(),
             'ORDER_STATUS' => $statusName['NAME'],
@@ -126,14 +137,11 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
     //Получение свойства "Кем заказан" по образцу из ВТЗ: Калининнкова А.Ш.
     private function formUserName(): string
     {
-        $user = new User();
-        $userName = '';
-        if ($user->lastName) {
-            $userName = UserFieldHelper::userFIOFormat($user->name, $user->secondName, $user->lastName);
+        if ($this->user->lastName) {
+            $userName = UserFieldHelper::userFIOFormat($this->user->name, $this->user->secondName, $this->user->lastName);
         } else {
-            $userName = $user->email ?? $user->login;
+            $userName = $this->user->email ?? $this->user->login;
         }
-
         return $userName;
     }
 }

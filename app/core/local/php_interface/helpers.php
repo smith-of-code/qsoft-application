@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Main\UserPhoneAuthTable;
 use Illuminate\Container\Container;
 use QSoft\Application\Application;
 use QSoft\Entity\User;
@@ -105,5 +106,17 @@ if (!function_exists('filesizeFormat')) {
     {
         $factor = floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @[' ', ' K', ' M', ' G', ' T'][$factor] . 'B';
+    }
+}
+
+if (!function_exists('normalizePhoneNumber')) {
+    function normalizePhoneNumber(string $phoneNumber): string
+    {
+        if (str_starts_with($phoneNumber, '8')) {
+            $phoneNumber = '+7' . substr($phoneNumber, 1);
+        } elseif (str_starts_with($phoneNumber, '7')) {
+            $phoneNumber = "+$phoneNumber";
+        }
+        return UserPhoneAuthTable::normalizePhoneNumber($phoneNumber);
     }
 }
