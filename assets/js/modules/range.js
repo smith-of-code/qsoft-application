@@ -14,8 +14,7 @@ export default function(){
         let $input = $card.find('.card-counting__value-count');
 
         $($input).on('input', function() {
-            console.log('ss');
-            $(this).val($(this).val().replace(/[A-Za-zА-Яа-яЁё]/, ''))
+            $(this).val($(this).val().replace(/[^0-9]/g, ''))
             return
         });
     })

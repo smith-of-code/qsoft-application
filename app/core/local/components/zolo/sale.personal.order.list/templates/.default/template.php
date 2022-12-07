@@ -1,6 +1,8 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Main\Localization\Loc;
+use QSoft\Entity\User;
+use QSoft\Helper\OrderHelper;
 
 Loc::loadMessages(__FILE__);
 
@@ -20,6 +22,8 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 	}
 }
 
+$arResult['IS_CONSULTANT'] = (new User)->groups->isConsultant();
+
 $this->addExternalJS($this->GetFolder(). "/script.js"); 
 if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
 
@@ -36,7 +40,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                 <?php foreach ($arResult['ORDERS'] as $order): ?>
                                     <?php $paid = $order['ORDER']['PAYED'] == 'Y'; ?>
                                     <li class="cards-order__item">
-                                        <article class="card-order card-order--green">
+                                        <article class="card-order card-order--<?=in_array($order['ORDER']['STATUS_ID'], OrderHelper::SUCCESS_STATUSES) ? 'green' : (in_array($order['ORDER']['STATUS_ID'], OrderHelper::FAIL_STATUSES) ? 'red' : 'blue')?>">
                                             <div class="card-order__inner">
                                                 <header class="card-order__header">
                                                     <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="card-order__link"></a>
@@ -100,7 +104,9 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                                                         </span>
                                                                     </p>
-                                                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
+                                                                    <?php if ($arResult['IS_CONSULTANT']):?>
+                                                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
+                                                                    <?php endif;?>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -141,11 +147,13 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                             <?=getMessage('PRODUCT_COUNT') ?>
                                                                         </p>
                                                                     </div>
-                                                                    <div class="table-list__cell table-list__cell--desktop">
-                                                                        <p class="table-list__name">
-                                                                            <?=getMessage('PRODUCT_BB') ?>
-                                                                        </p>
-                                                                    </div>
+                                                                    <?php if ($arResult['IS_CONSULTANT']):?>
+                                                                        <div class="table-list__cell table-list__cell--desktop">
+                                                                            <p class="table-list__name">
+                                                                                <?=getMessage('PRODUCT_BB') ?>
+                                                                            </p>
+                                                                        </div>
+                                                                    <?php endif;?>
                                                                 </div>
                                                             </div>
 
@@ -168,6 +176,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         </div>
     </div>
 <script>
+    const isConsultant = <?=$arResult['IS_CONSULTANT'] ? 'true' : 'false'?>;
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
     let size = <?=$arParams['ORDERS_PER_PAGE']?>;
     let basketOfset = 0;

@@ -1,12 +1,15 @@
-<?php require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
+<?php use QSoft\Helper\OrderHelper;
+
+require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_before.php");
 $arResult = $_REQUEST['data']['orders'];
 define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
+$arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
 ?>
 <!-- Карточка заказа -->
 <?php foreach ($arResult['ORDERS'] as $order): ?>
     <?php $paid = $order['ORDER']['PAYED'] == 'Y'; ?>
     <li class="cards-order__item">
-        <article class="card-order card-order--green">
+        <article class="card-order card-order--<?=in_array($order['ORDER']['STATUS_ID'], OrderHelper::SUCCESS_STATUSES) ? 'green' : (in_array($order['ORDER']['STATUS_ID'], OrderHelper::FAIL_STATUSES) ? 'red' : 'blue')?>">
             <div class="card-order__inner">
                 <header class="card-order__header">
                     <a href="<?=SEF_FOLDER . $order['ORDER']['ID']?>" class="card-order__link"></a>
@@ -62,7 +65,7 @@ define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
                             <div class="card-order__price price">
                                 <div class="price__calculation price__calculation--columned">
                                     <p class="price__calculation-total price__calculation-total--has-icon">
-                                        <?php if ($order['ORDER']['PERSONAL_DISCOUNT'] == 'true'): ?>
+                                        <?php if ($order['ORDER']['PERSONAL_PROMOTION']): ?>
                                             <span class="price__calculation-picture">
                                                 <svg class="icon icon--cart-card price__calculation-icon tooltip" data-tippy-content="применена персональная акция" data-tippy-placement="bottom-start">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cart-card"></use>
@@ -73,7 +76,9 @@ define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
                                             <?=$order['ORDER']['FORMATED_PRICE']?>
                                         </span>
                                     </p>
-                                    <p class="price__calculation-accumulation"><?=$order['ORDER']['PROPERTIES']['POINTS'] ?? 0 ?> ББ</p>
+                                    <?php if ($arResult['IS_CONSULTANT']):?>
+                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> ББ</p>
+                                    <?php endif;?>
                                 </div>
                             </div>
                         </li>
@@ -114,11 +119,13 @@ define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
                                             Количество
                                         </p>
                                     </div>
-                                    <div class="table-list__cell table-list__cell--desktop">
-                                        <p class="table-list__name">
-                                            Сумма баллов
-                                        </p>
-                                    </div>
+                                    <?php if ($arResult['IS_CONSULTANT']):?>
+                                        <div class="table-list__cell table-list__cell--desktop">
+                                            <p class="table-list__name">
+                                                Сумма баллов
+                                            </p>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
 
