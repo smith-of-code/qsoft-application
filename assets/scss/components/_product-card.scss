@@ -209,8 +209,6 @@
 
             @media #{$screen-desktop} {
                 display: block;
-
-                margin-bottom: 0;
             }
         }
     }
@@ -231,6 +229,7 @@
     }
 
     &__breed {
+        margin-bottom: rem(10px);
         @media #{$screen-desktop} {
             max-width: rem(159px);
         }
