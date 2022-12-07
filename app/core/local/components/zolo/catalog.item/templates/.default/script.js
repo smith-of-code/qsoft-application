@@ -111,15 +111,21 @@
 				}
 				// Отображение цен
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				mainPrice.html(`${offer.mainPrice} ₽`);
+				mainPrice.html(`${this.formatNumber(offer.mainPrice)} ₽`);
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
-				$('#' + this.products[id].elementsIds.totalPrice).html(`${offer.totalPrice} ₽`);
+				$('#' + this.products[id].elementsIds.totalPrice).html(`${this.formatNumber(offer.totalPrice)} ₽`);
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
-				bonuses.html(`${offer.bonuses} ББ`);
+				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);
 				offer.bonuses > 0 ? bonuses.show() : bonuses.hide();
 			}
 		};
+
+		this.formatNumber = function(number, useDecimals = false) {
+			if (!number) return 0;
+			let result = parseInt(number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
+			return useDecimals ? result : result.substring(0, result.length - 3);
+		}
 
 		/**
 		 * Начальное обновление всех карточек товаров
@@ -498,7 +504,6 @@
 
 				// Перебираем параметры ТП
 				for (let propCode in this.products[id].offers[offerId].tree) {
-
 					if (String(result[propCode]) === String(this.products[id].offers[offerId].tree[propCode])) {
 						count += 1;
 					}
@@ -515,7 +520,6 @@
 					break;
 				}
 			}
-			
 			return resultOfferId;
 		}
 	};

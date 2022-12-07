@@ -155,8 +155,9 @@ function setBasketTemplate(data) {
         delete innerDiv2;
 
         innerDiv2 = createElement('div', ['product-line__wrapper']);
-        let h2 = createElement('h2', ['product-line__title'], [], item.NAME ?? '#');
-        let p = createElement('p', ['product-line__subtitle'], [], 'Арт. ' + (item.VENDOR_CODE ?? ''));
+        let h2 = createElement('a', ['product-line__title'], [], item.NAME ?? '#');
+        h2.href = item.DETAIL_PAGE;
+        let p = createElement('p', ['product-line__subtitle'], [], 'Арт. ' + (item.ARTICLE ?? ''));
 
         innerDiv2.append(h2);
         innerDiv2.append(p);

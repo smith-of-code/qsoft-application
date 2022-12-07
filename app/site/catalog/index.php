@@ -1,5 +1,6 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php"); ?>
 <?php
+$APPLICATION->SetTitle('Каталог');
 $APPLICATION->IncludeComponent(
 	"zolo:catalog", 
 	".default", 
