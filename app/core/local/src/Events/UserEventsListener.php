@@ -65,12 +65,7 @@ class UserEventsListener
         if (check_email($params['LOGIN'])) {
             $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
         } else {
-            if (str_starts_with($params['LOGIN'], '8')) {
-                $params['LOGIN'] = '+7' . substr($params['LOGIN'], 1);
-            } elseif (str_starts_with($params['LOGIN'], '7')) {
-                $params['LOGIN'] = "+{$params['LOGIN']}";
-            }
-            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => UserPhoneAuthTable::normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
         }
         if (!$user) {
             return false;
