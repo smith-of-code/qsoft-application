@@ -290,7 +290,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
             'PERSONAL_PHOTO' => $data['photo'] ? (int)$data['photo']['id'] : null,
-            'PERSONAL_PHONE' => $data['phone'],
+            'PERSONAL_PHONE' => normalizePhoneNumber($data['phone']),
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => array_first(array_filter(
                 $data['cities'],
