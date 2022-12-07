@@ -11,10 +11,9 @@
                     <div class="about__howbecome-item">
                         <div class="about__howbecome-card">
                             <div class="about__howbecome-card-wrapper">
-                                <picture class="about__howbecome-card-picture">
-                                    <source srcset="/local/templates/.default/images/about-howbecome-mobile.png" media="(max-width: 767px)" />
-                                    <img class="about__howbecome-card-images" src="/local/templates/.default/images/about-howbecome.png" alt="">
-                                </picture>
+                                <div class="about__howbecome-card-picture">
+                                    <img class="about__howbecome-card-images" src="/local/templates/.default/images/about-howbecome-mobile.png" alt="">
+                                </div>
                             </div>
                             <h4 class="about__howbecome-card-title">
                                 Команда профессионалов
