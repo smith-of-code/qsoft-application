@@ -219,11 +219,11 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], (numberFormat(item.BONUSES) ?? 0) + ' ББ');
-
-        p.append(span);
-
-        delete span;
+        if (isConsultant) {
+            span = createElement('span', ['product-line__params-value'], [], (numberFormat(item.BONUSES) ?? 0) + ' ББ');
+            p.append(span);
+            delete span;
+        }
 
         innerLi.append(p);
         innerUl.append(innerLi);

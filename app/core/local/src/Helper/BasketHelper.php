@@ -112,9 +112,14 @@ class BasketHelper
             }
             $basket = $this->getBasket();
             if ($clearPersonalPromotions) {
-                DiscountCouponsManager::clear(true);
+                $this->clearPersonalPromotions();
             }
         }
         return $basket;
+    }
+
+    public function clearPersonalPromotions(): void
+    {
+        DiscountCouponsManager::clear(true);
     }
 }

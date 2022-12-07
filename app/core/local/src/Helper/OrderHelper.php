@@ -29,6 +29,8 @@ use QSoft\Service\ProductService;
 class OrderHelper
 {
     public const ACCOMPLISHED_STATUS = 'F';
+    public const DELIVERED_STATUS = 'OD';
+    public const DELIVERED_STATUS_2 = 'D';
     public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
     public const FULL_REFUNDED_STATUS = 'FR';
@@ -38,6 +40,18 @@ class OrderHelper
         'cancelled' => self::CANCELLED_STATUS,
         'partly_refunded' => self::PARTLY_REFUNDED_STATUS,
         'full_refunded' => self::FULL_REFUNDED_STATUS,
+    ];
+
+    public const SUCCESS_STATUSES = [
+        self::ACCOMPLISHED_STATUS,
+        self::DELIVERED_STATUS,
+        self::DELIVERED_STATUS_2,
+    ];
+
+    public const FAIL_STATUSES = [
+        self::CANCELLED_STATUS,
+        self::PARTLY_REFUNDED_STATUS,
+        self::FULL_REFUNDED_STATUS,
     ];
 
     private BasketHelper $basketHelper;
@@ -206,6 +220,8 @@ class OrderHelper
 
         $order->doFinalAction(true);
         $orderId = $order->save()->getId();
+
+        $this->basketHelper->clearPersonalPromotions();
 
         $user->notification->sendNotification(
             NotificationTable::TYPES['order_created'],
