@@ -194,13 +194,13 @@
 
             &-menu--active & {
                 &--close {
-                    @media #{$screen-desktop} {
+                    @media #{$screen-tablet} {
                         display: block;
                     }
                 }
 
                 &--open {
-                    @media #{$screen-desktop} {
+                    @media #{$screen-tablet} {
                         display: none;
                     }
                 }
