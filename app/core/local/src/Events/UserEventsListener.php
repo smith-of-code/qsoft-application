@@ -17,10 +17,14 @@ class UserEventsListener
     /**
      * @throws \Exception
      */
-    public static function OnBeforeUserUpdate(array $fields)
+    public static function OnBeforeUserUpdate(array &$fields)
     {
         // Пользователь, для которого вносятся изменения
         $user = new User($fields['ID']);
+
+        if (isset($fields['UF_BONUS_POINTS']) && (!is_numeric($fields['UF_BONUS_POINTS']) || (int)$fields['UF_BONUS_POINTS'] < 0)) {
+            $fields['UF_BONUS_POINTS'] = 0;
+        }
 
         // Если произошло изменение ментора
         if (
