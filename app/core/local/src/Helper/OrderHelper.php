@@ -213,9 +213,9 @@ class OrderHelper
         }
 
         if ($data['bonuses_subtract']) {
-            $data['bonuses_subtract'] = (float)$data['bonuses_subtract'];
+            $data['bonuses_subtract'] = (int)$data['bonuses_subtract'];
             $this->bonusAccountHelper->subtractOrderBonuses($user, $data['bonuses_subtract']);
-            $order->setField('PRICE', $order->getPrice() - $data['bonuses_subtract']);
+            $order->setFieldNoDemand('SUM_PAID', $data['bonuses_subtract']);
         }
 
         $order->doFinalAction(true);

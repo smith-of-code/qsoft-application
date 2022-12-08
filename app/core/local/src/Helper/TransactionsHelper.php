@@ -2,6 +2,7 @@
 
 namespace QSoft\Helper;
 
+use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use QSoft\Entity\User;
@@ -75,21 +76,19 @@ class TransactionsHelper
      * @param $source string Источник транзакции (символьный код)
      * @param $measure string Мера значения суммы транзакции (символьный код)
      * @param $amount numeric Сумма транзакции
-     * @return \Bitrix\Main\ORM\Data\AddResult
+     * @return AddResult
      * @throws \Exception
      */
-    public function add(int $userId, string $type, string $source, string $measure, $amount): \Bitrix\Main\ORM\Data\AddResult
+    public function add(int $userId, string $type, string $source, string $measure, float $amount, ?int $orderId = null): AddResult
     {
-        $typesIDs = $this->getTypesIds();
-        $sourcesIDs = $this->getSourcesIds();
-        $measuresIDs = $this->getMeasuresIds();
         return TransactionTable::add([
             'UF_USER_ID' => $userId,
-            'UF_CREATED_AT' => new DateTime(),
-            'UF_TYPE' => $typesIDs[$type],
-            'UF_SOURCE' => $sourcesIDs[$source],
-            'UF_MEASURE' => $measuresIDs[$measure],
+            'UF_CREATED_AT' => new DateTime,
+            'UF_TYPE' => $type,
+            'UF_SOURCE' => $source,
+            'UF_MEASURE' => $measure,
             'UF_AMOUNT' => $amount,
+            'UF_ORDER_ID' => $orderId,
         ]);
     }
 }

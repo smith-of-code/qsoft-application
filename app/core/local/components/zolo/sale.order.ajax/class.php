@@ -188,7 +188,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		$siteId = $this->getSiteId();
 
 		$this->arResult = [
-            'BONUSES_SUBTRACT' => ((float) $_POST['bonuses']) ?: .0,
+            'BONUSES_SUBTRACT' => ((int) $_POST['bonuses']) ?: 0,
             'PERSON_TYPE' => [],
 			'PAY_SYSTEM' => [],
 			'ORDER_PROP' => [],
