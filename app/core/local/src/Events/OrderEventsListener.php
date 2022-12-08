@@ -8,7 +8,6 @@ use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\OrderHelper;
 use QSoft\Notifiers\ChangeOrderStatusNotifier;
 use Bitrix\Sale\Order;
-use QSoft\ORM\TransactionTable;
 
 class OrderEventsListener
 {
@@ -17,7 +16,7 @@ class OrderEventsListener
         $bonusAccountHelper = new BonusAccountHelper;
 
         $order = Order::load($orderId);
-        $user = new User(Order::load($orderId)->getUserId());
+        $user = new User($order->getUserId());
 
         $notifier = new ChangeOrderStatusNotifier($orderId, $status);
         $user->notification->sendNotification(
@@ -39,7 +38,8 @@ class OrderEventsListener
                 if ($bonusesData) {
                     foreach ($bonusesData as $data) {
                         $tmpUser = new User($data['user_id']);
-                        $bonusAccountHelper->addOrderBonuses($tmpUser, $data['value'], $data['source'], $data['type']);
+                        $bonusAccountHelper->addOrderBonuses($tmpUser, $orderId, $data['value'], $data['source'], $data['type']);
+                        $bonusAccountHelper->addOrderTransaction($tmpUser, $orderId, $order->getPrice(), $data['type'], $data['source']);
                     }
                 }
                 break;

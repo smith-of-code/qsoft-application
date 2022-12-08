@@ -71,7 +71,6 @@ final class TransactionTable extends BaseTable
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_USER_ID_FIELD'),
             ]),
             new IntegerField('UF_ORDER_ID', [
-                'required' => true,
                 'title' => Loc::getMessage('TRANSACTION_ENTITY_UF_USER_ID_FIELD'),
             ]),
             new DatetimeField('UF_CREATED_AT', [
