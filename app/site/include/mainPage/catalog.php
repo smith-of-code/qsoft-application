@@ -16,7 +16,11 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                                  <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                              </svg>
                          </span>
-                         <span class="button__text"><a href="/catalog/for_dogs/">Смотреть</a></span>
+                         <span class="button__text">
+                            <a class="button button--simple button--red button--over" href="/catalog/for_dogs/">
+                                Смотреть
+                            </a>
+                        </span>
                      </span>
                 </div>
 
@@ -36,7 +40,11 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                             </svg>
                         </span>
-                        <span class="button__text"><a href="/catalog/for_cats/">Смотреть</a></span>
+                        <span class="button__text">
+                            <a class="button button--simple button--red button--over" href="/catalog/for_cats/">
+                                Смотреть
+                            </a>
+                        </span>
                     </span>
                 </div>
 
