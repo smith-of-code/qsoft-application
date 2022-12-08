@@ -1,6 +1,10 @@
 (function() {
 	'use strict';
 
+	$(document).on('change', '#catalog_sort_sel', function() {
+		$(this.form).submit();
+	});
+
 	if (!!window.JCCatalogSectionComponent)
 		return;
 
