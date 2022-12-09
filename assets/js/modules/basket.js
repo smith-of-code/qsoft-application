@@ -49,11 +49,22 @@ export default async function () {
     $(document).on('click', ELEMENTS_SELECTOR.item_button_count, checkStatusBasket);
 
     $(document).on('click', ELEMENTS_SELECTOR.bonusButton, () => {
+        const button = $(ELEMENTS_SELECTOR.bonusButton);
+        const buttonIcon = button.find('.button__icon');
+        const basketCard = $(ELEMENTS_SELECTOR.card);
+        const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
+        const basketCardError = basketCard.find('.basket-card__bonus-error');
+
         if (!bonusAccept && !errorCard) {
             acceptBonus();
         } else if (bonusAccept) {
-            resetBonus(); 
+            resetBonus();
         } else if (errorCard) {
+            errorCard = false;
+            basketCardWrapper.removeClass('basket-card__bonus-wrapper--error');
+            button.removeClass('button--red').addClass('button--green');
+            basketCardError.hide();
+            buttonIcon.html(iconDefault);
             resetInput();
         } else {
             return
@@ -211,6 +222,8 @@ export default async function () {
             button.removeClass('button--green').addClass('button--red');
 
             bonusInput.find('.input__placeholder').html('Недостаточно баллов')
+            basketCardError.html('Недостаточно баллов. Пожалуйста, уменьшите количество списываемых баллов');
+            basketCardError.show();
             buttonIcon.html(iconError);
         } else if (percentageBonusPay >= 0.99) {
             errorCard = true;
