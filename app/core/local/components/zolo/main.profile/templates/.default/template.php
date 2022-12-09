@@ -1043,8 +1043,8 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                         <div
                                                             id="loyaltyStatusTale"
                                                             prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
-                                                            prop-label="Поддержание уровня по личным покупкам"
+                                                            prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                                            prop-label="Повышение уровня по личным покупкам"
                                                         ></div>
                                                     </li>
                                                 <?php endif;?>
