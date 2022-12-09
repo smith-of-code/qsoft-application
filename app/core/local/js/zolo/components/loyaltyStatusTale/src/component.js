@@ -88,7 +88,7 @@ export const LoyaltyStatusTale = {
                         </div>
                         <div v-if="targetValue - currentValue > 0" class="card-progress__status">
                             <p class="card-progress__text">
-                                Осталось {{ formatNumber(targetValue - currentValue) }} ₽
+                                Осталось {{ formatNumber(targetValue - currentValue) }}&nbsp;₽
                             </p>
                         </div>
                         <div v-else-if="targetValue - currentValue == 0" class="card-progress__status">
@@ -98,7 +98,7 @@ export const LoyaltyStatusTale = {
                         </div>
                         <div v-else class="card-progress__status">
                             <p class="card-progress__text">
-                                Перевыполнено на  {{ formatNumber(currentValue - targetValue) }} ₽
+                                Перевыполнено на  {{ formatNumber(currentValue - targetValue) }}&nbsp;₽
                             </p>
                         </div>
                     </div>
