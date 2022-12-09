@@ -3,6 +3,8 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\Internals\OrderPropsValueTable;
 use QSoft\Service\ProductService;
 use Bitrix\Main\Loader;
@@ -20,6 +22,15 @@ Loc::loadMessages(__FILE__);
 class PersonalOrderDetailComponent extends CBitrixComponent implements Controllerable
 {
     private const PRODUCT_LIMIT = 20;
+
+    private User $user;
+
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+
+        $this->user = new User;
+    }
 
     public function configureActions()
     {
@@ -39,7 +50,11 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             if (is_null($order)) {
                 throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
             }
+            if ((int)$order->getUserId() !== $this->user->id) {
+                LocalRedirect('/personal/orders/');
+            }
             $this->arResult = $this->loadProducts($order->getId());
+            $this->arResult['IS_CONSULTANT'] = $this->user->groups->isConsultant();
             $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);
             $this->includeComponentTemplate();
         } catch (Throwable $e) {
@@ -64,14 +79,13 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         $products = $isLast ? $products : array_slice($products, 0, -1);
         $productIds = array_map(fn($product) => $product['PRODUCT_ID'], $products);
         $offers = ProductService::getProductByIds($productIds);
-        $bonuses = ProductService::getBonusByProductIds($productIds);
         foreach ($products as &$product) {
             $product['NAME'] = $offers[$product['PRODUCT_ID']]['NAME'];
-            $product['PICTURE'] = CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE']);
+            $product['PICTURE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'] && $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0] ? CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0]) : '/local/templates/.default/images/no-image-placeholder.png';
             $product['ARTICLE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'];
             $product['PRICE'] = self::formatPrice($product['PRICE']);
             $product['QUANTITY'] = intVal($product['QUANTITY']);
-            $product['BONUS'] = $bonuses[$product['PRODUCT_ID']]['PRICE'] * $product['QUANTITY'] ?? 0;
+            $product['BONUSES'] *= $product['QUANTITY'];
         }
         return [
             'PRODUCTS' => $products,
@@ -92,47 +106,45 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'select' => ['NAME' => 'STATUS_LANG.NAME'],
             'filter' => ['ID' => $order->getField('STATUS_ID')],
         ]);
+
+        $bonuses = 0;
+        $withPersonalPromotion = false;
+        if ($this->user->groups->isConsultant()) {
+            /** @var BasketItem $basketItem */
+            foreach ($order->getBasket() as $basketItem) {
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES') {
+                        $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                    }
+                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                        $withPersonalPromotion = true;
+                    }
+                }
+            }
+        }
+
         return [
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
+            'STATUS_ID' => $order->getField('STATUS_ID'),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => $this->formUserName(),
             'ORDER_STATUS' => $statusName['NAME'],
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => self::formatPrice($order->getPrice()),
-            'IS_PROMOTION' => (bool)$order->getField(['PAY_VOUCHER_NUM']),
-            'BONUS' => self::loadOrderBonus($order->getId()),
+            'IS_PROMOTION' => $withPersonalPromotion,
+            'BONUSES' => $bonuses,
         ];
     }
 
     //Получение свойства "Кем заказан" по образцу из ВТЗ: Калининнкова А.Ш.
     private function formUserName(): string
     {
-        $user = new User();
-        $userName = '';
-        if ($user->lastName) {
-            $userName = UserFieldHelper::userFIOFormat($user->name, $user->secondName, $user->lastName);
+        if ($this->user->lastName) {
+            $userName = UserFieldHelper::userFIOFormat($this->user->name, $this->user->secondName, $this->user->lastName);
         } else {
-            $userName = $user->email ?? $user->login;
+            $userName = $this->user->email ?? $this->user->login;
         }
-
         return $userName;
-    }
-
-    /**
-     * Fetches Order Properties by CODEs
-     * @param $orderIdList
-     * @return array
-     */
-    protected function loadOrderBonus(int $orderId): int
-    {
-        $prop = OrderPropsValueTable::getList([
-            'filter' => [
-                'CODE' => [
-                    'POINTS'
-                ],
-                'ORDER_ID' => $orderId
-            ],
-        ])->fetchRaw();
-        return $prop['VALUE'] ?? 0;
     }
 }

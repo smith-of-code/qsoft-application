@@ -90,6 +90,7 @@
 			let offerId = this.getSelectedOffer(id, isMobile);
 			// Обновим отображение параметров торговых предложений
 			let altOfferId = this.refreshOffersProps(id, offerId);
+
 			if (offerId <= 0 && typeof altOfferId != 'undefined' && altOfferId !== null) {
 				offerId = altOfferId;
 			}
@@ -111,15 +112,21 @@
 				}
 				// Отображение цен
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				mainPrice.html(`${offer.mainPrice} ₽`);
+				mainPrice.html(`${this.formatNumber(offer.mainPrice)} ₽`);
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
-				$('#' + this.products[id].elementsIds.totalPrice).html(`${offer.totalPrice} ₽`);
+				$('#' + this.products[id].elementsIds.totalPrice).html(`${this.formatNumber(offer.totalPrice)} ₽`);
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
-				bonuses.html(`${offer.bonuses} ББ`);
+				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);
 				offer.bonuses > 0 ? bonuses.show() : bonuses.hide();
 			}
 		};
+
+		this.formatNumber = function(number, useDecimals = false) {
+			if (!number) return 0;
+			let result = parseInt(number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
+			return useDecimals ? result : result.substring(0, result.length - 3);
+		}
 
 		/**
 		 * Начальное обновление всех карточек товаров
@@ -202,24 +209,25 @@
 						}
 					}
 				}
-				// Проверяем доступность ТП с указанным значением параметра
-				for (let propCode in visibilityTree) {
-					for (let propValue in visibilityTree[propCode]) {
-						let isAvailable = false;
+			}
 
-						for (let offerId in offers) {
+			// Проверяем доступность к выбору параметров ТП
+			for (let propCode in visibilityTree) {
+				for (let propValue in visibilityTree[propCode]) {
+					let isAvailable = false;
 
-							if (offers[offerId].available && offers[offerId].tree[propCode] == propValue) {
-								isAvailable = true;
-								break;
-							}
+					for (let offerId in offers) {
+
+						if (offers[offerId].available && offers[offerId].tree[propCode] == propValue) {
+							isAvailable = true;
+							break;
 						}
-
-						if (! isAvailable) {
-							visibilityTree[propCode][propValue] = undefined;
-						}
-
 					}
+
+					if (! isAvailable) {
+						visibilityTree[propCode][propValue] = undefined;
+					}
+
 				}
 			}
 
@@ -477,6 +485,19 @@
 				offerId = oId; // Записывем успешно найденное ТП
 				count += 1;
 			}
+
+			// Проверяем доступность ТП (наличие)
+			// Если ТП не доступно - выберем любое другое из доступных
+			if (! this.products[id].offers[offerId].available) {
+				for (let oId in this.products[id].offers) {
+					if (this.products[id].offers[oId].available) {
+
+						offerId = oId;
+						break;
+					}
+				}
+			}
+
 			return offerId;
 		};
 
@@ -498,7 +519,6 @@
 
 				// Перебираем параметры ТП
 				for (let propCode in this.products[id].offers[offerId].tree) {
-
 					if (String(result[propCode]) === String(this.products[id].offers[offerId].tree[propCode])) {
 						count += 1;
 					}
@@ -515,7 +535,6 @@
 					break;
 				}
 			}
-			
 			return resultOfferId;
 		}
 	};

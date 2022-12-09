@@ -156,12 +156,15 @@ function setBasketTemplate(data) {
 
         innerDiv2 = createElement('div', ['product-line__wrapper']);
         let h2 = createElement('h2', ['product-line__title'], [], item.NAME ?? '#');
-        let p = createElement('p', ['product-line__subtitle'], [], 'Арт. ' + (item.VENDOR_CODE ?? ''));
+        let p = createElement('p', ['product-line__subtitle'], [], 'Арт. ' + (item.ARTICLE ?? ''));
+        let a = createElement('a', ['product-line__link'], []);
+        a.href = item.DETAIL_PAGE;
 
         innerDiv2.append(h2);
         innerDiv2.append(p);
         innerDiv.append(innerDiv2);
         div.append(innerDiv);
+        article.append(a)
 
         delete innerDiv2;
         delete innerDiv;
@@ -178,7 +181,7 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], numberFormat(item.PRICE) ?? '0');
+        span = createElement('span', ['product-line__params-value'], [], `${item.PRICE} ₽` ?? '0');
 
         p.append(span);
 
@@ -218,11 +221,11 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], numberFormat(item.BONUS) ?? 0 + ' ББ');
-
-        p.append(span);
-
-        delete span;
+        if (isConsultant) {
+            span = createElement('span', ['product-line__params-value'], [], (numberFormat(item.BONUSES) ?? 0) + ' ББ');
+            p.append(span);
+            delete span;
+        }
 
         innerLi.append(p);
         innerUl.append(innerLi);

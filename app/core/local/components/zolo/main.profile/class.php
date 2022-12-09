@@ -15,6 +15,7 @@ use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\UserPhoneAuthTable;
 use QSoft\Entity\User;
+use QSoft\Helper\CouponHelper;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\OrderHelper;
@@ -33,6 +34,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     private PetHelper $petHelper;
     private TicketHelper $ticketHelper;
     private OrderHelper $orderHelper;
+    private CouponHelper $couponHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
     private PickupPointHelper $pickupPointHelper;
 
@@ -49,6 +51,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->petHelper = new PetHelper;
         $this->ticketHelper = new TicketHelper;
         $this->orderHelper = new OrderHelper;
+        $this->couponHelper = new CouponHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
         $this->pickupPointHelper = new PickupPointHelper;
 
@@ -133,7 +136,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $kind['icon'] = substr(strtolower($kind['code']), 5);
         }
 
-        $this->arResult['personal_promotions'] = $this->orderHelper->getUserCoupons($this->user->id);
+        $this->arResult['personal_promotions'] = $this->couponHelper->getUserCoupons($this->user->id);
         $this->arResult['promotion_orders'] = $this->orderHelper->getUserOrdersWithPersonalPromotions($this->user->id);
 
         $this->arResult['MENTOR_INFO'] = $this->getMentorInfo();
@@ -196,7 +199,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $ticketData['PERSONAL_GENDER'] = $userInfo['gender'];
         }
         if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
-            $ticketData['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+            $ticketData['PERSONAL_PHOTO'] = CFile::MakeFileArray($userInfo['photo_id']);
         }
         if ($userInfo['birthdate'] !== $this->user->birthday->format('d.m.Y')) {
             $ticketData['PERSONAL_BIRTHDAY'] = $userInfo['birthdate'];

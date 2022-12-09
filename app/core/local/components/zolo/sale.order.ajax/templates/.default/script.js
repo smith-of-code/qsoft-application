@@ -17,7 +17,6 @@ class SaleOrderAjaxComponent {
 
     changePickupPointsSelect() {
         const city = $('[name=city]').val();
-        console.log(city);
         $('[data-city]').hide();
         $(`[data-city="${city}"]`).show();
     }
@@ -63,7 +62,7 @@ class SaleOrderAjaxComponent {
 
         let id =  response.data.id;
 
-        if (response.status = 'success') {
+        if (response.data?.status === 'success') {
             $('.content__main').addClass('hidden');
             $('.page__heading').addClass('hidden');
             let notification = $('#notification-block');
@@ -72,11 +71,13 @@ class SaleOrderAjaxComponent {
             notification.find('.notification__title').text('Ваш заказ № '+ response.data.id + ' успешно создан!')
 
             $('button[data-order-direct]').on('click', function () {
-                window.location.href = '/personal/orders/' + id + '/';
+                window.location.href = '/personal/orders/' + id;
             });
-        }
 
-        console.log(response);
+            window.stores.basketStore.items = {};
+            window.stores.basketStore.itemsCount = 0;
+            window.stores.basketStore.basketPrice = 0;
+        }
     }
 }
 

@@ -8,6 +8,17 @@ const ELEMENTS_SELECTOR = {
 };
 
 export default function(){
+    let $card = $(".card-counting");
+
+    $card.each( function() {
+        let $input = $card.find('.card-counting__value-count');
+
+        $($input).on('input', function() {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''))
+            return
+        });
+    })
+    
     $(ELEMENTS_SELECTOR.ranges).each(function() {
         let slider = $(this).find(ELEMENTS_SELECTOR.rangeSlider),
             min = slider.data('min'),

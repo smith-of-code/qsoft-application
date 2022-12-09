@@ -4,6 +4,12 @@ window.onload = function () {
     if (buttonShowMore != null) {
         buttonShowMore.addEventListener('click', loadOrders);
     }
+    document.querySelector('.card-order__button').addEventListener('click', repeatOrder);
+}
+
+function repeatOrder() {
+    window.stores.basketStore.repeatOrder(orderId);
+    $.fancybox.open({ src: '#thanks' });
 }
 
 //пагинация товаров
@@ -37,7 +43,7 @@ function attach(products) {
         addition.querySelector('.product-article').innerText = ARTICLE + item['ARTICLE'];
         addition.querySelector('.product-price').innerText = item['PRICE'] + RUBLE_SYMBOL;
         addition.querySelector('.product-quantity').innerText = item['QUANTITY'];
-        addition.querySelector('.product-bonus').innerText = item['BONUS'];
+        addition.querySelector('.product-bonus').innerText = item['BONUSES'] + ' ББ';
         document.querySelector('.table-list__list').appendChild(addition);
     }
 }

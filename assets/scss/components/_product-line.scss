@@ -1,4 +1,5 @@
 .product-line {
+    position: relative;
     &__inner {
         @media #{$screen-desktop} {
             display: flex;
@@ -162,5 +163,9 @@
 
             word-break: break-all;
         }
+    }
+
+    &__link {
+        @include position-stretching(absolute);
     }
 }

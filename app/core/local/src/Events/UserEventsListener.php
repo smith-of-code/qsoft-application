@@ -17,10 +17,14 @@ class UserEventsListener
     /**
      * @throws \Exception
      */
-    public static function OnBeforeUserUpdate(array $fields)
+    public static function OnBeforeUserUpdate(array &$fields)
     {
         // Пользователь, для которого вносятся изменения
         $user = new User($fields['ID']);
+
+        if (isset($fields['UF_BONUS_POINTS']) && (!is_numeric($fields['UF_BONUS_POINTS']) || (int)$fields['UF_BONUS_POINTS'] < 0)) {
+            $fields['UF_BONUS_POINTS'] = 0;
+        }
 
         // Если произошло изменение ментора
         if (
@@ -62,12 +66,10 @@ class UserEventsListener
         if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
             return true;
         }
-        if (UserPhoneAuthTable::validatePhoneNumber($params['LOGIN']) === true) {
-            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => UserPhoneAuthTable::normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
-        } elseif (check_email($params['LOGIN'])) {
+        if (check_email($params['LOGIN'])) {
             $user = UserTable::getRow(['filter' => ['=EMAIL' => $params['LOGIN']], 'select' => ['ID', 'LOGIN']]);
         } else {
-            return false;
+            $user = UserTable::getRow(['filter' => ['=PERSONAL_PHONE' => normalizePhoneNumber($params['LOGIN'])], 'select' => ['ID', 'LOGIN']]);
         }
         if (!$user) {
             return false;

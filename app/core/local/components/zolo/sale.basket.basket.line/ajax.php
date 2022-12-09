@@ -17,10 +17,15 @@ use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
+use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
+use \QSoft\Service\ProductService;
+use Bitrix\Sale\Order;
+use Bitrix\Main\Error;
 
 class BasketLineController extends Controller
 {
+    private User $user;
     private BasketHelper $basketHelper;
 
     /**
@@ -31,6 +36,7 @@ class BasketLineController extends Controller
         parent::__construct($request);
         $this->initModules();
 
+        $this->user = new User;
         $this->basketHelper = new BasketHelper;
     }
 
@@ -58,6 +64,12 @@ class BasketLineController extends Controller
                 ],
             ],
             'decreaseItem' => [
+                '-prefilters' => [
+                    Authentication::class,
+                    Csrf::class,
+                ],
+            ],
+            'repeatOrder' => [
                 '-prefilters' => [
                     Authentication::class,
                     Csrf::class,
@@ -124,11 +136,22 @@ class BasketLineController extends Controller
                         'CODE' => 'NONRETURNABLE',
                         'VALUE' => $nonreturnable === 'true',
                     ],
+                    [
+                        'NAME' => 'Персональная акция',
+                        'CODE' => 'PERSONAL_PROMOTION',
+                        'VALUE' => false,
+                    ],
+                    [
+                        'NAME' => 'Баллы',
+                        'CODE' => 'BONUSES',
+                        'VALUE' => $this->user->loyalty->calculateBonusesByPrice(CCatalogProduct::GetOptimalPrice($offerId)['DISCOUNT_PRICE']),
+                    ],
                 ],
             ]);
         }
         if (!$result->isSuccess()) {
-            throw new RuntimeException($result->getErrorMessages());
+            $this->errorCollection = $result->getErrorCollection();
+            return [];
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
     }
@@ -176,5 +199,54 @@ class BasketLineController extends Controller
             throw new RuntimeException($result->getErrorMessages());
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
+    }
+
+    public function repeatOrderAction(int $orderId): array
+    {
+        //объект заказа
+        $orderOld = Order::load($orderId);
+
+        if ($orderOld == null) {
+            $this->errorCollection[] = new Error('Заказ с номером ' . $orderId . ' не найден');
+            return [];
+        }
+
+        $basketOld = $orderOld->getBasket();
+
+        if ($basketOld->isEmpty()) {
+            $this->errorCollection[] = new Error('Заказ с номером ' . $orderId . ' имеет пустую корзину');
+            return [];
+        }
+
+        $ids = array_map(static fn($item) => $item->getProductId(), $basketOld->getBasketItems());
+
+        $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
+
+        $missing = [];//позиции старой корзины, которые не добавятся в новую корзину
+        foreach ($basketOld as $basketItem) {
+            $offer = $offers[$basketItem->getProductId()];
+            $requiredQuantity = $basketItem->getQuantity();
+            $availableQuantity = $offer['CATALOG_QUANTITY'];
+            if ($availableQuantity == 0) {
+                $missing[] = [
+                    'ID' => $offer['ID'],
+                    'NAME' => $offer['NAME'],
+                ];
+                continue;
+            }
+
+            $props = $basketItem->getPropertyCollection()->getPropertyValues();
+
+            $this->increaseItemAction(
+                $offer['ID'],
+                $props['DETAIL_PAGE']['VALUE'],
+                $props['NONRETURNABLE']['VALUE'],
+                'false',
+                min($requiredQuantity, $availableQuantity),
+            );
+        }
+        $result = $this->getBasketTotalsAction();
+        $result['missing'] = $missing;
+        return $result;
     }
 }

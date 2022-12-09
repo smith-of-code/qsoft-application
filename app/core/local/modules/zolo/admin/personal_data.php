@@ -54,7 +54,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                         <span class="form__label-text">Персональное фото</span>
                     </label>
                 </div>
-                <img src="<?=CFile::GetPath($ticketData['PERSONAL_PHOTO'])?>" style="max-width: 300px;">
+                <img src="<?=$ticketData['PERSONAL_PHOTO']['tmp_name']?>" style="max-width: 300px;">
             <?php endif;?>
 
             <div class="form__row">

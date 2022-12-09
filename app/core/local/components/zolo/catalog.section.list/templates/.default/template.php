@@ -179,18 +179,33 @@ LINK;
 }
 
 // Закрытие блоков списка разделов
+$wasExpandable = false;
 while($CURRENT_DEPTH > $TOP_DEPTH) {
     if ($CURRENT_DEPTH > $TOP_DEPTH + 1) {
         echo $closeLevel2;
+        if ($TOP_DEPTH != 0) {
+            // Индикатор того, что нужно закрыть разворачиваемый список
+            $wasExpandable = true;
+        }
     } else {
-        // Если последний раз закрывался разворачиваемый раздел - надо поменять верстку,
-        // иначе повторно закроет разворачиваемый список
-        if ($TOP_DEPTH != 0 && $closeExpandable) {
-            $closeLevel1 = <<<CLOSE_LEVEL_1
+        if ($TOP_DEPTH != 0) {
+            if ($wasExpandable) {
+                $closeLevel1 = <<<CLOSE_LEVEL_1
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- ЗАКРЫТИЕ ВЛОЖЕННОГО СПИСКА -->
+CLOSE_LEVEL_1;
+            } else {
+                $closeLevel1 = <<<CLOSE_LEVEL_1
         </li>
 CLOSE_LEVEL_1;
+            }
         }
         echo $closeLevel1;
+
     }
     $CURRENT_DEPTH--;
 }

@@ -83,7 +83,7 @@ class BonusAccountHelper
         ]);
     }
 
-    public function addOrderBonuses(User $user, float $amount, string $source = TransactionTable::SOURCES['personal']): bool
+    public function addOrderBonuses(User $user, int $orderId, int $amount, string $source, string $type): bool
     {
         if (!$user->active) {
             throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
@@ -92,18 +92,21 @@ class BonusAccountHelper
             throw new RuntimeException('Пользователь не является Консультантом');
         }
 
-        $this->transactions->add(
-            $user->id,
-            TransactionTable::TYPES['purchase'],
-            $source,
-            TransactionTable::MEASURES['points'],
-            $amount,
-        );
+        $transactionResult = $this->transactions->add($user->id, $type, $source, TransactionTable::MEASURES['points'], $amount, $orderId);
 
-        return $user->update([
+        return $transactionResult->isSuccess() && $user->update([
             'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
             'UF_LOYALTY_CHECK_DATE' => new DateTime,
         ]);
+    }
+
+    public function addOrderTransaction(User $user, int $orderId, float $amount, string $type, string $source): bool
+    {
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован');
+        }
+
+        return $this->transactions->add($user->id, $type, $source, TransactionTable::MEASURES['money'], $amount, $orderId)->isSuccess();
     }
 
     /**
@@ -125,13 +128,13 @@ class BonusAccountHelper
         }
 
         // Получаем количество баллов для начисления
-        $amount = $this->consultantLoyalty->getReferralBonus($user->loyaltyLevel);
+        $amount = $this->consultantLoyalty->getUpgradeLevelBonus($user->loyaltyLevel);
 
-        if (isset($amount)) {
+        if (isset($amount) && $amount) {
             // Добавляем транзакцию
             $this->transactions->add(
                 $user->id,
-                TransactionTable::TYPES['upgrade'],
+                TransactionTable::TYPES["upgrade_to_$user->loyaltyLevel"],
                 TransactionTable::SOURCES['personal'],
                 TransactionTable::MEASURES['points'],
                 $amount
@@ -145,7 +148,7 @@ class BonusAccountHelper
         return false;
     }
 
-    public function subtractOrderBonuses(User $user, float $amount): bool
+    public function subtractOrderBonuses(User $user, int $amount): bool
     {
         if (!$user->active) {
             throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');

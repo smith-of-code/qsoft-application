@@ -14,7 +14,8 @@ class Page
 
     public static function isMain(): bool
     {
-        return self::getRequestUri() === '/';
+        $uri = self::getRequestUri();
+        return $uri === '/' || ! empty(preg_grep('/^\/[?]/', [$uri]));
     }
 
     public static function isPersonal(): bool
@@ -52,6 +53,11 @@ class Page
         return strpos(self::getRequestUri(), '/info/discounts/') === 0;
     }
 
+    public static function isAmeBusiness(): bool
+    {
+        return strpos(self::getRequestUri(), '/info/ame-business/') === 0;
+    }
+
     public static function hasBreadcrumbs(): bool
     {
         return self::isCatalog()
@@ -60,6 +66,7 @@ class Page
             || self::isExpertAdvice()
             || self::isFaq()
             || self::isDiscounts()
+            || self::isAmeBusiness()
         ;
     }
 }

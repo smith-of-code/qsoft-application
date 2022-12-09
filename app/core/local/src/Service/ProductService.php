@@ -4,6 +4,7 @@ namespace QSoft\Service;
 
 use Bitrix\Catalog\GroupTable;
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Sale\Internals\BasketPropertyTable;
 use Bitrix\Sale\Internals\BasketTable;
 use CCatalogProduct;
 use CCatalogSku;
@@ -54,6 +55,22 @@ class ProductService
         $product['OFFERS'] = $this->getOffersByIds($offersIds);
 
         return $product;
+    }
+
+    public function getOffersByRepeatedIds(array $offerIds): array
+    {
+        if (!$offerIds) {
+            return [];
+        }
+
+        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, ['ID', 'NAME', 'QUANTITY', 'CATALOG_AVAILABLE']);
+
+        $offers = [];
+        while ($offer = $offerIterator->Fetch()) {
+            $offers[$offer['ID']] = $offer;
+        }
+
+        return $offers ?? [];
     }
 
     public function getOffersByIds(array $offerIds): array
@@ -198,14 +215,28 @@ class ProductService
         return BasketTable::getList([
             'filter' => [
                 '=ORDER_ID' => $orderId,
+                '=PROPERTY_DETAIL_PAGE.CODE' => 'DETAIL_PAGE',
+                '=PROPERTY_BONUSES.CODE' => 'BONUSES',
             ],
             'select' => [
                 'PRODUCT_ID',
                 'PRICE',
                 'QUANTITY',
+                'DETAIL_PAGE' => 'PROPERTY_DETAIL_PAGE.VALUE',
+                'BONUSES' => 'PROPERTY_BONUSES.VALUE',
             ],
             'offset' => $offset,
             'limit' => $limit,
+            'runtime' => [
+                'PROPERTY_DETAIL_PAGE' => [
+                    'data_type' => BasketPropertyTable::class,
+                    'reference' => ['=this.ID' => 'ref.BASKET_ID'],
+                ],
+                'PROPERTY_BONUSES' => [
+                    'data_type' => BasketPropertyTable::class,
+                    'reference' => ['=this.ID' => 'ref.BASKET_ID'],
+                ],
+            ],
         ])->fetchAll();
     }
 
@@ -234,47 +265,5 @@ class ProductService
             $offers[$offer['ID']] = $offer;
         }
         return $offers;
-    }
-
-    public static function getBonusByProductIds(array $productIds): array
-    {
-        if (empty($productIds)) {
-            return [];
-        }
-
-        $levelId = 0;
-
-        $levels = GroupTable::GetList(
-            [
-                'select' => ['*'],
-            ]
-        )->fetchAll();
-
-        $user = new User();
-
-        $level = $user->loyalty->getLoyaltyProgramInfo()['CURRENT_LEVEL'];
-
-        foreach ($levels as $lvl) {
-            if ($lvl['NAME'] == $level) {
-                $levelId = $lvl['ID'];
-                break;
-            }
-        }
-
-        $dbBonuses = PriceTable::GetList(
-            [
-                'select' => ['*'],
-                'filter' => [
-                    'PRODUCT_ID' => $productIds,
-                    'CATALOG_GROUP_ID' => $levelId,
-                ],
-            ]
-        );
-
-        while ($row = $dbBonuses->Fetch()) {
-            $bonuses[$row['PRODUCT_ID']] = $row;
-        }
-
-        return $bonuses ?? [];
     }
 }

@@ -10,8 +10,9 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
-use Bitrix\Sale\Fuser;
 use QSoft\Entity\User;
+use QSoft\Helper\BuyerLoyaltyProgramHelper;
+use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\ORM\ConfirmationTable;
@@ -19,7 +20,6 @@ use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
-use QSoft\Service\ConfirmationService;
 use QSoft\Service\UserGroupsService;
 
 Loc::loadMessages(__FILE__);
@@ -267,6 +267,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
+        $loyaltyProgramHelper = $registrationData['type'] === 'consultant' ? new ConsultantLoyaltyProgramHelper : new BuyerLoyaltyProgramHelper;
+        $firstLevel = $loyaltyProgramHelper->getLowestLevel();
+        $levelsIDs = $loyaltyProgramHelper->getLevelsIDs();
+
         $userGroupId = GroupTable::getRow([
             'filter' => [
                 '=STRING_ID' => $registrationData['type'],
@@ -289,8 +293,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             'SECOND_NAME' => $data['second_name'],
             'EMAIL' => $data['email'],
             'PERSONAL_BIRTHDAY' => new Date($data['birthdate']),
-            'PERSONAL_PHOTO' => $data['photo'] ? (int)$data['photo']['id'] : null,
-            'PERSONAL_PHONE' => $data['phone'],
+            'PERSONAL_PHOTO' => $data['photo'] ? CFile::MakeFileArray($data['photo']['id']) : null,
+            'PERSONAL_PHONE' => normalizePhoneNumber($data['phone']),
             'PERSONAL_GENDER' => $data['gender'],
             'PERSONAL_CITY' => array_first(array_filter(
                 $data['cities'],
@@ -298,6 +302,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ))['VALUE'],
             'GROUP_ID' => [$userGroupId],
             'UF_MENTOR_ID' => $data['mentor_id'],
+            'UF_LOYALTY_LEVEL' => $levelsIDs[$firstLevel],
             'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'] === 'true',
             'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'] === 'true',
             'UF_AGREE_WITH_COMPANY_RULES' => $data['agree_with_company_rules'] === 'true',

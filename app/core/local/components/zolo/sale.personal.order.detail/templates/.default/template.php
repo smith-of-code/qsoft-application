@@ -4,6 +4,7 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 }
 
 use Bitrix\Main\Localization\Loc;
+use QSoft\Helper\OrderHelper;
 
 $details = $arResult['ORDER_DETAILS'];
 ?>
@@ -21,7 +22,7 @@ $details = $arResult['ORDER_DETAILS'];
     <div class="cards-order">
         <ul class="cards-order__list">
             <li class="cards-order__item">
-                <article class="card-order card-order--green card-order--divided">
+                <article class="card-order card-order--<?=in_array($details['STATUS_ID'], OrderHelper::SUCCESS_STATUSES) ? 'green' : (in_array($details['STATUS_ID'], OrderHelper::FAIL_STATUSES) ? 'red' : 'blue')?> card-order--divided">
                     <!-- Детали заказа, Состав заказа (товары)-->
                     <div class="card-order__inner">
 
@@ -101,8 +102,10 @@ $details = $arResult['ORDER_DETAILS'];
                                                 </span>
                                             </p>
 
-                                            <!-- итоговое количество баллов ББ -->
-                                            <p class="price__calculation-accumulation"><?=$details['BONUS']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
+                                            <?php if ($arResult['IS_CONSULTANT']):?>
+                                                <!-- итоговое количество баллов ББ -->
+                                                <p class="price__calculation-accumulation"><?=$details['BONUSES']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
+                                            <?php endif;?>
                                         </div>
                                     </div>
                                 </li>
@@ -151,6 +154,7 @@ $details = $arResult['ORDER_DETAILS'];
 
                                             <!-- Цена, Количество, Сумма баллов -->
                                             <?php foreach (['PRICE_PRODUCT_TABLE', 'QUANTITY_PRODUCT_TABLE', 'BONUS_PRODUCT_TABLE'] as $field) :?>
+                                                <?php if (!$arResult['IS_CONSULTANT'] && $field === 'BONUS_PRODUCT_TABLE') continue;?>
                                                 <div class="table-list__cell table-list__cell--desktop">
                                                     <p class="table-list__name">
                                                         <?=Loc::getMessage($field)?>
@@ -163,6 +167,7 @@ $details = $arResult['ORDER_DETAILS'];
                                             <? foreach ($arResult['PRODUCTS'] as $product) :?>
                                             <li class="table-list__item">
                                                 <article class="product-line">
+                                                    <a class="product-line__link" href="<?=$product['DETAIL_PAGE']?>"></a>
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
                                                             <div class="product-line__image">
@@ -193,13 +198,15 @@ $details = $arResult['ORDER_DETAILS'];
                                                                         </span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="product-line__params product-line__params--bold">
-                                                                    <p class="product-line__text">
-                                                                        <span class="product-line__params-value product-credit product-bonus">
-                                                                            <?=$product['BONUS']?>
-                                                                        </span>
-                                                                    </p>
-                                                                </li>
+                                                                <?php if ($arResult['IS_CONSULTANT']):?>
+                                                                    <li class="product-line__params product-line__params--bold">
+                                                                        <p class="product-line__text">
+                                                                            <span class="product-line__params-value product-credit product-bonus">
+                                                                                <?=$product['BONUSES']?> ББ
+                                                                            </span>
+                                                                        </p>
+                                                                    </li>
+                                                                <?php endif;?>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -234,6 +241,22 @@ $details = $arResult['ORDER_DETAILS'];
         </ul>
     </div>
 </section>
+
+<article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
+    <div class="modal__content">
+        <section class="modal__section modal__section--content">
+            <div class="notification notification--simple">
+                <div class="notification__icon">
+                    <svg class="icon icon--cat-serious">
+                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-cat-serious"></use>
+                    </svg>
+                </div>
+
+                <h4 class="notification__title">Товары из заказа были добавлены в Вашу корзину</h4>
+            </div>
+        </section>
+    </div>
+</article>
 
 <script>
     let offset = <?=$arResult['OFFSET']?>;

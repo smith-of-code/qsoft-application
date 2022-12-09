@@ -36,9 +36,10 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
         $user = UserTable::getRow([
             'filter' => [
                 'LOGIC' => 'OR',
-                ['=LOGIN' => $login],
+                ['=PERSONAL_PHONE' => normalizePhoneNumber($login)],
                 ['=EMAIL' => $login],
             ],
+            'select' => ['ID', 'ACTIVE'],
         ]);
 
         if (!$user) {

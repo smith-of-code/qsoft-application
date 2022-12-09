@@ -7,10 +7,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                 <li class="goals-cards__item">
                     <div class="goals-card">
                         <div class="goals-card__wrapper">
-                            <picture class="goals-card__picture">
-                                <source srcset="/local/templates/.default/images/about-goal-1-mobile.png" media="(max-width: 767px)" />
-                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-1.png" alt="">
-                            </picture>
+                            <div class="goals-card__picture">
+                                <img src="/local/templates/.default/images/about-goal-1-mobile.png" class="goals-card__images"  alt="">
+                            </div>
                         </div>
 
                         <div class="goals-card__content">
@@ -27,10 +26,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                 <li class="goals-cards__item">
                     <div class="goals-card">
                         <div class="goals-card__wrapper">
-                            <picture class="goals-card__picture goals-card__picture--big">
-                                <source srcset="/local/templates/.default/images/about-goal-2-mobile.png" media="(max-width: 767px)" />
-                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2.png" alt="">
-                            </picture>
+                            <div class="goals-card__picture goals-card__picture--big">
+                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-2-mobile.png" alt="">
+                            </div>
                         </div>
 
                         <div class="goals-card__content">
@@ -47,10 +45,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                 <li class="goals-cards__item goals-cards__item--full">
                     <div class="goals-card goals-card--full">
                         <div class="goals-card__wrapper">
-                            <picture class="goals-card__picture">
-                                <source srcset="/local/templates/.default/images/about-goal-3-mobile.png" media="(max-width: 767px)" />
-                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3.png" alt="">
-                            </picture>
+                            <div class="goals-card__picture">
+                                <img class="goals-card__images" src="/local/templates/.default/images/about-goal-3-mobile.png" alt="">
+                            </div>
                         </div>
 
                         <div class="goals-card__content">

@@ -41,7 +41,7 @@ $APPLICATION->setTitle('Корзина');?>
                                             </ul>
 
                                             <ul class="card-cart__status product-status">
-                                                <?php if ($basketItem['PERSONAL_PROMOTION']):?>
+                                                <?php if ($basketItem['PROPERTIES']['PERSONAL_PROMOTION']):?>
                                                     <li class="product-status__item product-status__item--red">
                                                         <span class="product-status__icon">
                                                             <svg class="icon icon--personal-action product-status__icon-mark">
@@ -369,7 +369,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input input--small input--buttoned input--placeholder" data-basket-bonus-input>
-                                                                <input type="number" class="input__control" name="bonuses" id="bonuses">
+                                                                <input type="text" class="input__control" name="bonuses" id="bonuses">
                                                                 <span class="input__placeholder">Сколько баллов списать</span>
                                                                 <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark" data-basket-bonus-accept>
                                                                     <span class="button__icon button__icon--small">

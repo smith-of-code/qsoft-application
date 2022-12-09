@@ -244,29 +244,29 @@ else:?>
                                 <div class="basket-card__list">
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--gray">Количество товаров</span>
-                                        <span class="basket-card__total"><?=$arResult['BASKET_POSITIONS']?></span> 
+                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_COUNT'], 0, ' ', ' ')?></span>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
-                                        <span class="basket-card__total"><?=$arResult['ORDER_TAX_FORMATED']?></span> 
+                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_TOTAL_VAT'], 0, ' ', ' ')?> ₽</span>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text">Сумма заказа</span>
-                                        <span class="basket-card__total"><?=$arResult['PRICE_WITHOUT_DISCOUNT']?></span> 
+                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_BASE_PRICE'], 0, ' ', ' ')?> ₽</span>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__total"><?=$arResult['BASKET_PRICE_DISCOUNT_DIFF']?></span> 
+                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' ')?> ₽</span>
                                     </div>
                                     <?php if ($arResult['USER']['IS_CONSULTANT']):?>
                                         <div class="basket-card__item">
                                             <span class="basket-card__text basket-card__text--green">Будет начислено</span>
-                                            <span class="basket-card__total"><?=$arResult['ORDER_BONUSES']?> ББ</span> 
+                                            <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_ITEMS_BONUS_SUM'], 0, ' ', ' ')?> ББ</span>
                                         </div>
                                     <?php endif;?>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
-                                        <span class="basket-card__total basket-card__total--bold"><?=$arResult['ORDER_PRICE_FORMATED']?></span> 
+                                        <span class="basket-card__total basket-card__total--bold"><?=number_format($arResult['BASKET']['BASKET_PRICE'], 0, ' ', ' ')?> ₽</span>
                                     </div>
                                 </div>
                             </div>

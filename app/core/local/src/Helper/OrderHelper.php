@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Sale\Basket\Storage;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Internals\DiscountCouponTable;
@@ -19,6 +21,7 @@ use CFile;
 use QSoft\Entity\User;
 use QSoft\ORM\BeneficiariesTable;
 use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\ORM\DiscountsHelperTable;
 use QSoft\ORM\NotificationTable;
 use QSoft\ORM\TransactionTable;
 use QSoft\Service\ProductService;
@@ -26,6 +29,8 @@ use QSoft\Service\ProductService;
 class OrderHelper
 {
     public const ACCOMPLISHED_STATUS = 'F';
+    public const DELIVERED_STATUS = 'OD';
+    public const DELIVERED_STATUS_2 = 'D';
     public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
     public const FULL_REFUNDED_STATUS = 'FR';
@@ -37,11 +42,25 @@ class OrderHelper
         'full_refunded' => self::FULL_REFUNDED_STATUS,
     ];
 
+    public const SUCCESS_STATUSES = [
+        self::ACCOMPLISHED_STATUS,
+        self::DELIVERED_STATUS,
+        self::DELIVERED_STATUS_2,
+    ];
+
+    public const FAIL_STATUSES = [
+        self::CANCELLED_STATUS,
+        self::PARTLY_REFUNDED_STATUS,
+        self::FULL_REFUNDED_STATUS,
+    ];
+
+    private BasketHelper $basketHelper;
     private BonusAccountHelper $bonusAccountHelper;
     private LoyaltyProgramHelper $loyaltyProgramHelper;
 
     public function __construct()
     {
+        $this->basketHelper = new BasketHelper;
         $this->bonusAccountHelper = new BonusAccountHelper;
         $this->loyaltyProgramHelper = new LoyaltyProgramHelper;
     }
@@ -72,36 +91,6 @@ class OrderHelper
         ), $result);
     }
 
-    public function getUserCoupons(int $userId): array
-    {
-        $now = new DateTime;
-
-        $result = DiscountCouponTable::getList([
-            'filter' => [
-                '=USER_ID' => $userId,
-                '=ACTIVE' => true,
-                [
-                    'LOGIC' => 'OR',
-                    ['<ACTIVE_FROM' => $now],
-                    ['=ACTIVE_FROM' => null],
-                ],
-                '>ACTIVE_TO' => $now,
-            ],
-            'select' => ['ID', 'COUPON', 'ACTIVE_TO', 'NAME' => 'DISCOUNT.NAME'],
-            'runtime' => [
-                'DISCOUNT' => [
-                    'data_type' => DiscountTable::class,
-                    'reference' => ['=this.DISCOUNT_ID' => 'ref.ID'],
-                ],
-            ],
-        ])->fetchAll();
-
-        return array_map(static fn (array $coupon): array => array_combine(
-            array_map(static fn ($key) => strtolower($key), array_keys($coupon)),
-            $coupon
-        ), $result);
-    }
-
     public function createOrder(int $userId, array $data)
     {
         $user = new User($userId);
@@ -109,7 +98,7 @@ class OrderHelper
         $order = Order::create(SITE_ID, $userId);
         $order->setPersonTypeId(1); // TODO: Cut hardcode
 
-        $basket = Storage::getInstance(Fuser::getId(), SITE_ID)->getBasket();
+        $basket = $this->basketHelper->getBasket(true, false);
         $order->setBasket($basket);
 
         $shipmentCollection = $order->getShipmentCollection();
@@ -144,14 +133,50 @@ class OrderHelper
         // TODO: Выяснить причину отсутствия результата выполнения кода. Закоментировал на это время.
         // Закоментировал, так-как не обнаружил причину бага,
         // но при этом технически отсутствие этих данных не скажется на функционале.
-        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]"); 
+        // $propertyCollection->getPayerName()->setValue("$data[first_name] $data[last_name]");
 
         $orderBonusesData = [];
         if ($user->groups->isConsultant()) {
+            $bonuses = 0;
+            $bonusesWithPersonalPromotions = 0;
+            /** @var BasketItem $basketItem */
+            foreach ($basket as $basketItem) {
+                $basketItemBonuses = 0;
+                $withPersonalPromotions = null;
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    switch ($property->getField('CODE')) {
+                        case 'BONUSES':
+                            $basketItemBonuses = $property->getField('VALUE');
+                            break;
+                        case 'PERSONAL_PROMOTION':
+                            $withPersonalPromotions = $property->getField('VALUE');
+                            break;
+                    }
+                }
+
+                if ($withPersonalPromotions) {
+                    $bonusesWithPersonalPromotions += $basketItemBonuses;
+                } else {
+                    $bonuses += $basketItemBonuses;
+                }
+            }
+
             $orderBonusesData[] = [
                 'user_id' => $userId,
-                'value' => $user->loyalty->calculateBonusesByPrice($order->getPrice()),
+                'value' => $bonuses,
+                'source' => TransactionTable::SOURCES['personal'],
+                'type' => TransactionTable::TYPES['purchase'],
             ];
+
+            if ($bonusesWithPersonalPromotions) {
+                $orderBonusesData[] = [
+                    'user_id' => $userId,
+                    'value' => $bonuses,
+                    'source' => TransactionTable::SOURCES['personal'],
+                    'type' => TransactionTable::TYPES['purchase_with_personal_promotion'],
+                ];
+            }
         }
         foreach (BeneficiariesTable::getUserBeneficiaries($userId) as $beneficiaryId) {
             $beneficiary = new User($beneficiaryId);
@@ -159,6 +184,8 @@ class OrderHelper
                 [
                     'user_id' => $beneficiaryId,
                     'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
+                    'source' => TransactionTable::SOURCES['group'],
+                    'type' => TransactionTable::TYPES['group_purchase'],
                 ],
             ];
         }
@@ -170,6 +197,9 @@ class OrderHelper
             switch ($property->getField('CODE')) {
                 case 'city':
                     $property->setValue($data['city']);
+                    break;
+                case 'NAME':
+                    $property->setValue($user->getPersonalData()['name_initials']);
                     break;
                 case 'POINTS':
                     if ($data['bonuses_subtract']) {
@@ -183,13 +213,15 @@ class OrderHelper
         }
 
         if ($data['bonuses_subtract']) {
-            $data['bonuses_subtract'] = (float)$data['bonuses_subtract'];
+            $data['bonuses_subtract'] = (int)$data['bonuses_subtract'];
             $this->bonusAccountHelper->subtractOrderBonuses($user, $data['bonuses_subtract']);
-            $order->setField('PRICE', $order->getPrice() - $data['bonuses_subtract']);
+            $order->setFieldNoDemand('SUM_PAID', $data['bonuses_subtract']);
         }
 
         $order->doFinalAction(true);
         $orderId = $order->save()->getId();
+
+        $this->basketHelper->clearPersonalPromotions();
 
         $user->notification->sendNotification(
             NotificationTable::TYPES['order_created'],

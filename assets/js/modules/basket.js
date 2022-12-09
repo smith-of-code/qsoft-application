@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime";
+
 const ELEMENTS_SELECTOR = {
     cart: '[data-basket]',
     list: '[data-basket-list]',
@@ -21,7 +23,7 @@ const ELEMENTS_SELECTOR = {
     bonusOrder: '[data-basket-bonus-order]'
 };
 
-export default function () {
+export default async function () {
     const iconError = `
     <svg class="icon icon--close">
         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
@@ -47,34 +49,48 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.item_button_count, checkStatusBasket);
 
     $(document).on('click', ELEMENTS_SELECTOR.bonusButton, () => {
-        if (!bonusAccept && !errorCard) {
-            acceptBonus();
-        } else if (bonusAccept) {
-            resetBonus(); 
-        } else if (errorCard) {
-            resetInput();
-        } else {
-            return
-        }
-    });
-       
-    $(document).on('input', ELEMENTS_SELECTOR.bonusInput, () => {
         const button = $(ELEMENTS_SELECTOR.bonusButton);
         const buttonIcon = button.find('.button__icon');
         const basketCard = $(ELEMENTS_SELECTOR.card);
         const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
         const basketCardError = basketCard.find('.basket-card__bonus-error');
 
+        if (!bonusAccept && !errorCard) {
+            acceptBonus();
+        } else if (bonusAccept) {
+            resetBonus();
+        } else if (errorCard) {
+            errorCard = false;
+            basketCardWrapper.removeClass('basket-card__bonus-wrapper--error');
+            button.removeClass('button--red').addClass('button--green');
+            basketCardError.hide();
+            buttonIcon.html(iconDefault);
+            resetInput();
+        } else {
+            return
+        }
+    });
+       
+    $(document).on('input', ELEMENTS_SELECTOR.bonusInput, (e) => {
+        const button = $(ELEMENTS_SELECTOR.bonusButton);
+        const buttonIcon = button.find('.button__icon');
+        const basketCard = $(ELEMENTS_SELECTOR.card);
+        const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
+        const basketCardError = basketCard.find('.basket-card__bonus-error');
+        const input = e.target
+
+        $(input).val($(input).val().replace(/[^0-9]/g, ''));
+
         if (errorCard) {
             errorCard = false;
             basketCardWrapper.removeClass('basket-card__bonus-wrapper--error');
             button.removeClass('button--red').addClass('button--green');
-
             basketCardError.hide();
             buttonIcon.html(iconDefault);
         } else if (bonusAccept) {
             bonusAccept = false;
             buttonIcon.html(iconDefault);
+            resetBonus();
         }
 
         button.removeClass('button--dark')
@@ -83,7 +99,10 @@ export default function () {
 
     async function checkPriceProduct() {
         const basketList = $(ELEMENTS_SELECTOR.item);
-
+        const itemPrice = basketList.find(ELEMENTS_SELECTOR.item_prices);
+        const itemPriceNumber = parseFloat(itemPrice.text().replace(/\s/g,''));
+        const itemPriceRounted = Math.round(itemPriceNumber);
+        
         basketList.each(function(index, item) {
             const priceDefault = $(item).find('.product-price__item');
             const priceOld = $(item).find('.product-price__item.product-price__item--old');
@@ -96,14 +115,14 @@ export default function () {
             .find('.quantity__total-sum')
             .text();
 
-            const currentPrice =  priceСalc(priceItemNumber, amountProduct);
-            const currentPriceDefault = priceСalc(priceBaseItemNumber, amountProduct);
+            const currentPrice = Math.round(priceСalc(priceItemNumber, amountProduct));
+            const currentPriceDefault = Math.round(priceСalc(priceBaseItemNumber, amountProduct));
 
             if (priceSale.length > 0) {
-                priceSale.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
-                priceOld.html(currentPriceDefault.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+                priceSale.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
+                priceOld.html(currentPriceDefault.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
             } else {
-                priceDefault.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }))
+                priceDefault.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
             }
         })
     }
@@ -154,7 +173,7 @@ export default function () {
             let priceProductNumber = parseFloat(priceProductValue);
             let priceNoDiscounts = parseFloat(priceNoDiscountsValue);
             let currentProductTotal = Number(amountProduct);
-            let bonusOrder = calcBonusOrder(bonusValue, currentProductTotal)
+            let bonusOrder = calcBonusOrder(bonusValue, currentProductTotal);
             
             basketAmoutOrder += priceNoDiscounts;
             basketProductTotal += currentProductTotal;
@@ -162,10 +181,10 @@ export default function () {
             baseketBonusItem += bonusOrder;
         });
 
-        const basketTotal = basketAmoutOrder;
-        const basketTotalSale = basketAmoutOrderSale;
-        const ndsTotal = calcNds(basketTotalSale);
-        const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
+        const basketTotal = Math.round(basketAmoutOrder);
+        const basketTotalSale = Math.round(basketAmoutOrderSale);
+        const ndsTotal = Math.round(calcNds(basketTotalSale));
+        const economyTotal = Math.round(calcEconomy(basketAmoutOrder, basketTotalSale));
 
         acceptProductTotal(basketProductTotal);
         acceptNds(ndsTotal);
@@ -177,7 +196,7 @@ export default function () {
         return basketAmoutOrder
     }
     
-    function acceptBonus() {
+    async function acceptBonus() {
         const basketCard = $(ELEMENTS_SELECTOR.card)
         const basketCardWrapper = basketCard.find('.basket-card__bonus-wrapper');
         const basketCardError = basketCard.find('.basket-card__bonus-error');
@@ -203,11 +222,13 @@ export default function () {
             button.removeClass('button--green').addClass('button--red');
 
             bonusInput.find('.input__placeholder').html('Недостаточно баллов')
+            basketCardError.html('Недостаточно баллов. Пожалуйста, уменьшите количество списываемых баллов');
             basketCardError.show();
             buttonIcon.html(iconError);
         } else if (percentageBonusPay >= 0.99) {
             errorCard = true;
             
+            bonusInput.find('.input__placeholder').html('Некорректное число баллов')
             basketCardWrapper.addClass('basket-card__bonus-wrapper--error');
             button.removeClass('button--green').addClass('button--red');
             
@@ -217,7 +238,7 @@ export default function () {
             errorCard = false;
             bonusAccept = true;
         
-            const basketAmoutOrder = checkStatusBasket();
+            const basketAmoutOrder = await checkStatusBasket();
             const priceBasket = calcTotal(totalBasket, bonusInputValueNumber);
             const updateBalanceBonus = calcBonus(bonusBalance, bonusInputValueNumber);
             const updateEconomy = calcEconomy(basketAmoutOrder, priceBasket);
@@ -234,7 +255,6 @@ export default function () {
             button.removeClass('button--red').addClass('button--green');
 
             bonusInput.find('.input__placeholder').html('Списано баллов')
-            const bonusInputValue = bonusInputControl.val(totalBonus);
             buttonIcon.html(iconRefresh);
             basketCardError.hide();
         }     
@@ -268,7 +288,7 @@ export default function () {
         return bonusValue * basketTotal;
     }
 
-    function resetBonus() {
+    async function resetBonus() {
         const bonusInput = $(ELEMENTS_SELECTOR.bonusInput);
         const bonusInputControl = bonusInput.find('.input__control');
         const bonusInputValue = bonusInputControl.val()
@@ -277,14 +297,14 @@ export default function () {
         const totalEconomy = $(ELEMENTS_SELECTOR.economy).text().replace(/\s/g,'');
         const totalBonusBalance = $(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,'');
 
-        const resetBonus = parseInt(bonusInputValueNumber) + parseInt(totalBonusBalance);
+        const resetBonus = parseInt(totalBonus) + parseInt(totalBonusBalance);
         const resetEconomy = parseInt(totalEconomy) - parseInt(totalEconomy);
 
         $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus + ' ББ');
         $(ELEMENTS_SELECTOR.economy).html(resetEconomy + ' ₽');
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
 
-        checkStatusBasket();
+        await checkStatusBasket();
         const bonusInputValueReset = bonusInputControl.val('');
         totalBonus = 0;
     }
@@ -298,23 +318,23 @@ export default function () {
     }
 
     function acceptNds(total) {
-        $(ELEMENTS_SELECTOR.nds).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.nds).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptEconomy(total) {
-        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptTotal(total) {
-        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptBonusBalance(total) {
-        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU') + ' ББ');
+        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
     }
 
     function acceptAmount(total) {
-        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
     }
 
     function acceptProductTotal(total) {
@@ -325,5 +345,5 @@ export default function () {
         $(ELEMENTS_SELECTOR.bonusOrder).html(total.toLocaleString('ru-RU') + ' ББ');
     }
 
-    checkStatusBasket();
+    await checkStatusBasket();
 }
