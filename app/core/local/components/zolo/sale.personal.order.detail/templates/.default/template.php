@@ -167,15 +167,16 @@ $details = $arResult['ORDER_DETAILS'];
                                             <? foreach ($arResult['PRODUCTS'] as $product) :?>
                                             <li class="table-list__item">
                                                 <article class="product-line">
+                                                    <a class="product-line__link" href="<?=$product['DETAIL_PAGE']?>"></a>
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
                                                             <div class="product-line__image">
                                                                 <img src="<?=$product['PICTURE']?>" alt="#" class="product-line__image-picture">
                                                             </div>
                                                             <div class="product-line__wrapper">
-                                                                <a href="<?=$product['DETAIL_PAGE']?>" class="product-line__title product-name">
+                                                                <h2 class="product-line__title product-name">
                                                                     <?=$product['NAME']?>
-                                                                </a>
+                                                                </h2>
                                                                 <p class="product-line__subtitle product-article">
                                                                     <?=Loc::getMessage("PRODUCT_ARTICLE")?><?=$product['ARTICLE']?>
                                                                 </p>
