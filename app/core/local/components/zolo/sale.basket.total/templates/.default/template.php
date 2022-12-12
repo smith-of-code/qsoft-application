@@ -92,7 +92,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                                 class="quantity__total-sum"
                                                                 data-quantity-sum="<?=$basketItem['QUANTITY']?>"
                                                                 data-quantity-min="1"
-                                                                data-quantity-max="<?=$basketItem['OFFER']['CATALOG_QUANTITY']?>"
+                                                                data-quantity-max="<?=min($basketItem['OFFER']['CATALOG_QUANTITY'], 99)?>"
                                                             >
                                                                 <?=(int)$basketItem['QUANTITY']?>
                                                             </span>
