@@ -20,7 +20,7 @@ class CSystemAuthRegistrationComponent {
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
-      $(`.form select`).on('change', this.removeError);
+      $(document).on('change', '.form select', this.removeError);
       $(`.form input[type=checkbox]`).on('change', this.removeError);
       $(`.form input`).on('keyup', this.removeError);
       $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
@@ -42,6 +42,7 @@ class CSystemAuthRegistrationComponent {
 
       $(this).removeClass('input__control--error');
       $(this).parent().find('span.input__control-error').remove();
+      $(this).closest('.form__field').find('span.input__control-error').remove();
     }
 
     blockInputByCheckbox() {
@@ -89,13 +90,8 @@ class CSystemAuthRegistrationComponent {
                     return;
                 }
 
-                if ($(item).parent().data('breed') === 'empty') {
-                    if ($(item).parent().css('display') !== 'none') {
-                        $(item).parent().parent().find('[data-breed] select').addClass('input__control--error');
-                        return;
-                    } else {
-                        $(item).parent().parent().find('[data-breed] select').removeClass('input__control--error');
-                    }
+                if ($(item).parent().data('breed') === 'empty' && $(item).parent().css('display') !== 'none') {
+                    return;
                 }
 
                 if ($(item).attr('type') === 'hidden' || !$(item).attr('name')) {
@@ -103,11 +99,10 @@ class CSystemAuthRegistrationComponent {
                 }
 
                 if ($(item).attr('name').startsWith('pets')) {
-                    if ($(item).attr('name').indexOf('breed') !== -1 && $(item).closest('[data-breed]').css('display') === 'none') {
+                    if ($(item).closest('.pet-card--editing')?.length) {
                         return;
                     }
-                    if (!$(item).val()) {
-                        $(item).addClass('input__control--error');
+                    if ($(item).attr('name').indexOf('breed') !== -1 && $(item).closest('[data-breed]').css('display') === 'none') {
                         return;
                     }
 
@@ -174,10 +169,6 @@ class CSystemAuthRegistrationComponent {
                     data[$(item).attr('name')] = $(item).val();
                 }
             });
-
-            if (data.currentStep === 'pets_data' && !Object.keys(data.pets).length) {
-                return;
-            }
 
             if ($(`.${registrationData.currentStep} .input__control--error`).length || $(`.${registrationData.currentStep} .dropzone--error`).length) {
                 return;
@@ -248,12 +239,18 @@ class CSystemAuthRegistrationComponent {
     checkBreedSelects() {
       $('[data-breed-container]').each((index, item) => {
           const petKind = $(item).closest('.pet-cards__item').find('[data-pet-kind]').val();
+          const needError = !!$(item).parent().find('span.input__control-error').length;
 
+          let neededElem;
           $(item).find(`[data-breed]`).hide();
           if (petKind) {
-              $(item).find(`[data-breed=${petKind}]`).show();
+              neededElem = $(item).find(`[data-breed=${petKind}]`);
           } else {
-              $(item).find(`[data-breed=empty]`).show();
+              neededElem = $(item).find(`[data-breed=empty]`);
+          }
+          neededElem.show();
+          if (needError) {
+              neededElem.find('select').addClass('input__control--error');
           }
       });
     }

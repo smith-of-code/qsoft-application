@@ -236,6 +236,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             }
         }
 
+        if (!$data['pets']) {
+            $data['pets'] = [];
+        }
+
         return $this->setRegisterData(array_merge($registrationData, $data));
     }
 
@@ -314,14 +318,16 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $genders = HlBlockHelper::getPreparedEnumFieldValues(PetTable::getTableName(), 'UF_GENDER');
         $genders = array_combine(array_column($genders, 'code'), $genders);
         foreach ($data['pets'] as $pet) {
-            PetTable::add([
-                'UF_USER_ID' => $result['ID'],
-                'UF_NAME' => $pet['name'],
-                'UF_KIND' => $kinds[$pet['type']]['id'],
-                'UF_BREED' => $pet['breed'],
-                'UF_GENDER' => $genders[$pet['gender']]['id'],
-                'UF_BIRTHDATE' => new Date($pet['birthdate']),
-            ]);
+            if ($pet) {
+                PetTable::add([
+                    'UF_USER_ID' => $result['ID'],
+                    'UF_NAME' => $pet['name'],
+                    'UF_KIND' => $kinds[$pet['type']]['id'],
+                    'UF_BREED' => $pet['breed'],
+                    'UF_GENDER' => $genders[$pet['gender']]['id'],
+                    'UF_BIRTHDATE' => new Date($pet['birthdate']),
+                ]);
+            }
         }
 
         if ($data['status']) {
