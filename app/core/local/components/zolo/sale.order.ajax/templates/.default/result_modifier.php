@@ -31,7 +31,7 @@ try {
 
     $arResult['BASKET'] = [
         'BASKET_COUNT' => $basket->count(),
-        'BASKET_PRICE' => $basket->getPrice(),
+        'BASKET_PRICE' => $basket->getPrice() - $arResult['BONUSES_SUBTRACT'],
         'BASKET_BASE_PRICE'=> $basket->getBasePrice(),
         'BASKET_TOTAL_VAT' => $basket->getVatSum(),
         'TOTAL_DISCOUNT' => $basket->getBasePrice() - $basket->getPrice(),

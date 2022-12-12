@@ -24,9 +24,10 @@ export const MiniBasket = {
         <svg class="icon icon--basket">
           <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
         </svg>
-        <span class="button__icon-counter button__icon-counter--dark">{{ itemsCount }}</span>
+        <span v-if="itemsCount" class="button__icon-counter button__icon-counter--dark">{{ itemsCount }}</span>
         </span>
-      <span class="personal__button-text button__text">{{ formatNumber(basketPrice) }} &#8381;</span>
+      <span v-if="itemsCount" class="personal__button-text button__text">{{ formatNumber(basketPrice) }} &#8381;</span>
+      <span v-else class="personal__button-text button__text">Корзина</span>
       </button>
     `
 };

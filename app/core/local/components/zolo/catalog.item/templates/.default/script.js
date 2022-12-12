@@ -178,18 +178,6 @@
 			let offers = this.products[id].offers;
 			let offer = this.products[id].offers[offerId];
 
-			// Если ТП не доступно - выберем любое другое из доступных
-			if (! offer.available) {
-				for (let oId in this.products[id].offers) {
-					if (this.products[id].offers[oId].available) {
-
-						offer = this.products[id].offers[oId];
-						offerId = oId;
-						break;
-					}
-				}
-			}
-
 			let propCounter = 0;
 			// Перебираем параметры из заданных для текущего ТП
 			for (let propCode in offer.tree) {
@@ -497,6 +485,19 @@
 				offerId = oId; // Записывем успешно найденное ТП
 				count += 1;
 			}
+
+			// Проверяем доступность ТП (наличие)
+			// Если ТП не доступно - выберем любое другое из доступных
+			if (! this.products[id].offers[offerId].available) {
+				for (let oId in this.products[id].offers) {
+					if (this.products[id].offers[oId].available) {
+
+						offerId = oId;
+						break;
+					}
+				}
+			}
+
 			return offerId;
 		};
 

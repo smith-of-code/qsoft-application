@@ -9,7 +9,8 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.button, function() {
         let dropdown = $(this).closest(ELEMENTS_SELECTOR.dropdown);
         let rund = Math.floor(Math.random() * 1000);
-
+        let button = $(this)
+        
         dropdown.toggleClass('dropdown--active');
 
         $(document).on('click.dropdown'+rund, function (e) {
@@ -20,6 +21,7 @@ export default function () {
             }
 
             dropdown.removeClass('dropdown--active');
+            button.removeClass('header__catalog-button-menu--active');
             $(this).off('click.dropdown'+rund);
         });
     });

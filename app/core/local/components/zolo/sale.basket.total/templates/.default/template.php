@@ -369,7 +369,7 @@ $APPLICATION->setTitle('Корзина');?>
                                                     <div class="form__field">
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input input--small input--buttoned input--placeholder" data-basket-bonus-input>
-                                                                <input type="number" class="input__control" name="bonuses" id="bonuses">
+                                                                <input type="text" class="input__control" name="bonuses" id="bonuses">
                                                                 <span class="input__placeholder">Сколько баллов списать</span>
                                                                 <button type="button" class="input__button button button--iconed button--covered button--rounded button--big button--dark" data-basket-bonus-accept>
                                                                     <span class="button__icon button__icon--small">

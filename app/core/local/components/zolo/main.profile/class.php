@@ -199,7 +199,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $ticketData['PERSONAL_GENDER'] = $userInfo['gender'];
         }
         if ($userInfo['photo_id'] && is_numeric($userInfo['photo_id'])) {
-            $ticketData['PERSONAL_PHOTO'] = $userInfo['photo_id'];
+            $ticketData['PERSONAL_PHOTO'] = CFile::MakeFileArray($userInfo['photo_id']);
         }
         if ($userInfo['birthdate'] !== $this->user->birthday->format('d.m.Y')) {
             $ticketData['PERSONAL_BIRTHDAY'] = $userInfo['birthdate'];

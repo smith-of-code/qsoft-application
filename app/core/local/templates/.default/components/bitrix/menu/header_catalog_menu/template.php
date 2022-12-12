@@ -14,15 +14,16 @@ global $USER;
             <div class="dropdown dropdown--menu" data-dropdown>
                 <!--кнопка основная-->
                 <div class="header__catalog-button header__catalog-button--main">
-                    <button type="button"
-                            class="button button--big button--square button--covered button--red button--heavy"
-                            data-dropdown-button>
+                    <button type="button" class="header__catalog-button-menu button button--big button--square button--covered button--red button--heavy" data-dropdown-button data-dropdown-burger>
                                     <span class="button__icon">
-                                        <svg class="icon icon--burger">
+                                        <svg class="header__catalog-button--open icon icon--burger">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
                                         </svg>
+                                        <svg class="header__catalog-button--close icon icon--close-square">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-square"></use>
+                                        </svg>
                                     </span>
-                        <span class="button__text"><?=getMessage('MENU_CATALOG__BUTTON_TITLE') ?></span>
+                        <span class="button__text">Каталог</span>
                     </button>
                 </div>
                 <!--/кнопка основная-->

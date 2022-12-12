@@ -23,7 +23,7 @@ class TicketHelper
     public const CATEGORIES = [
         self::CHANGE_PERSONAL_DATA_CATEGORY => [
             'TITLE' => 'Заявка на смену персональных данных',
-            'DETAIL_PAGE' => '/bitrix/admin/personal_data.php?ID=%s',
+            'DETAIL_PAGE' => '/bitrix/admin/personal_data.php?%s=%s',
         ],
         self::CHANGE_LEGAL_ENTITY_DATA_CATEGORY => [
             'TITLE' => 'Заявка на смену юридических данных',
