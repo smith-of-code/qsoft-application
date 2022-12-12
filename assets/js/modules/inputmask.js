@@ -15,7 +15,7 @@ const ELEMENTS_SELECTOR = {
 };
 
 const MASKS = {
-    dateMask: '99.99.9999',
+    dateMask: 'Dd.Mm.yyyy',
     phoneMask: '+7 (999) 999-99-99',
     emailMask: 'email',
     seriaMask: '99 99',
@@ -44,8 +44,81 @@ export default function inputMaskInit($container, mask) {
         return;
     }
 
+    const addButton = $(".pet-cards__adding").find("button");
+
+    addButton.on("click", () => {
+        Inputmask(MASKS.dateMask)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+    })
+
+    //Настройка маски для dateMask
+    Inputmask.extendDefinitions({
+        'y': {
+            validator: function (chrs, buffer, pos, strict, opts) {
+                let valExp
+
+                if (pos === 6) {
+                    valExp = new RegExp("[1-2]");
+                } else if (pos === 7) {
+                    if (buffer.buffer[6] === "1") {
+                        valExp = new RegExp("[789]");
+                    } else {
+                        valExp = new RegExp("[01]");
+                    }
+                } else if (pos === 8) {
+                    valExp = new RegExp("[0-9]");
+                } else if (pos === 9) {
+                    valExp = new RegExp("[0-9]");
+                }
+                return valExp.test(chrs);
+            },
+          },
+
+        "M": {
+            validator: function (chrs, buffer, pos, strict, opts) { 
+                let valExp = new RegExp(`[0-1]`);
+
+                return valExp.test(chrs);
+            },
+        },
+
+        "m": {
+            validator: function (chrs, buffer, pos, strict, opts) {
+                let valExp
+                
+                if (buffer.buffer[3] === '0') {
+                    valExp = new RegExp(`[1-9]`);
+                } else {
+                    valExp = new RegExp(`[012]`);
+                }
+            
+                return valExp.test(chrs);
+            },
+        },
+
+        "D": {
+            validator: function (chrs, buffer, pos, strict, opts) {
+                var valExp = new RegExp("[0-3]");
+                return valExp.test(chrs);
+            },
+        },
+
+        "d": {
+            validator: function (chrs, buffer, pos, strict, opts) {
+                let valExp
+
+                if (buffer.buffer[0] === '3') {
+                    valExp = new RegExp(`[01]`);
+                } else {
+                    valExp = new RegExp("[0-9]");
+                }
+
+                return valExp.test(chrs);
+            },
+        },
+    })
+
     Inputmask(MASKS.phoneMask)?.mask($container.find(ELEMENTS_SELECTOR.phoneMask));
-    Inputmask(MASKS.dateMask)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+    Inputmask(MASKS.dateMask, {alias: "datatime"})?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
     Inputmask(MASKS.emailMask)?.mask($container.find(ELEMENTS_SELECTOR.emailMask));
     Inputmask(MASKS.seriaMask)?.mask($container.find(ELEMENTS_SELECTOR.seriaMask));
     Inputmask(MASKS.numberMask)?.mask($container.find(ELEMENTS_SELECTOR.numberMask));
@@ -56,9 +129,5 @@ export default function inputMaskInit($container, mask) {
     Inputmask(MASKS.ogrnMask)?.mask($container.find(ELEMENTS_SELECTOR.ogrnMask));
     Inputmask(MASKS.bikMask)?.mask($container.find(ELEMENTS_SELECTOR.bikMask));
 
-    const addButton = $(".pet-cards__adding").find("button");
-
-    addButton.on("click", () => {
-        Inputmask(MASKS.dateMask)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
-    })
+   
 }
