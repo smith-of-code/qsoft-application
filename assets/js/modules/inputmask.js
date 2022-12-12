@@ -55,4 +55,10 @@ export default function inputMaskInit($container, mask) {
     Inputmask(MASKS.ogrnipMask)?.mask($container.find(ELEMENTS_SELECTOR.ogrnipMask));
     Inputmask(MASKS.ogrnMask)?.mask($container.find(ELEMENTS_SELECTOR.ogrnMask));
     Inputmask(MASKS.bikMask)?.mask($container.find(ELEMENTS_SELECTOR.bikMask));
+
+    const addButton = $(".pet-cards__adding").find("button");
+
+    addButton.on("click", () => {
+        Inputmask(MASKS.dateMask)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+    })
 }
