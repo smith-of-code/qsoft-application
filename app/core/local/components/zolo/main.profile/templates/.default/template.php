@@ -200,8 +200,6 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                        id="birthdate"
                                                                        placeholder="ДД.ММ.ГГГГ"
                                                                        data-mask-date
-                                                                       data-inputmask-alias="date"
-                                                                       data-inputmask-inputformat="dd.mm.yyyy"
                                                                        readonly data-profile-readonly
                                                                        value="<?=$arResult['personal_data']['birthdate']?>"
                                                                 >

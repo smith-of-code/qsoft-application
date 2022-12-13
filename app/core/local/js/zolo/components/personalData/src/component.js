@@ -364,9 +364,7 @@ export const PersonalData = {
                                                                 name="birthdate"
                                                                 id="birthdate"
                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                data-mask-date 
-                                                                data-inputmask-alias="datetime"
-                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                data-mask-date
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.birthdate"
                                                             >

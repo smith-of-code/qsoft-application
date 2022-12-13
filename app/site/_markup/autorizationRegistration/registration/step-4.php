@@ -189,9 +189,7 @@
                                                                     name="date"
                                                                     id="date"
                                                                     placeholder="ДД.ММ.ГГГГ"
-                                                                    data-mask-date 
-                                                                    data-inputmask-alias="date"
-                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                    data-mask-date
                                                                     data-pets-date-input
                                                                     data-pets-change
                                                                     value="09.10.2017"

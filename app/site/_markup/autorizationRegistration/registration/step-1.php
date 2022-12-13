@@ -213,9 +213,7 @@
                                                             name="text"
                                                             id="birthdate"
                                                             placeholder="ДД.ММ.ГГГГ"
-                                                            data-mask-date 
-                                                            data-inputmask-alias="date"
-                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                            data-mask-date
                                                         >
                                                         <span class="input__icon">
                                                             <svg class="icon icon--calendar">

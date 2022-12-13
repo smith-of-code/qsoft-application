@@ -43,8 +43,6 @@ export const DateInput = {
                 :name="name"
                 placeholder="ДД.ММ.ГГГГ"
                 data-mask-date
-                data-inputmask-alias="datetime"
-                data-inputmask-inputformat="dd.mm.yyyy"
                 :id="componentId"
                 v-model="currentValue"
                 data-pets-date-input
