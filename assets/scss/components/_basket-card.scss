@@ -85,6 +85,10 @@
         &--bold {
             font-weight: $font-weight-semibold;
         }
+
+        &-remains {
+            font-size: rem($font-size-mini);
+        }
     }
 
     &__bonus {

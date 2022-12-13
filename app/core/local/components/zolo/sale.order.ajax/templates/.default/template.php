@@ -247,10 +247,6 @@ else:?>
                                         <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_COUNT'], 0, ' ', ' ')?></span>
                                     </div>
                                     <div class="basket-card__item">
-                                        <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
-                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_TOTAL_VAT'], 0, ' ', ' ')?> ₽</span>
-                                    </div>
-                                    <div class="basket-card__item">
                                         <span class="basket-card__text">Сумма заказа</span>
                                         <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_BASE_PRICE'], 0, ' ', ' ')?> ₽</span>
                                     </div>

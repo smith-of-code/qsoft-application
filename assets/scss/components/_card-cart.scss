@@ -170,6 +170,10 @@
             letter-spacing: 0.02em;
 
             color: $saltBox;
+
+            &-remains {
+                font-size: rem($font-size-mini);
+            }
         }
 
         &-sufix {

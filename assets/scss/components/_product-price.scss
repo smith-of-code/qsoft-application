@@ -19,5 +19,9 @@
         &--new {
             color: $brickRed;
         }
+
+        &-remains {
+            font-size: rem($font-size-mini);
+        }
     }
 }
