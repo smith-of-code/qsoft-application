@@ -167,5 +167,6 @@
 
     &__link {
         @include position-stretching(absolute);
+        z-index: 1;
     }
 }
