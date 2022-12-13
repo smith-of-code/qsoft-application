@@ -1,6 +1,7 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Интернет-магазин");
+$user = new \QSoft\Entity\User;
 ?>
     <div class="content__main content__main--primary">
         <!--Слайдер-->
@@ -251,21 +252,39 @@ $APPLICATION->SetTitle("Интернет-магазин");
         <!--/Новости-->
 
         <!--Баннер-->
-        <section class="main__section">
-            <div class="banner banner--consultant">
-                <div class="banner__image">
-                    <img class="banner__image-picture" src="/local/templates/.default/images/banner1.png" alt="">
+        <?php if ($user->groups->isConsultant()):?>
+            <section class="main__section">
+                <div class="banner banner--consultant">
+                    <div class="banner__image">
+                        <img class="banner__image-picture" src="/local/templates/.default/images/banner1.png" alt="">
+                    </div>
+                    <div class="banner__inner">
+                        <p class="banner__title">
+                            Приводи друзей — зарабатывайте вместе
+                        </p>
+                        <p class="banner__text">
+                            Работай с единомышленниками и получай бонусные баллы
+                        </p>
+                    </div>
                 </div>
-                <div class="banner__inner">
-                    <p class="banner__title">
-                        Приводи друзей — зарабатывайте вместе
-                    </p>
-                    <p class="banner__text">
-                        Работай с единомышленниками и получай бонусные баллы
-                    </p>
+            </section>
+        <?php else:?>
+            <section class="main__section">
+                <div class="about__howbecome-banner banner">
+                    <div class="banner__image">
+                        <img class="banner__image-picture" src="/local/templates/.default/images/howbecome-banner.png" alt="">
+                    </div>
+                    <div class="banner__inner">
+                        <p class="banner__text">
+                            Получите все привилегии <br> AmeБизнес, став консультантом
+                        </p>
+                        <a href="<?=$user->isAuthorized ? '/become_consultant' : '/login?register=yes&type=consultant'?>" class="banner__link button button--rounded button--covered button--red">
+                            Стать консультантом
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        <?php endif;?>
         <!--/Баннер-->
 
         <!--Баннер2-->
