@@ -120,3 +120,23 @@ if (!function_exists('normalizePhoneNumber')) {
         return UserPhoneAuthTable::normalizePhoneNumber($phoneNumber);
     }
 }
+
+if (!function_exists('declinationProduct')) {
+    function declinationProduct(int $numeral): string
+    {
+        if (!$numeral) return 'товаров';
+
+        $numeral = $numeral % 100;
+        if ($numeral > 19) {
+            $numeral = $numeral % 10;
+        }
+
+        switch ($numeral) {
+            case  1: return 'товар';
+            case  2:
+            case  3:
+            case  4: return 'товара';
+            default: return 'товаров';
+        }
+    }
+}
