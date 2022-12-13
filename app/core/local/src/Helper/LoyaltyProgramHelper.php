@@ -176,21 +176,26 @@ class LoyaltyProgramHelper
                 ],
             ],
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
-        ])->fetchAll();
+        ]);
 
         $typeFieldValues = HlBlockHelper::getPreparedEnumFieldValues(TransactionTable::getTableName(), 'UF_TYPE');
 
+        $result = [];
+        foreach ($currentAccountingPeriodTransactions as $transaction) {
+            $result[$transaction['UF_TYPE']]['label'] = TransactionTable::TYPES_LABELS[$typeFieldValues[$transaction['UF_TYPE']]['code']];
+            $result[$transaction['UF_TYPE']]['amount'] += $transaction['UF_AMOUNT'];
+        }
+        $labels = array_column($result, 'label');
+        $amounts = array_column($result, 'amount');
+
         return [
             'all_total' => array_sum(array_column($allTransactions, 'UF_AMOUNT')),
-            'total' => array_sum(array_column($currentAccountingPeriodTransactions, 'UF_AMOUNT')),
+            'total' => array_sum($amounts),
             'js_data' => [
-                'labels' => array_map(
-                    fn (array $transaction): string => TransactionTable::TYPES_LABELS[$typeFieldValues[$transaction['UF_TYPE']]['code']],
-                    $currentAccountingPeriodTransactions
-                ),
+                'labels' => $labels,
                 'datasets' => [
                     [
-                        'data' => array_column($currentAccountingPeriodTransactions, 'UF_AMOUNT'),
+                        'data' => $amounts,
                         'backgroundColor' => ["#2C877F", "#C73C5E", "#D82F49", "#D26925", "#C99308", "#2D8859", "#3887B5", "#945DAB"],
                     ],
                 ],

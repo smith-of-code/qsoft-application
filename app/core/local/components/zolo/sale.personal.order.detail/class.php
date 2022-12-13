@@ -50,6 +50,9 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             if (is_null($order)) {
                 throw new RuntimeException(Loc::getMessage('ORDER_NOT_FOUND'));
             }
+            if ((int)$order->getUserId() !== $this->user->id) {
+                LocalRedirect('/personal/orders/');
+            }
             $this->arResult = $this->loadProducts($order->getId());
             $this->arResult['IS_CONSULTANT'] = $this->user->groups->isConsultant();
             $this->arResult['ORDER_DETAILS'] = $this->getOrderDetails($order);

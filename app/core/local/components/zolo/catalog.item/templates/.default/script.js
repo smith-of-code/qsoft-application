@@ -124,7 +124,8 @@
 
 		this.formatNumber = function(number, useDecimals = false) {
 			if (!number) return 0;
-			let result = parseInt(number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
+			number = Math.round(parseFloat(number));
+			let result = number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
 			return useDecimals ? result : result.substring(0, result.length - 3);
 		}
 
@@ -177,18 +178,6 @@
 
 			let offers = this.products[id].offers;
 			let offer = this.products[id].offers[offerId];
-
-			// Если ТП не доступно - выберем любое другое из доступных
-			if (! offer.available) {
-				for (let oId in this.products[id].offers) {
-					if (this.products[id].offers[oId].available) {
-
-						offer = this.products[id].offers[oId];
-						offerId = oId;
-						break;
-					}
-				}
-			}
 
 			let propCounter = 0;
 			// Перебираем параметры из заданных для текущего ТП
@@ -307,7 +296,7 @@
 			quantity.data('product-id', id);
 			quantity.data('offer-id', offer.id);
 			sum.data('quantity-sum', basketCount);
-			sum.data('quantity-max', offer.quantity);
+			sum.data('quantity-max', Math.min(offer.quantity, 99));
 			if (basketCount >= offer.quantity) {
 				increase.prop('disabled', true);
 				increase.addClass('button--disabled');
@@ -497,6 +486,19 @@
 				offerId = oId; // Записывем успешно найденное ТП
 				count += 1;
 			}
+
+			// Проверяем доступность ТП (наличие)
+			// Если ТП не доступно - выберем любое другое из доступных
+			if (! this.products[id].offers[offerId].available) {
+				for (let oId in this.products[id].offers) {
+					if (this.products[id].offers[oId].available) {
+
+						offerId = oId;
+						break;
+					}
+				}
+			}
+
 			return offerId;
 		};
 

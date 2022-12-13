@@ -120,26 +120,16 @@ export default function () {
     function validate() {
         let forms = $('[data-validation="add-pets"]');
         forms.each((id, elem)=>{
-            $(elem).validate({
-                rules: {
-                    nickname: {
-                        required: true,
-                    },
-                    breed: {
-                        required: true,
-                    },
-                    birthdate: {
-                        required: true,
-                        validDate: true,
-                    },
-                    gender: {
-                        required: true,
-                    },
-                    type: {
-                        required: true,
-                    },
+            let rules = {};
+            $(elem).find('input, select').each((id, innerElem) => {
+                if ($(innerElem).attr('type') === 'hidden' || !$(innerElem).attr('name')) return;
+                const name = $(innerElem).attr('name');
+                rules[name] = { required: true };
+                if (name.indexOf('birthdate') !== -1) {
+                    rules[name].validDate = true;
                 }
             });
+            $(elem).validate({ rules });
         });
     }
     validate();
