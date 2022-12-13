@@ -58,5 +58,11 @@
         @media #{$screen-desktop} {
             padding: rem($gap-medium) 0;
         }
+
+        .product-line:hover {
+            .product-line__title {
+                color: $brickRed;
+            }
+        }
     }
 }
