@@ -18,6 +18,7 @@ class SystemAuthForgotPasswordComponent {
 
       if (!loginInput.val()) {
           loginInput.addClass('input__control--error');
+          loginInput.parent().append(`<span class="input__control-error">Поле обязательно к заполнению</span>`)
           return;
       }
 
