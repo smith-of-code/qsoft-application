@@ -80,8 +80,8 @@
     &__button {
         margin-top: rem($gap-medium);
 
-        @media #{$screen-tablet} {
-            display: none;
+        @media #{$screen-desktop} {
+            margin-top: rem(32px);
         }
     }
 }

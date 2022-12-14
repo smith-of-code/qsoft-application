@@ -199,7 +199,7 @@ foreach ($arResult['ITEMS'] as $item) {
                         }
                         ?>
                     </ul>
-                    <button type="button" class="button button--full button--rounded button--covered button--white-green" data-show-button>
+                    <button type="button" class="product-cards__button button button--full button--rounded button--covered button--white-green" data-show-button>
                         Показать еще
                     </button>
                 </div>
