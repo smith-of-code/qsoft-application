@@ -278,9 +278,15 @@ $user = new \QSoft\Entity\User;
                         <p class="banner__text">
                             Получите все привилегии <br> AmeБизнес, став консультантом
                         </p>
-                        <a href="<?=$user->isAuthorized ? '/become_consultant' : '/login?register=yes&type=consultant'?>" class="banner__link button button--rounded button--covered button--red">
-                            Стать консультантом
-                        </a>
+                        <div class="banner__actions">
+                            <a href="<?=$user->isAuthorized ? '/become_consultant' : '/login?register=yes&type=consultant'?>" class="banner__link button button--rounded button--covered button--red">
+                                Стать консультантом
+                            </a>
+                            <a href="/info/ame-business/" class="banner__link button button--rounded button--covered button--white-green">
+                                Узнать больше
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </section>
