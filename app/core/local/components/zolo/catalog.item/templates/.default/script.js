@@ -137,7 +137,11 @@
 		 */
 		this.firstRefresh = function () {
 			for (let id in this.products) {
+				// Если это товар, у которого не заданы характеристики ТП (цвет, размер, фасовка)
 				if (typeof this.products[id].elementsIds.props == 'undefined' || this.products[id].firstlyRefreshed) {
+					// Вызываем refresh карточки товара принудительно, без использования элементов переключения ТП
+					this.refreshProductCard(id, {});
+					this.products[id].firstlyRefreshed = true;
 					continue;
 				}
 				
@@ -151,6 +155,7 @@
 						break;
 					}
 				}
+
 				this.products[id].firstlyRefreshed = true;
 			}
 		}
@@ -493,7 +498,7 @@
 
 			// Проверяем доступность ТП (наличие)
 			// Если ТП не доступно - выберем любое другое из доступных
-			if (! this.products[id].offers[offerId].available) {
+			if (offerId <= 0 || ! this.products[id].offers[offerId].available) {
 				for (let oId in this.products[id].offers) {
 					if (this.products[id].offers[oId].available) {
 
