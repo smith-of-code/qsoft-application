@@ -128,8 +128,8 @@ $details = $arResult['ORDER_DETAILS'];
 
                         <!-- Состав заказа (товары)-->
                         <div class="card-order__content">
-                            <div class="accordeon__item box" data-accordeon>
-                                <div class="accordeon__header" data-accordeon-toggle>
+                            <div class="accordeon__item box" data-accordeon data-accordeon-toggle>
+                                <div class="accordeon__header">
                                     <h6 class="accordeon__title"><?=Loc::getMessage("ORDER_PRODUCTS_BUTTON")?></h6>
                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                         <span class="accordeon__toggle-icon button__icon">

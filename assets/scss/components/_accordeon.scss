@@ -113,6 +113,14 @@
         & + & {
             margin-top: rem($gap-medium);
         }
+
+        
+    }
+
+    &__item:hover & {
+        &__title {
+            color: $brickRed;
+        }
     }
 
     &__item--opened & {
