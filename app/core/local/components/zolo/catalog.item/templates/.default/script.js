@@ -240,15 +240,15 @@
 				}
 			}
 
+			this.refreshBasketCount(id, offer, this.products[id].container);
+			this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
+
 			// Применяем изменения в видимости значений параметров ТП
 			for (let propCode in this.products[id].elementsIds.props) {
 
 				if (typeof visibilityTree[propCode] == 'undefined') {
 					continue;
 				}
-
-				this.refreshBasketCount(id, offer, this.products[id].container);
-				this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
 
 				// Переключаем видимость в соответствии с перечнем
 				if (typeof this.products[id].elementsIds.props[propCode].desktop != 'undefined') {
