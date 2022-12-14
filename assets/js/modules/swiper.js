@@ -19,7 +19,7 @@ export default function (update) {
         const prev = $(ELEMENTS_SELECTOR.prev, wrap);
         const next = $(ELEMENTS_SELECTOR.next, wrap);
         const pagination = $(ELEMENTS_SELECTOR.pagination, wrap);
-       
+
         if (update) {
             document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopDestroy();
             document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopCreate();
@@ -74,6 +74,13 @@ export default function (update) {
                         },
                         768: {
                             spaceBetween: 20,
+                        },
+                    },
+                    on: {
+                        slideChange() {
+                            document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopDestroy();
+                            document.querySelector(ELEMENTS_SELECTOR.container).swiper.loopCreate();
+                            document.querySelector(ELEMENTS_SELECTOR.container).swiper.update();
                         },
                     },
                 };
