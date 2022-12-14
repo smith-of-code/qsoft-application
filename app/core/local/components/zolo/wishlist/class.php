@@ -28,9 +28,6 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
             'remove' => [
                 'prefilters' => [],
             ],
-            'getByProductId' => [
-                'prefilters' => [],
-            ],
         ];
     }
 
@@ -42,10 +39,5 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
     public function removeAction(int $productId): void
     {
         $this->user->wishlist->remove($productId);
-    }
-
-    public function getByProductIdAction(int $productId): array
-    {
-        return array_column($this->user->wishlist->getByProductId($productId), 'UF_PRODUCT_ID');
     }
 }

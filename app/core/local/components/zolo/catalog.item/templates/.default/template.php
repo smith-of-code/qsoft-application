@@ -50,7 +50,6 @@ if (isset($arResult['ITEM']))
     // Формируем массив данных о торговых предложениях для обновления данных карточки через JS
     $jsInfo = [
         'id' => $elementId,
-        'realId' => $item['ID'],
         'elementsIds' => $domElementsIds,
     ];
 
@@ -73,6 +72,7 @@ if (isset($arResult['ITEM']))
         $jsInfo['offers'][$offer['ID']]['tree'] = $offer['TREE'];
         $jsInfo['offers'][$offer['ID']]['available'] = $offer['CAN_BUY'];
         $jsInfo['offers'][$offer['ID']]['quantity'] = $offer['CATALOG_QUANTITY'];
+        $jsInfo['offers'][$offer['ID']]['inWishlist'] = (bool) $offer['IN_WISHLIST'];
         $jsInfo['offers'][$offer['ID']]['nonreturnable'] = (bool) $item['PROPERTIES']['NONRETURNABLE_PRODUCT']['VALUE'];
     }
 
@@ -100,7 +100,7 @@ if (isset($arResult['ITEM']))
                 <!-- Кнопка "Добавить в избранное" -->
                 <?php if ($USER->IsAuthorized()):?>
                     <div class="product-card__favourite">
-                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" style="display: none" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
                             <span class="button__icon button__icon--big">
                                 <svg class="icon">
                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
