@@ -254,7 +254,7 @@ else:?>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' ')?> ₽</span>
+                                        <span class="basket-card__total basket-card__text--green"><?=number_format($arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' ')?> ₽</span>
                                     </div>
                                     <?php if ($arResult['USER']['IS_CONSULTANT']):?>
                                         <div class="basket-card__item">

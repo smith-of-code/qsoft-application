@@ -45,7 +45,7 @@
 
             content: '';
 
-            border-bottom: rem(1px) dotted $alto;
+            border-bottom: rem(2px) dotted $alto;
         }
     }
 
@@ -57,15 +57,15 @@
         color: $tuna;
 
         &--gray {
-            color: $saltBox;
+            color: $saltBox !important;
         }
 
         &--green {
-            color: $seaGreen;
+            color: $seaGreen !important;
         }
 
         &--bold {
-            font-weight: $font-weight-semibold;
+            font-weight: $font-weight-semibold !important;
         }
     }
 
@@ -85,7 +85,12 @@
         &--bold {
             font-weight: $font-weight-semibold;
         }
+
+        &--green{
+            color: $seaGreen;
+        }
     }
+
 
     &__bonus {
         padding-top: rem($gap-small);
