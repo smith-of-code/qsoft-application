@@ -30,6 +30,16 @@
     color: $white;
     border: rem(1px) solid;
 
+    &--iconed#{&}--covered#{&}--noclick {
+        cursor: default;
+
+        &:hover {
+            color: $white;
+            border-color: $tuna;
+            background-color: $tuna;
+        }
+    }
+
     &--vertical {
         flex-direction: column;
     }

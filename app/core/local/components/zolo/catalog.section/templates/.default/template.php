@@ -139,7 +139,7 @@ $containerName = 'container-'.$navParams['NavNum'];
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=date-asc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=date-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
             </select>
-            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" disabled>
+            <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark button--noclick" disabled>
                 <span class="button__icon button__icon--medium">
                     <svg class="icon icon--sort">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-sort"></use>
