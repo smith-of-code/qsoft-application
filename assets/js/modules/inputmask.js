@@ -2,6 +2,7 @@ import Inputmask from "inputmask";
 
 const ELEMENTS_SELECTOR = {
     dateMask: '[data-mask-date]',
+    dateMaskReg: '[data-mask-date-reg]',
     phoneMask: '[data-phone]',
     emailMask: '[data-mail]',
     seriaMask: '[data-passport-seria]',
@@ -34,7 +35,6 @@ const OPTIONS = {
     },
 };
 
-
 export default function inputMaskInit($container, mask) {
     if (!($container instanceof $)){
         $container = $(document);
@@ -44,10 +44,16 @@ export default function inputMaskInit($container, mask) {
         return;
     }
 
+    const date = new Date().getFullYear();
+    const dateOneNum = date.toString().split('')[0];
+    const dateTwoNum = date.toString().split('')[1];
+    const dateThreeNum = date.toString().split('')[2];
+    const dateFourNum = date.toString().split('')[3];
+  
     const addButton = $(".pet-cards__adding").find("button");
 
     addButton.on("click", () => {
-        Inputmask(MASKS.dateMask)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+        Inputmask(MASKS.dateMask, OPTIONS_DATE)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
     })
 
     //Настройка маски для dateMask
@@ -55,19 +61,30 @@ export default function inputMaskInit($container, mask) {
         'y': {
             validator: function (chrs, buffer, pos, strict, opts) {
                 let valExp
-
+                console.log();
                 if (pos === 6) {
-                    valExp = new RegExp("[1-2]");
+                    valExp = new RegExp(`[1-${dateOneNum}]`);
                 } else if (pos === 7) {
                     if (buffer.buffer[6] === "1") {
-                        valExp = new RegExp("[789]");
+                        valExp = new RegExp("[9]");
                     } else {
-                        valExp = new RegExp("[01]");
+                        valExp = new RegExp(`[${dateTwoNum}]`);
                     }
                 } else if (pos === 8) {
-                    valExp = new RegExp("[0-9]");
+                    if (buffer.buffer[7] === '9') {
+                        valExp = new RegExp('[0-9]');
+                    } else {
+                        valExp = new RegExp(`[0-${dateThreeNum}]`);
+                    }
+                    
                 } else if (pos === 9) {
-                    valExp = new RegExp("[0-9]");
+                    if (buffer.buffer[7] === '9') {
+                        valExp = new RegExp('[0-9]');
+                    } else if (buffer.buffer[8] === dateThreeNum) {
+                        valExp = new RegExp(`[0-${dateFourNum}]`);
+                    } else {
+                        valExp = new RegExp('[0-9]');
+                    }
                 }
                 return valExp.test(chrs);
             },
@@ -117,8 +134,64 @@ export default function inputMaskInit($container, mask) {
         },
     })
 
+    
+    function validInputDate(e) {
+        let currVal = $(e.target).val();
+        let day = currVal.toString().split('.')[0];
+        let month = currVal.toString().split('.')[1];
+        let year = currVal.toString().split('.')[2];
+
+        let today = new Date();
+        let birthDate = new Date(`${year}.${month}.${day}`);
+       
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        } 
+
+        let item = $(e.target);
+        let parent = item.parent();
+        let message = parent.find('.input__control-error--mask');
+        
+        if (age < 18) {
+            item.addClass('input__control--error-mask');
+            message.show();
+            message.html('Некорректная дата. Вам должно быть 18 лет')
+         
+        } else {
+            item.removeClass('input__control--error-mask');
+            message.hide();
+        }
+    }
+
+    function clearInput(e) {
+        console.log('ss');
+        let item = $(e.target);
+        let parent = item.parent();
+        let message = parent.find('.input__control-error--mask');
+
+        item.removeClass('input__control--error-mask');
+        message.hide();
+    }
+
+    const OPTIONS_REG = {
+        alias: "datatime", 
+        "clearMaskOnLostFocus": true, 
+        "clearIncomplete": true, 
+        "oncomplete": validInputDate,
+        "oncleared" : clearInput
+    }
+
+    const OPTIONS_DATE = {
+        alias: "datatime", 
+        "clearMaskOnLostFocus": true, 
+        "clearIncomplete": true, 
+    }
+
     Inputmask(MASKS.phoneMask)?.mask($container.find(ELEMENTS_SELECTOR.phoneMask));
-    Inputmask(MASKS.dateMask, {alias: "datatime"})?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+    Inputmask(MASKS.dateMask, OPTIONS_DATE)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+    Inputmask(MASKS.dateMask, OPTIONS_REG)?.mask($container.find(ELEMENTS_SELECTOR.dateMaskReg));
     Inputmask(MASKS.emailMask)?.mask($container.find(ELEMENTS_SELECTOR.emailMask));
     Inputmask(MASKS.seriaMask)?.mask($container.find(ELEMENTS_SELECTOR.seriaMask));
     Inputmask(MASKS.numberMask)?.mask($container.find(ELEMENTS_SELECTOR.numberMask));
@@ -128,6 +201,4 @@ export default function inputMaskInit($container, mask) {
     Inputmask(MASKS.ogrnipMask)?.mask($container.find(ELEMENTS_SELECTOR.ogrnipMask));
     Inputmask(MASKS.ogrnMask)?.mask($container.find(ELEMENTS_SELECTOR.ogrnMask));
     Inputmask(MASKS.bikMask)?.mask($container.find(ELEMENTS_SELECTOR.bikMask));
-
-   
 }
