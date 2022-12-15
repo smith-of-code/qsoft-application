@@ -17,12 +17,12 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
     {
         return [
             'updateItem' => [
-                '-prefilters' => [
+                'prefilters' => [
                     Main\Engine\ActionFilter\Authentication::class,
                 ],
             ],
             'clearBasket' => [
-                '-prefilters' => [
+                'prefilters' => [
                     Main\Engine\ActionFilter\Authentication::class,
                 ],
             ],
