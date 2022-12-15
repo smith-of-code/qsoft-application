@@ -1543,7 +1543,6 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             'load' => [
                 '-prefilters' => [
                     Main\Engine\ActionFilter\Csrf::class,
-                    Main\Engine\ActionFilter\Authentication::class
                 ],
             ],
             'reloadData' => [
