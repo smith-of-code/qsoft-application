@@ -15,6 +15,7 @@ class DiscountsComponent extends CBitrixComponent implements Controllerable
         return [
             'load' => [
                 '-prefilters' => [
+                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
                 ],
             ]
         ];

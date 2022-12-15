@@ -54,21 +54,25 @@ class BasketLineController extends Controller
             'getBasketTotals' => [
                 '-prefilters' => [
                     Authentication::class,
+                    Csrf::class,
                 ],
             ],
             'increaseItem' => [
                 '-prefilters' => [
                     Authentication::class,
+                    Csrf::class,
                 ],
             ],
             'decreaseItem' => [
                 '-prefilters' => [
                     Authentication::class,
+                    Csrf::class,
                 ],
             ],
             'repeatOrder' => [
                 '-prefilters' => [
                     Authentication::class,
+                    Csrf::class,
                 ],
             ],
         ];
