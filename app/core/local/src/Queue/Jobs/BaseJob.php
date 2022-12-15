@@ -33,8 +33,8 @@ abstract class BaseJob
         try {
             $this->process($data);
         } catch (Throwable $e) {
-            //TODO: Запись в логи
-            echo 'ERROR: ' . $e;
+            $logpath = realpath($_SERVER['DOCUMENT_ROOT'] . '/../logs/') . '/queue_' . date('m_Y') . '.log';
+            file_put_contents($logpath, '[' . date('d.m.Y h:i:s') . ']' . print_r($e, true) . PHP_EOL, FILE_APPEND);
         }
     }
 
