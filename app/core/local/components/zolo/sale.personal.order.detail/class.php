@@ -35,10 +35,10 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
     public function configureActions()
     {
         return [
-            'load' => [
-                '-prefilters' => [
+            'loadProducts' => [
+                'prefilters' => [
                 ],
-            ]
+            ],
         ];
     }
 

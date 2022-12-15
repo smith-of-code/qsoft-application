@@ -24,7 +24,7 @@ class NotificationListComponent extends CBitrixComponent implements Controllerab
     {
         return [
             'loadNotifications' => [
-                '-prefilters' => [
+                'prefilters' => [
                 ]
             ]
         ];
