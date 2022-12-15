@@ -63,6 +63,7 @@ if (Loader::includeModule('search'))
 			'HIDE_ICONS' => 'Y',
 		]
 	);
+
 	if (!empty($arElements) && is_array($arElements))
 	{
 		$searchFilter = [
@@ -78,15 +79,10 @@ if (Loader::includeModule('search'))
 	}
 	else
 	{
-		if (is_array($arElements))
-		{
-			echo GetMessage("CT_BCSE_NOT_FOUND");
-			return;
-		}
+        echo GetMessage("CT_BCSE_NOT_FOUND");
+        return;
 	}
-}
-else
-{
+} else {
 	$searchQuery = '';
 	if (isset($_REQUEST['q']) && is_string($_REQUEST['q']))
 		$searchQuery = trim($_REQUEST['q']);
@@ -99,7 +95,7 @@ else
 	unset($searchQuery);
 }
 
-if (!empty($searchFilter) && is_array($searchFilter))
+if (! empty($searchFilter) && is_array($searchFilter))
 {
 	$arParams['LINE_ELEMENT_COUNT'] = (int)($arParams['LINE_ELEMENT_COUNT'] ?? 3);
 	if ($arParams['LINE_ELEMENT_COUNT'] < 2)
