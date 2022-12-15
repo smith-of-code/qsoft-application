@@ -26,7 +26,7 @@ export const useBasketStore = defineStore('basket', {
                     }).then((response) => response.data);
 
                     this.items = response.items;
-                    this.itemsCount = Object.values(response.items).length;
+                    this.itemsCount = response.itemsCount;
                     this.basketPrice = response.basketPrice;
                 } finally {
                     this.loading = false;
@@ -47,7 +47,7 @@ export const useBasketStore = defineStore('basket', {
                 }).then((response) => response.data);
 
                 this.items = response.items;
-                this.itemsCount = Object.values(response.items).length;
+                this.itemsCount = response.itemsCount;
                 this.basketPrice = response.basketPrice;
             } finally {
                 this.loading = false;
@@ -61,7 +61,7 @@ export const useBasketStore = defineStore('basket', {
                 }).then((response) => response.data);
 
                 this.items = response.items;
-                this.itemsCount = Object.values(response.items).length;
+                this.itemsCount = response.itemsCount;
                 this.basketPrice = response.basketPrice;
             } finally {
                 this.loading = false;
@@ -74,7 +74,7 @@ export const useBasketStore = defineStore('basket', {
                     data: { orderId }
                 }).then((response) => response.data);
                 this.items = response.items;
-                this.itemsCount = Object.values(response.items).length;
+                this.itemsCount = response.itemsCount;
                 this.basketPrice = response.basketPrice;
                 this.missing = response.missing;
             } finally {

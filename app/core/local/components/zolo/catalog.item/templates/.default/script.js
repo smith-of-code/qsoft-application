@@ -12,14 +12,19 @@
 		 * @param isLazyLoad
 		 */
 		this.startActions = function (isLazyLoad = false) {
+			const self = this;
+
+			this.initWishlist();
 
 			$('[data-card-favourite]').on('click', function () {
 				const offerId = $(this).data('offer-id');
+				const productId = $(this).data('product-id');
 				if ($(this).data('card-favourite') === 'heart') {
 					window.stores.wishlistStore.add(offerId);
 				} else {
 					window.stores.wishlistStore.remove(offerId);
 				}
+				self.products[productId].offers[offerId].inWishlist = !self.products[productId].offers[offerId].inWishlist;
 			});
 
 			$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
@@ -52,6 +57,22 @@
 				this.products[item.id] = item;
 			}
 		};
+
+		this.initWishlist = async function () {
+			for (let productId in this.products) {
+				const wishlist = await window.stores.wishlistStore.getByProductId(this.products[productId].realId);
+
+				for (let offerId in this.products[productId].offers) {
+					this.products[productId].offers[offerId].inWishlist = wishlist.data.indexOf(offerId) !== -1;
+					this.refreshWishlistButton(
+						productId,
+						this.products[productId].offers[offerId],
+						this.products[productId].container,
+						this.products[productId].offers[offerId].inWishlist
+					);
+				}
+			}
+		}
 
 		/**
 		 * Привязывает к каждому товару его контейнер (карточку)
@@ -124,7 +145,8 @@
 
 		this.formatNumber = function(number, useDecimals = false) {
 			if (!number) return 0;
-			let result = parseInt(number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
+			number = Math.round(parseFloat(number));
+			let result = number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ');
 			return useDecimals ? result : result.substring(0, result.length - 3);
 		}
 
@@ -239,7 +261,6 @@
 				}
 
 				this.refreshBasketCount(id, offer, this.products[id].container);
-				this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
 
 				// Переключаем видимость в соответствии с перечнем
 				if (typeof this.products[id].elementsIds.props[propCode].desktop != 'undefined') {
@@ -279,9 +300,11 @@
 		this.refreshWishlistButton = function (id, offer, container, inWishlist) {
 			const button = container.find('[data-card-favourite]');
 			if (button && button.length) {
+				button.show();
 				const value = inWishlist ? 'heart-fill' : 'heart';
 				button.find('[data-card-favourite-icon]').attr('xlink:href', `/local/templates/.default/images/icons/sprite.svg#icon-${value}`);
 				button.data('card-favourite', value);
+				button.data('product-id', id);
 				button.data('offer-id', offer.id);
 			}
 		}
@@ -295,7 +318,7 @@
 			quantity.data('product-id', id);
 			quantity.data('offer-id', offer.id);
 			sum.data('quantity-sum', basketCount);
-			sum.data('quantity-max', offer.quantity);
+			sum.data('quantity-max', Math.min(offer.quantity, 99));
 			if (basketCount >= offer.quantity) {
 				increase.prop('disabled', true);
 				increase.addClass('button--disabled');

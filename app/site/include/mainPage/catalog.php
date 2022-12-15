@@ -7,7 +7,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
     <div class="subject">
         <div class="subject__row">
             <div class="subject__item box box--circle box--grayish">
-                <a href="catalog/for_dogs" class="subject__link" target="_blank"></a>
+                <a href="catalog/for_dogs/" class="subject__link"></a>
                 <div class="subject__info">
                     <h3 class="subject__title">Товары<br> для собак</h3>
                     <span type="button" class="subject__button button button--simple button--red">
@@ -31,7 +31,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
             </div>
 
             <div class="subject__item box box--circle box--grayish">
-                <a href="catalog/for_cats" class="subject__link" target="_blank"></a>
+                <a href="catalog/for_cats/" class="subject__link"></a>
                 <div class="subject__info">
                     <h3 class="subject__title">Товары<br> для кошек</h3>
                     <span type="button" class="subject__button button button--simple button--red">

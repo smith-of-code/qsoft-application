@@ -153,8 +153,6 @@ if (!$arResult['pets']) {
                                                        id="pets-<?=$index?>-birthdate"
                                                        placeholder="ДД.ММ.ГГГГ"
                                                        data-mask-date
-                                                       data-inputmask-alias="date"
-                                                       data-inputmask-inputformat="dd.mm.yyyy"
                                                        data-pets-date-input
                                                        data-pets-change
                                                        value="<?=$pet['birthdate']?>"
@@ -179,8 +177,8 @@ if (!$arResult['pets']) {
 
                                         <div class="form__field-block form__field-block--input" data-breed-container>
                                             <div class="form__control">
-                                                <div class="select select--mitigate" data-select data-breed="empty">
-                                                    <select class="select__control" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change disabled>
+                                                <div class="select select--mitigate" data-select data-pets-breed data-breed="empty">
+                                                    <select class="select__control" data-select-control name="breed-empty" data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
                                                         <option><!-- пустой option для placeholder --></option>
                                                     </select>
                                                 </div>
@@ -223,7 +221,7 @@ if (!$arResult['pets']) {
                                     Сохранить изменения
                                 </button>
 
-                                <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full" data-pets-cancel>
+                                <button type="button" class="pet-card__button button button--rounded button--mixed button--red button--full <?=!$pet ? 'button--disabled' : ''?>" <?=!$pet ? 'disabled' : ''?> data-pets-cancel>
                                     Отменить изменения
                                 </button>
                             </div>
@@ -374,8 +372,6 @@ if (!$arResult['pets']) {
                                                    id="pets-#ID#-birthdate"
                                                    placeholder="ДД.ММ.ГГГГ"
                                                    data-mask-date
-                                                   data-inputmask-alias="date"
-                                                   data-inputmask-inputformat="dd.mm.yyyy"
                                                    data-pets-date-input
                                                    data-pets-change
                                             >
@@ -399,8 +395,8 @@ if (!$arResult['pets']) {
 
                                     <div class="form__field-block form__field-block--input" data-breed-container>
                                         <div class="form__control">
-                                            <div class="select select--mitigate" data-select data-breed="empty">
-                                                <select class="select__control" data-select-control data-placeholder="Выбрать" data-pets-breed-input data-pets-change disabled>
+                                            <div class="select select--mitigate" data-select data-pets-breed data-breed="empty">
+                                                <select class="select__control" data-select-control name="breed-empty" data-placeholder="Выбрать" data-pets-breed-input data-pets-change>
                                                     <option><!-- пустой option для placeholder --></option>
                                                 </select>
                                             </div>

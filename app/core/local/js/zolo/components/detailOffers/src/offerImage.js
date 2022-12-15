@@ -11,12 +11,6 @@ export const OfferImage = {
         },
     },
 
-    data() {
-        return {
-            inWishlistTemp: {},
-        };
-    },
-
     computed: {
         ...mapState(detailOfferStore, ['offers', 'currentOfferId', 'images', 'inWishlist', 'toggleInWishlist']),
         ...mapState(useWishlistStore, ['add', 'remove']),
@@ -26,19 +20,14 @@ export const OfferImage = {
         return { store: detailOfferStore() };
     },
 
-    mounted() {
-        this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
-    },
-
     updated() {
-        this.inWishlistTemp[this.currentOfferId] = this.inWishlist;
         initSwiper(true);
     },
 
     methods: {
         toggleWishlist() {
-            this.inWishlistTemp[this.currentOfferId] ? this.remove(this.currentOfferId) : this.add(this.currentOfferId);
-            this.inWishlistTemp[this.currentOfferId] = !this.inWishlistTemp[this.currentOfferId];
+            this.inWishlist ? this.remove(this.currentOfferId) : this.add(this.currentOfferId);
+            this.toggleInWishlist();
         },
     },
 
@@ -58,7 +47,7 @@ export const OfferImage = {
                                         <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" :data-card-favourite="inWishlist ? 'heart-fill' : 'heart'" @click="toggleWishlist">
                                             <span class="button__icon button__icon--big">
                                                 <svg class="icon icon--heart">
-                                                    <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (inWishlist ? 'heart-fill' : 'heart')" data-card-favourite-icon></use>
+                                                    <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (inWishlist ? 'heart-fill' : 'heart')"></use>
                                                 </svg>
                                             </span>
                                         </button>
@@ -87,10 +76,10 @@ export const OfferImage = {
                                   </div>
     
                                     <div v-if="isAuthorized" class="product-card__favourite">
-                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart" @click="toggleWishlist">
+                                        <button type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" :data-card-favourite="inWishlist ? 'heart-fill' : 'heart'" @click="toggleWishlist">
                                             <span class="button__icon button__icon--big">
                                                 <svg class="icon icon--heart">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                                    <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + (inWishlist ? 'heart-fill' : 'heart')"></use>
                                                 </svg>
                                             </span>
                                         </button>
