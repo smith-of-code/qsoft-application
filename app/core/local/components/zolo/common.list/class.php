@@ -14,7 +14,6 @@ class CommonPageComponent extends CBitrixComponent implements Controllerable
         return [
             'load' => [
                 '-prefilters' => [
-                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
                     \Bitrix\Main\Engine\ActionFilter\Authentication::class
                 ],
             ]
