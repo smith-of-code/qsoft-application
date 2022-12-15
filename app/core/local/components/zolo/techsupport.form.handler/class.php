@@ -35,7 +35,6 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         return [
             'load' => [
                 '-prefilters' => [
-                    Csrf::class,
                 ],
             ]
         ];

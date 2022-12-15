@@ -18,13 +18,11 @@ class UpdateBasketController extends \Bitrix\Main\Engine\Controller
         return [
             'updateItem' => [
                 '-prefilters' => [
-                    Main\Engine\ActionFilter\Csrf::class,
                     Main\Engine\ActionFilter\Authentication::class,
                 ],
             ],
             'clearBasket' => [
                 '-prefilters' => [
-                    Main\Engine\ActionFilter\Csrf::class,
                     Main\Engine\ActionFilter\Authentication::class,
                 ],
             ],
