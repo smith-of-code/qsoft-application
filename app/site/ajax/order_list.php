@@ -73,11 +73,11 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
                                             </span>
                                         <?php endif; ?>
                                         <span class="price__calculation-value">
-                                            <?=$order['ORDER']['FORMATED_PRICE']?>
+                                            <?=number_format($order['ORDER']['PRICE'], 0, ' ', ' ')?> ₽
                                         </span>
                                     </p>
                                     <?php if ($arResult['IS_CONSULTANT']):?>
-                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> ББ</p>
+                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ? number_format($order['ORDER']['BONUSES'], 0, ' ', ' ') : 0 ?> ББ</p>
                                     <?php endif;?>
                                 </div>
                             </div>
