@@ -14,7 +14,7 @@ class DiscountsComponent extends CBitrixComponent implements Controllerable
     {
         return [
             'load' => [
-                'prefilters' => [
+                '-prefilters' => [
                 ],
             ]
         ];

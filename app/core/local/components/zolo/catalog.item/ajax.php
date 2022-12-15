@@ -20,7 +20,7 @@ class CatalogItemController extends Controller
 	{
 		return [
 			'addViewedProduct' => [
-				'prefilters' => [
+				'-prefilters' => [
 					Authentication::class
 				],
 				'+prefilters' => [new Scope(Scope::AJAX)]
