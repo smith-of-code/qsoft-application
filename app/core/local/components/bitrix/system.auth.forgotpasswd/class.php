@@ -1,6 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die;
 
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Engine\ActionFilter\Authentication;
 use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
@@ -22,6 +23,7 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
             'sendEmailMessage' => [
                 '-prefilters' => [
                     Csrf::class,
+                    Authentication::class,
                 ],
             ],
         ];
