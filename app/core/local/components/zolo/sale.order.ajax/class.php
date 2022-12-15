@@ -1,6 +1,7 @@
 <?php
 
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main;
 use Bitrix\Main\Config\Option;
@@ -516,7 +517,9 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     {
         return [
             'createOrder' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
         ];
     }

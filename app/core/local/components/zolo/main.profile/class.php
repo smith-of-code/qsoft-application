@@ -5,6 +5,7 @@ if (!defined('B_PROLOG_INCLUDED') || !B_PROLOG_INCLUDED) {
 
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Context;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
@@ -160,25 +161,39 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
     {
         return [
             'savePersonalData' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'sendCode' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'verifyCode' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'saveLegalEntityData' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'addPet' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'changePet' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'deletePet' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
         ];
     }
