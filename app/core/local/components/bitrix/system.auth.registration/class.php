@@ -2,6 +2,7 @@
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
@@ -169,16 +170,24 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     {
         return [
             'saveStep' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'sendPhoneCode' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'verifyPhoneCode' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
             'register' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
         ];
     }
