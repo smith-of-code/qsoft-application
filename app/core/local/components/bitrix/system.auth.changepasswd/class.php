@@ -1,5 +1,6 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die;
 
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Security\Password;
 use Bitrix\Main\UserTable;
@@ -33,7 +34,9 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
     {
         return [
             'changePassword' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                ],
             ],
         ];
     }
