@@ -52,17 +52,17 @@ class BasketLineController extends Controller
     {
         return [
             'getBasketTotals' => [
-                'prefilters' => [
+                '-prefilters' => [
                     Authentication::class,
                 ],
             ],
             'increaseItem' => [
-                'prefilters' => [
+                '-prefilters' => [
                     Authentication::class,
                 ],
             ],
             'decreaseItem' => [
-                'prefilters' => [
+                '-prefilters' => [
                     Authentication::class,
                 ],
             ],
