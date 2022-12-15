@@ -37,6 +37,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         return [
             'load' => [
                 '-prefilters' => [
+                    Csrf::class,
                 ],
             ]
         ];
