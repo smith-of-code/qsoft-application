@@ -152,6 +152,7 @@
     }
 
     &__inner {
+        position: relative;
         display: flex;
         flex-direction: column;
 
@@ -190,6 +191,7 @@
         width: 100%;
         min-height: rem(48px);
         padding: rem($gap-medium);
+        z-index: 1;
 
         @media #{$screen-tablet} {
             min-height: rem(60px);
