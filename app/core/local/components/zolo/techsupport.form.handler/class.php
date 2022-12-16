@@ -37,6 +37,12 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                     Csrf::class,
                     Authentication::class,
                 ],
+            ],
+            'sendTicket' => [
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ]
         ];
     }
