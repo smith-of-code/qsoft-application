@@ -124,19 +124,20 @@ if (!function_exists('normalizePhoneNumber')) {
 if (!function_exists('declinationProduct')) {
     function declinationProduct(int $numeral): string
     {
-        if (!$numeral) return 'товаров';
+        if (!$numeral) return "Найдено <span class=\"catalog__results-count\">$numeral</span> товаров";
 
+        $n = $numeral;
         $numeral = $numeral % 100;
         if ($numeral > 19) {
             $numeral = $numeral % 10;
         }
 
         switch ($numeral) {
-            case  1: return 'товар';
+            case  1: return "Найден <span class=\"catalog__results-count\">$n</span> товар";
             case  2:
             case  3:
-            case  4: return 'товара';
-            default: return 'товаров';
+            case  4: return "Найдено <span class=\"catalog__results-count\">$n</span> товара";
+            default: return "Найдено <span class=\"catalog__results-count\">$n</span> товаров";
         }
     }
 }
