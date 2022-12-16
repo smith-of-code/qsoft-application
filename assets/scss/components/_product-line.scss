@@ -167,6 +167,9 @@
 
     &__link {
         @include position-stretching(absolute);
+
+        top: rem(-16px);
+        bottom: rem(-16px);
         z-index: 1;
     }
 }
