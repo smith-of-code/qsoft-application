@@ -65,21 +65,24 @@ class OffersService
             [],
             's1'
         );
-        if (isset($prices['DISCOUNT_PRICE']) && $priceValue > (float) $prices['DISCOUNT_PRICE']) {
-            $priceValue = $prices['DISCOUNT_PRICE'];
+
+        if ($prices) {
+            if (isset($prices['DISCOUNT_PRICE']) && $priceValue > (float) $prices['DISCOUNT_PRICE']) {
+                $priceValue = $prices['DISCOUNT_PRICE'];
+            }
+
+            // Вычисляем количество бонусов
+            $propsToSet = [];
+            foreach ($levelsCodes as $code) {
+                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
+                $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
+
+                $propsToSet['BONUSES_' . $code] = $bonuses;
+            }
+
+            // Записываем свойства
+            \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
         }
-
-        // Вычисляем количество бонусов
-        $propsToSet = [];
-        foreach ($levelsCodes as $code) {
-            $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
-            $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
-
-            $propsToSet['BONUSES_' . $code] = $bonuses;
-        }
-
-        // Записываем свойства
-        \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
     }
 
     /**
@@ -105,8 +108,19 @@ class OffersService
             $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $discountPrice;
         }
 
-        // Записываем свойства
-        \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+        // Проверяем существование ТП
+        $offer = \CIBlockElement::GetList(
+            ['ID' => 'DESC'],
+            ['IBLOCK_ID' => $this->offersIbId, 'ID' => $offerId],
+            false,
+            false,
+            ['ID']
+        )->Fetch();
+        
+        if ($offer) {
+            // Записываем свойства
+            \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+        }
     }
 
     /**

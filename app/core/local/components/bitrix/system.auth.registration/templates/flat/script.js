@@ -234,6 +234,7 @@ class CSystemAuthRegistrationComponent {
 
         $('.step-container').hide();
         $(`.${registrationData.currentStep}`).show();
+        window.scrollTo(0, 0);
     }
 
     checkBreedSelects() {
@@ -378,6 +379,7 @@ class CSystemAuthRegistrationComponent {
 
       $('.step-container').hide();
       $('.final').show();
+      window.scrollTo(0, 0);
   }
 }
 
