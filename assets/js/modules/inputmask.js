@@ -45,10 +45,11 @@ export default function inputMaskInit($container, mask) {
     }
 
     const date = new Date().getFullYear();
-    const dateOneNum = date.toString().split('')[0];
-    const dateTwoNum = date.toString().split('')[1];
-    const dateThreeNum = date.toString().split('')[2];
-    const dateFourNum = date.toString().split('')[3];
+    const dateYearSplitted = date.toString().split('');
+    const dateOneNum = dateYearSplitted[0];
+    const dateTwoNum = dateYearSplitted[1];
+    const dateThreeNum = dateYearSplitted[2];
+    const dateFourNum = dateYearSplitted[3];
   
     const addButton = $(".pet-cards__adding").find("button");
 
@@ -61,7 +62,7 @@ export default function inputMaskInit($container, mask) {
         'y': {
             validator: function (chrs, buffer, pos, strict, opts) {
                 let valExp
-                console.log();
+
                 if (pos === 6) {
                     valExp = new RegExp(`[1-${dateOneNum}]`);
                 } else if (pos === 7) {
@@ -137,15 +138,15 @@ export default function inputMaskInit($container, mask) {
     
     function validInputDate(e) {
         let currVal = $(e.target).val();
-        let day = currVal.toString().split('.')[0];
-        let month = currVal.toString().split('.')[1];
-        let year = currVal.toString().split('.')[2];
-
+        let dateSplitted = currVal.toString().split('.');
+        let day = dateSplitted[0];
+        let month = dateSplitted[1];
+        let year = dateSplitted[2];
         let today = new Date();
         let birthDate = new Date(`${year}.${month}.${day}`);
-       
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
+
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         } 
@@ -166,7 +167,6 @@ export default function inputMaskInit($container, mask) {
     }
 
     function clearInput(e) {
-        console.log('ss');
         let item = $(e.target);
         let parent = item.parent();
         let message = parent.find('.input__control-error--mask');
