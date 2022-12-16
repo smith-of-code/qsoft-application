@@ -1014,7 +1014,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
                         if ($property->getField('CODE') === 'BONUSES') {
                             $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
                         }
-                        if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                        if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
                             $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
                         }
                     }
@@ -1543,9 +1543,13 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             'load' => [
                 '-prefilters' => [
                     Main\Engine\ActionFilter\Csrf::class,
-                    Main\Engine\ActionFilter\Authentication::class
                 ],
-            ]
+            ],
+            'reloadData' => [
+                '-prefilters' => [
+                    Main\Engine\ActionFilter\Csrf::class,
+                ],
+            ],
         ];
     }
 
