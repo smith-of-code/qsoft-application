@@ -16,7 +16,7 @@ $APPLICATION->SetTitle("Поиск");
 		"CACHE_TYPE" => "A",
 		"CHECK_DATES" => "N",
 		"CONVERT_CURRENCY" => "N",
-		"DETAIL_URL" => "/catalog/#SECTION_CODE_PATH#/#CODE#",
+		"DETAIL_URL" => "/catalog/#SECTION_CODE_PATH#/#CODE#/",
 		"DISPLAY_BOTTOM_PAGER" => "N",
 		"DISPLAY_COMPARE" => "N",
 		"DISPLAY_TOP_PAGER" => "N",
