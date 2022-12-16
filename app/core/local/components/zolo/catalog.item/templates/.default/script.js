@@ -318,8 +318,9 @@
 			quantity.data('product-id', id);
 			quantity.data('offer-id', offer.id);
 			sum.data('quantity-sum', basketCount);
-			sum.data('quantity-max', Math.min(offer.quantity, 99));
-			if (basketCount >= offer.quantity) {
+			const max = Math.min(offer.quantity, 99);
+			sum.data('quantity-max', max);
+			if (basketCount >= offer.quantity || basketCount >= max) {
 				increase.prop('disabled', true);
 				increase.addClass('button--disabled');
 			} else {
