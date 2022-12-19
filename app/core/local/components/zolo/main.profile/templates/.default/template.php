@@ -1095,8 +1095,10 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                 <div class="profile__order-col">
                                                     <div class="price">
                                                         <div class="price__calculation price__calculation--columned">
-                                                            <p class="price__calculation-total"><?=SaleFormatCurrency($order['price'], 'RUB')?></p>
-                                                            <p class="price__calculation-accumulation"><?=SaleFormatCurrency($order['bonuses'], 'RUB', true)?> ББ</p>
+                                                            <p class="price__calculation-total"><?=number_format($order['price'], 0, ' ', ' ')?> ₽</p>
+                                                            <?php if ($order['bonuses']):?>
+                                                                <p class="price__calculation-accumulation"><?=number_format($order['bonuses'], 0, ' ', ' ')?> ББ</p>
+                                                            <?php endif;?>
                                                         </div>
                                                     </div>
                                                 </div>
