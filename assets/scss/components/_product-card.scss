@@ -250,6 +250,10 @@
         @media #{$screen-tablet} {
             margin-bottom: rem($gap-average);
         }
+
+        &-remains {
+            font-size: rem($font-size-mini);
+        }
     }
 
     &__label {

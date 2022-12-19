@@ -14,6 +14,8 @@
     &__main {
         font-size: rem($font-size-miniature);
 
+        display: flex;
+
         @media #{$screen-desktop} {
             font-size: rem($font-size-small);
 
@@ -39,11 +41,21 @@
             }
         }
 
+        &-value {
+            display: flex;
+            align-items: flex-end;
+
+            &--remains {
+                font-size: rem(17px);
+            }
+        }
+
         &-total {
             font-size: rem($font-size-mini);
             font-weight: $font-weight-bold;
             line-height: ($line-height-small/$font-size-mini);
 
+            display: flex;
             margin-right: rem(6px);
 
             @media #{$screen-desktop} {

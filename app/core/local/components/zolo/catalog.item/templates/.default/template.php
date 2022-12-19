@@ -283,13 +283,17 @@ if (isset($arResult['ITEM']))
                     <p id="<?=$domElementsIds['mainPrice']?>"
                        class="price__main"
                        style="<?= $actualItem['mainPrice'] ? '' : 'display: none;' ?>"
+                       data-catalog-main-price="<?=$actualItem['mainPrice']?>"
                     >
-                        <?=$actualItem['mainPrice']?>
+                        <span class="product-card__price-whole"></span>
+                        <span class="product-card__price-remains"></span>
                     </p>
                     <div class="price__calculation">
                         <p id="<?=$domElementsIds['totalPrice']?>"
-                           class="price__calculation-total">
-                            <?=$actualItem['totalPrice']?>
+                           class="price__calculation-total"
+                           data-catalog-total-price="<?=$actualItem['totalPrice']?>">
+                            <span class="product-card__price-whole"></span>
+                            <span class="product-card__price-remains"></span>
                         </p>
                         <p id="<?=$domElementsIds['bonuses']?>"
                            class="price__calculation-accumulation"

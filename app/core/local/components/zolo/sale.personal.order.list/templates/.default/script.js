@@ -266,3 +266,51 @@ function createElement(elementName, elementClasses = [], elementAttributs = [], 
 
     return element;
 }
+
+$( document ).ready(function() {
+    const orderItems = $(".cards-order__item");
+
+    const buttonMore = $('#showMore');
+
+    function transformValue(items) {
+        items.each(function (index, item) {
+            const orderItemPrice = $(item).find('.price__calculation-value');
+            const orderItemPriceVal = orderItemPrice.attr('data-order-price').replace(/\s/g,'').replace(/,/g, '.');
+            const orderItemPriceNum = parseFloat(orderItemPriceVal);
+           
+            const spanWhole = orderItemPrice.find(".price__calculation-value--whole");
+            const spanRemains = orderItemPrice.find(".price__calculation-value--remains");
+    
+            let totalFixied = orderItemPriceNum.toFixed(2);
+            let totalRemains = totalFixied.toString().split('.')[1];
+                    
+            if (totalRemains === "00") {
+                spanWhole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+                spanRemains.text('₽');
+            } else {
+                spanWhole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+                spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+            }
+        }); 
+    }
+    transformValue(orderItems);
+
+    let mutationObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            const targetRender = mutation.target;
+            const orderItems = $(targetRender).find('.cards-order__item');
+
+            transformValue(orderItems);
+        });
+      });
+
+    mutationObserver.observe(document.documentElement, {
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: true,
+        characterDataOldValue: true
+    });
+
+});

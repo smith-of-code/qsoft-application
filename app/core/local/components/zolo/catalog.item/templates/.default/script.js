@@ -112,9 +112,39 @@
 				}
 				// Отображение цен
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				mainPrice.html(`${this.formatNumber(offer.mainPrice)} ₽`);
+				const spanWhole = mainPrice.find(".product-card__price-whole");
+				const spanRemains = mainPrice.find(".product-card__price-remains");
+
+				let mainPriceNum = parseFloat(offer.mainPrice);
+				let totalMainFixied = mainPriceNum.toFixed(2);
+				let totalMainRemains = totalMainFixied.toString().split('.')[1];
+				
+				if (totalMainRemains === "00") {
+					spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+					spanRemains.text('₽');
+				} else {
+					spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+					spanRemains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+				}
+
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
-				$('#' + this.products[id].elementsIds.totalPrice).html(`${this.formatNumber(offer.totalPrice)} ₽`);
+
+				const totalPrice = $('#' + this.products[id].elementsIds.totalPrice)
+				const spanWholeTotal = totalPrice.find(".product-card__price-whole");
+				const spanRemainsTotal = totalPrice.find(".product-card__price-remains");
+				
+				let totalPriceNum = parseFloat(offer.totalPrice);
+				let totalFixied = totalPriceNum.toFixed(2);
+				let totalRemains = totalFixied.toString().split('.')[1];
+				
+				if (totalRemains === "00") {
+					spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+					spanRemainsTotal.text('₽');
+				} else {
+					spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+					spanRemainsTotal.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+				}
+
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);

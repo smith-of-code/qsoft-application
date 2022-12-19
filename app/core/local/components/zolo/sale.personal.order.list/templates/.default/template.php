@@ -100,8 +100,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                                 </svg>
                                                                             </span>
                                                                         <?php endif; ?>
-                                                                        <span class="price__calculation-value">
-                                                                            <?=$order['ORDER']['FORMATED_PRICE']?>
+                                                                        <span class="price__calculation-value"
+                                                                            data-order-price="<?=$order['ORDER']['FORMATED_PRICE']?>">
+                                                                            <span class="price__calculation-value--whole"></span>
+                                                                            <span class="price__calculation-value--remains"></span>
                                                                         </span>
                                                                     </p>
                                                                     <?php if ($arResult['IS_CONSULTANT']):?>
