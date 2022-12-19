@@ -23,7 +23,7 @@ export const LoyaltyStatusTale = {
     },
 
     template: `
-        <div v-if="targetValue" class="card-progress card-progress--unbordered">
+        <div v-if="targetValue > 0" class="card-progress card-progress--unbordered">
             <div class="card-progress__inner">
                 <p class="card-progress__title">
                     {{ label }}
