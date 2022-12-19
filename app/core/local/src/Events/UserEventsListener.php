@@ -8,6 +8,8 @@ use CUser;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
+use QSoft\Helper\UserGroupHelper;
+use QSoft\ORM\BeneficiariesTable;
 use QSoft\Queue\Jobs\BeneficiaryChangeJob;
 use RuntimeException;
 
@@ -27,25 +29,33 @@ class UserEventsListener
         }
 
         // Если произошло изменение ментора
-        if (
-            is_numeric($fields['UF_MENTOR_ID'])
-            && (int) $fields['UF_MENTOR_ID'] > 0
-            && $user->getMentor()->id !== (int) $fields['UF_MENTOR_ID']
-            && $user->id !== (int) $fields['UF_MENTOR_ID']
-        ) {
-            $userMentor = new User($fields['UF_MENTOR_ID']);
-            if (!$userMentor->active || !$userMentor->groups->isConsultant()) {
-                throw new RuntimeException('Указанный в качестве наставника пользователь не может быть наставником.');
+        if (isset($fields['UF_MENTOR_ID']) && $user->mentorId !== (int) $fields['UF_MENTOR_ID']) {
+            if (!$fields['UF_MENTOR_ID']) {
+                throw new RuntimeException('Пользователь обязан иметь наставника');
             }
 
-            BeneficiaryChangeJob::pushJob([
-                'userId' => $user->id,
-                'oldMentorId' => $user->getMentor()->id,
-                'newMentorId' => $fields['UF_MENTOR_ID'],
+            if (!is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] < 0) {
+                throw new RuntimeException('Некорректный ID наставника');
+            }
+
+            $mentor = new User($fields['UF_MENTOR_ID']);
+            if ($user->id === (int) $fields['UF_MENTOR_ID'] || !$mentor->active || !$mentor->groups->isConsultant()) {
+                throw new RuntimeException('Указанный пользователь не может быть наставником.');
+            }
+
+            BeneficiariesTable::add([
+                'UF_USER_ID' => $user->id,
+                'UF_BENEFICIARY_ID' => $mentor->id,
             ]);
 
-            if ($user->groups->isConsultant()) {
-                (new BonusAccountHelper)->addReferralBonuses($userMentor);
+            if (
+                $user->groups->isConsultant()
+                || (
+                    $fields['GROUP_ID']
+                    && in_array(UserGroupHelper::getConsultantGroupId(), $fields['GROUP_ID'])
+                )
+            ) {
+                (new BonusAccountHelper)->addReferralBonuses($mentor);
             }
         }
     }
