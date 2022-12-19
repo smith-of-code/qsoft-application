@@ -35,7 +35,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
     public function configureActions()
     {
         return [
-            'load' => [
+            'loadProducts' => [
                 '-prefilters' => [
                     Csrf::class,
                 ],
@@ -117,7 +117,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
                     if ($property->getField('CODE') === 'BONUSES') {
                         $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
                     }
-                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
+                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
                         $withPersonalPromotion = true;
                     }
                 }

@@ -3,6 +3,8 @@ if (! defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use QSoft\Helper\DiscountsHelper;
 use \Bitrix\Main\Engine\Contract\Controllerable;
 
@@ -15,7 +17,8 @@ class DiscountsComponent extends CBitrixComponent implements Controllerable
         return [
             'load' => [
                 '-prefilters' => [
-                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
+                    Csrf::class,
+                    Authentication::class,
                 ],
             ]
         ];

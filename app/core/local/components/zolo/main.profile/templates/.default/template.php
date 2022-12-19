@@ -94,7 +94,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         <div class="profile__dropzone dropzone dropzone--image dropzone--simple" data-uploader>
                                             <input type="file" name="uploadFiles[]" multiple class="dropzone__control js-required">
 
-                                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                            <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
                                                 <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                     <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
                                                         <?php if ($arResult['personal_data']['photo']):?>
@@ -200,8 +200,6 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                        id="birthdate"
                                                                        placeholder="ДД.ММ.ГГГГ"
                                                                        data-mask-date
-                                                                       data-inputmask-alias="date"
-                                                                       data-inputmask-inputformat="dd.mm.yyyy"
                                                                        readonly data-profile-readonly
                                                                        value="<?=$arResult['personal_data']['birthdate']?>"
                                                                 >

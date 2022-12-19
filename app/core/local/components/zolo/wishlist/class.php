@@ -1,11 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-use Bitrix\Main\Context;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
-use Bitrix\Main\HttpRequest;
-use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\SystemException;
-use Bitrix\Main\Loader;
 use QSoft\Entity\User;
 
 class WishlistComponent extends CBitrixComponent implements Controllerable
@@ -23,10 +19,19 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
     {
         return [
             'add' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
             'remove' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class
+                ],
+            ],
+            'getByProductId' => [
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
         ];
     }
@@ -39,5 +44,10 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
     public function removeAction(int $productId): void
     {
         $this->user->wishlist->remove($productId);
+    }
+
+    public function getByProductIdAction(int $productId): array
+    {
+        return array_column($this->user->wishlist->getByProductId($productId), 'UF_PRODUCT_ID');
     }
 }

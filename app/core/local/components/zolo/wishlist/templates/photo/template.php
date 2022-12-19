@@ -3,7 +3,7 @@
 <div class="registration__dropzone dropzone dropzone--image" data-uploader>
     <input type="file" name="<?=$arParams['NAME']?>" class="dropzone__control">
 
-    <div class="dropzone__area" data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true}'>
+    <div class="dropzone__area" data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
         <div class="dropzone__message dz-message needsclick">
             <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
                 <svg class="dropzone__message-button-icon icon icon--camera">

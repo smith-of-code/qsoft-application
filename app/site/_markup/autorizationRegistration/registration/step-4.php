@@ -189,9 +189,7 @@
                                                                     name="date"
                                                                     id="date"
                                                                     placeholder="ДД.ММ.ГГГГ"
-                                                                    data-mask-date 
-                                                                    data-inputmask-alias="date"
-                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                    data-mask-date
                                                                     data-pets-date-input
                                                                     data-pets-change
                                                                     value="09.10.2017"
@@ -214,7 +212,7 @@
                                             <div class="dropzone" data-uploader>
                                                 <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
                     
-                                                <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php"}'>
+                                                <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
                                                     <div class="dropzone__message dz-message needsclick">
                                                         <div class="dropzone__message-caption needsclick">
                                                             <h6 class="dropzone__message-title">Ограничения:</h6>

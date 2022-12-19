@@ -175,8 +175,6 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                                            id="birthdate"
                                            placeholder="ДД.ММ.ГГГГ"
                                            data-mask-date
-                                           data-inputmask-alias="date"
-                                           data-inputmask-inputformat="dd.mm.yyyy"
                                            value="<?=$ticketData['PERSONAL_BIRTHDAY']?>"
                                     >
                                 </div>

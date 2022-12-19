@@ -451,10 +451,6 @@
         &:hover {
             color: $brickRed;
         }
-
-        &:focus {
-            color: $mandy2;
-        }
     }
 
     &--simple#{&}--dark-red {

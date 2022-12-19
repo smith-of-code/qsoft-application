@@ -20,7 +20,7 @@
 
         @media #{$screen-tablet} {
             align-items: center;
-            flex-direction: row;
+            justify-content: center;
         }
     }
 
@@ -29,15 +29,6 @@
         
         &:last-child {
             margin-bottom: 0;
-        }
-
-        @media #{$screen-tablet} {
-            margin-bottom: 0;
-            margin-right: rem(60px);
-
-            &:last-child {
-                margin-right: 0;
-            }
         }
     }
 
@@ -69,10 +60,6 @@
         text-align: center;
 
         color: $black;
-
-        @media #{$screen-desktop} {
-            text-align: left;
-        }
     }
 
     &__actions {
