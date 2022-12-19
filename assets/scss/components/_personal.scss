@@ -56,4 +56,10 @@
             }
         }
     }
+
+    &__price {
+        &-remains {
+            font-size: rem($font-size-miniature);
+        }
+    }
 }

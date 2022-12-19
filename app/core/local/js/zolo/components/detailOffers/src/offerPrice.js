@@ -40,27 +40,77 @@ export const OfferPrice = {
         decreaseItem() {
             this.basketStore.decreaseItem(this.currentOfferId);
         },
-    },
 
+        showPriceWhole(item) {
+            const number = parseFloat(item);
+            return Math.floor(number);
+        },
+
+        showPriceRemains(item) {
+            const number = parseFloat(item);
+            const numberFixed = number.toFixed(2);
+            const totalRemains = numberFixed.toString().split('.')[1];
+           
+            if (totalRemains === "00") {
+                return 
+            } else {
+                return ',' + totalRemains
+            }
+        }
+    },
+    
     template: `
         <div class="cart__price price" data-quantity>
             <template v-if="this.isConsultant">
-              <p v-if="price.BASE_PRICE" class="price__main">{{ price.BASE_PRICE }} ₽</p>
+              <p v-if="price.BASE_PRICE" class="price__main">
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.BASE_PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.BASE_PRICE) }}₽
+                    </span>
+              </p>
               <div class="price__calculation">
-                <p class="price__calculation-total">{{ price.PRICE }} ₽</p>
+                <p class="price__calculation-total">
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.PRICE) }}₽
+                    </span>
+                </p>
                 <p class="price__calculation-accumulation">{{ formatNumber(bonuses) }} ББ</p>
               </div>
             </template>
             <template v-else-if="isAuthorized && price.BASE_PRICE">
                 <div class="price__calculation" >
-                    <p class="price__calculation-total price__calculation-total--red">{{ price.PRICE }} ₽</p>
-                    <p class="price__main">{{ price.BASE_PRICE }} ₽</p>
+                    <p class="price__calculation-total price__calculation-total--red">
+                        <span class="cart__price-whole">
+                            {{ showPriceWhole(price.PRICE) }}
+                        </span>
+                        <span class="cart__price-remains">
+                            {{ showPriceRemains(price.PRICE) }}₽
+                        </span>
+                    </p>
+                    <p class="price__main">
+                        <span class="cart__price-whole">
+                            {{ showPriceWhole(price.BASE_PRICE) }}
+                        </span>
+                        <span class="cart__price-remains">
+                            {{ showPriceRemains(price.BASE_PRICE) }}₽
+                        </span>
+                    </p>
                 </div>
             </template>
             <template v-else>
               <div class="price__calculation" >
                 <p class="price__calculation-total">
-                  {{ price.PRICE }} ₽
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.PRICE) }}₽
+                    </span>
                 </p>
               </div>
             </template>
