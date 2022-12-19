@@ -92,14 +92,35 @@ global $APPLICATION;
                         global $USER;
                         if ($USER->isAuthorized()): ?>
                             <div class="personal__item personal__item--hidden">
-                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
-                                    <span class="button__icon button__icon--mixed">
-                                        <svg class="icon icon--user">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="personal__button-text button__text">Профиль</span>
-                                </button>
+                                <div class="dropdown dropdown--hover" data-dropdown="hover">
+                                    <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';" data-dropdown-button>
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--user">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Профиль</span>
+                                    </button>
+                                    <!--выпадающий список выхода-->
+                                    <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
+                                        <div class="logout__name">
+                                            Иванов Сергей Иванович
+                                        </div>
+                                        <div class="logout__id">
+                                            ID 126574321
+                                        </div>
+                                        <button type="button" class="logout__button button button--rounded button--outlined button--red">
+                                            <span class="button__icon">
+                                                <svg class="icon icon--basket">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Выйти из профиля</span>
+                                        </button>
+                                    </div>
+                                    <!--выпадающий список выхода-->
+                                </div>
+
                             </div>
                         <?php else: ?>
                             <div class="personal__item personal__item--hidden">
