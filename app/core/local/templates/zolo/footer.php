@@ -8,8 +8,7 @@
 <!--content-->
 
 <!--cookie popup-->
-<article id="cookie" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
-    <div class="cookie" style="position: relative;">
+    <div id="cookie" class="cookie" style="display: none">
         <div class="container">
             <div class="cookie__row">
                 <div class="cookie__col">
@@ -35,7 +34,6 @@
             </div>
         </div>
     </div>
-</article>
 <!--cookie popup-->
 
 <!--Футер-->

@@ -19,11 +19,11 @@ export default function () {
     const cookie = getCookie(COOKIE_NAME);
 
     if (!cookie) {
-        $.fancybox.open({ src: ELEMENTS_SELECTOR.cookie_modal });
-
+        $(ELEMENTS_SELECTOR.cookie_modal).show();
+        
         $(document).on('click', ELEMENTS_SELECTOR.cookie_accept, function() {
-            $.fancybox.close({ src: ELEMENTS_SELECTOR.cookie_modal });
             setCookie(COOKIE_NAME, true);
+            $(ELEMENTS_SELECTOR.cookie_modal).hide();
         });
     }
 }
