@@ -20,7 +20,7 @@ $APPLICATION->setTitle('Корзина');?>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
-                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC']?>" alt="#" class="card-cart__image-picture">
+                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="#" class="card-cart__image-picture">
                                         </div>
                                         <div class="card-cart__info">
                                             <h2 class="card-cart__title">
