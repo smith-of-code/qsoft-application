@@ -3611,6 +3611,16 @@
                                     Заказ создан
                                 </button>
                             </li>
+
+                            <li class="buttons__item">
+                                <button type="button" 
+                                        class="button button--square button--covered button--green"
+                                        data-fancybox data-modal-type="modal-order"
+                                        data-src="#orderOutStock"
+                                    >
+                                    Повторить заказ
+                                </button>
+                            </li>
                         </ul>
 
                         <article id="technical-support" class="modal modal--limited modal--wide modal--scrolled box box--circle box--hanging" style="display: none" data-support>
@@ -4229,7 +4239,69 @@
                             </div>
                         </article>
                         <!--/Заказ создан-->
-
+                        <!--Попап отсутствия товара-->
+                        <article id="orderOutStock" class="modal modal--orderout modal--centered modal--outer box box--circle box--hanging" style="display: none">
+                            <div class="modal__content">
+                                <section class="modal__section modal__section--content modal__section--order">
+                                    <div class="out-stock">
+                                        <ul class="out-stock__list">
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                        </ul>
+                                        <div class="out-stock__text">К сожалению, этой продукции сейчас нет в наличии.</div>
+                                        <div class="out-stock__node">Зато у нас есть другие интересные товары! Посмотрим?</div>
+                                        <div class="out-stock__actions">
+                                            <button type="button" class="out-stock__button button button--rounded-big button--outlined button--green button--full">
+                                                Перейти в корзину
+                                            </button>
+                                            <button type="button" class="out-stock__button button button--rounded-big button--covered button--green button--full">
+                                                Посмотреть хиты продаж
+                                            </button>
+                                        </div>
+                                    </div>
+                                   
+                                </section>
+                            </div>
+                        </article>
+                        <!--/Попап отсутствия товара-->
 
                     </div>
                     <!--/Модальные окна-->

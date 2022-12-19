@@ -7,6 +7,10 @@
         width: rem(770px);
     }
 
+    &#{&}--orderout {
+        width: rem(625px);
+    }
+
     &#{&}--limited {
         max-height: rem(750px);
     }
@@ -181,6 +185,10 @@
 
         &--content {
             flex-grow: 1;
+        }
+
+        &--order {
+            padding: 0 rem(60px);
         }
 
         &-actions {
