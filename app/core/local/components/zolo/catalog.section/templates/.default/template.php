@@ -136,8 +136,8 @@ $containerName = 'container-'.$navParams['NavNum'];
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=popularity', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'SORT' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=price-asc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=price-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
-                <option value="<?= $APPLICATION->GetCurPageParam('sort=date-asc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
-                <option value="<?= $APPLICATION->GetCurPageParam('sort=date-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
+                <option value="<?= $APPLICATION->GetCurPageParam('sort=date-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
+                <option value="<?= $APPLICATION->GetCurPageParam('sort=date-asc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>Сначала старые товары</option>
             </select>
             <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark button--noclick" disabled>
                 <span class="button__icon button__icon--medium">
