@@ -262,7 +262,7 @@ export const Pets = {
                                             </div>
 
                                             <div class="pet-card__buttons">
-                                                <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
+                                                <button type="button" class="pet-card__button pet-card__button-save button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
                                                     Сохранить изменения
                                                 </button>
                                             

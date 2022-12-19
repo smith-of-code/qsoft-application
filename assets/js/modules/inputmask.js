@@ -53,8 +53,29 @@ export default function inputMaskInit($container, mask) {
   
     const addButton = $(".pet-cards__adding").find("button");
 
+    function searchEditButton() {
+        const editButton = $('[data-tippy-content="Редактировать"]');
+
+        editButton.each((index, item) => {
+            $(item).on('click', () => {
+                Inputmask(MASKS.dateMask, OPTIONS_DATE)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+            })
+        })
+    }
+    searchEditButton();
+    
     addButton.on("click", () => {
         Inputmask(MASKS.dateMask, OPTIONS_DATE)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
+
+        const saveButton = $(".pet-card__button-save");
+ 
+        saveButton.each((index, item) => {
+            $(item).on('click', () => {
+                setTimeout(() => {
+                    searchEditButton();
+                }, 500);
+            })
+        })
     })
 
     //Настройка маски для dateMask
