@@ -232,7 +232,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         return ['status' => 'error', 'message' => 'Указанный пользователь не может быть наставником'];
                     }
                 } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Пользователь не найден'];
+                    return ['status' => 'error', 'message' => 'Такого пользователя не существует"'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {
