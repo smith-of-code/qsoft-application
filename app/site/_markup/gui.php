@@ -4242,9 +4242,189 @@
                         <!--Попап отсутствия товара-->
                         <article id="orderOutStock" class="modal modal--orderout modal--centered modal--outer box box--circle box--hanging" style="display: none">
                             <div class="modal__content">
-                                <section class="modal__section modal__section--content modal__section--order">
+                                <section class="modal__section modal__section--content modal__section--order" data-scrollbar>
                                     <div class="out-stock">
                                         <ul class="out-stock__list">
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
+                                            <li class="out-stock__item">
+                                                <article class="product-line">
+                                                    <div class="product-line__inner">
+                                                        <div class="product-line__info">
+                                                            <div class="product-line__image">
+                                                                <img src="https://fakeimg.pl/366x312/" alt="#" class="product-line__image-picture">
+                                                            </div>
+                                                            <div class="product-line__wrapper">
+                                                                <h2 class="product-line__title">
+                                                                    AmeAppetite для мелких и средних пород собак со вкусом кролика
+                                                                </h2>
+                                                                <p class="product-line__subtitle">
+                                                                    Арт. СХ-С-956027
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </article>
+                                            </li>
                                             <li class="out-stock__item">
                                                 <article class="product-line">
                                                     <div class="product-line__inner">
