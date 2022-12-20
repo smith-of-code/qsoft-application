@@ -338,7 +338,7 @@ export const LoyaltyReport = {
 
                             <!--Таб Групповые-->
                             <div class="tabs__block" data-tab-section="block2">
-                                <OrdersReport :orders-report="mutableOrdersReport.team" />
+                                <OrdersReport :orders-report="mutableOrdersReport.team" :isGroup="true" />
                             </div>
                             <!--/Таб Групповые-->
                         </div>
