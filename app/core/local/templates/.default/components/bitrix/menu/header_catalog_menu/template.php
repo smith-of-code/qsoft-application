@@ -67,7 +67,7 @@ global $USER;
                                     </span>
                                         <span class="button__text">Профиль</span>
                                 </button>
-                                <button type="button"
+                                <button type="button" data-logout
                                         class="button button--huge button--rounded button--outlined button--green button--full">
                                     <span class="button__icon">
                                         <svg class="icon icon--user">

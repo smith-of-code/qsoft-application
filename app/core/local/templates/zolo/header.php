@@ -1,14 +1,15 @@
-<?php
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
+use Bitrix\Main\UI\Extension;
+use QSoft\Entity\User;
 use QSoft\Helper\Page;
 
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-CJSCore::Init(["fx"]);
-
-\Bitrix\Main\UI\Extension::load('zolo.loader');
+CJSCore::Init(['fx']);
+Extension::load('zolo.loader');
 
 global $APPLICATION;
-?>
+
+$user = new User;?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -88,9 +89,7 @@ global $APPLICATION;
                         ?>
                         <!--выпадающий список уведомлений-->
 
-                        <?php
-                        global $USER;
-                        if ($USER->isAuthorized()): ?>
+                        <?php if ($user->isAuthorized):?>
                             <div class="personal__item personal__item--hidden">
                                 <div class="dropdown dropdown--hover" data-dropdown>
                                     <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
@@ -101,17 +100,16 @@ global $APPLICATION;
                                         </span>
                                         <span class="personal__button-text button__text">Профиль</span>
                                     </button>
-                                    <!--выпадающий список выхода-->
                                     <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
                                         <div class="logout__name">
                                             <button class="button button--simple button--red" onclick="location.href='/personal';">
-                                                Иванов Сергей Иванович
+                                                <?=$user->getFullName()?>
                                             </button>
                                         </div>
                                         <div class="logout__id">
-                                            ID 126574321
+                                            ID <?=$user->id?>
                                         </div>
-                                        <button type="button" class="logout__button button button--rounded button--outlined button--red">
+                                        <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout>
                                             <span class="button__icon">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
@@ -120,9 +118,7 @@ global $APPLICATION;
                                             <span class="button__text">Выйти из профиля</span>
                                         </button>
                                     </div>
-                                    <!--выпадающий список выхода-->
                                 </div>
-
                             </div>
                         <?php else: ?>
                             <div class="personal__item personal__item--hidden">

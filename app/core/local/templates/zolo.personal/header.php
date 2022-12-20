@@ -1,14 +1,15 @@
-<?php
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-use QSoft\Helper\Page;
+use Bitrix\Main\UI\Extension;
+use QSoft\Entity\User;
 
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-CJSCore::Init(["fx"]);
-
-\Bitrix\Main\UI\Extension::load('zolo.loader');
+CJSCore::Init(['fx']);
+Extension::load('zolo.loader');
 
 global $APPLICATION;
-?>
+
+
+$user = new User;?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -88,16 +89,36 @@ global $APPLICATION;
                         ?>
                         <!--выпадающий список уведомлений-->
 
-                        <?php if ($USER->isAuthorized()): ?>
+                        <?php if ($user->isAuthorized):?>
                             <div class="personal__item personal__item--hidden">
-                                <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';">
-                                    <span class="button__icon button__icon--mixed">
-                                        <svg class="icon icon--user">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="personal__button-text button__text">Профиль</span>
-                                </button>
+                                <div class="dropdown dropdown--hover" data-dropdown>
+                                    <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
+                                        <span class="button__icon button__icon--mixed">
+                                            <svg class="icon icon--user">
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="personal__button-text button__text">Профиль</span>
+                                    </button>
+                                    <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
+                                        <div class="logout__name">
+                                            <button class="button button--simple button--red" onclick="location.href='/personal';">
+                                                <?=$user->getFullName()?>
+                                            </button>
+                                        </div>
+                                        <div class="logout__id">
+                                            ID <?=$user->id?>
+                                        </div>
+                                        <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout>
+                                            <span class="button__icon">
+                                                <svg class="icon icon--basket">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="button__text">Выйти из профиля</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         <?php else: ?>
                             <div class="personal__item personal__item--hidden">
