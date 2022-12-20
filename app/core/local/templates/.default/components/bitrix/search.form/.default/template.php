@@ -36,7 +36,7 @@ $this->setFrameMode(true);?>
                 <section class="modal__section modal__section--content">
                     <div class="form__row">
                         <div class="form__col">
-                            <form action="<?=$arResult["FORM_ACTION"]?>" class="form__field">
+                            <form action="<?=$arResult["FORM_ACTION"]?>" class="form__field search">
                                 <div class="form__field-block form__field-block--input">
                                     <div class="header__search-input input input--small input--buttoned">
                                         <input type="text"

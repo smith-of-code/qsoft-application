@@ -91,6 +91,11 @@ class CatalogElementComponent extends Element
             $loyaltyLevel = $this->user->isAuthorized ? $this->user->loyaltyLevel : 0;
             if ($cache->initCache(self::CACHE_TTL, "product-detail-{$this->arParams['ELEMENT_CODE']}-$loyaltyLevel")) {
                 $this->arResult = $cache->getVars();
+
+                $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
+                foreach ($this->arResult['OFFERS'] as &$offer) {
+                    $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
+                }
             } elseif ($cache->startDataCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
                     throw new Main\LoaderException(Loc::getMessage('IBLOCK_TYPE_NOT_SET'));
@@ -282,7 +287,6 @@ class CatalogElementComponent extends Element
             'MATERIAL' => $data['PRODUCT']['PROPERTY_MATERIAL_VALUE'],
             'PURPOSE' => $data['PRODUCT']['PROPERTY_PURPOSE_VALUE'],
             'APPOINTMENT' => $data['PRODUCT']['PROPERTY_APPOINTMENT_VALUE'],
-            'IS_TREAT' => $data['PRODUCT']['PROPERTY_TREAT_VALUE'] === 'Да',
             'FEEDING_RECOMMENDATIONS' => $data['PRODUCT']['PROPERTY_FEEDING_RECOMMENDATIONS_VALUE'],
             'PRODUCT_DETAILS' => $data['PRODUCT']['PROPERTY_PRODUCT_DETAILS_VALUE'],
             'BASKET_COUNT' => [],

@@ -6,6 +6,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 }
 
 use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\ActionFilter\Scope;
 use Bitrix\Main\Engine\Response;
 use Bitrix\Main\Config\Option;
@@ -21,7 +22,8 @@ class CatalogItemController extends Controller
 		return [
 			'addViewedProduct' => [
 				'-prefilters' => [
-					Authentication::class
+                    Csrf::class,
+					Authentication::class,
 				],
 				'+prefilters' => [new Scope(Scope::AJAX)]
 			],

@@ -15,7 +15,7 @@
 return  [
     'CHANGE_ORDER_STATUS' => [
         'message' => 'Статус Вашего заказа был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
-        'link_template' => '/personal/order/#order_id#',
+        'link_template' => '/personal/orders/#order_id#',
         'title_template' => 'Ваш заказ №#order_id# #status_name#'
     ],
 

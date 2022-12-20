@@ -1,11 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-use Bitrix\Main\Context;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
-use Bitrix\Main\HttpRequest;
-use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\SystemException;
-use Bitrix\Main\Loader;
 use QSoft\Entity\User;
 
 class WishlistComponent extends CBitrixComponent implements Controllerable
@@ -23,10 +19,14 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
     {
         return [
             'add' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
             'remove' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
         ];
     }

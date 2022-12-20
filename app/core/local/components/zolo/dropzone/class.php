@@ -1,6 +1,8 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Main\Context;
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\HttpRequest;
 use Bitrix\Main\Localization\Loc;
@@ -125,10 +127,16 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
     {
         return [
             'upload' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
             'delete' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
         ];
     }

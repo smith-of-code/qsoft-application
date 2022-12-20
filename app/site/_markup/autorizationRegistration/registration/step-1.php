@@ -70,7 +70,7 @@
                                     <div class="registration__dropzone dropzone dropzone--image" data-uploader>
                                         <input type="file" name="uploadFiles[]" multiple class="dropzone__control">
 
-                                        <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true}'>
+                                        <div class="dropzone__area" data-uploader-area='{"paramName": "uploadFiles[]", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
                                             <div class="dropzone__message dz-message needsclick">
                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
                                                     <svg class="dropzone__message-button-icon icon icon--camera">
@@ -213,9 +213,7 @@
                                                             name="text"
                                                             id="birthdate"
                                                             placeholder="ДД.ММ.ГГГГ"
-                                                            data-mask-date 
-                                                            data-inputmask-alias="date"
-                                                            data-inputmask-inputformat="dd.mm.yyyy"
+                                                            data-mask-date
                                                         >
                                                         <span class="input__icon">
                                                             <svg class="icon icon--calendar">

@@ -105,7 +105,7 @@ $this->setFrameMode(true);
                                                     от
                                                 </label>
                                                 <div class="input input--mini input--prefix">
-                                                    <input type="number"
+                                                    <input type="text"
                                                            data-range-min="min"
                                                            value="<?= floor($arItem["VALUES"]["MIN"]["HTML_VALUE"] ?? $arItem["VALUES"]["MIN"]["VALUE"])?>"
                                                            id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"
@@ -122,7 +122,7 @@ $this->setFrameMode(true);
                                                     до
                                                 </label>
                                                 <div class="input input--mini input--prefix">
-                                                    <input type="number"
+                                                    <input type="text"
                                                            data-range-max="max"
                                                            value="<?= ceil($arItem["VALUES"]["MAX"]["HTML_VALUE"] ?? $arItem["VALUES"]["MAX"]["VALUE"])?>"
                                                            id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"

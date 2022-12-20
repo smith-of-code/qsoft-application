@@ -56,8 +56,11 @@ class SaleBasketTotal extends CBitrixComponent
                     );
                     $basketBonuses += $basketItemBonuses;
                     $property->setField('VALUE', $basketItemBonuses);
+                    $property->save();
                 }
             }
+            $propertiesCollection->save();
+            $newBasketItem->save();
             $basketItem = $newBasketItem->toArray();
 
             $basketItem['PROPERTIES'] = array_combine(

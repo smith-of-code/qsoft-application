@@ -72,21 +72,6 @@ final class CreateIBlockProduct extends BaseCreateIBlockMigration
             'SMART_FILTER' => 'N',
         ],
         [
-            'NAME' => 'Лакомство',
-            'PROPERTY_TYPE' => 'L',
-            'CODE' => 'TREAT',
-            'LIST_TYPE' => 'C',
-            'SMART_FILTER' => 'N',
-            'VALUES' => [
-                [
-                    'VALUE' => 'Да',
-                    'DEF' => 'N',
-                    'SORT' => 500,
-                    'XML_ID' => 'yes',
-                ],
-            ],
-        ],
-        [
             'NAME' => 'Видео',
             'PROPERTY_TYPE' => 'S',
             'USER_TYPE' => 'video',

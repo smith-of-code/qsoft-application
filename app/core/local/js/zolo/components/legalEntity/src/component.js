@@ -281,9 +281,7 @@ export const LegalEntity = {
                                                                 name="getting_date"
                                                                 id="getting_date"
                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                data-mask-date 
-                                                                data-inputmask-alias="datetime"
-                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                data-mask-date
                                                                 data-pets-date-input
                                                                 data-pets-change
                                                                 data-profile-readonly

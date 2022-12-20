@@ -91,6 +91,7 @@ class BasketLineController extends Controller
         $basketItems = $basket->toArray();
         return [
             'status' => 'success',
+            'itemsCount' => array_sum($basket->getQuantityList()),
             'items' => array_combine(array_column($basketItems, 'PRODUCT_ID'), $basketItems),
             'basketPrice' => $basket->getPrice(),
         ];

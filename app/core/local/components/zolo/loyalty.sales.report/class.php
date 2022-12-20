@@ -1,5 +1,6 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)  die();
 
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
@@ -147,10 +148,14 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
     {
         return [
             'getDataByPeriod' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
             'getTeamMembersDataByPeriod' => [
-                'prefilters' => []
+                '-prefilters' => [
+                    Csrf::class
+                ],
             ],
         ];
 
