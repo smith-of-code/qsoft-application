@@ -84,3 +84,32 @@ class SaleOrderAjaxComponent {
 $(function() {
     new SaleOrderAjaxComponent();
 });
+
+$( document ).ready(function() {
+    const orderTotalBox = $(".basket-card__total");
+   
+    function rountedPrice(price, whole, remains) {
+        let orderItemPriceNum = parseFloat(price);
+        let totalFixied = orderItemPriceNum.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+
+        if (totalRemains === "00") {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            remains.text('₽');
+        } else {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            remains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
+    }
+
+    orderTotalBox.each(function (index, item) {
+        const orderItemPriceVal = $(item).attr('data-order-total');
+        const spanWhole = $(item).find(".basket-card__total-whole");
+        const spanRemains = $(item).find(".basket-card__total-remains");
+
+        if (orderItemPriceVal) {
+            rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+        }
+    }); 
+    
+});

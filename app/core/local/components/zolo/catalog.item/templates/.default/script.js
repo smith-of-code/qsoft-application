@@ -111,8 +111,21 @@
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
 				// Отображение цен
-				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
+				function roundetPrice(price, whole, remains) {
+					let mainPriceNum = parseFloat(price);
+					let totalMainFixied = mainPriceNum.toFixed(2);
+					let totalMainRemains = totalMainFixied.toString().split('.')[1];
 
+					if (totalMainRemains === "00") {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+						remains.text('₽');
+					} else {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+						remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+					}
+				}
+
+				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
 				const mainPriceData = $('.price__main');
 
 				mainPriceData.each((index, item) => {
@@ -121,17 +134,7 @@
 					const mainPriceAttr = $(item).attr('data-catalog-main-price');
 
 					if (mainPriceAttr) {
-						let mainPriceNum = parseFloat(mainPriceAttr);
-						let totalMainFixied = mainPriceNum.toFixed(2);
-						let totalMainRemains = totalMainFixied.toString().split('.')[1];
-
-						if (totalMainRemains === "00") {
-							spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-							spanRemains.text('₽');
-						} else {
-							spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-							spanRemains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
-						}
+						roundetPrice(mainPriceAttr, spanWhole, spanRemains);
 					}
 				})
 			
@@ -140,17 +143,7 @@
 				const spanRemains = mainPrice.find(".product-card__price-remains");
 
 				if (priceBase) {
-					let mainPriceNum = parseFloat(priceBase);
-					let totalMainFixied = mainPriceNum.toFixed(2);
-					let totalMainRemains = totalMainFixied.toString().split('.')[1];
-
-					if (totalMainRemains === "00") {
-						spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-						spanRemains.text('₽');
-					} else {
-						spanWhole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-						spanRemains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
-					}
+					roundetPrice(priceBase, spanWhole, spanRemains);
 				}
 					
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
@@ -164,17 +157,7 @@
 					const totalPriceAttr = $(item).attr('data-catalog-total-price');
 
 					if (totalPriceAttr) {
-						let totalPriceNum = parseFloat(totalPriceAttr);
-						let totalMainFixied = totalPriceNum.toFixed(2);
-						let totalMainRemains = totalMainFixied.toString().split('.')[1];
-
-						if (totalMainRemains === "00") {
-							spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-							spanRemainsTotal.text('₽');
-						} else {
-							spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-							spanRemainsTotal.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
-						}
+						roundetPrice(totalPriceAttr, spanWholeTotal, spanRemainsTotal);
 					}
 				})
 
@@ -183,19 +166,8 @@
 				const spanRemainsTotal = totalPrice.find(".product-card__price-remains");
 
 				if (priceTotal) {
-					let totalPriceNum = parseFloat(priceTotal);
-					let totalFixied = totalPriceNum.toFixed(2);
-					let totalRemains = totalFixied.toString().split('.')[1];
-
-					if (totalRemains === "00") {
-						spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-						spanRemainsTotal.text('₽');
-					} else {
-						spanWholeTotal.text(Math.floor(totalPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-						spanRemainsTotal.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
-					}
+					roundetPrice(priceTotal, spanWholeTotal, spanRemainsTotal);
 				}
-				
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);

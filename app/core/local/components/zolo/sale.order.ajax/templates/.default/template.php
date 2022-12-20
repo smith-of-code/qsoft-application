@@ -248,11 +248,18 @@ else:?>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text">Сумма заказа</span>
-                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['BASKET_BASE_PRICE'], 0, ' ', ' ')?> ₽</span>
+                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['BASKET_BASE_PRICE'], 0, ' ', ' '?>">
+                                            
+                                            <span class="basket-card__total-whole"></span>
+                                            <span class="basket-card__total-remains"></span>
+                                        </span>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__total"><?=number_format($arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' ')?> ₽</span>
+                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
+                                            <span class="basket-card__total-whole"></span>
+                                            <span class="basket-card__total-remains"></span>
+                                        </span>
                                     </div>
                                     <?php if ($arResult['USER']['IS_CONSULTANT']):?>
                                         <div class="basket-card__item">
@@ -262,7 +269,10 @@ else:?>
                                     <?php endif;?>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
-                                        <span class="basket-card__total basket-card__total--bold"><?=number_format($arResult['BASKET']['BASKET_PRICE'], 0, ' ', ' ')?> ₽</span>
+                                        <span class="basket-card__total basket-card__total--bold" data-order-total="<?=$arResult['BASKET']['BASKET_PRICE'], 0, ' ', ' '?>">
+                                            <span class="basket-card__total-whole"></span>
+                                            <span class="basket-card__total-remains"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
