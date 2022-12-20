@@ -92,8 +92,8 @@ global $APPLICATION;
                         global $USER;
                         if ($USER->isAuthorized()): ?>
                             <div class="personal__item personal__item--hidden">
-                                <div class="dropdown dropdown--hover" data-dropdown="hover">
-                                    <button type="button" class="button button--simple button--red button--vertical" onclick="location.href='/personal';" data-dropdown-button>
+                                <div class="dropdown dropdown--hover" data-dropdown>
+                                    <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
                                         <span class="button__icon button__icon--mixed">
                                             <svg class="icon icon--user">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-user"></use>
@@ -104,7 +104,9 @@ global $APPLICATION;
                                     <!--выпадающий список выхода-->
                                     <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
                                         <div class="logout__name">
-                                            Иванов Сергей Иванович
+                                            <button class="button button--simple button--red" onclick="location.href='/personal';">
+                                                Иванов Сергей Иванович
+                                            </button>
                                         </div>
                                         <div class="logout__id">
                                             ID 126574321
