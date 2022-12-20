@@ -1,6 +1,10 @@
 (function() {
 	'use strict';
 
+	$(document).on('change', '#catalog_sort_sel', function() {
+		window.location.href = $(this).val();
+	});
+
 	if (!!window.JCCatalogSectionComponent)
 		return;
 

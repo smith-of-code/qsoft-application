@@ -7,6 +7,9 @@ use Bitrix\Main\Localization\Loc;
 use QSoft\Helper\OrderHelper;
 
 $details = $arResult['ORDER_DETAILS'];
+
+$APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
+
 ?>
 <!--Кнопка "К списку заказов" -->
 <a href="/personal/orders/" class="orders__transition button button--back button--simple button--red">

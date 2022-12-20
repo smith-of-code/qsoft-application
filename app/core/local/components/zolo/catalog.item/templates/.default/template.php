@@ -148,6 +148,7 @@ if (isset($arResult['ITEM']))
                                             <div class="radio">
                                                 <input type="radio"
                                                        class="color__input radio__input"
+                                                       autocomplete="off"
                                                        name="<?=$propName?>"
                                                        value="<?=$value['ID']?>"
                                                        id="<?=$propId?>"
@@ -187,6 +188,7 @@ if (isset($arResult['ITEM']))
                                 <select class="select__control"
                                         name="<?=$propName?>"
                                         id="<?=$propName?>"
+                                        autocomplete="off"
                                         data-select-control
                                         data-option
                                         onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
@@ -229,6 +231,7 @@ if (isset($arResult['ITEM']))
                                             <input type="radio"
                                                    class="pack__input radio__input"
                                                    name="<?=$propName?>"
+                                                   autocomplete="off"
                                                    value="<?=$value['ID']?>"
                                                    id="<?=$propId?>"
                                                    <?= $isChecked ? 'checked' : '' ?>
@@ -259,6 +262,7 @@ if (isset($arResult['ITEM']))
                                     name="<?=$propName?>"
                                     id="<?=$propName?>"
                                     data-select-control
+                                    autocomplete="off"
                                     data-option
                                     onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this, true)"
                             >

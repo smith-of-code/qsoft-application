@@ -101,13 +101,13 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                             </span>
                                                                         <?php endif; ?>
                                                                         <span class="price__calculation-value"
-                                                                            data-order-price="<?=$order['ORDER']['FORMATED_PRICE']?>">
+                                                                            data-order-price="<?=$order['ORDER']['PRICE']?>">
                                                                             <span class="price__calculation-value--whole"></span>
                                                                             <span class="price__calculation-value--remains"></span>
                                                                         </span>
                                                                     </p>
                                                                     <?php if ($arResult['IS_CONSULTANT']):?>
-                                                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> <?=getMessage('ORDER_BB') ?></p>
+                                                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ? number_format($order['ORDER']['BONUSES'], 0, ' ', ' ') : 0?> <?=getMessage('ORDER_BB') ?></p>
                                                                     <?php endif;?>
                                                                 </div>
                                                             </div>

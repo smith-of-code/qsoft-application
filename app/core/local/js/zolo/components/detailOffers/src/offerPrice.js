@@ -23,7 +23,7 @@ export const OfferPrice = {
 
     computed: {
         ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity', 'isNonreturnable']),
-        ...mapState(useBasketStore, ['items']),
+        ...mapState(useBasketStore, ['items', 'fetched']),
     },
 
     setup() {
@@ -115,7 +115,7 @@ export const OfferPrice = {
               </div>
             </template>
         </div>
-        <div class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
+        <div v-if="fetched" class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
             <div v-if="!items[currentOfferId]?.QUANTITY" class="quantity__button">
               <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green" @click="increaseItem">
                 <span class="button__icon">

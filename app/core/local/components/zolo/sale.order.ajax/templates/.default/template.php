@@ -104,8 +104,6 @@ else:?>
                                                     placeholder="ДД.ММ.ГГГГ"
                                                     data-mask-date
                                                        readonly
-                                                    data-inputmask-alias="date"
-                                                    data-inputmask-inputformat="dd.mm.yyyy"
                                                 >
                                             </div>
                                         </div>

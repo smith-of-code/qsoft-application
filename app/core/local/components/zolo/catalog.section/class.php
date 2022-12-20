@@ -402,12 +402,10 @@ class CatalogSectionComponent extends ElementList
 		parent::makeOutputResult();
 
         $user = new User;
-        $wishlist = array_flip(array_column($user->wishlist->getAll(), 'UF_PRODUCT_ID'));
         foreach ($this->arResult['ITEMS'] as &$product) {
             foreach ($product['OFFERS'] as &$offer) {
                 $offer = array_merge($offer, $user->products->getOfferPrices($offer['ID']));
                 $offer['BONUSES'] = $user->loyalty->calculateBonusesByPrice($offer['PRICE']);
-                $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
             }
         }
 		$this->arResult['USE_CATALOG_BUTTONS'] = $this->storage['USE_CATALOG_BUTTONS'];

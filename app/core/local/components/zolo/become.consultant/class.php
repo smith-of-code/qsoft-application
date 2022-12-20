@@ -1,5 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)  die();
 
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
@@ -52,7 +54,10 @@ class BecomeConsultantComponent extends CBitrixComponent implements Controllerab
     {
         return [
             'submit' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
         ];
     }

@@ -758,9 +758,7 @@
                                                                                                 name="text13"
                                                                                                 id="birthdate"
                                                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                                                data-mask-date 
-                                                                                                data-inputmask-alias="date"
-                                                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                data-mask-date
                                                                                                 readonly data-profile-readonly
                                                                                             >
                                                                                             <span class="input__icon">
@@ -1121,9 +1119,7 @@
                                                                                                 name="date32"
                                                                                                 id="date"
                                                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                                                data-mask-date 
-                                                                                                data-inputmask-alias="date"
-                                                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                data-mask-date
                                                                                                 data-pets-date-input
                                                                                                 data-pets-change
                                                                                                 value="09.10.2017"
@@ -1782,9 +1778,7 @@
                                                                                                     name="birthdate"
                                                                                                     id="birthdate3"
                                                                                                     placeholder="ДД.ММ.ГГГГ"
-                                                                                                    data-mask-date 
-                                                                                                    data-inputmask-alias="date"
-                                                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                    data-mask-date
                                                                                                     data-pets-date-input
                                                                                                     data-pets-change
                                                                                                     value="09.10.2017"
@@ -1977,9 +1971,7 @@
                                                                                                     name="birthdate"
                                                                                                     id="birthdate4"
                                                                                                     placeholder="ДД.ММ.ГГГГ"
-                                                                                                    data-mask-date 
-                                                                                                    data-inputmask-alias="date"
-                                                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                    data-mask-date
                                                                                                     data-pets-date-input
                                                                                                     data-pets-change
                                                                                                     value="09.11.2011"
@@ -2181,9 +2173,7 @@
                                                                                                     name="birthdate"
                                                                                                     id="birthdate"
                                                                                                     placeholder="ДД.ММ.ГГГГ"
-                                                                                                    data-mask-date 
-                                                                                                    data-inputmask-alias="date"
-                                                                                                    data-inputmask-inputformat="dd.mm.yyyy"
+                                                                                                    data-mask-date
                                                                                                     data-pets-date-input
                                                                                                     data-pets-change
                                                                                                 >
@@ -3684,9 +3674,7 @@
                                                                 name="birthdate"
                                                                 id="birthdate2"
                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                data-mask-date 
-                                                                data-inputmask-alias="date"
-                                                                data-inputmask-inputformat="dd.mm.yyyy"
+                                                                data-mask-date
                                                                 data-pets-date-input
                                                                 data-pets-change
                                                                 value="09.11.2011"
