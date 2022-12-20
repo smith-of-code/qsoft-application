@@ -2,7 +2,6 @@
 
 namespace QSoft\Events;
 
-use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
 use CUser;
 use QSoft\Entity\User;
@@ -10,8 +9,6 @@ use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
 use QSoft\ORM\BeneficiariesTable;
-use QSoft\Queue\Jobs\BeneficiaryChangeJob;
-use RuntimeException;
 
 class UserEventsListener
 {
@@ -21,6 +18,8 @@ class UserEventsListener
      */
     public static function OnBeforeUserUpdate(array &$fields)
     {
+        global $APPLICATION;
+
         // Пользователь, для которого вносятся изменения
         $user = new User($fields['ID']);
 
@@ -31,17 +30,40 @@ class UserEventsListener
         // Если произошло изменение ментора
         if (isset($fields['UF_MENTOR_ID']) && $user->mentorId !== (int) $fields['UF_MENTOR_ID']) {
             if (!$fields['UF_MENTOR_ID']) {
-                throw new RuntimeException('Пользователь обязан иметь наставника');
+                $APPLICATION->throwException('Пользователь обязан иметь наставника');
+                return false;
             }
 
             if (!is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] < 0) {
-                throw new RuntimeException('Некорректный ID наставника');
+                $APPLICATION->throwException('Некорректный ID наставника');
+                return false;
             }
 
-            $mentor = new User($fields['UF_MENTOR_ID']);
-            if ($user->id === (int) $fields['UF_MENTOR_ID'] || !$mentor->active || !$mentor->groups->isConsultant()|| in_array($mentor->id, $user->beneficiariesService->getTeamIds())) {
-                throw new RuntimeException('Указанный пользователь не может быть наставником.');
+            try {
+                $mentor = new User($fields['UF_MENTOR_ID']);
+            } catch (\Exception $e) {
+                $APPLICATION->throwException($e->getMessage());
+                return false;
             }
+
+            if (
+                $user->id === (int) $fields['UF_MENTOR_ID']
+                || !$mentor->active
+                || !$mentor->groups->isConsultant()
+                || in_array($mentor->id, $user->beneficiariesService->getTeamIds())
+            ) {
+                $APPLICATION->throwException('Указанный пользователь не может быть наставником.');
+                return false;
+            }
+
+            $oldRelation = BeneficiariesTable::getRow([
+                'filter' => [
+                    '=UF_USER_ID' => $user->id,
+                    '=UF_BENEFICIARY_ID' => $user->mentorId,
+                ],
+                'select' => ['ID'],
+            ]);
+            BeneficiariesTable::delete($oldRelation['ID']);
 
             BeneficiariesTable::add([
                 'UF_USER_ID' => $user->id,
