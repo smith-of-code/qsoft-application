@@ -259,7 +259,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             }
             $this->user->confirmation->sendSmsConfirmation();
         } else if ($type === 'email') {
-            $this->user->confirmation->sendEmailConfirmation();
+            $this->user->confirmation->sendEmailConfirmation('CHANGE_EMAIL');
         }
 
         return ['status' => 'success'];

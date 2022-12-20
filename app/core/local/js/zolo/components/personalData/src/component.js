@@ -9,6 +9,7 @@ export const PersonalData = {
             mutableUserInfo: {},
             editing: false,
             phoneError: false,
+            emailError: false,
             passwordError: false,
             phoneVerified: false,
             emailVerified: false,
@@ -70,21 +71,28 @@ export const PersonalData = {
             this.initUserInfo();
         },
         saveUserInfo() {
-            if (this.userInfo.phone !== this.mutableUserInfo.phone && this.phoneVerified !== this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '')) {
+            this.passwordError = false;
+            this.phoneError = false;
+            this.emailError = false;
+            let error = false;
+
+            if (this.userInfo.phone !== this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '') && this.phoneVerified !== this.mutableUserInfo.phone) {
+                error = true;
                 this.phoneError = true;
-                return;
             }
             if (this.userInfo.email !== this.mutableUserInfo.email && this.emailVerified !== this.mutableUserInfo.email) {
-                this.phoneError = true;
-                return;
+                error = true;
+                this.emailError = true;
             }
             if ((this.mutableUserInfo.password || this.mutableUserInfo.confirm_password) && !this.validatePassword) {
+                error = true;
                 this.passwordError = true;
+            }
+
+            if (error) {
                 return;
             }
 
-            this.phoneError = false;
-            this.passwordError = false;
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
 
             this.personalDataStore.savePersonalData({
@@ -113,22 +121,28 @@ export const PersonalData = {
         },
         async verifyCode() {
             try {
-                const response = await this.personalDataStore.verifyCode($('input[name=verify_code]').val(), this.confirmationType);
+                const codeInput = $('input[name=verify_code]');
+
+                const response = await this.personalDataStore.verifyCode(codeInput.val(), this.confirmationType);
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
                 } else {
                     if (this.confirmationType === 'phone') {
+                        this.phoneError = false;
                         this.phoneVerified = this.mutableUserInfo.phone;
                     } else if (this.confirmationType === 'email') {
+                        this.emailError = false;
                         this.emailVerified = this.mutableUserInfo.email;
                     }
                 }
+                codeInput.val('');
             } catch (e) {
                 this.verifyError = true;
                 return;
             }
 
+            this.verifyError = false;
             this.confirmationType = false;
             $.fancybox.close({ src: '#approve-number' });
         },
@@ -422,6 +436,7 @@ export const PersonalData = {
                                                         class="form__field-button button button--simple button--red button--underlined button--tiny"
                                                         data-src="#approve-number"
                                                         @click="sendCode(mutableUserInfo.email, 'email')"
+                                                        :style="{ color: emailError ? 'red' : 'black' }"
                                                     >
                                                         Отправить проверочный код
                                                     </button>
@@ -463,6 +478,7 @@ export const PersonalData = {
                                                         class="form__field-button button button--simple button--red button--underlined button--tiny"
                                                         data-src="#approve-number"
                                                         @click="sendCode(mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, ''), 'phone')"
+                                                        :style="{ color: phoneError ? 'red' : 'black' }"
                                                     >
                                                         Отправить проверочный код
                                                     </button>
