@@ -139,7 +139,7 @@ $obName = 'ob' . preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navP
 $containerName = "container-{$navParams['NavNum']}";?>
 
 <div class="catalog__panel">
-    <p class="catalog__results">Найдено <span class="catalog__results-count"><?=(int) $arResult['TOTAL_PRODUCTS_COUNT']?></span> товаров</p>
+    <p class="catalog__results"><?=declinationProduct((int)$arResult['TOTAL_PRODUCTS_COUNT'])?></p>
 
     <div class="catalog__sort">
         <form
