@@ -52,6 +52,13 @@ export const Pets = {
             this.mutablePets.splice(this.mutablePets.indexOf(pet), 1);
         },
         checkPetAvailable(pet) {
+            const petReplaceValue = pet.birthdate?.replace(/[^0-9]/g, '');
+            const petBirthdateLenght = petReplaceValue?.length
+           
+            if (petBirthdateLenght < 8) {
+                return
+            }
+
             return pet.name && pet.kind && pet.breed && pet.birthdate && pet.gender;
         },
         cancelEditing(pet, petKey) {

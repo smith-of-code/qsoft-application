@@ -67,6 +67,10 @@ export default function inputMaskInit($container, mask) {
     addButton.on("click", () => {
         Inputmask(MASKS.dateMask, OPTIONS_DATE)?.mask($container.find(ELEMENTS_SELECTOR.dateMask));
 
+        setTimeout(() => {
+            inputChange()
+        }, 500);
+
         const saveButton = $(".pet-card__button-save");
  
         saveButton.each((index, item) => {
@@ -175,15 +179,21 @@ export default function inputMaskInit($container, mask) {
         let item = $(e.target);
         let parent = item.parent();
         let message = parent.find('.input__control-error--mask');
+        let buttonNext = $('[data-direction="next"]');
+        let buttonSavePersonal = $('.profile__button-personal');
         
         if (age < 18) {
             item.addClass('input__control--error-mask');
             message.show();
-            message.html('Некорректная дата. Вам должно быть 18 лет')
+            message.html('Некорректная дата. Вам должно быть больше 18-ти лет');
+            buttonNext.prop('disabled', true).addClass('button--disabled');
+            buttonSavePersonal.prop('disabled', true).addClass('button--disabled');
          
         } else {
             item.removeClass('input__control--error-mask');
             message.hide();
+            buttonNext.prop('disabled', false).removeClass('button--disabled');
+            buttonSavePersonal.prop('disabled', false).removeClass('button--disabled');
         }
     }
 
@@ -191,11 +201,66 @@ export default function inputMaskInit($container, mask) {
         let item = $(e.target);
         let parent = item.parent();
         let message = parent.find('.input__control-error--mask');
+        let buttonNext = $('[data-direction="next"]');
 
         item.removeClass('input__control--error-mask');
+        buttonNext.prop('disabled', false).removeClass('button--disabled');
         message.hide();
     }
 
+    function inputChange() {
+        const inputDate = $(ELEMENTS_SELECTOR.dateMask);
+        const inputDateReg = $(ELEMENTS_SELECTOR.dateMaskReg);
+        let buttonSavePet = $(document).find('.pet-card__button-save');
+        let buttonSaveProf = $(document).find('.profile__button-save');
+        let buttonNext = $('[data-direction="next"]');
+
+        inputDate?.each( (index, item) => {
+            $(item).on('input', function(e) {
+                const target = $(e.target);
+                const attr = target.attr('id')
+                const input = $(e.target).val().replace(/[^0-9]/g, '');
+                const length = input.length;
+                
+                if (length < 8) {
+                    if (attr === 'getting_date') {
+                        buttonSaveProf.prop('disabled', true).addClass('button--disabled');
+                    }  else if(attr === 'birthdate') {
+                        buttonNext.prop('disabled', true).addClass('button--disabled');
+                    }
+                   
+                } else {
+                    buttonSaveProf.prop('disabled', false).removeClass('button--disabled');
+                    buttonNext.prop('disabled', false).removeClass('button--disabled');
+                }
+
+                if(length === 0) {
+                    if (attr === 'getting_date') {
+                        buttonSaveProf.prop('disabled', false).removeClass('button--disabled');
+                    }
+                }
+
+            })
+        })
+
+        inputDateReg?.each( (index, item) => {
+            $(item).on('input', function(e) {
+                const input = $(e.target).val().replace(/[^0-9]/g, '');
+                const length = input.length;
+                let buttonSavePersonal = $('.profile__button-personal');
+
+                if (length < 8) {
+                    buttonNext.prop('disabled', true).addClass('button--disabled');
+                    buttonSavePersonal.prop('disabled', true).addClass('button--disabled');
+                } else {
+                    buttonNext.prop('disabled', false).removeClass('button--disabled');
+                    buttonSavePersonal.prop('disabled', false).removeClass('button--disabled');
+                }
+            })
+        })
+    }
+    inputChange();
+   
     const OPTIONS_REG = {
         alias: "datatime", 
         "clearMaskOnLostFocus": true, 
@@ -207,7 +272,7 @@ export default function inputMaskInit($container, mask) {
     const OPTIONS_DATE = {
         alias: "datatime", 
         "clearMaskOnLostFocus": true, 
-        "clearIncomplete": true, 
+        "clearIncomplete": true,
     }
 
     Inputmask(MASKS.phoneMask)?.mask($container.find(ELEMENTS_SELECTOR.phoneMask));

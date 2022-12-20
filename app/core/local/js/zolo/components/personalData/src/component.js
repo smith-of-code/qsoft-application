@@ -593,7 +593,7 @@ export const PersonalData = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--green button--full" @click="saveUserInfo">
+                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" @click="saveUserInfo">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>
