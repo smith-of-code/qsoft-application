@@ -39,7 +39,7 @@ class UserEventsListener
             }
 
             $mentor = new User($fields['UF_MENTOR_ID']);
-            if ($user->id === (int) $fields['UF_MENTOR_ID'] || !$mentor->active || !$mentor->groups->isConsultant()) {
+            if ($user->id === (int) $fields['UF_MENTOR_ID'] || !$mentor->active || !$mentor->groups->isConsultant()|| in_array($mentor->id, $user->beneficiariesService->getTeamIds())) {
                 throw new RuntimeException('Указанный пользователь не может быть наставником.');
             }
 
