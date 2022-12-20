@@ -67,6 +67,15 @@ global $USER;
                                     </span>
                                         <span class="button__text">Профиль</span>
                                 </button>
+                                <button type="button"
+                                        class="button button--huge button--rounded button--outlined button--green button--full">
+                                    <span class="button__icon">
+                                        <svg class="icon icon--user">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                        </svg>
+                                    </span> 
+                                    <span class="button__text">Выйти из профиля</span> 
+                                </button>
                             </div>
                         <?php else: ?>
                             <div class="menu__header-profile">

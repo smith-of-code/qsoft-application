@@ -150,6 +150,14 @@
             @media #{$screen-tablet} {
                 display: none;
             }
+
+            & .button {
+                margin-bottom: rem(24px);
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
         }
     }
 
