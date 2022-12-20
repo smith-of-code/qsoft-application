@@ -4241,8 +4241,8 @@
                         <!--/Заказ создан-->
                         <!--Попап отсутствия товара-->
                         <article id="orderOutStock" class="modal modal--orderout modal--centered modal--outer box box--circle box--hanging" style="display: none">
-                            <div class="modal__content">
-                                <section class="modal__section modal__section--content modal__section--order" data-scrollbar>
+                            <div class="modal__content modal__content--order" data-scrollbar>
+                                <section class="modal__section modal__section--content modal__section--order" >
                                     <div class="out-stock">
                                         <ul class="out-stock__list">
                                             <li class="out-stock__item">
