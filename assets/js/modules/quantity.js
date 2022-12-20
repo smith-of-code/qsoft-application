@@ -69,9 +69,17 @@ export default function changeTotal() {
     }
 
     $(document).on('click', ELEMENTS_SELECTOR.button, function () {
-        changeSum($(this));
+        const quantityBlock = $(this).closest(ELEMENTS_SELECTOR.quantity);
+        const max = quantityBlock.find(ELEMENTS_SELECTOR.max).data('quantity-max') || 10;
+        let sum = changeSum($(this));
 
-        $(this).closest(ELEMENTS_SELECTOR.quantity).addClass('quantity--active');
+        if (sum === max) {
+            const increaseButton = quantityBlock.find(ELEMENTS_SELECTOR.increase);
+            increaseButton.prop('disabled', true);
+            increaseButton.addClass('button--disabled');
+        }
+
+        quantityBlock.addClass('quantity--active');
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.increase, function () {
