@@ -14,11 +14,5 @@ export const useWishlistStore = defineStore('wishlist', {
                 data: { productId },
             });
         },
-        async getByProductId(productId) { // NOT BY OFFER
-            return await BX.ajax.runComponentAction('zolo:wishlist', 'getByProductId', {
-                mode: 'class',
-                data: { productId },
-            });
-        },
     },
 })
