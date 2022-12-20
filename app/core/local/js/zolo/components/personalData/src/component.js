@@ -11,7 +11,9 @@ export const PersonalData = {
             phoneError: false,
             passwordError: false,
             phoneVerified: false,
+            emailVerified: false,
             verifyError: false,
+            confirmationType: false,
         };
     },
 
@@ -68,7 +70,11 @@ export const PersonalData = {
             this.initUserInfo();
         },
         saveUserInfo() {
-            if (this.userInfo.phone !== this.mutableUserInfo.phone && !this.phoneVerified) {
+            if (this.userInfo.phone !== this.mutableUserInfo.phone && this.phoneVerified !== this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '')) {
+                this.phoneError = true;
+                return;
+            }
+            if (this.userInfo.email !== this.mutableUserInfo.email && this.emailVerified !== this.mutableUserInfo.email) {
                 this.phoneError = true;
                 return;
             }
@@ -79,50 +85,51 @@ export const PersonalData = {
 
             this.phoneError = false;
             this.passwordError = false;
-            this.mutableUserInfo.phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
 
-            this.personalDataStore.savePersonalData(this.mutableUserInfo);
+            this.personalDataStore.savePersonalData({
+                ...this.mutableUserInfo,
+                phone: this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, ''),
+            });
             this.editing = false;
 
             $.fancybox.open({ src: '#thanks' });
         },
-        async sendCode() {
-            const phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
-
-            this.phoneError = false;
-                if (!phone || phone.match(/_+/i)) {
-                this.phoneError = true;
-                return;
-            }
-
+        async sendCode(value, type) {
             try {
-                const response = await this.personalDataStore.sendCode(phone);
+                const response = await this.personalDataStore.sendCode(value, type);
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error(response.data.message);
                 }
+                this.confirmationType = type;
             } catch (e) {
                 this.phoneError = e.message ? e.message : true;
                 return;
             }
 
+
             $.fancybox.open({ src: '#approve-number' });
         },
         async verifyCode() {
             try {
-                const response = await this.personalDataStore.verifyCode($('input[name=verify_code]').val());
+                const response = await this.personalDataStore.verifyCode($('input[name=verify_code]').val(), this.confirmationType);
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
                 } else {
-                    this.phoneVerified = true;
+                    if (this.confirmationType === 'phone') {
+                        this.phoneVerified = this.mutableUserInfo.phone;
+                    } else if (this.confirmationType === 'email') {
+                        this.emailVerified = this.mutableUserInfo.email;
+                    }
                 }
             } catch (e) {
                 this.verifyError = true;
                 return;
             }
 
+            this.confirmationType = false;
             $.fancybox.close({ src: '#approve-number' });
         },
     },
@@ -398,11 +405,26 @@ export const PersonalData = {
                                                                 placeholder="example@email.com" 
                                                                 data-mail 
                                                                 inputmode="email"  
+                                                                :class="{ 'input__control--error': emailError }"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.email" 
                                                             >
+                                                            
+                                                            <span v-if="typeof emailError === 'string'" class="input__control-error">
+                                                                {{ emailError }}
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <button
+                                                        v-if="editing && mutableUserInfo.email.indexOf('_') === -1 && userInfo.email !== mutableUserInfo.email && emailVerified !== mutableUserInfo.email"
+                                                        type="button"
+                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                                        data-src="#approve-number"
+                                                        @click="sendCode(mutableUserInfo.email, 'email')"
+                                                    >
+                                                        Отправить проверочный код
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -434,6 +456,16 @@ export const PersonalData = {
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <button
+                                                        v-if="editing && mutableUserInfo.phone.indexOf('_') === -1 && userInfo.phone !== mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, '') && phoneVerified !== mutableUserInfo.phone"
+                                                        type="button"
+                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                                        data-src="#approve-number"
+                                                        @click="sendCode(mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, ''), 'phone')"
+                                                    >
+                                                        Отправить проверочный код
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
