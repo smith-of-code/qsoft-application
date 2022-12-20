@@ -149,10 +149,8 @@ foreach ($arResult['ITEMS'] as $item) {
             $tabsCount = 0;
             foreach ($arParams['SLIDER_PARAMS'] as $index => $slider) {
                 $tabsCount += 1;
-
-                $itemsShownLimit = 4;
                 $itemsTotalLimit = 10;
-                $itemsCount = 0;
+                $itemsCount = 1;
                 ?>
                 <div class="tabs__block<?= $tabsCount <= 1 ? ' tabs__block--active' : ''?>"
                      data-tab-section="<?= strtolower($index) ?>">
@@ -187,14 +185,10 @@ foreach ($arResult['ITEMS'] as $item) {
                                                 'SCALABLE' => 'N'
                                             ],
                                             'PARAMS' => $generalParams + [
-                                                    'SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']],
-                                                ],
+                                                'SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']],
+                                                'EXPANDABLE' => ['CONTAINER_DATA' => 'data-show-card'],
+                                            ],
                                         ];
-
-                                        if ($itemsCount > $itemsShownLimit) {
-                                            $itemComponentParams['PARAMS']['EXPANDABLE']['CONTAINER_CLASS'] = 'product-cards__item--hidden';
-                                            $itemComponentParams['PARAMS']['EXPANDABLE']['CONTAINER_DATA'] = 'data-show-card';
-                                        }
 
                                         $APPLICATION->IncludeComponent(
                                             'zolo:catalog.item',
@@ -207,15 +201,8 @@ foreach ($arResult['ITEMS'] as $item) {
                                         $itemsCount++;
                                     } elseif ($element['UF_TYPE'] === 'BANNER' && isset($slider['BANNERS'][$element['UF_ELEMENT_ID']])) {
 
-                                        if ($itemsCount > $itemsShownLimit) {
-                                            $itemBannerParams['CONTAINER_CLASS'] = 'product-cards__item--hidden';
-                                            $itemBannerParams['CONTAINER_DATA'] = 'data-show-card';
-                                        }
-
                                         ?>
-                                        <li class="product-cards__item<?= $itemBannerParams['CONTAINER_CLASS'] ? ' ' . $itemBannerParams['CONTAINER_CLASS'] : '' ?>"
-                                            <?= $itemBannerParams['CONTAINER_DATA'] ?? ''?>
-                                        >
+                                        <li class="product-cards__item" data-show-card>
                                             <article class="product-card product-card--marketing box box--circle box--hovering box--grayish">
                                                 <?= $slider['BANNERS'][$element['UF_ELEMENT_ID']]['CODE'] ?>
                                             </article>
@@ -227,11 +214,9 @@ foreach ($arResult['ITEMS'] as $item) {
                             }
                             ?>
                         </ul>
-                        <?if ($itemsCount > $itemsShownLimit) {?>
-                            <button type="button" class="product-cards__button button button--full button--rounded button--covered button--white-green" data-show-button>
-                                Показать еще
-                            </button>
-                        <?}?>
+                        <button type="button" class="product-cards__button button button--full button--rounded button--covered button--white-green" data-show-button>
+                            Показать еще
+                        </button>
                     </div>
                 </div>
 
