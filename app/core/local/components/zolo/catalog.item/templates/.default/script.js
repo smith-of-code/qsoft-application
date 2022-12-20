@@ -118,7 +118,6 @@
 				mainPriceData.each((index, item) => {
 					const spanWhole = $(item).find(".product-card__price-whole");
 					const spanRemains = $(item).find(".product-card__price-remains");
-					console.log(spanWhole);
 					const mainPriceAttr = $(item).attr('data-catalog-main-price');
 
 					if (mainPriceAttr) {
@@ -166,7 +165,6 @@
 
 					if (totalPriceAttr) {
 						let totalPriceNum = parseFloat(totalPriceAttr);
-						console.log(totalPriceNum);
 						let totalMainFixied = totalPriceNum.toFixed(2);
 						let totalMainRemains = totalMainFixied.toString().split('.')[1];
 
