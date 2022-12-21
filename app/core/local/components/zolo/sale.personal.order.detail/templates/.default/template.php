@@ -33,7 +33,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                         <header class="card-order__header">
                             <ul class="card-order__list">
 
-                                <li class="card-order__item">
+                                <li class="card-order__item card-order__item--inlined">
                                     <!--№ номер заказа-->
                                     <h2 class="card-order__title ">
                                         <?=Loc::getMessage("ORDER_NUMBER_DETAILS_TABLE")?><?=$details['ORDER_ID']?>
@@ -46,7 +46,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
 
                                 <!--Кем заказан-->
                                 <li class="card-order__item card-order__item--span">
-                                    <div class="info-slot">
+                                    <div class="info-slot info-slot--inlined">
                                         <p class="info-slot__name">
                                             <?=Loc::getMessage("CREATED_BY_DETAILS_TABLE")?>
                                         </p>
@@ -59,9 +59,6 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                 <!--Статус заказа-->
                                 <li class="card-order__item card-order__item--delivery">
                                     <div class="info-slot">
-                                        <p class="info-slot__name">
-                                            <?=Loc::getMessage("ORDER_STATUS_DETAILS_TABLE")?>
-                                        </p>
                                         <p class="info-slot__value info-slot__value--marked">
                                             <?=$details['ORDER_STATUS']?>
                                         </p>
