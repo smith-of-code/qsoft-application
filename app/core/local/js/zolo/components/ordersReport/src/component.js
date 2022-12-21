@@ -21,6 +21,25 @@ export const OrdersReport = {
         },
     },
 
+    methods: {
+        showPriceWhole(item) {
+            const number = parseFloat(item);
+            return Math.floor(number);
+        },
+  
+        showPriceRemains(item) {
+            const number = parseFloat(item);
+            const numberFixed = number.toFixed(2);
+            const totalRemains = numberFixed.toString().split('.')[1];
+           
+            if (totalRemains === "00") {
+                return 
+            } else {
+                return ',' + totalRemains
+            }
+        }
+      },
+      
     template: `
         <div class="participant__block">
             <!--Результаты-->
@@ -181,7 +200,12 @@ export const OrdersReport = {
                                                                             Цена:
                                                                         </span>
                                                                         <span class="product-line__params-value">
-                                                                            {{ formatNumber(product.price) }} ₽
+                                                                            <span class="product-line__params-value--whole">
+                                                                                {{ showPriceWhole(product.price) }}
+                                                                            </span>
+                                                                            <span class="product-line__params-value--remains">
+                                                                                {{ showPriceRemains(product.price) }} ₽
+                                                                            </span>
                                                                         </span>
                                                                     </p>
                                                                 </li> 
@@ -201,7 +225,12 @@ export const OrdersReport = {
                                                                             Сумма:
                                                                         </span>
                                                                         <span class="product-line__params-value">
-                                                                            {{ formatNumber(product.price * product.quantity) }} ₽
+                                                                            <span class="product-line__params-value--whole">
+                                                                                {{ showPriceWhole(product.price * product.quantity) }}
+                                                                            </span>
+                                                                            <span class="product-line__params-value--remains">
+                                                                                {{ showPriceRemains(product.price * product.quantity) }} ₽
+                                                                            </span>
                                                                         </span>
                                                                     </p>
                                                                 </li> 
