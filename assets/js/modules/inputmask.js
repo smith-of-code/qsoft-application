@@ -44,12 +44,16 @@ export default function inputMaskInit($container, mask) {
         return;
     }
 
-    const date = new Date().getFullYear();
-    const dateYearSplitted = date.toString().split('');
+    const date = new Date();
+    const dateDay = date.getUTCDate();
+    const dateMonth = date.getMonth() + 1;
+    const dateYear = date.getFullYear();
+    const dateYearSplitted = dateYear.toString().split('');
     const dateOneNum = dateYearSplitted[0];
     const dateTwoNum = dateYearSplitted[1];
     const dateThreeNum = dateYearSplitted[2];
     const dateFourNum = dateYearSplitted[3];
+    const prevDateFourNum = parseInt(dateFourNum) - 1 
   
     const addButton = $(".pet-cards__adding").find("button");
 
@@ -87,6 +91,13 @@ export default function inputMaskInit($container, mask) {
         'y': {
             validator: function (chrs, buffer, pos, strict, opts) {
                 let valExp
+                let dataBuffer = buffer.buffer
+                let getOneNumDay = dataBuffer[0];
+                let getTwoNumDay = dataBuffer[1];
+                let getOneNumMonth = dataBuffer[3];
+                let getTwoNumMonth = dataBuffer[4];
+                let getDay = `${getOneNumDay}${getTwoNumDay}`
+                let getMonth = `${getOneNumMonth}${getTwoNumMonth}`
 
                 if (pos === 6) {
                     valExp = new RegExp(`[1-${dateOneNum}]`);
@@ -106,8 +117,13 @@ export default function inputMaskInit($container, mask) {
                 } else if (pos === 9) {
                     if (buffer.buffer[7] === '9') {
                         valExp = new RegExp('[0-9]');
+
                     } else if (buffer.buffer[8] === dateThreeNum) {
-                        valExp = new RegExp(`[0-${dateFourNum}]`);
+                        if (dateDay < getDay && dateMonth <= getMonth) {
+                            valExp = new RegExp(`[0-${prevDateFourNum}]`);
+                        } else {
+                            valExp = new RegExp(`[0-${dateFourNum}]`);
+                        }
                     } else {
                         valExp = new RegExp('[0-9]');
                     }
@@ -127,11 +143,26 @@ export default function inputMaskInit($container, mask) {
         "m": {
             validator: function (chrs, buffer, pos, strict, opts) {
                 let valExp
+                let getOneNum = buffer.buffer[0]
+                let getTwoNum = buffer.buffer[1]
+                let getDay = `${getOneNum}${getTwoNum}`
                 
                 if (buffer.buffer[3] === '0') {
-                    valExp = new RegExp(`[1-9]`);
+                    if (getDay === '31') {
+                        valExp = new RegExp(`[13578]`);
+                    } else if (getDay === '30') {
+                        valExp = new RegExp(`[13456789]`)
+                    } else {
+                        valExp = new RegExp(`[1-9]`);
+                    }
+                    
                 } else {
-                    valExp = new RegExp(`[012]`);
+                    if (getDay === '31') {
+                        valExp = new RegExp(`[02]`);
+                    } else {
+                        valExp = new RegExp(`[012]`);
+                    }
+                    
                 }
             
                 return valExp.test(chrs);
@@ -160,8 +191,33 @@ export default function inputMaskInit($container, mask) {
         },
     })
 
+    function checkInput(e) {
+        const input = $(e.target)
+        const inputVal = input.val();
+        const inputSplit = inputVal.split('.')
+
+        let inputDataDay = inputSplit[0];
+        let inputDataMonth = inputSplit[1]
+        let inputData = inputSplit[2];
+        
+        if (inputDataDay == '29' && inputDataMonth == '02') {
+            const isLeap = year => new Date(year, 1, 29).getDate() === 29;
+            const checkDate = isLeap(inputData);
+
+            if (checkDate) {
+                return
+            } else {
+                inputSplit[0] = '28'
+            }
+
+            const inputJoin = inputSplit.join(".")
+            const inputChange = input.val(inputJoin);
+        } 
+    }
+
     
     function validInputDate(e) {
+        checkInput(e)
         let currVal = $(e.target).val();
         let dateSplitted = currVal.toString().split('.');
         let day = dateSplitted[0];
@@ -273,6 +329,7 @@ export default function inputMaskInit($container, mask) {
         alias: "datatime", 
         "clearMaskOnLostFocus": true, 
         "clearIncomplete": true,
+        "oncomplete": checkInput,
     }
 
     Inputmask(MASKS.phoneMask)?.mask($container.find(ELEMENTS_SELECTOR.phoneMask));
