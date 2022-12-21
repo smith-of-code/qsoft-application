@@ -119,11 +119,13 @@
 
     &__item:hover & {
         &__title {
-            color: $brickRed;
+            @media #{$screen-desktop} {
+                color: $brickRed;
+            }
         }
     }
 
-    &__item--opened & {
+    &__item.accordeon__item--opened & {
         &__toggle {
             &-icon {
                 transform: rotate(180deg);
