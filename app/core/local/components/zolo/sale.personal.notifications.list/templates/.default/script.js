@@ -4,7 +4,10 @@ let filter = {'period': PERIOD};
 
 window.onload = function () {
     //Выполнить пагинацию по клику на кнопке "Показать больше"
-    document.querySelector('.notifications__button-more').addEventListener('click', loadNotifications);
+    const container = document.querySelector('.notifications__button-more');
+    if (container) {
+        container.addEventListener('click', loadNotifications);
+    }
 
     //Выполнить чтение уведомления по клику на уведомление
     let notificationRedirectAnchor = document.querySelectorAll('.card-notify__link');
