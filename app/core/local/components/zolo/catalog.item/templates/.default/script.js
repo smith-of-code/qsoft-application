@@ -114,10 +114,63 @@
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
 				// Отображение цен
+				function roundetPrice(price, whole, remains) {
+					let mainPriceNum = parseFloat(price);
+					let totalMainFixied = mainPriceNum.toFixed(2);
+					let totalMainRemains = totalMainFixied.toString().split('.')[1];
+
+					if (totalMainRemains === "00") {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+						remains.text('₽');
+					} else {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+						remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+					}
+				}
+
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				mainPrice.html(`${this.formatNumber(offer.mainPrice)} ₽`);
+				const mainPriceData = $('.price__main');
+
+				mainPriceData.each((index, item) => {
+					const spanWhole = $(item).find(".product-card__price-whole");
+					const spanRemains = $(item).find(".product-card__price-remains");
+					const mainPriceAttr = $(item).attr('data-catalog-main-price');
+
+					if (mainPriceAttr) {
+						roundetPrice(mainPriceAttr, spanWhole, spanRemains);
+					}
+				})
+			
+				const priceBase = offer.mainPrice
+				const spanWhole = mainPrice.find(".product-card__price-whole");
+				const spanRemains = mainPrice.find(".product-card__price-remains");
+
+				if (priceBase) {
+					roundetPrice(priceBase, spanWhole, spanRemains);
+				}
+					
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
-				$('#' + this.products[id].elementsIds.totalPrice).html(`${this.formatNumber(offer.totalPrice)} ₽`);
+
+				const totalPrice = $('#' + this.products[id].elementsIds.totalPrice);
+				const totalPriceData = $('.price__calculation-total');
+
+				totalPriceData.each((index, item) => {
+					const spanWholeTotal = $(item).find(".product-card__price-whole");
+					const spanRemainsTotal = $(item).find(".product-card__price-remains");
+					const totalPriceAttr = $(item).attr('data-catalog-total-price');
+
+					if (totalPriceAttr) {
+						roundetPrice(totalPriceAttr, spanWholeTotal, spanRemainsTotal);
+					}
+				})
+
+				const priceTotal = offer.totalPrice
+				const spanWholeTotal = totalPrice.find(".product-card__price-whole");
+				const spanRemainsTotal = totalPrice.find(".product-card__price-remains");
+
+				if (priceTotal) {
+					roundetPrice(priceTotal, spanWholeTotal, spanRemainsTotal);
+				}
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);
