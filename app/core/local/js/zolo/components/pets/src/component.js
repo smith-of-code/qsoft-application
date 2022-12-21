@@ -52,6 +52,13 @@ export const Pets = {
             this.mutablePets.splice(this.mutablePets.indexOf(pet), 1);
         },
         checkPetAvailable(pet) {
+            const petReplaceValue = pet.birthdate?.replace(/[^0-9]/g, '');
+            const petBirthdateLenght = petReplaceValue?.length
+           
+            if (petBirthdateLenght < 8) {
+                return
+            }
+
             return pet.name && pet.kind && pet.breed && pet.birthdate && pet.gender;
         },
         cancelEditing(pet, petKey) {
@@ -262,7 +269,7 @@ export const Pets = {
                                             </div>
 
                                             <div class="pet-card__buttons">
-                                                <button type="button" class="pet-card__button button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
+                                                <button type="button" class="pet-card__button pet-card__button-save button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !checkPetAvailable(pet) }" :disabled="!checkPetAvailable(pet)" @click="savePet(pet)">
                                                     Сохранить изменения
                                                 </button>
                                             
