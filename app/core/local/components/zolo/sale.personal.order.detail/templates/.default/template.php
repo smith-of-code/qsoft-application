@@ -100,14 +100,18 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                 <?php } ?>
 
                                                 <!-- итоговая стоимость ₽ -->
-                                                <span class="price__calculation-value">
-                                                    <?=$details['TOTAL_PRICE']?><?=Loc::getMessage("RUBLE_SYMBOL")?>
+                                                <span class="price__calculation-value assets"
+                                                        data-order-amount="<?=$details['TOTAL_PRICE']?>">
+                                                    <span class="price__calculation-value--whole"></span>
+                                                    <span class="price__calculation-value--remains"></span>
                                                 </span>
                                             </p>
 
                                             <?php if ($arResult['IS_CONSULTANT']):?>
                                                 <!-- итоговое количество баллов ББ -->
-                                                <p class="price__calculation-accumulation"><?=$details['BONUSES']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
+                                                <p class="price__calculation-accumulation">
+                                                    <?= number_format($details['BONUSES'], 0, '', ' ')?><?=Loc::getMessage("BONUS_SYMBOL")?>
+                                                </p>
                                             <?php endif;?>
                                         </div>
                                     </div>
@@ -189,8 +193,9 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                             <ul class="product-line__list">
                                                                 <li class="product-line__params product-line__params--span">
                                                                     <p class="product-line__text">
-                                                                        <span class="product-line__params-value product-price">
-                                                                            <?=$product['PRICE']?><?=Loc::getMessage("RUBLE_SYMBOL")?>
+                                                                        <span class="product-line__params-value product-price" data-item-price="<?=$product['PRICE']?>">
+                                                                            <span class="product-line__params-value--whole"></span>
+                                                                            <span class="product-line__params-value--remains"></span>
                                                                         </span>
                                                                     </p>
                                                                 </li>
@@ -205,7 +210,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                                     <li class="product-line__params product-line__params--bold">
                                                                         <p class="product-line__text">
                                                                             <span class="product-line__params-value product-credit product-bonus">
-                                                                                <?=$product['BONUSES']?> ББ
+                                                                                <?= number_format($product['BONUSES'], 0, '', ' ') ?> ББ
                                                                             </span>
                                                                         </p>
                                                                     </li>
