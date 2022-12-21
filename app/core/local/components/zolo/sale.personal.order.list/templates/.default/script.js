@@ -181,8 +181,11 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], `${item.PRICE} ₽` ?? '0');
-
+        span = createElement('span', ['product-line__params-value'], [{name: 'data-item-price', value: `${item.PRICE}` ?? '0'},]);
+        spanWhole = createElement('span', ['product-line__params-value--whole'], []);
+        spanRemains = createElement('span', ['product-line__params-value--remains'], []);
+        
+        span.append(spanWhole, spanRemains)
         p.append(span);
 
         delete span;
@@ -285,17 +288,31 @@ $( document ).ready(function() {
         }
     }
 
-    function transformValue(items) {
-        items.each(function (index, item) {
-            const orderItemPrice = $(item).find('.price__calculation-value');
-            const orderItemPriceVal = orderItemPrice.attr('data-order-price').replace(/\s/g,'').replace(/,/g, '.');
-            const spanWhole = orderItemPrice.find(".price__calculation-value--whole");
-            const spanRemains = orderItemPrice.find(".price__calculation-value--remains");
-
-            if (orderItemPriceVal) {
-                rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
-            }
-        }); 
+    function transformValue(items, type) {
+        if (type === "product") {
+            items.each(function (index, item) {
+                const orderItemPrice = $(item).find('.product-line__params-value');
+                const orderItemPriceAttr = orderItemPrice.attr('data-item-price')
+                const orderItemPriceVal = orderItemPriceAttr?.replace(/\s/g,'').replace(/,/g, '.');
+                const spanWhole = orderItemPrice.find(".product-line__params-value--whole");
+                const spanRemains = orderItemPrice.find(".product-line__params-value--remains");
+    
+                if (orderItemPriceVal) {
+                    rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+                }
+            });
+        } else {
+            items.each(function (index, item) {
+                const orderItemPrice = $(item).find('.price__calculation-value');
+                const orderItemPriceVal = orderItemPrice.attr('data-order-price').replace(/\s/g,'').replace(/,/g, '.');
+                const spanWhole = orderItemPrice.find(".price__calculation-value--whole");
+                const spanRemains = orderItemPrice.find(".price__calculation-value--remains");
+    
+                if (orderItemPriceVal) {
+                    rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+                }
+            });
+        }
     }
     transformValue(orderItems);
 
@@ -303,8 +320,10 @@ $( document ).ready(function() {
         mutations.forEach(function(mutation) {
             const targetRender = mutation.target;
             const orderItems = $(targetRender).find('.cards-order__item');
-
+            const orderItem = $(targetRender).find('.table-list');
+       
             transformValue(orderItems);
+            transformValue(orderItem, 'product');
         });
       });
 

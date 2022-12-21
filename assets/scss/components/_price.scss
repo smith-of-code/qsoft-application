@@ -15,6 +15,7 @@
         font-size: rem($font-size-miniature);
 
         display: flex;
+        align-items: baseline;
 
         @media #{$screen-desktop} {
             font-size: rem($font-size-small);
@@ -43,7 +44,7 @@
 
         &-value {
             display: flex;
-            align-items: flex-end;
+            align-items: baseline;
 
             &--remains {
                 font-size: rem(17px);
