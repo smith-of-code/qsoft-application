@@ -386,4 +386,20 @@ export default function () {
 
         $(ELEMENTS_SELECTOR.calculatorComputingBlock).show();
     });
+
+    function viewsAttractConsAdviser() {
+        let dataInput = $('.profitability__sum');
+        let tooltipBox = $('.profitability__hint--consultant');
+        let dataInputVal = dataInput.text();
+        let content = `
+        В расчёте будут учтены баллы, которые Вы можете получить, если привлечёте ${dataInputVal} новых консультантов в свою группу`
+        
+        tooltipBox.attr('data-tippy-content', content)
+        
+    }
+    viewsAttractConsAdviser();
+ 
+    $(document).on('click', '.profitability__button', function(e) {
+        viewsAttractConsAdviser()
+    })
 }
