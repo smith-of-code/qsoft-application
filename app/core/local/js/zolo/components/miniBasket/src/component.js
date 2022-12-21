@@ -21,7 +21,8 @@ export const MiniBasket = {
     methods: {
       showPriceWhole(item) {
           const number = parseFloat(item);
-          return Math.floor(number);
+          const numberFloor = Math.floor(number);
+          return numberFloor.toLocaleString('ru-RU', {minimumFractionDigits: 0});
       },
 
       showPriceRemains(item) {
