@@ -216,7 +216,7 @@ function setBasketTemplate(data) {
         delete innerLi;
         delete p;
 
-        innerLi = createElement('li', ['product-line__params']);
+        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold']);
         p = createElement('p', ['product-line__text']);
         span = createElement('span', ['product-line__params-name'], [], 'Сумма баллов:');
 
@@ -320,7 +320,7 @@ $( document ).ready(function() {
         mutations.forEach(function(mutation) {
             const targetRender = mutation.target;
             const orderItems = $(targetRender).find('.cards-order__item');
-            const orderItem = $(targetRender).find('.table-list');
+            const orderItem = $(targetRender).find('.table-list__item');
        
             transformValue(orderItems);
             transformValue(orderItem, 'product');
