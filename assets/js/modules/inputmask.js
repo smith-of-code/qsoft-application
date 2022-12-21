@@ -241,7 +241,7 @@ export default function inputMaskInit($container, mask) {
         if (age < 18) {
             item.addClass('input__control--error-mask');
             message.show();
-            message.html('Некорректная дата. Вам должно быть больше 18-ти лет');
+            message.html('Вам должно быть больше 18-ти лет');
             buttonNext.prop('disabled', true).addClass('button--disabled');
             buttonSavePersonal.prop('disabled', true).addClass('button--disabled');
          
