@@ -68,7 +68,7 @@ global $USER;
                                         <span class="button__text">Профиль</span>
                                 </button>
                                 <button type="button" data-logout
-                                        class="button button--huge button--rounded button--outlined button--green button--full">
+                                        class="button button--huge button--rounded button--outlined button--red button--full">
                                     <span class="button__icon">
                                         <svg class="icon icon--user">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
