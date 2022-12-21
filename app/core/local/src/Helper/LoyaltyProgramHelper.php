@@ -234,7 +234,7 @@ class LoyaltyProgramHelper
                 'current_value' => .0,
             ],
             'team' => [
-                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'],
+                'hold_value' => $loyaltyLevelInfo['hold_level_terms']['team_total'] ?? .0,
                 'upgrade_value' => $nextLoyaltyLevelInfo ? $nextLoyaltyLevelInfo['upgrade_level_terms']['team_total'] : 0,
                 'current_value' => .0,
             ],
@@ -264,8 +264,8 @@ class LoyaltyProgramHelper
         }
 
         foreach ($result as &$loyaltyType) {
-            $holdProgress = round($loyaltyType['current_value'] * 100 / $loyaltyType['hold_value']);
-            $upgradeProgress = round($loyaltyType['current_value'] * 100 / $loyaltyType['hold_value']);
+            $holdProgress = $loyaltyType['hold_value'] ? round($loyaltyType['current_value'] * 100 / $loyaltyType['hold_value']) : 0;
+            $upgradeProgress = $loyaltyType['upgrade_value'] ? round($loyaltyType['current_value'] * 100 / $loyaltyType['upgrade_value']) : 0;
             $loyaltyType['hold_progress'] = min($holdProgress, 100);
             $loyaltyType['upgrade_progress'] = min($upgradeProgress, 100);
         }
