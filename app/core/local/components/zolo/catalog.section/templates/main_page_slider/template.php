@@ -107,7 +107,7 @@ foreach ($arResult['ITEMS'] as $item) {
 <section class="main__section main__section--separated">
     <div class="main__section-header">
         <p class="main__section-heading heading heading--huge">Хиты продаж</p>
-        <a href="/catalog/?sf_1062_4868592=Y&sf_P1_MIN=1&sf_P1_MAX=4141&set_filter=Y" type="button" class="button button--simple button--red button--transition">
+        <a href="<?=HITS_LINK?>" type="button" class="button button--simple button--red button--transition">
             <span class="button__icon button__icon--average button__icon--red button__icon--right">
                 <svg class="icon icon--arrow-right-light">
                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>

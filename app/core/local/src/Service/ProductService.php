@@ -66,22 +66,6 @@ class ProductService
         return $product;
     }
 
-    public function getOffersByRepeatedIds(array $offerIds): array
-    {
-        if (!$offerIds) {
-            return [];
-        }
-
-        $offerIterator = CIBlockElement::GetList([], ['ID' => $offerIds], false, false, ['ID', 'NAME', 'QUANTITY', 'CATALOG_AVAILABLE']);
-
-        $offers = [];
-        while ($offer = $offerIterator->Fetch()) {
-            $offers[$offer['ID']] = $offer;
-        }
-
-        return $offers ?? [];
-    }
-
     public function getOffersByIds(array $offerIds): array
     {
         if (!$offerIds) {

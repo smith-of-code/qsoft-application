@@ -245,6 +245,29 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
     </div>
 </section>
 
+<article id="orderOutStock" class="modal modal--orderout modal--centered modal--outer box box--circle box--hanging" style="display: none">
+    <div class="modal__content modal__content--order" data-scrollbar>
+        <section class="modal__section modal__section--content modal__section--order" >
+            <div class="out-stock">
+                <ul class="out-stock__list">
+                    <!-- Adding in JS -->
+                </ul>
+                <div class="out-stock__text">К сожалению, этой продукции сейчас нет в наличии.</div>
+                <div class="out-stock__node">Зато у нас есть другие интересные товары! Посмотрим?</div>
+                <div class="out-stock__actions">
+                    <button type="button" class="out-stock__button button button--rounded-big button--outlined button--green button--full" onclick="location.href = '/cart'">
+                        Перейти в корзину
+                    </button>
+                    <button type="button" class="out-stock__button button button--rounded-big button--covered button--green button--full" onclick="location.href = '<?=HITS_LINK?>'">
+                        Посмотреть хиты продаж
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</article>
+
 <article id="thanks" class="modal modal--wide modal--centered box box--circle box--hanging" style="display: none">
     <div class="modal__content">
         <section class="modal__section modal__section--content">
