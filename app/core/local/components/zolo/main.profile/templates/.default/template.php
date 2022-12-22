@@ -199,7 +199,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                        name="text13"
                                                                        id="birthdate"
                                                                        placeholder="ДД.ММ.ГГГГ"
-                                                                       data-mask-date
+                                                                       data-mask-date-reg
                                                                        readonly data-profile-readonly
                                                                        value="<?=$arResult['personal_data']['birthdate']?>"
                                                                 >
