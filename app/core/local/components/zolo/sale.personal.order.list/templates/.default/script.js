@@ -50,11 +50,11 @@ function setSortingType() {
     if (sorting.hasClass('asc')) {
         sorting.removeClass('asc');
         sorting.addClass('desc');
-        orderSort = 'ASC';
+        orderSort = 'DESC';
     } else {
         sorting.addClass('asc');
         sorting.removeClass('desc');
-        orderSort = 'DESC';
+        orderSort = 'ASC';
     }
 
     return orderSort;
@@ -80,18 +80,17 @@ function filteringValues(filterType, value, sort = '') {
             by: filterType === 'sorting' ? (value != '' ? value : $('#SORTING_BY').val()) : $('#SORTING_BY').val(),
             status: filterType === 'status' ? value: $('#STATUS').val(),
             payd: filterType === 'payd' ? value: $('#PAYD').val(),
-            order: sort !== '' ? sort: 'asc',
+            order: sort !== '' ? sort : 'desc',
             filter_id: '',
         };
         clearSearch();
         window.history.replaceState(null, null, "?filter_id=" + $('#filter_id').val());
     }
     showMore.style.cssText = 'display:none;';
-    console.log(filter);
     BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'reloadData', {
         mode: 'class',
         data: {
-            filter:filter,
+            filter: filter,
             offset: 1,
             limit: size,
         }
