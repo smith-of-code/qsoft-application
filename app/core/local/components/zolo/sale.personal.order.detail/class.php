@@ -109,17 +109,15 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
         $bonuses = 0;
         $withPersonalPromotion = false;
-        if ($this->user->groups->isConsultant()) {
-            /** @var BasketItem $basketItem */
-            foreach ($order->getBasket() as $basketItem) {
-                /** @var BasketPropertyItem $property */
-                foreach ($basketItem->getPropertyCollection() as $property) {
-                    if ($property->getField('CODE') === 'BONUSES') {
-                        $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
-                    }
-                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
-                        $withPersonalPromotion = true;
-                    }
+        /** @var BasketItem $basketItem */
+        foreach ($order->getBasket() as $basketItem) {
+            /** @var BasketPropertyItem $property */
+            foreach ($basketItem->getPropertyCollection() as $property) {
+                if ($property->getField('CODE') === 'BONUSES') {
+                    $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                }
+                if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
+                    $withPersonalPromotion = true;
                 }
             }
         }
