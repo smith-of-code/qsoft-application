@@ -149,8 +149,16 @@
             line-height: (22px / $font-size-small);
 
             letter-spacing: 0.02em;
+
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
             
             color: $saltBox;
+
+            &--remains {
+                font-size: rem(13px);
+            }
         }
     }
 

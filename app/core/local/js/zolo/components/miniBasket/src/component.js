@@ -14,8 +14,28 @@ export const MiniBasket = {
         store.fetchBasketTotals();
         return {
             itemsCount: computed(() => store.itemsCount),
-            basketPrice: computed(() => Math.round(store.basketPrice))
+            basketPrice: computed(() => store.basketPrice)
         }
+    },
+
+    methods: {
+      showPriceWhole(item) {
+          const number = parseFloat(item);
+          const numberFloor = Math.floor(number);
+          return numberFloor.toLocaleString('ru-RU', {minimumFractionDigits: 0});
+      },
+
+      showPriceRemains(item) {
+          const number = parseFloat(item);
+          const numberFixed = number.toFixed(2);
+          const totalRemains = numberFixed.toString().split('.')[1];
+         
+          if (totalRemains === "00") {
+              return 
+          } else {
+              return ',' + totalRemains
+          }
+      }
     },
     
     template: `
@@ -26,7 +46,14 @@ export const MiniBasket = {
         </svg>
         <span v-if="itemsCount" class="button__icon-counter button__icon-counter--dark">{{ itemsCount }}</span>
         </span>
-      <span v-if="itemsCount" class="personal__button-text button__text">{{ formatNumber(basketPrice) }} &#8381;</span>
+      <span v-if="itemsCount" class="personal__button-text button__text">
+        <span class="personal__price-whole">
+            {{ showPriceWhole(basketPrice) }}
+        </span>
+        <span class="personal__price-remains">
+            {{ showPriceRemains(basketPrice) }}&#8381
+        </span>
+      </span>
       <span v-else class="personal__button-text button__text">Корзина</span>
       </button>
     `

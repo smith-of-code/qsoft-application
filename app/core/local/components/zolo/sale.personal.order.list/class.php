@@ -1005,22 +1005,20 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         $user = new User;
         /** @var Order $orderObject */
         foreach ($orderInfo as $orderObject) {
-            if ($user->groups->isConsultant()) {
-                $orderBonuses = 0;
-                /** @var BasketItem $basketItem */
-                foreach ($orderObject->getBasket() as $basketItem) {
-                    /** @var BasketPropertyItem $property */
-                    foreach ($basketItem->getPropertyCollection() as $property) {
-                        if ($property->getField('CODE') === 'BONUSES') {
-                            $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
-                        }
-                        if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
-                            $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
-                        }
+            $orderBonuses = 0;
+            /** @var BasketItem $basketItem */
+            foreach ($orderObject->getBasket() as $basketItem) {
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES') {
+                        $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                    }
+                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
+                        $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
                     }
                 }
-                $listOrders[$orderObject->getField('ID')]['BONUSES'] = $orderBonuses;
             }
+            $listOrders[$orderObject->getField('ID')]['BONUSES'] = $orderBonuses;
 			$orders[$orderObject->getField('ID')] = $orderObject->getField('PAY_VOUCHER_NUM');
 		}
 

@@ -30,15 +30,6 @@ class ProductService
         $this->user = $user;
     }
 
-    public function getOffersIds(int $productId): array
-    {
-        if (!$productId) {
-            return [];
-        }
-        $offers = CCatalogSKU::getOffersList($productId, IBLOCK_PRODUCT, ['ACTIVE' => 'Y'], ['IBLOCK_ID']);
-        return $offers ? array_keys($offers[$productId]) : [];
-    }
-
     public function getProduct(int $productId): array
     {
         if (!$productId) {
