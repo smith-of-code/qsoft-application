@@ -15,6 +15,10 @@ export default function accordeon() {
             $content.toggleClass('accordeon__body--mobile-active');
         }
 
-        $content.slideToggle();
+        if ($content.length > 1) {
+            $($content[0]).slideToggle();
+        } else {
+            $content.slideToggle();
+        }
     });
 }

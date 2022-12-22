@@ -7,6 +7,35 @@
 </div>
 <!--content-->
 
+<!--cookie popup-->
+    <div id="cookie" class="cookie" style="display: none">
+        <div class="container">
+            <div class="cookie__row">
+                <div class="cookie__col">
+                    <div class="cookie__image">
+                        <img class="cookie__image-picture" src="/local/templates/.default/images/cookies.png" alt="cookie">
+                    </div>
+                </div>
+                <div class="cookie__col">
+                    <div class="cookie__text">
+                        Мы используем файлы cookie для Вашего удобства пользования сайтом. Продолжая использовать наш сайт, Вы даете согласие на обработку файлов cookie
+                    </div>
+                </div>
+                <div class="cookie__col">
+                    <div class="cookie__actions">
+                        <a href="#" class="cookie__actions-button cookie__actions-accept button button--rounded button--outlined button--red">
+                            Узнать больше
+                        </a>
+                        <button type="button" class="cookie__actions-button cookie__actions-more button button--rounded button--covered button--red" data-cookie-accept>
+                            Принять
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--cookie popup-->
+
 <!--Футер-->
 <footer class="page__footer footer">
     <div class="footer__container container">

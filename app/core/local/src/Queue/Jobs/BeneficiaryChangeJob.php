@@ -51,6 +51,6 @@ class BeneficiaryChangeJob extends BaseJob
 
     protected function validateInputData($data): bool
     {
-        return is_array($data) && !empty($data['userId']) && !empty($data['oldMentorId']) && !empty($data['newMentorId']);
+        return is_array($data) && !empty($data['userId']) && !empty($data['newMentorId']);
     }
 }

@@ -113,9 +113,19 @@
         & + & {
             margin-top: rem($gap-medium);
         }
+
+        
     }
 
-    &__item--opened & {
+    &__item:hover & {
+        &__title {
+            @media #{$screen-desktop} {
+                color: $brickRed;
+            }
+        }
+    }
+
+    &__item.accordeon__item--opened & {
         &__toggle {
             &-icon {
                 transform: rotate(180deg);

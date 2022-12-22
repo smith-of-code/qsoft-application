@@ -81,9 +81,9 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
         $offers = ProductService::getProductByIds($productIds);
         foreach ($products as &$product) {
             $product['NAME'] = $offers[$product['PRODUCT_ID']]['NAME'];
-            $product['PICTURE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'] && $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0] ? CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0]) : '/local/templates/.default/images/no-image-placeholder.png';
+            $product['PICTURE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'] && $offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0] ? CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0]) : NO_IMAGE_PLACEHOLDER_PATH;
             $product['ARTICLE'] = $offers[$product['PRODUCT_ID']]['PROPERTY_ARTICLE_VALUE'];
-            $product['PRICE'] = self::formatPrice($product['PRICE']);
+            $product['PRICE'] = $product['PRICE'];
             $product['QUANTITY'] = intVal($product['QUANTITY']);
             $product['BONUSES'] *= $product['QUANTITY'];
         }
@@ -109,17 +109,15 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
         $bonuses = 0;
         $withPersonalPromotion = false;
-        if ($this->user->groups->isConsultant()) {
-            /** @var BasketItem $basketItem */
-            foreach ($order->getBasket() as $basketItem) {
-                /** @var BasketPropertyItem $property */
-                foreach ($basketItem->getPropertyCollection() as $property) {
-                    if ($property->getField('CODE') === 'BONUSES') {
-                        $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
-                    }
-                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
-                        $withPersonalPromotion = true;
-                    }
+        /** @var BasketItem $basketItem */
+        foreach ($order->getBasket() as $basketItem) {
+            /** @var BasketPropertyItem $property */
+            foreach ($basketItem->getPropertyCollection() as $property) {
+                if ($property->getField('CODE') === 'BONUSES') {
+                    $bonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                }
+                if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
+                    $withPersonalPromotion = true;
                 }
             }
         }
@@ -131,7 +129,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'CREATED_BY' => $this->formUserName(),
             'ORDER_STATUS' => $statusName['NAME'],
             'IS_PAID' => $order->isPaid(),
-            'TOTAL_PRICE' => self::formatPrice($order->getPrice()),
+            'TOTAL_PRICE' => $order->getPrice(),
             'IS_PROMOTION' => $withPersonalPromotion,
             'BONUSES' => $bonuses,
         ];

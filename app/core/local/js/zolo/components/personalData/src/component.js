@@ -9,9 +9,12 @@ export const PersonalData = {
             mutableUserInfo: {},
             editing: false,
             phoneError: false,
+            emailError: false,
             passwordError: false,
             phoneVerified: false,
+            emailVerified: false,
             verifyError: false,
+            confirmationType: false,
         };
     },
 
@@ -68,61 +71,79 @@ export const PersonalData = {
             this.initUserInfo();
         },
         saveUserInfo() {
-            if (this.userInfo.phone !== this.mutableUserInfo.phone && !this.phoneVerified) {
+            this.passwordError = false;
+            this.phoneError = false;
+            this.emailError = false;
+            let error = false;
+
+            if (this.userInfo.phone !== this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '') && this.phoneVerified !== this.mutableUserInfo.phone) {
+                error = true;
                 this.phoneError = true;
-                return;
+            }
+            if (this.userInfo.email !== this.mutableUserInfo.email && this.emailVerified !== this.mutableUserInfo.email) {
+                error = true;
+                this.emailError = true;
             }
             if ((this.mutableUserInfo.password || this.mutableUserInfo.confirm_password) && !this.validatePassword) {
+                error = true;
                 this.passwordError = true;
+            }
+
+            if (error) {
                 return;
             }
 
-            this.phoneError = false;
-            this.passwordError = false;
-            this.mutableUserInfo.phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
             this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
 
-            this.personalDataStore.savePersonalData(this.mutableUserInfo);
+            this.personalDataStore.savePersonalData({
+                ...this.mutableUserInfo,
+                phone: this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, ''),
+            });
             this.editing = false;
 
             $.fancybox.open({ src: '#thanks' });
         },
-        async sendCode() {
-            const phone = this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '');
-
-            this.phoneError = false;
-                if (!phone || phone.match(/_+/i)) {
-                this.phoneError = true;
-                return;
-            }
-
+        async sendCode(value, type) {
             try {
-                const response = await this.personalDataStore.sendCode(phone);
+                const response = await this.personalDataStore.sendCode(value, type);
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error(response.data.message);
                 }
+                this.confirmationType = type;
             } catch (e) {
                 this.phoneError = e.message ? e.message : true;
                 return;
             }
 
+
             $.fancybox.open({ src: '#approve-number' });
         },
         async verifyCode() {
             try {
-                const response = await this.personalDataStore.verifyCode($('input[name=verify_code]').val());
+                const codeInput = $('input[name=verify_code]');
+
+                const response = await this.personalDataStore.verifyCode(codeInput.val(), this.confirmationType);
 
                 if (!response.data || response.data.status === 'error') {
                     throw new Error();
                 } else {
-                    this.phoneVerified = true;
+                    if (this.confirmationType === 'phone') {
+                        this.phoneError = false;
+                        this.phoneVerified = this.mutableUserInfo.phone;
+                    } else if (this.confirmationType === 'email') {
+                        this.emailError = false;
+                        this.emailVerified = this.mutableUserInfo.email;
+                    }
                 }
+                codeInput.val('');
             } catch (e) {
                 this.verifyError = true;
                 return;
             }
 
+            this.verifyError = false;
+            this.confirmationType = false;
             $.fancybox.close({ src: '#approve-number' });
         },
     },
@@ -156,7 +177,7 @@ export const PersonalData = {
 
                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button type="button" class="profile__actions-button button button--simple button--red">
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -364,10 +385,11 @@ export const PersonalData = {
                                                                 name="birthdate"
                                                                 id="birthdate"
                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                data-mask-date
+                                                                data-mask-date-reg
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.birthdate"
                                                             >
+                                                            <span class="input__control-error--mask"></span>
                                                             <span class="input__icon">
                                                                 <svg class="icon icon--calendar">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
@@ -398,11 +420,27 @@ export const PersonalData = {
                                                                 placeholder="example@email.com" 
                                                                 data-mail 
                                                                 inputmode="email"  
+                                                                :class="{ 'input__control--error': emailError }"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.email" 
                                                             >
+                                                            
+                                                            <span v-if="typeof emailError === 'string'" class="input__control-error">
+                                                                {{ emailError }}
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <button
+                                                        v-if="editing && mutableUserInfo.email.indexOf('_') === -1 && userInfo.email !== mutableUserInfo.email && emailVerified !== mutableUserInfo.email"
+                                                        type="button"
+                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                                        data-src="#approve-number"
+                                                        @click="sendCode(mutableUserInfo.email, 'email')"
+                                                        :style="{ color: emailError ? 'red' : 'black' }"
+                                                    >
+                                                        Подтвердить
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -434,6 +472,17 @@ export const PersonalData = {
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <button
+                                                        v-if="editing && mutableUserInfo.phone.indexOf('_') === -1 && userInfo.phone !== mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, '') && phoneVerified !== mutableUserInfo.phone"
+                                                        type="button"
+                                                        class="form__field-button button button--simple button--red button--underlined button--tiny"
+                                                        data-src="#approve-number"
+                                                        @click="sendCode(mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, ''), 'phone')"
+                                                        :style="{ color: phoneError ? 'red' : 'black' }"
+                                                    >
+                                                        Подтвердить
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -592,7 +641,7 @@ export const PersonalData = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--green button--full" @click="saveUserInfo">
+                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" @click="saveUserInfo">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>

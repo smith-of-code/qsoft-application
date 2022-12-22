@@ -8,16 +8,16 @@ export const usePersonalDataStore = defineStore('personalData', {
                 data: { userInfo: data },
             });
         },
-        async sendCode(phone) {
+        async sendCode(value, type) {
             return await BX.ajax.runComponentAction('zolo:main.profile', 'sendCode', {
                 mode: 'class',
-                data: { phoneNumber: phone },
+                data: { value, type },
             });
         },
-        async verifyCode(code) {
+        async verifyCode(code, type) {
             return await BX.ajax.runComponentAction('zolo:main.profile', 'verifyCode', {
                 mode: 'class',
-                data: { code },
+                data: { code, type },
             });
         },
     },
