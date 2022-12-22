@@ -33,6 +33,12 @@
         }
     }
 
+    &__button {
+        &-personal.button--disabled {
+            border-color: $alto;
+        }
+    }
+
     &__block--edit & {
         &__dropzone {
             display: block;

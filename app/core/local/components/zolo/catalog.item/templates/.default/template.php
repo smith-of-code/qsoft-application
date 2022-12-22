@@ -50,7 +50,6 @@ if (isset($arResult['ITEM']))
     // Формируем массив данных о торговых предложениях для обновления данных карточки через JS
     $jsInfo = [
         'id' => $elementId,
-        'realId' => $item['ID'],
         'elementsIds' => $domElementsIds,
     ];
 
@@ -73,6 +72,7 @@ if (isset($arResult['ITEM']))
         $jsInfo['offers'][$offer['ID']]['tree'] = $offer['TREE'];
         $jsInfo['offers'][$offer['ID']]['available'] = $offer['CAN_BUY'];
         $jsInfo['offers'][$offer['ID']]['quantity'] = $offer['CATALOG_QUANTITY'];
+        $jsInfo['offers'][$offer['ID']]['inWishlist'] = (bool) $offer['IN_WISHLIST'];
         $jsInfo['offers'][$offer['ID']]['nonreturnable'] = (bool) $item['PROPERTIES']['NONRETURNABLE_PRODUCT']['VALUE'];
     }
 
@@ -100,7 +100,7 @@ if (isset($arResult['ITEM']))
                 <!-- Кнопка "Добавить в избранное" -->
                 <?php if ($USER->IsAuthorized()):?>
                     <div class="product-card__favourite">
-                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" style="display: none" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
                             <span class="button__icon button__icon--big">
                                 <svg class="icon">
                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
@@ -148,6 +148,7 @@ if (isset($arResult['ITEM']))
                                             <div class="radio">
                                                 <input type="radio"
                                                        class="color__input radio__input"
+                                                       autocomplete="off"
                                                        name="<?=$propName?>"
                                                        value="<?=$value['ID']?>"
                                                        id="<?=$propId?>"
@@ -187,6 +188,7 @@ if (isset($arResult['ITEM']))
                                 <select class="select__control"
                                         name="<?=$propName?>"
                                         id="<?=$propName?>"
+                                        autocomplete="off"
                                         data-select-control
                                         data-option
                                         onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this)"
@@ -229,6 +231,7 @@ if (isset($arResult['ITEM']))
                                             <input type="radio"
                                                    class="pack__input radio__input"
                                                    name="<?=$propName?>"
+                                                   autocomplete="off"
                                                    value="<?=$value['ID']?>"
                                                    id="<?=$propId?>"
                                                    <?= $isChecked ? 'checked' : '' ?>
@@ -259,6 +262,7 @@ if (isset($arResult['ITEM']))
                                     name="<?=$propName?>"
                                     id="<?=$propName?>"
                                     data-select-control
+                                    autocomplete="off"
                                     data-option
                                     onchange="window.CatalogItemHelperZolo.refreshProductCard(<?=CUtil::PhpToJSObject($jsInfo['id'], false, true)?>, this, true)"
                             >
@@ -283,13 +287,17 @@ if (isset($arResult['ITEM']))
                     <p id="<?=$domElementsIds['mainPrice']?>"
                        class="price__main"
                        style="<?= $actualItem['mainPrice'] ? '' : 'display: none;' ?>"
+                       data-catalog-main-price="<?=$actualItem['mainPrice']?>"
                     >
-                        <?=$actualItem['mainPrice']?>
+                        <span class="product-card__price-whole"></span>
+                        <span class="product-card__price-remains"></span>
                     </p>
                     <div class="price__calculation">
                         <p id="<?=$domElementsIds['totalPrice']?>"
-                           class="price__calculation-total">
-                            <?=$actualItem['totalPrice']?>
+                           class="price__calculation-total"
+                           data-catalog-total-price="<?=$actualItem['totalPrice']?>">
+                            <span class="product-card__price-whole"></span>
+                            <span class="product-card__price-remains"></span>
                         </p>
                         <p id="<?=$domElementsIds['bonuses']?>"
                            class="price__calculation-accumulation"

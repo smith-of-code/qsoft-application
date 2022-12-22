@@ -20,7 +20,7 @@ $APPLICATION->setTitle('Корзина');?>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
                                         <div class="card-cart__image">
-                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC']?>" alt="#" class="card-cart__image-picture">
+                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="#" class="card-cart__image-picture">
                                         </div>
                                         <div class="card-cart__info">
                                             <h2 class="card-cart__title">
@@ -114,8 +114,9 @@ $APPLICATION->setTitle('Корзина');?>
 
                                             <div class="card-cart__price">
                                                 <p class="card-cart__price-item">
-                                                    <span class="card-cart__price-value" data-item-price>
-                                                        <?=$basketItem['PRICE']?> ₽
+                                                    <span class="card-cart__price-value" data-item-price data-value-item="<?=$basketItem['PRICE']?> ₽">
+                                                        <span class="card-cart__price-item-whole"></span>
+                                                        <span class="card-cart__price-item-remains"></span>
                                                     </span>
                                                     <span class="card-cart__price-sufix">
                                                         за шт
@@ -125,12 +126,14 @@ $APPLICATION->setTitle('Корзина');?>
 
                                             <?php $needOldPrice = $basketItem['TOTAL_PRICE'] !== $basketItem['TOTAL_BASE_PRICE'];?>
                                             <div class="card-cart__total product-price">
-                                                <p class="product-price__item <?=$needOldPrice ? 'product-price__item--new' : ''?>">
-                                                    <?=$basketItem['PRICE'] * $basketItem['QUANTITY']?> ₽
+                                                <p class="product-price__item <?=$needOldPrice ? 'product-price__item--new' : ''?>" data-price="<?=$basketItem['PRICE'] * $basketItem['QUANTITY']?> ₽">
+                                                    <span class="product-price__item-whole"></span>
+                                                    <span class="product-price__item-remains"></span>
                                                 </p>
                                                 <?php if ($needOldPrice):?>
-                                                    <p class="product-price__item product-price__item--old">
-                                                        <?=$basketItem['BASE_PRICE'] * $basketItem['QUANTITY']?> ₽
+                                                    <p class="product-price__item product-price__item--old" data-price="<?=$basketItem['BASE_PRICE'] * $basketItem['QUANTITY']?> ₽">
+                                                        <span class="product-price__item-whole"></span>
+                                                        <span class="product-price__item-remains"></span>
                                                     </p>
                                                 <?php endif;?>
                                             </div>
@@ -341,16 +344,18 @@ $APPLICATION->setTitle('Корзина');?>
                                     <span class="basket-card__total" data-basket-product-total><?=$arResult['BASKET_COUNT']?></span>
                                 </div>
                                 <div class="basket-card__item">
-                                    <span class="basket-card__text basket-card__text--gray">Сумма НДС</span>
-                                    <span class="basket-card__total" data-basket-product-nds><?=$arResult['BASKET_TOTAL_VAT']?> ₽</span>
-                                </div>
-                                <div class="basket-card__item">
                                     <span class="basket-card__text">Сумма заказа</span>
-                                    <span class="basket-card__total" data-basket-order-amount><?=$arResult['BASKET_BASE_PRICE']?> ₽</span>
+                                    <span class="basket-card__total" data-basket-order-amount data-value-amount="<?=$arResult['BASKET_BASE_PRICE']?> ₽">
+                                        <span class="basket-card__total-whole"></span>
+                                        <span class="basket-card__total-remains"></span>
+                                    </span>
                                 </div>
                                 <div class="basket-card__item">
                                     <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                    <span class="basket-card__total basket-card__total--green" data-basket-economy><?=$arResult['TOTAL_DISCOUNT']?> ₽</span>
+                                    <span class="basket-card__total basket-card__total--green" data-basket-economy data-value-economy="<?=$arResult['TOTAL_DISCOUNT']?> ₽">
+                                        <span class="basket-card__total-whole"></span>
+                                        <span class="basket-card__total-remains"></span>
+                                    </span>
                                 </div>
                                 <?php if ($arResult['IS_CONSULTANT']):?>
                                     <div class="basket-card__bonus">
@@ -391,7 +396,12 @@ $APPLICATION->setTitle('Корзина');?>
                                 <?php endif;?>
                                 <div class="basket-card__item">
                                     <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
-                                    <span class="basket-card__total basket-card__total--bold" data-basket-total><?=$arResult['BASKET_PRICE']?> ₽</span>
+                                    <span class="basket-card__total basket-card__total--bold"
+                                          data-basket-total
+                                          data-value-total="<?=$arResult['BASKET_PRICE']?> ₽">
+                                        <span class="basket-card__total-whole"></span>
+                                        <span class="basket-card__total-remains"></span>
+                                    </span>
                                 </div>
                             </div>
                             <button type="submit" class="basket-card__button button button--rounded button--covered button--green button--full">
