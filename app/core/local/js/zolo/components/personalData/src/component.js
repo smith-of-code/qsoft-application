@@ -438,7 +438,7 @@ export const PersonalData = {
                                                         @click="sendCode(mutableUserInfo.email, 'email')"
                                                         :style="{ color: emailError ? 'red' : 'black' }"
                                                     >
-                                                        Отправить проверочный код
+                                                        Подтвердить
                                                     </button>
                                                 </div>
                                             </div>
@@ -480,7 +480,7 @@ export const PersonalData = {
                                                         @click="sendCode(mutableUserInfo.phone.replaceAll(/\\(|\\)|\\s|-+/g, ''), 'phone')"
                                                         :style="{ color: phoneError ? 'red' : 'black' }"
                                                     >
-                                                        Отправить проверочный код
+                                                        Подтвердить
                                                     </button>
                                                 </div>
                                             </div>
