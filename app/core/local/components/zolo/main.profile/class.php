@@ -23,6 +23,7 @@ use QSoft\Helper\OrderHelper;
 use QSoft\Helper\PetHelper;
 use QSoft\Helper\PickupPointHelper;
 use QSoft\Helper\TicketHelper;
+use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\LegalEntityTable;
 use QSoft\ORM\PetTable;
 use QSoft\ORM\PickupPointTable;
@@ -250,20 +251,29 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         ];
     }
 
-    public function sendCodeAction(string $phoneNumber): array
+    public function sendCodeAction(string $value, string $type): array
     {
-        if (UserPhoneAuthTable::validatePhoneNumber($phoneNumber) !== true) {
-            throw new InvalidArgumentException('Invalid phone number');
+        if ($type === 'phone') {
+            if (UserPhoneAuthTable::validatePhoneNumber($value) !== true) {
+                throw new InvalidArgumentException('Invalid phone number');
+            }
+            $this->user->confirmation->sendSmsConfirmation();
+        } else if ($type === 'email') {
+            $this->user->confirmation->sendEmailConfirmation('CHANGE_EMAIL');
         }
-
-        $this->user->confirmation->sendSmsConfirmation();
 
         return ['status' => 'success'];
     }
 
-    public function verifyCodeAction(string $code): array
+    public function verifyCodeAction(string $code, string $type): array
     {
-        return ['status' => $this->user->confirmation->verifySmsCode($code) ? 'success' : 'error'];
+        $result = null;
+        if ($type === 'phone') {
+            $result = $this->user->confirmation->verifySmsCode($code);
+        } else if ($type === 'email') {
+            $result = $this->user->confirmation->verifyEmailCode($code, ConfirmationTable::TYPES['confirm_email']);
+        }
+        return ['status' => $result ? 'success' : 'error'];
     }
 
     public function saveLegalEntityDataAction($data): array

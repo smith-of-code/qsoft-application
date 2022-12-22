@@ -48,6 +48,7 @@ export const DateInput = {
                 data-pets-date-input
                 data-pets-change
             >
+            <span class="input__control-error--mask"></span>
             <span class="input__icon">
                 <svg class="icon icon--calendar">
                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>

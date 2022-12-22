@@ -14,7 +14,7 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
                 <header class="card-order__header">
                     <a href="<?=SEF_FOLDER . $order['ORDER']['ID']?>" class="card-order__link"></a>
                     <ul class="card-order__list">
-                        <li class="card-order__item">
+                        <li class="card-order__item card-order__item--inlined">
                             <h2 class="card-order__title">
                                 Заказ от <?=$order['ORDER']['DATE_INSERT_FORMATED'] ?>
                             </h2>
@@ -24,7 +24,7 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
                         </li>
 
                         <li class="card-order__item card-order__item--span">
-                            <div class="info-slot">
+                            <div class="info-slot info-slot--inlined">
                                 <p class="info-slot__name">
                                     Кем заказан
                                 </p>
@@ -36,9 +36,6 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
 
                         <li class="card-order__item card-order__item--delivery">
                             <div class="info-slot">
-                                <p class="info-slot__name">
-                                    Статус заказа
-                                </p>
                                 <p class="info-slot__value info-slot__value--marked">
                                     <?=$arResult['INFO']['STATUS'][$order['ORDER']['STATUS_ID']]['NAME'] ?>
                                 </p>
@@ -72,12 +69,13 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
                                                 </svg>
                                             </span>
                                         <?php endif; ?>
-                                        <span class="price__calculation-value">
-                                            <?=$order['ORDER']['FORMATED_PRICE']?>
+                                        <span class="price__calculation-value" data-order-price="<?=$order['ORDER']['FORMATED_PRICE']?>">
+                                            <span class="price__calculation-value--whole"></span>
+                                            <span class="price__calculation-value--remains"></span>
                                         </span>
                                     </p>
                                     <?php if ($arResult['IS_CONSULTANT']):?>
-                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ?? 0 ?> ББ</p>
+                                        <p class="price__calculation-accumulation"><?=$order['ORDER']['BONUSES'] ? number_format($order['ORDER']['BONUSES'], 0, ' ', ' ') : 0 ?> ББ</p>
                                     <?php endif;?>
                                 </div>
                             </div>
