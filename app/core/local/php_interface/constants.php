@@ -1,3 +1,3 @@
 <?php
 
-const LOG_FILENAME = '/log.log';
+const NO_IMAGE_PLACEHOLDER_PATH = '/local/templates/.default/images/no-image-placeholder.png';

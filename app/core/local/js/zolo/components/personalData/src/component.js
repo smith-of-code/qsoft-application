@@ -156,7 +156,7 @@ export const PersonalData = {
 
                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button type="button" class="profile__actions-button button button--simple button--red">
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
