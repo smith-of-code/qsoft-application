@@ -10,9 +10,9 @@ export default function () {
         let dropdown = $(this).closest(ELEMENTS_SELECTOR.dropdown);
         let rund = Math.floor(Math.random() * 1000);
         let button = $(this)
-        
-        dropdown.toggleClass('dropdown--active');
 
+        dropdown.toggleClass('dropdown--active');
+        
         $(document).on('click.dropdown'+rund, function (e) {
             let elem = $(e.target);
 
@@ -25,6 +25,29 @@ export default function () {
             $(this).off('click.dropdown'+rund);
         });
     });
+
+    $(document).on('mouseover', ELEMENTS_SELECTOR.button, function() {
+        let dropdown = $(this).closest(ELEMENTS_SELECTOR.dropdown);
+        let rund = Math.floor(Math.random() * 1000);
+        let button = $(this)
+        let type = dropdown.attr('data-dropdown');
+
+        if (type === "hover") {
+            dropdown.addClass('dropdown--active');
+        
+            $(document).on('click.dropdown'+rund, function (e) {
+                let elem = $(e.target);
+    
+                if (dropdown.find(elem).length) {
+                    return;
+                }
+
+                dropdown.removeClass('dropdown--active');
+                $(this).off('click.dropdown'+rund);
+            });
+        }
+        
+    })
 
     $(document).on('click', ELEMENTS_SELECTOR.buttonMenu, function() {
         $(this).toggleClass('header__catalog-button-menu--active');

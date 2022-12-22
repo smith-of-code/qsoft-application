@@ -51,6 +51,7 @@
  import calculator from './modules/calculator';
  import chart from './modules/chart';
  import show from './modules/show';
+import logout from "./modules/logout";
 
  const app = {
     ready() {
@@ -97,6 +98,7 @@
         calculator();
         chart();
         show();
+        logout();
     },
 
     load() {
