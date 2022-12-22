@@ -187,11 +187,6 @@
             border-color: $viridian;
             background-color: $viridian;
         }
-
-        &:focus {
-            border-color: $aquaForest;
-            background-color: $aquaForest;
-        }
     }
 
     &--covered#{&}--red {
@@ -202,11 +197,6 @@
             border-color: $mandy;
             background-color: $mandy;
         }
-
-        &:focus {
-            border-color: $mandy2;
-            background-color: $mandy2;
-        }
     }
 
     &--covered#{&}--red-white {
@@ -214,8 +204,7 @@
         border-color: $white;
         background-color: $white;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $brickRed;
             border-color: $white;
             background-color: $white;
@@ -232,12 +221,6 @@
             border-color: $seaGreen;
             background-color: $seaGreen;
         }
-
-        &:focus {
-            color: $white;
-            border-color: $aquaForest;
-            background-color: $aquaForest;
-        }
     }
 
     &--covered#{&}--black-red {
@@ -245,8 +228,7 @@
         border-color: $tuna;
         background-color: $tuna;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $white;
             border-color: $brickRed;
             background-color: $brickRed;
@@ -263,12 +245,6 @@
             border-color: $brickRed;
             background-color: $brickRed;
         }
-
-        &:focus {
-            color: $white;
-            border-color: $mandy2;
-            background-color: $mandy2;
-        }
     }
 
     &--covered#{&}--gray-green {
@@ -280,12 +256,6 @@
             color: $white;
             border-color: $seaGreen;
             background-color: $seaGreen;
-        }
-
-        &:focus {
-            color: $white;
-            border-color: $aquaForest;
-            background-color: $aquaForest;
         }
     }
 
@@ -299,12 +269,6 @@
             border-color: $brickRed;
             background-color: $brickRed;
         }
-
-        &:focus {
-            color: $white;
-            border-color: $mandy2;
-            background-color: $mandy2;
-        }
     }
 
     &--covered#{&}--disabled {
@@ -312,8 +276,7 @@
         border-color: $athensGray;
         background-color: $athensGray;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $alto;
             border-color: $athensGray;
             background-color: $athensGray;
@@ -334,12 +297,6 @@
             border-color: $seaGreen;
             background-color: $white;
         }
-
-        &:focus {
-            color: $aquaForest;
-            border-color: $aquaForest;
-            background-color: $white;
-        }
     }
 
     &--outlined#{&}--red {
@@ -349,12 +306,6 @@
         &:hover {
             color: $brickRed;
             border-color: $brickRed;
-            background-color: $white;
-        }
-
-        &:focus {
-            color: $mandy2;
-            border-color: $mandy2;
             background-color: $white;
         }
     }
@@ -369,20 +320,13 @@
             border-color: $alto;
             background-color: $white;
         }
-
-        &:focus {
-            color: $mandy2;
-            border-color: $alto;
-            background-color: $white;
-        }
     }
 
     &--outlined#{&}--disabled {
         color: $alto;
         border-color: $alto;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $alto;
             border-color: $alto;
         }
@@ -398,12 +342,6 @@
             border-color: $brickRed;
             background-color: $white;
         }
-
-        &:focus {
-            color: $mandy2;
-            border-color: $mandy2;
-            background-color: $white;
-        }
     }
 
     &--mixed#{&}--gray-red {
@@ -411,8 +349,7 @@
         border-color: $athensGray;
         background-color: $athensGray;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $brickRed;
             border-color: $white;
             background-color: $white;
@@ -424,8 +361,7 @@
         border-color: $alto;
         background-color: $white;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $alto;
             border-color: $alto;
             background-color: $white;
@@ -459,10 +395,6 @@
         &:hover {
             color: $tuna;
         }
-
-        &:focus {
-            color: $tuna;
-        }
     }
 
     &--simple#{&}--gray {
@@ -471,17 +403,12 @@
         &:hover {
             color: $brickRed;
         }
-
-        &:focus {
-            color: $saltBox;
-        }
     }
 
     &--simple#{&}--disabled {
         color: $saltBox;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: $saltBox;
         }
     }
@@ -492,8 +419,7 @@
     }
 
     &--over {
-        &:hover,
-        &:focus {
+        &:hover {
             text-decoration: underline;
             text-underline-offset: rem(4px);
         }
@@ -528,8 +454,7 @@
     &--shadow {
         box-shadow: $box-shadow;
 
-        &:hover,
-        &:focus {
+        &:hover {
             background-color: $white;
         }
     }
