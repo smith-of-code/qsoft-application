@@ -322,13 +322,13 @@ export default function inputMaskInit($container, mask) {
         let currVal = $(e.target).val();
         let dateSplitted = currVal.toString().split('.');
         let day = dateSplitted[0];
-        let month = dateSplitted[1];
+        let month = dateSplitted[1] - 1;
         let year = dateSplitted[2];
         let today = new Date();
-        let birthDate = new Date(`${year}.${month}.${day}`);
+        let birthDate = new Date(year,month,day);
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
-
+      
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         } 
