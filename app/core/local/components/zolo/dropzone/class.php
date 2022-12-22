@@ -129,11 +129,13 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
             'upload' => [
                 '-prefilters' => [
                     Csrf::class,
+                    Authentication::class,
                 ],
             ],
             'delete' => [
                 '-prefilters' => [
                     Csrf::class,
+                    Authentication::class,
                 ],
             ],
         ];

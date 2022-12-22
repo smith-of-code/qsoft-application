@@ -6,9 +6,8 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
 	<ul class="cards-compilation__list">
 		<li class="cards-compilation__item cards-compilation__item--business cards-compilation__item--extra"> <article class="card-compilation card-compilation--big card-compilation--green box box--hovering box--circle"> <a href="/info/ame-business/" class="card-compilation__link"></a>
 		<div class="card-compilation__inner">
-			<div class="card-compilation__banner">
- <img alt="изображение подборки" src="https://placeimg.com/640/480/any" class="card-compilation__banner-image">
-			</div>
+			<img alt="изображение подборки" src="/local/templates/.default/images/main-collections.png" class="card-compilation__banner-image">
+			<div class="card-compilation__banner"></div>
 			<div class="card-compilation__label label label--secondary label--green">
 				 AmeБизнес
 			</div>
@@ -23,9 +22,8 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
  </article> </li>
 		<li class="cards-compilation__item cards-compilation__item--sale cards-compilation__item--extra"> <article class="card-compilation card-compilation--medium card-compilation--grey box box--hovering box--circle"> <a href="/catalog/" class="card-compilation__link"></a>
 		<div class="card-compilation__inner">
-			<div class="card-compilation__banner">
- <img alt="изображение подборки" src="https://placeimg.com/640/480/any" class="card-compilation__banner-image">
-			</div>
+			<img alt="изображение подборки" src="/local/templates/.default/images/main-collections-2.png" class="card-compilation__banner-image">
+			<div class="card-compilation__banner"></div>
 			<div class="card-compilation__label label label--primary label--red">
 				 -25%
 			</div>
@@ -40,29 +38,29 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
  </article> </li>
 		<li class="cards-compilation__item cards-compilation__item--compilation"> <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle"> <a href="/info/faq/" class="card-compilation__link"></a>
 		<div class="card-compilation__inner">
-			<div class="card-compilation__banner">
- <img alt="изображение подборки" src="https://placeimg.com/640/480/any" class="card-compilation__banner-image">
-			</div>
+			<img alt="изображение подборки" src="/local/templates/.default/images/main-collections-3.png" class="card-compilation__banner-image">
+			<div class="card-compilation__banner"></div>
 			<div class="card-compilation__label label label--secondary label--violet">
 				 Подборка
 			</div>
 			<div class="card-compilation__content">
 				<h2 class="card-compilation__title">
-				Строй свой бизнес с AmeAppetite, </h2>
+					Для шерстяных детенышей 
+				</h2>
 			</div>
 		</div>
  </article> </li>
 		<li class="cards-compilation__item cards-compilation__item--selection"> <article class="card-compilation card-compilation--small card-compilation--violet box box--hovering box--circle"> <a href="/info/" class="card-compilation__link"></a>
 		<div class="card-compilation__inner">
-			<div class="card-compilation__banner">
- <img alt="изображение подборки" src="https://placeimg.com/640/480/any" class="card-compilation__banner-image">
-			</div>
+			<img alt="изображение подборки" src="/local/templates/.default/images/main-collections-4.png" class="card-compilation__banner-image">
+			<div class="card-compilation__banner"></div>
 			<div class="card-compilation__label label label--secondary label--violet">
 				 Подборка
 			</div>
 			<div class="card-compilation__content">
 				<h2 class="card-compilation__title">
-				Строй свой бизнес с AmeAppetite, </h2>
+					Собираемся в дорогу
+				</h2>
 			</div>
 		</div>
  </article> </li>
