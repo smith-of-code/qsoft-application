@@ -78,7 +78,7 @@ function setDataToPopup (data, selected) {
                 <p class="heading heading--average">Техническая поддержка</p>
             </header>
             <section class="modal__section modal__section--content" data-scrollbar data-modal-section>
-                <form action="" class="form" data-validation data-support-form>
+                <form action="" class="form" data-validation="support" data-support-form>
                     <div class="form__row form__row--separated">
                         <div class="form__col">
                             <div class="form__field">
@@ -321,7 +321,7 @@ function setDataToPopup (data, selected) {
 }
 
 function initSendForm() {
-    $('[data-validation]').validate({
+    $('[data-validation="support"]').validate({
         submitHandler: () => {
             let fields = {
                 TICKET_TYPE: $('#ticket-type').val(),
