@@ -102,8 +102,8 @@ else:?>
                                                     id="delivery-date-required" 
                                                     placeholder="Дата доставки"
                                                     placeholder="ДД.ММ.ГГГГ"
-                                                    data-mask-date
-                                                       readonly
+                                                    data-mask-date-delivery
+                                                    readonly
                                                 >
                                             </div>
                                         </div>
