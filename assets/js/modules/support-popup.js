@@ -330,6 +330,14 @@ function initSendForm() {
                 COUSES: $('#couses-change').find(":selected").text()
             };
 
+            if (fields.TICKET_TYPE === "CHANGE_MENTOR") {
+                fields.MESSAGE = $('#couses-message').val()
+            } else if (fields.TICKET_TYPE === "REFUND_ORDER") {
+                fields.MESSAGE = $('#message-refund').val()
+            } else if (fields.TICKET_TYPE === "SUPPORT") {
+                fields.MESSAGE = $('#message-support').val()
+            }
+
             sendForm(fields);
         }
     });
