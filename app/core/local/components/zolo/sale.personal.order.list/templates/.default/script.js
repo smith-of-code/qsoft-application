@@ -181,8 +181,11 @@ function setBasketTemplate(data) {
 
         delete span;
 
-        span = createElement('span', ['product-line__params-value'], [], `${item.PRICE} ₽` ?? '0');
-
+        span = createElement('span', ['product-line__params-value'], [{name: 'data-item-price', value: `${item.PRICE}` ?? '0'},]);
+        spanWhole = createElement('span', ['product-line__params-value--whole'], []);
+        spanRemains = createElement('span', ['product-line__params-value--remains'], []);
+        
+        span.append(spanWhole, spanRemains)
         p.append(span);
 
         delete span;
@@ -213,7 +216,7 @@ function setBasketTemplate(data) {
         delete innerLi;
         delete p;
 
-        innerLi = createElement('li', ['product-line__params']);
+        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold']);
         p = createElement('p', ['product-line__text']);
         span = createElement('span', ['product-line__params-name'], [], 'Сумма баллов:');
 
@@ -266,3 +269,71 @@ function createElement(elementName, elementClasses = [], elementAttributs = [], 
 
     return element;
 }
+
+$( document ).ready(function() {
+    const orderItems = $(".cards-order__item");
+    const buttonMore = $('#showMore');
+
+    function rountedPrice(price, whole, remains) {
+        let orderItemPriceNum = parseFloat(price);
+        let totalFixied = orderItemPriceNum.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+
+        if (totalRemains === "00") {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            remains.text('₽');
+        } else {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            remains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
+    }
+
+    function transformValue(items, type) {
+        if (type === "product") {
+            items.each(function (index, item) {
+                const orderItemPrice = $(item).find('.product-line__params-value');
+                const orderItemPriceAttr = orderItemPrice.attr('data-item-price')
+                const orderItemPriceVal = orderItemPriceAttr?.replace(/\s/g,'').replace(/,/g, '.');
+                const spanWhole = orderItemPrice.find(".product-line__params-value--whole");
+                const spanRemains = orderItemPrice.find(".product-line__params-value--remains");
+    
+                if (orderItemPriceVal) {
+                    rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+                }
+            });
+        } else {
+            items.each(function (index, item) {
+                const orderItemPrice = $(item).find('.price__calculation-value');
+                const orderItemPriceVal = orderItemPrice.attr('data-order-price').replace(/\s/g,'').replace(/,/g, '.');
+                const spanWhole = orderItemPrice.find(".price__calculation-value--whole");
+                const spanRemains = orderItemPrice.find(".price__calculation-value--remains");
+    
+                if (orderItemPriceVal) {
+                    rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+                }
+            });
+        }
+    }
+    transformValue(orderItems);
+
+    let mutationObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            const targetRender = mutation.target;
+            const orderItems = $(targetRender).find('.cards-order__item');
+            const orderItem = $(targetRender).find('.table-list__item');
+       
+            transformValue(orderItems);
+            transformValue(orderItem, 'product');
+        });
+      });
+
+    mutationObserver.observe(document.documentElement, {
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: true,
+        characterDataOldValue: true
+    });
+
+});

@@ -62,7 +62,7 @@ else
     }
     ?>
 
-<h1 class="page__heading">Каталог товаров</h1>
+<h1 class="page__heading"><?=$arResult['VARIABLES']['SECTION_NAME'] ?? 'Каталог товаров'?></h1>
 
 <div class="content__main">
         <div class="catalog__wrapper">

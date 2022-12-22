@@ -156,7 +156,7 @@ export const PersonalData = {
 
                         <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                             <div class="profile__actions profile__actions--mobile">
-                                <button type="button" class="profile__actions-button button button--simple button--red">
+                                <button v-if="!editing" type="button" class="profile__actions-button button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -364,10 +364,11 @@ export const PersonalData = {
                                                                 name="birthdate"
                                                                 id="birthdate"
                                                                 placeholder="ДД.ММ.ГГГГ"
-                                                                data-mask-date
+                                                                data-mask-date-reg
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.birthdate"
                                                             >
+                                                            <span class="input__control-error--mask"></span>
                                                             <span class="input__icon">
                                                                 <svg class="icon icon--calendar">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
@@ -592,7 +593,7 @@ export const PersonalData = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="button button--rounded button--covered button--green button--full" @click="saveUserInfo">
+                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" @click="saveUserInfo">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>

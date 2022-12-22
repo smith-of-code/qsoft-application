@@ -78,25 +78,4 @@ class WishlistService
             ],
         ])->fetchAll();
     }
-
-    /**
-     * @param int $productId - NOT OFFER ID
-     * @return array
-     * @throws ArgumentException
-     * @throws ObjectPropertyException
-     * @throws SystemException
-     */
-    public function getByProductId(int $productId): array
-    {
-        if (!$this->user->isAuthorized) {
-            return [];
-        }
-
-        return WishlistTable::getList([
-            'filter' => [
-                '=UF_USER_ID' => $this->user->id,
-                '=UF_PRODUCT_ID' => $this->user->products->getOffersIds($productId),
-            ],
-        ])->fetchAll();
-    }
 }

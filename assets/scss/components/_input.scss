@@ -166,6 +166,14 @@
             }
         }
 
+        &--error-mask {
+            border-color: $brickRed !important;
+
+            &:focus {
+                border-color: $brickRed !important;
+            }
+        }
+
         &--error + .select2 {
             .select2-selection--single {
                 border-color: $brickRed !important;
@@ -189,6 +197,15 @@
             margin-left: rem($gap-medium);
 
             color: $brickRed;
+
+            &--mask {
+                font-size: rem($font-size-tiny);
+                line-height: rem(14px);
+    
+                margin-left: rem($gap-medium);
+    
+                color: $brickRed;  
+            }
         }
 
         &-static {
@@ -229,7 +246,7 @@
 
     &__icon {
         position: absolute;
-        top: 50%;
+        top: rem(24px);
         right: rem(12px);
 
         width: rem(24px);

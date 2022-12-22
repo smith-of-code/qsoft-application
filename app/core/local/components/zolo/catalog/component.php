@@ -139,6 +139,7 @@ if($arParams["SEF_MODE"] == "Y")
                 if(!empty($smartPart) && $arSection = CIBlockSection::GetList([], ['CODE' => $smartPart])->GetNext())
                 {
                     $arVariables["SECTION_ID"] = $arSection["ID"];
+                    $arVariables["SECTION_NAME"] = $arSection["NAME"];
                     break;
                 }
             }

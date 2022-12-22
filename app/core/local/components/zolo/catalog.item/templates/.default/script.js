@@ -14,9 +14,7 @@
 		this.startActions = function (isLazyLoad = false) {
 			const self = this;
 
-			this.initWishlist();
-
-			$('[data-card-favourite]').on('click', function () {
+			$('.product-cards__item [data-card-favourite]').on('click', function () {
 				const offerId = $(this).data('offer-id');
 				const productId = $(this).data('product-id');
 				if ($(this).data('card-favourite') === 'heart') {
@@ -27,7 +25,7 @@
 				self.products[productId].offers[offerId].inWishlist = !self.products[productId].offers[offerId].inWishlist;
 			});
 
-			$('[data-quantity-button], [data-quantity-increase]').on('click', function () {
+			$('.product-cards__item [data-quantity-button], .product-cards__item [data-quantity-increase]').on('click', function () {
 				const quantity = $(this).closest('[data-quantity]');
 				const offerId = quantity.data('offer-id');
 				const product = window.CatalogItemHelperZolo.products[quantity.data('product-id')];
@@ -38,7 +36,7 @@
 				);
 			});
 
-			$('[data-quantity-decrease]').on('click', function () {
+			$('.product-cards__item [data-quantity-decrease]').on('click', function () {
 				window.stores.basketStore.decreaseItem($(this).closest('[data-quantity]').data('offer-id'));
 			});
 
@@ -57,22 +55,6 @@
 				this.products[item.id] = item;
 			}
 		};
-
-		this.initWishlist = async function () {
-			for (let productId in this.products) {
-				const wishlist = await window.stores.wishlistStore.getByProductId(this.products[productId].realId);
-
-				for (let offerId in this.products[productId].offers) {
-					this.products[productId].offers[offerId].inWishlist = wishlist.data.indexOf(offerId) !== -1;
-					this.refreshWishlistButton(
-						productId,
-						this.products[productId].offers[offerId],
-						this.products[productId].container,
-						this.products[productId].offers[offerId].inWishlist
-					);
-				}
-			}
-		}
 
 		/**
 		 * Привязывает к каждому товару его контейнер (карточку)
@@ -132,10 +114,63 @@
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
 				// Отображение цен
+				function roundetPrice(price, whole, remains) {
+					let mainPriceNum = parseFloat(price);
+					let totalMainFixied = mainPriceNum.toFixed(2);
+					let totalMainRemains = totalMainFixied.toString().split('.')[1];
+
+					if (totalMainRemains === "00") {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+						remains.text('₽');
+					} else {
+						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+						remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+					}
+				}
+
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				mainPrice.html(`${this.formatNumber(offer.mainPrice)} ₽`);
+				const mainPriceData = $('.price__main');
+
+				mainPriceData.each((index, item) => {
+					const spanWhole = $(item).find(".product-card__price-whole");
+					const spanRemains = $(item).find(".product-card__price-remains");
+					const mainPriceAttr = $(item).attr('data-catalog-main-price');
+
+					if (mainPriceAttr) {
+						roundetPrice(mainPriceAttr, spanWhole, spanRemains);
+					}
+				})
+			
+				const priceBase = offer.mainPrice
+				const spanWhole = mainPrice.find(".product-card__price-whole");
+				const spanRemains = mainPrice.find(".product-card__price-remains");
+
+				if (priceBase) {
+					roundetPrice(priceBase, spanWhole, spanRemains);
+				}
+					
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
-				$('#' + this.products[id].elementsIds.totalPrice).html(`${this.formatNumber(offer.totalPrice)} ₽`);
+
+				const totalPrice = $('#' + this.products[id].elementsIds.totalPrice);
+				const totalPriceData = $('.price__calculation-total');
+
+				totalPriceData.each((index, item) => {
+					const spanWholeTotal = $(item).find(".product-card__price-whole");
+					const spanRemainsTotal = $(item).find(".product-card__price-remains");
+					const totalPriceAttr = $(item).attr('data-catalog-total-price');
+
+					if (totalPriceAttr) {
+						roundetPrice(totalPriceAttr, spanWholeTotal, spanRemainsTotal);
+					}
+				})
+
+				const priceTotal = offer.totalPrice
+				const spanWholeTotal = totalPrice.find(".product-card__price-whole");
+				const spanRemainsTotal = totalPrice.find(".product-card__price-remains");
+
+				if (priceTotal) {
+					roundetPrice(priceTotal, spanWholeTotal, spanRemainsTotal);
+				}
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);
@@ -155,7 +190,11 @@
 		 */
 		this.firstRefresh = function () {
 			for (let id in this.products) {
+				// Если это товар, у которого не заданы характеристики ТП (цвет, размер, фасовка)
 				if (typeof this.products[id].elementsIds.props == 'undefined' || this.products[id].firstlyRefreshed) {
+					// Вызываем refresh карточки товара принудительно, без использования элементов переключения ТП
+					this.refreshProductCard(id, {});
+					this.products[id].firstlyRefreshed = true;
 					continue;
 				}
 				
@@ -169,6 +208,7 @@
 						break;
 					}
 				}
+
 				this.products[id].firstlyRefreshed = true;
 			}
 		}
@@ -253,14 +293,15 @@
 				}
 			}
 
+			this.refreshBasketCount(id, offer, this.products[id].container);
+			this.refreshWishlistButton(id, offer, this.products[id].container, offer.inWishlist);
+
 			// Применяем изменения в видимости значений параметров ТП
 			for (let propCode in this.products[id].elementsIds.props) {
 
 				if (typeof visibilityTree[propCode] == 'undefined') {
 					continue;
 				}
-
-				this.refreshBasketCount(id, offer, this.products[id].container);
 
 				// Переключаем видимость в соответствии с перечнем
 				if (typeof this.products[id].elementsIds.props[propCode].desktop != 'undefined') {
@@ -300,7 +341,6 @@
 		this.refreshWishlistButton = function (id, offer, container, inWishlist) {
 			const button = container.find('[data-card-favourite]');
 			if (button && button.length) {
-				button.show();
 				const value = inWishlist ? 'heart-fill' : 'heart';
 				button.find('[data-card-favourite-icon]').attr('xlink:href', `/local/templates/.default/images/icons/sprite.svg#icon-${value}`);
 				button.data('card-favourite', value);
@@ -512,7 +552,7 @@
 
 			// Проверяем доступность ТП (наличие)
 			// Если ТП не доступно - выберем любое другое из доступных
-			if (! this.products[id].offers[offerId].available) {
+			if (offerId <= 0 || ! this.products[id].offers[offerId].available) {
 				for (let oId in this.products[id].offers) {
 					if (this.products[id].offers[oId].available) {
 
