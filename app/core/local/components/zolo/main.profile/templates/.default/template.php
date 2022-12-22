@@ -1122,7 +1122,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             <div class="card-stock__top">
                                                                 <div class="card-stock__wrapper">
                                                                     <div class="card-stock__image box box--circle">
-                                                                        <img src="<?=$promotion['image'] ?: '/local/templates/.default/images/no-image-placeholder.png'?>" alt="Image" class="card-stock__image-picture">
+                                                                        <img src="<?=$promotion['image'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="Image" class="card-stock__image-picture">
                                                                     </div>
                                                                     <?php if ($promotion['active_to']):?>
                                                                         <div class="card-stock__finish date-finish">
