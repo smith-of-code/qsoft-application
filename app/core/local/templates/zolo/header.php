@@ -103,7 +103,7 @@ $user = new User;?>
                                     <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
                                         <div class="logout__name">
                                             <button class="button button--simple button--red" onclick="location.href='/personal';">
-                                                <?=$user->getFullName()?>
+                                                <?=$user->lastName?><br><?=$user->name?> <?=$user->secondName?>
                                             </button>
                                         </div>
                                         <div class="logout__id">
@@ -112,7 +112,7 @@ $user = new User;?>
                                         <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout>
                                             <span class="button__icon">
                                                 <svg class="icon icon--basket">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-logout"></use>
                                                 </svg>
                                             </span>
                                             <span class="button__text">Выйти из профиля</span>

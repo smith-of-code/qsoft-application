@@ -71,7 +71,7 @@ global $USER;
                                         class="button button--huge button--rounded button--outlined button--red button--full">
                                     <span class="button__icon">
                                         <svg class="icon icon--user">
-                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-login"></use>
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-logout"></use>
                                         </svg>
                                     </span> 
                                     <span class="button__text">Выйти из профиля</span> 
