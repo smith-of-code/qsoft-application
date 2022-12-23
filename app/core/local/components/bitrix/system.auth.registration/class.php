@@ -227,8 +227,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
-                } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Пользователь не найден'];
+                } catch (\Throwable $e) {
+                    return ['status' => 'error', 'message' => 'Пользователя с таким ID  не существует'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {

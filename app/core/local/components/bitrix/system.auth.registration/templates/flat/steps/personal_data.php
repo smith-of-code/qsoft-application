@@ -154,9 +154,10 @@
                                        name="birthdate"
                                        id="birthdate"
                                        placeholder="ДД.ММ.ГГГГ"
-                                       data-mask-date
+                                       data-mask-date-reg
                                        value="<?=$arResult['birthdate']?>"
                                 >
+                                <span class="input__control-error--mask"></span>
                                 <span class="input__icon">
                                         <svg class="icon icon--calendar">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>

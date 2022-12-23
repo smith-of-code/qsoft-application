@@ -71,6 +71,21 @@ class CSystemAuthRegistrationComponent {
         const isForwardDirection = $(this).data('direction') === 'next';
         let data = registrationData;
 
+        let inputBirthdate = document.querySelector('#birthdate');
+        let inputBirthdateVal = $(inputBirthdate).val();
+        let dateSplitted = inputBirthdateVal.toString().split('.');
+        let day = dateSplitted[0];
+        let month = dateSplitted[1] - 1;
+        let year = dateSplitted[2];
+        let today = new Date();
+        let birthDate = new Date(year,month,day);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        } 
+
         if (isForwardDirection) {
             if (data.currentStep === 'personal_data' && data.confirmedPhone !== $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '')) {
                 $('[data-send-code]').css('color', 'red');
@@ -155,6 +170,15 @@ class CSystemAuthRegistrationComponent {
                     if (!data[$(item).attr('name')] && ['agree_with_personal_data_processing', 'agree_with_terms_of_use', 'agree_with_company_rules', 'correctness_confirmation_self_employed', 'correctness_confirmation_ip', 'correctness_confirmation_ltc'].includes($(item).attr('name'))) {
                         $(item).addClass('input__control--error');
                     }
+                } else if (age < 18) {
+                    let parent = $(inputBirthdate).parent();
+                    let message = parent.find('.input__control-error--mask');
+                    let buttonNext = $('button[data-direction="next"]');
+
+                    $(inputBirthdate).addClass('input__control--error');
+                    message.show();
+                    message.html('Вам должно быть больше 18-ти лет');
+                    buttonNext.prop('disabled', true).addClass('button--disabled');
                 } else {
                     if (!$(item).val()) {
                         if (
@@ -316,8 +340,6 @@ class CSystemAuthRegistrationComponent {
       $.fancybox.close({ src: '#approve-number' });
 
       const continueButton = $(`.${registrationData.currentStep} [data-change-step]`);
-      continueButton.removeClass('button--disabled');
-      continueButton.attr('disabled', null);
   }
 
   async register() {

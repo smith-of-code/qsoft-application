@@ -161,6 +161,10 @@
 
             margin-bottom: 0;
         }
+        &-value {
+            display: flex;
+            align-items: baseline;
+        }
 
         &-item {
             font-size: rem($font-size-small);
@@ -170,6 +174,10 @@
             letter-spacing: 0.02em;
 
             color: $saltBox;
+
+            &-remains {
+                font-size: rem($font-size-mini);
+            }
         }
 
         &-sufix {

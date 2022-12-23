@@ -28,11 +28,6 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
                     Csrf::class
                 ],
             ],
-            'getByProductId' => [
-                '-prefilters' => [
-                    Csrf::class
-                ],
-            ],
         ];
     }
 
@@ -44,10 +39,5 @@ class WishlistComponent extends CBitrixComponent implements Controllerable
     public function removeAction(int $productId): void
     {
         $this->user->wishlist->remove($productId);
-    }
-
-    public function getByProductIdAction(int $productId): array
-    {
-        return array_column($this->user->wishlist->getByProductId($productId), 'UF_PRODUCT_ID');
     }
 }
