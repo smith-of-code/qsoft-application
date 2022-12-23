@@ -27,6 +27,7 @@
 
     &__item {
         display: flex;
+        align-items: baseline;
 
         margin-bottom: rem($gap-small);
         padding: 0 rem($gap-small);
