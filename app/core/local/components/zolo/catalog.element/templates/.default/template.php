@@ -338,13 +338,13 @@ $offerId = $arResult['OFFER_FIRST'];
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE']): ?>
+                    <?php if (in_array('COMPOSITION', $arResult['ADDITIONAL_TABS']) && ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE'])): ?>
                         <li class="detail__information-tabs-item tabs__item" data-tab="block2">
                             Состав
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($arResult['FEEDING_RECOMMENDATIONS']): ?>
+                    <?php if (in_array('FEEDING_ADVICE', $arResult['ADDITIONAL_TABS']) && $arResult['FEEDING_RECOMMENDATIONS']): ?>
                         <li class="detail__information-tabs-item tabs__item" data-tab="block3">
                             Рекомендации по кормлению
                         </li>
