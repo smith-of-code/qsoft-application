@@ -362,8 +362,8 @@ function sendForm(data) {
 
         let errorsVariant = {
             sameId: 'ID нового наставника совпадает с вашим',
-            noneId: 'Введён несущестыующий ID наставника',
-            novalidId: 'Некнекорректный ID наставника',
+            noneId: 'Такого пользователя не существует',
+            novalidId: 'Указанный пользователь не может быть Вашим наставником',
         }
 
         if (messageError === errorsVariant.sameId ) {
