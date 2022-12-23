@@ -1,6 +1,7 @@
 import { usePetStore } from '../../../stores/petStore';
 import { Select } from "../../gui/select/src/component";
 import { DateInput } from "../../gui/dateInput/src/component";
+import tooltip from '../../../../../../../../assets/js/modules/tooltip.js'
 
 export const Pets = {
     components: { Select, DateInput },
@@ -78,6 +79,14 @@ export const Pets = {
 
             pet.editing = false;
             this.originalPets[pet.id] = JSON.parse(JSON.stringify(pet));
+            
+            setTimeout(() => {
+                tippy('button[data-tippy-content]', {
+                    theme: 'light',
+                    arrow: false,
+                    appendTo: 'parent',
+                });
+            }, 500); 
         },
     },
 
