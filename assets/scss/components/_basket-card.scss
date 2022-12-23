@@ -75,6 +75,8 @@
         line-height: (22px/$font-size-small);
 
         order: 3;
+        display: flex;
+        align-items: center;
 
         color: $tuna;
 
@@ -84,6 +86,10 @@
 
         &--bold {
             font-weight: $font-weight-semibold;
+        }
+
+        &-remains {
+            font-size: rem($font-size-mini);
         }
     }
 

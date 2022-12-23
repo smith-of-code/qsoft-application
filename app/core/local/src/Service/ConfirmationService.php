@@ -47,7 +47,7 @@ class ConfirmationService
         );
     }
 
-    public function sendEmailConfirmation(): void
+    public function sendEmailConfirmation(string $eventName = 'NEW_USER_CONFIRM'): void
     {
         $code = $this->generateCode();
 
@@ -59,7 +59,7 @@ class ConfirmationService
         ]);
 
         Event::send([
-            'EVENT_NAME' => 'NEW_USER_CONFIRM',
+            'EVENT_NAME' => $eventName,
             'LID' => SITE_ID,
             'C_FIELDS' => [
                 'EMAIL' => $this->user->email,

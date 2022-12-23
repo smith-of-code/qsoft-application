@@ -95,7 +95,7 @@ function setDataToPopup (data, selected) {
                                                 <option><!-- пустой option для placeholder --></option>
                                                 <option value="REFUND_ORDER" data-variant="REFUND_ORDER" ${selected === 'REFUND_ORDER' ? 'selected' : ''}>Возврат заказа</option>
                                                 <option value="SUPPORT" data-variant="SUPPORT" ${selected === 'SUPPORT' ? 'selected' : ''}>Неработающая функциональность</option>
-                                                <option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ${selected === 'CHANGE_MENTOR' ? 'selected' : ''}>Смена наставника/контактного лица</option>
+                                                ${!data.MENTHOR_ID || data.MENTHOR_ID === 'false' ? '' : ('<option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ' + (selected === 'CHANGE_MENTOR' ? 'selected' : '') + '>Смена наставника/контактного лица</option>')}
                                                 <option value="OTHER" data-variant="OTHER" ${selected === 'OTHER' ? 'selected' : ''}>Другое</option>
                                             </select>
                                         </div>

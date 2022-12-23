@@ -9,6 +9,10 @@ export const OfferImage = {
             type: Boolean,
             required: true,
         },
+        noImagePlaceholder: {
+            type: String,
+            required: true,
+        },
     },
 
     computed: {
@@ -85,11 +89,11 @@ export const OfferImage = {
                                         </button>
                                     </div>
     
-                                    <a href="/local/templates/.default/images/no-image-placeholder.png" data-fancybox="gallery">
+                                    <a :href="noImagePlaceholder" data-fancybox="gallery">
                                         <div class="product-card__wrapper">
                                             <div class="product-card__image box box--circle">
                                                 <div class="product-card__box">
-                                                    <img src="/local/templates/.default/images/no-image-placeholder.png" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                                    <img :src="noImagePlaceholder" v-bind:alt="offers.TITLE" class="product-card__pic">
                                                 </div>
                                             </div>
                                         </div>
