@@ -1259,27 +1259,35 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 				$this->formatDate($arOrder, $this->orderDateFields2Convert);
 
-				if (is_array($this->dbResult['ORDERS'][$k]['SHIPMENT']))
-				{
-					$formattedShipments = [];
-					foreach ($this->dbResult['ORDERS'][$k]['SHIPMENT'] as $i => $shipment)
-					{
-						$this->formatDate($shipment, $this->orderDateFields2Convert);
-						$formattedShipments[$i] = $shipment;
-					}
-					$this->dbResult['ORDERS'][$k]['SHIPMENT'] = $formattedShipments;
-				}
+                if (is_array($this->dbResult['ORDERS'][$k]['SHIPMENT']))
+                {
+                    if (is_numeric(array_key_first($this->dbResult['ORDERS'][$k]['SHIPMENT']))) {
+                        $formattedShipments = [];
+                        foreach ($this->dbResult['ORDERS'][$k]['SHIPMENT'] as $i => $shipment)
+                        {
+                            $this->formatDate($shipment, $this->orderDateFields2Convert);
+                            $formattedShipments[$i] = $shipment;
+                        }
+                        $this->dbResult['ORDERS'][$k]['SHIPMENT'] = $formattedShipments;
+                    } else {
+                        $this->formatDate($this->dbResult['ORDERS'][$k]['SHIPMENT'], $this->orderDateFields2Convert);
+                    }
+                }
 
-				if (is_array($this->dbResult['ORDERS'][$k]['PAYMENT']))
-				{
-					$formattedPayments = [];
-					foreach ($this->dbResult['ORDERS'][$k]['PAYMENT'] as $i => $payment)
-					{
-						$this->formatDate($payment, $this->orderDateFields2Convert);
-						$formattedPayments[$i] = $payment;
-					}
-					$this->dbResult['ORDERS'][$k]['PAYMENT'] = $formattedPayments;
-				}
+                if (is_array($this->dbResult['ORDERS'][$k]['PAYMENT']))
+                {
+                    if (is_numeric(array_key_first($this->dbResult['ORDERS'][$k]['PAYMENT']))) {
+                        $formattedPayments = [];
+                        foreach ($this->dbResult['ORDERS'][$k]['PAYMENT'] as $i => $payment)
+                        {
+                            $this->formatDate($payment, $this->orderDateFields2Convert);
+                            $formattedPayments[$i] = $payment;
+                        }
+                        $this->dbResult['ORDERS'][$k]['PAYMENT'] = $formattedPayments;
+                    } else {
+                        $this->formatDate($this->dbResult['ORDERS'][$k]['PAYMENT'], $this->orderDateFields2Convert);
+                    }
+                }
 
 				if ($this->arParams['DISALLOW_CANCEL'] === 'Y')
 				{
