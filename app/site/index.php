@@ -168,7 +168,7 @@ $user = new \QSoft\Entity\User;
                 "USE_MAIN_ELEMENT_SECTION" => "N",
                 "CONVERT_CURRENCY" => "N",
                 "CURRENCY_ID" => "",
-                "HIDE_NOT_AVAILABLE" => "N",
+                "HIDE_NOT_AVAILABLE" => "Y",
                 "HIDE_NOT_AVAILABLE_OFFERS" => "N",
 
                 'LABEL_PROP' => "",
