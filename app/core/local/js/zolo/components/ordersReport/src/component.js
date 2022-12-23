@@ -126,7 +126,7 @@ export const OrdersReport = {
                         </div>
                     </li>
 
-                    <li class="results__item">
+                    <li v-if="ordersReport.last_order_date" class="results__item">
                         <div class="result">
                             <div class="result__main">
                                 <p class="result__title">Дата {{ label2 }} последнего заказа</p>
