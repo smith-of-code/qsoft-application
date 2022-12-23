@@ -1,10 +1,10 @@
-window.onload = function () {
+$(function () {
     //Выполнить чтение уведомления по клику на уведомление
     let notificationRedirectAnchor = document.querySelectorAll('.status__link');
     for (let i = 0; i < notificationRedirectAnchor.length; i++) {
         notificationRedirectAnchor[i].addEventListener('click', readNotification);
     }
-}
+})
 
 //Прочитать уведомление
 function readNotification(redirectEvent) {

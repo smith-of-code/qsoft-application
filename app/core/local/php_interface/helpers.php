@@ -70,7 +70,7 @@ if (!function_exists('mb_ucfirst')) {
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
-        return str_replace("'", '"', CUtil::PhpToJSObject($array));
+        return htmlspecialchars(str_replace("'", '"', CUtil::PhpToJSObject($array)));
     }
 }
 if (!function_exists('numberToRoman')) {
@@ -118,5 +118,26 @@ if (!function_exists('normalizePhoneNumber')) {
             $phoneNumber = "+$phoneNumber";
         }
         return UserPhoneAuthTable::normalizePhoneNumber($phoneNumber);
+    }
+}
+
+if (!function_exists('declinationProduct')) {
+    function declinationProduct(int $numeral): string
+    {
+        if (!$numeral) return "Найдено <span class=\"catalog__results-count\">$numeral</span> товаров";
+
+        $n = $numeral;
+        $numeral = $numeral % 100;
+        if ($numeral > 19) {
+            $numeral = $numeral % 10;
+        }
+
+        switch ($numeral) {
+            case  1: return "Найден <span class=\"catalog__results-count\">$n</span> товар";
+            case  2:
+            case  3:
+            case  4: return "Найдено <span class=\"catalog__results-count\">$n</span> товара";
+            default: return "Найдено <span class=\"catalog__results-count\">$n</span> товаров";
+        }
     }
 }

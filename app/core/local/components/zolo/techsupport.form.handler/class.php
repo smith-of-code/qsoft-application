@@ -1,8 +1,7 @@
-<?php
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
-    die();
-}
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use QSoft\Entity\User;
 
@@ -36,6 +35,13 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
             'load' => [
                 '-prefilters' => [
                     Csrf::class,
+                    Authentication::class,
+                ],
+            ],
+            'sendTicket' => [
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
                 ],
             ]
         ];

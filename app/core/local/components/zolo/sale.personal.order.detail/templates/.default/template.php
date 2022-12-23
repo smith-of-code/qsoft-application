@@ -7,6 +7,9 @@ use Bitrix\Main\Localization\Loc;
 use QSoft\Helper\OrderHelper;
 
 $details = $arResult['ORDER_DETAILS'];
+
+$APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
+
 ?>
 <!--Кнопка "К списку заказов" -->
 <a href="/personal/orders/" class="orders__transition button button--back button--simple button--red">
@@ -30,7 +33,7 @@ $details = $arResult['ORDER_DETAILS'];
                         <header class="card-order__header">
                             <ul class="card-order__list">
 
-                                <li class="card-order__item">
+                                <li class="card-order__item card-order__item--inlined">
                                     <!--№ номер заказа-->
                                     <h2 class="card-order__title ">
                                         <?=Loc::getMessage("ORDER_NUMBER_DETAILS_TABLE")?><?=$details['ORDER_ID']?>
@@ -43,7 +46,7 @@ $details = $arResult['ORDER_DETAILS'];
 
                                 <!--Кем заказан-->
                                 <li class="card-order__item card-order__item--span">
-                                    <div class="info-slot">
+                                    <div class="info-slot info-slot--inlined">
                                         <p class="info-slot__name">
                                             <?=Loc::getMessage("CREATED_BY_DETAILS_TABLE")?>
                                         </p>
@@ -56,9 +59,6 @@ $details = $arResult['ORDER_DETAILS'];
                                 <!--Статус заказа-->
                                 <li class="card-order__item card-order__item--delivery">
                                     <div class="info-slot">
-                                        <p class="info-slot__name">
-                                            <?=Loc::getMessage("ORDER_STATUS_DETAILS_TABLE")?>
-                                        </p>
                                         <p class="info-slot__value info-slot__value--marked">
                                             <?=$details['ORDER_STATUS']?>
                                         </p>
@@ -97,14 +97,18 @@ $details = $arResult['ORDER_DETAILS'];
                                                 <?php } ?>
 
                                                 <!-- итоговая стоимость ₽ -->
-                                                <span class="price__calculation-value">
-                                                    <?=$details['TOTAL_PRICE']?><?=Loc::getMessage("RUBLE_SYMBOL")?>
+                                                <span class="price__calculation-value assets"
+                                                        data-order-amount="<?=$details['TOTAL_PRICE']?>">
+                                                    <span class="price__calculation-value--whole"></span>
+                                                    <span class="price__calculation-value--remains"></span>
                                                 </span>
                                             </p>
 
                                             <?php if ($arResult['IS_CONSULTANT']):?>
                                                 <!-- итоговое количество баллов ББ -->
-                                                <p class="price__calculation-accumulation"><?=$details['BONUSES']?><?=Loc::getMessage("BONUS_SYMBOL")?></p>
+                                                <p class="price__calculation-accumulation">
+                                                    <?= number_format($details['BONUSES'], 0, '', ' ')?><?=Loc::getMessage("BONUS_SYMBOL")?>
+                                                </p>
                                             <?php endif;?>
                                         </div>
                                     </div>
@@ -128,8 +132,8 @@ $details = $arResult['ORDER_DETAILS'];
 
                         <!-- Состав заказа (товары)-->
                         <div class="card-order__content">
-                            <div class="accordeon__item box" data-accordeon>
-                                <div class="accordeon__header" data-accordeon-toggle>
+                            <div class="accordeon__item box" data-accordeon data-accordeon-toggle>
+                                <div class="accordeon__header">
                                     <h6 class="accordeon__title"><?=Loc::getMessage("ORDER_PRODUCTS_BUTTON")?></h6>
                                     <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">
                                         <span class="accordeon__toggle-icon button__icon">
@@ -186,8 +190,9 @@ $details = $arResult['ORDER_DETAILS'];
                                                             <ul class="product-line__list">
                                                                 <li class="product-line__params product-line__params--span">
                                                                     <p class="product-line__text">
-                                                                        <span class="product-line__params-value product-price">
-                                                                            <?=$product['PRICE']?><?=Loc::getMessage("RUBLE_SYMBOL")?>
+                                                                        <span class="product-line__params-value product-price" data-item-price="<?=$product['PRICE']?>">
+                                                                            <span class="product-line__params-value--whole"></span>
+                                                                            <span class="product-line__params-value--remains"></span>
                                                                         </span>
                                                                     </p>
                                                                 </li>
@@ -202,7 +207,7 @@ $details = $arResult['ORDER_DETAILS'];
                                                                     <li class="product-line__params product-line__params--bold">
                                                                         <p class="product-line__text">
                                                                             <span class="product-line__params-value product-credit product-bonus">
-                                                                                <?=$product['BONUSES']?> ББ
+                                                                                <?= number_format($product['BONUSES'], 0, '', ' ') ?> ББ
                                                                             </span>
                                                                         </p>
                                                                     </li>

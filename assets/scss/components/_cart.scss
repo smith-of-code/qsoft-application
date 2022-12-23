@@ -34,6 +34,10 @@
         @media #{$screen-desktop} {
             margin-bottom: rem(22px);
         }
+
+        &-remains {
+            font-size: rem($font-size-mini);
+        }
     }
 
     &__packs,

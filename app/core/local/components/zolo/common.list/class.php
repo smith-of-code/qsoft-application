@@ -1,5 +1,7 @@
 <?if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die();
 
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use \Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\Loader;
 use QSoft\ORM\MarkerTable;
@@ -14,8 +16,8 @@ class CommonPageComponent extends CBitrixComponent implements Controllerable
         return [
             'load' => [
                 '-prefilters' => [
-                    \Bitrix\Main\Engine\ActionFilter\Csrf::class,
-                    \Bitrix\Main\Engine\ActionFilter\Authentication::class
+                    Csrf::class,
+                    Authentication::class
                 ],
             ]
         ];

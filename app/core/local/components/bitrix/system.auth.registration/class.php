@@ -2,6 +2,8 @@
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Engine\ActionFilter\Authentication;
+use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
@@ -169,16 +171,28 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     {
         return [
             'saveStep' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
             'sendPhoneCode' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
             'verifyPhoneCode' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
             'register' => [
-                'prefilters' => [],
+                '-prefilters' => [
+                    Csrf::class,
+                    Authentication::class,
+                ],
             ],
         ];
     }
@@ -213,8 +227,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     if (!(new UserGroupsService(new User($value)))->isConsultant()) {
                         throw new InvalidArgumentException('Mentor not found');
                     }
-                } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Пользователь не найден'];
+                } catch (\Throwable $e) {
+                    return ['status' => 'error', 'message' => 'Пользователя с таким ID  не существует'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {

@@ -1,0 +1,49 @@
+.logout {
+    flex-direction: column;
+    align-items: center;
+    padding: rem(32px) rem(23px) rem(23px) rem(23px);
+    border-radius: rem(24px);
+
+    &.dropdown__box--shifted {
+        left: rem(-68px);
+    }
+
+    &__name {
+        font-size: rem($font-size-small);
+        font-weight: $font-weight-medium;
+        line-height: ($line-height-miniature/$font-size-small);
+
+        text-align: center; 
+
+        max-width: rem(179px);
+        margin-bottom: rem(8px);
+    
+        color: $saltBox;
+    }
+
+    &__id {
+        font-size: rem($font-size-miniature);
+        font-weight: $font-weight-medium;
+        line-height: ($line-height-miniature/$font-size-small);
+        margin-bottom: rem(12px);
+    
+        color: $alto;
+    }
+
+    &__button {
+        padding: 0 rem(18px) 0 rem(13px);
+
+        .button__text {
+            font-size: rem($font-size-miniature);
+            font-weight: $font-weight-medium;
+            line-height: ($line-height-miniature/$font-size-small);
+        }
+
+        .button__icon {
+            $size: 20px;
+
+            width: rem($size);
+            height: rem($size);
+        }
+    }
+}

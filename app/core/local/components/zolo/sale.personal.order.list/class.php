@@ -1005,22 +1005,20 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
         $user = new User;
         /** @var Order $orderObject */
         foreach ($orderInfo as $orderObject) {
-            if ($user->groups->isConsultant()) {
-                $orderBonuses = 0;
-                /** @var BasketItem $basketItem */
-                foreach ($orderObject->getBasket() as $basketItem) {
-                    /** @var BasketPropertyItem $property */
-                    foreach ($basketItem->getPropertyCollection() as $property) {
-                        if ($property->getField('CODE') === 'BONUSES') {
-                            $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
-                        }
-                        if ($property->getField('CODE') === 'PERSONAL_PROMOTION') {
-                            $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
-                        }
+            $orderBonuses = 0;
+            /** @var BasketItem $basketItem */
+            foreach ($orderObject->getBasket() as $basketItem) {
+                /** @var BasketPropertyItem $property */
+                foreach ($basketItem->getPropertyCollection() as $property) {
+                    if ($property->getField('CODE') === 'BONUSES') {
+                        $orderBonuses += $property->getField('VALUE') * $basketItem->getQuantity();
+                    }
+                    if ($property->getField('CODE') === 'PERSONAL_PROMOTION' && $property->getField('VALUE')) {
+                        $listOrders[$orderObject->getField('ID')]['PERSONAL_PROMOTION'] = true;
                     }
                 }
-                $listOrders[$orderObject->getField('ID')]['BONUSES'] = $orderBonuses;
             }
+            $listOrders[$orderObject->getField('ID')]['BONUSES'] = $orderBonuses;
 			$orders[$orderObject->getField('ID')] = $orderObject->getField('PAY_VOUCHER_NUM');
 		}
 
@@ -1261,27 +1259,35 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 				$this->formatDate($arOrder, $this->orderDateFields2Convert);
 
-				if (is_array($this->dbResult['ORDERS'][$k]['SHIPMENT']))
-				{
-					$formattedShipments = [];
-					foreach ($this->dbResult['ORDERS'][$k]['SHIPMENT'] as $i => $shipment)
-					{
-						$this->formatDate($shipment, $this->orderDateFields2Convert);
-						$formattedShipments[$i] = $shipment;
-					}
-					$this->dbResult['ORDERS'][$k]['SHIPMENT'] = $formattedShipments;
-				}
+                if (is_array($this->dbResult['ORDERS'][$k]['SHIPMENT']))
+                {
+                    if (is_numeric(array_key_first($this->dbResult['ORDERS'][$k]['SHIPMENT']))) {
+                        $formattedShipments = [];
+                        foreach ($this->dbResult['ORDERS'][$k]['SHIPMENT'] as $i => $shipment)
+                        {
+                            $this->formatDate($shipment, $this->orderDateFields2Convert);
+                            $formattedShipments[$i] = $shipment;
+                        }
+                        $this->dbResult['ORDERS'][$k]['SHIPMENT'] = $formattedShipments;
+                    } else {
+                        $this->formatDate($this->dbResult['ORDERS'][$k]['SHIPMENT'], $this->orderDateFields2Convert);
+                    }
+                }
 
-				if (is_array($this->dbResult['ORDERS'][$k]['PAYMENT']))
-				{
-					$formattedPayments = [];
-					foreach ($this->dbResult['ORDERS'][$k]['PAYMENT'] as $i => $payment)
-					{
-						$this->formatDate($payment, $this->orderDateFields2Convert);
-						$formattedPayments[$i] = $payment;
-					}
-					$this->dbResult['ORDERS'][$k]['PAYMENT'] = $formattedPayments;
-				}
+                if (is_array($this->dbResult['ORDERS'][$k]['PAYMENT']))
+                {
+                    if (is_numeric(array_key_first($this->dbResult['ORDERS'][$k]['PAYMENT']))) {
+                        $formattedPayments = [];
+                        foreach ($this->dbResult['ORDERS'][$k]['PAYMENT'] as $i => $payment)
+                        {
+                            $this->formatDate($payment, $this->orderDateFields2Convert);
+                            $formattedPayments[$i] = $payment;
+                        }
+                        $this->dbResult['ORDERS'][$k]['PAYMENT'] = $formattedPayments;
+                    } else {
+                        $this->formatDate($this->dbResult['ORDERS'][$k]['PAYMENT'], $this->orderDateFields2Convert);
+                    }
+                }
 
 				if ($this->arParams['DISALLOW_CANCEL'] === 'Y')
 				{
@@ -1543,9 +1549,13 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
             'load' => [
                 '-prefilters' => [
                     Main\Engine\ActionFilter\Csrf::class,
-                    Main\Engine\ActionFilter\Authentication::class
                 ],
-            ]
+            ],
+            'reloadData' => [
+                '-prefilters' => [
+                    Main\Engine\ActionFilter\Csrf::class,
+                ],
+            ],
         ];
     }
 
