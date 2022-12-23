@@ -70,9 +70,14 @@
 
         &-topic {
             color: $saltBox;
+
+            @media #{$screen-mobile-lg} {
+                max-width: min-content;
+            }
         }
 
         &-response {
+            font-weight: $font-weight-medium;
             order: 3;
 
             word-break: break-word;
