@@ -8,7 +8,7 @@ $APPLICATION->IncludeComponent(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => IBLOCK_PRODUCT,
 		"TEMPLATE_THEME" => "",
-		"HIDE_NOT_AVAILABLE" => "N",
+		"HIDE_NOT_AVAILABLE" => "Y",
 		"BASKET_URL" => "/cart/",
 		"ACTION_VARIABLE" => "action",
 		"PRODUCT_ID_VARIABLE" => "id",
