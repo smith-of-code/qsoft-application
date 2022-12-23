@@ -12,6 +12,7 @@ async function repeatOrder() {
 
     if (missedProducts.length) {
         const container = $('#orderOutStock .out-stock__list');
+        container.find('li').remove();
 
         for (let product of missedProducts) {
             const li = createElement('li', ['out-stock__item']);
