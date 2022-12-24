@@ -57,6 +57,8 @@
             line-height: ($line-height-small/$font-size-mini);
 
             display: flex;
+            align-items: baseline;
+            
             margin-right: rem(6px);
 
             @media #{$screen-desktop} {
