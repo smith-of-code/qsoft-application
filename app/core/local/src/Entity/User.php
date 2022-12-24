@@ -313,7 +313,7 @@ class User
             'first_name' => $this->name,
             'last_name' => $this->lastName,
             'second_name' => $this->secondName,
-            'name_initials' => $this->lastName . ' ' . mb_strtoupper(mb_substr($this->name, 0, 1)) . '.' . mb_strtoupper(mb_substr($this->secondName, 0, 1)) . '.',
+            'name_initials' => $this->lastName . ' ' . mb_strtoupper(mb_substr($this->name, 0, 1)) . '.' . ($this->secondName ? (mb_strtoupper(mb_substr($this->secondName, 0, 1)) . '.') : ''),
             'full_name' => $this->getFullName(),
             'gender' => $this->gender,
             'photo' => $this->getPhotoUrl(),
