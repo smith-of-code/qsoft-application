@@ -32,7 +32,7 @@
                                         </svg>
                                     </span>
 
-                                <span class="checkbox__text">Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'Контактное лицо' : 'наставника'?></span>
+                                <span class="checkbox__text" checked>Хочу, чтобы мне подобрали <?=$arResult['type'] === 'buyer' ? 'Контактное лицо' : 'наставника'?></span>
                             </label>
                         </div>
                     </div>
@@ -54,7 +54,8 @@
                                         name="mentor_id"
                                         id="mentor_id"
                                         placeholder="Введите ID <?=$arResult['type'] === 'buyer' ? 'контактного лица' : 'наставника'?>"
-                                        value="<?=$arResult['mentor_id']?>"
+                                        value="<?=$arResult['without_mentor_id'] === 'true' ? '' : $arResult['mentor_id']?>"
+                                        <?=$arResult['without_mentor_id'] === 'true' ? 'disabled' : ''?>
                                 >
                             </div>
                         </div>
