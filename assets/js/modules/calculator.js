@@ -138,7 +138,6 @@ export default function () {
 
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
-        console.log(this);
         let value = +$(this).val().replace(/\s/g, "");
 
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
