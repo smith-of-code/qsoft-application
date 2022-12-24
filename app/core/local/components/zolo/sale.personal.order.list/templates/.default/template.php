@@ -100,8 +100,10 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                                 </svg>
                                                                             </span>
                                                                         <?php endif; ?>
-                                                                        <span class="price__calculation-value">
-                                                                            <?=number_format($order['ORDER']['PRICE'], 0, ' ', ' ')?> ₽
+                                                                        <span class="price__calculation-value"
+                                                                            data-order-price="<?=$order['ORDER']['PRICE']?>">
+                                                                            <span class="price__calculation-value--whole"></span>
+                                                                            <span class="price__calculation-value--remains"></span>
                                                                         </span>
                                                                     </p>
                                                                     <?php if ($arResult['IS_CONSULTANT']):?>
@@ -114,8 +116,8 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                 </header>
 
                                                 <div class="card-order__content">
-                                                    <div class="accordeon__item box" data-accordeon>
-                                                        <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" data-accordeon-toggle>
+                                                    <div class="accordeon__item box" data-accordeon data-accordeon-toggle>
+                                                        <div class="accordeon__header" button-id="<?=$order['ORDER']['ID'] ?>" >
                                                             <h6 class="accordeon__title"><?=getMessage('ORDER_COMPOSITION') ?></h6>
 
                                                             <button type="button" class="accordeon__toggle button button--circular button--mini button--covered button--red-white">

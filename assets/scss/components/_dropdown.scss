@@ -95,6 +95,12 @@
         }
     }
 
+    &--hover & {
+        &__box {
+            transition: all .3s ease-in-out;
+        } 
+    }
+
     &__box {
         position: absolute;
         z-index: $z-index-menu;

@@ -7,14 +7,12 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
-use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Security\Password;
 use Bitrix\Sale\Fuser;
 use Carbon\Carbon;
 use CCatalogGroup;
 use CFile;
 use CMain;
-use CModule;
 use CUser;
 use CUserFieldEnum;
 
@@ -303,6 +301,11 @@ class User
         return CFile::GetPath($this->photo);
     }
 
+    public function getFullName(): string
+    {
+        return "$this->lastName $this->name $this->secondName";
+    }
+
     public function getPersonalData(): array
     {
         return [
@@ -311,7 +314,7 @@ class User
             'last_name' => $this->lastName,
             'second_name' => $this->secondName,
             'name_initials' => $this->lastName . ' ' . mb_strtoupper(mb_substr($this->name, 0, 1)) . '.' . ($this->secondName ? (mb_strtoupper(mb_substr($this->secondName, 0, 1)) . '.') : ''),
-            'full_name' => "$this->lastName $this->name $this->secondName",
+            'full_name' => $this->getFullName(),
             'gender' => $this->gender,
             'photo' => $this->getPhotoUrl(),
             'loyalty_level' => $this->loyaltyLevel,
@@ -398,5 +401,10 @@ class User
         $result = $this->cUser->ChangePassword($this->login, $checkWord, $password, $confirmPassword);
 
         return $result['TYPE'] === 'OK';
+    }
+
+    public function logout(): void
+    {
+        $this->cUser->Logout();
     }
 }

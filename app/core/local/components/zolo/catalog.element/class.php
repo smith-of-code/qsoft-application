@@ -47,6 +47,7 @@ class CatalogElementComponent extends Element
     {
         $arParams = parent::onPrepareComponentParams($arParams);
 
+        $arParams['HIDE_NOT_AVAILABLE'] = 'Y';
         $arParams['IBLOCK_TYPE'] = 'catalog';
 
         if (!defined('IBLOCK_PRODUCT')) {
@@ -298,6 +299,10 @@ class CatalogElementComponent extends Element
             'OFFER_FIRST' => array_first(array_filter($data['OFFERS'],fn($offer)=>$offer['CATALOG_AVAILABLE']==='Y'))['ID'],
             'RELATED_PRODUCTS' => $this->getRelatedProductsIds($data['PRODUCT']['ID']),
         ];
+
+        if (!$result['OFFER_FIRST']) {
+            LocalRedirect('/404/');
+        }
 
         foreach ($data['OFFERS'] as $offer) {
             $result['SORT'][] = $offer['ID'];

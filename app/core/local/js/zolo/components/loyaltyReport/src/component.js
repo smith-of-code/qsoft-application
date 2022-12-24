@@ -287,7 +287,7 @@ export const LoyaltyReport = {
                                 <div class="participant__block">
                                     <div class="participant__progress cards-progress">
                                         <ul class="cards-progress__list">
-                                            <li v-if="mutableLoyaltyStatus.team.hold_value" class="cards-progress__item">
+                                            <li v-if="mutableLoyaltyStatus.team.hold_value > 0" class="cards-progress__item">
                                                 <LoyaltyStatusTale
                                                     :current-value="mutableLoyaltyStatus.team.current_value"
                                                     :target-value="mutableLoyaltyStatus.team.hold_value"
@@ -338,7 +338,7 @@ export const LoyaltyReport = {
 
                             <!--Таб Групповые-->
                             <div class="tabs__block" data-tab-section="block2">
-                                <OrdersReport :orders-report="mutableOrdersReport.team" />
+                                <OrdersReport :orders-report="mutableOrdersReport.team" :isGroup="true" />
                             </div>
                             <!--/Таб Групповые-->
                         </div>
