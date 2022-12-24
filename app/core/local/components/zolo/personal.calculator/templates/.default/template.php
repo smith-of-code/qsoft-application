@@ -683,7 +683,7 @@
                                 <div class="profitability__consultants-quantity profitability__consultants-quantity--hidden quantity quantity--active" data-quantity data-consultants-quantity>
                                     <div class="quantity__actions">
                                         <div class="quantity__decrease">
-                                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
+                                            <button type="button" class="profitability__button button button--iconed button--covered button--square button--small button--gray-red" data-quantity-decrease>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--minus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-minus"></use>
@@ -693,13 +693,13 @@
                                         </div>
 
                                         <div class="quantity__total">
-                                                                            <span class="quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
+                                                                            <span class="profitability__sum quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
                                                                                 1
                                                                             </span>
                                         </div>
 
                                         <div class="quantity__increase">
-                                            <button type="button" class="button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
+                                            <button type="button" class="profitability__button button button--iconed button--covered button--square button--small button--gray-green" data-quantity-increase>
                                                                                 <span class="button__icon button__icon--small">
                                                                                     <svg class="icon icon--plus">
                                                                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-plus"></use>
@@ -712,13 +712,15 @@
                                     <span class="profitability__signature">Новых консультантов</span>
                                 </div>
 
-                                <div class="profitability__hint">
+                                <div class="profitability__hint profitability__hint--consultant" 
+                                        data-tippy-content="В расчёте будут учтены баллы, которые Вы можете получить, если привлечёте
+                                        1 новых консультантов в свою группу
+                                        ">
                                     <svg class="icon icon--question-circle">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
                                     </svg>
                                 </div>
-
-
+                                
                             </div>
 
                             <span class="profitability__signature profitability__signature--mobile">Новых консультантов</span>
