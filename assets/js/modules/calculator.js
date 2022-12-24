@@ -32,6 +32,12 @@ const ELEMENTS_SELECTOR = {
     quantitySum: '[data-quantity-sum]',
     quantityDecrease: '[data-quantity-decrease-temp]', // TODO
     quantityIncrease: '[data-quantity-increase-temp]', // TODO
+    quantityDecreaseConsultants: '[data-quantity-decrease]',
+    quantityIncreaseConsultants: '[data-quantity-increase]',
+
+    quantityTotalSum: '.quantity__total-sum',
+    profitabilitySum: '.profitability__sum',
+    profitabilityHintConsultant: '.profitability__hint--consultant',
 
     chart: '[data-calculator-chart]',
     chartIncomeSales: '[data-calculator-chart-income-sales]',
@@ -132,6 +138,7 @@ export default function () {
 
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
+        console.log(this);
         let value = +$(this).val().replace(/\s/g, "");
 
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
@@ -324,6 +331,14 @@ export default function () {
     $(document).on('click', `${ELEMENTS_SELECTOR.quantityDecrease}, ${ELEMENTS_SELECTOR.quantityIncrease}`, function() {
         changeOneTimeCharges();
     });
+
+    // Добавление новых консультантов для разового расчета
+    $(document).on(
+        'click',
+        `${ELEMENTS_SELECTOR.quantityDecreaseConsultants}, ${ELEMENTS_SELECTOR.quantityIncreaseConsultants}`,
+        function() {
+        viewsAttractConsAdviser()
+    });
     
     // Расчет в диаграмму
     $(document).on('click', ELEMENTS_SELECTOR.calculatorComputing, function(e) {
@@ -388,18 +403,36 @@ export default function () {
     });
 
     function viewsAttractConsAdviser() {
-        let dataInput = $('.profitability__sum');
-        let tooltipBox = $('.profitability__hint--consultant');
+        let dataInput = $(ELEMENTS_SELECTOR.profitabilitySum);
+        let tooltipBox = $(ELEMENTS_SELECTOR.profitabilityHintConsultant);
         let dataInputVal = dataInput.text();
+        let declinationText = changeTooltipText(dataInputVal, ['новый консультант', 'новых консультанта', 'новых консультантов'])
         let content = `
-        В расчёте будут учтены баллы, которые Вы можете получить, если привлечёте ${dataInputVal} новых консультантов в свою группу`
+        В расчёте будут учтены баллы, которые Вы можете получить, если привлечёте ${dataInputVal} ${declinationText} в свою группу`
         
         tooltipBox.attr('data-tippy-content', content)
         
     }
+
+    function changeTooltipText(count, text_forms) {
+        // берем десятые числа и единици  
+        count = Math.abs(count) % 100; 
+        var unit = count % 10;
+
+        if (count > 10 && count < 20) {
+            return text_forms[2];
+        }
+
+        if (unit > 1 && unit < 5) {
+            return text_forms[1];
+        }
+
+        if (unit == 1) {
+            return text_forms[0];
+        }
+
+        return text_forms[2];
+    }
+    
     viewsAttractConsAdviser();
- 
-    $(document).on('click', '.profitability__button', function(e) {
-        viewsAttractConsAdviser()
-    })
 }
