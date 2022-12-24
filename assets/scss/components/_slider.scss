@@ -212,5 +212,9 @@
 
     & .pagination .swiper-pagination-bullet {
         margin: rem(8px) 0 0 0.5rem!important;
+
+        @media #{$screen-tablet} {
+            margin: 0 0 0 0.5rem!important;
+        }
     }
 }
