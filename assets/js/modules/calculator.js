@@ -406,7 +406,7 @@ export default function () {
         let dataInput = $(ELEMENTS_SELECTOR.profitabilitySum);
         let tooltipBox = $(ELEMENTS_SELECTOR.profitabilityHintConsultant);
         let dataInputVal = dataInput.text();
-        let declinationText = changeTooltipText(dataInputVal, ['новый консультант', 'новых консультанта', 'новых консультантов'])
+        let declinationText = changeTooltipText(dataInputVal, ['нового консультанта', 'новых консультантов', 'новых консультантов'])
         let content = `
         В расчёте будут учтены баллы, которые Вы можете получить, если привлечёте ${dataInputVal} ${declinationText} в свою группу`
         
