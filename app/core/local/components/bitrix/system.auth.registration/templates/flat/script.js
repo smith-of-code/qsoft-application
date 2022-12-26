@@ -194,6 +194,19 @@ class CSystemAuthRegistrationComponent {
                 }
             });
 
+            let petsError = $('.pets_data .input__control--error');
+
+            if (petsError) {
+                petsError.each( function(id, item) {
+                    const tagItem = $(item).prop("tagName");
+                   
+                    if (tagItem === 'SPAN') {
+                        $(item).remove();
+                    }
+                    $(item).removeClass('input__control--error');
+                })
+            }
+           
             if ($(`.${registrationData.currentStep} .input__control--error`).length || $(`.${registrationData.currentStep} .dropzone--error`).length) {
                 return;
             }
