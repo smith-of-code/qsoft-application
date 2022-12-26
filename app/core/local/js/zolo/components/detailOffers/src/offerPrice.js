@@ -23,7 +23,7 @@ export const OfferPrice = {
 
     computed: {
         ...mapState(detailOfferStore, ['price', 'bonuses', 'currentOfferId', 'catalogQuantity', 'isNonreturnable']),
-        ...mapState(useBasketStore, ['items']),
+        ...mapState(useBasketStore, ['items', 'fetched']),
     },
 
     setup() {
@@ -40,32 +40,83 @@ export const OfferPrice = {
         decreaseItem() {
             this.basketStore.decreaseItem(this.currentOfferId);
         },
-    },
 
+        showPriceWhole(item) {
+            const number = parseFloat(item);
+            const numberFloor = Math.floor(number);
+            return numberFloor.toLocaleString('ru-RU', {minimumFractionDigits: 0});
+        },
+
+        showPriceRemains(item) {
+            const number = parseFloat(item);
+            const numberFixed = number.toFixed(2);
+            const totalRemains = numberFixed.toString().split('.')[1];
+           
+            if (totalRemains === "00") {
+                return 
+            } else {
+                return ',' + totalRemains
+            }
+        }
+    },
+    
     template: `
         <div class="cart__price price" data-quantity>
             <template v-if="this.isConsultant">
-              <p v-if="price.BASE_PRICE" class="price__main">{{ formatNumber(price.BASE_PRICE) }} ₽</p>
+              <p v-if="price.BASE_PRICE" class="price__main">
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.BASE_PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.BASE_PRICE) }}₽
+                    </span>
+              </p>
               <div class="price__calculation">
-                <p class="price__calculation-total">{{ formatNumber(price.PRICE) }} ₽</p>
+                <p class="price__calculation-total">
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.PRICE) }}₽
+                    </span>
+                </p>
                 <p class="price__calculation-accumulation">{{ formatNumber(bonuses) }} ББ</p>
               </div>
             </template>
             <template v-else-if="isAuthorized && price.BASE_PRICE">
                 <div class="price__calculation" >
-                    <p class="price__calculation-total price__calculation-total--red">{{ formatNumber(price.PRICE) }} ₽</p>
-                    <p class="price__main">{{ formatNumber(price.BASE_PRICE) }} ₽</p>
+                    <p class="price__calculation-total price__calculation-total--red">
+                        <span class="cart__price-whole">
+                            {{ showPriceWhole(price.PRICE) }}
+                        </span>
+                        <span class="cart__price-remains">
+                            {{ showPriceRemains(price.PRICE) }}₽
+                        </span>
+                    </p>
+                    <p class="price__main">
+                        <span class="cart__price-whole">
+                            {{ showPriceWhole(price.BASE_PRICE) }}
+                        </span>
+                        <span class="cart__price-remains">
+                            {{ showPriceRemains(price.BASE_PRICE) }}₽
+                        </span>
+                    </p>
                 </div>
             </template>
             <template v-else>
               <div class="price__calculation" >
                 <p class="price__calculation-total">
-                  {{ formatNumber(price.PRICE) }} ₽
+                    <span class="cart__price-whole">
+                        {{ showPriceWhole(price.PRICE) }}
+                    </span>
+                    <span class="cart__price-remains">
+                        {{ showPriceRemains(price.PRICE) }}₽
+                    </span>
                 </p>
               </div>
             </template>
         </div>
-        <div class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
+        <div v-if="fetched" class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
             <div v-if="!items[currentOfferId]?.QUANTITY" class="quantity__button">
               <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green" @click="increaseItem">
                 <span class="button__icon">

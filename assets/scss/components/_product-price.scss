@@ -6,6 +6,9 @@
 
         letter-spacing: 0.02em;
 
+        display: flex;
+        align-items: baseline;
+
         color: $tuna;
 
         &--old {
@@ -18,6 +21,10 @@
     
         &--new {
             color: $brickRed;
+        }
+
+        &-remains {
+            font-size: rem($font-size-mini);
         }
     }
 }

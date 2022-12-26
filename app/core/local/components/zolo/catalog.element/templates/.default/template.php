@@ -38,7 +38,7 @@ $offerId = $arResult['OFFER_FIRST'];
 <div class="content__main content__main--separated">
     <div class="detail__card">
         <!--  Слайдер  в картинками ТП -->
-        <div id="imageSlider" prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>">
+        <div id="imageSlider" prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>" prop-no-image-placeholder="<?=NO_IMAGE_PLACEHOLDER_PATH?>">
         <div class="detail__card-slider slider slider--product" data-carousel="product">
             <div class="swiper-container" data-carousel-container>
                 <div class="swiper-wrapper" data-card-favourite-block>
@@ -338,13 +338,13 @@ $offerId = $arResult['OFFER_FIRST'];
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE']): ?>
+                    <?php if (in_array('COMPOSITION', $arResult['ADDITIONAL_TABS']) && ($arResult['COMPOSITION'] || $arResult['ENERGY_VALUE'])): ?>
                         <li class="detail__information-tabs-item tabs__item" data-tab="block2">
                             Состав
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($arResult['FEEDING_RECOMMENDATIONS']): ?>
+                    <?php if (in_array('FEEDING_ADVICE', $arResult['ADDITIONAL_TABS']) && $arResult['FEEDING_RECOMMENDATIONS']): ?>
                         <li class="detail__information-tabs-item tabs__item" data-tab="block3">
                             Рекомендации по кормлению
                         </li>

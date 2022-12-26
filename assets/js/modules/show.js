@@ -4,9 +4,26 @@ const ELEMENTS_SELECTOR = {
     button: '[data-show-button]',
 };
 
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
 export default function show() {
-    $(document).on('click', ELEMENTS_SELECTOR.button, function () {
-        $(ELEMENTS_SELECTOR.block).find(ELEMENTS_SELECTOR.card).removeClass('product-cards__item--hidden');
-        $(this).hide();
-    });
+    let offset = 0;
+    const blockSize = isMobile() ? 4 : 8;
+
+    function process() {
+        offset += blockSize;
+        const hiddenElements = $(ELEMENTS_SELECTOR.block).find(`${ELEMENTS_SELECTOR.card}:nth-child(n + ${offset + 1})`);
+
+        $(ELEMENTS_SELECTOR.block).find(ELEMENTS_SELECTOR.card).show();
+        hiddenElements.hide();
+
+        if (!hiddenElements.length) {
+            $(ELEMENTS_SELECTOR.button).hide();
+        }
+    }
+
+    $(document).on('click', ELEMENTS_SELECTOR.button, process);
+    process();
 }

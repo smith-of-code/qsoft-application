@@ -229,12 +229,6 @@ class OrderHelper
 
         $this->basketHelper->clearPersonalPromotions();
 
-        $user->notification->sendNotification(
-            NotificationTable::TYPES['order_created'],
-            'Создан новый заказ',
-            "/personal/orders/$orderId"
-        );
-
         return $orderId;
     }
 

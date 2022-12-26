@@ -23,9 +23,22 @@ export default function showPassword() {
     $(document).on('click', ELEMENTS_SELECTOR.generate, function () {
         $(this).closest(ELEMENTS_SELECTOR.container).find(ELEMENTS_SELECTOR.input).val(Password.generate());
     });
-    $(document).on('input', ELEMENTS_SELECTOR.input, function(){
-        this.value = this.value.replace(/[А-Яа-я]/gi, '');
+    $(document).on('input', ELEMENTS_SELECTOR.input, function(e){
+        clearInput();
+        this.value = this.value.replace(/[А-Яа-яЁ-ё]/gi, '');
     });
+
+    function clearInput() {
+        let input = $(ELEMENTS_SELECTOR.input);
+        let inputVal = input.val();
+        
+        const re = new RegExp('[А-Яа-яЁ-ё]');
+        const check = re.test(inputVal);
+
+        if (check) {
+            input.val('');
+        } 
+    }
 }
 
 const Password = {

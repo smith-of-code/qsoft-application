@@ -8,8 +8,8 @@
     <div class="section__box box">
         <div class="accordeon">
             <?php foreach ($arResult as $title => $documents):?>
-                <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon>
-                    <div class="accordeon__header" data-accordeon-toggle>
+                <div class="accordeon__item box box--rounded-sm box--hovering" data-accordeon data-accordeon-toggle>
+                    <div class="accordeon__header">
                         <h3 class="accordeon__title">
                             <?=$title?>:
                         </h3>

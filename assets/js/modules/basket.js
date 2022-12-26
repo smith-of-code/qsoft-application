@@ -102,27 +102,41 @@ export default async function () {
         const itemPrice = basketList.find(ELEMENTS_SELECTOR.item_prices);
         const itemPriceNumber = parseFloat(itemPrice.text().replace(/\s/g,''));
         const itemPriceRounted = Math.round(itemPriceNumber);
-        
+
         basketList.each(function(index, item) {
             const priceDefault = $(item).find('.product-price__item');
+            const priceDefaultRemains = priceDefault.find('.product-price__item-remains');
+            const priceDefaultWhole = priceDefault.find('.product-price__item-whole');
             const priceOld = $(item).find('.product-price__item.product-price__item--old');
             const priceSale = $(item).find('.product-price__item.product-price__item--new');
-            const priceItem = $(item).find('.card-cart__price-value').text().replace(/\s/g,'')
-            const priceItemNumber = parseFloat(priceItem);
+            const priceOldRemains = priceOld.find('.product-price__item-remains');
+            const priceSaleRemains = priceSale.find('.product-price__item-remains');
+            const priceOldWhole = priceOld.find('.product-price__item-whole');
+            const priceSaleWhole = priceSale.find('.product-price__item-whole');
+            const priceItem = $(item).find('.card-cart__price-value');
+            const priceItemValue = priceItem.attr('data-value-item').replace(/\s/g,'');
+            const priceItemNumber = parseFloat(priceItemValue);
             const priceBaseItem = $(item).attr('data-base-price')
             const priceBaseItemNumber = parseFloat(priceBaseItem);
             const amountProduct = $(item)
             .find('.quantity__total-sum')
             .text();
 
-            const currentPrice = Math.round(priceСalc(priceItemNumber, amountProduct));
-            const currentPriceDefault = Math.round(priceСalc(priceBaseItemNumber, amountProduct));
+            const spanWhole = priceItem.find(".card-cart__price-item-whole");
+            const spanRemains = priceItem.find(".card-cart__price-item-remains");
+
+            if (priceItemValue) {
+                roundetPrice(priceItemValue, spanWhole, spanRemains);
+            }
+
+            const currentPrice = priceСalc(priceItemNumber, amountProduct);
+            const currentPriceDefault = priceСalc(priceBaseItemNumber, amountProduct);
 
             if (priceSale.length > 0) {
-                priceSale.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
-                priceOld.html(currentPriceDefault.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
+                roundetPrice(currentPrice, priceSaleWhole, priceSaleRemains);
+                roundetPrice(currentPriceDefault, priceOldWhole, priceOldRemains);
             } else {
-                priceDefault.html(currentPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}))
+                roundetPrice(currentPrice, priceDefaultWhole, priceDefaultRemains);
             }
         })
     }
@@ -181,10 +195,10 @@ export default async function () {
             baseketBonusItem += bonusOrder;
         });
 
-        const basketTotal = Math.round(basketAmoutOrder);
-        const basketTotalSale = Math.round(basketAmoutOrderSale);
+        const basketTotal = basketAmoutOrder;
+        const basketTotalSale = basketAmoutOrderSale;
         const ndsTotal = Math.round(calcNds(basketTotalSale));
-        const economyTotal = Math.round(calcEconomy(basketAmoutOrder, basketTotalSale));
+        const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
 
         acceptProductTotal(basketProductTotal);
         acceptNds(ndsTotal);
@@ -269,15 +283,15 @@ export default async function () {
     }
 
     function calcTotal(currentPrice, bonus) {
-        return parseInt(currentPrice) -  parseInt(bonus);
+        return parseFloat(currentPrice.replace(/,/g, '.')) -  parseFloat(bonus);
     }
 
     function calcEconomy(currentPrice, basketTotal) {
-        return parseInt(currentPrice) - parseInt(basketTotal);
+        return parseFloat(currentPrice) - parseFloat(basketTotal);
     }
 
     function calcBonus(bonusBalance, bonusInput) {
-        return parseInt(bonusBalance) - parseInt(bonusInput);
+        return parseFloat(bonusBalance) - parseFloat(bonusInput);
     }
 
     function calcBonusPercent(bonusInput, totalBalance) {
@@ -298,10 +312,10 @@ export default async function () {
         const totalBonusBalance = $(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,'');
 
         const resetBonus = parseInt(totalBonus) + parseInt(totalBonusBalance);
-        const resetEconomy = parseInt(totalEconomy) - parseInt(totalEconomy);
+        const resetEconomy = parseFloat(totalEconomy.replace(/,/g, '.')) - parseFloat(totalBonus);
 
         $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus + ' ББ');
-        $(ELEMENTS_SELECTOR.economy).html(resetEconomy + ' ₽');
+        acceptEconomy(resetEconomy);
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
 
         await checkStatusBasket();
@@ -322,11 +336,35 @@ export default async function () {
     }
 
     function acceptEconomy(total) {
-        $(ELEMENTS_SELECTOR.economy).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
+        const spanWhole = $(ELEMENTS_SELECTOR.economy).find(".basket-card__total-whole");
+        const spanRemains = $(ELEMENTS_SELECTOR.economy).find(".basket-card__total-remains");
+
+        let totalFixied = total.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+       
+        if (totalRemains === "00") {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            spanRemains.text('₽');
+        } else {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
     }
 
     function acceptTotal(total) {
-        $(ELEMENTS_SELECTOR.total).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
+        const spanWhole = $(ELEMENTS_SELECTOR.total).find(".basket-card__total-whole");
+        const spanRemains = $(ELEMENTS_SELECTOR.total).find(".basket-card__total-remains");
+
+        let totalFixied = total.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+       
+        if (totalRemains === "00") {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            spanRemains.text('₽');
+        } else {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
     }
 
     function acceptBonusBalance(total) {
@@ -334,7 +372,20 @@ export default async function () {
     }
 
     function acceptAmount(total) {
-        $(ELEMENTS_SELECTOR.amount).html(total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0}));
+        const spanWhole = $(ELEMENTS_SELECTOR.amount).find(".basket-card__total-whole");
+        const spanRemains = $(ELEMENTS_SELECTOR.amount).find(".basket-card__total-remains");
+
+        let totalFixied = total.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+       
+        if (totalRemains === "00") {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            spanRemains.text('₽');
+        } else {
+            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
+      
     }
 
     function acceptProductTotal(total) {
@@ -343,6 +394,20 @@ export default async function () {
 
     function acceptBonusOrder(total) {
         $(ELEMENTS_SELECTOR.bonusOrder).html(total.toLocaleString('ru-RU') + ' ББ');
+    }
+
+    function roundetPrice(price, whole, remains) {
+        let mainPriceNum = parseFloat(price);
+        let totalMainFixied = mainPriceNum.toFixed(2);
+        let totalMainRemains = totalMainFixied.toString().split('.')[1];
+
+        if (totalMainRemains === "00") {
+            whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            remains.text('₽');
+        } else {
+            whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+        }
     }
 
     await checkStatusBasket();

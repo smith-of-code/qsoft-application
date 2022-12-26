@@ -199,7 +199,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                        name="text13"
                                                                        id="birthdate"
                                                                        placeholder="ДД.ММ.ГГГГ"
-                                                                       data-mask-date
+                                                                       data-mask-date-reg
                                                                        readonly data-profile-readonly
                                                                        value="<?=$arResult['personal_data']['birthdate']?>"
                                                                 >
@@ -672,8 +672,8 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <h5 class="box__heading box__heading--middle">Преимущества аккаунтов разного уровня</h5>
 
                                 <div class="accordeon accordeon--white">
-                                    <div class="accordeon__item box box--circle" data-accordeon>
-                                        <div class="accordeon__header" data-accordeon-toggle>
+                                    <div class="accordeon__item box box--circle" data-accordeon data-accordeon-toggle>
+                                        <div class="accordeon__header">
                                             <div class="accordeon__header-col">
                                             <span class="accordeon__icon">
                                                 <svg class="icon icon--cup">
@@ -787,8 +787,8 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         </div>
                                     </div>
 
-                                    <div class="accordeon__item box box--circle" data-accordeon>
-                                        <div class="accordeon__header" data-accordeon-toggle>
+                                    <div class="accordeon__item box box--circle" data-accordeon data-accordeon-toggle>
+                                        <div class="accordeon__header">
                                             <div class="accordeon__header-col">
                                             <span class="accordeon__icon">
                                                 <svg class="icon icon--cup">
@@ -902,8 +902,8 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         </div>
                                     </div>
 
-                                    <div class="accordeon__item box box--circle" data-accordeon>
-                                        <div class="accordeon__header" data-accordeon-toggle>
+                                    <div class="accordeon__item box box--circle" data-accordeon data-accordeon-toggle>
+                                        <div class="accordeon__header">
                                             <div class="accordeon__header-col">
                                             <span class="accordeon__icon">
                                                 <svg class="icon icon--cup">
@@ -1124,7 +1124,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             <div class="card-stock__top">
                                                                 <div class="card-stock__wrapper">
                                                                     <div class="card-stock__image box box--circle">
-                                                                        <img src="<?=$promotion['image'] ?: '/local/templates/.default/images/no-image-placeholder.png'?>" alt="Image" class="card-stock__image-picture">
+                                                                        <img src="<?=$promotion['image'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="Image" class="card-stock__image-picture">
                                                                     </div>
                                                                     <?php if ($promotion['active_to']):?>
                                                                         <div class="card-stock__finish date-finish">
