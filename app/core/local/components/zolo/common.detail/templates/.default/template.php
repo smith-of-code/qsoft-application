@@ -25,7 +25,9 @@ $APPLICATION->IncludeComponent(
         </div>
 
         <div class="detail-articles__image detail-articles__image--main">
-            <div class="detail-articles__label label label--secondary label--orange">Интересное</div>
+            <div class="detail-articles__label label label--secondary label--<?=$arResult['ITEM']['MARKER_COLOR']?>">
+                <?=$arResult['ITEM']['MARKER_NAME']?>
+            </div>
             <img class="detail-articles__image-picture" src="<?=$arResult['ITEM']['DETAIL_PICTURE']?>" alt="">
         </div>
 
