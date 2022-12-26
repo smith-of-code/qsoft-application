@@ -102,8 +102,10 @@ $user = new User;?>
                                     </button>
                                     <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
                                         <div class="logout__name">
-                                            <button class="button button--simple button--red" onclick="location.href='/personal';">
-                                                <?=$user->lastName?><br><?=$user->name?> <?=$user->secondName?>
+                                            <button class="logout__button-name button button--simple button--red" onclick="location.href='/personal';">
+                                                <span class="logout__lastname" data-truncate-symbols="17"><?=$user->lastName?></span>
+                                                <span class="logout__names" data-truncate-symbols="15"><?=$user->name?>&nbsp;</span>
+                                                <span class="logout__secondname" data-truncate-symbols="17"><?=$user->secondName?></span>  
                                             </button>
                                         </div>
                                         <div class="logout__id">

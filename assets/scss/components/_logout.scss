@@ -45,5 +45,16 @@
             width: rem($size);
             height: rem($size);
         }
+
+        &-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__lastname {
+        flex-basis: 100%;
     }
 }

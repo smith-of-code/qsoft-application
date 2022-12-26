@@ -51,7 +51,8 @@
  import calculator from './modules/calculator';
  import chart from './modules/chart';
  import show from './modules/show';
-import logout from "./modules/logout";
+ import logout from "./modules/logout";
+ import truncateBySymbols from './modules/truncateBySymbols';
 
  const app = {
     ready() {
@@ -99,6 +100,7 @@ import logout from "./modules/logout";
         chart();
         show();
         logout();
+        truncateBySymbols();
     },
 
     load() {
