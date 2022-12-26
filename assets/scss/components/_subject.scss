@@ -50,8 +50,23 @@
     }
 
     &__button {
+        width: 100%;
+        justify-content: start;
+        
         &-icon {
             color: $brickRed;
+        }
+
+        & .button__text .button {
+            font-size: rem($font-size-mini);
+
+            @media #{$screen-tablet} {
+                font-size: rem($font-size-small);
+            }
+        }
+
+        & .button--simple {
+            width: 100%;
         }
     }
 
