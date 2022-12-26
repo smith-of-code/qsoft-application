@@ -56,14 +56,16 @@ class UserEventsListener
                 return false;
             }
 
-            $oldRelation = BeneficiariesTable::getRow([
-                'filter' => [
-                    '=UF_USER_ID' => $user->id,
-                    '=UF_BENEFICIARY_ID' => $user->mentorId,
-                ],
-                'select' => ['ID'],
-            ]);
-            BeneficiariesTable::delete($oldRelation['ID']);
+            if ($user->mentorId) {
+                $oldRelation = BeneficiariesTable::getRow([
+                    'filter' => [
+                        '=UF_USER_ID' => $user->id,
+                        '=UF_BENEFICIARY_ID' => $user->mentorId,
+                    ],
+                    'select' => ['ID'],
+                ]);
+                BeneficiariesTable::delete($oldRelation['ID']);
+            }
 
             BeneficiariesTable::add([
                 'UF_USER_ID' => $user->id,
