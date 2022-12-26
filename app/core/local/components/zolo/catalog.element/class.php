@@ -47,7 +47,6 @@ class CatalogElementComponent extends Element
     {
         $arParams = parent::onPrepareComponentParams($arParams);
 
-        $arParams['HIDE_NOT_AVAILABLE'] = 'Y';
         $arParams['IBLOCK_TYPE'] = 'catalog';
 
         if (!defined('IBLOCK_PRODUCT')) {
@@ -191,19 +190,6 @@ class CatalogElementComponent extends Element
             $product['PRICE'] = $productPrice;
         }
 
-        $section = CIBlockSection::GetList([], [
-            'IBLOCK_ID' => (int) $product['IBLOCK_ID'],
-            'ID' => (int) $product['IBLOCK_SECTION_ID'],
-        ], false, ['UF_', 'UF_ADDITIONAL_PRODUCTS_TABS'])->Fetch();
-
-        $product['ADDITIONAL_TABS'] = [];
-        if ($section['UF_ADDITIONAL_PRODUCTS_TABS']) {
-            $additionalTabsRs = CUserFieldEnum::GetList([], ['ID' => $section['UF_ADDITIONAL_PRODUCTS_TABS']]);
-            while ($additionalTab = $additionalTabsRs->Fetch()) {
-                $product['ADDITIONAL_TABS'][] = $additionalTab['XML_ID'];
-            }
-        }
-
         return $product;
     }
 
@@ -279,7 +265,6 @@ class CatalogElementComponent extends Element
             'ID' => $data['PRODUCT']['ID'],
             'IBLOCK_ID' => $data['PRODUCT']['IBLOCK_ID'],
             'SECTION_ID' => $data['PRODUCT']['IBLOCK_SECTION_ID'],
-            'ADDITIONAL_TABS' => $data['PRODUCT']['ADDITIONAL_TABS'],
             'CODE' => $data['PRODUCT']['CODE'],
             'TITLE' => $data['PRODUCT']['NAME'],
             'PRICES' => [],
@@ -313,10 +298,6 @@ class CatalogElementComponent extends Element
             'OFFER_FIRST' => array_first(array_filter($data['OFFERS'],fn($offer)=>$offer['CATALOG_AVAILABLE']==='Y'))['ID'],
             'RELATED_PRODUCTS' => $this->getRelatedProductsIds($data['PRODUCT']['ID']),
         ];
-
-        if (!$result['OFFER_FIRST']) {
-            LocalRedirect('/404/');
-        }
 
         foreach ($data['OFFERS'] as $offer) {
             $result['SORT'][] = $offer['ID'];
@@ -451,8 +432,8 @@ class CatalogElementComponent extends Element
 
     private function getDiscountLabelColor($typeName) {
         $color = [
-            'Сезонное предложение' => 'violet',
-            'Ограниченное предложение' => 'pink'
+            'Сезонное предложение' => 'pink',
+            'Ограниченное предложение' => 'violet'
         ];
 
         return $color[$typeName] ?? 'violet';
