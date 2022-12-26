@@ -7,26 +7,20 @@ use Bitrix\Main\ORM\Event;
 use CCatalogGroup;
 use QSoft\Queue\Jobs\BonusesPriceJob;
 use QSoft\Queue\Jobs\UpdateAllOffersBonusesJob;
-use QSoft\Service\OffersService;
 
 class OfferEventsListener
 {
     public static function OnPriceAdd(Event $event): void
     {
-        $id = $event->getParameter('id');
-        $fields = $event->getParameter('fields');
-        $res = Price::getList([
-            'filter' => [
-                '=ID' => $id,
-            ]
-        ])->fetch();
-        $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
-        if ((int) $fields['CATALOG_GROUP_ID'] == (int) $basePrice['ID']) {
-            BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
-        }
+        self::UpdatePricesAndBonuses($event);
     }
 
     public static function OnPriceUpdate(Event $event): void
+    {
+        self::UpdatePricesAndBonuses($event);
+    }
+
+    public static function UpdatePricesAndBonuses(Event $event): void
     {
         $id = $event->getParameter('id');
         $fields = $event->getParameter('fields');
@@ -35,6 +29,22 @@ class OfferEventsListener
                 '=ID' => $id,
             ]
         ])->fetch();
+
+        if ((int) $res['PRODUCT_ID'] == 0) {
+            return;
+        }
+
+        // Проверим, что это ТП, а не товар
+        $isOffer = \Bitrix\Iblock\ElementTable::getList([
+            'select' => ['ID'],
+            'filter' => ['IBLOCK_ID' => IBLOCK_PRODUCT_OFFER, '=ID' => $res['PRODUCT_ID']],
+        ])->fetch();
+
+        // Игнорируем изменения цены обычных товаров
+        if (! $isOffer) {
+            return;
+        }
+
         $basePrice = CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
         if ((int) $fields['CATALOG_GROUP_ID'] == (int) $basePrice['ID']) {
             BonusesPriceJob::pushJob(['offerId' => $res['PRODUCT_ID'], 'priceValue' => $res['PRICE']]);
