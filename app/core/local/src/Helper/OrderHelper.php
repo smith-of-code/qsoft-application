@@ -91,10 +91,10 @@ class OrderHelper
             ],
         ]);
 
-        return [array_combine(
+        return $order ? [array_combine(
             array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
             $order
-        )];
+        )] : [];
     }
 
     public function createOrder(int $userId, array $data)

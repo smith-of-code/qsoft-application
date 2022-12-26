@@ -1084,25 +1084,27 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                     <?php foreach ($arResult['promotion_orders'] as $order):?>
                                         <div class="profile__order box box--white box--circle">
-                                            <div class="profile__order-row">
-                                                <div class="profile__order-col">
-                                                    <h5 class="profile__order-heading heading headding--small">
-                                                        Заказ от <?=$order['date_insert']->format('d.m.Y')?>
-                                                    </h5>
-                                                    <span class="profile__order-number">№<?=$order['account_number']?></span>
-                                                </div>
+                                            <a href="/personal/orders/<?=$order['id']?>" style="text-decoration: none;">
+                                                <div class="profile__order-row">
+                                                    <div class="profile__order-col">
+                                                        <h5 class="profile__order-heading heading headding--small">
+                                                            Заказ от <?=$order['date_insert']->format('d.m.Y')?>
+                                                        </h5>
+                                                        <span class="profile__order-number">№<?=$order['account_number']?></span>
+                                                    </div>
 
-                                                <div class="profile__order-col">
-                                                    <div class="price">
-                                                        <div class="price__calculation price__calculation--columned">
-                                                            <p class="price__calculation-total"><?=number_format($order['price'], 0, ' ', ' ')?> ₽</p>
-                                                            <?php if ($order['bonuses']):?>
-                                                                <p class="price__calculation-accumulation"><?=number_format($order['bonuses'], 0, ' ', ' ')?> ББ</p>
-                                                            <?php endif;?>
+                                                    <div class="profile__order-col">
+                                                        <div class="price">
+                                                            <div class="price__calculation price__calculation--columned">
+                                                                <p class="price__calculation-total"><?=number_format($order['price'], 0, ' ', ' ')?> ₽</p>
+                                                                <?php if ($order['bonuses']):?>
+                                                                    <p class="price__calculation-accumulation"><?=number_format($order['bonuses'], 0, ' ', ' ')?> ББ</p>
+                                                                <?php endif;?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                     <?php endforeach;?>
                                 </div>
