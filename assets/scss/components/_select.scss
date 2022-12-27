@@ -604,4 +604,17 @@
     &__color {
         display: flex;
     }
+
+    .select__control[name=select-color] + .select2-container *:focus {
+        outline: none;
+    }
+
+    .select__control[name=select-size-mob] + .select2-container *:focus {
+        outline: none;
+    }
+
+    .select__control[name=select-package] + .select2-container *:focus {
+        outline: none;
+    }
+    
 }
