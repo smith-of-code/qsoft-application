@@ -2,10 +2,15 @@
 
 namespace QSoft\Events;
 
-use Bitrix\Main\UserPhoneAuthTable;
+use BasketLineController;
+use Bitrix\Main\Loader;
 use Bitrix\Main\UserTable;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\Fuser;
+use CCatalogProduct;
 use CUser;
 use QSoft\Entity\User;
+use QSoft\Helper\BasketHelper;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Queue\Jobs\BeneficiaryChangeJob;
@@ -13,6 +18,7 @@ use RuntimeException;
 
 class UserEventsListener
 {
+    private static int $fUserId;
 
     /**
      * @throws \Exception
@@ -63,6 +69,8 @@ class UserEventsListener
 
     public static function OnBeforeUserLogin(array &$params): bool
     {
+        Loader::includeModule('sale');
+
         if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
             return true;
         }
@@ -75,6 +83,30 @@ class UserEventsListener
             return false;
         }
         $params['LOGIN'] = $user['LOGIN'];
+        self::$fUserId = FUser::getId();
         return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByID($user['ID'])->GetNext()['UF_EMAIL_CONFIRMED']);
+    }
+
+    public static function OnAfterUserAuthorize(array $params)
+    {
+        $authBasketHelper = new BasketHelper;
+        $basket = (new BasketHelper(self::$fUserId))->getBasket();
+        /** @var BasketItem $basketItem */
+        foreach ($basket as $basketItem) {
+            $detailPage = '/404/';
+            $nonreturnable = false;
+            foreach ($basketItem->getPropertyCollection() as $property) {
+                if ($property->getField('CODE') === 'DETAIL_PAGE') {
+                    $detailPage = $property->getField('VALUE');
+                }
+                if ($property->getField('CODE') === 'NONRETURNABLE') {
+                    $nonreturnable = (bool)$property->getField('VALUE');
+                }
+            }
+            $authBasketHelper->increase($basketItem->getProductId(), $detailPage, $nonreturnable, $basketItem->getQuantity());
+            $basketItem->delete();
+//            $basketItem->save();
+        }
+        $basket->save();
     }
 }

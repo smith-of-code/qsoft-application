@@ -18,6 +18,7 @@ $eventManager = EventManager::getInstance();
 $eventManager->addEventHandler('main', 'OnAdminTabControlBegin', [OfferEventsListener::class, 'OnOffersEditFormShow']);
 
 $eventManager->addEventHandler('main', 'OnBeforeUserLogin', [UserEventsListener::class, 'OnBeforeUserLogin']);
+$eventManager->addEventHandler('main', 'OnAfterUserAuthorize', [UserEventsListener::class, 'OnAfterUserAuthorize']);
 $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
