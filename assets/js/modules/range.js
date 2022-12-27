@@ -105,6 +105,7 @@ export default function(){
                         let $inputMax = $parent.find(ELEMENTS_SELECTOR.rangeMax);
                         let $inputMinValue = parseFloat($parent.find(ELEMENTS_SELECTOR.rangeMin).val()).toLocaleString('ru-RU');
                         let $inputMaxValue = parseFloat($parent.find(ELEMENTS_SELECTOR.rangeMax).val()).toLocaleString('ru-RU');
+
                         let $filterAction = $(".filter__action");
                         let $submit = $filterAction.find('.button');
 
@@ -122,70 +123,58 @@ export default function(){
                         })
 
                         $parent.on('change', ELEMENTS_SELECTOR.rangeMin, function(){
-                            let maxValReplace = $parent.find(ELEMENTS_SELECTOR.rangeMax).val().replace(/\s/g,'').trim();
-                            let maxValNum = parseFloat(maxValReplace);
-                            let minValNum = parseFloat(minVal);
-
                             minVal = +$(this).val().trim();
-                            maxVal = +maxValNum;
+                            maxVal = +$parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim();
+                            
+                            let maxValNum = parseFloat(maxVal);
+                            let minValNum = parseFloat(minVal);
         
-                            if (minVal < min) {
-                                minVal = min;
+                            if (minValNum < min) {
+                                minValNum = min;
                             }
         
-                            if (minVal > max) {
-                                minVal = max;
+                            if (minValNum > max) {
+                                minValNum = max;
                             }
         
-                            if (minVal > maxVal) {
-                                maxVal = minVal;
+                            if (minValNum > maxValNum) {
+                                maxValNum = minValNum;
                             }
-
-                            let minValString = minVal.toLocaleString('ru-RU');
-                            let maxValString =maxVal.toLocaleString('ru-RU');
-
-                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minValString);
-                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxValString);
+                        
+                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minValNum);
+                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxValNum);
         
-                            slider.slider( 'option','values',[minVal,maxVal]);
+                            slider.slider( 'option','values',[minValNum,maxValNum]);
                         });
                 
                         $parent.on('change', ELEMENTS_SELECTOR.rangeMax, function(){
-                            let minValReplace = $parent.find(ELEMENTS_SELECTOR.rangeMin).val().replace(/\s/g,'').trim();
-                            let maxValNum = parseFloat(maxVal);
-                            let minValNum = parseFloat(minValReplace);
-                            
                             maxVal = +$(this).val().trim();
-                            minVal = +minValNum;
-                            
-                            if (maxVal < minVal) {
-                                maxVal = min;
-                            }
-        
-                            if (maxVal > max) {
-                                maxVal = max;
-                            }
-        
-                            if (maxVal < minVal) {
-                                minVal = maxVal;
-                            }
+                            minVal = +$parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim();
+                            let maxValNum = parseFloat(maxVal);
+                            let minValNum = parseFloat(minVal);
 
-                            let minValString = minVal.toLocaleString('ru-RU');
-                            let maxValString =maxVal.toLocaleString('ru-RU');
-                            
-                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minValString);
-                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxValString);
+                            if (maxValNum < minValNum) {
+                                maxValNum = min;
+                            }
         
-                            slider.slider( 'option','values',[minVal,maxVal]);
+                            if (maxValNum > max) {
+                                maxValNum = max;
+                            }
+        
+                            if (maxValNum < minValNum) {
+                                minValNum = maxValNum;
+                            }
+                            
+                            $parent.find(ELEMENTS_SELECTOR.rangeMin).val(minValNum);
+                            $parent.find(ELEMENTS_SELECTOR.rangeMax).val(maxValNum);
+        
+                            slider.slider( 'option','values',[minValNum,maxValNum]);
                         });
         
                         $parent.on('change', `${ELEMENTS_SELECTOR.rangeMax}, ${ELEMENTS_SELECTOR.rangeMin}`, function (e) {
-                            let valReplace = $(this).val().replace(/\s/g,'').trim();
-                            let valNum = parseFloat(valReplace);
-                            let val = +valNum;
-                            let valString = val.toLocaleString('ru-RU');
-    
-                            $(this).val(valString);
+                            let val = +$(this).val().trim();
+                            let valNum = parseFloat(val);
+                            $(this).val(Math.floor(valNum));
                         });
                     },
                 };

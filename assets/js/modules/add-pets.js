@@ -1,6 +1,5 @@
 import select from './select';
 import inputmask from './inputmask';
-import validation from './validation';
 
 const ELEMENTS_SELECTOR = {
     card: '[data-pets-card]',
@@ -33,7 +32,8 @@ const ELEMENTS_SELECTOR = {
 
 export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.deleteButton, function() {
-        $(this).closest(ELEMENTS_SELECTOR.card).remove();
+        $(this).closest(ELEMENTS_SELECTOR.card).parent().remove();
+        checkAddButton();
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.modifyButton, function() {
@@ -93,6 +93,7 @@ export default function () {
 
         if (card.data('pets-new') !== undefined) {
             card.closest('.pet-cards__item').remove();
+            checkAddButton();
         } else {
             card.removeClass('pet-card--editing');
         }
@@ -112,10 +113,22 @@ export default function () {
         }
         $(ELEMENTS_SELECTOR.list).append(template);
 
+        checkAddButton();
         select();
         inputmask();
         validate();
     });
+
+    function checkAddButton() {
+        const $button = $(ELEMENTS_SELECTOR.buttonAdd);
+        if ($button.closest('.pet-cards').find('.pet-cards__item').length >= 10) {
+            $button.attr('disabled', true);
+            $button.addClass('button--disabled');
+        } else {
+            $button.attr('disabled', false);
+            $button.removeClass('button--disabled');
+        }
+    }
 
     function validate() {
         let forms = $('[data-validation="add-pets"]');
