@@ -30,7 +30,7 @@
             }
 
             &-caption {
-                padding: rem($gap-normal) 0 rem(20px) 0;
+                padding: rem($gap-normal) 0 rem(20px) rem(17px);
 
                 background-color: $white;
 
@@ -96,6 +96,11 @@
 
         &__button {
             width: 100%;
+            margin-top: 0;
+
+            @media #{$screen-tablet} {
+                margin-top: rem($gap-medium);
+            }
         }
 
         &__previews {
