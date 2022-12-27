@@ -3,7 +3,7 @@
 <div class="dropzone" data-uploader>
     <input type="file" name="<?=$arParams['NAME']?>" multiple class="dropzone__control">
 
-    <div class="dropzone__area" data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php"}'>
+    <div class="dropzone__area">
         <div class="dropzone__message dz-message needsclick">
             <div class="dropzone__message-caption needsclick">
                 <h6 class="dropzone__message-title">Ограничения:</h6>
@@ -14,7 +14,8 @@
                 </ul>
             </div>
 
-            <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red">
+            <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red"
+            data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php"}'>
                 <span class="button__icon">
                     <svg class="icon icon--import">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
