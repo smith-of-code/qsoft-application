@@ -18,7 +18,7 @@ use RuntimeException;
 
 class UserEventsListener
 {
-    private static int $fUserId;
+    private static int $fUserId = 0;
 
     /**
      * @throws \Exception
@@ -90,7 +90,7 @@ class UserEventsListener
     public static function OnAfterUserAuthorize(array $params)
     {
         $authBasketHelper = new BasketHelper;
-        $basket = (new BasketHelper(self::$fUserId))->getBasket();
+        $basket = (new BasketHelper(self::$fUserId ?: null))->getBasket();
         /** @var BasketItem $basketItem */
         foreach ($basket as $basketItem) {
             $detailPage = '/404/';
