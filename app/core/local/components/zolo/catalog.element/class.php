@@ -451,8 +451,8 @@ class CatalogElementComponent extends Element
 
     private function getDiscountLabelColor($typeName) {
         $color = [
-            'Сезонное предложение' => 'violet',
-            'Ограниченное предложение' => 'pink'
+            'Сезонное предложение' => 'pink',
+            'Ограниченное предложение' => 'violet'
         ];
 
         return $color[$typeName] ?? 'violet';
