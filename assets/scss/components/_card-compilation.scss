@@ -148,7 +148,7 @@
     }
 
     &__link {
-        @include position-stretching(absolute, $z-index-html);
+        @include position-stretching(absolute, $z-index-input);
     }
 
     &__inner {
