@@ -25,4 +25,15 @@ class UserGroupHelper
         }
         return $allGroups;
     }
+
+    static public function getConsultantGroupId(): int
+    {
+        return GroupTable::getRow([
+            'filter' => [
+                '=STRING_ID' => 'consultant',
+            ],
+            'select' => ['ID'],
+            'cache' => ['ttl' => 86400],
+        ])['ID'];
+    }
 }

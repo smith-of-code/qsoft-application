@@ -59,6 +59,10 @@
         margin-bottom: rem($gap-normal);
 
         color: $seaGreen;
+
+        &--error {
+            color: $brickRed;
+        }
     }
 
     &__title {
