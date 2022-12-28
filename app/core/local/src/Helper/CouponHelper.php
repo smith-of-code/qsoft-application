@@ -2,29 +2,11 @@
 
 namespace QSoft\Helper;
 
-use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
-use Bitrix\Sale\Basket\Storage;
-use Bitrix\Sale\BasketItem;
-use Bitrix\Sale\BasketPropertyItem;
-use Bitrix\Sale\DiscountCouponsManager;
-use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Internals\DiscountCouponTable;
 use Bitrix\Sale\Internals\DiscountTable;
-use Bitrix\Sale\Internals\OrderCouponsTable;
-use Bitrix\Sale\Order;
-use Bitrix\Sale\Delivery\Services\Manager as DeliveryServicesManager;
-use Bitrix\Sale\OrderTable;
-use Bitrix\Sale\PaySystem\Manager as PaySystemManager;
-use Bitrix\Sale\PropertyValue;
 use CFile;
-use QSoft\Entity\User;
-use QSoft\ORM\BeneficiariesTable;
-use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\DiscountsHelperTable;
-use QSoft\ORM\NotificationTable;
-use QSoft\ORM\TransactionTable;
-use QSoft\Service\ProductService;
 
 class CouponHelper
 {
