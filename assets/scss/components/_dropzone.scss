@@ -46,8 +46,6 @@
                 align-items: center;
                 justify-content: center;
 
-                cursor: pointer;
-
                 border: rem(1px) dashed $alto;
                 border-radius: rem($border-radius-average);
                 background-color: $white;
@@ -143,8 +141,6 @@
         &-caption {
             padding: rem($gap-normal);
 
-            cursor: pointer;
-
             border-radius: rem($border-radius-average);
             background-color: $athensGray;
         }
@@ -221,6 +217,11 @@
 
         &--wide {
             width: 100%;
+        }
+
+        & .button__text,
+        & .button__icon {
+            pointer-events: none;
         }
     }
 
