@@ -77,7 +77,9 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                     </svg>
                 </span>
                 <span class="menu__text"><?=Loc::getMessage('NOTIFICATION_TAB_NAME')?></span>
-                <span class="menu__counter"><?=$arResult['NOTIFICATION_COUNT']?></span>
+                <?php if ($arResult['NOTIFICATION_COUNT']):?>
+                    <span class="menu__counter"><?=$arResult['NOTIFICATION_COUNT']?></span>
+                <?php endif;?>
             </a>
         </li>
     </ul>
