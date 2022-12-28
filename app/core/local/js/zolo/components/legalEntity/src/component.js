@@ -190,7 +190,7 @@ export const LegalEntity = {
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="passport_series" class="profile__label form__label form__label--required">
-                                                            <span class="form__label-text">Серия паспорта</span>
+                                                            <span class="form__label-text">Серия</span>
                                                         </label>
                                                     </div>
 
