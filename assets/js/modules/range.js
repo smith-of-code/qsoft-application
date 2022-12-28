@@ -1,4 +1,5 @@
 import "jquery-ui/ui/widgets/slider";
+import "../vendors/jquery.ui.touch-punch.min.js"
 
 const ELEMENTS_SELECTOR = {
     ranges: '[data-range]',
