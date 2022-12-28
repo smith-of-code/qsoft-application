@@ -183,7 +183,7 @@ class OrderHelper
             $beneficiary = new User($beneficiaryId);
             $orderBonusesData[] = [
                 'user_id' => $beneficiaryId,
-                'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
+                'value' => $beneficiary->loyalty->calculateGroupBonusesByPrice($order->getPrice()),
                 'source' => TransactionTable::SOURCES['group'],
                 'type' => TransactionTable::TYPES['group_purchase'],
             ];
