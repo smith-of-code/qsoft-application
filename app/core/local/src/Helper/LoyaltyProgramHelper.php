@@ -158,7 +158,6 @@ class LoyaltyProgramHelper
         $allTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
-                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
                 '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
             ],
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
@@ -167,7 +166,6 @@ class LoyaltyProgramHelper
         $currentAccountingPeriodTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
-                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
                 '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
                 [
                     'LOGIC' => 'AND',
