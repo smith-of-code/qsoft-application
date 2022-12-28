@@ -353,6 +353,8 @@ class CSystemAuthRegistrationComponent {
   }
 
   async register() {
+      $(`.${registrationData.currentStep} .form span.input__control-error`).remove();
+
       const password = $('input[name=password]').val();
       const confirmPassword = $('input[name=password_confirm]').val();
 
@@ -376,16 +378,24 @@ class CSystemAuthRegistrationComponent {
               return;
       }
 
-      await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
-          mode: 'class',
-          data: {
+      let response;
+      try {
+          response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
+              mode: 'class',
               data: {
-                  ...registrationData,
-                  password,
-                  confirm_password: confirmPassword,
+                  data: {
+                      ...registrationData,
+                      password,
+                      confirm_password: confirmPassword,
+                  },
               },
-          },
-      });
+          });
+      } catch (error) {}
+
+      if (!response || response.status !== 'success') {
+          $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
+          return;
+      }
 
       let isBreak = false;
       let isCurrentStepPassed = false;
