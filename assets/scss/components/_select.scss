@@ -303,10 +303,13 @@
 
         .select2-container--default {
             .select2-dropdown {
-                right: 0;
-                left: auto;
-
+                left: 0;
                 width: rem(320px) !important;
+
+                @media #{$screen-desktop} {
+                    right: 0;
+                    left: auto;
+                }
             }
         }
 

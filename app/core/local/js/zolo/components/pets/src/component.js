@@ -293,7 +293,7 @@ export const Pets = {
                         </ul>
 
                         <div class="pet-cards__adding">
-                            <button type="button" class="button button--rounded button--covered button--white-green button--full" @click="addPet">
+                            <button type="button" class="button button--rounded button--covered button--white-green button--full" :class="{ 'button--disabled': mutablePets.length >= 10 }" :disabled="mutablePets.length >= 10" @click="addPet">
                                 <span class="button__icon button__icon--medium">
                                     <svg class="icon icon--add-circle">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-add-circle"></use>

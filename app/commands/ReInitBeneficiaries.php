@@ -19,33 +19,27 @@ class ReInitBeneficiaries extends Command
     public function handle()
     {
         $this->clearBeneficiaries();
-
-        while ($zeroLevelMentors = $this->getZeroLevelMentors()) {
-            $beneficiaries = $this->getBeneficiaries(
-                $zeroLevelMentors,
-                array_map(static fn ($mentor) => ['ID' => $mentor, 'MENTOR_ID' => null], $zeroLevelMentors)
-            );
-
-            $this->saveBeneficiaries($beneficiaries);
+        while ($users = $this->batchUsers()) {
+            $this->saveBeneficiaries($users);
         }
     }
 
     protected function clearBeneficiaries()
     {
-        Application::getConnection()->truncateTable('beneficiary');
+        Application::getConnection()->truncateTable(BeneficiariesTable::getTableName());
     }
 
-    protected function getZeroLevelMentors(): array
+    protected function batchUsers(): array
     {
         static $offset = 0;
 
-        $mentors = UserTable::getList([
+        $users = UserTable::getList([
             'filter' => [
                 '=ACTIVE' => true,
                 '=BLOCKED' => false,
-                '=PROPERTIES.UF_MENTOR_ID' => false,
+                '!=PROPERTIES.UF_MENTOR_ID' => false,
             ],
-            'select' => ['ID'],
+            'select' => ['UF_USER_ID' => 'ID', 'UF_BENEFICIARY_ID' => 'PROPERTIES.UF_MENTOR_ID'],
             'limit' => self::USERS_SELECT_BATCH_SIZE,
             'offset' => $offset,
             'runtime' => [
@@ -59,58 +53,11 @@ class ReInitBeneficiaries extends Command
 
         $offset += self::USERS_SELECT_BATCH_SIZE;
 
-        return array_map(static fn ($mentor) => $mentor['ID'], $mentors);
+        return $users;
     }
 
-    protected function getBeneficiaries(array $mentors, array $usersToMentors): array
+    protected function saveBeneficiaries(array $beneficiaries): void
     {
-        $wards = $this->getWards($mentors);
-
-        foreach ($wards as $ward) {
-            /** array_merge is used to copy array as it's modified in foreach */
-            foreach (array_merge($usersToMentors, []) as $userToMentor) {
-                if ($userToMentor['MENTOR_ID'] !== null && $userToMentor['ID'] == $ward['MENTOR_ID']) {
-                    $usersToMentors[] = [
-                        'ID' => $ward['ID'],
-                        'MENTOR_ID' => $userToMentor['MENTOR_ID'],
-                    ];
-                }
-            }
-
-            $usersToMentors[] = $ward;
-        }
-
-        if (!empty(array_pluck($wards, 'ID'))) {
-            $usersToMentors = $this->getBeneficiaries(array_pluck($wards, 'ID'), $usersToMentors);
-        }
-
-        return $usersToMentors;
-    }
-
-    protected function getWards(array $mentors): array
-    {
-        return UserTable::getList([
-            'filter' => [
-                '=ACTIVE' => true,
-                '=BLOCKED' => false,
-                '=PROPERTIES.UF_MENTOR_ID' => $mentors,
-            ],
-            'select' => ['ID', 'MENTOR_ID' => 'PROPERTIES.UF_MENTOR_ID'],
-            'runtime' => [
-                new Reference(
-                    'PROPERTIES',
-                    UserPropertiesTable::class,
-                    ['=this.ID' => 'ref.VALUE_ID']
-                ),
-            ],
-        ])->fetchAll();
-    }
-
-    protected function saveBeneficiaries(array $beneficiaries)
-    {
-        BeneficiariesTable::addMulti(array_map(
-            fn ($element) => ['UF_USER_ID' => $element['ID'], 'UF_BENEFICIARY_ID' => $element['MENTOR_ID']],
-            $beneficiaries
-        ));
+        BeneficiariesTable::addMulti($beneficiaries);
     }
 }

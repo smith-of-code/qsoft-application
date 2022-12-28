@@ -18,7 +18,9 @@ use Bitrix\Main\Localization\Loc;
                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
                             </svg>
 
-                            <span class="button__icon-counter button__icon-counter--red"><?=$arResult['UNREAD_COUNT']?></span>
+                            <?php if ($arResult['UNREAD_COUNT']):?>
+                                <span class="button__icon-counter button__icon-counter--red"><?=$arResult['UNREAD_COUNT']?></span>
+                            <?php endif;?>
                         </span>
 
             <span class="personal__button-text button__text"><?=Loc::getMessage('NOTIFICATION_BUTTON')?></span>

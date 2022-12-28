@@ -23,7 +23,8 @@ class CSystemAuthRegistrationComponent {
       $(document).on('change', '.form select', this.removeError);
       $(`.form input[type=checkbox]`).on('change', this.removeError);
       $(`.form input`).on('keyup', this.removeError);
-      $('input[name=without_second_name], input[name=without_mentor_id]').on('change', this.blockInputByCheckbox);
+      $('input[name=without_second_name]').on('change', this.blockInputByCheckbox);
+      $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
   }
@@ -55,6 +56,15 @@ class CSystemAuthRegistrationComponent {
       } else {
           input.attr('disabled', null);
       }
+    }
+
+    clearInputByCheckbox() {
+        const input = $(`input[name=${$(this).attr('name').replace('without_', '')}]`);
+        if ($(`#${$(this).attr('id')}:checked`).length) {
+            input.val('');
+            input.removeClass('input__control--error');
+            input.parent().find('.input__control-error').remove();
+        }
     }
 
     async changeStepListener() {
@@ -405,6 +415,23 @@ class CSystemAuthRegistrationComponent {
   }
 }
 
+
+
 $(function() {
     new CSystemAuthRegistrationComponent();
+
+    $('#mentor_id').on('input', function() {
+        let checkbox = $('#without_mentor_id');
+
+        setTimeout(() => {
+            let inputLength = $(this).val().length
+
+            if (inputLength > 0) {
+                checkbox.prop('checked', false);
+            }
+        }, 500);
+
+        $(this).val($(this).val().replace(/[^0-9]/g, ''))
+        return
+    });
 });

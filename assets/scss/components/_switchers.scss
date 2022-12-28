@@ -10,5 +10,9 @@
 
     &__item {
         margin-top: rem($vertical-gutter);
+
+        @media #{$screen-desktop} {
+            margin-top: 0;
+        }
     }
 }

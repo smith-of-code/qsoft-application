@@ -200,7 +200,7 @@ export const SalesReportPage = {
                     </div>
                 </section>
                 
-                <section class="accounting__section section">
+                <section v-if="team.consultants.length || team.buyers.length" class="accounting__section section">
                     <div class="section__box box">
                         <div class="section__header">
                             <h4 class="section__title">

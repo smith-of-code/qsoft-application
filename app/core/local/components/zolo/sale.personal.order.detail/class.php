@@ -126,7 +126,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
             'STATUS_ID' => $order->getField('STATUS_ID'),
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
-            'CREATED_BY' => $this->formUserName(),
+            'CREATED_BY' => $this->user->getPersonalData()['name_initials'],
             'ORDER_STATUS' => $statusName['NAME'],
             'IS_PAID' => $order->isPaid(),
             'TOTAL_PRICE' => $order->getPrice(),

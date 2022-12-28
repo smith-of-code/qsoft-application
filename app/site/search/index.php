@@ -24,7 +24,7 @@ $APPLICATION->SetTitle("Поиск");
 		"ELEMENT_SORT_FIELD2" => "id",
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_ORDER2" => "desc",
-		"HIDE_NOT_AVAILABLE" => "N",
+		"HIDE_NOT_AVAILABLE" => "Y",
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
 		"IBLOCK_ID" => IBLOCK_PRODUCT,
 		"IBLOCK_TYPE" => "catalog",
