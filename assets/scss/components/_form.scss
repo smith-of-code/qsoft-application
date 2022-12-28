@@ -24,6 +24,11 @@
         &__row {
             margin-right: 0;
             margin-left: 0;
+            margin-bottom: rem($gap-normal);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
 
             @media #{$screen-tablet} {
                 margin-right: rem(-$horizontal-gutter-big / 2);
@@ -35,6 +40,7 @@
             padding-right: 0;
             padding-left: 0;
             margin-top: rem($vertical-gutter);
+            margin-bottom: 0;
 
             @media #{$screen-tablet} {
                 margin-top: 0;
@@ -47,6 +53,12 @@
 
             &:first-child {
                 margin-top: 0;
+            }
+        }
+
+        &__field {
+            .checkbox {
+                display: flex;
             }
         }
     }
