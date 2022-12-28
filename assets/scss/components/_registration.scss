@@ -112,4 +112,12 @@
     &__button {
         width: fit-content;
     }
+
+    &__dropzone {
+        margin-bottom: rem($gap-normal);
+    }
+
+    &__requirement {
+        margin-bottom: rem($gap-medium);
+    }
 }
