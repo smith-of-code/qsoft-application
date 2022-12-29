@@ -151,10 +151,10 @@
 
 			if (totalMainRemains === "00") {
 				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-				remains.text('₽');
+				remains.html('&nbsp;₽');
 			} else {
 				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-				remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+				remains.html(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
 			}
 		}
 
