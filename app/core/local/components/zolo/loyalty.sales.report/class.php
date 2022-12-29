@@ -76,7 +76,7 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
         $this->arResult['buyer_loyalty_levels'] = $loyaltyLevels['customer'];
 
         $this->arResult['user_team'] = ['consultants' => [], 'buyers' => []];
-        foreach ($this->user->beneficiariesService->getTeamIds() as $teamMemberId) {
+        foreach ($this->user->beneficiariesService->getTeamIds(true) as $teamMemberId) {
             $userData = $this->getUserData(new User($teamMemberId));
 
             if ($userData['user_info']['is_consultant']) {
