@@ -16,7 +16,15 @@ class BeneficiariesService
         $this->user = $user;
     }
 
-    public function getTeamIds(): array
+    /**
+     * Возвращает ID всех участников команды консультанта
+     * @param bool $onlyInvited - вернуть только напрямую приглашенных участников
+     * @return array
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
+    public function getTeamIds($onlyInvited = false): array
     {
         if (!$this->user->groups->isConsultant()) {
             return [];
@@ -24,7 +32,8 @@ class BeneficiariesService
 
         $result = [];
         $wardsIds = null;
-        for ($i = 0; $i < self::TEAM_DEPTH; $i++) {
+        $depth = $onlyInvited ? 1 : self::TEAM_DEPTH;
+        for ($i = 0; $i < $depth; $i++) {
             if (isset($wardsIds) && !count($wardsIds)) {
                 continue;
             }
@@ -35,6 +44,13 @@ class BeneficiariesService
         return $result;
     }
 
+    /**
+     * Возвращает ID всех получателей выгоды (вышестоящих наставников пользователя)
+     * @return array
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
     public function getBeneficiariesIds(): array
     {
         $result = [];
@@ -45,9 +61,7 @@ class BeneficiariesService
         }
 
         for ($i = 0; $i < self::TEAM_DEPTH; $i++) {
-            if (!$beneficiaryId) {
-                continue;
-            }
+            // Записываем текущего наставника, после чего получаем вышестоящего наставника
             $result[] = $beneficiaryId;
             $beneficiaryId = BeneficiariesTable::getBeneficiaryId($beneficiaryId);
         }
