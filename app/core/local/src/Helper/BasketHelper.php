@@ -7,6 +7,7 @@ use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\ArgumentOutOfRangeException;
 use Bitrix\Main\ArgumentTypeException;
 use Bitrix\Main\InvalidOperationException;
+use Bitrix\Main\Loader;
 use Bitrix\Main\NotImplementedException;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
@@ -15,15 +16,25 @@ use Bitrix\Sale\Discount;
 use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Order;
+use CCatalogProduct;
+use QSoft\Entity\User;
 use RuntimeException;
 
 class BasketHelper
 {
+    private int $fUserId;
+
+    private User $user;
     private CouponHelper $couponHelper;
 
-    public function __construct()
+    public function __construct(int $fUserId = null)
     {
+        $this->fUserId = $fUserId ?? FUser::getId();
+
+        $this->user = new User;
         $this->couponHelper = new CouponHelper;
+
+        Loader::includeModule('sale');
     }
 
     public static function getOfferProperties(BasketBase $basket, array $properties = []): array
@@ -85,7 +96,7 @@ class BasketHelper
      */
     public function getBasket(bool $withPersonalPromotions = false, bool $clearPersonalPromotions = true): BasketBase
     {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+        $basket = Basket::loadItemsForFUser($this->fUserId, SITE_ID);
 
         $context = new Discount\Context\Fuser($basket->getFUserId());
         if ($discounts = Discount::buildFromBasket($basket, $context)) {
@@ -121,5 +132,55 @@ class BasketHelper
     public function clearPersonalPromotions(): void
     {
         DiscountCouponsManager::clear(true);
+    }
+
+    public function increase(int $offerId, string $detailPage, bool $nonreturnable, int $quantity = 1): bool
+    {
+        $basket = Basket::loadItemsForFUser($this->fUserId, SITE_ID);
+
+        if ($item = $this->getExistBasketItem($basket, $offerId)) {
+            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
+            $basket->save();
+        } else {
+            $result = \Bitrix\Catalog\Product\Basket::addProduct([
+                'PRODUCT_ID' => $offerId,
+                'QUANTITY' => $quantity,
+                'PROPS' => [
+                    [
+                        'NAME' => 'Детальная страница',
+                        'CODE' => 'DETAIL_PAGE',
+                        'VALUE' => $detailPage,
+                    ],
+                    [
+                        'NAME' => 'Невозвратный товар',
+                        'CODE' => 'NONRETURNABLE',
+                        'VALUE' => $nonreturnable,
+                    ],
+                    [
+                        'NAME' => 'Персональная акция',
+                        'CODE' => 'PERSONAL_PROMOTION',
+                        'VALUE' => false,
+                    ],
+                    [
+                        'NAME' => 'Баллы',
+                        'CODE' => 'BONUSES',
+                        'VALUE' => $this->user->loyalty->calculateBonusesByPrice(CCatalogProduct::GetOptimalPrice($offerId)['DISCOUNT_PRICE']),
+                    ],
+                ],
+            ]);
+        }
+
+        return $result->isSuccess();
+    }
+
+    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
+    {
+        /** @var BasketItem $basketItem */
+        foreach ($basket->getBasketItems() as $basketItem) {
+            if ($basketItem->getProductId() === $offerId) {
+                return $basketItem;
+            }
+        }
+        return null;
     }
 }
