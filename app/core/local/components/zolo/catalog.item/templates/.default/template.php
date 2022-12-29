@@ -91,11 +91,17 @@ if (isset($arResult['ITEM']))
                 <div id="<?=$domElementsIds['label'] . '_SEASONAL_OFFER'?>"
                      class="product-card__label label label--pink"
                      style="<?= $actualItem['showLabel'] === 'SEASONAL_OFFER' ? '' : 'display: none;'?>"
-                >сезонное предложение</div>
+                >
+                    <span class="product-card__label-desktop">сезонное предложение</span>
+                    <span class="product-card__label-mobile">сез. предложение</span> 
+                </div>
                 <div id="<?=$domElementsIds['label'] . '_LIMITED_OFFER'?>"
                      class="product-card__label label label--violet"
                      style="<?= $actualItem['showLabel'] === 'LIMITED_OFFER' ? '' : 'display: none;'?>"
-                >ограниченное предложение</div>
+                >
+                    <span class="product-card__label-desktop">ограниченное предложение</span>
+                    <span class="product-card__label-mobile">огр. предложение</span>
+                </div>
 
                 <!-- Кнопка "Добавить в избранное" -->
                 <?php if ($USER->IsAuthorized()):?>
