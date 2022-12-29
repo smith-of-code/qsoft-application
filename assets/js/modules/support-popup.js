@@ -266,13 +266,13 @@ function setDataToPopup (data, selected) {
                             <div class="form__col">
                                 <div class="form__field">
                                     <div class="form__field-block form__field-block--label">
-                                        <label for="MESSAGE" class="form__label form__label--required">
+                                        <label for="MESSAGE" class="form__label">
                                             <span class="form__label-text">Комментарий</span>
                                         </label>
                                     </div>
                                     <div class="form__field-block form__field-block--input">
                                         <label class="input input--textarea">
-                                            <textarea type="text" class="input__control js-required" name="MESSAGE" id="couses-message" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""  data-variant-value="CHANGE_MENTOR"></textarea>
+                                            <textarea type="text" class="input__control" name="MESSAGE" id="couses-message" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""  data-variant-value="CHANGE_MENTOR"></textarea>
                                             <div class="input__counter">
                                                 <span class="input__counter-current" data-textarea-current="">0</span>
                                                     /
