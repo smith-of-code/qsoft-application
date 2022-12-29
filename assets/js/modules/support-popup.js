@@ -1,5 +1,6 @@
  import scrollbar from './scrollbar';
  import validation from './validation';
+ import inputRepalece from './inputReplace';
 
 export default function showSupportPopup() {
     let body = $('body');
@@ -24,6 +25,10 @@ function initSupportForms() {
         if (popup.find('[data-modal-section]').length > 0) {
             return;
         }
+
+        setTimeout(() => {
+            inputRepalece();
+        }, 1000);
 
         let selected = $(this).data('selected');
         let saveSelected = '';
@@ -136,7 +141,7 @@ function setDataToPopup (data, selected) {
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control js-required js-number" name="ORDER_NUMBER" id="refund-order-id" placeholder=""  data-variant-value="REFUND_ORDER">
+                                            <input type="number" class="input__control js-required js-number" name="ORDER_NUMBER" id="refund-order-id" placeholder=""  data-variant-value="REFUND_ORDER" data-replace-input="number">
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +231,7 @@ function setDataToPopup (data, selected) {
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control js-required js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR">
+                                            <input type="number" class="input__control js-required js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR" data-replace-input="number">
                                             <span class="input__control-error" style="display:none;"></span>
                                         </div>
                                     </div>
@@ -248,7 +253,7 @@ function setDataToPopup (data, selected) {
                                             <div class="select select--mitigate" data-select>
                                                 <select class="select__control js-required" name="COUSES" id="couses-change" data-select-control data-placeholder="Выберите причину"  data-variant-value="CHANGE_MENTOR">
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Мой наставник не связался со мной после регистрации в течение длительного времени.</option>
+                                                    <option value="1">Мой наставник не связался со мной после регистрации в течение длительного времени</option>
                                                     <option value="2">Мой наставник не выходит на связь</option>
                                                     <option value="3">Мой наставник некорректно общается</option>
                                                     <option value="4">Мой наставник переехал</option>

@@ -258,6 +258,7 @@ export const PersonalData = {
                                                                 placeholder="Введите фамилию"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.last_name"
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>
@@ -282,6 +283,7 @@ export const PersonalData = {
                                                                 placeholder="Введите имя"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.first_name" 
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>
@@ -306,7 +308,8 @@ export const PersonalData = {
                                                                 placeholder="Введите отчество" 
                                                                 :readonly="!editing" 
                                                                 data-identic-input
-                                                                v-model="mutableUserInfo.second_name" 
+                                                                v-model="mutableUserInfo.second_name"
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>

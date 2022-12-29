@@ -36,6 +36,7 @@
                                         id="last_name"
                                         placeholder="Введите фамилию"
                                         value="<?=$arResult['last_name']?>"
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>
@@ -59,6 +60,7 @@
                                         id="first_name"
                                         placeholder="Введите имя"
                                         value="<?=$arResult['first_name']?>"
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>
@@ -85,6 +87,7 @@
                                         placeholder="Введите отчество"
                                         value="<?=$arResult['without_second_name'] === 'true' ? '' : $arResult['second_name']?>"
                                         <?=$arResult['without_second_name'] === 'true' ? 'disabled' : ''?>
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>

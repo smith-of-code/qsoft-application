@@ -53,6 +53,7 @@
  import show from './modules/show';
  import logout from "./modules/logout";
  import truncateBySymbols from './modules/truncateBySymbols';
+ import inputRepalece from './modules/inputReplace';
 
  const app = {
     ready() {
@@ -101,6 +102,7 @@
         show();
         logout();
         truncateBySymbols();
+        inputRepalece();
     },
 
     load() {
