@@ -140,8 +140,8 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     public function createTicket($fields)
     {
         $arFields = $this->prepareFields($fields);
-
-        return (new CTicket())->set($arFields, $MID, '', 'N');
+        $mid = 0;
+        return (new CTicket())->set($arFields, $mid, '', 'N');
     }
 
     /**
