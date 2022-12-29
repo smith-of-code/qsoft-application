@@ -224,11 +224,15 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 return ['status' => 'error', 'message' => 'Пользователь с таким email уже существует'];
             } else if ($field === 'mentor_id' && $data['without_mentor_id'] !== 'true' && $value) {
                 try {
-                    if (!(new UserGroupsService(new User($value)))->isConsultant()) {
-                        throw new InvalidArgumentException('Mentor not found');
+                    if (!is_numeric($value) || (int) $value <= 0) {
+                        return ['status' => 'error', 'message' => 'Некорректный ID'];
                     }
-                } catch (\Throwable $e) {
-                    return ['status' => 'error', 'message' => 'Пользователя с таким ID  не существует'];
+                    $mentor = new User($value);
+                    if (!$mentor->active || !$mentor->groups->isConsultant()) {
+                        return ['status' => 'error', 'message' => 'Указанный пользователь не может быть наставником'];
+                    }
+                } catch (\Exception $e) {
+                    return ['status' => 'error', 'message' => 'Такого пользователя не существует"'];
                 }
             } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
                 if (!empty($value['files'])) {

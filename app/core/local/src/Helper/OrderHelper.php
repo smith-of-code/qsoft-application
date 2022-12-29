@@ -147,7 +147,7 @@ class OrderHelper
                 foreach ($basketItem->getPropertyCollection() as $property) {
                     switch ($property->getField('CODE')) {
                         case 'BONUSES':
-                            $basketItemBonuses = $property->getField('VALUE');
+                            $basketItemBonuses = $property->getField('VALUE') * $basketItem->getQuantity();
                             break;
                         case 'PERSONAL_PROMOTION':
                             $withPersonalPromotions = $property->getField('VALUE');
@@ -172,21 +172,20 @@ class OrderHelper
             if ($bonusesWithPersonalPromotions) {
                 $orderBonusesData[] = [
                     'user_id' => $userId,
-                    'value' => $bonuses,
+                    'value' => $bonusesWithPersonalPromotions,
                     'source' => TransactionTable::SOURCES['personal'],
                     'type' => TransactionTable::TYPES['purchase_with_personal_promotion'],
                 ];
             }
         }
-        foreach (BeneficiariesTable::getUserBeneficiaries($userId) as $beneficiaryId) {
+
+        foreach ($user->beneficiariesService->getBeneficiariesIds() as $beneficiaryId) {
             $beneficiary = new User($beneficiaryId);
             $orderBonusesData[] = [
-                [
-                    'user_id' => $beneficiaryId,
-                    'value' => $beneficiary->loyalty->calculateBonusesByPrice($order->getPrice()),
-                    'source' => TransactionTable::SOURCES['group'],
-                    'type' => TransactionTable::TYPES['group_purchase'],
-                ],
+                'user_id' => $beneficiaryId,
+                'value' => $beneficiary->loyalty->calculateGroupBonusesByPrice($order->getPrice()),
+                'source' => TransactionTable::SOURCES['group'],
+                'type' => TransactionTable::TYPES['group_purchase'],
             ];
         }
 

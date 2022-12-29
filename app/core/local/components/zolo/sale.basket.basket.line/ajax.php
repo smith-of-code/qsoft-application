@@ -118,54 +118,8 @@ class BasketLineController extends Controller
         string $withPersonalPromotions = 'false',
         int $quantity = 1
     ): array {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        if ($item = $this->getExistBasketItem($basket, $offerId)) {
-            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
-            $basket->save();
-        } else {
-            $result = \Bitrix\Catalog\Product\Basket::addProduct([
-                'PRODUCT_ID' => $offerId,
-                'QUANTITY' => $quantity,
-                'PROPS' => [
-                    [
-                        'NAME' => 'Детальная страница',
-                        'CODE' => 'DETAIL_PAGE',
-                        'VALUE' => $detailPage,
-                    ],
-                    [
-                        'NAME' => 'Невозвратный товар',
-                        'CODE' => 'NONRETURNABLE',
-                        'VALUE' => $nonreturnable === 'true',
-                    ],
-                    [
-                        'NAME' => 'Персональная акция',
-                        'CODE' => 'PERSONAL_PROMOTION',
-                        'VALUE' => false,
-                    ],
-                    [
-                        'NAME' => 'Баллы',
-                        'CODE' => 'BONUSES',
-                        'VALUE' => $this->user->loyalty->calculateBonusesByPrice(CCatalogProduct::GetOptimalPrice($offerId)['DISCOUNT_PRICE']),
-                    ],
-                ],
-            ]);
-        }
-        if (!$result->isSuccess()) {
-            $this->errorCollection = $result->getErrorCollection();
-            return [];
-        }
+        $this->basketHelper->increase($offerId, $detailPage, $nonreturnable === 'true', $quantity);
         return $this->getBasketTotalsAction($withPersonalPromotions);
-    }
-
-    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
-    {
-        /** @var BasketItem $basketItem */
-        foreach ($basket->getBasketItems() as $basketItem) {
-            if ($basketItem->getProductId() === $offerId) {
-                return $basketItem;
-            }
-        }
-        return null;
     }
 
     /**
