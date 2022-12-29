@@ -3,6 +3,7 @@
 use Bitrix\Main\Engine\ActionFilter\Authentication;
 use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\UserTable;
 use QSoft\Entity\User;
 
 
@@ -153,6 +154,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
      */
     private function prepareFields(array $fields): array
     {
+        $user = new User();
         $arFields = $this->getFields($fields);
 
         switch ($fields['TICKET_TYPE']) {
@@ -163,6 +165,18 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                 $result = $arFields[self::TICKET_TYPES['SUPPORT']];
                 break;
             case self::TICKET_TYPES['CHANGE_MENTOR']:
+                if ((int)$fields['NEW_MENTOR_ID'] === $user->id) {
+                    throw new Exception('ID нового наставника совпадает с вашим');
+                }
+                try {
+                    $mentor = new User($fields['NEW_MENTOR_ID']);
+                } catch (RuntimeException $e) {
+                    throw new Exception('Такого пользователя не существует');
+                }
+                if (!$mentor->active || !$mentor->groups->isConsultant() || in_array($mentor->id, $user->beneficiariesService->getTeamIds())) {
+                    throw new Exception('Указанный пользователь не может быть Вашим наставником');
+                }
+
                 $result = $arFields[self::TICKET_TYPES['CHANGE_MENTOR']];
                 break;
             case self::TICKET_TYPES['OTHER']:

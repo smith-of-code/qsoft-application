@@ -368,7 +368,7 @@ class User
                         $objectPropertyValue = (int)$objectPropertyValue;
                         break;
                     case 'bool':
-                        $objectPropertyValue = (bool)$objectPropertyValue;
+                        $objectPropertyValue = $objectPropertyValue === true || $objectPropertyValue === 'Y';
                         break;
                     case 'string':
                         $objectPropertyValue = (string)$objectPropertyValue;

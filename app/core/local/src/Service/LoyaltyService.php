@@ -69,6 +69,7 @@ class LoyaltyService
                 $result['PERSONAL_DISCOUNT'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_discount'];
                 $result['PERSONAL_BONUSES_FOR_COST'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_bonuses_for_cost'];
                 $result['PERSONAL_BONUSES_FOR_STOCK'] = $levels[$this->user->loyaltyLevel]['benefits']['personal_bonuses_for_stock'];
+                $result['GROUP_BONUSES_FOR_COST'] = $levels[$this->user->loyaltyLevel]['benefits']['group_bonuses_for_cost'];
                 $result['CURRENT_AMOUNT_OF_BONUSES'] = $bonusesHelper->getTotalBonusesForCurrentQuarter($this->user);
 
                 // Получим необходимые данные по затратам для удержания текущего уровня
@@ -109,6 +110,16 @@ class LoyaltyService
         if ($this->user->groups->isConsultant()) {
             $info = $this->getLoyaltyProgramInfo();
             $rules = $withPersonalPromotion ? $info['PERSONAL_BONUSES_FOR_STOCK'] : $info['PERSONAL_BONUSES_FOR_COST'];
+            return $rules ? intdiv($price, $rules['step']) * $rules['size'] : 0;
+        }
+        return 0;
+    }
+
+    public function calculateGroupBonusesByPrice(float $price): int
+    {
+        if ($this->user->groups->isConsultant()) {
+            $info = $this->getLoyaltyProgramInfo();
+            $rules = $info['GROUP_BONUSES_FOR_COST'];
             return $rules ? intdiv($price, $rules['step']) * $rules['size'] : 0;
         }
         return 0;

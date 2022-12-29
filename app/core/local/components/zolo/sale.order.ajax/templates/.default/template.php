@@ -254,7 +254,7 @@ else:?>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
+                                        <span class="basket-card__total basket-card__text--green" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
                                             <span class="basket-card__total-whole"></span>
                                             <span class="basket-card__total-remains"></span>
                                         </span>
