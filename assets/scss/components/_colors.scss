@@ -35,5 +35,11 @@
         margin-top: rem($gap);
         padding-right: rem($gap / 2);
         padding-left: rem($gap / 2);
+
+        &-white {
+            & .color__item {
+                border: rem(1px) solid $alto;
+            }
+        }
     }
 }
