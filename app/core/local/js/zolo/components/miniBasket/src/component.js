@@ -51,7 +51,7 @@ export const MiniBasket = {
             {{ showPriceWhole(basketPrice) }}
         </span>
         <span class="personal__price-remains">
-            {{ showPriceRemains(basketPrice) }}&#8381
+            {{ showPriceRemains(basketPrice) }}&nbsp;&#8381
         </span>
       </span>
       <span v-else class="personal__button-text button__text">Корзина</span>

@@ -1,4 +1,4 @@
-import { async } from "regenerator-runtime";
+ import { async } from "regenerator-runtime";
 
 const ELEMENTS_SELECTOR = {
     cart: '[data-basket]',
@@ -344,10 +344,10 @@ export default async function () {
        
         if (totalRemains === "00") {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-            spanRemains.text('₽');
+            spanRemains.html('&nbsp;₽');
         } else {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+            spanRemains.html(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
         }
     }
 
@@ -360,10 +360,10 @@ export default async function () {
        
         if (totalRemains === "00") {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-            spanRemains.text('₽');
+            spanRemains.html('&nbsp;₽');
         } else {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+            spanRemains.html(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
         }
     }
 
@@ -380,10 +380,10 @@ export default async function () {
        
         if (totalRemains === "00") {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-            spanRemains.text('₽');
+            spanRemains.html('&nbsp;₽');
         } else {
             spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-            spanRemains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+            spanRemains.html(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
         }
       
     }
@@ -403,10 +403,10 @@ export default async function () {
 
         if (totalMainRemains === "00") {
             whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-            remains.text('₽');
+            remains.html('&nbsp;₽');
         } else {
             whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-            remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+            remains.html(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
         }
     }
 
