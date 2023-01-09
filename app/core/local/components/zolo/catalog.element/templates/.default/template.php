@@ -229,8 +229,12 @@ $offerId = $arResult['OFFER_FIRST'];
                 <ul class="specification__description">
                     <?php foreach ($arResult['SPECIFICATION'] as $key => $value): ?>
                         <li class="specification__description-item">
-                            <p class="specification__description-topic"><?=$arResult['PROPERTY_NAMES'][$key]?></p>
-                            <p class="specification__description-response"><?=$value?></p>
+                            <p class="specification__description-topic" data-fixwidth>
+                                <?=$arResult['PROPERTY_NAMES'][$key]?>
+                            </p>
+                            <p class="specification__description-response">
+                                <?=$value?>
+                            </p>
                         </li>
                     <?php endforeach; ?>
                 </ul>
