@@ -879,7 +879,7 @@
                                         class="checkbox__input"
                                         name="need_proxy"
                                         id="need_proxy"
-                                    <?=$arResult['need_proxy'] ? 'checked' : ''?>
+                                    <?=$arResult['need_proxy'] === 'true' ? 'checked' : ''?>
                                 >
 
                                 <label for="need_proxy" class="checkbox__label">
@@ -896,7 +896,7 @@
                     </div>
                 </div>
 
-                <div class="section__box-block">
+                <div class="section__box-block" <?=$arResult['procuration'] ? '' : 'style="display:none;"'?>>
                     <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
