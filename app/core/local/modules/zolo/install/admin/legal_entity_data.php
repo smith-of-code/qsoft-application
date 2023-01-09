@@ -189,6 +189,7 @@ $arResult = $ticketData['documents'];?>
                                                data-pets-date-input
                                                data-pets-change
                                                value="<?=$arResult['getting_date']?>"
+                                               autocomplete="off"
                                         >
                                     </div>
                                 </div>

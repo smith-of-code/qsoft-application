@@ -74,7 +74,7 @@ class OffersService
             // Вычисляем количество бонусов
             $propsToSet = [];
             foreach ($levelsCodes as $code) {
-                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
+                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
                 $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
 
                 $propsToSet['BONUSES_' . $code] = $bonuses;
@@ -101,7 +101,7 @@ class OffersService
         $levels = array_merge($levels, $consultantLoyalty->getLoyaltyLevels(), $buyerLoyalty->getLoyaltyLevels());
 
         foreach (array_keys($levels) as $levelCode) {
-            // Вычисляем акционную цену
+            // Вычисляем акционную цену (учитывается только персональная скидка)
             $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
             $discountPrice = ceil($priceValue * (100 - $discountPercent)) / 100;
 
@@ -178,7 +178,7 @@ class OffersService
                         // Вычисляем количество бонусов
                         $propsToSet = [];
                         foreach ($levelsCodes as $code) {
-                            $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_stock'];
+                            $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
                             $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
 
                             $propsToSet['BONUSES_' . $code] = $bonuses;
@@ -196,7 +196,7 @@ class OffersService
     }
 
     /**
-     * Пересчитывает бонусные баллы для всех ТП
+     * Пересчитывает акционные цены для всех ТП
      */
     public function updateAllOffersDiscountPrices() {
 

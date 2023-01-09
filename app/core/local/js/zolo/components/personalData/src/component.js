@@ -391,6 +391,7 @@ export const PersonalData = {
                                                                 data-mask-date-reg
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.birthdate"
+                                                                autocomplete="off"
                                                             >
                                                             <span class="input__control-error--mask"></span>
                                                             <span class="input__icon">
