@@ -160,7 +160,11 @@
             color: $saltBox;
 
             &--remains {
-                font-size: rem(13px);
+                font-size: rem($font-size-miniature);
+
+                @media #{$screen-desktop} {
+                    font-size: rem($font-size-mini);
+                }
             }
         }
     }

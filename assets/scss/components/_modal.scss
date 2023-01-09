@@ -7,6 +7,14 @@
         width: rem(770px);
     }
 
+    &#{&}--orderout {
+        width: rem(322px);
+
+        @media #{$screen-tablet} {
+            width: rem(625px);
+        }
+    }
+
     &#{&}--limited {
         max-height: rem(750px);
     }
@@ -165,6 +173,24 @@
         &--support-notification {
             background-color: $athensGray;
         }
+
+        &--order {
+            padding: rem(32px) 0;
+            max-height: rem(625px);
+
+            & .os-scrollbar.os-scrollbar-vertical {
+                padding: rem(35px) rem(5px) rem(17px) 0;
+
+                @media #{$screen-tablet} {
+                    padding: rem(35px) rem(32px) rem(17px) 0;
+                }
+            }
+
+            @media #{$screen-tablet} {
+                max-height: rem(823px);
+                padding-right: rem(20px);
+            }
+        }
     }
 
     &__section {
@@ -181,6 +207,14 @@
 
         &--content {
             flex-grow: 1;
+        }
+
+        &--order {
+            padding: 0 rem(10px);
+
+            @media #{$screen-tablet} {
+                padding: 0 rem(60px);
+            }
         }
 
         &-actions {

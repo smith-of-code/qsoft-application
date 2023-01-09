@@ -205,7 +205,7 @@ export const OrdersReport = {
                                                                                 {{ showPriceWhole(product.price) }}
                                                                             </span>
                                                                             <span class="product-line__params-value--remains">
-                                                                                {{ showPriceRemains(product.price) }} ₽
+                                                                                {{ showPriceRemains(product.price) }}&nbsp;₽
                                                                             </span>
                                                                         </span>
                                                                     </p>
@@ -230,7 +230,7 @@ export const OrdersReport = {
                                                                                 {{ showPriceWhole(product.price * product.quantity) }}
                                                                             </span>
                                                                             <span class="product-line__params-value--remains">
-                                                                                {{ showPriceRemains(product.price * product.quantity) }} ₽
+                                                                                {{ showPriceRemains(product.price * product.quantity) }}&nbsp;₽
                                                                             </span>
                                                                         </span>
                                                                     </p>
