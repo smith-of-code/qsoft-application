@@ -34,7 +34,7 @@ abstract class BaseJob
             $this->process($data);
         } catch (Throwable $e) {
             $logpath = realpath($_SERVER['DOCUMENT_ROOT'] . '/../logs/') . '/queue_' . date('m_Y') . '.log';
-            file_put_contents($logpath, '[' . date('d.m.Y h:i:s') . ']' . print_r($e, true) . PHP_EOL, FILE_APPEND);
+            file_put_contents($logpath, '[' . date('d.m.Y h:i:s') . '][' . $this->getQueueName() . '] ' . print_r($e->getMessage() . ' FILE: ' . $e->getFile() . ', LINE ' . $e->getLine(), true) . PHP_EOL, FILE_APPEND);
         }
     }
 
