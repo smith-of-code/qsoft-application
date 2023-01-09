@@ -12,7 +12,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                 <p class="consultant__text">Стань консультантом и получи все привилегии <span class="consultant__text-accent">AmeБизнес</span></p>
             </div>
             <div class="consultant__col">
-                <a href="/become_consultant/" type="button" class="consultant__button button button--medium button--rounded button--covered button--red">
+                <a href="/become_consultant/" class="consultant__button button button--medium button--rounded button--covered button--red">
                     <span class="button__icon">
                         <svg class="icon icon--crown">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-crown"></use>
