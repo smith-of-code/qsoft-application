@@ -153,6 +153,7 @@
                                                        data-mask-date
                                                        data-pets-date-input
                                                        data-pets-change
+                                                       autocomplete="off"
                                                 >
                                                 <span class="input__icon">
                                                 <svg class="icon icon--calendar">
