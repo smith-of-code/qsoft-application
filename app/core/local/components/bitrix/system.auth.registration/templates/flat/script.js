@@ -161,7 +161,9 @@ class CSystemAuthRegistrationComponent {
                             });
                         });
 
-                        if (!data[$(item).attr('name')].files.length) {
+                        if (!data[$(item).attr('name')].files.length &&
+                            ($(item).attr('name') !== 'usn_notification' || !$('input[name=nds_payer_ip]:checked').length)
+                        ) {
                             $(item).parent().addClass('dropzone--error');
                         } else {
                             $(item).parent().removeClass('dropzone--error');
