@@ -55,7 +55,8 @@ export default function inputMaskInit($container, mask) {
     const dateTwoNum = dateYearSplitted[1];
     const dateThreeNum = dateYearSplitted[2];
     const dateFourNum = dateYearSplitted[3];
-    const prevDateFourNum = parseInt(dateFourNum) - 1 
+    const prevDateFourNum = parseInt(dateFourNum) - 1
+    const nextDateFourNum = parseInt(dateFourNum) + 1
   
     const addButton = $(".pet-cards__adding").find("button");
 
@@ -224,7 +225,7 @@ export default function inputMaskInit($container, mask) {
                         valExp = new RegExp('[0-9]');
 
                     } else if (buffer.buffer[8] === dateThreeNum) {
-                        valExp = new RegExp(`[0-${dateFourNum}]`);
+                        valExp = new RegExp(`[0-${nextDateFourNum}]`);
                     } else {
                         valExp = new RegExp('[0-9]');
                     }
