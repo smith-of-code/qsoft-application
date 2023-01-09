@@ -76,6 +76,7 @@
         
             @media #{$screen-desktop} {
                 max-width: rem(200px) !important;
+                width: auto !important;
             }
         }
 
@@ -83,7 +84,7 @@
             font-weight: $font-weight-medium;
             order: 3;
 
-            max-width: rem(160px);
+            max-width: rem(187px);
             word-break: break-all;
 
             color: $tuna;
