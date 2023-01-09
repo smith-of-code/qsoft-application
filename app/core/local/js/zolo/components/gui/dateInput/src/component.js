@@ -47,6 +47,7 @@ export const DateInput = {
                 v-model="currentValue"
                 data-pets-date-input
                 data-pets-change
+                autocomplete="off"
             >
             <span class="input__control-error--mask"></span>
             <span class="input__icon">

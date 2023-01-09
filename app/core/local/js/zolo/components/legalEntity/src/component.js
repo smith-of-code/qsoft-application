@@ -287,6 +287,7 @@ export const LegalEntity = {
                                                                 data-profile-readonly
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.getting_date"
+                                                                autocomplete="off"
                                                             >
                                                             <span class="input__icon">
                                                                 <svg class="icon icon--calendar">

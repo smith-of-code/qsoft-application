@@ -163,6 +163,7 @@
                                                data-pets-date-input
                                                data-pets-change
                                                value="<?=$arResult['getting_date']?>"
+                                               autocomplete="off"
                                         >
                                         <span class="input__icon">
                                                 <svg class="icon icon--calendar">

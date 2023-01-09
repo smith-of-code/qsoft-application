@@ -202,6 +202,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                                        data-mask-date-reg
                                                                        readonly data-profile-readonly
                                                                        value="<?=$arResult['personal_data']['birthdate']?>"
+                                                                       autocomplete="off"
                                                                 >
                                                                 <span class="input__icon">
                                                                     <svg class="icon icon--calendar">

@@ -156,6 +156,7 @@ if (!$arResult['pets']) {
                                                        data-pets-date-input
                                                        data-pets-change
                                                        value="<?=$pet['birthdate']?>"
+                                                       autocomplete="off"
                                                 >
                                                 <span class="input__icon">
                                                         <svg class="icon icon--calendar">
