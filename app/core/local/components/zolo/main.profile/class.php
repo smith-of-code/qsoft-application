@@ -107,6 +107,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         $this->arResult['user_genders'] = ['M' => ['name' => 'Мужской'], 'F' => ['name' => 'Женский']];
 
         $this->arResult['personal_data'] = $this->user->getPersonalData();
+        $this->arResult['personal_data']['is_consultant'] = $this->user->groups->isConsultant();
         $this->arResult['current_accounting_period'] = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
         $this->arResult['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
             $this->user->id,
