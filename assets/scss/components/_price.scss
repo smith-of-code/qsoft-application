@@ -47,7 +47,11 @@
             align-items: baseline;
 
             &--remains {
-                font-size: rem(17px);
+                font-size: rem($font-size-small);
+
+                @media #{$screen-desktop} {
+                    font-size: rem(17px);
+                }
             }
         }
 

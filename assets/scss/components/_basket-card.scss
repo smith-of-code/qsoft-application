@@ -90,7 +90,11 @@
         }
 
         &-remains {
-            font-size: rem($font-size-mini);
+            font-size: rem($font-size-miniature);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-mini);
+            }
         }
     }
 
