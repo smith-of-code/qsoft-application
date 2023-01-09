@@ -76,7 +76,9 @@
 
         width: rem($size);
         height: rem($size);
+        margin-right: rem(8px);
 
+        border: rem(1px) solid $alto;
         border-radius: 50%;
 
         @media #{$screen-desktop} {
@@ -84,6 +86,9 @@
 
             width: rem($size);
             height: rem($size);
+            margin-right: 0;
+
+            border: none;
         }
 
         &::before {

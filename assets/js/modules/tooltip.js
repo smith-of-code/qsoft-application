@@ -18,7 +18,19 @@ export default function tooltip() {
         theme: 'light',
         arrow: false,
         appendTo: 'parent',
+        onShown(instance) {
+            instance.enable();
+            instance.setProps({
+                duration: 10,
+              });
+            const tippyElement = instance.reference
+            const elementAttr = $(tippyElement).attr('data-tippy-content');
+            if (elementAttr) {
+                instance.setContent(elementAttr);
+            }
+            return
+          },
+        
     });
-
     window.tippy = tippy;
 }

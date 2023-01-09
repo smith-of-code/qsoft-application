@@ -452,7 +452,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="input">
-                                                                    <input type="text" class="input__control" value="<?=$mentor['LAST_NAME']?>" name="text-required" id="text-required" placeholder="Введите фамилию" readonly>
+                                                                    <input type="text" class="input__control" value="<?=$mentor['LAST_NAME']?>" name="text-required" id="text-required" placeholder="Введите фамилию" readonly data-replace-input="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -468,7 +468,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="input">
-                                                                    <input type="text" value="<?=$mentor['NAME']?>" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly>
+                                                                    <input type="text" value="<?=$mentor['NAME']?>" class="input__control" name="text-required" id="text-required" placeholder="Введите имя" readonly data-replace-input="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -484,7 +484,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="input">
-                                                                    <input type="text" class="input__control" value="<?=$mentor['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly>
+                                                                    <input type="text" class="input__control" value="<?=$mentor['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly data-replace-input="text">
                                                                 </div>
                                                             </div>
                                                         </div>

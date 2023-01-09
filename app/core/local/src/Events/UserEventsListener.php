@@ -2,23 +2,31 @@
 
 namespace QSoft\Events;
 
-use Bitrix\Main\UserPhoneAuthTable;
+use BasketLineController;
+use Bitrix\Main\Loader;
 use Bitrix\Main\UserTable;
+use Bitrix\Sale\BasketItem;
+use Bitrix\Sale\Fuser;
+use CCatalogProduct;
 use CUser;
 use QSoft\Entity\User;
+use QSoft\Helper\BasketHelper;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
-use QSoft\Queue\Jobs\BeneficiaryChangeJob;
-use RuntimeException;
+use QSoft\Helper\UserGroupHelper;
+use QSoft\ORM\BeneficiariesTable;
 
 class UserEventsListener
 {
+    private static int $fUserId = 0;
 
     /**
      * @throws \Exception
      */
     public static function OnBeforeUserUpdate(array &$fields)
     {
+        global $APPLICATION;
+
         // Пользователь, для которого вносятся изменения
         $user = new User($fields['ID']);
 
@@ -27,25 +35,62 @@ class UserEventsListener
         }
 
         // Если произошло изменение ментора
-        if (
-            is_numeric($fields['UF_MENTOR_ID'])
-            && (int) $fields['UF_MENTOR_ID'] > 0
-            && $user->getMentor()->id !== (int) $fields['UF_MENTOR_ID']
-            && $user->id !== (int) $fields['UF_MENTOR_ID']
-        ) {
-            $userMentor = new User($fields['UF_MENTOR_ID']);
-            if (!$userMentor->active || !$userMentor->groups->isConsultant()) {
-                throw new RuntimeException('Указанный в качестве наставника пользователь не может быть наставником.');
+        if (isset($fields['UF_MENTOR_ID']) && $user->mentorId !== (int) $fields['UF_MENTOR_ID']) {
+
+            if (!$fields['UF_MENTOR_ID']) {
+                $APPLICATION->throwException('Пользователь обязан иметь наставника');
+                return false;
             }
 
-            BeneficiaryChangeJob::pushJob([
-                'userId' => $user->id,
-                'oldMentorId' => $user->getMentor()->id,
-                'newMentorId' => $fields['UF_MENTOR_ID'],
+            if (!is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] <= 0) {
+                $APPLICATION->throwException('Некорректный ID наставника');
+                return false;
+            }
+
+            try {
+                $mentor = new User($fields['UF_MENTOR_ID']);
+            } catch (\Exception $e) {
+                $APPLICATION->throwException($e->getMessage());
+                return false;
+            }
+
+            if (
+                $user->id === (int) $fields['UF_MENTOR_ID']
+                || ! $mentor->active
+                || ! $mentor->groups->isConsultant()
+                || in_array($mentor->id, $user->beneficiariesService->getTeamIds())
+            ) {
+                $APPLICATION->throwException('Указанный пользователь не может быть наставником.');
+                return false;
+            }
+
+            // Если у пользователя уже был задан наставник - найдем соответствующую запись и удалим
+            if ($user->mentorId) {
+                $oldRelation = BeneficiariesTable::getRow([
+                    'filter' => [
+                        '=UF_USER_ID' => $user->id,
+                        '=UF_BENEFICIARY_ID' => $user->mentorId,
+                    ],
+                    'select' => ['ID'],
+                ]);
+                if ($oldRelation) {
+                    BeneficiariesTable::delete($oldRelation['ID']);
+                }
+            }
+
+            BeneficiariesTable::add([
+                'UF_USER_ID' => $user->id,
+                'UF_BENEFICIARY_ID' => $mentor->id,
             ]);
 
-            if ($user->groups->isConsultant()) {
-                (new BonusAccountHelper)->addReferralBonuses($userMentor);
+            if (
+                $user->groups->isConsultant()
+                || (
+                    $fields['GROUP_ID']
+                    && in_array(UserGroupHelper::getConsultantGroupId(), $fields['GROUP_ID'])
+                )
+            ) {
+                (new BonusAccountHelper)->addReferralBonuses($mentor);
             }
         }
     }
@@ -63,6 +108,8 @@ class UserEventsListener
 
     public static function OnBeforeUserLogin(array &$params): bool
     {
+        Loader::includeModule('sale');
+
         if (defined('ADMIN_SECTION') && ADMIN_SECTION === true) {
             return true;
         }
@@ -75,6 +122,30 @@ class UserEventsListener
             return false;
         }
         $params['LOGIN'] = $user['LOGIN'];
+        self::$fUserId = FUser::getId();
         return !($_POST['NOT_ACTIVE_ERROR'] = !CUser::GetByID($user['ID'])->GetNext()['UF_EMAIL_CONFIRMED']);
+    }
+
+    public static function OnAfterUserAuthorize(array $params)
+    {
+        $authBasketHelper = new BasketHelper;
+        $basket = (new BasketHelper(self::$fUserId ?: null))->getBasket();
+        /** @var BasketItem $basketItem */
+        foreach ($basket as $basketItem) {
+            $detailPage = '/404/';
+            $nonreturnable = false;
+            foreach ($basketItem->getPropertyCollection() as $property) {
+                if ($property->getField('CODE') === 'DETAIL_PAGE') {
+                    $detailPage = $property->getField('VALUE');
+                }
+                if ($property->getField('CODE') === 'NONRETURNABLE') {
+                    $nonreturnable = (bool)$property->getField('VALUE');
+                }
+            }
+            $authBasketHelper->increase($basketItem->getProductId(), $detailPage, $nonreturnable, $basketItem->getQuantity());
+            $basketItem->delete();
+//            $basketItem->save();
+        }
+        $basket->save();
     }
 }

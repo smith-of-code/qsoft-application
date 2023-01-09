@@ -200,7 +200,7 @@ export const PersonalData = {
 
                                     <div class="profile__dropzone dropzone dropzone--image dropzone--simple" data-uploader>
                                         <input type="file" name="photo" multiple class="dropzone__control js-required">
-                                        <div class="dropzone__area" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
+                                        <div class="dropzone__area">
                                             <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
                                                     <img v-if="mutableUserInfo.photo" :src="mutableUserInfo.photo" alt="Персональное фото" class="profile__avatar-image-pic">
@@ -210,7 +210,7 @@ export const PersonalData = {
                                                 </div>
 
                                                 <div class="profile__toggle">
-                                                    <button type="button" class="dropzone__button button button--medium button--rounded button--outlined button--green">
+                                                    <button type="button" class="dropzone__button button button--medium button--rounded button--outlined button--green" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -258,6 +258,7 @@ export const PersonalData = {
                                                                 placeholder="Введите фамилию"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.last_name"
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>
@@ -282,6 +283,7 @@ export const PersonalData = {
                                                                 placeholder="Введите имя"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.first_name" 
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>
@@ -306,7 +308,8 @@ export const PersonalData = {
                                                                 placeholder="Введите отчество" 
                                                                 :readonly="!editing" 
                                                                 data-identic-input
-                                                                v-model="mutableUserInfo.second_name" 
+                                                                v-model="mutableUserInfo.second_name"
+                                                                data-replace-input="text"
                                                             >
                                                         </div>
                                                     </div>

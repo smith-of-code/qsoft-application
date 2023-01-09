@@ -18,6 +18,7 @@ $eventManager = EventManager::getInstance();
 $eventManager->addEventHandler('main', 'OnAdminTabControlBegin', [OfferEventsListener::class, 'OnOffersEditFormShow']);
 
 $eventManager->addEventHandler('main', 'OnBeforeUserLogin', [UserEventsListener::class, 'OnBeforeUserLogin']);
+$eventManager->addEventHandler('main', 'OnAfterUserAuthorize', [UserEventsListener::class, 'OnAfterUserAuthorize']);
 $eventManager->addEventHandler('main', 'OnBeforeUserAdd', [UserEventsListener::class, 'OnBeforeUserAdd']);
 $eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [UserEventsListener::class, 'OnBeforeUserUpdate']);
 
@@ -52,3 +53,4 @@ $eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [Loy
 // События для пересчета бонусов ТП при обновлении правил корзины
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterAdd', [OfferEventsListener::class, 'UpdateBonuses']);
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterUpdate', [OfferEventsListener::class, 'UpdateBonuses']);
+$eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterDelete', [OfferEventsListener::class, 'UpdateBonuses']);

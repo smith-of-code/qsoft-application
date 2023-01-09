@@ -303,10 +303,13 @@
 
         .select2-container--default {
             .select2-dropdown {
-                right: 0;
-                left: auto;
-
+                left: 0;
                 width: rem(320px) !important;
+
+                @media #{$screen-desktop} {
+                    right: 0;
+                    left: auto;
+                }
             }
         }
 
@@ -601,4 +604,17 @@
     &__color {
         display: flex;
     }
+
+    .select__control[name=select-color] + .select2-container *:focus {
+        outline: none;
+    }
+
+    .select__control[name=select-size-mob] + .select2-container *:focus {
+        outline: none;
+    }
+
+    .select__control[name=select-package] + .select2-container *:focus {
+        outline: none;
+    }
+    
 }

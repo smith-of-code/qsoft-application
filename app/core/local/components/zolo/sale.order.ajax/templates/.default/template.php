@@ -39,7 +39,7 @@ else:?>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" value="<?=$arResult['USER']['LAST_NAME'] ?>" name="last_name" id="subname-required" placeholder="Фамилия">
+                                                <input type="text" class="input__control" value="<?=$arResult['USER']['LAST_NAME'] ?>" name="last_name" id="subname-required" placeholder="Фамилия" data-replace-input="text">
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@ else:?>
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input type="text" class="input__control" value="<?=$arResult['USER']['FIRST_NAME'] ?>" name="first_name" id="name-required" placeholder="Имя">
+                                                <input type="text" class="input__control" value="<?=$arResult['USER']['FIRST_NAME'] ?>" name="first_name" id="name-required" placeholder="Имя" data-replace-input="text">
                                             </div>
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@ else:?>
                                     </div>
                                     <div class="basket-card__item">
                                         <span class="basket-card__text basket-card__text--green">Экономия</span>
-                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
+                                        <span class="basket-card__total basket-card__text--green" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
                                             <span class="basket-card__total-whole"></span>
                                             <span class="basket-card__total-remains"></span>
                                         </span>

@@ -27,13 +27,15 @@
         flex-shrink: 0;
 
         width: rem(68px);
+        height: rem(68px);
         margin-right: rem($gap-medium);
 
         border: rem(1px) solid $alto;
         border-radius: rem($border-radius-middle);
 
-        @media #{$screen-tablet} {
+        @media #{$screen-desktop} {
             width: rem(56px);
+            height: rem(56px);
         }
 
         &::before {
@@ -49,6 +51,7 @@
 
             width: 100%;
             height: 100%;
+            object-fit: cover;
         }
     }
 
@@ -157,7 +160,11 @@
             color: $saltBox;
 
             &--remains {
-                font-size: rem(13px);
+                font-size: rem($font-size-miniature);
+
+                @media #{$screen-desktop} {
+                    font-size: rem($font-size-mini);
+                }
             }
         }
     }

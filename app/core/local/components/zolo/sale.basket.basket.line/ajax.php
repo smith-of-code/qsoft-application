@@ -71,7 +71,6 @@ class BasketLineController extends Controller
             ],
             'repeatOrder' => [
                 '-prefilters' => [
-                    Authentication::class,
                     Csrf::class,
                 ],
             ],
@@ -118,54 +117,8 @@ class BasketLineController extends Controller
         string $withPersonalPromotions = 'false',
         int $quantity = 1
     ): array {
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
-        if ($item = $this->getExistBasketItem($basket, $offerId)) {
-            $result = $item->setField('QUANTITY', $item->getQuantity() + $quantity);
-            $basket->save();
-        } else {
-            $result = \Bitrix\Catalog\Product\Basket::addProduct([
-                'PRODUCT_ID' => $offerId,
-                'QUANTITY' => $quantity,
-                'PROPS' => [
-                    [
-                        'NAME' => 'Детальная страница',
-                        'CODE' => 'DETAIL_PAGE',
-                        'VALUE' => $detailPage,
-                    ],
-                    [
-                        'NAME' => 'Невозвратный товар',
-                        'CODE' => 'NONRETURNABLE',
-                        'VALUE' => $nonreturnable === 'true',
-                    ],
-                    [
-                        'NAME' => 'Персональная акция',
-                        'CODE' => 'PERSONAL_PROMOTION',
-                        'VALUE' => false,
-                    ],
-                    [
-                        'NAME' => 'Баллы',
-                        'CODE' => 'BONUSES',
-                        'VALUE' => $this->user->loyalty->calculateBonusesByPrice(CCatalogProduct::GetOptimalPrice($offerId)['DISCOUNT_PRICE']),
-                    ],
-                ],
-            ]);
-        }
-        if (!$result->isSuccess()) {
-            $this->errorCollection = $result->getErrorCollection();
-            return [];
-        }
+        $this->basketHelper->increase($offerId, $detailPage, $nonreturnable === 'true', $quantity);
         return $this->getBasketTotalsAction($withPersonalPromotions);
-    }
-
-    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
-    {
-        /** @var BasketItem $basketItem */
-        foreach ($basket->getBasketItems() as $basketItem) {
-            if ($basketItem->getProductId() === $offerId) {
-                return $basketItem;
-            }
-        }
-        return null;
     }
 
     /**
@@ -204,6 +157,8 @@ class BasketLineController extends Controller
 
     public function repeatOrderAction(int $orderId): array
     {
+        $currentBasket = Basket::loadItemsForFUser(Fuser::getId(), SITE_ID);
+
         //объект заказа
         $orderOld = Order::load($orderId);
 
@@ -221,7 +176,7 @@ class BasketLineController extends Controller
 
         $ids = array_map(static fn($item) => $item->getProductId(), $basketOld->getBasketItems());
 
-        $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByRepeatedIds($ids);
+        $offers = (new ProductService(new User($orderOld->getUserId())))->getOffersByIds($ids);
 
         $missing = [];//позиции старой корзины, которые не добавятся в новую корзину
         foreach ($basketOld as $basketItem) {
@@ -230,24 +185,32 @@ class BasketLineController extends Controller
             $availableQuantity = $offer['CATALOG_QUANTITY'];
             if ($availableQuantity == 0) {
                 $missing[] = [
-                    'ID' => $offer['ID'],
-                    'NAME' => $offer['NAME'],
+                    'id' => $offer['ID'],
+                    'name' => $offer['NAME'],
+                    'article' => $offer['PROPERTY_ARTICLE_VALUE'],
+                    'picture' => $offer['PREVIEW_IMAGE_SRC'] ?: NO_IMAGE_PLACEHOLDER_PATH,
                 ];
                 continue;
             }
 
             $props = $basketItem->getPropertyCollection()->getPropertyValues();
 
-            $this->increaseItemAction(
-                $offer['ID'],
-                $props['DETAIL_PAGE']['VALUE'],
-                $props['NONRETURNABLE']['VALUE'],
-                'false',
-                min($requiredQuantity, $availableQuantity),
-            );
+            $existingBasketItem = $this->getExistBasketItem($currentBasket, $basketItem->getProductId());
+            if ($existingBasketItem) {
+                $requiredQuantity -= $existingBasketItem->getQuantity();
+            }
+
+            if ($requiredQuantity > 0) {
+                $this->increaseItemAction(
+                    $offer['ID'],
+                    $props['DETAIL_PAGE']['VALUE'],
+                    $props['NONRETURNABLE']['VALUE'],
+                    'false',
+                    min($requiredQuantity, $availableQuantity),
+                );
+            }
         }
-        $result = $this->getBasketTotalsAction();
-        $result['missing'] = $missing;
-        return $result;
+
+        return array_merge($this->getBasketTotalsAction(), ['missedProducts' => $missing]);
     }
 }

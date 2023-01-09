@@ -1,5 +1,6 @@
  import scrollbar from './scrollbar';
  import validation from './validation';
+ import inputRepalece from './inputReplace';
 
 export default function showSupportPopup() {
     let body = $('body');
@@ -24,6 +25,10 @@ function initSupportForms() {
         if (popup.find('[data-modal-section]').length > 0) {
             return;
         }
+
+        setTimeout(() => {
+            inputRepalece();
+        }, 1000);
 
         let selected = $(this).data('selected');
         let saveSelected = '';
@@ -78,7 +83,7 @@ function setDataToPopup (data, selected) {
                 <p class="heading heading--average">Техническая поддержка</p>
             </header>
             <section class="modal__section modal__section--content" data-scrollbar data-modal-section>
-                <form action="" class="form" data-validation data-support-form>
+                <form action="" class="form" data-validation="support" data-support-form>
                     <div class="form__row form__row--separated">
                         <div class="form__col">
                             <div class="form__field">
@@ -95,7 +100,7 @@ function setDataToPopup (data, selected) {
                                                 <option><!-- пустой option для placeholder --></option>
                                                 <option value="REFUND_ORDER" data-variant="REFUND_ORDER" ${selected === 'REFUND_ORDER' ? 'selected' : ''}>Возврат заказа</option>
                                                 <option value="SUPPORT" data-variant="SUPPORT" ${selected === 'SUPPORT' ? 'selected' : ''}>Неработающая функциональность</option>
-                                                <option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ${selected === 'CHANGE_MENTOR' ? 'selected' : ''}>Смена наставника/контактного лица</option>
+                                                ${!data.MENTHOR_ID || data.MENTHOR_ID === 'false' ? '' : ('<option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ' + (selected === 'CHANGE_MENTOR' ? 'selected' : '') + '>Смена наставника/контактного лица</option>')}
                                                 <option value="OTHER" data-variant="OTHER" ${selected === 'OTHER' ? 'selected' : ''}>Другое</option>
                                             </select>
                                         </div>
@@ -136,7 +141,7 @@ function setDataToPopup (data, selected) {
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control js-required js-number" name="ORDER_NUMBER" id="refund-order-id" placeholder=""  data-variant-value="REFUND_ORDER">
+                                            <input type="number" class="input__control js-required js-number" name="ORDER_NUMBER" id="refund-order-id" placeholder=""  data-variant-value="REFUND_ORDER" data-replace-input="number">
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +231,8 @@ function setDataToPopup (data, selected) {
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="number" class="input__control js-required js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR">
+                                            <input type="number" class="input__control js-required js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR" data-replace-input="number">
+                                            <span class="input__control-error" style="display:none;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +253,7 @@ function setDataToPopup (data, selected) {
                                             <div class="select select--mitigate" data-select>
                                                 <select class="select__control js-required" name="COUSES" id="couses-change" data-select-control data-placeholder="Выберите причину"  data-variant-value="CHANGE_MENTOR">
                                                     <option><!-- пустой option для placeholder --></option>
-                                                    <option value="1">Мой наставник не связался со мной после регистрации в течение длительного времени.</option>
+                                                    <option value="1">Мой наставник не связался со мной после регистрации в течение длительного времени</option>
                                                     <option value="2">Мой наставник не выходит на связь</option>
                                                     <option value="3">Мой наставник некорректно общается</option>
                                                     <option value="4">Мой наставник переехал</option>
@@ -321,7 +327,7 @@ function setDataToPopup (data, selected) {
 }
 
 function initSendForm() {
-    $('[data-validation]').validate({
+    $('[data-validation="support"]').validate({
         submitHandler: () => {
             let fields = {
                 TICKET_TYPE: $('#ticket-type').val(),
@@ -329,6 +335,14 @@ function initSendForm() {
                 NEW_MENTOR_ID: $('#new-mentor-id').val(),
                 COUSES: $('#couses-change').find(":selected").text()
             };
+
+            if (fields.TICKET_TYPE === "CHANGE_MENTOR") {
+                fields.MESSAGE = $('#couses-message').val()
+            } else if (fields.TICKET_TYPE === "REFUND_ORDER") {
+                fields.MESSAGE = $('#message-refund').val()
+            } else if (fields.TICKET_TYPE === "SUPPORT") {
+                fields.MESSAGE = $('#message-support').val()
+            }
 
             sendForm(fields);
         }
@@ -344,11 +358,44 @@ function sendForm(data) {
         if (data.ticket_id > 0) {
             setSuccessMessage(data.ticket_id);
         } else {
+            setErrorMessage();
             console.error("err", 'data.ticket_id равен 0');
         }
     }, function (response) {
         console.error("err", response.errors);
+        let messageError =  response.errors[0].message;
+
+        let errorsVariant = {
+            sameId: 'ID нового наставника совпадает с вашим',
+            noneId: 'Такого пользователя не существует',
+            novalidId: 'Указанный пользователь не может быть Вашим наставником',
+        }
+
+        if (messageError === errorsVariant.sameId ) {
+            errorIDInput(errorsVariant.sameId)
+        } else if (messageError === errorsVariant.noneId) {
+            errorIDInput(errorsVariant.noneId)
+        } else if (messageError === errorsVariant.novalidId) {
+            errorIDInput(errorsVariant.novalidId)
+        } else {
+            setErrorMessage();
+        }
     });
+}
+
+function errorIDInput(errorMassage) {
+    let inputIdNewMentor = $("#new-mentor-id");
+    let errorBox = inputIdNewMentor.parent().find('.input__control-error');
+    inputIdNewMentor.addClass('input__control--error');
+    errorBox.text(errorMassage);
+    errorBox.show();
+
+    inputIdNewMentor.on('input', function() {
+        if (inputIdNewMentor.val().length === 0) {
+            errorBox.hide();
+            inputIdNewMentor.removeClass('input__control--error');
+        }
+    })
 }
 
 function setSuccessMessage(id) {
@@ -371,5 +418,24 @@ function setSuccessMessage(id) {
     `;
 
     $('[data-support-content]').html(successMessage);
+    $('[data-support-content]').addClass('modal__content--support-notification');
+}
+
+function setErrorMessage() {
+    let errorMessage = `
+        <div class="notification">
+            <div class="notification__icon notification__icon--error">
+                <svg class="icon icon--tick-circle">
+                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-close-tick-circle"></use>
+                </svg>
+            </div>
+
+            <h4 class="notification__title">
+                Произошла непредвиденная ошибка!
+            </h4>
+        </div>
+    `;
+
+    $('[data-support-content]').html(errorMessage);
     $('[data-support-content]').addClass('modal__content--support-notification');
 }

@@ -36,6 +36,7 @@
                                         id="last_name"
                                         placeholder="Введите фамилию"
                                         value="<?=$arResult['last_name']?>"
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>
@@ -59,6 +60,7 @@
                                         id="first_name"
                                         placeholder="Введите имя"
                                         value="<?=$arResult['first_name']?>"
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>
@@ -85,6 +87,7 @@
                                         placeholder="Введите отчество"
                                         value="<?=$arResult['without_second_name'] === 'true' ? '' : $arResult['second_name']?>"
                                         <?=$arResult['without_second_name'] === 'true' ? 'disabled' : ''?>
+                                        data-replace-input="text"
                                 >
                             </div>
                         </div>
@@ -353,18 +356,19 @@
             </ul>
         </div>
 
-        <div class="registration__actions registration__actions--inlined registration__actions--separated">
-            <div class="registration__actions-col">
-                <a href="/login/?login=yes" class="button button--rounded button--covered button--white-green button--full">
-                    <span class="button__text">Назад к авторизации</span>
-                </a>
-            </div>
 
-            <div class="registration__actions-col">
-                <button class="button button--rounded button--covered button--red button--full" data-change-step data-direction="next">
-                    <span class="button__text">Далее</span>
-                </button>
-            </div>
+    </div>
+    <div class="registration__actions registration__actions--inlined registration__actions--separated">
+        <div class="registration__actions-col">
+            <a href="/login/?login=yes" class="button button--rounded button--covered button--white-green button--full">
+                <span class="button__text">Назад к авторизации</span>
+            </a>
+        </div>
+
+        <div class="registration__actions-col">
+            <button class="button button--rounded button--covered button--red button--full" data-change-step data-direction="next">
+                <span class="button__text">Далее</span>
+            </button>
         </div>
     </div>
 </div>

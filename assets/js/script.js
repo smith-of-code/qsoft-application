@@ -52,6 +52,8 @@
  import chart from './modules/chart';
  import show from './modules/show';
  import logout from "./modules/logout";
+ import truncateBySymbols from './modules/truncateBySymbols';
+ import inputRepalece from './modules/inputReplace';
  import fixWidth from './modules/fixWidth';
 
  const app = {
@@ -100,6 +102,8 @@
         chart();
         show();
         logout();
+        truncateBySymbols();
+        inputRepalece();
         fixWidth();
     },
 

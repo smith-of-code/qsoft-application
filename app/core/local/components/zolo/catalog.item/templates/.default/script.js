@@ -113,71 +113,57 @@
 					$('#' + this.products[id].elementsIds.label + '_LIMITED_OFFER').hide();
 					$('#' + this.products[id].elementsIds.label + '_SEASONAL_OFFER').hide();
 				}
-				// Отображение цен
-				function roundetPrice(price, whole, remains) {
-					let mainPriceNum = parseFloat(price);
-					let totalMainFixied = mainPriceNum.toFixed(2);
-					let totalMainRemains = totalMainFixied.toString().split('.')[1];
 
-					if (totalMainRemains === "00") {
-						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-						remains.text('₽');
-					} else {
-						whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-						remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
-					}
-				}
+				// Отображение цен
 
 				const mainPrice = $(`#${this.products[id].elementsIds.mainPrice}`);
-				const mainPriceData = $('.price__main');
-
-				mainPriceData.each((index, item) => {
-					const spanWhole = $(item).find(".product-card__price-whole");
-					const spanRemains = $(item).find(".product-card__price-remains");
-					const mainPriceAttr = $(item).attr('data-catalog-main-price');
-
-					if (mainPriceAttr) {
-						roundetPrice(mainPriceAttr, spanWhole, spanRemains);
-					}
-				})
-			
-				const priceBase = offer.mainPrice
+				// Контейнеры для числа и значка валюты
 				const spanWhole = mainPrice.find(".product-card__price-whole");
 				const spanRemains = mainPrice.find(".product-card__price-remains");
 
-				if (priceBase) {
-					roundetPrice(priceBase, spanWhole, spanRemains);
+				if (offer.mainPrice) {
+					this.roundedPrice(offer.mainPrice, spanWhole, spanRemains);
 				}
-					
+
 				offer.mainPrice ? mainPrice.show() : mainPrice.hide();
 
 				const totalPrice = $('#' + this.products[id].elementsIds.totalPrice);
-				const totalPriceData = $('.price__calculation-total');
-
-				totalPriceData.each((index, item) => {
-					const spanWholeTotal = $(item).find(".product-card__price-whole");
-					const spanRemainsTotal = $(item).find(".product-card__price-remains");
-					const totalPriceAttr = $(item).attr('data-catalog-total-price');
-
-					if (totalPriceAttr) {
-						roundetPrice(totalPriceAttr, spanWholeTotal, spanRemainsTotal);
-					}
-				})
-
-				const priceTotal = offer.totalPrice
+				// Контейнеры для числа и значка валюты
 				const spanWholeTotal = totalPrice.find(".product-card__price-whole");
 				const spanRemainsTotal = totalPrice.find(".product-card__price-remains");
 
-				if (priceTotal) {
-					roundetPrice(priceTotal, spanWholeTotal, spanRemainsTotal);
+				if (offer.totalPrice) {
+					this.roundedPrice(offer.totalPrice, spanWholeTotal, spanRemainsTotal);
 				}
+				
 				// Отображение баллов
 				const bonuses = $(`#${this.products[id].elementsIds.bonuses}`);
 				bonuses.html(`${this.formatNumber(offer.bonuses)} ББ`);
+
 				offer.bonuses > 0 ? bonuses.show() : bonuses.hide();
 			}
 		};
 
+		this.roundedPrice = function(price, whole, remains) {
+			let mainPriceNum = parseFloat(price);
+			let totalMainFixied = mainPriceNum.toFixed(2);
+			let totalMainRemains = totalMainFixied.toString().split('.')[1];
+
+			if (totalMainRemains === "00") {
+				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+				remains.html('&nbsp;₽');
+			} else {
+				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+				remains.html(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
+			}
+		}
+
+		/**
+		 * Форматирует число
+		 * @param number
+		 * @param useDecimals
+		 * @returns {string|number}
+		 */
 		this.formatNumber = function(number, useDecimals = false) {
 			if (!number) return 0;
 			number = Math.round(parseFloat(number));

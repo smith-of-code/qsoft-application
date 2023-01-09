@@ -68,7 +68,7 @@ export const OfferPrice = {
                         {{ showPriceWhole(price.BASE_PRICE) }}
                     </span>
                     <span class="cart__price-remains">
-                        {{ showPriceRemains(price.BASE_PRICE) }}₽
+                        {{ showPriceRemains(price.BASE_PRICE) }}&nbsp;₽
                     </span>
               </p>
               <div class="price__calculation">
@@ -77,7 +77,7 @@ export const OfferPrice = {
                         {{ showPriceWhole(price.PRICE) }}
                     </span>
                     <span class="cart__price-remains">
-                        {{ showPriceRemains(price.PRICE) }}₽
+                        {{ showPriceRemains(price.PRICE) }}&nbsp;₽
                     </span>
                 </p>
                 <p class="price__calculation-accumulation">{{ formatNumber(bonuses) }} ББ</p>
@@ -90,7 +90,7 @@ export const OfferPrice = {
                             {{ showPriceWhole(price.PRICE) }}
                         </span>
                         <span class="cart__price-remains">
-                            {{ showPriceRemains(price.PRICE) }}₽
+                            {{ showPriceRemains(price.PRICE) }}&nbsp;₽
                         </span>
                     </p>
                     <p class="price__main">
@@ -98,7 +98,7 @@ export const OfferPrice = {
                             {{ showPriceWhole(price.BASE_PRICE) }}
                         </span>
                         <span class="cart__price-remains">
-                            {{ showPriceRemains(price.BASE_PRICE) }}₽
+                            {{ showPriceRemains(price.BASE_PRICE) }}&nbsp;₽
                         </span>
                     </p>
                 </div>
@@ -110,7 +110,7 @@ export const OfferPrice = {
                         {{ showPriceWhole(price.PRICE) }}
                     </span>
                     <span class="cart__price-remains">
-                        {{ showPriceRemains(price.PRICE) }}₽
+                        {{ showPriceRemains(price.PRICE) }}&nbsp;₽
                     </span>
                 </p>
               </div>

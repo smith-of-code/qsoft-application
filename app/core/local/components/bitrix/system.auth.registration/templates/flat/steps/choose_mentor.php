@@ -22,7 +22,7 @@
                                     class="checkbox__input"
                                     name="without_mentor_id"
                                     id="without_mentor_id"
-                                <?=$arResult['without_mentor_id'] === 'true' ? 'checked' : ''?>
+                                    checked
                             >
 
                             <label for="without_mentor_id" class="checkbox__label">

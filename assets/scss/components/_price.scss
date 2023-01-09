@@ -47,7 +47,11 @@
             align-items: baseline;
 
             &--remains {
-                font-size: rem(17px);
+                font-size: rem($font-size-small);
+
+                @media #{$screen-desktop} {
+                    font-size: rem(17px);
+                }
             }
         }
 
@@ -57,6 +61,8 @@
             line-height: ($line-height-small/$font-size-mini);
 
             display: flex;
+            align-items: baseline;
+            
             margin-right: rem(6px);
 
             @media #{$screen-desktop} {
