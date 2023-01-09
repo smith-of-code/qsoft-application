@@ -17,6 +17,7 @@ class CSystemAuthRegistrationComponent {
   initListeners() {
       $('button[data-change-step]').on('click', this.changeStepListener);
 
+      $('input[name=without_living]').on('click', this.checkLivingBlock);
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
@@ -27,6 +28,44 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+  }
+
+  checkLivingBlock() {
+      const isActive = $('input[name=without_living]:checked').length;
+
+      const locality = $('#living_locality');
+      const street = $('#living_street');
+      const house = $('#living_house');
+      const apartment = $('#living_apartment');
+      const postalCode = $('#living_postal_code');
+
+      if (isActive) {
+          locality.val('');
+          locality.attr('disabled', true);
+          locality.removeClass('input__control--error');
+
+          street.val('');
+          street.attr('disabled', true);
+          street.removeClass('input__control--error');
+
+          house.val('');
+          house.attr('disabled', true);
+          house.removeClass('input__control--error');
+
+          apartment.val('');
+          apartment.attr('disabled', true);
+          apartment.removeClass('input__control--error');
+
+          postalCode.val('');
+          postalCode.attr('disabled', true);
+          postalCode.removeClass('input__control--error');
+      } else {
+          locality.attr('disabled', false);
+          street.attr('disabled', false);
+          house.attr('disabled', false);
+          apartment.attr('disabled', false);
+          postalCode.attr('disabled', false);
+      }
   }
 
     changeLegalEntity() {
