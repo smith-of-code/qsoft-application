@@ -813,7 +813,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлении в должность генерального директора</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'ceo_appointment',
