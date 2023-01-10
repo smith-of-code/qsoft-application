@@ -291,6 +291,16 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function registerAction(array $data): array
     {
+        if (UserTable::getCount([
+            [
+                'LOGIC' => 'OR',
+                ['=PERSONAL_PHONE' => normalizePhoneNumber($data['phone'])],
+                ['=EMAIL' => $data['email']],
+            ],
+        ])) {
+            throw new Exception('Такой пользователь уже существует');
+        }
+
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
