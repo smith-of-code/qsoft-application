@@ -1042,6 +1042,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                     <li class="cards-progress__item cards-progress__item--full">
                                                         <div
                                                             id="loyaltyStatusTale"
+                                                            prop-is-consultant="<?=CUtil::PhpToJSObject($arResult['personal_data']['is_consultant'])?>"
                                                             prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
                                                             prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
                                                             prop-label="Повышение уровня по личным покупкам"
