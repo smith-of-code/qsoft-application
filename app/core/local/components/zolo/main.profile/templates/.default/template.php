@@ -381,8 +381,11 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                     <form class="form form--wraped form--separated" action="" method="post">
                         <div class="section__box box box--gray box--rounded-sm">
                             <div class="profile__accordeon-header accordeon__header section__header">
-                                <h4 class="section__title section__title--closer">Наставник</h4>
-
+                                <?php if ($arResult['personal_data']['is_consultant']):?>
+                                    <h4 class="section__title section__title--closer">Наставник</h4>
+                                <?php else:?>
+                                    <h4 class="section__title section__title--closer">Контактное лицо</h4>
+                                <?php endif;?>
                                 <div class="profile__actions">
                                     <button type="button"
                                             class="profile__actions-button profile__actions-button--edit button button--simple button--red"
