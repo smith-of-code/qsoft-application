@@ -3,6 +3,10 @@
 
     position: relative;
 
+    .select2-container *:focus {
+        overflow: hidden;
+    }
+
     &--sorting {
         position: relative;
 
