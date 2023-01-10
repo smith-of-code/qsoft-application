@@ -57,7 +57,8 @@ class CatalogSectionComponent extends ElementList
 
         // Добавляем к фильтру ограничение - выводим только товары с торговыми предложениями,
         // т. к. предполагается только их использование в каталоге
-        $this->globalFilter['TYPE'] = \Bitrix\Catalog\ProductTable::TYPE_SKU;
+        //$this->globalFilter['TYPE'] = \Bitrix\Catalog\ProductTable::TYPE_SKU; //этот вариант не работает при фильтрации
+        $this->globalFilter['OFFERS']['ACTIVE'] = 'Y';
 
 		unset($params['EXTERNAL_PRODUCT_IDS']);
 
