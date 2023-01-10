@@ -1045,7 +1045,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             prop-is-consultant="<?=CUtil::PhpToJSObject($arResult['personal_data']['is_consultant'])?>"
                                                             prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
                                                             prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                                            prop-label="Повышение уровня по личным покупкам"
+                                                            prop-label="До повышения размера скидки"
                                                         ></div>
                                                     </li>
                                                 </ul>

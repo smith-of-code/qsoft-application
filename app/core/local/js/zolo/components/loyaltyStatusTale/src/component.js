@@ -117,8 +117,9 @@ export const LoyaltyStatusTale = {
                             </span>
                         </button>
                     </div>
+                    
                     <p class="warning__text">
-                        {{ isHold ? 'Условия поддержания уровня' : 'Условия повышения уровня' }}
+                        {{ isHold ? isConsultant ? 'Условия поддержания уровня' : 'Условия удержания скидки' : 'Условия повышения уровня' }}
                     </p>
                 </div>
                 <article v-if="isHold" id="hold-conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
