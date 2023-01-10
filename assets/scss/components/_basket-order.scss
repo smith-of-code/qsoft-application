@@ -1,22 +1,50 @@
 .basket-order {
-    &__box {
-        @media #{$screen-desktop} {
-            padding: 0;
-            border-radius: 0;
-            background-color: transparent;
-        }
-    }
-
     &__form {
-        padding: rem($gap-medium) rem($gap-average);
+        &-wrapper {
+            padding: rem($gap-medium) rem($gap-average);
 
-        border-radius: rem($border-radius);
-        background-color: $white;
+            border-radius: rem($border-radius);
+            background-color: $white;
+    
+            @media #{$screen-desktop} {
+                padding: 0;
+    
+                border-radius: 0;
+            }
 
-        @media #{$screen-desktop} {
-            padding: 0;
+            & .form__row:last-child {
+                .form__col {
+                    margin-bottom: 0;
+                }
+            }
+        }
 
-            border-radius: 0;
+        &-box {
+            margin-bottom: rem($gap-big);
+            @media #{$screen-desktop} {
+                padding: 0;
+                margin-bottom: 0;
+                border-radius: 0;
+                background-color: transparent;
+            }
+        }
+
+        &-actions {
+            & .form__col:first-child {
+                order: 2;
+
+                @media #{$screen-tablet} {
+                    order: 0;
+                }
+            }
+
+            & .form__col {
+                margin-bottom: rem($gap-medium);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: 0;
+                }
+            }
         }
     }
 }
