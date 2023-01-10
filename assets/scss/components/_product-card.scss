@@ -102,6 +102,7 @@
     }
 
     &__wrapper {
+        position: relative;
         padding: rem($gap-small);
 
         pointer-events: none;
@@ -258,7 +259,6 @@
 
     &__label {
         position: absolute;
-        z-index: $z-index-html;
         top: rem(14px);
         left: rem(14px);
 
@@ -279,13 +279,13 @@
 
         &-desktop {
             display: none;
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: inline-block;
             }
         }
 
         &-mobile {
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: none;
             }
         }
@@ -293,9 +293,10 @@
 
     &__favourite {
         position: absolute;
-        z-index: $z-index-html;
         top: rem($gap-small);
         right: rem($gap-small);
+
+        pointer-events: auto;
 
         @media #{$screen-tablet} {
             top: rem($gap-average);
