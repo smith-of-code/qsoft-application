@@ -377,14 +377,6 @@ class User
 
             $mutationMethod = 'read' . ucfirst($objectPropertyName);
 
-            file_put_contents('mutator_logs.txt',
-                'bitrixFieldName: ' . print_r($bitrixFieldName, true) .
-                ' bitrixFieldValue: ' . print_r($bitrixFieldValue, true) .
-                ' objectPropertyName: ' . print_r($objectPropertyName, true) .
-                ' objectPropertyValue: ' . print_r($objectPropertyValue, true) .
-                ' mutationMethod: ' . print_r($mutationMethod, true) . PHP_EOL,
-                FILE_APPEND);
-
             if (method_exists($mutator, $mutationMethod)) {
                 $objectPropertyValue = call_user_func([$mutator, $mutationMethod], $objectPropertyValue);
             }
