@@ -121,7 +121,7 @@ class LoyaltyLevelEquals extends \CSaleActionCtrlAction
      */
     public static function Generate($arOneCondition, $arParams, $arControl, $arSubs = false)
     {
-        return __CLASS__ . "::applyProductDiscount(\$row, {$arOneCondition['LoyaltyLevelEquals']})";
+        return __CLASS__ . "::applyProductDiscount(\$row, '{$arOneCondition['LoyaltyLevelEquals']}')";
     }
 
     /**
