@@ -19,9 +19,8 @@
         display: flex;
 
         @media #{$screen-desktop} {
-            flex-grow: 1;
-
-            max-width: percentage(362px / 770px);
+            width: percentage(362px / 770px);
+            margin-right: rem(48px);
         }
     }
 
@@ -109,9 +108,8 @@
         @media #{$screen-desktop} {
             display: flex;
             align-items: center;
-            justify-content: space-between;
 
-            max-width: rem(292px);
+            min-width: rem(292px);
             margin: 0 auto;
         }
     }
@@ -124,7 +122,7 @@
         @media #{$screen-desktop} {
             order: 2;
 
-            margin-bottom: 0;
+            margin: 0 rem(20px);
         }
 
         & .quantity {
@@ -159,6 +157,7 @@
         @media #{$screen-desktop} {
             order: 1;
 
+            width: rem(72px);
             margin-bottom: 0;
         }
         &-value {
@@ -173,6 +172,8 @@
 
             letter-spacing: 0.02em;
 
+            display: flex;
+
             color: $saltBox;
 
             &-remains {
@@ -181,6 +182,7 @@
         }
 
         &-sufix {
+            margin-left: rem(5px);
             @media #{$screen-desktop} {
                 display: none;
             }
