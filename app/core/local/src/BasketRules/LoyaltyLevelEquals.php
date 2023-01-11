@@ -132,7 +132,14 @@ class LoyaltyLevelEquals extends \CSaleActionCtrlAction
      */
     public static function applyProductDiscount($row, $loyaltyLevelValue): bool
     {
-        $user = new User;
-        return $user->isAuthorized && $user->loyaltyLevel === $loyaltyLevelValue;
+        try {
+            $user = new User;
+            return $user->isAuthorized && $user->loyaltyLevel === $loyaltyLevelValue;
+        } catch (\Throwable $e) {
+            \Bitrix\Main\Diag\Debug::writeToFile(json_encode([
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace()
+            ]), 'TESTESTESTEST_LOG');
+        }
     }
 }
