@@ -20,6 +20,10 @@ export const LoyaltyStatusTale = {
             type: Boolean,
             default: true,
         },
+        isConsultant: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     template: `
@@ -126,8 +130,9 @@ export const LoyaltyStatusTale = {
                         <section class="modal__section modal__section--content">
                             <div class="conditions">
                                 <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К1:</h5>
-
+                                    <h5 class="conditions__title">
+                                        Условия поддержания уровня для {{isConsultant ? "К1" : "В1"}}:
+                                    </h5>
                                     <ul class="conditions__list">
                                         <li class="conditions__item">
                                             Совершение личных покупок на общую сумму {{ formatNumber(5000) }} рублей за период в 3 последовательных месяца (квартал);
@@ -136,7 +141,9 @@ export const LoyaltyStatusTale = {
                                 </div>
 
                                 <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К2 (единовременное соблюдение всех условий):</h5>
+                                    <h5 class="conditions__title">
+                                        Условия поддержания уровня для {{isConsultant ? "К2" : "В2"}} (единовременное соблюдение всех условий):
+                                    </h5>
 
                                     <ul class="conditions__list">
                                         <li class="conditions__item">
@@ -148,13 +155,15 @@ export const LoyaltyStatusTale = {
                                         </li>
                                     </ul>
 
-                                    <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;
+                                    <p class="conditions__text">Переход на уровень {{isConsultant ? "К2" : "В2"}} возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень {{isConsultant ? "К2" : "В2"}};
                                     </p>
-                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К2 будет выполняться переход на уровень К1.</p>
+                                    <p class="conditions__text">При несоблюдении условий поддержания уровня {{isConsultant ? "К2" : "В2"}} будет выполняться переход на уровень {{isConsultant ? "К1" : "В1"}}.</p>
                                 </div>
 
                                 <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия поддержания уровня для К3 (единовременное соблюдение всех условий):</h5>
+                                    <h5 class="conditions__title">
+                                        Условия поддержания уровня для {{isConsultant ? "К3" : "В3"}} (единовременное соблюдение всех условий):
+                                    </h5>
 
                                     <ul class="conditions__list">
                                         <li class="conditions__item">
@@ -166,10 +175,10 @@ export const LoyaltyStatusTale = {
                                         </li>
                                     </ul>
 
-                                    <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;
+                                    <p class="conditions__text">Переход на уровень {{isConsultant ? "К3" : "В3"}} возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень {{isConsultant ? "К3" : "В3"}};
 
                                     </p>
-                                    <p class="conditions__text">При несоблюдении условий поддержания уровня К3 будет выполняться переход на уровень К2.</p>
+                                    <p class="conditions__text">При несоблюдении условий поддержания уровня {{isConsultant ? "К3" : "В3"}} будет выполняться переход на уровень {{isConsultant ? "К2" : "В2"}}.</p>
                                 </div>
                             </div>
                         </section>
@@ -184,7 +193,9 @@ export const LoyaltyStatusTale = {
                         <section class="modal__section modal__section--content">
                             <div class="conditions">
                                 <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия повышения уровня до К2 (единовременное соблюдение всех условий):</h5>
+                                    <h5 class="conditions__title">
+                                        Условия повышения уровня до {{isConsultant ? "К2" : "В2"}} (единовременное соблюдение всех условий):
+                                    </h5>
 
                                     <ul class="conditions__list">
                                         <li class="conditions__item">
@@ -196,11 +207,13 @@ export const LoyaltyStatusTale = {
                                         </li>
                                     </ul>
 
-                                    <p class="conditions__text">Переход на уровень К2 возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень К2;</p>
+                                    <p class="conditions__text">Переход на уровень {{isConsultant ? "К2" : "В2"}} возможен в течение 3 последовательных месяцев при соблюдении условий перехода на уровень {{isConsultant ? "К2" : "В2"}};</p>
                                 </div>
 
                                 <div class="conditions__block">
-                                    <h5 class="conditions__title">Условия повышения уровня до К3 (единовременное соблюдение всех условий):</h5>
+                                    <h5 class="conditions__title">
+                                        Условия повышения уровня до {{isConsultant ? "К3" : "В3"}} (единовременное соблюдение всех условий):
+                                    </h5>
 
                                     <ul class="conditions__list">
                                         <li class="conditions__item">
@@ -212,7 +225,7 @@ export const LoyaltyStatusTale = {
                                         </li>
                                     </ul>
 
-                                    <p class="conditions__text">Переход на уровень К3 возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень К3;</p>
+                                    <p class="conditions__text">Переход на уровень {{isConsultant ? "К3" : "В3"}} возможен в течение 6 последовательных месяцев при соблюдении условий перехода на уровень {{isConsultant ? "К3" : "В3"}};</p>
                                 </div>
                             </div>
                         </section>
