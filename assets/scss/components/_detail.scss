@@ -109,6 +109,10 @@
                 @media #{$screen-tablet} {
                     margin-top: rem($gap-big);
                 }
+
+                & .accordeon__item {
+                    cursor: default;
+                }
             }
 
             &-list {
