@@ -22,7 +22,7 @@ const MASKS = {
     phoneMask: '+7 (999) 999-99-99',
     emailMask: 'email',
     seriaMask: '99 99',
-    numberMask: '99 99 99',
+    numberMask: '999999',
     kppMask: '999999999',
     innMask: '999999999999',
     shortInnMask: '9999999999',
