@@ -73,6 +73,10 @@
 
             display: inline-block;
             max-width: rem(130px);
+
+            @media #{$screen-tablet} {
+                width: auto !important;
+            }
         
             @media #{$screen-desktop} {
                 max-width: rem(200px) !important;
