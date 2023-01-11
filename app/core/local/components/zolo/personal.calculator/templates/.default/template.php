@@ -85,9 +85,8 @@
                                 <div
                                     id="loyaltyStatusTale"
                                     prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
-                                    prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
+                                    prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
                                     prop-label="Повышение уровня по личным покупкам"
-                                    prop-is-hold="<?=json_encode(false)?>"
                                 ></div>
                             </li>
                             <li class="cards-progress__item">
