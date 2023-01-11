@@ -341,10 +341,16 @@ $APPLICATION->setTitle('Корзина');?>
                             <div class="basket-card__list">
                                 <div class="basket-card__item">
                                     <span class="basket-card__text basket-card__text--gray">Количество товаров</span>
+                                    <span class="basket-card__point">
+                                        ................................................................................................................................................................................................................................................................................................................................................................................................
+                                    </span>
                                     <span class="basket-card__total" data-basket-product-total><?=$arResult['BASKET_COUNT']?></span>
                                 </div>
                                 <div class="basket-card__item">
                                     <span class="basket-card__text">Сумма заказа</span>
+                                    <span class="basket-card__point">
+                                        ................................................................................................................................................................................................................................................................................................................................................................................................
+                                    </span>
                                     <span class="basket-card__total" data-basket-order-amount data-value-amount="<?=$arResult['BASKET_BASE_PRICE']?> ₽">
                                         <span class="basket-card__total-whole"></span>
                                         <span class="basket-card__total-remains"></span>
@@ -352,6 +358,9 @@ $APPLICATION->setTitle('Корзина');?>
                                 </div>
                                 <div class="basket-card__item">
                                     <span class="basket-card__text basket-card__text--green">Экономия</span>
+                                    <span class="basket-card__point">
+                                        ................................................................................................................................................................................................................................................................................................................................................................................................
+                                    </span>
                                     <span class="basket-card__total basket-card__total--green" data-basket-economy data-value-economy="<?=$arResult['TOTAL_DISCOUNT']?> ₽">
                                         <span class="basket-card__total-whole"></span>
                                         <span class="basket-card__total-remains"></span>
@@ -396,6 +405,9 @@ $APPLICATION->setTitle('Корзина');?>
                                 <?php endif;?>
                                 <div class="basket-card__item">
                                     <span class="basket-card__text basket-card__text--bold">Итого к оплате</span>
+                                    <span class="basket-card__point">
+                                        ................................................................................................................................................................................................................................................................................................................................................................................................
+                                    </span>
                                     <span class="basket-card__total basket-card__total--bold"
                                           data-basket-total
                                           data-value-total="<?=$arResult['BASKET_PRICE']?> ₽">
