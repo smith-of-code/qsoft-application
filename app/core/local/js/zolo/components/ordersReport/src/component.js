@@ -179,7 +179,7 @@ export const OrdersReport = {
                                         <ul class="table-list__list table-list__list--limited" data-scrollbar>
                                             <li v-for="product in ordersReport.last_month_products" :key="product.article" class="table-list__item">
                                                 <article class="product-line">
-                                                    <a class="product-line__link" href="#"></a>
+                                                    <a class="product-line__link" :href="product.link"></a>
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
                                                             <div class="product-line__image">
