@@ -42,3 +42,9 @@ class SystemAuthForgotPasswordComponent {
 $(function() {
     new SystemAuthForgotPasswordComponent();
 });
+
+function unlock_submit() {
+    let formVote = $('button[data-send]')
+    formVote.attr('disabled', false);
+    formVote.removeClass('button--disabled');
+}
