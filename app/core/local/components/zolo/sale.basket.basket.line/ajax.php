@@ -213,4 +213,15 @@ class BasketLineController extends Controller
 
         return array_merge($this->getBasketTotalsAction(), ['missedProducts' => $missing]);
     }
+
+    private function getExistBasketItem(BasketBase $basket, int $offerId): ?BasketItem
+    {
+        /** @var BasketItem $basketItem */
+        foreach ($basket->getBasketItems() as $basketItem) {
+            if ($basketItem->getProductId() === $offerId) {
+                return $basketItem;
+            }
+        }
+        return null;
+    }
 }
