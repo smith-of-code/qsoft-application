@@ -479,11 +479,6 @@
 				if (packDiv.length > 0 && ! packDiv.hasClass('pack__item--disabled')) {
 					packDiv.addClass('pack__item--disabled');
 				}
-                tippy('[data-tippy-content]', {
-                    theme: 'light',
-                    arrow: false,
-                    appendTo: 'parent',
-                });
 
 				return;
 			}
