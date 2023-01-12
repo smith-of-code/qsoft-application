@@ -760,29 +760,28 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                            type="checkbox"
+                                            class="checkbox__input"
+                                            name="nds_payer_ltc"
+                                            id="nds_payer_ltc"
+                                        <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
+                                    >
 
-                <div class="form__row">
-                    <div class="form__col">
-                        <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="nds_payer_ltc"
-                                        id="nds_payer_ltc"
-                                    <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
-                                >
+                                    <label for="nds_payer_ltc" class="checkbox__label">
+                                            <span class="checkbox__icon">
+                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                </svg>
+                                            </span>
 
-                                <label for="nds_payer_ltc" class="checkbox__label">
-                                        <span class="checkbox__icon">
-                                            <svg class="checkbox__icon-pic icon icon--check">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
-                                            </svg>
-                                        </span>
-
-                                    <span class="checkbox__text">Плательщик НДС</span>
-                                </label>
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1224,10 +1223,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="form__row">
-                    <div class="form__col">
+                    <div class="form__row">
+                        <div class="form__col">
                         <div class="form__field">
                             <div class="checkbox">
                                 <input
@@ -1248,6 +1245,7 @@
                                     <span class="checkbox__text">Плательщик НДС</span>
                                 </label>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
