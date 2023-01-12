@@ -75,6 +75,10 @@
             color: $saltBox !important; 
             background-color: $white !important;
 
+            &:hover {
+                background-color: $athensGray !important;
+            }
+
             &--active {
                 color: $athensGray !important;
                 background-color: $brickRed !important;
@@ -85,9 +89,7 @@
                 }
             }
 
-            &:hover {
-                background-color: $athensGray !important;
-            }
+           
         }
     }
 
