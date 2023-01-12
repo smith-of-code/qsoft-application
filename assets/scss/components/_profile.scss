@@ -63,6 +63,10 @@
                 }
             }
 
+            &--row {
+                display: flex;
+            }
+
             &-select {
                 pointer-events: auto;
 
