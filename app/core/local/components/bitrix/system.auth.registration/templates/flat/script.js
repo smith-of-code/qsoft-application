@@ -201,6 +201,9 @@ class CSystemAuthRegistrationComponent {
                         });
 
                         if (!data[$(item).attr('name')].files.length) {
+                            if ($(item).attr('name') === 'bank_details') {
+                                return
+                            }
                             $(item).parent().addClass('dropzone--error');
                         } else {
                             $(item).parent().removeClass('dropzone--error');
