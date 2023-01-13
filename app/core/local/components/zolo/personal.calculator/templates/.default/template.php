@@ -722,7 +722,6 @@
                                 
                             </div>
 
-                            <span class="profitability__signature profitability__signature--mobile">Новых консультантов</span>
                         </div>
 
                         <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full" data-calculator-computing>
