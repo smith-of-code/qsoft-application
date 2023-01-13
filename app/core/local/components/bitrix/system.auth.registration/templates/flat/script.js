@@ -442,6 +442,7 @@ class CSystemAuthRegistrationComponent {
                       ...registrationData,
                       password,
                       confirm_password: confirmPassword,
+                      captcha: grecaptcha.getResponse()
                   },
               },
           });
@@ -480,7 +481,11 @@ class CSystemAuthRegistrationComponent {
   }
 }
 
-
+function unlock_submit() {
+    let formVote = $('button[data-register]')
+    formVote.attr('disabled', false);
+    formVote.removeClass('button--disabled');
+}
 
 $(function() {
     new CSystemAuthRegistrationComponent();

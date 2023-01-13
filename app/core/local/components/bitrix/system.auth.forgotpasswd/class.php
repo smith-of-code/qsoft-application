@@ -31,13 +31,24 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
 
     /**
      * @param string $login - User login or email
+     * @param string $captcha
      * @return array
      * @throws ArgumentException
      * @throws ObjectPropertyException
      * @throws SystemException
      */
-    public function sendEmailMessageAction(string $login): array
+    public function sendEmailMessageAction(string $login, string $captcha = ''): array
     {
+        try {
+            $recaptcha = new QSoft\Common\Recaptcha();
+            $response = $recaptcha->isValidResponse($captcha);
+            if (!$response) {
+                throw new Exception('Recaptcha not passed');
+            }
+        } catch (\Exception $e) {
+            throw new Exception('Recaptcha error');
+        }
+
         $user = UserTable::getRow([
             'filter' => [
                 'LOGIC' => 'OR',

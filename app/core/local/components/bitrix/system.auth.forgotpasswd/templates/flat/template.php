@@ -1,14 +1,6 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/api.js");
-
-if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response']) {
-    $recaptcha = new QSoft\Common\Recaptcha();
-    $response = $recaptcha->isValidResponse($_POST['g-recaptcha-response']);
-    if (!$response) {
-        die();
-    }
-}
 ?>
 
 <h1 class="content__heading content__heading--centered">Восстановление пароля</h1>

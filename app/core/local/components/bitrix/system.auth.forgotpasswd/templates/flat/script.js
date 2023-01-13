@@ -13,7 +13,8 @@ class SystemAuthForgotPasswordComponent {
       $(this).parent().find('span.input__control-error').remove();
   }
 
-  async sendListener() {
+  async sendListener(e) {
+      e.preventDefault();
       const loginInput = $('#login');
 
       if (!loginInput.val()) {
@@ -26,6 +27,7 @@ class SystemAuthForgotPasswordComponent {
           mode: 'class',
           data: {
               login: loginInput.val(),
+              captcha: grecaptcha.getResponse()
           },
       });
 

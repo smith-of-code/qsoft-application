@@ -4,14 +4,12 @@ namespace QSoft\Common;
 
 class Recaptcha
 {
-    const SECRET_KEY = '6LcVge8jAAAAAEQIUY3zefNzioTAAphH_wJxHd4Q';
     const URL = 'https://www.google.com/recaptcha/api/siteverify';
 
     protected $response;
 
-    public function __construct($secretKey = SECRET_KEY)
+    public function __construct()
     {
-        $this->secretKey = $secretKey;
     }
 
     public function isValidResponse($recaptchaResponse)
@@ -20,15 +18,16 @@ class Recaptcha
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request, CURLOPT_POST, 1);
         curl_setopt($request, CURLOPT_POSTFIELDS, [
-            'secret' => $this->secretKey,
+            'secret' => getenv('CAPTCHA_PRIVATE_KEY'),
             'response' => $recaptchaResponse,
             'remoteip' => $_SERVER['REMOTE_ADDR']
         ]);
+        curl_setopt($request, CURLOPT_URL, self::URL);
         $this->response = curl_exec($request);
         $this->response = json_decode($this->response, true);
         curl_close($request);
 
-        return true;
+        return $this->response['success'];
     }
 
     public function getResponse()
