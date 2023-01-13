@@ -419,7 +419,7 @@ export const LegalEntity = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="input">
                                                             <input
-                                                                type="number"
+                                                                type="text"
                                                                 class="input__control js-required"
                                                                 data-profile-readonly
                                                                 name="register_postal_code"
@@ -427,6 +427,7 @@ export const LegalEntity = {
                                                                 placeholder="Индекс"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_postal_code"
+                                                                data-mask-post-reg
                                                             >
                                                         </div>
                                                     </div>
@@ -556,7 +557,7 @@ export const LegalEntity = {
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
                                                                 <input
-                                                                    type="number"
+                                                                    type="text"
                                                                     class="input__control js-required-dependent"
                                                                     data-identic-input
                                                                     data-profile-readonly
@@ -565,6 +566,7 @@ export const LegalEntity = {
                                                                     placeholder="Индекс"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_postal_code"
+                                                                    data-mask-post-living
                                                                 >
                                                             </div>
                                                         </div>

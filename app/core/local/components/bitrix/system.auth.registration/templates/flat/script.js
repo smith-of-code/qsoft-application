@@ -119,6 +119,8 @@ class CSystemAuthRegistrationComponent {
 
         let indexPost = $("input[name='register_postal_code']");
         let indexPostLiving = $("input[name='living_postal_code']");
+        let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
+        let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
         let livingAdress = $('input[name=without_living]:checked').length;
 
         const isForwardDirection = $(this).data('direction') === 'next';
@@ -137,7 +139,7 @@ class CSystemAuthRegistrationComponent {
         
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
-        } 
+        }
 
         if (isForwardDirection) {
             if (data.currentStep === 'personal_data' && data.confirmedPhone !== $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '')) {
@@ -235,9 +237,9 @@ class CSystemAuthRegistrationComponent {
                     message.show();
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
-                } else if ( indexPost.val().length < 6 ) {
+                } else if ( indexPostValue.length < 6 || indexPostValue.length > 6) {
                     indexPost.addClass('input__control--error');
-                } else if ( indexPostLiving.val().length < 6 && livingAdress === 0 ) {
+                } else if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
                     indexPostLiving.addClass('input__control--error');
                 } else {
                     if (!$(item).val()) {

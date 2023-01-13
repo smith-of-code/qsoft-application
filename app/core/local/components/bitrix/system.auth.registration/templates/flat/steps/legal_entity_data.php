@@ -295,12 +295,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="register_postal_code"
                                                 id="register_postal_code"
                                                 placeholder="Индекс"
                                                 value="<?=$arResult['register_postal_code']?>"
+                                                data-mask-post-reg
                                         >
                                     </div>
                                 </div>
@@ -419,12 +420,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="living_postal_code"
                                                 id="living_postal_code"
                                                 placeholder="Индекс"
                                                 value="<?=$arResult['living_postal_code']?>"
+                                                data-mask-post-living
                                         >
                                     </div>
                                 </div>
