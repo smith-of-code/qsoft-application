@@ -58,9 +58,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                             <div class="card-banner__pagination swiper-pagination pagination pagination--default"
                                  data-carousel-pagination></div>
 
-                            <div class="card-banner__sale sale">
+                            <div class="card-banner__sale sale" style="<?= ! isset($slider['SALE']) || empty($slider['SALE']) ? 'visibility: hidden;' : '' ?>">
                                 <p class="sale__text">
-                                    <?=$slider['SALE']?>
+                                    <?= ! isset($slider['SALE']) || empty($slider['SALE']) ? '#' : $slider['SALE']?>
                                 </p>
                             </div>
                         </div>
