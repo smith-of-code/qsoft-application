@@ -208,7 +208,7 @@ export const SalesReportPage = {
                             </h4>
                         </div>
 
-                        <div class="tabs tabs--covered tabs--small tabs--circle tabs--red" data-tabs>
+                        <div class="tabs tabs--gray tabs--covered tabs--small tabs--circle tabs--full-mob" data-tabs>
                             <nav class="accounting__tabs-items tabs__items">
                                 <ul class="tabs__list">
                                     <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -325,6 +325,7 @@ export const SalesReportPage = {
                                                     :loyalty-status="member.loyalty_status"
                                                     :bonuses-income="member.bonuses_income"
                                                     :accordion="true"
+                                                    :title="'Заработок Консультанта'"
                                                 />
                                             </div>
                                         </div>
