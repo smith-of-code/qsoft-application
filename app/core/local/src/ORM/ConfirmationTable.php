@@ -115,9 +115,9 @@ final class ConfirmationTable extends BaseTable
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['email']),
                 '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', $type),
             ],
-            'select' => ['UF_CODE'],
+            'select' => ['UF_CODE', 'UF_CREATED_AT'],
         ]);
 
-        return $result ? $result['UF_CODE'] : null;
+        return $result ? $result : null;
     }
 }
