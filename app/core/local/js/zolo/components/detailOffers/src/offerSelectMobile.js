@@ -80,7 +80,7 @@ export const SelectOfferMobile = {
                                 v-bind:value="getColorOffer(color)"
                                 v-bind:selected="currentOfferId == getColorOffer(color)"
                                 v-bind:disabled="!offers.AVAILABLE[getColorOffer(color)]"
-                                v-bind:data-option-before="'<div class=&quot;color__item&quot;><div class=&quot;color__item-wrapper&quot;><img src=&quot;' + allColors[color].file_src + '&quot; class=&quot;color__item-pic&quot;></div></div>'"
+                                v-bind:data-option-before="'<div class=&quot;color__item ' + color + '&quot;><div class=&quot;color__item-wrapper&quot;><img src=&quot;' + allColors[color].file_src + '&quot; class=&quot;color__item-pic&quot;></div></div>'"
                         >
                             &lt;span class=&quot;color__name&quot;&gt; {{ offers.COLOR_NAMES[color] }} &lt;/span&gt;
                             &lt;span class=&quot;stock {{ (offers.AVAILABLE[getColorOffer(color)] ? ' stock--yes' : '') }} &quot;&gt;
