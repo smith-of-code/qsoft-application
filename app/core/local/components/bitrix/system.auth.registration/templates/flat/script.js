@@ -200,11 +200,19 @@ class CSystemAuthRegistrationComponent {
                             });
                         });
 
-                        if (!data[$(item).attr('name')].files.length &&
-                            ($(item).attr('name') !== 'usn_notification' || !$('input[name=nds_payer_ip]:checked').length)
+                        if (! data[$(item).attr('name')].files.length &&
+                            (
+                                (
+                                    $(item).attr('name') === 'usn_notification'
+                                    && ! $('input[name=nds_payer_ip]:checked').length
+                                    && ! $('input[name=nds_payer_ltc]:checked').length
+                                )
+                                || $(item).attr('name') !== 'usn_notification'
+
+                            )
                         ) {
                             if ($(item).attr('name') === 'bank_details') {
-                                return
+                                return;
                             }
                             $(item).parent().addClass('dropzone--error');
                         } else {
