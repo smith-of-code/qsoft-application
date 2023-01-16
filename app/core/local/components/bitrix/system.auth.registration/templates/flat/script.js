@@ -28,6 +28,12 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+      $("input[name=nds_payer_ip]").on('change', function() {
+          $("input[name=nds_payer_ltc]").prop("checked", this.checked);
+      });
+      $("input[name=nds_payer_ltc]").on('change', function() {
+          $("input[name=nds_payer_ip]").prop("checked", this.checked);
+      });
   }
 
   checkLivingBlock() {
