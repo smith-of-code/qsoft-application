@@ -210,7 +210,14 @@ class CatalogElementComponent extends Element
     private function getOffers(int $productId, array &$fileIds): array
     {
         $offersResult = CCatalogSKU::getOffersList($productId, $this->arParams['IBLOCK_ID'], ['ACTIVE' => 'Y'], ['IBLOCK_ID']);
+        
+        if (!$offersResult[$productId]) {
+            return [];
+        }
+
         $offers = $this->user->products->getOffersByIds(array_keys($offersResult[$productId]));
+
+        
         foreach ($offers as $offer) {
             $fileIds = array_merge($fileIds, $this->getFilesByItem($offer));
         }
