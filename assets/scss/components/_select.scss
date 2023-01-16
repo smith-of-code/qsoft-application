@@ -3,6 +3,10 @@
 
     position: relative;
 
+    .select2-container *:focus {
+        overflow: hidden;
+    }
+
     &--sorting {
         position: relative;
 
@@ -488,6 +492,11 @@
 
     .select2-results__option {
         padding: rem(4px) rem(8px);
+        margin-top: rem(8px);
+
+        &:first-child {
+            margin-top: 0;
+        }
 
         &[aria-selected=true],
             &--highlighted[aria-selected] {

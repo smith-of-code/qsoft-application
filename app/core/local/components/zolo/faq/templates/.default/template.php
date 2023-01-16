@@ -26,7 +26,7 @@ $isAuthorized = $arResult['IS_AUTHORIZED'];
 
     <h1 class="page__heading faq__heading"><?=Loc::getMessage('FAQ_TITLE')?></h1>
 
-    <div class="content__main">
+    <div class="content__main faq__content">
         <div class="faq__wrapper">
             <section class="faq__questions questions">
                 <?php foreach ($arResult['GROUPS'] as $group) : ?>

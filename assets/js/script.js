@@ -54,6 +54,7 @@
  import logout from "./modules/logout";
  import truncateBySymbols from './modules/truncateBySymbols';
  import inputRepalece from './modules/inputReplace';
+ import fixWidth from './modules/fixWidth';
 
  const app = {
     ready() {
@@ -103,6 +104,7 @@
         logout();
         truncateBySymbols();
         inputRepalece();
+        fixWidth();
     },
 
     load() {
@@ -110,7 +112,7 @@
     },
 
     resize() {
-
+        fixWidth();
     },
 
     scroll() {

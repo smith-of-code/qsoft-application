@@ -189,6 +189,7 @@ $arResult = $ticketData['documents'];?>
                                                data-pets-date-input
                                                data-pets-change
                                                value="<?=$arResult['getting_date']?>"
+                                               autocomplete="off"
                                         >
                                     </div>
                                 </div>
@@ -776,7 +777,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                    <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />
@@ -1194,7 +1195,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                    <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />

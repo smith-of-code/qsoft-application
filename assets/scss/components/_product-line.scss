@@ -116,6 +116,10 @@
             text-align: center;
         }
 
+        &--hidden {
+            display: none;
+        }
+
         &--span {
             flex-basis: 100%;
 

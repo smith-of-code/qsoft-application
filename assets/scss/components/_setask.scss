@@ -5,15 +5,15 @@
     background-color: $white;
 
     @media #{$screen-tablet} {
+        padding: rem($gap-medium);
+
         border: rem(1px) solid $alto;
         border-radius: rem($border-radius-average);
     }
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         position: sticky;
-        top: rem(160px);
-
-        padding: rem($gap-medium);
+        top: rem(166px);
     }
     
     &__image {

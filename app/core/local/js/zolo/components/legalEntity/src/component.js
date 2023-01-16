@@ -287,6 +287,7 @@ export const LegalEntity = {
                                                                 data-profile-readonly
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.getting_date"
+                                                                autocomplete="off"
                                                             >
                                                             <span class="input__icon">
                                                                 <svg class="icon icon--calendar">
@@ -876,7 +877,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.usn_notification"
@@ -1194,7 +1195,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.usn_notification"

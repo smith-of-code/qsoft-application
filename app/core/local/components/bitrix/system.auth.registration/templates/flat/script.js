@@ -17,6 +17,7 @@ class CSystemAuthRegistrationComponent {
   initListeners() {
       $('button[data-change-step]').on('click', this.changeStepListener);
 
+      $('input[name=without_living]').on('click', this.checkLivingBlock);
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
@@ -27,6 +28,44 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+  }
+
+  checkLivingBlock() {
+      const isActive = $('input[name=without_living]:checked').length;
+
+      const locality = $('#living_locality');
+      const street = $('#living_street');
+      const house = $('#living_house');
+      const apartment = $('#living_apartment');
+      const postalCode = $('#living_postal_code');
+
+      if (isActive) {
+          locality.val('');
+          locality.attr('disabled', true);
+          locality.removeClass('input__control--error');
+
+          street.val('');
+          street.attr('disabled', true);
+          street.removeClass('input__control--error');
+
+          house.val('');
+          house.attr('disabled', true);
+          house.removeClass('input__control--error');
+
+          apartment.val('');
+          apartment.attr('disabled', true);
+          apartment.removeClass('input__control--error');
+
+          postalCode.val('');
+          postalCode.attr('disabled', true);
+          postalCode.removeClass('input__control--error');
+      } else {
+          locality.attr('disabled', false);
+          street.attr('disabled', false);
+          house.attr('disabled', false);
+          apartment.attr('disabled', false);
+          postalCode.attr('disabled', false);
+      }
   }
 
     changeLegalEntity() {
@@ -164,6 +203,9 @@ class CSystemAuthRegistrationComponent {
                         if (!data[$(item).attr('name')].files.length &&
                             ($(item).attr('name') !== 'usn_notification' || !$('input[name=nds_payer_ip]:checked').length)
                         ) {
+                            if ($(item).attr('name') === 'bank_details') {
+                                return
+                            }
                             $(item).parent().addClass('dropzone--error');
                         } else {
                             $(item).parent().removeClass('dropzone--error');
@@ -368,6 +410,8 @@ class CSystemAuthRegistrationComponent {
   }
 
   async register() {
+      $(`.${registrationData.currentStep} .form span.input__control-error`).remove();
+
       const password = $('input[name=password]').val();
       const confirmPassword = $('input[name=password_confirm]').val();
 
@@ -391,16 +435,24 @@ class CSystemAuthRegistrationComponent {
               return;
       }
 
-      await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
-          mode: 'class',
-          data: {
+      let response;
+      try {
+          response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
+              mode: 'class',
               data: {
-                  ...registrationData,
-                  password,
-                  confirm_password: confirmPassword,
+                  data: {
+                      ...registrationData,
+                      password,
+                      confirm_password: confirmPassword,
+                  },
               },
-          },
-      });
+          });
+      } catch (error) {}
+
+      if (!response || response.status !== 'success') {
+          $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
+          return;
+      }
 
       let isBreak = false;
       let isCurrentStepPassed = false;

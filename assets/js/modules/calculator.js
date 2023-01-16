@@ -62,7 +62,7 @@ function setDataVariables(typeCalc, rub, point) {
     if (typeCalc == 'personal') {
         setData('personalPoints', point);
         setData('personalRub', rub);
-        $(ELEMENTS_SELECTOR.calculatorPersonalPointsSum).html(point.toLocaleString());
+        $(ELEMENTS_SELECTOR.calculatorPersonalPointsSum).html(point.toLocaleString('ru-RU'));
     } else if (typeCalc == 'group') {
         setData('groupPoints', point);
         setData('groupRub', rub);
@@ -87,7 +87,7 @@ function calculateGroup() {
     });
 
     let sum = groupPoints + consultantPoints + consultantFixedPoints;
-    $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html(sum.toLocaleString());
+    $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html(sum.toLocaleString('ru-RU'));
 
     return sum;
 }
@@ -138,7 +138,7 @@ export default function () {
 
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
-        let value = +$(this).val().replace(/\s/g, "");
+        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
 
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
@@ -155,8 +155,7 @@ export default function () {
 
     // Событие изменение ползунка point / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputPoint, function() {
-        let value = +$(this).val().replace(/\s/g, "");
-
+        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
 
@@ -196,7 +195,7 @@ export default function () {
 
             let property = getDataLevelProperty(calcRange);
 
-            let currentRub = +calcRange.find(ELEMENTS_SELECTOR.calculatorRangeInputRub).val().replace(/\s/g, "");
+            let currentRub = +calcRange.find(ELEMENTS_SELECTOR.calculatorRangeInputRub).val().replace(/\s/g, "").replace(/,/g,"");
             let currentPoint = currentRub / property.standardPoints * property.stepPoints;
             currentPoint = Math.floor(currentPoint);
             if (currentPoint < property.minPoints) {
@@ -222,7 +221,7 @@ export default function () {
     // Изменение количества покупателей и консультантов
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorQuantity, function() {
         let type = $(this).data('calculator-quantity');
-        let value = +$(this).val().replace(/\s/g, "");
+        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
 
         if (type == 'buyer') {
             setData('groupBuyer', value);
