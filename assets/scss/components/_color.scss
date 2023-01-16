@@ -79,7 +79,6 @@
         height: rem($size);
         margin-right: rem(8px);
 
-        border: rem(1px) solid $alto;
         border-radius: 50%;
 
         @media #{$screen-desktop} {
@@ -98,6 +97,10 @@
             padding-top: 100%;
 
             content: '';
+        }
+
+        &.white {
+            border: rem(1px) solid $alto;
         }
 
         &--medium {

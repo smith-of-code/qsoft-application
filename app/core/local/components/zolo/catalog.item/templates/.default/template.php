@@ -158,7 +158,7 @@ if (isset($arResult['ITEM']))
                                     $propId = $propName . '_' . $value['ID'];
                                     $isChecked = $actualItem['tree']['PROP_' . $offerPropId] === $value['ID'];
                                     ?>
-                                    <li class="colors__item">
+                                    <li class="colors__item colors__item-<?=$value['XML_ID']?>">
                                         <div class="color">
                                             <div class="radio">
                                                 <input type="radio"
