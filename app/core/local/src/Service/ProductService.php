@@ -101,8 +101,8 @@ class ProductService
     {
         $prices = CCatalogProduct::GetOptimalPrice($offerId);
 
-        $discountPrice = $prices['DISCOUNT_PRICE'];
-        $basePrice = (float)$prices['PRICE']['PRICE'];
+        $discountPrice = (float) $prices['DISCOUNT_PRICE'];
+        $basePrice = (float) $prices['RESULT_PRICE']['BASE_PRICE'];
         if ($prices['PRICE']['VAT_INCLUDED'] === 'N' && $prices['PRICE']['VAT_RATE'] > .0) {
             $basePrice += $basePrice * $prices['PRICE']['VAT_RATE'];
         }
