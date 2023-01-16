@@ -13,7 +13,8 @@ class SystemAuthForgotPasswordComponent {
       $(this).parent().find('span.input__control-error').remove();
   }
 
-  async sendListener() {
+  async sendListener(e) {
+      e.preventDefault();
       const loginInput = $('#login');
 
       if (!loginInput.val()) {
@@ -26,6 +27,7 @@ class SystemAuthForgotPasswordComponent {
           mode: 'class',
           data: {
               login: loginInput.val(),
+              captcha: grecaptcha.getResponse()
           },
       });
 
@@ -42,3 +44,9 @@ class SystemAuthForgotPasswordComponent {
 $(function() {
     new SystemAuthForgotPasswordComponent();
 });
+
+function unlock_submit() {
+    let formVote = $('button[data-send]')
+    formVote.attr('disabled', false);
+    formVote.removeClass('button--disabled');
+}

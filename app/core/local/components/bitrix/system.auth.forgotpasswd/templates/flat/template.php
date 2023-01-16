@@ -1,7 +1,10 @@
-<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+
+Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/api.js");
+?>
 
 <h1 class="content__heading content__heading--centered">Восстановление пароля</h1>
-
+<form action="" method="POST" name="formEmail">
 <div class="registration" data-form>
     <section class="section section--limited section--centered">
         <p class="registration__subtitle">
@@ -26,10 +29,10 @@
                 </div>
             </div>
 
-            <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>" style="margin-top: 20px;"></div>
+            <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>" style="margin-top: 20px;" data-callback="unlock_submit"></div>
             <div class="registration__actions">
                 <div class="registration__actions-col">
-                    <button class="button button--rounded button--covered button--red button--full" data-send>
+                    <button type="submit" class="button button--rounded button--covered button--red button--full button--disabled" disabled data-send>
                         <span class="button__text">Отправить</span>
                     </button>
                 </div>
@@ -37,7 +40,7 @@
         </div>
     </section>
 </div>
-
+</form>
 <div class="registration" data-success style="display: none">
     <section class="section section--limited-middle section--centered">
         <div class="registration__notification notification">
@@ -66,4 +69,3 @@
     </section>
 </div>
 
-<script src="https://www.google.com/recaptcha/api.js"></script>
