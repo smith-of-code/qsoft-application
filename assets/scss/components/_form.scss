@@ -268,6 +268,10 @@
         &-button {
             margin-top: rem(3px);
             margin-left: rem($gap-medium);
+
+            @media #{$screen-tablet} {
+                margin-bottom: rem($gap-small);
+            }
         }
     }
 

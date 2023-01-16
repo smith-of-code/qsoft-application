@@ -56,7 +56,7 @@ class BeneficiariesService
         $result = [];
         $beneficiaryId = $this->user->mentorId;
 
-        if (!$beneficiaryId) {
+        if (! isset($beneficiaryId) || ! $beneficiaryId) {
             return [];
         }
 
@@ -64,6 +64,10 @@ class BeneficiariesService
             // Записываем текущего наставника, после чего получаем вышестоящего наставника
             $result[] = $beneficiaryId;
             $beneficiaryId = BeneficiariesTable::getBeneficiaryId($beneficiaryId);
+
+            if ((int) $beneficiaryId <= 0) {
+                break;
+            }
         }
 
         return $result;

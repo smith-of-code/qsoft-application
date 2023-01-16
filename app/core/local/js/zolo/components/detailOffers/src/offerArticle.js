@@ -2,6 +2,12 @@ import {mapState} from "ui.vue3.pinia";
 import {detailOfferStore} from "../../../stores/detailOfferStore";
 
 export const OfferArticle = {
+    props: {
+        isMobile: {
+            type: Boolean,
+            default: false
+        },
+    },
     data() {
         return {};
     },
@@ -13,6 +19,8 @@ export const OfferArticle = {
     },
 
     template: `
-        <p class="specification__article">Арт. {{ article }}</p>
+        <p class="specification__article" :class="[isMobile ? 'specification__article--mobile': 'specification__article--hidden']">
+            Арт. {{ article }}
+        </p>
     `
 };

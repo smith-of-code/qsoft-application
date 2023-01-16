@@ -381,8 +381,11 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                     <form class="form form--wraped form--separated" action="" method="post">
                         <div class="section__box box box--gray box--rounded-sm">
                             <div class="profile__accordeon-header accordeon__header section__header">
-                                <h4 class="section__title section__title--closer">Наставник</h4>
-
+                                <?php if ($arResult['personal_data']['is_consultant']):?>
+                                    <h4 class="section__title section__title--closer">Наставник</h4>
+                                <?php else:?>
+                                    <h4 class="section__title section__title--closer">Контактное лицо</h4>
+                                <?php endif;?>
                                 <div class="profile__actions">
                                     <button type="button"
                                             class="profile__actions-button profile__actions-button--edit button button--simple button--red"
@@ -491,70 +494,69 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="form__row">
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="text-required" class="form__label">
+                                                                    <span class="form__label-text">E-mail</span>
+                                                                </label>
+                                                            </div>
 
-                                            <div class="form__row">
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="text-required" class="form__label">
-                                                                <span class="form__label-text">E-mail</span>
-                                                            </label>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$mentor['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$mentor['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="text-required" class="form__label">
+                                                                    <span class="form__label-text">Телефон</span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="tel" class="input__control" name="text-required" value="<?=$mentor['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="text-required" class="form__label">
-                                                                <span class="form__label-text">Телефон</span>
-                                                            </label>
-                                                        </div>
+                                                <div class="form__row">
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="select22" class="form__label">
+                                                                    <span class="form__label-text">Населенный пункт</span>
+                                                                </label>
+                                                            </div>
 
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="tel" class="input__control" name="text-required" value="<?=$mentor['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$mentor['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form__row">
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="select22" class="form__label">
-                                                                <span class="form__label-text">Населенный пункт</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$mentor['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="select22" class="form__label">
+                                                                    <span class="form__label-text">Пункт выдачи заказов</span>
+                                                                </label>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="select22" class="form__label">
-                                                                <span class="form__label-text">Пункт выдачи заказов</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1040,12 +1042,24 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                             <div class="participant__progress cards-progress">
                                                 <ul class="cards-progress__list">
                                                     <li class="cards-progress__item cards-progress__item--full">
+                                                    <?php if ($arResult['personal_data']['loyalty_level'] == 'B3'):?>
                                                         <div
                                                             id="loyaltyStatusTale"
+                                                            prop-is-consultant="<?=CUtil::PhpToJSObject($arResult['personal_data']['is_consultant'])?>"
+                                                            prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
+                                                            prop-target-value="<?=$arResult['loyalty_status']['self']['hold_value']?>"
+                                                            prop-label="Удержание уровня по личным покупкам"
+                                                        ></div>
+                                                    <?php else:?>
+                                                        <div
+                                                            id="loyaltyStatusTale"
+                                                            prop-is-consultant="<?=CUtil::PhpToJSObject($arResult['personal_data']['is_consultant'])?>"
                                                             prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
                                                             prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                                            prop-label="Повышение уровня по личным покупкам"
+                                                            prop-label="До повышения размера скидки"
                                                         ></div>
+                                                    <?php endif;?>
+                                                       
                                                     </li>
                                                 </ul>
                                             </div>

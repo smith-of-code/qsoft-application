@@ -72,13 +72,24 @@
             padding-right: rem($gap-big);
             padding-left: rem($gap-big);
 
-            color: $saltBox;
-            background-color: $white;
+            color: $saltBox !important; 
+            background-color: $white !important;
+
+            &:hover {
+                background-color: $athensGray !important;
+            }
 
             &--active {
-                color: $athensGray;
-                background-color: $brickRed;
+                color: $athensGray !important;
+                background-color: $brickRed !important;
+
+                &:hover {
+                    color: $athensGray !important;
+                    background-color: $brickRed !important;
+                }
             }
+
+           
         }
     }
 
@@ -102,6 +113,46 @@
                 background-color: $tuna;
             }
         }
+    }
+
+    &#{&}--gray & {
+        &__item {
+            background-color: $athensGray;
+
+            &:hover {
+                background-color: $white;
+            }
+
+            &--active {
+                background-color: $brickRed;
+
+                &:hover {
+                    background-color: $brickRed;
+                }
+            }
+        }
+    }
+
+    &--full-mob & {
+        &__items {
+            width: 100% !important;
+
+            @media #{$screen-tablet} {
+                width: max-content !important;
+            }
+
+        }
+
+        &__item {
+            flex-grow: 1;
+            text-align: center;
+
+            @media #{$screen-tablet} {
+                flex-grow: 0;
+                text-align: center;
+            }
+        }
+
     }
 
     &--bordered & {

@@ -1,5 +1,9 @@
 .faq {
 
+    &__content {
+        margin-top: rem(10px);
+    }
+
     &__wrapper {
         display: flex;
         align-items: flex-start;

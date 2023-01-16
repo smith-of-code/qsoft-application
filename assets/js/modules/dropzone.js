@@ -163,6 +163,8 @@ function uploadFiles(el) {
         maxFilesize: maxFileSize,
         previewsContainer: $previewsContainer,
         previewTemplate: previewTemplate,
+        thumbnailHeight: 720, // px
+        thumbnailWidth: 1280, // px
         init: function () {
             const self = this;
 

@@ -52,9 +52,17 @@ if (isset($arResult['ITEM']))
         'id' => $elementId,
         'elementsIds' => $domElementsIds,
     ];
-
+    $smallerPrice = 0;
     foreach ($item['OFFERS'] as $offer) {
         $jsInfo['offers'][$offer['ID']]['id'] = $offer['ID'];
+
+        if (($offer['PRICE'] < $smallerPrice || $smallerPrice == 0) && isset($_GET['sort'])) {
+            if ($offer['CATALOG_CAN_BUY_ZERO'] == 'Y' || $offer['CATALOG_QUANTITY'] > 0) {
+                $smallerPrice = $offer['PRICE'];
+                $activeFlag = $offer['ID'];
+            }
+        }
+
         // Артикул
         if (isset($offer['PROPERTIES']['ARTICLE']['VALUE'])) {
             $jsInfo['offers'][$offer['ID']]['article'] = 'Арт. ' . $offer['PROPERTIES']['ARTICLE']['VALUE'];
@@ -76,7 +84,12 @@ if (isset($arResult['ITEM']))
         $jsInfo['offers'][$offer['ID']]['nonreturnable'] = (bool) $item['PROPERTIES']['NONRETURNABLE_PRODUCT']['VALUE'];
     }
 
-    $actualItem = reset($jsInfo['offers']);
+    if ($activeFlag) {
+        $actualItem = $jsInfo['offers'][$activeFlag];
+    } else {
+        $actualItem = reset($jsInfo['offers']);
+    }
+
     ?>
     <li class="product-cards__item<?= $arParams['EXPANDABLE']['CONTAINER_CLASS'] ? ' ' . $arParams['EXPANDABLE']['CONTAINER_CLASS'] : '' ?>"
         id="<?=$arResult['AREA_ID']?>"
@@ -137,7 +150,9 @@ if (isset($arResult['ITEM']))
                     ?>
                         <div class="product-card__colors colors">
                             <ul class="colors__list">
+                                
                                 <? foreach ($arParams['SKU_PROPS']['COLOR']['VALUES'] as $value):
+
                                     if ($value['ID'] === 0) continue; // Пропускаем значение-плейсхолдер
                                     if (! $item['SKU_TREE_VALUES'][$offerPropId][$value['ID']]) continue; // Пропускаем значения, по которым не существует торговых предложений
                                     $propId = $propName . '_' . $value['ID'];

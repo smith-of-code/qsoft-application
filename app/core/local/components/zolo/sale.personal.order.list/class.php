@@ -539,7 +539,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			}
 		}
 
-		if (!isset($_REQUEST['show_all']) || $_REQUEST['show_all'] == 'N')
+		if ($_REQUEST['show_all'] === 'N')
 		{
 			if (isset($_REQUEST["filter_history"]) && $_REQUEST["filter_history"] == "Y")
 			{

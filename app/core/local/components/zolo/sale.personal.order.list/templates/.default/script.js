@@ -215,11 +215,13 @@ function setBasketTemplate(data) {
         delete innerLi;
         delete p;
 
-        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold']);
+        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold', !isConsultant ? 'product-line__params--hidden' : 'product-line__params--visible' ]);
         p = createElement('p', ['product-line__text']);
         span = createElement('span', ['product-line__params-name'], [], 'Сумма баллов:');
 
-        p.append(span);
+        if (isConsultant) {
+            p.append(span);
+        }
 
         delete span;
 
