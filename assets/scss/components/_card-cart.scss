@@ -211,7 +211,7 @@
         }
 
         &-item {
-            margin-left: rem($gap-normal);
+            margin-left: rem($gap-medium);
 
             @media #{$screen-desktop} {
                 margin-top: rem($gap-medium);
