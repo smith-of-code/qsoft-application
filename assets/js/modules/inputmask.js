@@ -15,7 +15,8 @@ const ELEMENTS_SELECTOR = {
     ogrnMask: '[data-ogrn]',
     bikMask: '[data-bik]',
     postMaskReg: '[data-mask-post-reg]',
-    postMaskLiving: '[data-mask-post-living]'
+    postMaskLiving: '[data-mask-post-living]',
+    postMaskLtc: '[data-mask-post-ltc]'
 };
 
 const MASKS = {
@@ -452,6 +453,5 @@ export default function inputMaskInit($container, mask) {
     Inputmask(MASKS.bikMask)?.mask($container.find(ELEMENTS_SELECTOR.bikMask));
     Inputmask(MASKS.postMask)?.mask($container.find(ELEMENTS_SELECTOR.postMaskReg));
     Inputmask(MASKS.postMask)?.mask($container.find(ELEMENTS_SELECTOR.postMaskLiving));
-
-    console.log($container.find(ELEMENTS_SELECTOR.postMaskLiving));
+    Inputmask(MASKS.postMask)?.mask($container.find(ELEMENTS_SELECTOR.postMaskLtc));
 }

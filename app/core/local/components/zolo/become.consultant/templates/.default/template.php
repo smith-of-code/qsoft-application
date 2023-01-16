@@ -1029,7 +1029,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_address_1"
                                                         id="ltc_address_1"
@@ -1051,7 +1051,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_address_2"
                                                         id="ltc_address_2"
@@ -1074,11 +1074,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_postal_code"
                                                         id="ltc_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-ltc
                                                 >
                                             </div>
                                         </div>
