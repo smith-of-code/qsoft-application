@@ -110,7 +110,7 @@ class ProductService
         return $this->user->isAuthorized ? [
             'PRICE' => $discountPrice,
             'BASE_PRICE' => $basePrice !== $discountPrice ? $basePrice : null,
-        ] : ['PRICE' => $discountPrice];
+        ] : ['PRICE' => $basePrice];
     }
 
     private function getOfferDiscountLabels(array $offer): array
