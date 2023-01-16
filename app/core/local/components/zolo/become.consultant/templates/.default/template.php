@@ -280,11 +280,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="register_postal_code"
                                                         id="register_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-reg
                                                 >
                                             </div>
                                         </div>
@@ -376,7 +377,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="living_apartment"
                                                         id="living_apartment"
@@ -404,6 +405,7 @@
                                                         name="living_postal_code"
                                                         id="living_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-living
                                                 >
                                             </div>
                                         </div>
