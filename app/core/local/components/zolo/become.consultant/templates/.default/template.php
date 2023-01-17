@@ -653,7 +653,17 @@
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="ltc_short_name" class="form__label form__label--required">
-                                                <span class="form__label-text">Наименование организации (сокращенное)</span>
+                                                <span class="form__label-text">
+                                                    <span class="form__label-text form__label-text--desktop">
+                                                        Наименование организации (сокращенное)
+                                                    </span>
+                                                    <span class="form__label-text form__label-text--mobile">
+                                                        Наименование организации
+                                                        <span class="form__label-minitext" data-tippy-content="сокращенное">
+                                                            (сокр.)
+                                                        </span>
+                                                    </span>
+                                                </span>
                                             </label>
                                         </div>
 

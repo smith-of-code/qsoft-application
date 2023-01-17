@@ -306,5 +306,24 @@
                 
             }
         }
+
+        &-text {
+            &--desktop {
+                display: none;
+
+                @media #{$screen-tablet} {
+                    display: block;
+                }
+            }
+
+            &--mobile {
+                display: block;
+                pointer-events: all;
+
+                @media #{$screen-tablet} {
+                   display: none;
+                }
+            }
+        }
     }
 }
