@@ -154,3 +154,32 @@ function createRow() {
 
     return newPriceElement;
 }
+
+$( document ).ready(function() {
+    const orderItem = $(".profile__order");
+    
+    function rountedPrice(price, whole, remains) {
+        let orderItemPriceNum = parseFloat(price);
+        let totalFixied = orderItemPriceNum.toFixed(2);
+        let totalRemains = totalFixied.toString().split('.')[1];
+
+        if (totalRemains === "00") {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            remains.text(' ₽');
+        } else {
+            whole.text(Math.floor(orderItemPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            remains.text(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ₽');
+        }
+    }
+
+    orderItem.each(function (index, item) {
+        const orderItemPrice = $(item).find('.price__calculation-total');
+        const orderItemPriceVal = orderItemPrice.attr('data-price').replace(/\s/g,'').replace(/,/g, '.');
+        const spanWhole = orderItemPrice.find(".price__calculation-total--whole");
+        const spanRemains = orderItemPrice.find(".price__calculation-total--remains");
+
+        if (orderItemPriceVal) {
+            rountedPrice(orderItemPriceVal, spanWhole, spanRemains);
+        }
+    });
+});

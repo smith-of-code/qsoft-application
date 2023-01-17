@@ -1096,9 +1096,14 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                     <div class="profile__order-col">
                                                         <div class="price">
                                                             <div class="price__calculation price__calculation--columned">
-                                                                <p class="price__calculation-total"><?=number_format($order['price'], 0, ' ', ' ')?> ₽</p>
+                                                                <p class="price__calculation-total" data-price="<?=$order['price']?>">
+                                                                    <span class="price__calculation-total--whole"></span>
+                                                                    <span class="price__calculation-total--remains"></span>
+                                                                </p>
                                                                 <?php if ($order['bonuses']):?>
-                                                                    <p class="price__calculation-accumulation"><?=number_format($order['bonuses'], 0, ' ', ' ')?> ББ</p>
+                                                                    <p class="price__calculation-accumulation">
+                                                                        <?=number_format($order['bonuses'], 0, ' ', ' ')?> ББ
+                                                                    </p>
                                                                 <?php endif;?>
                                                             </div>
                                                         </div>
