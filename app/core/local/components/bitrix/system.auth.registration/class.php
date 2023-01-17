@@ -296,19 +296,32 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $recaptcha = new QSoft\Common\Recaptcha();
             $response = $recaptcha->isValidResponse($data['captcha']);
             if (!$response) {
-                throw new Exception('Recaptcha not passed');
+                throw new Exception('Капча не пройдена');
             }
         } catch (\Exception $e) {
-            throw new Exception('Recaptcha error');
+            throw new Exception('Ошибка проверки капчи');
         }
 
-        if (UserTable::getCount([
+        $phone = normalizePhoneNumber($data['phone']);
+        $email = $data['email'];
+
+        if (empty($phone)) {
+            throw new Exception('Не указан номер телефона');
+        }
+
+        if (empty($email)) {
+            throw new Exception('Не указан адрес электронной почты');
+        }
+
+        $searchResult = UserTable::getCount([
             [
                 'LOGIC' => 'OR',
-                ['=PERSONAL_PHONE' => normalizePhoneNumber($data['phone'])],
-                ['=EMAIL' => $data['email']],
+                ['=PERSONAL_PHONE' => $phone],
+                ['=EMAIL' => $email],
             ],
-        ])) {
+        ]);
+
+        if ($searchResult) {
             throw new Exception('Такой пользователь уже существует');
         }
 

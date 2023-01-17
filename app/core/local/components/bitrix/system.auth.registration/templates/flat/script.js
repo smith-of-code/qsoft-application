@@ -151,7 +151,9 @@ class CSystemAuthRegistrationComponent {
                 data.pets = {};
             }
 
+            // Перебираем поля формы
             $(`.${registrationData.currentStep} .form`).find('input, select').each((index, item) => {
+
                 if (
                     registrationData.currentStep === 'legal_entity_data'
                     && $(item).closest('.legal_entity').length
@@ -194,7 +196,8 @@ class CSystemAuthRegistrationComponent {
                             data[separateKey[0]][separateKey[1]][`~${separateKey[2]}`] = 'man';
                         }
                     }
-                } else if ($(item).attr('type') === 'file') {
+                }
+                else if ($(item).attr('type') === 'file') {
                     if ($(item).attr('multiple')) {
                         data[$(item).attr('name')] = { files: [] };
                         $(item).parent().find('.file.dz-success.dz-complete').each((index, innerItem) => {
@@ -223,12 +226,14 @@ class CSystemAuthRegistrationComponent {
                             };
                         }
                     }
-                } else if ($(item).attr('type') === 'checkbox') {
+                }
+                else if ($(item).attr('type') === 'checkbox') {
                     data[$(item).attr('name')] = !!$(`#${$(item).attr('id')}:checked`).length;
                     if (!data[$(item).attr('name')] && ['agree_with_personal_data_processing', 'agree_with_terms_of_use', 'agree_with_company_rules', 'correctness_confirmation_self_employed', 'correctness_confirmation_ip', 'correctness_confirmation_ltc'].includes($(item).attr('name'))) {
                         $(item).addClass('input__control--error');
                     }
-                } else if (age < 18) {
+                }
+                else if (age < 18) {
                     let parent = $(inputBirthdate).parent();
                     let message = parent.find('.input__control-error--mask');
                     let buttonNext = $('button[data-direction="next"]');
@@ -237,25 +242,29 @@ class CSystemAuthRegistrationComponent {
                     message.show();
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
-                } else if ( indexPostValue.length < 6 || indexPostValue.length > 6) {
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && (indexPostValue.length < 6 || indexPostValue.length > 6)) {
                     indexPost.addClass('input__control--error');
-                } else if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
                     indexPostLiving.addClass('input__control--error');
-                } else if ($(item).attr('name') === 'ltc_postal_code') {
+                }
+                else if ($(item).attr('name') === 'ltc_postal_code') {
                     let indexPostLtc = $("input[name='ltc_postal_code']");
                     let indexPostLtcValue = indexPostLtc.val().replace(/[^0-9\.]/g,'');
                     if (indexPostLtcValue.length < 6 || indexPostLtcValue.length > 6) {
                         indexPostLtc.addClass('input__control--error');
                     }
-                    return
-                } else {
+                    return;
+                }
+                else {
                     if (!$(item).val()) {
                         if (
                             ($(item).attr('name') === 'second_name' && $('input[name=without_second_name]:checked').length)
                             || ($(item).attr('name') === 'mentor_id' && $('input[name=without_mentor_id]:checked').length)
                             || ($(item).attr('name').indexOf('living') !== -1 && $('input[name=without_living]:checked').length)
                         ) {
-                            return
+                            return;
                         }
                         $(item).addClass('input__control--error');
                     }
@@ -470,6 +479,7 @@ class CSystemAuthRegistrationComponent {
       if (!response || response.status !== 'success') {
           grecaptcha.reset();
           $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
+
           return;
       }
 
