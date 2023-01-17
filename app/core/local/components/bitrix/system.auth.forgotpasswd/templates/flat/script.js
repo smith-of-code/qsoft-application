@@ -35,6 +35,7 @@ class SystemAuthForgotPasswordComponent {
           $('[data-form]').hide();
           $('[data-success]').show();
       } else {
+          grecaptcha.reset();
           loginInput.addClass('input__control--error');
           loginInput.parent().append(`<span class="input__control-error">Пользователя с таким логином не существует</span>`)
       }
