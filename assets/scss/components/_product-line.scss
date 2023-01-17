@@ -1,5 +1,16 @@
 .product-line {
     position: relative;
+
+    &#{&}--common & {
+        &__list {
+            justify-content: flex-start;
+        }
+
+        &__params {
+            max-width: percentage(1 / 2);
+        }
+    }
+
     &__inner {
         @media #{$screen-desktop} {
             display: flex;

@@ -170,7 +170,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                         <ul class="table-list__list">
                                             <? foreach ($arResult['PRODUCTS'] as $product) :?>
                                             <li class="table-list__item">
-                                                <article class="product-line">
+                                                <article class="product-line <?=($arResult['IS_CONSULTANT']) ? '' : 'product-line--common'?>">
                                                     <a class="product-line__link" href="<?=$product['DETAIL_PAGE']?>"></a>
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
