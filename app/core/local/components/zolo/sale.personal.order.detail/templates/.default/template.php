@@ -190,6 +190,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                             <ul class="product-line__list">
                                                                 <li class="product-line__params product-line__params--span">
                                                                     <p class="product-line__text">
+                                                                        <span class="product-line__params-name">Цена:</span>
                                                                         <span class="product-line__params-value product-price" data-item-price="<?=$product['PRICE']?>">
                                                                             <span class="product-line__params-value--whole"></span>
                                                                             <span class="product-line__params-value--remains"></span>
@@ -198,6 +199,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                                 </li>
                                                                 <li class="product-line__params">
                                                                     <p class="product-line__text">
+                                                                        <span class="product-line__params-name">Количество:</span>
                                                                         <span class="product-line__params-value product-quantity">
                                                                             <?=$product['QUANTITY']?>
                                                                         </span>
@@ -206,6 +208,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                                                 <?php if ($arResult['IS_CONSULTANT']):?>
                                                                     <li class="product-line__params product-line__params--bold">
                                                                         <p class="product-line__text">
+                                                                            <span class="product-line__params-name">Сумма баллов:</span>
                                                                             <span class="product-line__params-value product-credit product-bonus">
                                                                                 <?= number_format($product['BONUSES'], 0, '', ' ') ?> ББ
                                                                             </span>
