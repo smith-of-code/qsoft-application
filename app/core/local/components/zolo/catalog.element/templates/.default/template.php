@@ -35,7 +35,11 @@ $offerId = $arResult['OFFER_FIRST'];
     prop-current-offer-id='<?= $offerId ?>'
 ></div>
 <!-- Каталог товаров -->
-<div class="content__main content__main--separated">
+<h1 class="specification__title specification__title--mobile"><?= $arResult['TITLE']?></h1><!-- Название -->
+<div id="offerArticle" prop-is-mobile="true">
+    <p class="specification__article specification__article--mobile specification__article--hidden">Арт. <?=$arResult['ARTICLES'][$offerId]?></p>
+</div>
+<div class="detail__content content__main content__main--separated">
     <div class="detail__card">
         <!--  Слайдер  в картинками ТП -->
         <div id="imageSlider" prop-is-authorized="<?= json_encode($USER->isAuthorized()) ?>" prop-no-image-placeholder="<?=NO_IMAGE_PLACEHOLDER_PATH?>">
@@ -229,8 +233,12 @@ $offerId = $arResult['OFFER_FIRST'];
                 <ul class="specification__description">
                     <?php foreach ($arResult['SPECIFICATION'] as $key => $value): ?>
                         <li class="specification__description-item">
-                            <p class="specification__description-topic"><?=$arResult['PROPERTY_NAMES'][$key]?></p>
-                            <p class="specification__description-response"><?=$value?></p>
+                            <p class="specification__description-topic" data-fixwidth>
+                                <?=$arResult['PROPERTY_NAMES'][$key]?>
+                            </p>
+                            <p class="specification__description-response">
+                                <?=$value?>
+                            </p>
                         </li>
                     <?php endforeach; ?>
                 </ul>

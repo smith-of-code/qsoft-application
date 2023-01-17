@@ -7,6 +7,7 @@ use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ObjectException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
@@ -220,9 +221,12 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         }
 
         foreach ($data as $field => &$value) {
-            if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) {
+            if ($field === 'email' && UserTable::getRow(['filter' => ['=EMAIL' => $value]])) { // Проверка email
+
                 return ['status' => 'error', 'message' => 'Пользователь с таким email уже существует'];
-            } else if ($field === 'mentor_id' && $data['without_mentor_id'] !== 'true' && $value) {
+
+            } else if ($field === 'mentor_id' && $data['without_mentor_id'] !== 'true') { // Проверка ID наставника
+
                 try {
                     if (!is_numeric($value) || (int) $value <= 0) {
                         return ['status' => 'error', 'message' => 'Некорректный ID'];
@@ -232,9 +236,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         return ['status' => 'error', 'message' => 'Указанный пользователь не может быть наставником'];
                     }
                 } catch (\Exception $e) {
-                    return ['status' => 'error', 'message' => 'Такого пользователя не существует"'];
+                    return ['status' => 'error', 'message' => 'Такого пользователя не существует'];
                 }
-            } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) {
+
+            } else if (in_array($field, self::FILE_FIELDS) && !$value['src']) { // Обработка файлов
+
                 if (!empty($value['files'])) {
                     foreach ($value['files'] as &$file) {
                         $file['src'] = CFile::GetPath($file['id']);
@@ -286,6 +292,26 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function registerAction(array $data): array
     {
+        try {
+            $recaptcha = new QSoft\Common\Recaptcha();
+            $response = $recaptcha->isValidResponse($data['captcha']);
+            if (!$response) {
+                throw new Exception('Recaptcha not passed');
+            }
+        } catch (\Exception $e) {
+            throw new Exception('Recaptcha error');
+        }
+
+        if (UserTable::getCount([
+            [
+                'LOGIC' => 'OR',
+                ['=PERSONAL_PHONE' => normalizePhoneNumber($data['phone'])],
+                ['=EMAIL' => $data['email']],
+            ],
+        ])) {
+            throw new Exception('Такой пользователь уже существует');
+        }
+
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 

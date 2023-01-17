@@ -287,6 +287,7 @@ export const LegalEntity = {
                                                                 data-profile-readonly
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.getting_date"
+                                                                autocomplete="off"
                                                             >
                                                             <span class="input__icon">
                                                                 <svg class="icon icon--calendar">
@@ -418,7 +419,7 @@ export const LegalEntity = {
                                                     <div class="form__field-block form__field-block--input">
                                                         <div class="input">
                                                             <input
-                                                                type="number"
+                                                                type="text"
                                                                 class="input__control js-required"
                                                                 data-profile-readonly
                                                                 name="register_postal_code"
@@ -426,6 +427,7 @@ export const LegalEntity = {
                                                                 placeholder="Индекс"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_postal_code"
+                                                                data-mask-post-reg
                                                             >
                                                         </div>
                                                     </div>
@@ -555,7 +557,7 @@ export const LegalEntity = {
                                                         <div class="form__field-block form__field-block--input">
                                                             <div class="input">
                                                                 <input
-                                                                    type="number"
+                                                                    type="text"
                                                                     class="input__control js-required-dependent"
                                                                     data-identic-input
                                                                     data-profile-readonly
@@ -564,6 +566,7 @@ export const LegalEntity = {
                                                                     placeholder="Индекс"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_postal_code"
+                                                                    data-mask-post-living
                                                                 >
                                                             </div>
                                                         </div>
@@ -876,7 +879,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.usn_notification"
@@ -1194,7 +1197,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                                        <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.usn_notification"

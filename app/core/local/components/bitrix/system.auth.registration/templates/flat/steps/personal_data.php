@@ -159,6 +159,7 @@
                                        placeholder="ДД.ММ.ГГГГ"
                                        data-mask-date-reg
                                        value="<?=$arResult['birthdate']?>"
+                                       autocomplete="off"
                                 >
                                 <span class="input__control-error--mask"></span>
                                 <span class="input__icon">

@@ -179,6 +179,7 @@ export const OrdersReport = {
                                         <ul class="table-list__list table-list__list--limited" data-scrollbar>
                                             <li v-for="product in ordersReport.last_month_products" :key="product.article" class="table-list__item">
                                                 <article class="product-line">
+                                                    <a class="product-line__link" :href="product.link"></a>
                                                     <div class="product-line__inner">
                                                         <div class="product-line__info">
                                                             <div class="product-line__image">
@@ -205,7 +206,7 @@ export const OrdersReport = {
                                                                                 {{ showPriceWhole(product.price) }}
                                                                             </span>
                                                                             <span class="product-line__params-value--remains">
-                                                                                {{ showPriceRemains(product.price) }} ₽
+                                                                                {{ showPriceRemains(product.price) }}&nbsp;₽
                                                                             </span>
                                                                         </span>
                                                                     </p>
@@ -230,7 +231,7 @@ export const OrdersReport = {
                                                                                 {{ showPriceWhole(product.price * product.quantity) }}
                                                                             </span>
                                                                             <span class="product-line__params-value--remains">
-                                                                                {{ showPriceRemains(product.price * product.quantity) }} ₽
+                                                                                {{ showPriceRemains(product.price * product.quantity) }}&nbsp;₽
                                                                             </span>
                                                                         </span>
                                                                     </p>

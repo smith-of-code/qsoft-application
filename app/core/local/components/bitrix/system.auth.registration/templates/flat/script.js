@@ -17,6 +17,7 @@ class CSystemAuthRegistrationComponent {
   initListeners() {
       $('button[data-change-step]').on('click', this.changeStepListener);
 
+      $('input[name=without_living]').on('click', this.checkLivingBlock);
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
       $('button[data-register]').on('click', this.register);
@@ -27,6 +28,44 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+  }
+
+  checkLivingBlock() {
+      const isActive = $('input[name=without_living]:checked').length;
+
+      const locality = $('#living_locality');
+      const street = $('#living_street');
+      const house = $('#living_house');
+      const apartment = $('#living_apartment');
+      const postalCode = $('#living_postal_code');
+
+      if (isActive) {
+          locality.val('');
+          locality.attr('disabled', true);
+          locality.removeClass('input__control--error');
+
+          street.val('');
+          street.attr('disabled', true);
+          street.removeClass('input__control--error');
+
+          house.val('');
+          house.attr('disabled', true);
+          house.removeClass('input__control--error');
+
+          apartment.val('');
+          apartment.attr('disabled', true);
+          apartment.removeClass('input__control--error');
+
+          postalCode.val('');
+          postalCode.attr('disabled', true);
+          postalCode.removeClass('input__control--error');
+      } else {
+          locality.attr('disabled', false);
+          street.attr('disabled', false);
+          house.attr('disabled', false);
+          apartment.attr('disabled', false);
+          postalCode.attr('disabled', false);
+      }
   }
 
     changeLegalEntity() {
@@ -78,6 +117,12 @@ class CSystemAuthRegistrationComponent {
         emailInput.removeClass('input__control--error');
         emailInput.parent().find('.input__control-error').remove();
 
+        let indexPost = $("input[name='register_postal_code']");
+        let indexPostLiving = $("input[name='living_postal_code']");
+        let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
+        let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
+        let livingAdress = $('input[name=without_living]:checked').length;
+
         const isForwardDirection = $(this).data('direction') === 'next';
         let data = registrationData;
 
@@ -94,7 +139,7 @@ class CSystemAuthRegistrationComponent {
         
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
-        } 
+        }
 
         if (isForwardDirection) {
             if (data.currentStep === 'personal_data' && data.confirmedPhone !== $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '')) {
@@ -162,6 +207,9 @@ class CSystemAuthRegistrationComponent {
                         });
 
                         if (!data[$(item).attr('name')].files.length) {
+                            if ($(item).attr('name') === 'bank_details') {
+                                return
+                            }
                             $(item).parent().addClass('dropzone--error');
                         } else {
                             $(item).parent().removeClass('dropzone--error');
@@ -189,6 +237,10 @@ class CSystemAuthRegistrationComponent {
                     message.show();
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
+                } else if ( indexPostValue.length < 6 || indexPostValue.length > 6) {
+                    indexPost.addClass('input__control--error');
+                } else if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
+                    indexPostLiving.addClass('input__control--error');
                 } else {
                     if (!$(item).val()) {
                         if (
@@ -366,6 +418,8 @@ class CSystemAuthRegistrationComponent {
   }
 
   async register() {
+      $(`.${registrationData.currentStep} .form span.input__control-error`).remove();
+
       const password = $('input[name=password]').val();
       const confirmPassword = $('input[name=password_confirm]').val();
 
@@ -378,6 +432,7 @@ class CSystemAuthRegistrationComponent {
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
               $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароли не совпадают</span>');
+              grecaptcha.reset();
               return;
           case password.length < 8:
           case password.match(/[А-я]+/i):
@@ -386,19 +441,30 @@ class CSystemAuthRegistrationComponent {
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
               $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароль не удовлетворяет требованиям</span>');
+              grecaptcha.reset();
               return;
       }
 
-      await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
-          mode: 'class',
-          data: {
+      let response;
+      try {
+          response = await BX.ajax.runComponentAction('bitrix:system.auth.registration', 'register', {
+              mode: 'class',
               data: {
-                  ...registrationData,
-                  password,
-                  confirm_password: confirmPassword,
+                  data: {
+                      ...registrationData,
+                      password,
+                      confirm_password: confirmPassword,
+                      captcha: grecaptcha.getResponse()
+                  },
               },
-          },
-      });
+          });
+      } catch (error) {}
+
+      if (!response || response.status !== 'success') {
+          grecaptcha.reset();
+          $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
+          return;
+      }
 
       let isBreak = false;
       let isCurrentStepPassed = false;
@@ -428,7 +494,11 @@ class CSystemAuthRegistrationComponent {
   }
 }
 
-
+function unlock_submit() {
+    let formVote = $('button[data-register]')
+    formVote.attr('disabled', false);
+    formVote.removeClass('button--disabled');
+}
 
 $(function() {
     new CSystemAuthRegistrationComponent();

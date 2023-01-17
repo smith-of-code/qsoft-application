@@ -151,10 +151,10 @@
 
 			if (totalMainRemains === "00") {
 				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
-				remains.text('₽');
+				remains.html('&nbsp;₽');
 			} else {
 				whole.text(Math.floor(mainPriceNum).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
-				remains.text(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '₽');
+				remains.html(totalMainRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
 			}
 		}
 
@@ -479,11 +479,6 @@
 				if (packDiv.length > 0 && ! packDiv.hasClass('pack__item--disabled')) {
 					packDiv.addClass('pack__item--disabled');
 				}
-                tippy('[data-tippy-content]', {
-                    theme: 'light',
-                    arrow: false,
-                    appendTo: 'parent',
-                });
 
 				return;
 			}

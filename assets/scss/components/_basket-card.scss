@@ -40,6 +40,7 @@
         &::before {
             flex-grow: 1;
             order: 2;
+            display: none;
 
             margin: 0 rem(3px);
             margin-bottom: rem(5px);
@@ -48,6 +49,18 @@
 
             border-bottom: rem(2px) dotted $alto;
         }
+    }
+
+    &__point {
+        overflow: hidden;
+        letter-spacing: 3px;
+
+        flex: 1;
+
+        margin: 0 rem(3px);
+        margin-bottom: rem(5px);
+
+        color:  $alto;
     }
 
     &__text {
@@ -90,7 +103,11 @@
         }
 
         &-remains {
-            font-size: rem($font-size-mini);
+            font-size: rem($font-size-miniature);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-mini);
+            }
         }
     }
 

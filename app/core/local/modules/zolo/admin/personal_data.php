@@ -176,6 +176,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                                            placeholder="ДД.ММ.ГГГГ"
                                            data-mask-date-reg
                                            value="<?=$ticketData['PERSONAL_BIRTHDAY']?>"
+                                           autocomplete="off"
                                     >
                                     <span class="input__control-error--mask"></span>
                                 </div>

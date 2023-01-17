@@ -376,6 +376,7 @@ class User
             }
 
             $mutationMethod = 'read' . ucfirst($objectPropertyName);
+
             if (method_exists($mutator, $mutationMethod)) {
                 $objectPropertyValue = call_user_func([$mutator, $mutationMethod], $objectPropertyValue);
             }

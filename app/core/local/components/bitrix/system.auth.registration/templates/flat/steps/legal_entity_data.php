@@ -163,6 +163,7 @@
                                                data-pets-date-input
                                                data-pets-change
                                                value="<?=$arResult['getting_date']?>"
+                                               autocomplete="off"
                                         >
                                         <span class="input__icon">
                                                 <svg class="icon icon--calendar">
@@ -294,12 +295,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="register_postal_code"
                                                 id="register_postal_code"
                                                 placeholder="Индекс"
                                                 value="<?=$arResult['register_postal_code']?>"
+                                                data-mask-post-reg
                                         >
                                     </div>
                                 </div>
@@ -418,12 +420,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="living_postal_code"
                                                 id="living_postal_code"
                                                 placeholder="Индекс"
                                                 value="<?=$arResult['living_postal_code']?>"
+                                                data-mask-post-living
                                         >
                                     </div>
                                 </div>
@@ -798,7 +801,7 @@
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                    <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                         'NAME' => 'usn_notification',
@@ -853,7 +856,7 @@
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
+                    <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлении в должность генерального директора</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                         'NAME' => 'ceo_appointment',
@@ -1262,7 +1265,7 @@
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                    <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                         'NAME' => 'usn_notification',

@@ -1,4 +1,16 @@
 .detail {
+    &__content {
+        margin-top: rem(24px);
+
+        @media #{$screen-tablet} {
+            margin-top: rem(32px);
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: rem(56px);
+        }
+    }
+
     &__card {
         @media #{$screen-tablet} {
             display: flex;
@@ -108,6 +120,10 @@
             &-body {
                 @media #{$screen-tablet} {
                     margin-top: rem($gap-big);
+                }
+
+                & .accordeon__item {
+                    cursor: default;
                 }
             }
 

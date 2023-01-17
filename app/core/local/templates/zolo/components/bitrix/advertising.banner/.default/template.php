@@ -13,6 +13,15 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
         $slider['IMG'] = CFile::GetPath($slider['IMG']);
         $slider['IMG_MOBILE'] = CFile::GetPath($slider['IMG_MOBILE']);
         $slider['IMG_TABLET'] = CFile::GetPath($slider['IMG_TABLET']);
+
+        // Пропускаем слайды без картинок
+        if (
+            ! isset($slider['IMG']) || empty($slider['IMG'])
+            || ! isset($slider['IMG_MOBILE']) || empty($slider['IMG_MOBILE'])
+            || ! isset($slider['IMG_TABLET']) || empty($slider['IMG_TABLET'])
+        ) {
+            continue;
+        }
         $sliders[] = $slider;
     }
 ?>
@@ -35,7 +44,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                     </div>
 
                     <article class="slider__card card-banner">
-                        <a href="<?=$slider['LINK']?>" class="card-banner__link"></a>
+                        <?php if (isset($slider['LINK']) && ! empty($slider['LINK'])):?>
+                            <a href="<?=$slider['LINK']?>" class="card-banner__link"></a>
+                        <?php endif;?>
                         <div class="card-banner__inner">
                             <h2 class="card-banner__title">
                                 <?=$slider['HEADING']?>
@@ -47,9 +58,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                             <div class="card-banner__pagination swiper-pagination pagination pagination--default"
                                  data-carousel-pagination></div>
 
-                            <div class="card-banner__sale sale">
+                            <div class="card-banner__sale sale" style="<?= ! isset($slider['SALE']) || empty($slider['SALE']) ? 'visibility: hidden;' : '' ?>">
                                 <p class="sale__text">
-                                    <?=$slider['SALE']?>
+                                    <?= ! isset($slider['SALE']) || empty($slider['SALE']) ? '#' : $slider['SALE']?>
                                 </p>
                             </div>
                         </div>

@@ -73,9 +73,11 @@
 
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
 
         width: rem($size);
         height: rem($size);
+        margin-right: rem(8px);
 
         border-radius: 50%;
 
@@ -84,6 +86,9 @@
 
             width: rem($size);
             height: rem($size);
+            margin-right: 0;
+
+            border: none;
         }
 
         &::before {
@@ -92,6 +97,10 @@
             padding-top: 100%;
 
             content: '';
+        }
+
+        &.white {
+            border: rem(1px) solid $alto;
         }
 
         &--medium {
@@ -157,6 +166,12 @@
 
             border-radius: inherit;
         }
+    }
+
+    &__name {
+        width: rem(115px);
+        word-break: break-word;
+        white-space: normal;
     }
 
     &__input + label {

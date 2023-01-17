@@ -48,6 +48,10 @@ export const LoyaltyReport = {
             type: Boolean,
             default: false,
         },
+        title: {
+            type: String,
+            default: "Мой заработок",
+        },
     },
 
     setup() {
@@ -204,7 +208,7 @@ export const LoyaltyReport = {
                 </div>
 
                 <div v-if="user.is_consultant" class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
-                    <h5 class="accounting__diagramm-title">Мой заработок</h5>
+                    <h5 class="accounting__diagramm-title">{{title}}</h5>
 
                     <div class="diagramm diagramm--simple">
                         <div class="diagramm__row">
@@ -242,7 +246,7 @@ export const LoyaltyReport = {
                         Плановые показатели
                     </h5>
 
-                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
                         <nav class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -316,7 +320,7 @@ export const LoyaltyReport = {
                         Покупки
                     </h5>
 
-                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red" data-tabs>
+                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
                         <nav v-if="user.is_consultant" class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">

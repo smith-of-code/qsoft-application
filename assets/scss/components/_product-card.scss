@@ -253,7 +253,11 @@
         }
 
         &-remains {
-            font-size: rem($font-size-mini);
+            font-size: rem(10px);
+
+            @media #{$screen-desktop} {
+                font-size: rem($font-size-mini);
+            }
         }
     }
 

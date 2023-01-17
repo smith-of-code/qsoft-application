@@ -116,6 +116,10 @@
             text-align: center;
         }
 
+        &--hidden {
+            display: none;
+        }
+
         &--span {
             flex-basis: 100%;
 
@@ -160,7 +164,11 @@
             color: $saltBox;
 
             &--remains {
-                font-size: rem(13px);
+                font-size: rem($font-size-miniature);
+
+                @media #{$screen-desktop} {
+                    font-size: rem($font-size-mini);
+                }
             }
         }
     }

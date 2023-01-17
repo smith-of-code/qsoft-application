@@ -36,12 +36,13 @@ class UserEventsListener
 
         // Если произошло изменение ментора
         if (isset($fields['UF_MENTOR_ID']) && $user->mentorId !== (int) $fields['UF_MENTOR_ID']) {
+
             if (!$fields['UF_MENTOR_ID']) {
                 $APPLICATION->throwException('Пользователь обязан иметь наставника');
                 return false;
             }
 
-            if (!is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] < 0) {
+            if (!is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] <= 0) {
                 $APPLICATION->throwException('Некорректный ID наставника');
                 return false;
             }
@@ -55,14 +56,15 @@ class UserEventsListener
 
             if (
                 $user->id === (int) $fields['UF_MENTOR_ID']
-                || !$mentor->active
-                || !$mentor->groups->isConsultant()
+                || ! $mentor->active
+                || ! $mentor->groups->isConsultant()
                 || in_array($mentor->id, $user->beneficiariesService->getTeamIds())
             ) {
                 $APPLICATION->throwException('Указанный пользователь не может быть наставником.');
                 return false;
             }
 
+            // Если у пользователя уже был задан наставник - найдем соответствующую запись и удалим
             if ($user->mentorId) {
                 $oldRelation = BeneficiariesTable::getRow([
                     'filter' => [
@@ -71,7 +73,9 @@ class UserEventsListener
                     ],
                     'select' => ['ID'],
                 ]);
-                BeneficiariesTable::delete($oldRelation['ID']);
+                if ($oldRelation) {
+                    BeneficiariesTable::delete($oldRelation['ID']);
+                }
             }
 
             BeneficiariesTable::add([
