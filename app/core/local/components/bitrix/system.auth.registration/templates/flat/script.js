@@ -432,6 +432,7 @@ class CSystemAuthRegistrationComponent {
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
               $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароли не совпадают</span>');
+              grecaptcha.reset();
               return;
           case password.length < 8:
           case password.match(/[А-я]+/i):
@@ -440,6 +441,7 @@ class CSystemAuthRegistrationComponent {
               $('input[name=password]').addClass('input__control--error');
               $('input[name=password_confirm]').addClass('input__control--error');
               $('input[name=password_confirm]').parent().append('<span style="position: absolute" class="input__control-error">Пароль не удовлетворяет требованиям</span>');
+              grecaptcha.reset();
               return;
       }
 
@@ -459,6 +461,7 @@ class CSystemAuthRegistrationComponent {
       } catch (error) {}
 
       if (!response || response.status !== 'success') {
+          grecaptcha.reset();
           $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
           return;
       }
