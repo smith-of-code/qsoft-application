@@ -22,22 +22,48 @@ class OffersService
     private int $offersIbId;
 
     /**
+     * @var array ID групп пользователей (STRING_ID => ID)
+     */
+    private array $groups;
+
+    /**
+     * @var array|array[] Уровни ПЛ Консультантов
+     */
+    private array $consultantLoyaltyLevels;
+
+    /**
+     * @var array|array[] Уровни ПЛ Конечных покупателей
+     */
+    private array $buyerLoyaltyLevels;
+
+    /**
+     * @throws \Bitrix\Main\ArgumentException
      * @throws \Bitrix\Main\LoaderException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
      */
     public function __construct() {
 
         if (! Loader::includeModule('iblock')) {
             throw new RuntimeException('Не найден модуль "iblock"');
         }
-        
-        $this->offersIbId = (int) \CIBlock::GetList([], ['CODE' => 'product_offer'])->Fetch()['ID'];
-
         if (! Loader::includeModule('sale')) {
             throw new RuntimeException('Не найден модуль "sale"');
         }
+
+
+        $this->offersIbId = (int) \CIBlock::GetList([], ['CODE' => 'product_offer'])->Fetch()['ID'];
+
         if (! $this->offersIbId) {
             throw new RuntimeException('Не найден инфоблок "product_offer"');
         }
+
+        $this->groups = UserGroupHelper::getAllUserGroups();
+
+        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
+        $buyerLoyalty = new BuyerLoyaltyProgramHelper();
+        $this->consultantLoyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
+        $this->buyerLoyaltyLevels = $buyerLoyalty->getLoyaltyLevels();
     }
 
     /**
@@ -48,40 +74,32 @@ class OffersService
      */
     public function setOfferBonuses(int $offerId, float $priceValue): void
     {
-        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
-        $loyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
-
-        $levelsCodes = array_keys($loyaltyLevels);
-
-        // Получим ID группы Консультантов
-        $groups = UserGroupHelper::getAllUserGroups();
-
-        // Получим цену с учетом скидок
-        $prices = \CCatalogProduct::GetOptimalPrice(
-            $offerId,
-            1,
-            [$groups['consultant']],
-            'N',
-            [],
-            's1'
-        );
+        // Получим цены с учетом скидок
+        $prices = $this->getOptimalPricesToCalculations($offerId, 'consultant');
 
         if ($prices) {
-            if (isset($prices['DISCOUNT_PRICE']) && $priceValue > (float) $prices['DISCOUNT_PRICE']) {
-                $priceValue = $prices['DISCOUNT_PRICE'];
-            }
-
             // Вычисляем количество бонусов
             $propsToSet = [];
-            foreach ($levelsCodes as $code) {
-                $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
-                $bonuses = (float) intdiv($priceValue, $params['step']) * $params['size'];
+            foreach (array_keys($this->consultantLoyaltyLevels) as $code) {
+                $params = $this->consultantLoyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
+                $bonuses = (float) intdiv($prices[$code], $params['step']) * $params['size'];
 
                 $propsToSet['BONUSES_' . $code] = $bonuses;
             }
 
-            // Записываем свойства
-            \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+            // Проверяем существование ТП
+            $offer = \CIBlockElement::GetList(
+                ['ID' => 'DESC'],
+                ['IBLOCK_ID' => $this->offersIbId, 'ID' => $offerId],
+                false,
+                false,
+                ['ID']
+            )->Fetch();
+
+            if ($offer) {
+                // Записываем свойства
+                \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+            }
         }
     }
 
@@ -94,18 +112,21 @@ class OffersService
     public function setOfferDiscountPrices(int $offerId, float $priceValue) {
 
         // Получаем коды свойств с ценами по уровням программы лояльности
-        $levels = [];
         $propsToSet = [];
-        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
-        $buyerLoyalty = new BuyerLoyaltyProgramHelper();
-        $levels = array_merge($levels, $consultantLoyalty->getLoyaltyLevels(), $buyerLoyalty->getLoyaltyLevels());
 
-        foreach (array_keys($levels) as $levelCode) {
-            // Вычисляем акционную цену (учитывается только персональная скидка)
-            $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
-            $discountPrice = ceil($priceValue * (100 - $discountPercent)) / 100;
+        // Получим цены с учетом скидок
+        $consultantPrices = $this->getOptimalPricesToCalculations($offerId, 'consultant');
+        $buyerPrices = $this->getOptimalPricesToCalculations($offerId, 'buyer');
 
-            $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $discountPrice;
+        if (! empty($consultantPrices) && ! empty($buyerPrices)) {
+            // Проставляем цены для Консультантов
+            foreach (array_keys($this->consultantLoyaltyLevels) as $levelCode) {
+                $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $consultantPrices[$levelCode];
+            }
+            // Проставляем цены для Конечных покупателей
+            foreach (array_keys($this->buyerLoyaltyLevels) as $levelCode) {
+                $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $buyerPrices[$levelCode];
+            }
         }
 
         // Проверяем существование ТП
@@ -132,14 +153,6 @@ class OffersService
         $offset = 0;
         $isAllProcessed = false;
 
-        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
-        $loyaltyLevels = $consultantLoyalty->getLoyaltyLevels();
-
-        $levelsCodes = array_keys($loyaltyLevels);
-
-        // Получим ID группы Консультантов
-        $groups = UserGroupHelper::getAllUserGroups();
-
         $count = 0;
 
         while (! $isAllProcessed) {
@@ -163,23 +176,17 @@ class OffersService
 
                     $count += 1;
 
-                    // Получим цену с учетом скидок
-                    $prices = \CCatalogProduct::GetOptimalPrice(
-                        $offer['ID'],
-                        1,
-                        [$groups['consultant']],
-                        'N',
-                        [],
-                        's1'
-                    );
+                    // Получим цены с учетом скидок
+                    $prices = $this->getOptimalPricesToCalculations($offer['ID'], 'consultant');
 
-                    if ($prices) {
+                    if (! empty($prices)) {
 
                         // Вычисляем количество бонусов
                         $propsToSet = [];
-                        foreach ($levelsCodes as $code) {
-                            $params = $loyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
-                            $bonuses = (float) intdiv($prices['DISCOUNT_PRICE'], $params['step']) * $params['size'];
+                        foreach (array_keys($this->consultantLoyaltyLevels) as $code) {
+
+                            $params = $this->consultantLoyaltyLevels[$code]['benefits']['personal_bonuses_for_cost'];
+                            $bonuses = (float) intdiv($prices[$code], $params['step']) * $params['size'];
 
                             $propsToSet['BONUSES_' . $code] = $bonuses;
                         }
@@ -192,7 +199,7 @@ class OffersService
             }
         }
 
-        //dump('Обработано ' . $count . ' ТП');
+        dump('Бонусы обновлены. Обработано ' . $count . ' ТП');
     }
 
     /**
@@ -204,12 +211,7 @@ class OffersService
         $offset = 0;
         $isAllProcessed = false;
 
-        // Получаем коды свойств с ценами по уровням программы лояльности
-        $levels = [];
-        $consultantLoyalty = new ConsultantLoyaltyProgramHelper();
-        $buyerLoyalty = new BuyerLoyaltyProgramHelper();
-        $levels = array_merge($levels, $consultantLoyalty->getLoyaltyLevels(), $buyerLoyalty->getLoyaltyLevels());
-        $levelsCodes = array_keys($levels);
+        $levels = array_merge($this->consultantLoyaltyLevels, $this->buyerLoyaltyLevels);
 
         $basePrice = \CCatalogGroup::GetList([], ['=NAME' => 'BASE'], false, false, ['ID'])->Fetch();
 
@@ -236,23 +238,17 @@ class OffersService
 
                     $count += 1;
 
-                    // Получим цену
-                    $price = Price::getList([
-                        'filter' => [
-                            '=PRODUCT_ID' => $offer['ID'],
-                            'CATALOG_GROUP_ID' => $basePrice['ID'],
-                        ]
-                    ])->fetch();
+                    // Получим цены с учетом скидок
+                    $prices = array_merge(
+                        $this->getOptimalPricesToCalculations($offer['ID'], 'consultant'),
+                        $this->getOptimalPricesToCalculations($offer['ID'], 'buyer')
+                    );
 
-                    if ($price) {
+                    if (! empty($prices)) {
 
                         $propsToSet = [];
-                        foreach ($levelsCodes as $levelCode) {
-                            // Вычисляем акционную цену
-                            $discountPercent = (int) $levels[$levelCode]['benefits']['personal_discount'];
-                            $discountPrice = ceil($price['PRICE'] * (100 - $discountPercent)) / 100;
-
-                            $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $discountPrice;
+                        foreach (array_keys($levels) as $levelCode) {
+                            $propsToSet['DISCOUNT_PRICE_' . $levelCode] = $prices[$levelCode];
                         }
 
                         // Записываем свойства
@@ -263,6 +259,65 @@ class OffersService
             }
         }
 
-        //dump('Обработано ' . $count . ' ТП');
+        dump('Акционные цены обновлены. Обработано ' . $count . ' ТП');
+    }
+
+    /**
+     * Возвращает цены в соответствии с уровнями программы лояльности
+     * (с учетом персональных скидок и акционных скидок - персональные акции не учитываются)
+     * @param int $offerId ID торгового предложения
+     * @param string $groupCode STRING_ID группы пользователей
+     * @return array массив вида (LEVEL_CODE => PRICE_VALUE)
+     */
+    public function getOptimalPricesToCalculations(int $offerId, string $groupCode): array
+    {
+        $prices = [];
+
+        if ($offerId <= 0) {
+            return $prices;
+        }
+
+        if (! isset($this->groups[$groupCode])) {
+            return $prices;
+        }
+
+        // Получим цену с учетом скидок
+        // (здесь не учитываются скидки по программе лояльности и персональные акции - только глобальная скидка на товар)
+        $optimalPrices = \CCatalogProduct::GetOptimalPrice(
+            $offerId,
+            1,
+            [$this->groups[$groupCode]],
+            'N',
+            [],
+            's1'
+        );
+
+        if ($optimalPrices) {
+
+            $basePrice = $optimalPrices['RESULT_PRICE']['BASE_PRICE'];
+            $discountPrice = $optimalPrices['RESULT_PRICE']['DISCOUNT_PRICE'];
+
+            // Используем соответствующие уровни ПЛ
+            $levels = [];
+            if ($groupCode == 'consultant') {
+                $levels = $this->consultantLoyaltyLevels;
+            } elseif ($groupCode == 'buyer') {
+                $levels = $this->buyerLoyaltyLevels;
+            }
+
+            foreach (array_keys($levels) as $code) {
+                // Если есть акционная скидка - она перекрывает персональную скидку, используем эту цену
+                if ($basePrice > $discountPrice) {
+                    $resultPrice = $discountPrice;
+                } else { // Иначе цена пришла базовая - самостоятельно рассчитываем с учетом персональной скидки
+                    $discountPercent = (int) $levels[$code]['benefits']['personal_discount'];
+                    $resultPrice = ceil($basePrice * (100 - $discountPercent)) / 100;
+                }
+
+                $prices[$code] = $resultPrice;
+            }
+        }
+
+        return $prices;
     }
 }
