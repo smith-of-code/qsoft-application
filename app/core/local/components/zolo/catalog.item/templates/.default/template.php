@@ -101,35 +101,40 @@ if (isset($arResult['ITEM']))
             <a href="<?=$item['DETAIL_PAGE_URL']?>" class="product-card__link"></a>
 
             <div class="product-card__header">
-                <div id="<?=$domElementsIds['label'] . '_SEASONAL_OFFER'?>"
-                     class="product-card__label label label--pink"
-                     style="<?= $actualItem['showLabel'] === 'SEASONAL_OFFER' ? '' : 'display: none;'?>"
-                >сезонное предложение</div>
-                <div id="<?=$domElementsIds['label'] . '_LIMITED_OFFER'?>"
-                     class="product-card__label label label--violet"
-                     style="<?= $actualItem['showLabel'] === 'LIMITED_OFFER' ? '' : 'display: none;'?>"
-                >ограниченное предложение</div>
-
-                <!-- Кнопка "Добавить в избранное" -->
-                <?php if ($USER->IsAuthorized()):?>
-                    <div class="product-card__favourite">
-                        <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
-                            <span class="button__icon button__icon--big">
-                                <svg class="icon">
-                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                <?php endif;?>
-                <!-- Кнопка "Добавить в избранное" -->
-
                 <!-- Картинка товара -->
                 <div class="product-card__wrapper">
+
                     <div class="product-card__image box box--circle">
                         <div class="product-card__box">
                             <img id="<?=$domElementsIds['image']?>" src="<?= $item['PREVIEW_PICTURE']['SRC'] ?>" alt="<?= $imgTitle ?>" class="product-card__pic">
                         </div>
+                    </div>
+                    <!-- Кнопка "Добавить в избранное" -->
+                        <?php if ($USER->IsAuthorized()):?>
+                            <div class="product-card__favourite">
+                                <button id="<?=$domElementsIds['favouriteButton']?>" type="button" class="product-card__favourite-button button button--ordinary button--iconed button--simple button--big button--red" data-card-favourite="heart">
+                                    <span class="button__icon button__icon--big">
+                                        <svg class="icon">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heart" data-card-favourite-icon></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        <?php endif;?>
+                    <!-- Кнопка "Добавить в избранное" -->
+                    <div id="<?=$domElementsIds['label'] . '_SEASONAL_OFFER'?>"
+                        class="product-card__label label label--pink"
+                        style="<?= $actualItem['showLabel'] === 'SEASONAL_OFFER' ? '' : 'display: none;'?>"
+                    >
+                        <span class="product-card__label-desktop">сезонное предложение</span>
+                        <span class="product-card__label-mobile">сез. предложение</span> 
+                    </div>
+                    <div id="<?=$domElementsIds['label'] . '_LIMITED_OFFER'?>"
+                        class="product-card__label label label--violet"
+                        style="<?= $actualItem['showLabel'] === 'LIMITED_OFFER' ? '' : 'display: none;'?>"
+                    >
+                        <span class="product-card__label-desktop">ограниченное предложение</span>
+                        <span class="product-card__label-mobile">огр. предложение</span>
                     </div>
                 </div>
                 <!-- Картинка товара -->

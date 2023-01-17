@@ -241,6 +241,13 @@ class CSystemAuthRegistrationComponent {
                     indexPost.addClass('input__control--error');
                 } else if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
                     indexPostLiving.addClass('input__control--error');
+                } else if ($(item).attr('name') === 'ltc_postal_code') {
+                    let indexPostLtc = $("input[name='ltc_postal_code']");
+                    let indexPostLtcValue = indexPostLtc.val().replace(/[^0-9\.]/g,'');
+                    if (indexPostLtcValue.length < 6 || indexPostLtcValue.length > 6) {
+                        indexPostLtc.addClass('input__control--error');
+                    }
+                    return
                 } else {
                     if (!$(item).val()) {
                         if (
