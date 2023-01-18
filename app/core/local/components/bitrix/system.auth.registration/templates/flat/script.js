@@ -29,6 +29,12 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+      $("input[name=nds_payer_ip]").on('change', function() {
+          $("input[name=nds_payer_ltc]").prop("checked", this.checked);
+      });
+      $("input[name=nds_payer_ltc]").on('change', function() {
+          $("input[name=nds_payer_ip]").prop("checked", this.checked);
+      });
   }
 
   checkLivingBlock() {
@@ -215,9 +221,19 @@ class CSystemAuthRegistrationComponent {
                             });
                         });
 
-                        if (!data[$(item).attr('name')].files.length) {
+                        if (! data[$(item).attr('name')].files.length &&
+                            (
+                                (
+                                    $(item).attr('name') === 'usn_notification'
+                                    && ! $('input[name=nds_payer_ip]:checked').length
+                                    && ! $('input[name=nds_payer_ltc]:checked').length
+                                )
+                                || $(item).attr('name') !== 'usn_notification'
+
+                            )
+                        ) {
                             if ($(item).attr('name') === 'bank_details') {
-                                return
+                                return;
                             }
                             $(item).parent().addClass('dropzone--error');
                         } else {
