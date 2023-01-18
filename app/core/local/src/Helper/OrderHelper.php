@@ -271,7 +271,8 @@ class OrderHelper
                 'UF_SOURCE',
                 'UF_ORDER_ID',
                 'UF_CREATED_AT',
-                'ORDER_STATUS' => 'ORDER.STATUS_ID'
+                'ORDER_STATUS' => 'ORDER.STATUS_ID',
+                'ORDER_PAYED' => 'ORDER.PAYED',
             ],
             'runtime' => [
                 'ORDER' => [
@@ -295,10 +296,10 @@ class OrderHelper
             $result[$source]['last_order_date'] = $date;
 
             if (!in_array($transaction['UF_ORDER_ID'], $checkedOrders)) {
+                if ($transaction['ORDER_PAYED'] == "Y") {
+                    $result[$source]['paid_orders_count']++;
+                }
                 switch ($transaction['ORDER_STATUS']) {
-                    case self::ACCOMPLISHED_STATUS:
-                        $result[$source]['paid_orders_count']++;
-                        break;
                     case self::PARTLY_REFUNDED_STATUS:
                         $result[$source]['refunded_orders_count']++;
                         $result[$source]['part_refunded_orders_count']++;
