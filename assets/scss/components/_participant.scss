@@ -296,6 +296,10 @@
             & + & {
                 margin-left: rem($gap-average);
             }
+
+            &--none {
+                height: auto;
+            }
         }
 
         &-show {
