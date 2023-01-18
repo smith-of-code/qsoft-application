@@ -258,7 +258,7 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             if (UserPhoneAuthTable::validatePhoneNumber($value) !== true) {
                 throw new InvalidArgumentException('Invalid phone number');
             }
-            $this->user->confirmation->sendSmsConfirmation();
+            $this->user->confirmation->sendSmsConfirmation($value);
         } else if ($type === 'email') {
             $this->user->confirmation->sendEmailConfirmation('CHANGE_EMAIL');
         }
