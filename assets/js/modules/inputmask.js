@@ -32,7 +32,7 @@ const MASKS = {
     ogrnipMask: '999999999999999',
     ogrnMask: '9999999999999',
     bikMask: '999999999',
-    postMask: '999 999'
+    postMask: '999999'
 };
 
 const OPTIONS = {

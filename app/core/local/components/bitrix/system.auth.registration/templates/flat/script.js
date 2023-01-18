@@ -128,12 +128,6 @@ class CSystemAuthRegistrationComponent {
         emailInput.removeClass('input__control--error');
         emailInput.parent().find('.input__control-error').remove();
 
-        let indexPost = $("input[name='register_postal_code']");
-        let indexPostLiving = $("input[name='living_postal_code']");
-        let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
-        let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
-        let livingAdress = $('input[name=without_living]:checked').length;
-
         const isForwardDirection = $(this).data('direction') === 'next';
         let data = registrationData;
 
@@ -252,10 +246,21 @@ class CSystemAuthRegistrationComponent {
                     message.show();
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
-                } else if ( indexPostValue.length < 6 || indexPostValue.length > 6) {
-                    indexPost.addClass('input__control--error');
-                } else if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
-                    indexPostLiving.addClass('input__control--error');
+                } else if ($(item).attr('name') === 'register_postal_code') {
+                    let indexPost = $("input[name='register_postal_code']");
+                    let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
+                    if (indexPostValue.length < 6 || indexPostValue.length > 6) {
+                        indexPost.addClass('input__control--error');
+                    }
+                    return
+                } else if ($(item).attr('name') === 'living_postal_code') {
+                    let indexPostLiving = $("input[name='living_postal_code']");
+                    let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
+                    let livingAdress = $('input[name=without_living]:checked').length;
+                    if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
+                        indexPostLiving.addClass('input__control--error');
+                    }
+                    return
                 } else if ($(item).attr('name') === 'ltc_postal_code') {
                     let indexPostLtc = $("input[name='ltc_postal_code']");
                     let indexPostLtcValue = indexPostLtc.val().replace(/[^0-9\.]/g,'');
