@@ -14,6 +14,20 @@ use \Bitrix\Main\Security;
 use \Bitrix\Main\Controller;
 use \Bitrix\Pull;
 
+const AUTH_TO_CAPTCHA = 10;
+
+if (isset($_SESSION['TRY_AUTH']) && !($_SESSION['TRY_AUTH'] % AUTH_TO_CAPTCHA)) {
+    if (isset($_POST['g-recaptcha-response'])) {
+        $recaptcha = new QSoft\Common\Recaptcha();
+        $response = $recaptcha->isValidResponse($_POST['g-recaptcha-response']);
+        if (!$response) {
+            $_SESSION['TRY_AUTH'] -= 1;
+        }
+    } else {
+        $_SESSION['TRY_AUTH'] -= 1;
+    }
+}
+
 $arParams["NOT_SHOW_LINKS"] = ($arParams["NOT_SHOW_LINKS"] == "Y" ? "Y" : "N");
 if(!is_array($arParams["~AUTH_RESULT"]) && $arParams["~AUTH_RESULT"] <> '')
 {
@@ -146,6 +160,10 @@ $arResult["CAPTCHA_CODE"] = false;
 if($APPLICATION->NeedCAPTHAForLogin($arResult["LAST_LOGIN"]))
 {
 	$arResult["CAPTCHA_CODE"] = $APPLICATION->CaptchaGetCode();
+}
+
+if($arResult['POST']) {
+    $_SESSION['TRY_AUTH'] += 1;
 }
 
 $this->IncludeComponentTemplate();

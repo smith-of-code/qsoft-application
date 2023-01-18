@@ -167,7 +167,7 @@
         }
 
         &-switcher {
-            max-width: rem(420px);
+            max-width: rem(425px);
         }
 
         &-quantity {
@@ -224,15 +224,12 @@
         font-weight: $font-weight-medium;
         line-height: $line-height-miniature;
 
-        display: none;
+        display: block;
 
         margin-top: rem($gap-mini);
 
         color: $saltBox;
 
-        @media #{$screen-desktop} {
-            display: block;
-        }
 
         &--mobile {
             display: block;
@@ -240,6 +237,13 @@
             @media #{$screen-desktop} {
                 display: none;
             }
+        }
+    }
+
+    &__button {
+        &.button--small {
+            width: rem(64px);
+            height: rem(28px);
         }
     }
 }

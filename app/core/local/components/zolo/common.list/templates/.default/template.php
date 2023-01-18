@@ -28,7 +28,7 @@ $APPLICATION->IncludeComponent(
             <ul class="cards-article__list">
                 <?php foreach ($arResult['ITEMS'] as $item) :?>
                 <li class="cards-article__item">
-                    <article class="card-article card-article--green box box--hovering box--circle">
+                    <article class="card-article card-article--<?=$item['MARKER_COLOR']?> box box--hovering box--circle">
                         <a href="<?=$item['DETAIL_URL']?>" class="card-article__link"></a>
 
                         <div class="card-article__inner">

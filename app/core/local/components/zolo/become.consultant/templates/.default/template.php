@@ -280,11 +280,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="register_postal_code"
                                                         id="register_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-reg
                                                 >
                                             </div>
                                         </div>
@@ -376,7 +377,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="living_apartment"
                                                         id="living_apartment"
@@ -404,6 +405,7 @@
                                                         name="living_postal_code"
                                                         id="living_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-living
                                                 >
                                             </div>
                                         </div>
@@ -762,7 +764,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'usn_notification',
@@ -813,7 +815,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлнеии в должность генерального директора</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию приказа о вступлении в должность генерального директора</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'ceo_appointment',
@@ -1027,7 +1029,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_address_1"
                                                         id="ltc_address_1"
@@ -1049,7 +1051,7 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_address_2"
                                                         id="ltc_address_2"
@@ -1072,11 +1074,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="ltc_postal_code"
                                                         id="ltc_postal_code"
                                                         placeholder="Индекс"
+                                                        data-mask-post-ltc
                                                 >
                                             </div>
                                         </div>
@@ -1203,7 +1206,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН успрощенной системы налогоплательщика(в случае применения УСН)</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'usn_notification',

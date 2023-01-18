@@ -22,6 +22,7 @@ class UpdateAllOffersBonusesJob extends BaseJob
     {
         $offersService = new OffersService();
         $offersService->updateAllOffersBonuses();
+        $offersService->updateAllOffersDiscountPrices();
     }
 
     protected function validateInputData($data): bool

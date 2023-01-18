@@ -46,6 +46,12 @@
         }
     }
 
+    &--purple {
+        &::after {
+            background-color: $wisteria;
+        }
+    }
+
     &__link {
         @include position-stretching(absolute, $z-index-html);
     }

@@ -22,6 +22,14 @@
                 display: block;
             }
         }
+
+        &--mobile {
+            margin-top: rem(32px);
+            
+            @media #{$screen-tablet} {
+                display: none;
+            }
+        }
     }
 
     &__article {
@@ -32,6 +40,13 @@
 
             @media #{$screen-tablet} {
                 display: block;
+            }
+        }
+
+        &--mobile {
+            
+            @media #{$screen-tablet} {
+                display: none;
             }
         }
     }

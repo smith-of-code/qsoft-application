@@ -1,5 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
+Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/api.js");
+
 /**
  * @global CMain $APPLICATION
  * @var array $arParams
@@ -37,7 +39,7 @@
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="<?=$arResult["LAST_LOGIN"]?>" placeholder="Введите логин">
+                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин">
                             </div>
                         </div>
                     </div>
@@ -88,8 +90,13 @@
                     <span style="color: red;">Неверный логин или пароль</span>
                 <?php endif;?>
 
+                <?php if (isset($_SESSION['TRY_AUTH']) && !($_SESSION['TRY_AUTH'] % AUTH_TO_CAPTCHA)):?>
+                    <div class="g-recaptcha" data-sitekey="<?=getenv('CAPTCHA_KEY')?>" style="margin: 20px;" data-callback="unlock_submit"></div>
+                <?php endif;?>
+
                 <div class="registration__actions-col">
-                    <button type="submit" name="Login" class="button button--rounded button--covered button--red button--full">
+                    <button type="submit" name="Login" class="button button--rounded button--covered button--red button--full
+                        <?=(isset($_SESSION['TRY_AUTH']) && !($_SESSION['TRY_AUTH'] % AUTH_TO_CAPTCHA)) ? 'button--disabled" disabled' : '"'?> data-send>
                         <span class="button__text">Войти</span>
                     </button>
                 </div>
@@ -111,3 +118,11 @@
         </form>
     </section>
 </div>
+
+<script>
+    function unlock_submit() {
+        let formVote = $('button[data-send]')
+        formVote.attr('disabled', false);
+        formVote.removeClass('button--disabled');
+    }
+</script>

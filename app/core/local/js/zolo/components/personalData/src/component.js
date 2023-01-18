@@ -232,7 +232,9 @@ export const PersonalData = {
                                         </div>
                                     </div>
                                     <div class="profile__info">
-                                        <span class="profile__level">Уровень {{ mutableUserInfo.loyalty_level }}</span>
+                                        <span v-if="mutableUserInfo.is_consultant" class="profile__level">
+                                            Уровень {{ mutableUserInfo.loyalty_level }}
+                                        </span>
                                         <span class="profile__id">ID {{ mutableUserInfo.id }}</span>
                                     </div>
                                 </div>
@@ -542,7 +544,7 @@ export const PersonalData = {
                                             </div>
                                         </div>
 
-                                        <div class="profile__toggle profile__toggle--inline form__row">
+                                        <div class="profile__toggle profile__toggle--row profile__toggle--inline form__row">
                                             <div class="form__col">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">

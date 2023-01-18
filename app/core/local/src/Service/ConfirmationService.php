@@ -18,6 +18,8 @@ class ConfirmationService
 {
     public const CODE_LENGTH = 6;
 
+    private $hourInSeconds = 3600;
+
     private User $user;
     private SmsClient $smsClient;
 
@@ -47,7 +49,7 @@ class ConfirmationService
         );
     }
 
-    public function sendEmailConfirmation(string $eventName = 'NEW_USER_CONFIRM'): void
+    public function sendEmailConfirmation(): void
     {
         $code = $this->generateCode();
 
@@ -59,7 +61,7 @@ class ConfirmationService
         ]);
 
         Event::send([
-            'EVENT_NAME' => $eventName,
+            'EVENT_NAME' => 'NEW_USER_CONFIRM',
             'LID' => SITE_ID,
             'C_FIELDS' => [
                 'EMAIL' => $this->user->email,
@@ -71,7 +73,7 @@ class ConfirmationService
 
     public function sendResetPasswordEmail(): void
     {
-        $code = $this->generateCodeOTP($this->user->id);
+        $code = $this->generateUserCheckWord($this->user->id);
 
         ConfirmationTable::add([
             'UF_FUSER_ID' => $this->user->fUserID,
@@ -106,7 +108,13 @@ class ConfirmationService
     {
         $actualCode = ConfirmationTable::getActiveEmailCode($this->user->fUserID, $type);
 
-        return $actualCode && $actualCode === $code;
+        $seconds = time() - $actualCode['UF_CREATED_AT']->getTimestamp();
+
+        $time = $seconds > 0 ? $seconds / $this->hourInSeconds : 0;
+
+        return $actualCode['UF_CODE'] 
+            && ($actualCode['UF_CODE'] === $code)
+            && ((float)$time <= 1.0);
     }
 
     private function generateCode(): string
@@ -125,5 +133,18 @@ class ConfirmationService
         }
 
         return null;
+    }
+
+    private function generateUserCheckWord(int $userId): ?string
+    {
+        global $USER;
+
+        $dbUser = $USER->GetList('', '', ['LOGIN' => htmlspecialcharsbx($_REQUEST['USER_LOGIN'])]);
+
+        if ($arUser = $dbUser->fetch()) {
+            return $arUser["CHECKWORD"];
+        }
+
+        return '';
     }
 }

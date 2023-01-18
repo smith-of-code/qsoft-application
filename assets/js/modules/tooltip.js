@@ -14,23 +14,30 @@ export default function tooltip() {
         });
     });
 
-    tippy('[data-tippy-content]', {
-        theme: 'light',
-        arrow: false,
-        appendTo: 'parent',
-        onShown(instance) {
-            instance.enable();
-            instance.setProps({
-                duration: 10,
-              });
-            const tippyElement = instance.reference
-            const elementAttr = $(tippyElement).attr('data-tippy-content');
-            if (elementAttr) {
-                instance.setContent(elementAttr);
-            }
-            return
-          },
+    setTimeout(() => {
+        let block = $('[data-tippy-content]');
         
-    });
+        block.each(function(index, item) {
+            tippy(item, {
+                theme: 'light',
+                arrow: false,
+                appendTo: 'parent',
+                onShown(instance) {
+                    instance.enable();
+                    instance.setProps({
+                        duration: 10,
+                      });
+                    const tippyElement = instance.reference
+                    const elementAttr = $(tippyElement).attr('data-tippy-content');
+                    if (elementAttr) {
+                        instance.setContent(elementAttr);
+                    }
+                    return
+                  },
+                
+            });
+        })
+    }, 500);
+
     window.tippy = tippy;
 }
