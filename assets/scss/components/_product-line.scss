@@ -1,5 +1,21 @@
 .product-line {
     position: relative;
+
+    &#{&}--common & {
+        &__list {
+            flex-direction: column;
+            justify-content: flex-start;
+
+            @media #{$screen-desktop} {
+                flex-direction: row;
+            }
+        }
+
+        &__params {
+            max-width: percentage(1 / 2);
+        }
+    }
+
     &__inner {
         @media #{$screen-desktop} {
             display: flex;
@@ -92,6 +108,7 @@
     &__list {
         display: flex;
         flex-wrap: wrap;
+        align-items: baseline;
 
         margin: rem(-6px) rem(-$gap-small) 0;
 
