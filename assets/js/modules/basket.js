@@ -204,7 +204,6 @@ export default async function () {
         acceptNds(ndsTotal);
         acceptAmount(basketTotal);
         acceptEconomy(economyTotal);
-        acceptTotal(basketTotalSale);
         acceptBonusOrder(baseketBonusItem);
 
         return basketAmoutOrder
@@ -260,7 +259,6 @@ export default async function () {
 
             acceptNds(updateNds);
             acceptEconomy(updateEconomy);
-            acceptTotal(priceBasket);
             acceptBonusBalance(updateBalanceBonus);
 
             totalBonus += bonusInputValueNumber;
