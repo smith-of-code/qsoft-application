@@ -25,6 +25,7 @@ class CSystemAuthRegistrationComponent {
       $(`.form input[type=checkbox]`).on('change', this.removeError);
       $(`.form input`).on('keyup', this.removeError);
       $('input[name=without_second_name]').on('change', this.blockInputByCheckbox);
+      $('input[name=need_proxy]').on('change', this.changeNeedProxy);
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
@@ -67,6 +68,16 @@ class CSystemAuthRegistrationComponent {
           postalCode.attr('disabled', false);
       }
   }
+
+    changeNeedProxy() {
+      const dropzone = $('input[name=procuration]');
+        if ($(`#${$(this).attr('id')}:checked`).length) {
+            dropzone.parent().parent().show();
+        } else {
+            dropzone.parent().parent().hide();
+            dropzone.parent().removeClass('dropzone--error');
+        }
+    }
 
     changeLegalEntity() {
       $('.legal_entity').hide();
@@ -196,6 +207,10 @@ class CSystemAuthRegistrationComponent {
                     }
                 } else if ($(item).attr('type') === 'file') {
                     if ($(item).attr('multiple')) {
+                        if ($(item).attr('name') === 'procuration' && $(item).parent().parent().css('display') === 'none') {
+                            return;
+                        }
+
                         data[$(item).attr('name')] = { files: [] };
                         $(item).parent().find('.file.dz-success.dz-complete').each((index, innerItem) => {
                             data[$(item).attr('name')].files.push({
