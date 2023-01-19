@@ -306,7 +306,7 @@ class CSystemAuthRegistrationComponent {
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'register_postal_code') {
+                else if ($(item).attr('name') === 'register_postal_code') {
                     let indexPost = $("input[name='register_postal_code']");
                     let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
                     if (indexPostValue.length < 6 || indexPostValue.length > 6) {
@@ -317,7 +317,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'living_postal_code') {
+                else if ($(item).attr('name') === 'living_postal_code') {
                     let indexPostLiving = $("input[name='living_postal_code']");
                     let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
                     let livingAdress = $('input[name=without_living]:checked').length;
@@ -329,7 +329,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ltc_postal_code') {
+                else if ($(item).attr('name') === 'ltc_postal_code') {
                     let indexPostLtc = $("input[name='ltc_postal_code']");
                     let indexPostLtcValue = indexPostLtc.val().replace(/[^0-9\.]/g,'');
                     if (indexPostLtcValue.length < 6 || indexPostLtcValue.length > 6) {
@@ -340,7 +340,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'passport_series') { // Проверка серии паспорта
+                else if ($(item).attr('name') === 'passport_series') { // Проверка серии паспорта
                     let passportSeries = $("input[name='passport_series']");
                     let passportSeriesValue = passportSeries.val().replace(/[^0-9]/g,'');
                     if (passportSeriesValue.length < 4 || passportSeriesValue.length > 4) {
@@ -351,7 +351,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'passport_number') { // Проверка номера паспорта
+                else if ($(item).attr('name') === 'passport_number') { // Проверка номера паспорта
                     let passportNumber = $("input[name='passport_number']");
                     let passportNumberValue = passportNumber.val().replace(/[^0-9]/g,'');
                     if (passportNumberValue.length < 6 || passportNumberValue.length > 6) {
@@ -362,7 +362,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'tin') { // Проверка ИНН
+                else if ($(item).attr('name') === 'tin') { // Проверка ИНН
                     let tin = $(item);
                     let tinValue = tin.val().replace(/[^0-9]/g,'');
                     let shortType = typeof tin.data('shortInn') != 'undefined';
@@ -377,7 +377,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ogrnip') { // Проверка ОГРНИП
+                else if ($(item).attr('name') === 'ogrnip') { // Проверка ОГРНИП
                     let ogrnip = $("input[name='ogrnip']");
                     let ogrnipValue = ogrnip.val().replace(/[^0-9]/g,'');
                     if (ogrnipValue.length < 15 || ogrnipValue.length > 15) {
@@ -388,7 +388,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ogrn') { // Проверка ОГРН
+                else if ($(item).attr('name') === 'ogrn') { // Проверка ОГРН
                     let ogrn = $("input[name='ogrn']");
                     let ogrnValue = ogrn.val().replace(/[^0-9]/g,'');
                     if (ogrnValue.length < 13 || ogrnValue.length > 13) {
@@ -399,7 +399,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'kpp') { // Проверка КПП
+                else if ($(item).attr('name') === 'kpp') { // Проверка КПП
                     let kpp = $("input[name='kpp']");
                     let kppValue = kpp.val().replace(/[^0-9]/g,'');
                     if (kppValue.length < 9 || kppValue.length > 9) {
@@ -410,7 +410,7 @@ class CSystemAuthRegistrationComponent {
                     }
                     return;
                 }
-                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'bic') { // Проверка БИК
+                else if ($(item).attr('name') === 'bic') { // Проверка БИК
                     let bic = $("input[name='bic']");
                     let bicValue = bic.val().replace(/[^0-9]/g,'');
                     if (bicValue.length < 9 || bicValue.length > 9) {
