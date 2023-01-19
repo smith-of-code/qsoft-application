@@ -15,8 +15,15 @@ class CSystemAuthRegistrationComponent {
   }
 
   initListeners() {
+      var mainInstance = this;
       $('button[data-change-step]').on('click', this.changeStepListener);
 
+      $('input[name=first_name]').on('input', this.checkFIO);
+      $('input[name=second_name]').on('input', this.checkFIO);
+      $('input[name=last_name]').on('input', this.checkFIO);
+      $('input[name=first_name]').trigger('input');
+      $('input[name=second_name]').trigger('input');
+      $('input[name=last_name]').trigger('input');
       $('input[name=without_living]').on('click', this.checkLivingBlock);
       $('button[data-send-code]').on('click', this.sendCode);
       $('button[data-verify-code]').on('click', this.verifyCode);
@@ -29,13 +36,41 @@ class CSystemAuthRegistrationComponent {
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
+      // Синхронизация чекбокса "Плательщик НДС"
       $("input[name=nds_payer_ip]").on('change', function() {
           $("input[name=nds_payer_ltc]").prop("checked", this.checked);
       });
       $("input[name=nds_payer_ltc]").on('change', function() {
           $("input[name=nds_payer_ip]").prop("checked", this.checked);
       });
+      // Синхронизация БИК
+      $("input[name=bic]").on('change', function() {
+          mainInstance.synchronizeSameFields(this);
+      });
   }
+
+  synchronizeSameFields(obj) {
+      var thatObj = $(obj);
+      var sameName = thatObj.attr('name');
+      $("input[name="+sameName+"]").each(function () {
+          var otherObj = $(this);
+          if (otherObj.attr('id') !== thatObj.attr('id')) {
+              $(this).val(thatObj.val());
+          }
+      });
+  }
+
+    checkFIO() {
+        var input = $(this);
+        var value = input.val().toString();
+        if (
+            input.attr('name') == 'first_name'
+            || input.attr('name') == 'last_name'
+            || input.attr('name') == 'second_name'
+        ) {
+            input.val(value.replaceAll(/[^a-zA-Zа-яА-ЯёЁ]+/gu, '').slice(0, 100));
+        }
+    }
 
   checkLivingBlock() {
       const isActive = $('input[name=without_living]:checked').length;
@@ -165,6 +200,7 @@ class CSystemAuthRegistrationComponent {
             // Перебираем поля формы
             $(`.${registrationData.currentStep} .form`).find('input, select').each((index, item) => {
 
+                // Игнорируем поля для других статусов
                 if (
                     registrationData.currentStep === 'legal_entity_data'
                     && $(item).closest('.legal_entity').length
@@ -172,6 +208,8 @@ class CSystemAuthRegistrationComponent {
                 ) {
                     return;
                 }
+
+
 
                 if ($(item).parent().data('breed') === 'empty' && $(item).parent().css('display') !== 'none') {
                     return;
@@ -267,26 +305,119 @@ class CSystemAuthRegistrationComponent {
                     message.show();
                     message.html('Вам должно быть больше 18-ти лет');
                     buttonNext.prop('disabled', true).addClass('button--disabled');
-                } else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'register_postal_code') {
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'register_postal_code') {
                     let indexPost = $("input[name='register_postal_code']");
                     let indexPostValue = indexPost.val().replace(/[^0-9\.]/g,'');
                     if (indexPostValue.length < 6 || indexPostValue.length > 6) {
                         indexPost.addClass('input__control--error');
+                    } else {
+                        indexPost.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
                     }
-                    return
-                } else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'living_postal_code') {
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'living_postal_code') {
                     let indexPostLiving = $("input[name='living_postal_code']");
                     let indexPostLivingValue = indexPostLiving.val().replace(/[^0-9\.]/g,'');
                     let livingAdress = $('input[name=without_living]:checked').length;
                     if (livingAdress === 0 && (indexPostLivingValue.length > 6 || indexPostLivingValue.length < 6)) {
                         indexPostLiving.addClass('input__control--error');
+                    } else {
+                        indexPostLiving.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
                     }
-                    return
-                } else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ltc_postal_code') {
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ltc_postal_code') {
                     let indexPostLtc = $("input[name='ltc_postal_code']");
                     let indexPostLtcValue = indexPostLtc.val().replace(/[^0-9\.]/g,'');
                     if (indexPostLtcValue.length < 6 || indexPostLtcValue.length > 6) {
                         indexPostLtc.addClass('input__control--error');
+                    } else {
+                        indexPostLtc.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'passport_series') { // Проверка серии паспорта
+                    let passportSeries = $("input[name='passport_series']");
+                    let passportSeriesValue = passportSeries.val().replace(/[^0-9]/g,'');
+                    if (passportSeriesValue.length < 4 || passportSeriesValue.length > 4) {
+                        passportSeries.addClass('input__control--error');
+                    } else {
+                        passportSeries.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'passport_number') { // Проверка номера паспорта
+                    let passportNumber = $("input[name='passport_number']");
+                    let passportNumberValue = passportNumber.val().replace(/[^0-9]/g,'');
+                    if (passportNumberValue.length < 6 || passportNumberValue.length > 6) {
+                        passportNumber.addClass('input__control--error');
+                    } else {
+                        passportNumber.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'tin') { // Проверка ИНН
+                    let tin = $(item);
+                    let tinValue = tin.val().replace(/[^0-9]/g,'');
+                    let shortType = typeof tin.data('shortInn') != 'undefined';
+                    if (
+                        (shortType && (tinValue.length < 10 || tinValue.length > 10))
+                        || (! shortType && (tinValue.length < 12 || tinValue.length > 12))
+                    ) {
+                        tin.addClass('input__control--error');
+                    } else {
+                        tin.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ogrnip') { // Проверка ОГРНИП
+                    let ogrnip = $("input[name='ogrnip']");
+                    let ogrnipValue = ogrnip.val().replace(/[^0-9]/g,'');
+                    if (ogrnipValue.length < 15 || ogrnipValue.length > 15) {
+                        ogrnip.addClass('input__control--error');
+                    } else {
+                        ogrnip.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'ogrn') { // Проверка ОГРН
+                    let ogrn = $("input[name='ogrn']");
+                    let ogrnValue = ogrn.val().replace(/[^0-9]/g,'');
+                    if (ogrnValue.length < 13 || ogrnValue.length > 13) {
+                        ogrn.addClass('input__control--error');
+                    } else {
+                        ogrn.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'kpp') { // Проверка КПП
+                    let kpp = $("input[name='kpp']");
+                    let kppValue = kpp.val().replace(/[^0-9]/g,'');
+                    if (kppValue.length < 9 || kppValue.length > 9) {
+                        kpp.addClass('input__control--error');
+                    } else {
+                        kpp.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if (registrationData.currentStep === 'legal_entity_data' && $(item).attr('name') === 'bic') { // Проверка БИК
+                    let bic = $("input[name='bic']");
+                    let bicValue = bic.val().replace(/[^0-9]/g,'');
+                    if (bicValue.length < 9 || bicValue.length > 9) {
+                        bic.addClass('input__control--error');
+                    } else {
+                        bic.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
                     }
                     return;
                 }
