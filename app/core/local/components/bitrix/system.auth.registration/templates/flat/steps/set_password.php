@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="form__row" data-password-container>
+    <div class="form__row form__row--pass" data-password-container>
         <div class="form__col">
             <div class="form__field">
                 <div class="form__field-block form__field-block--label">
