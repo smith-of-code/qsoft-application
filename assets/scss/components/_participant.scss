@@ -298,7 +298,12 @@
             }
 
             &--none {
-                height: auto;
+                font-size: rem($font-size-small);
+                height: 18px;
+
+                @media #{$screen-desktop} {
+                    height: 19px;
+                }
             }
         }
 
