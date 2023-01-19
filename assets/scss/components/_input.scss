@@ -55,6 +55,23 @@
         }
     }
 
+    &--tel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &--tel & {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__control-error {
+            margin-top: rem($gap-average);
+            margin-left: 0;
+        }
+    }
+
     &--placeholder & {
         &__control {
             padding-top: rem(16px);

@@ -389,7 +389,7 @@
                 <div class="form__col">
                     <div class="form__field">
                         <div class="form__field-block form__field-block--input">
-                            <div class="input input--tiny input--centered">
+                            <div class="input input--tiny input--centered input--tel">
                                 <input type="text" maxlength="6" class="input__control" name="verify_code" id="verify_code">
                             </div>
                         </div>
