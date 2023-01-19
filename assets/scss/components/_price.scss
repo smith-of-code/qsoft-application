@@ -80,6 +80,14 @@
             &--red {
                 color: $brickRed;
             }
+
+            &--remains {
+                font-size: rem(10px);
+
+                @media #{$screen-desktop} {
+                    font-size: rem(14px);
+                }
+            }
         }
 
         &-accumulation {

@@ -67,10 +67,16 @@ class OrderHelper
 
     public function getUserOrdersWithPersonalPromotions(int $userId): array
     {
-        $result = OrderTable::getList([
+        $order = OrderTable::getRow([
+            'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=USER_ID' => $userId,
-                '=TRANSACTION.UF_MEASURE' => EnumDecorator::prepareField(TransactionTable::MEASURES['points']),
+                '!=COUPON.ID' => null,
+                [
+                    'LOGIC' => 'OR',
+                    ['=TRANSACTION.ID' => null],
+                    ['=TRANSACTION.UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points'])],
+                ],
             ],
             'select' => ['ID', 'ACCOUNT_NUMBER', 'PRICE', 'DATE_INSERT', 'BONUSES' => 'TRANSACTION.UF_AMOUNT'],
             'runtime' => [
@@ -83,12 +89,12 @@ class OrderHelper
                     'reference' => ['=this.ID' => 'ref.UF_ORDER_ID'],
                 ],
             ],
-        ])->fetchAll();
+        ]);
 
-        return array_map(static fn (array $order): array => array_combine(
+        return $order ? [array_combine(
             array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
             $order
-        ), $result);
+        )] : [];
     }
 
     public function createOrder(int $userId, array $data)
@@ -258,6 +264,18 @@ class OrderHelper
             ],
         ];
 
+        //Считаем личные оплаченные заказы не учитывая транзакции
+        $result['self']['paid_orders_count'] = \CSaleOrder::GetList(
+            ['CNT' => 'ASC'],
+            [
+                'PAYED' => 'Y',
+                'USER_ID' => $userId
+            ],
+            false,
+            false,
+            []
+        )->SelectedRowsCount();
+
         $transactions = TransactionTable::getList([
             'order' => ['UF_CREATED_AT' => 'ASC'],
             'filter' => [
@@ -271,7 +289,8 @@ class OrderHelper
                 'UF_SOURCE',
                 'UF_ORDER_ID',
                 'UF_CREATED_AT',
-                'ORDER_STATUS' => 'ORDER.STATUS_ID'
+                'ORDER_STATUS' => 'ORDER.STATUS_ID',
+                'ORDER_PAYED' => 'ORDER.PAYED',
             ],
             'runtime' => [
                 'ORDER' => [
@@ -295,10 +314,11 @@ class OrderHelper
             $result[$source]['last_order_date'] = $date;
 
             if (!in_array($transaction['UF_ORDER_ID'], $checkedOrders)) {
+                //Оплаченные заказы группы пользователя берутся из транзакций
+                if ($transaction['ORDER_PAYED'] == "Y" && $source == 'team') {
+                    $result[$source]['paid_orders_count']++;
+                }
                 switch ($transaction['ORDER_STATUS']) {
-                    case self::ACCOMPLISHED_STATUS:
-                        $result[$source]['paid_orders_count']++;
-                        break;
                     case self::PARTLY_REFUNDED_STATUS:
                         $result[$source]['refunded_orders_count']++;
                         $result[$source]['part_refunded_orders_count']++;

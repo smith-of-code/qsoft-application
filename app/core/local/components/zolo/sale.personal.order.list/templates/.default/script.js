@@ -135,7 +135,7 @@ function setBasketTemplate(data) {
 
     for (let [key, item] of Object.entries(basketObject)) {
         let li = createElement('li', ['table-list__item']);
-        let article = createElement('article', ['product-line']);
+        let article = createElement('article', isConsultant ? ['product-line'] : ['product-line', 'product-line--common']);
         let div = createElement('div', ['product-line__inner']);
         let innerDiv = createElement('div', ['product-line__info']);
         let innerDiv2 = createElement('div', ['product-line__image']);

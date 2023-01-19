@@ -688,7 +688,15 @@
                             <div class="form__field">
                                 <div class="form__field-block form__field-block--label">
                                     <label for="ltc_short_name" class="form__label form__label--required">
-                                        <span class="form__label-text">Наименование организации (сокращенное)</span>
+                                        <span class="form__label-text form__label-text--desktop">
+                                            Наименование организации (сокращенное)
+                                        </span>
+                                        <span class="form__label-text form__label-text--mobile">
+                                            Наименование организации
+                                            <span class="form__label-minitext" data-tippy-content="сокращенное">
+                                                (сокр.)
+                                            </span>
+                                        </span>
                                     </label>
                                 </div>
 
@@ -763,29 +771,28 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                            type="checkbox"
+                                            class="checkbox__input"
+                                            name="nds_payer_ltc"
+                                            id="nds_payer_ltc"
+                                        <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
+                                    >
 
-                <div class="form__row">
-                    <div class="form__col">
-                        <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="nds_payer_ltc"
-                                        id="nds_payer_ltc"
-                                    <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
-                                >
+                                    <label for="nds_payer_ltc" class="checkbox__label">
+                                            <span class="checkbox__icon">
+                                                <svg class="checkbox__icon-pic icon icon--check">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                </svg>
+                                            </span>
 
-                                <label for="nds_payer_ltc" class="checkbox__label">
-                                        <span class="checkbox__icon">
-                                            <svg class="checkbox__icon-pic icon icon--check">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
-                                            </svg>
-                                        </span>
-
-                                    <span class="checkbox__text">Плательщик НДС</span>
-                                </label>
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -882,7 +889,7 @@
                                         class="checkbox__input"
                                         name="need_proxy"
                                         id="need_proxy"
-                                    <?=$arResult['need_proxy'] ? 'checked' : ''?>
+                                    <?=$arResult['need_proxy'] === 'true' ? 'checked' : ''?>
                                 >
 
                                 <label for="need_proxy" class="checkbox__label">
@@ -899,7 +906,7 @@
                     </div>
                 </div>
 
-                <div class="section__box-block">
+                <div class="section__box-block" <?=$arResult['procuration'] ? '' : 'style="display:none;"'?>>
                     <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
@@ -1228,10 +1235,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="form__row">
-                    <div class="form__col">
+                    <div class="form__row">
+                        <div class="form__col">
                         <div class="form__field">
                             <div class="checkbox">
                                 <input
@@ -1252,6 +1257,7 @@
                                     <span class="checkbox__text">Плательщик НДС</span>
                                 </label>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

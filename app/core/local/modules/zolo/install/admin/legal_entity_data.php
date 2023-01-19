@@ -671,7 +671,17 @@ $arResult = $ticketData['documents'];?>
                             <div class="form__field">
                                 <div class="form__field-block form__field-block--label">
                                     <label for="ltc_short_name" class="form__label form__label--required">
-                                        <span class="form__label-text">Наименование организации (сокращенное)</span>
+                                        <span class="form__label-text">
+                                            <span class="form__label-text form__label-text--desktop">
+                                                Наименование организации (сокращенное)
+                                            </span>
+                                            <span class="form__label-text form__label-text--mobile">
+                                                Наименование организации
+                                                <span class="form__label-minitext" data-tippy-content="сокращенное">
+                                                    (сокр.)
+                                                </span>
+                                            </span>
+                                        </span>
                                     </label>
                                 </div>
 
@@ -746,23 +756,23 @@ $arResult = $ticketData['documents'];?>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form__row">
-                    <div class="form__col">
-                        <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="nds_payer_ltc"
-                                        id="nds_payer_ltc"
-                                    <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
-                                >
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                            type="checkbox"
+                                            class="checkbox__input"
+                                            name="nds_payer_ltc"
+                                            id="nds_payer_ltc"
+                                        <?=$arResult['nds_payer_ltc'] ? 'checked' : ''?>
+                                    >
 
-                                <label for="nds_payer_ltc" class="checkbox__label">
-                                    <span class="checkbox__text">Плательщик НДС</span>
-                                </label>
+                                    <label for="nds_payer_ltc" class="checkbox__label">
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1164,23 +1174,23 @@ $arResult = $ticketData['documents'];?>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form__row">
-                    <div class="form__col">
-                        <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="nds_payer_ip"
-                                        id="nds_payer_ip"
-                                    <?=$arResult['nds_payer_ip'] ? 'checked' : ''?>
-                                >
+                    <div class="form__row">
+                        <div class="form__col">
+                            <div class="form__field">
+                                <div class="checkbox">
+                                    <input
+                                            type="checkbox"
+                                            class="checkbox__input"
+                                            name="nds_payer_ip"
+                                            id="nds_payer_ip"
+                                        <?=$arResult['nds_payer_ip'] ? 'checked' : ''?>
+                                    >
 
-                                <label for="nds_payer_ip" class="checkbox__label">
-                                    <span class="checkbox__text">Плательщик НДС</span>
-                                </label>
+                                    <label for="nds_payer_ip" class="checkbox__label">
+                                        <span class="checkbox__text">Плательщик НДС</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

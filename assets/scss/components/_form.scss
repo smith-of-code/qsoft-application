@@ -34,6 +34,26 @@
                 margin-right: rem(-$horizontal-gutter-big / 2);
                 margin-left: rem(-$horizontal-gutter-big / 2);
             }
+
+            &--pass {
+                margin-bottom: rem($gap-medium);
+    
+                @media #{$screen-tablet} {
+                    margin-bottom: 0;
+                }
+
+                & .form__col {
+                    margin-top: rem($gap-medium);
+
+                    @media #{$screen-tablet} {
+                        margin-top: 0;
+                    }
+                }
+
+                & .form__col:first-child {
+                    margin-top: 0;
+                }
+            }
         }
 
         &__col {
@@ -308,6 +328,25 @@
                 background-image: url('/local/templates/.default/images/icons/snowflake.svg');
 
                 
+            }
+        }
+
+        &-text {
+            &--desktop {
+                display: none;
+
+                @media #{$screen-tablet} {
+                    display: block;
+                }
+            }
+
+            &--mobile {
+                display: block;
+                pointer-events: all;
+
+                @media #{$screen-tablet} {
+                   display: none;
+                }
             }
         }
     }

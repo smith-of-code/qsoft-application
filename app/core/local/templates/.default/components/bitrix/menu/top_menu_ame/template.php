@@ -13,7 +13,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
                         <li class="navigation__item">
                             <a
                                 href="<?=$menuTab['LINK'] ?>" 
-                                <?=$menuTab['PARAMS']['IMAGE'] ? 'type="button"' : '' ?>
+                                <?=$menuTab['PARAMS']['IMAGE'] ? '' : '' ?>
                                 class="navigation__button button button--simple <?=
                                     $menuTab['PARAMS']['ADDITIONAL_CLASS_TAG'] ?? 'button--red'
                                 ?>"
