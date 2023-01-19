@@ -67,10 +67,16 @@ class OrderHelper
 
     public function getUserOrdersWithPersonalPromotions(int $userId): array
     {
-        $result = OrderTable::getList([
+        $order = OrderTable::getRow([
+            'order' => ['ID' => 'DESC'],
             'filter' => [
                 '=USER_ID' => $userId,
-                '=TRANSACTION.UF_MEASURE' => EnumDecorator::prepareField(TransactionTable::MEASURES['points']),
+                '!=COUPON.ID' => null,
+                [
+                    'LOGIC' => 'OR',
+                    ['=TRANSACTION.ID' => null],
+                    ['=TRANSACTION.UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points'])],
+                ],
             ],
             'select' => ['ID', 'ACCOUNT_NUMBER', 'PRICE', 'DATE_INSERT', 'BONUSES' => 'TRANSACTION.UF_AMOUNT'],
             'runtime' => [
@@ -83,12 +89,12 @@ class OrderHelper
                     'reference' => ['=this.ID' => 'ref.UF_ORDER_ID'],
                 ],
             ],
-        ])->fetchAll();
+        ]);
 
-        return array_map(static fn (array $order): array => array_combine(
+        return $order ? [array_combine(
             array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
             $order
-        ), $result);
+        )] : [];
     }
 
     public function createOrder(int $userId, array $data)
