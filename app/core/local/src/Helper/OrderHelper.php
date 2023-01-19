@@ -258,6 +258,18 @@ class OrderHelper
             ],
         ];
 
+        //Считаем личные оплаченные заказы не учитывая транзакции
+        $result['self']['paid_orders_count'] = \CSaleOrder::GetList(
+            ['CNT' => 'ASC'],
+            [
+                'PAYED' => 'Y',
+                'USER_ID' => $userId
+            ],
+            false,
+            false,
+            []
+        )->SelectedRowsCount();
+
         $transactions = TransactionTable::getList([
             'order' => ['UF_CREATED_AT' => 'ASC'],
             'filter' => [
@@ -296,7 +308,8 @@ class OrderHelper
             $result[$source]['last_order_date'] = $date;
 
             if (!in_array($transaction['UF_ORDER_ID'], $checkedOrders)) {
-                if ($transaction['ORDER_PAYED'] == "Y") {
+                //Оплаченные заказы группы пользователя берутся из транзакций
+                if ($transaction['ORDER_PAYED'] == "Y" && $source == 'team') {
                     $result[$source]['paid_orders_count']++;
                 }
                 switch ($transaction['ORDER_STATUS']) {
