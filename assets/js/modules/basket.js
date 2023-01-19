@@ -204,7 +204,6 @@ export default async function () {
         acceptNds(ndsTotal);
         acceptAmount(basketTotal);
         acceptEconomy(economyTotal);
-        acceptTotal(basketTotalSale);
         acceptBonusOrder(baseketBonusItem);
 
         return basketAmoutOrder
@@ -260,7 +259,6 @@ export default async function () {
 
             acceptNds(updateNds);
             acceptEconomy(updateEconomy);
-            acceptTotal(priceBasket);
             acceptBonusBalance(updateBalanceBonus);
 
             totalBonus += bonusInputValueNumber;
@@ -341,12 +339,12 @@ export default async function () {
 
         let totalFixied = total.toFixed(2);
         let totalRemains = totalFixied.toString().split('.')[1];
-       
+
         if (totalRemains === "00") {
-            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
+            spanWhole.text(Math.floor(totalFixied).toLocaleString('ru-RU', {minimumFractionDigits: 0}));
             spanRemains.html('&nbsp;₽');
         } else {
-            spanWhole.text(Math.floor(total).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
+            spanWhole.text(Math.floor(totalFixied).toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ',');
             spanRemains.html(totalRemains.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + '&nbsp;₽');
         }
     }
