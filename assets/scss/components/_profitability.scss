@@ -24,6 +24,18 @@
         cursor: pointer;
 
         color: #292d32;
+
+        &--consultant {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+
+            @media #{$screen-desktop} {
+                position: relative;
+                bottom: auto;
+                right: auto;
+            }
+        }
     }
 
     &__row {
@@ -132,6 +144,8 @@
     }
 
     &__consultants {
+        position: relative;
+
         padding: rem($gap-medium) rem($gap-normal);
         margin-top: rem($gap-big);
 

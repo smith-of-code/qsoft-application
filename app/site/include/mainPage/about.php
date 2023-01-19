@@ -7,7 +7,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
     <div class="company box box--grayish box--circle">
         <div class="main__section-header main__section-header--closer">
             <p class="main__section-heading heading heading--huge">О компании</p>
-            <a href="/info/ame-business/" target="_blank" type="button" class="button button--simple button--red button--transition">
+            <a href="/info/ame-business/" target="_blank" class="button button--simple button--red button--transition">
                 <span class="button__icon button__icon--red button__icon--right">
                     <svg class="icon icon--arrow-right-light">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
