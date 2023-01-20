@@ -483,7 +483,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="tin"
-                                                id="tin"
+                                                id="tin_self"
                                                 placeholder="ИНН"
                                                 data-inn
                                                 value="<?=$arResult['tin']?>"
@@ -545,7 +545,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="bic"
-                                                id="bic"
+                                                id="bic_self"
                                                 placeholder="БИК"
                                                 data-bik
                                                 value="<?=$arResult['bic']?>"
@@ -761,7 +761,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="tin"
-                                                id="tin"
+                                                id="tin_ltc"
                                                 placeholder="ИНН"
                                                 data-short-inn
                                                 value="<?=$arResult['tin']?>"
@@ -956,7 +956,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="bic"
-                                                id="bic"
+                                                id="bic_ltc"
                                                 placeholder="БИК"
                                                 data-bik
                                                 value="<?=$arResult['bic']?>"
@@ -1225,7 +1225,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="tin"
-                                                id="tin"
+                                                id="tin_ip"
                                                 placeholder="ИНН"
                                                 data-inn
                                                 value="<?=$arResult['tin']?>"
@@ -1358,7 +1358,7 @@
                                                 type="text"
                                                 class="input__control"
                                                 name="bic"
-                                                id="bic"
+                                                id="bic_ip"
                                                 placeholder="БИК"
                                                 data-bik
                                                 value="<?=$arResult['bic']?>"
