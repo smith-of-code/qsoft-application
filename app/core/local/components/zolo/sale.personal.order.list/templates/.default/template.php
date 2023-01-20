@@ -158,7 +158,7 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
                                                                     <?php endif;?>
                                                                 </div>
                                                             </div>
-                                                            <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="orders__button button button--rounded button--outlined button--green button--full" data-look-all="<?=$order['ORDER']['ID']?>" style="display:none;">Cмотреть все</a>
+                                                            <a href="<?=$arParams['SEF_FOLDER'] . $order['ORDER']['ID']?>" class="orders__button button button--rounded button--outlined button--green button--full" data-look-all="<?=$order['ORDER']['ID']?>" style="display:none;"><?=Loc::getMessage("LOOK_ALL")?></a>
                                                         </div>
                                                     </div>
                                                 </div>

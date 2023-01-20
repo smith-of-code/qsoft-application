@@ -7,7 +7,7 @@ use Bitrix\Main\Localization\Loc;
 use QSoft\Helper\OrderHelper;
 
 $details = $arResult['ORDER_DETAILS'];
-dump($arResult);
+
 $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
 
 ?>
