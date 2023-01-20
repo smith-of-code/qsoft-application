@@ -95,13 +95,9 @@ class ConfirmationService
 
     public function verifySmsCode(string $code): bool
     {
-        if (Environment::isDev() || Environment::isTest()) {
-            return true;
-        } else {
-            $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
+        $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
 
-            return $actualCode && $actualCode === $code;
-        }
+        return $actualCode && $actualCode === $code;
     }
 
     public function verifyEmailCode(string $code, string $type): bool

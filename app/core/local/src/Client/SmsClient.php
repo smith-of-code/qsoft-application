@@ -2,42 +2,66 @@
 
 namespace QSoft\Client;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-
 class SmsClient
 {
-    private string $brandName = 'Zolo';
+    protected $login;
+    protected $apiKey;
+    private $apiUrl;
 
-    private ClientInterface $httpClient;
-
-    private string $apiKey;
-    private string $requestUrl;
-
-    public function __construct(string $brandName = null)
+    public function __construct()
     {
-        if ($brandName) {
-            $this->brandName = $brandName;
-        }
-
-        $this->httpClient = new Client;
+        $this->login = getenv('SMS_SERVICE_API_LOGIN');
         $this->apiKey = getenv('SMS_SERVICE_API_KEY');
-        $this->requestUrl = getenv('SMS_SERVICE_REQUEST_URL');
+        $this->apiUrl = getenv('SMS_SERVICE_REQUEST_URL');
     }
 
-    public function sendMessage(string $message, string $phoneNumber): array
+    public function sendMessage(string $message, string $phoneNumber)
     {
-        $response = $this->httpClient->request('POST', $this->requestUrl, [
-            'query' => [
-                'method' => 'push_msg',
-                'format' => 'json',
-                'key' => $this->apiKey,
-                'sender_name' => $this->brandName,
-                'text' => $message,
-                'phone' => $phoneNumber,
-            ],
-        ]);
+        $data = [
+            'to' => $phoneNumber,
+            'text' => $message,
+            'route' => 'sms',
+        ];
 
-        return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $curlResource = curl_init();
+        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl . '/message');
+        curl_setopt($curlResource, CURLOPT_POST, 1);
+        curl_setopt($curlResource, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders($data));
+        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, 1);
+
+        return $this->getCurlResult($curlResource);
+    }
+
+
+    protected function getCurlResult($curlResource)
+    {
+        $response = curl_exec($curlResource);
+        $info = curl_getinfo($curlResource);
+        curl_close($curlResource);
+        $responseArray = json_decode($response, true);
+
+        if (json_last_error() != JSON_ERROR_NONE) {
+            throw new \Exception('Error response format', $info['http_code']);
+        }
+
+        if ($info['http_code'] != 200) {
+            throw new \Exception($responseArray['error_message'], $info['http_code']);
+        }
+
+        return $responseArray;
+    }
+
+    protected function getHeaders($data = [])
+    {
+        ksort($data);
+        reset($data);
+        $ts = microtime() . rand(0, 10000);
+
+        return [
+            'login: ' . $this->login,
+            'ts: ' . $ts,
+            'sig: '. md5(implode('', $data) . $ts . $this->apiKey),
+        ];
     }
 }
