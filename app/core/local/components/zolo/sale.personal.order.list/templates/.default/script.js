@@ -22,9 +22,13 @@ function getBasketData(orderId, ofset) {
 
 function setBasketList(data, orderId) {
 
-    let basketTemplate = setBasketTemplate(data)
+    let maxProducts = 5;
+    let basketTemplate = setBasketTemplate(data, maxProducts)
 
-    $('div[data-list-id= ' + orderId + ']').append(basketTemplate)
+    $('div[data-list-id= ' + orderId + ']').append(basketTemplate['template'])
+    if (basketTemplate['i'] === maxProducts) {
+        $('[data-look-all=' + orderId + ']').show()
+    }
 }
 
 function setData(data) {
@@ -124,7 +128,7 @@ function showMoreDisplay(showMore) {
     showMore.style.cssText = '';
 }
 
-function setBasketTemplate(data) {
+function setBasketTemplate(data, maxProducts) {
     let basketObject = data.PRODUCTS;
 
     if (typeof basketObject !== 'object' || basketObject.length === 0) {
@@ -133,7 +137,13 @@ function setBasketTemplate(data) {
 
     let template = createElement('ul', ['table-list__list']);
 
+    let i = 0
     for (let [key, item] of Object.entries(basketObject)) {
+        if (i < maxProducts) {
+            i++
+        } else {
+            break;
+        }
         let li = createElement('li', ['table-list__item']);
         let article = createElement('article', isConsultant ? ['product-line'] : ['product-line', 'product-line--common']);
         let div = createElement('div', ['product-line__inner']);
@@ -248,7 +258,7 @@ function setBasketTemplate(data) {
         template.append(li);
     }
 
-    return template;
+    return {template, i};
 }
 
 function numberFormat(number) {

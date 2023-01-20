@@ -7,7 +7,7 @@ use Bitrix\Main\Localization\Loc;
 use QSoft\Helper\OrderHelper;
 
 $details = $arResult['ORDER_DETAILS'];
-
+dump($arResult);
 $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
 
 ?>
@@ -222,12 +222,8 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                                             </li>
                                             <?endforeach;?>
                                         </ul>
-
+                                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full orders__button-more" style="<?=$arResult['last'] ? 'display:none;' : '' ?>"><?=getMessage('SHOW_MORE_BUTTON') ?></button>
                                     </div>
-                                    <!-- Кнопка Показать больше -->
-                                    <?php if (! $arResult['last']) { ?>
-                                        <button type="button" class="orders__button button button--rounded button--outlined button--green button--full button--middle orders__button-more"><?=Loc::getMessage("SHOW_MORE_BUTTON")?></button>
-                                    <?php } ?>
                                 </div>
                             </div>
 
