@@ -11,7 +11,7 @@ class CommonDetailPageComponent extends CBitrixComponent
             ['ID' => $this->arParams['ID'], 'IBLOCK_ID' => $this->arParams['IBLOCK_ID']],
             false,
             false,
-            ['NAME', 'DETAIL_TEXT', 'DETAIL_PICTURE', 'PROPERTY_PUBLISHED_AT', 'PROPERTY_HL_MARKER']
+            ['NAME', 'PREVIEW_TEXT', 'DETAIL_TEXT', 'DETAIL_PICTURE', 'PROPERTY_PUBLISHED_AT', 'PROPERTY_HL_MARKER']
         )->Fetch();
 
         $marker = MarkerTable::getRow([
@@ -26,6 +26,7 @@ class CommonDetailPageComponent extends CBitrixComponent
 
         $this->arResult['ITEM'] = [
             'NAME' => $commonItem['NAME'],
+            'PREVIEW_TEXT' => $commonItem['PREVIEW_TEXT'],
             'DETAIL_TEXT' => $commonItem['DETAIL_TEXT'],
             'PUBLISHED_AT' => date_format(date_create($commonItem['PROPERTY_PUBLISHED_AT_VALUE']),'d.m.Y'),
             'DETAIL_PICTURE' => CFile::GetPath($commonItem['DETAIL_PICTURE']),
