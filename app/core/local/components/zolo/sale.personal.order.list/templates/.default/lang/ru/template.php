@@ -13,3 +13,4 @@ $MESS['PRODUCT_PRICE'] = 'Цена';
 $MESS['PRODUCT_COUNT'] = 'Количество';
 $MESS['PRODUCT_BB'] = 'Сумма баллов';
 $MESS['SHOW_MORE'] = 'Показать больше';
+$MESS['LOOK_ALL'] = 'Смотреть все';
