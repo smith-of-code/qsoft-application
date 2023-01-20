@@ -66,7 +66,8 @@ function createElement(elementName, elementClasses = [], elementAttributs = [], 
 }
 
 //пагинация товаров
-function loadOrders() {
+function loadOrders(e) {
+    e.stopPropagation();
     BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
         mode: 'class',
         data: {
@@ -91,10 +92,10 @@ function attach(products) {
     for (let i = 0; i < products.length; i++) {
         let item = products[i];
         let addition = document.querySelector('.table-list__item').cloneNode(true);
-        addition.querySelector('.product-line__image-picture').setAttribute('href', item['PICTURE']);
+        addition.querySelector('.product-line__image-picture').setAttribute('src', item['PICTURE']);
         addition.querySelector('.product-name').innerText = item['NAME'];
         addition.querySelector('.product-article').innerText = ARTICLE + item['ARTICLE'];
-        addition.querySelector('.product-price').innerText = item['PRICE'] + RUBLE_SYMBOL;
+        addition.querySelector('.product-price').innerText = parseFloat(item['PRICE']) + RUBLE_SYMBOL;
         addition.querySelector('.product-quantity').innerText = item['QUANTITY'];
         addition.querySelector('.product-bonus').innerText = item['BONUSES'] + ' ББ';
         document.querySelector('.table-list__list').appendChild(addition);
