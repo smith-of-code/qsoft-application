@@ -32,6 +32,9 @@ $APPLICATION->IncludeComponent(
         </div>
 
         <p>
+            <?=$arResult['ITEM']['PREVIEW_TEXT']?>
+        </p>
+        <p>
             <?=$arResult['ITEM']['DETAIL_TEXT']?>
         </p>
     </section>
