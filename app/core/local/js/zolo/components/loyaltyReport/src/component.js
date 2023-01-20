@@ -121,7 +121,7 @@ export const LoyaltyReport = {
                         <div class="participant__info">
                             <span class="participant__info-name">Питомец</span>
                             <div v-if="!user.pets.length" class="participant__info-pets">
-                                <div class="participant__info-pet">
+                                <div class="participant__info-pet participant__info-pet--none">
                                     Нет
                                 </div>
                             </div>
