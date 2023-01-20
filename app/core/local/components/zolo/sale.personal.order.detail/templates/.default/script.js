@@ -66,7 +66,8 @@ function createElement(elementName, elementClasses = [], elementAttributs = [], 
 }
 
 //пагинация товаров
-function loadOrders() {
+function loadOrders(e) {
+    e.stopPropagation();
     BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
         mode: 'class',
         data: {

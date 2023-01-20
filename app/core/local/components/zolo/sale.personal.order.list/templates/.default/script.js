@@ -29,6 +29,10 @@ function setBasketList(data, orderId) {
     if (basketTemplate['i'] === maxProducts) {
         $('[data-look-all=' + orderId + ']').show()
     }
+
+    $('[data-look-all=' + orderId + ']').on('click', function(e) {
+        e.stopPropagation();
+    })
 }
 
 function setData(data) {
