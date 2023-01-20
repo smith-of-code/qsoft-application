@@ -296,6 +296,15 @@
             & + & {
                 margin-left: rem($gap-average);
             }
+
+            &--none {
+                font-size: rem($font-size-small);
+                height: 18px;
+
+                @media #{$screen-desktop} {
+                    height: 19px;
+                }
+            }
         }
 
         &-show {
