@@ -25,7 +25,7 @@ $preFilter = ${$PREFILTER_NAME};
 if (!is_array($preFilter))
 	$preFilter = array();
 
-if($this->StartResultCache(false, array('v10', $preFilter, ($arParams["CACHE_GROUPS"]? $USER->GetGroups(): false))))
+if($this->StartResultCache(3600, array('v10', $preFilter, ($arParams["CACHE_GROUPS"]? $USER->GetGroups(): false))))
 {
 	$arResult["FACET_FILTER"] = false;
 	$arResult["COMBO"] = array();

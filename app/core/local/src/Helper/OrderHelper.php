@@ -377,7 +377,7 @@ class OrderHelper
                 'price' => $product['PRICE'],
                 'quantity' => (int)$product['QUANTITY'],
                 'link' => $product['DETAIL_PAGE'],
-                'picture' => CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE']) ?? NO_IMAGE_PLACEHOLDER_PATH,
+                'picture' => CFile::GetPath($offers[$product['PRODUCT_ID']]['PROPERTY_IMAGES_VALUE'][0]) ?? NO_IMAGE_PLACEHOLDER_PATH,
             ];
         }
         return $result;
