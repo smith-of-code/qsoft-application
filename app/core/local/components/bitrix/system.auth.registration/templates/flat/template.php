@@ -16,7 +16,7 @@ $isCurrentStepPassed = false;
 
 <div class="registration">
     <section class="section">
-        <ul class="steps-counter">
+        <ul class="steps-counter <?=$arResult['type'] === 'buyer' ? 'steps-counter--buyer' : 'steps-counter--consult'?>">
             <?php foreach ($arResult['steps'] as $step):?>
                 <?php if ($step['code'] === $arResult['currentStep']) $isCurrentStepPassed = true;?>
                 <li
