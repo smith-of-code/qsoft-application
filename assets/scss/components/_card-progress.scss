@@ -8,8 +8,20 @@
     background-color: $white;
 
     @media #{$screen-desktop} {
-        min-height: rem(196px);
+        min-height: rem(197px);
         padding: rem($gap-normal) rem($gap-medium);
+    }
+
+    &--success {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &--success & {
+        &__inner {
+            align-items: center;
+        }
     }
 
     &--unbordered {
@@ -198,4 +210,8 @@
 
         color: $saltBox;
     }
+}
+
+#loyaltyStatusTale {
+    height: 100%;
 }

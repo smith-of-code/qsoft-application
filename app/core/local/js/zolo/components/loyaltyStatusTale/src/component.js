@@ -117,8 +117,9 @@ export const LoyaltyStatusTale = {
                             </span>
                         </button>
                     </div>
+                    
                     <p class="warning__text">
-                        {{ isHold ? 'Условия поддержания уровня' : 'Условия повышения уровня' }}
+                        {{ isHold ? isConsultant ? 'Условия поддержания уровня' : 'Условия удержания скидки' : 'Условия повышения уровня' }}
                     </p>
                 </div>
                 <article v-if="isHold" id="hold-conditions" class="modal modal--full box box--circle box--hanging" style="display: none">
@@ -233,7 +234,7 @@ export const LoyaltyStatusTale = {
                 </article>
             </div>
         </div>
-        <div v-else class="card-progress card-progress--unbordered">
+        <div v-else class="card-progress card-progress--success card-progress--unbordered">
             <div class="card-progress__inner card-progress__inner--columed">
                 <div class="card-progress__image">
                     <svg class="card-progress__image-pic icon icon--cat-cheerful">

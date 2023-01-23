@@ -135,7 +135,7 @@ function setBasketTemplate(data) {
 
     for (let [key, item] of Object.entries(basketObject)) {
         let li = createElement('li', ['table-list__item']);
-        let article = createElement('article', ['product-line']);
+        let article = createElement('article', isConsultant ? ['product-line'] : ['product-line', 'product-line--common']);
         let div = createElement('div', ['product-line__inner']);
         let innerDiv = createElement('div', ['product-line__info']);
         let innerDiv2 = createElement('div', ['product-line__image']);
@@ -215,11 +215,13 @@ function setBasketTemplate(data) {
         delete innerLi;
         delete p;
 
-        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold']);
+        innerLi = createElement('li', ['product-line__params', 'product-line__params--bold', !isConsultant ? 'product-line__params--hidden' : 'product-line__params--visible' ]);
         p = createElement('p', ['product-line__text']);
         span = createElement('span', ['product-line__params-name'], [], 'Сумма баллов:');
 
-        p.append(span);
+        if (isConsultant) {
+            p.append(span);
+        }
 
         delete span;
 

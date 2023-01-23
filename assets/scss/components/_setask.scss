@@ -11,9 +11,9 @@
         border-radius: rem($border-radius-average);
     }
 
-    @media #{$screen-desktop} {
+    @media #{$screen-tablet} {
         position: sticky;
-        top: rem(200px);
+        top: rem(166px);
     }
     
     &__image {

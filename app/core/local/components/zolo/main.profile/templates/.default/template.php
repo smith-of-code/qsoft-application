@@ -494,70 +494,69 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="form__row">
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="text-required" class="form__label">
+                                                                    <span class="form__label-text">E-mail</span>
+                                                                </label>
+                                                            </div>
 
-                                            <div class="form__row">
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="text-required" class="form__label">
-                                                                <span class="form__label-text">E-mail</span>
-                                                            </label>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$mentor['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$mentor['EMAIL']?>" name="text-required" id="text-required" placeholder="example@email.com" data-mail inputmode="email" readonly>
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="text-required" class="form__label">
+                                                                    <span class="form__label-text">Телефон</span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="tel" class="input__control" name="text-required" value="<?=$mentor['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="text-required" class="form__label">
-                                                                <span class="form__label-text">Телефон</span>
-                                                            </label>
-                                                        </div>
+                                                <div class="form__row">
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="select22" class="form__label">
+                                                                    <span class="form__label-text">Населенный пункт</span>
+                                                                </label>
+                                                            </div>
 
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="tel" class="input__control" name="text-required" value="<?=$mentor['PERSONAL_PHONE']?>" id="text-required" placeholder="+7 (___) ___-__-__" data-phone inputmode="text" readonly>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$mentor['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form__row">
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="select22" class="form__label">
-                                                                <span class="form__label-text">Населенный пункт</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$mentor['PERSONAL_CITY']?>" name="text-required" id="select22" placeholder="Населенный пункт" readonly>
+                                                    <div class="form__col">
+                                                        <div class="form__field">
+                                                            <div class="form__field-block form__field-block--label">
+                                                                <label for="select22" class="form__label">
+                                                                    <span class="form__label-text">Пункт выдачи заказов</span>
+                                                                </label>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <div class="form__col">
-                                                    <div class="form__field">
-                                                        <div class="form__field-block form__field-block--label">
-                                                            <label for="select22" class="form__label">
-                                                                <span class="form__label-text">Пункт выдачи заказов</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form__field-block form__field-block--input">
-                                                            <div class="input">
-                                                                <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                            <div class="form__field-block form__field-block--input">
+                                                                <div class="input">
+                                                                    <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1057,7 +1056,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             prop-is-consultant="<?=CUtil::PhpToJSObject($arResult['personal_data']['is_consultant'])?>"
                                                             prop-current-value="<?=$arResult['loyalty_status']['self']['current_value']?>"
                                                             prop-target-value="<?=$arResult['loyalty_status']['self']['upgrade_value']?>"
-                                                            prop-label="Повышение уровня по личным покупкам"
+                                                            prop-label="До повышения размера скидки"
                                                         ></div>
                                                     <?php endif;?>
                                                        

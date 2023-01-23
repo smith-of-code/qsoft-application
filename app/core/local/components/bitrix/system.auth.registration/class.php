@@ -7,6 +7,7 @@ use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ObjectException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
@@ -291,6 +292,16 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     public function registerAction(array $data): array
     {
+        try {
+            $recaptcha = new QSoft\Common\Recaptcha();
+            $response = $recaptcha->isValidResponse($data['captcha']);
+            if (!$response) {
+                throw new Exception('Recaptcha not passed');
+            }
+        } catch (\Exception $e) {
+            throw new Exception('Recaptcha error');
+        }
+
         if (UserTable::getCount([
             [
                 'LOGIC' => 'OR',

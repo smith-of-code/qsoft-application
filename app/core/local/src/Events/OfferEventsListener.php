@@ -106,7 +106,8 @@ class OfferEventsListener
         }
     }
 
-    public static function UpdateBonuses(Event $event) {
+    // Запускает пересчет всех акционных цен и бонусов всех ТП
+    public static function UpdateBonusesAndPrices(Event $event) {
 
         UpdateAllOffersBonusesJob::pushJob([]);
     }

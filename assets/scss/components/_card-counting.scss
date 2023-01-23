@@ -40,7 +40,8 @@
         &-count {
             font-weight: $font-weight-semibold;
 
-            max-width: 10ch;
+            min-width: 3ch;
+            max-width: 12ch;
 
             text-align: center;
 
