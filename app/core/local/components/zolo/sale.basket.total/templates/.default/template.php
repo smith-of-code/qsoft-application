@@ -184,7 +184,7 @@ $APPLICATION->setTitle('Корзина');?>
                         <div class="card-progress card-progress--mini">
                             <div class="card-progress__inner">
                                 <p class="card-progress__title">
-                                    Повышения уровня по личным покупкам
+                                    Повышение уровня по личным покупкам
                                 </p>
                                 <?php if ($arResult['LOYALTY_STATUS']['self']['current_value'] / $arResult['LOYALTY_STATUS']['self']['upgrade_value'] < .5):?>
                                     <div class="card-progress__mark">
