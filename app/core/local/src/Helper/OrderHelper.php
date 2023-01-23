@@ -269,7 +269,9 @@ class OrderHelper
             ['CNT' => 'ASC'],
             [
                 'PAYED' => 'Y',
-                'USER_ID' => $userId
+                'USER_ID' => $userId,
+                'DATE_FROM' => $from,
+                'DATE_TO' => $to,
             ],
             false,
             false,
