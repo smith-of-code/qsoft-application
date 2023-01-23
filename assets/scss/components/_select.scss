@@ -625,5 +625,13 @@
     .select__control[name=select-package] + .select2-container *:focus {
         outline: none;
     }
-    
+
+    .select2-search__field::placeholder {
+        color: $saltBox;
+    }
+
+    .select2-selection.select2-selection--multiple::after {
+        right: rem(11px) !important;
+    }
+
 }
