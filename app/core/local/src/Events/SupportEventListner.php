@@ -15,6 +15,7 @@ use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\LoyaltyProgramHelper;
 use QSoft\Helper\TicketHelper;
+use QSoft\Notifiers\SupportTicketUpdateNotifier;
 use QSoft\ORM\LegalEntityTable;
 
 /**
@@ -37,6 +38,8 @@ class SupportEventListner
      */
     public function onAfterTicketUpdate(array $ticketValues): void
     {
+        $user = new User($ticketValues['OWNER_USER_ID']);
+
         if ($ticketValues['CATEGORY_ID'] > 0) {
             $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         }
@@ -49,6 +52,18 @@ class SupportEventListner
                     && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
                 ) {
                     $this->changeUserFields($ticketValues);
+                    $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['OWNER_USER_ID'])->Fetch();
+                    $rsUser = \CUser::GetList('', '', ['UF_MENTOR_ID' => $ticketValues['OWNER_USER_ID']]);
+                    while($buyer = $rsUser->fetch()) {
+                        $buyer  = new User($buyer['ID']);
+                        $notifier = new SupportTicketUpdateNotifier($ticketValues, 'CHANGE_MENTOR_FOR_BUYERS');
+                        $buyer->notification->sendNotification(
+                            $notifier->getTitle(),
+                            $notifier->getMessage(),
+                            $notifier->getLink()
+                        );
+                    }
+
                 }
                 break;
             case TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY:
@@ -93,6 +108,7 @@ class SupportEventListner
                 ) {
                     $this->changeMentor($ticketValues);
                 }
+                $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['NEW_MENTOR_ID'])->Fetch();
                 break;
             case TicketHelper::SUPPORT_CATEGORY:
                 // Событие для техподдержки.
@@ -100,6 +116,12 @@ class SupportEventListner
             default:
                 break;
         }
+        $notifier = new SupportTicketUpdateNotifier($ticketValues);
+        $user->notification->sendNotification(
+            $notifier->getTitle(),
+            $notifier->getMessage(),
+            $notifier->getLink()
+        );
     }
 
     /**
@@ -122,6 +144,15 @@ class SupportEventListner
             $this->prepareFieldsToMessageAddingTicket($ticket),
             self::TICKET_CREATION_EVENT,
             $ticket['SITE_ID']
+        );
+
+        $ticketValues['IS_NEW'] = true;
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $notifier = new SupportTicketUpdateNotifier($ticketValues);
+        $user->notification->sendNotification(
+            $notifier->getTitle(),
+            $notifier->getMessage(),
+            $notifier->getLink()
         );
 
         if ($category['SID'] != TicketHelper::SUPPORT_CATEGORY) {
