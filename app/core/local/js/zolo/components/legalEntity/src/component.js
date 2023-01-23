@@ -76,7 +76,7 @@ export const LegalEntity = {
     },
 
     template: `
-        <div :id="componentId" class="profile__block legal_entity_block" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div :id="componentId" class="profile__block legal_entity_block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing }">
             <section class="section">
                 <div class="form form--wraped form--separated">
                     <div class="section__box box box--gray box--rounded-sm">
