@@ -4,6 +4,7 @@ namespace QSoft\Service;
 
 use Bitrix\Catalog\Model\Price;
 use Bitrix\Iblock\PropertyTable;
+use Bitrix\Iblock\PropertyIndex\Manager;
 use Bitrix\Main\Loader;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
@@ -99,6 +100,7 @@ class OffersService
             if ($offer) {
                 // Записываем свойства
                 \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+                Manager::updateElementIndex($this->offersIbId, $offerId);
             }
         }
     }
@@ -141,6 +143,7 @@ class OffersService
         if ($offer) {
             // Записываем свойства
             \CIBlockElement::SetPropertyValuesEx($offerId, $this->offersIbId, $propsToSet);
+            Manager::updateElementIndex($this->offersIbId, $offerId);
         }
     }
 
@@ -193,6 +196,7 @@ class OffersService
 
                         // Записываем свойства
                         \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
+                        Manager::updateElementIndex($this->offersIbId, $offer['ID']);
 
                     }
                 }
@@ -253,6 +257,7 @@ class OffersService
 
                         // Записываем свойства
                         \CIBlockElement::SetPropertyValuesEx($offer['ID'], $this->offersIbId, $propsToSet);
+                        Manager::updateElementIndex($this->offersIbId, $offer['ID']);
 
                     }
                 }

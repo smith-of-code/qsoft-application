@@ -232,13 +232,20 @@ $this->setFrameMode(true);
                     <div class="filter__action">
                         <input class="filter__row"
                                style="display: none;"
-                               type="submit"
+                               type="hidden"
                                id="set_filter"
                                name="set_filter"
                                value="Y"
                         >
+                        <input class="filter__row"
+                               style="display: none;"
+                               type="button"
+                               id="apply_filter"
+                               name="apply_filter"
+                               value="Y"
+                        >
                         <label class="button button--rounded-big button--covered button--green button--full"
-                               for="set_filter"
+                               for="apply_filter"
                         >
                             Применить
                         </label>
