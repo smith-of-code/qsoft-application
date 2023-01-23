@@ -16,16 +16,17 @@ $APPLICATION->setTitle('Корзина');?>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
                         <li class="cards-cart__item basket__item" data-basket-item data-remove-item data-offer-id="<?=$basketItem['PRODUCT_ID']?>" data-base-price="<?=$basketItem['BASE_PRICE']?>">
                             <article class="card-cart">
-                                <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__link"></a>
                                 <div class="card-cart__inner">
                                     <header class="card-cart__header">
-                                        <div class="card-cart__image">
-                                            <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="#" class="card-cart__image-picture">
-                                        </div>
+                                        <a class="card-cart__image-link" href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>">
+                                            <div class="card-cart__image">
+                                                <img src="<?=$basketItem['OFFER']['PREVIEW_IMAGE_SRC'] ?: NO_IMAGE_PLACEHOLDER_PATH?>" alt="#" class="card-cart__image-picture"> 
+                                            </div>
+                                        </a>
                                         <div class="card-cart__info">
-                                            <h2 class="card-cart__title">
+                                            <a href="<?=$basketItem['PROPERTIES']['DETAIL_PAGE']?>" class="card-cart__title">
                                                 <?=$basketItem['NAME']?>
-                                            </h2>
+                                            </a>
                                             <p class="card-cart__subtitle">
                                                 Арт. <?=$basketItem['OFFER']['PROPERTY_ARTICLE_VALUE']?>
                                             </p>

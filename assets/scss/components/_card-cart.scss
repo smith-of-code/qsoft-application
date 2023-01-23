@@ -1,9 +1,4 @@
 .card-cart {
-    &:hover & {
-        &__title {
-            color: $brickRed;
-        }
-    }
 
     &__link {
         @include position-stretching(absolute);
@@ -33,14 +28,25 @@
 
         width: rem(90px);
         height: rem(100px);
-        margin-right: rem($gap-medium);
-
+        
         border: rem(1px) solid $alto;
         border-radius: rem($border-radius-middle);
+
+        cursor: pointer;
 
         @media #{$screen-desktop} {
             width: rem(56px);
             height: rem(56px);
+        }
+
+        &-link {
+            margin-right: rem($gap-medium);
+
+            &:hover {
+                +.card-cart__info .card-cart__title {
+                    color: $brickRed;  
+                }
+            }
         }
 
         &-picture {
@@ -62,11 +68,17 @@
 
         transition: color $transition-duration $transition-function;
         letter-spacing: 0.02em;
+        text-decoration: none;
 
         color: $tuna;
+        cursor: pointer;
 
         @media #{$screen-desktop} {
             @include text-truncate-by-row(2);
+        }
+
+        &:hover {
+           color: $brickRed;
         }
     }
 
