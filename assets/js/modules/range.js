@@ -32,7 +32,7 @@ export default function(){
     $(ELEMENTS_SELECTOR.ranges).each(function() {
         let slider = $(this).find(ELEMENTS_SELECTOR.rangeSlider),
             min = slider.data('min'),
-            current = slider.data('current'),
+            current = slider.data('current'), // Параметр для слайдера типа "min"
             max = slider.data('max'),
             step = slider.data('step'),
             type = slider.data('type'),
@@ -104,8 +104,8 @@ export default function(){
                         let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges);
                         let $inputMin = $parent.find(ELEMENTS_SELECTOR.rangeMin);
                         let $inputMax = $parent.find(ELEMENTS_SELECTOR.rangeMax);
-                        let $inputMinValue = parseFloat($parent.find(ELEMENTS_SELECTOR.rangeMin).val()).toLocaleString('ru-RU');
-                        let $inputMaxValue = parseFloat($parent.find(ELEMENTS_SELECTOR.rangeMax).val()).toLocaleString('ru-RU');
+                        let $inputMinValue = parseFloat($inputMin.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
+                        let $inputMaxValue = parseFloat($inputMax.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
 
                         let $filterAction = $(".filter__action");
                         let $submit = $filterAction.find('.button');
