@@ -86,6 +86,8 @@ class ConfirmationService
             'EVENT_NAME' => 'USER_PASS_REQUEST',
             'LID' => SITE_ID,
             'C_FIELDS' => [
+                'NAME' => $this->user->name ?? '',
+                'LAST_NAME' => $this->user->lastName ?? '',
                 'EMAIL' => $this->user->email,
                 'USER_ID' => $this->user->id,
                 'CONFIRM_CODE' => $code,
