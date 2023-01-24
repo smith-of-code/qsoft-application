@@ -88,8 +88,18 @@ export default function(){
                 };
                 break;
             default:
-                minVal = +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMin).val() : min,
-                maxVal = +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() ? +$(this).find(ELEMENTS_SELECTOR.rangeMax).val() : max;
+                minVal = +$(this).find(ELEMENTS_SELECTOR.rangeMin).val(),
+                maxVal = +$(this).find(ELEMENTS_SELECTOR.rangeMax).val();
+
+                if (minVal < min) {
+                    minVal = min;
+                }
+                if (maxVal > max) {
+                    maxVal = max;
+                }
+                if (minVal > maxVal) {
+                    maxVal = minVal;
+                }
 
                 paramsCustom = {
                     range: true,
@@ -104,8 +114,8 @@ export default function(){
                         let $parent = $(event.target).closest(ELEMENTS_SELECTOR.ranges);
                         let $inputMin = $parent.find(ELEMENTS_SELECTOR.rangeMin);
                         let $inputMax = $parent.find(ELEMENTS_SELECTOR.rangeMax);
-                        let $inputMinValue = parseFloat($inputMin.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
-                        let $inputMaxValue = parseFloat($inputMax.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
+                        let $inputMinValue = parseFloat(+$inputMin.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
+                        let $inputMaxValue = parseFloat(+$inputMax.val().trim().replace(/\s/g,'')).toLocaleString('ru-RU');
 
                         let $filterAction = $(".filter__action");
                         let $submit = $filterAction.find('.button');
@@ -118,8 +128,8 @@ export default function(){
 
                             let $inputMinCurrent = $parent.find(ELEMENTS_SELECTOR.rangeMin);
                             let $inputMaxCurrent = $parent.find(ELEMENTS_SELECTOR.rangeMax);
-                            let $inputMinValue = parseFloat($inputMinCurrent.val().trim().replace(/\s/g,''));
-                            let $inputMaxValue = parseFloat($inputMaxCurrent.val().trim().replace(/\s/g,''));
+                            let $inputMinValue = parseFloat(+$inputMinCurrent.val().trim().replace(/\s/g,''));
+                            let $inputMaxValue = parseFloat(+$inputMaxCurrent.val().trim().replace(/\s/g,''));
 
                             $inputMinCurrent.val($inputMinValue);
                             $inputMaxCurrent.val($inputMaxValue);
@@ -128,8 +138,8 @@ export default function(){
                         })
 
                         $parent.on('change', ELEMENTS_SELECTOR.rangeMin, function(){
-                            minVal = $(this).val().trim().replace(/\s/g,'');
-                            maxVal = $parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim().replace(/\s/g,'');
+                            minVal = +$(this).val().trim().replace(/\s/g,'');
+                            maxVal = +$parent.find(ELEMENTS_SELECTOR.rangeMax).val().trim().replace(/\s/g,'');
                             
                             let maxValNum = Math.floor(parseFloat(maxVal));
                             let minValNum = Math.floor(parseFloat(minVal));
@@ -153,8 +163,8 @@ export default function(){
                         });
                 
                         $parent.on('change', ELEMENTS_SELECTOR.rangeMax, function(){
-                            maxVal = $(this).val().trim().replace(/\s/g,'');
-                            minVal = $parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim().replace(/\s/g,'');
+                            maxVal = +$(this).val().trim().replace(/\s/g,'');
+                            minVal = +$parent.find(ELEMENTS_SELECTOR.rangeMin).val().trim().replace(/\s/g,'');
                             let maxValNum = Math.floor(parseFloat(maxVal));
                             let minValNum = Math.floor(parseFloat(minVal));
 
