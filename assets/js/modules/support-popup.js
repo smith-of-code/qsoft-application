@@ -1,6 +1,7 @@
  import scrollbar from './scrollbar';
  import validation from './validation';
  import inputRepalece from './inputReplace';
+ import inputMaskInit from "./inputmask";
 
 export default function showSupportPopup() {
     let body = $('body');
@@ -28,8 +29,10 @@ function initSupportForms() {
 
         setTimeout(() => {
             inputRepalece();
+            inputMaskInit();
+            initCheckbox();
         }, 1000);
-
+        
         let selected = $(this).data('selected');
         let saveSelected = '';
 
@@ -38,7 +41,7 @@ function initSupportForms() {
             data: {}
         }).then(function (response) {
             let data = JSON.parse(response.data);
-            popup.html(setDataToPopup(data.data, selected));
+            // popup.html(setDataToPopup(data.data, selected));
             initSelect();
             scrollbar();
             initSendForm();
@@ -50,6 +53,20 @@ function initSupportForms() {
         if (typeof selected !== "undefined" && saveSelected !== selected) {
             changeForm(saveSelected, selected);
             saveSelected = selected;
+        }
+    });
+}
+
+function initCheckbox () {
+    $('input[name=without_second_name]').on('change', function() {
+        const input = $('input[name=SECOND_NAME]');
+        if ($(`input[name=without_second_name]:checked`).length) {
+            input.val('');
+            input.removeClass('input__control--error');
+            input.parent().find('.input__control-error').remove();
+            input.attr('disabled', true);
+        } else {
+            input.attr('disabled', null);
         }
     });
 }
@@ -98,6 +115,7 @@ function setDataToPopup (data, selected) {
                                         <div class="select select--mitigate" data-select>
                                             <select class="select__control js-required" name="TICKET_TYPE" id="ticket-type" data-select-control data-placeholder="Выберите вариант" data-option>
                                                 <option><!-- пустой option для placeholder --></option>
+                                                <option value="CHANGE_OF_PERSONAL_DATA" data-variant="CHANGE_OF_PERSONAL_DATA" ${selected === 'CHANGE_OF_PERSONAL_DATA' ? 'selected' : ''}>Смена персональных данных</option>
                                                 <option value="REFUND_ORDER" data-variant="REFUND_ORDER" ${selected === 'REFUND_ORDER' ? 'selected' : ''}>Возврат заказа</option>
                                                 <option value="SUPPORT" data-variant="SUPPORT" ${selected === 'SUPPORT' ? 'selected' : ''}>Неработающая функциональность</option>
                                                 ${!data.MENTHOR_ID || data.MENTHOR_ID === 'false' ? '' : ('<option value="CHANGE_MENTOR" data-variant="CHANGE_MENTOR" ' + (selected === 'CHANGE_MENTOR' ? 'selected' : '') + '>Смена наставника/контактного лица</option>')}
@@ -126,6 +144,248 @@ function setDataToPopup (data, selected) {
                             </div>
                         </div>
                     </div>
+
+                    <!--Смена персональных данных-->
+                    <div class="modal__section-variant ${selected === 'CHANGE_OF_PERSONAL_DATA' ? 'modal__section-variant--active' : ''}" data-variant-block="CHANGE_OF_PERSONAL_DATA">
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="LAST_NAME" class="form__label form__label--required">
+                                            <span class="form__label-text">Актуальная фамилия</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input type="text" class="input__control js-required" name="LAST_NAME" id="personal-last-name" placeholder="Введите фамилию"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                            <span class="input__control-error" style="display:none;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="LAST_NAME" class="form__label form__label--required">
+                                            <span class="form__label-text">Актуальное имя</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input type="text" class="input__control js-required" name="NAME" id="personal-name" placeholder="Введите имя"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                            <span class="input__control-error" style="display:none;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="SECOND_NAME" class="form__label form__label--required">
+                                            <span class="form__label-text">Актуальное отчество</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input">
+                                            <input type="text" class="input__control js-required" name="SECOND_NAME" id="personal-second-name" placeholder="Введите отчество"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                            <span class="input__control-error" style="display:none;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="checkbox">
+                                        <input
+                                                type="checkbox"
+                                                class="checkbox__input"
+                                                name="without_second_name"
+                                                id="without_second_name"
+                                        >
+            
+                                        <label for="without_second_name" class="checkbox__label">
+                                                <span class="checkbox__icon">
+                                                    <svg class="checkbox__icon-pic icon icon--check">
+                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
+                                                    </svg>
+                                                </span>
+            
+                                            <span class="checkbox__text">У меня нет отчества</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="birthdate" class="form__label form__label--required">
+                                            <span class="form__label-text">Дата рождения</span>
+                                        </label>
+                                    </div>
+    
+                                    <div class="form__field-block form__field-block--input">
+                                        <div class="input input--iconed">
+                                            <input inputmode="numeric"
+                                                class="input__control js-required"
+                                                name="birthdate"
+                                                id="birthdate"
+                                                placeholder="ДД.ММ.ГГГГ"       
+                                                data-mask-date-reg
+                                                autocomplete="off"
+                                            >
+                                            <span class="input__icon">
+                                                <svg class="icon icon--calendar">
+                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-calendar"></use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form__row">
+                            <div class="form__col">
+                            
+                            
+                            
+<!--                                <div class="registration__dropzone dropzone dropzone&#45;&#45;image" data-uploader>-->
+<!--                                    <input type="file" name="" class="dropzone__control">-->
+<!--                                -->
+<!--                                    <div class="dropzone__area">-->
+<!--                                        <div class="dropzone__message dz-message needsclick">-->
+<!--                                            <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>-->
+<!--                                                <svg class="dropzone__message-button-icon icon icon&#45;&#45;camera">-->
+<!--                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>-->
+<!--                                                </svg>-->
+<!--&lt;!&ndash;                                                <?php if ($arParams['PHOTO']):?>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <div class="dropzone__previews-picture dz-preview dz-processing dz-image-preview dz-success dz-complete" data-uploader-preview="" title="Заменить обложку">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        <div class="dropzone__previews-picture-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <div class="dropzone__previews-picture-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                <img src="<?=$arParams['PHOTO']['src']?>" class="dropzone__previews-picture-image-pic" data-dz-thumbnail="">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <div class="dropzone__previews-item-remove" data-dz-remove="">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                <svg class="dropzone__previews-item-remove-icon icon icon&#45;&#45;cross"><use xlink:href="/public/images/icons/sprite.svg#icon-cross"></use></svg>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        <div class="dropzone__previews-item-error" data-dz-errormessage=""></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <?php endif;?>&ndash;&gt;-->
+<!--                                            </div>-->
+<!--                                -->
+<!--                                            <div class="dropzone__message-block">-->
+<!--                                                <div class="dropzone__message-caption needsclick">-->
+<!--                                                    <h6 class="dropzone__message-title">Требования к фото</h6>-->
+<!--                                                    <ul class="dropzone__message-list">-->
+<!--                                                        <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>-->
+<!--                                                        <li class="dropzone__message-item">размер 240 Х 320 px</li>-->
+<!--                                                        <li class="dropzone__message-item">вес не более 1МБ</li>-->
+<!--                                                    </ul>-->
+<!--                                                </div>-->
+<!--                                -->
+<!--                                                <button type="button" class="dropzone__button button button&#45;&#45;medium button&#45;&#45;rounded button&#45;&#45;covered button&#45;&#45;red" data-uploader-area='{"url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic" }'>-->
+<!--                                                    <span class="button__icon">-->
+<!--                                                        <svg class="icon icon&#45;&#45;import">-->
+<!--                                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>-->
+<!--                                                        </svg>-->
+<!--                                                    </span>-->
+<!--                                                    <span class="button__text">Загрузить фото</span>-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                -->
+<!--                                        <div class="dropzone__previews dz-previews" data-uploader-previews></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            
+                            
+                            
+                            
+                            
+<!--                                <div class="profile__avatar">-->
+<!--                                    <div class="profile__avatar-box">-->
+<!--                                        <div class="profile__avatar-image">-->
+<!--                                            <svg class="dropzone__message-button-icon icon icon&#45;&#45;camera">-->
+<!--                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>-->
+<!--                                            </svg>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="profile__dropzone dropzone dropzone&#45;&#45;image dropzone&#45;&#45;simple" data-uploader>-->
+<!--                                        <input type="file" name="photo" multiple class="dropzone__control js-required">-->
+<!--                                        <div class="dropzone__area">-->
+<!--                                            <div class="dropzone__message dropzone__message&#45;&#45;simple dz-message needsclick">-->
+<!--                                                <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>-->
+<!--                                                    <svg class="dropzone__message-button-icon icon icon&#45;&#45;camera">-->
+<!--                                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-camera"></use>-->
+<!--                                                    </svg>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="profile__toggle">-->
+<!--                                                    <button type="button" class="dropzone__button button button&#45;&#45;medium button&#45;&#45;rounded button&#45;&#45;outlined button&#45;&#45;green" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>-->
+<!--                                                        <span class="button__icon">-->
+<!--                                                            <svg class="icon icon&#45;&#45;import">-->
+<!--                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>-->
+<!--                                                            </svg>-->
+<!--                                                        </span>-->
+<!--                                                        <span class="button__text">Загрузить фото</span>-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="profile__toggle dropzone__message-caption needsclick">-->
+<!--                                                    <h6 class="dropzone__message-title">Требования к фото:</h6>-->
+<!--                                                    <ul class="dropzone__message-list">-->
+<!--                                                        <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>-->
+<!--                                                        <li class="dropzone__message-item">размер 240 Х 320 px</li>-->
+<!--                                                        <li class="dropzone__message-item">вес не более 1МБ</li>-->
+<!--                                                    </ul>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__col">
+                                <div class="form__field">
+                                    <div class="form__field-block form__field-block--label">
+                                        <label for="MESSAGE" class="form__label">
+                                            <span class="form__label-text">Комментарий</span>
+                                        </label>
+                                    </div>
+                                    <div class="form__field-block form__field-block--input">
+                                        <label class="input input--textarea">
+                                            <textarea type="text" class="input__control" name="MESSAGE" id="message-personal" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input=""  data-variant-value="CHANGE_OF_PERSONAL_DATA"></textarea>
+                                            <div class="input__counter">
+                                                <span class="input__counter-current" data-textarea-current="">0</span>
+                                                    /
+                                                <span class="input__counter-total" data-textarea-total="">1000</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Смена персональных данных-->
 
                     <!--Возврат заказа-->
                     <div class="modal__section-variant ${selected === 'REFUND_ORDER' ? 'modal__section-variant--active' : ''}" data-variant-block="REFUND_ORDER">
@@ -336,7 +596,9 @@ function initSendForm() {
                 COUSES: $('#couses-change').find(":selected").text()
             };
 
-            if (fields.TICKET_TYPE === "CHANGE_MENTOR") {
+            if (fields.TICKET_TYPE === "CHANGE_OF_PERSONAL_DATA") {
+                fields.MESSAGE = $('#message-personal').val()
+            } else if (fields.TICKET_TYPE === "CHANGE_MENTOR") {
                 fields.MESSAGE = $('#couses-message').val()
             } else if (fields.TICKET_TYPE === "REFUND_ORDER") {
                 fields.MESSAGE = $('#message-refund').val()

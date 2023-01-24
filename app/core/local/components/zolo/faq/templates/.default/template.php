@@ -73,17 +73,31 @@ $isAuthorized = $arResult['IS_AUTHORIZED'];
                 </div>
                 <p class="setask__text"><?=Loc::getMessage('FAQ_SUPPORT_NOT_FOUND')?></p>
                 <p class="setask__subtext"><?=Loc::getMessage('FAQ_SUPPORT_MESSAGE_US')?></p>
-                <button type="button"
-                        class="setask__button button button--rounded button--covered button--green button--full"
-                        <?=$isAuthorized
-                            ? 'data-fancybox data-modal-type="modal" data-src="#technical-support"'
-                            : 'onClick="window.location.href = \'/login/\';"'
-                        ?>
-                        
-                >
-                    <?=Loc::getMessage('FAQ_SUPPORT_ASK_US')?>
-                </button>
+                <a href="javascript:" class="setask__button button button--rounded button--covered button--green button--full"
+                   data-fancybox="" data-type="ajax" aria-label="<?= Loc::getMessage('FAQ_SUPPORT_ASK_US') ?>"
+                   data-src="/ajax/popup/popup-support.php">
+                    <span class="page__headline-button-text">
+                        <?= Loc::getMessage('FAQ_SUPPORT_ASK_US') ?>
+                    </span>
+                </a>
+<!--                <button type="button"-->
+<!--                        class="setask__button button button--rounded button--covered button--green button--full"-->
+<!--                        --><?//=$isAuthorized
+//                            ? 'data-fancybox data-modal-type="modal" data-src="#technical-support"'
+//                            : 'onClick="window.location.href = \'/login/\';"'
+//                        ?>
+<!--                        -->
+<!--                >-->
+<!--                    --><?//=Loc::getMessage('FAQ_SUPPORT_ASK_US')?>
+<!--                </button>-->
             </div>
         </div>
     </div>
 </main>
+
+<?$APPLICATION->IncludeComponent(
+    "zolo:techsupport.form.handler",
+    "script",
+    [],
+    false
+);?>
