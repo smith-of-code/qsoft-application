@@ -217,4 +217,17 @@
             }
         }
     }
+
+    &--consult & {
+        &__circle {
+
+            &--2::before {
+                background-image: url('/local/templates/.default/images/icons/cat-winks.svg') !important;
+            }
+
+            &--3::before {
+                background-image: url('/local/templates/.default/images/icons/cat-smile.svg') !important;
+            }
+        }
+    }
 }
