@@ -38,6 +38,10 @@ class SupportEventListner
      */
     public function onAfterTicketUpdate(array $ticketValues): void
     {
+        if ($ticketValues['UF_ACCEPT_REQUEST'] == '') {
+            return;
+        }
+
         $user = new User($ticketValues['OWNER_USER_ID']);
 
         if ($ticketValues['CATEGORY_ID'] > 0) {
@@ -180,6 +184,10 @@ class SupportEventListner
      */
     public function onBeforeTicketUpdate(array $ticketValues): array
     {
+        if ($ticketValues['UF_ACCEPT_REQUEST'] == '') {
+            return $ticketValues;
+        }
+
         // Получаем тикет, чтобы сравнить текущий статус($ticket) с новым ($ticketValues)
         $ticket
             = CTicket::GetByID($ticketValues['ID'], LANG, "Y",  "Y", "Y", ["SELECT"=>['UF_ACCEPT_REQUEST']])
