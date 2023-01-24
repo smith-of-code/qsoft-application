@@ -187,6 +187,7 @@
         &-quantity {
             &--hidden {
                 visibility: hidden;
+                display: none;
             }
 
             width: rem(192px);
