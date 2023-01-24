@@ -74,6 +74,7 @@ function setDataVariables(typeCalc, rub, point) {
     }
 
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+    resetChart()
 }
 
 function calculateGroup() {
@@ -123,11 +124,44 @@ function changeOneTimeCharges() {
     setData('oneTimeCharges', oneTimeCharges);
     setData('oneTimeChargesTransitionLevel', oneTimeChargesTransitionLevel);
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+    resetChart()
 }
 
 function chartSum(elem, num) {
     let sum = elem.closest('.diagramm__main').find('.diagramm__sum');
     sum.html(num.toLocaleString());
+}
+
+function resetChart() {
+    //Обнуляем основной график
+    let chart = $(ELEMENTS_SELECTOR.chart);
+    chart[0].myChart.data.datasets[0].data = [0,0,0,0];
+    chart[0].myChart.update()
+    chartSum(chart, 0);
+
+     // Обнуляем диаграммы Доход от личных продаж
+    let chartIncomeSales = $(ELEMENTS_SELECTOR.chartIncomeSales);
+    chartIncomeSales[0].myChart.data.datasets[0].data = [0,0,0,0];
+    chartIncomeSales[0].myChart.update();
+    chartSum(chartIncomeSales, 0);
+
+     // Обнуляем диаграммы Прибыль от личных покупок
+    let chartProfitPurchases = $(ELEMENTS_SELECTOR.chartProfitPurchases);
+    chartProfitPurchases[0].myChart.data.datasets[0].data = [0,0,0,0];
+    chartProfitPurchases[0].myChart.update();
+    chartSum(chartProfitPurchases, 0);
+
+     // Обнуляем диаграммы Доход от группы
+    let chartIncomeGroup = $(ELEMENTS_SELECTOR.chartIncomeGroup);
+    chartIncomeGroup[0].myChart.data.datasets[0].data = [0,0,0,0];
+    chartIncomeGroup[0].myChart.update();
+    chartSum(chartIncomeGroup, 0);
+
+     // Обнуляем диаграммы Разовые начисления
+    let chartOneTimeCharges = $(ELEMENTS_SELECTOR.chartOneTimeCharges);
+    chartOneTimeCharges[0].myChart.data.datasets[0].data = [0,0,0,0];
+    chartOneTimeCharges[0].myChart.update();
+    chartSum(chartOneTimeCharges, 0);
 }
 
 export default function () {
@@ -232,6 +266,7 @@ export default function () {
         calculateGroup();
 
         $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+        resetChart()
     });
 
     // Добавление консультантов
@@ -316,6 +351,7 @@ export default function () {
 
         calculateGroup();
         $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
+        resetChart()
     });
 
     // "Учитывать разовые начисления баллов"
