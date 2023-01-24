@@ -8,6 +8,8 @@
     }
 
     &__block {
+        padding: 0;
+        border-radius: rem($border-radius-average);
         .file__delete {
             display: none;
         }

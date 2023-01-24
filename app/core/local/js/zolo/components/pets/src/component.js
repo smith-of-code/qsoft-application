@@ -91,7 +91,7 @@ export const Pets = {
     },
 
     template: `
-        <div class="profile__block" data-accordeon>
+        <div class="profile__block accordeon__item" data-accordeon>
             <div class="section__box box box--gray box--rounded">
                 <div class="profile__accordeon-header accordeon__header section__header">
                     <h4 class="section__title section__title--closer">Данные о питомцах</h4>

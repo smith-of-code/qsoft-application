@@ -376,7 +376,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--Наставник-->
         <?php $mentor = $arResult['MENTOR_INFO']; ?>
         <?php if ($mentor):?>
-            <div class="profile__block" data-accordeon>
+            <div class="profile__block accordeon__item" data-accordeon>
                 <section class="section">
                     <form class="form form--wraped form--separated" action="" method="post">
                         <div class="section__box box box--gray box--rounded-sm">
@@ -574,7 +574,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--/Наставник-->
 
         <!--Система лояльности-->
-        <div class="profile__block" data-accordeon>
+        <div class="profile__block accordeon__item" data-accordeon>
             <section class="section">
                 <div class="section__box box box--gray box--rounded-sm">
                     <div class="profile__accordeon-header accordeon__header section__header">
@@ -1076,7 +1076,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
         <!--Персональные акции-->
         <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
-            <div class="profile__block" data-accordeon>
+            <div class="profile__block accordeon__item" data-accordeon>
                 <section class="section">
                     <div class="section__box box box--gray box--rounded-sm">
                         <div class="profile__accordeon-header accordeon__header section__header">
