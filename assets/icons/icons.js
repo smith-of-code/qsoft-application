@@ -71,6 +71,10 @@ import './svg/refresh.svg';
 import './svg/arrow-slider.svg';
 
 import './svg/pdf.svg';
+import './svg/jpg.svg';
+import './svg/jpeg.svg';
+import './svg/heic.svg';
+import './svg/png.svg';
 import './svg/attention.svg';
 import './svg/personal-action.svg';
 import './svg/non-returnable.svg';
