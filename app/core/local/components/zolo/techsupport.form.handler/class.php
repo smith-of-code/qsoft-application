@@ -184,29 +184,33 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     private function getFields(array $fields): array
     {
         $user = new User();
+        $data = [
+            'NAME' => $fields['NAME'],
+            'LAST_NAME' => $fields['LAST_NAME'],
+            'SECOND_NAME' => $fields['SECOND_NAME'],
+            'PERSONAL_BIRTHDAY' => $fields['PERSONAL_BIRTHDAY'],
+            'MESSAGE' => $fields['MESSAGE'],
+            'USER_ID' => $user->id,
+        ];
+
+        if ($fields['photo_id']) {
+            $data['PERSONAL_PHOTO'] = CFile::MakeFileArray($fields['photo_id']);
+        }
 
         return [
             self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA'] => [
                 'TITLE' => 'Заявка на смену персональных данных',
                 'MESSAGE' => 'Пользователь желает сменить персональные данные.
-Комментарий: ' . $fields['MESSAGE'] . '.'
-                ,
+Комментарий: ' . $fields['MESSAGE'] . '.',
                 'OWNER_SID' => $fields['EMAIL'],
-                'CATEGORY_SID' => self::TICKET_TYPES['CHANGE_MENTOR'],
+                'CATEGORY_SID' => self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA'],
                 'CRITICALITY_SID' => '',
                 'STATUS_SID' => '',
                 'MARK_ID' => '',
                 'RESPONSIBLE_USER_ID' => '',
                 'OWNER_USER_ID' => $user->id,
                 'CREATED_USER_ID' => $user->id,
-                'UF_DATA' => json_encode([
-                        'OLD_MENTOR_ID' => $user->mentorId,
-                        'NEW_MENTOR_ID' => $fields['NEW_MENTOR_ID'],
-                        'COUSES' => $fields['COUSES'],
-                        'MESSAGE' => $fields['MESSAGE'],
-                        'USER_ID' => $user->id,
-                    ]
-                ),
+                'UF_DATA' => json_encode($data),
                 'UF_ACCEPT_REQUEST' => '',
             ],
             self::TICKET_TYPES['REFUND_ORDER'] => [

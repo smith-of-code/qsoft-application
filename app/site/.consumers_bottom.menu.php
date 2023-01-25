@@ -26,7 +26,7 @@ $aMenuLinks = Array(
         'Обратиться в поддержку',
 		"",
 		Array(),
-		Array('ADDITIONAL_ATTRS' => 'data-fancybox data-modal-type="modal" data-src="#technical-support"', 'NEED_AUTH' => true),
+		Array('ADDITIONAL_ATTRS' => 'data-fancybox data-modal-type="modal" href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php"', 'NEED_AUTH' => true),
 		""
 	),
 );

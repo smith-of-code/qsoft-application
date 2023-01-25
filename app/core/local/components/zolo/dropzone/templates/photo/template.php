@@ -34,7 +34,11 @@
                     </ul>
                 </div>
 
-                <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red" data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic" }'>
+                <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red"
+                        <?php if ($arParams['REQUEST_URL']) :?>
+                            data-request-url="<?=$arParams['REQUEST_URL']?>"
+                        <?php endif;?>
+                        data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic" }'>
                     <span class="button__icon">
                         <svg class="icon icon--import">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
