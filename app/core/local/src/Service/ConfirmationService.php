@@ -40,13 +40,15 @@ class ConfirmationService
             'UF_CODE' => $code,
         ]);
 
-        $this->smsClient->sendMessage(
-            sprintf(
-                Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
-                $code
-            ),
-            $phone ?? $this->user->phone
-        );
+        if (Environment::isProd()) {
+            $this->smsClient->sendMessage(
+                sprintf(
+                    Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
+                    $code
+                ),
+                $phone ?? $this->user->phone
+            );
+        }
     }
 
     public function sendEmailConfirmation(): void
@@ -98,6 +100,10 @@ class ConfirmationService
     public function verifySmsCode(string $code): bool
     {
         $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
+
+        if (! Environment::isProd()) {
+            return true;
+        }
 
         return $actualCode && hash_equals($actualCode, $code);
     }
