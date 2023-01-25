@@ -71,6 +71,28 @@ export const LoyaltyReport = {
     },
 
     methods: {
+        acceptColor: (label) => {
+            if (label === 'За покупки группы') {
+                return '#945DAB'
+            } else if (label === 'С личных покупок') {
+                return '#2C877F'
+            } else if (label === 'За приглашенных консультантов') {
+                return '#D82F49'
+            } else if (label === 'С товаров по персональной акции') {
+                return '#C73C5E'
+            } else if (label === 'За переход на К1') {
+                return '#D26925'
+            } else if (label === 'За переход на К2') {
+                return '#C99308'
+            } else if (label === 'За переход на К3') {
+                return '#2D8859'
+            } else if (label === 'За удержание на К3') {
+                return '#3887B5'
+            } else {
+                return '#333'
+            }
+        },
+
         async changeAccountingPeriod(data) {
             if (!data) {
                 const period = $('select[name=accounting_periods]').val().split('-');
@@ -81,10 +103,26 @@ export const LoyaltyReport = {
             this.mutableLoyaltyStatus = data.loyalty_status;
             this.mutableOrdersReport = data.orders_report;
             this.mutableBonusesIncome = data.bonuses_income;
-
+            
+            let component = this;
             const diagram = $(`#${this.componentId}`)[0];
             if (diagram) {
-                diagram.myChart.data = this.mutableBonusesIncome.js_data;
+                let dataChart = this.mutableBonusesIncome.js_data;
+                diagram.myChart.data = {
+                    labels: dataChart.labels,
+                    datasets: [
+                        {
+                            data: dataChart.datasets[0].data,
+                            backgroundColor: function(context) {
+                                const value = context.chart.data;
+                                const label = value.labels.map((item, index) => {
+                                    return component.acceptColor(item);
+                                });
+                                return label
+                            },
+                        }
+                    ]
+                }
                 diagram.myChart.update();
             }
         },
@@ -219,6 +257,7 @@ export const LoyaltyReport = {
                                         height="227"
                                         :id="componentId"
                                         :data-chart='JSON.stringify(mutableBonusesIncome.js_data)'
+                                        data-chart-type='stats'
                                     ></canvas>
                                     <div class="diagramm__sum">{{ formatNumber(mutableBonusesIncome.total) }}</div>
                                 </div>
@@ -232,8 +271,8 @@ export const LoyaltyReport = {
                                         :key="bonusesIncomeKey"
                                         class="diagramm__result"
                                     >
-                                        <span class="diagramm__result-icon" :style="{ 'background-color': mutableBonusesIncome.js_data.datasets[0].backgroundColor[bonusesIncomeKey] }"></span>
-                                        <span class="diagramm__result-text">{{ bonusesIncome }}</span>
+                                        <span class="diagramm__result-icon" :style="{ 'background-color': acceptColor(bonusesIncome) }"></span>
+                                        <span class="diagramm__result-text">{{ bonusesIncome ? bonusesIncome : 'Не определено' }}</span>
                                     </div>
                                 </div>
                             </div>

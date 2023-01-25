@@ -140,6 +140,24 @@
 
         &-button {
             @include text-miniature;
+
+            padding: rem(7px) rem(40px);
+            height: auto;
+
+            @media #{$screen-tablet} {
+                padding: rem(9px) rem(40px);
+            }
+
+            & .icon {
+                color: $shark;
+                transition: color $transition-duration $transition-function;
+            }
+
+            &:hover {
+                .icon {
+                    color: $brickRed;
+                }
+            }
         }
     }
 
@@ -187,6 +205,7 @@
         &-quantity {
             &--hidden {
                 visibility: hidden;
+                display: none;
             }
 
             width: rem(192px);
