@@ -20,9 +20,24 @@ return  [
     ],
 
     'UPDATE_SUPPORT_TICKET' => [
+        'NEW' => [
+            'CHANGE_OF_PERSONAL_DATA' => [
+                'message' => 'Заявка на смену данных №#app_id# на рассмотрении.',
+                'title_template' => 'Новая заявка'
+            ],
+            'BECOME_CONSULTANT' => [
+                'message' => 'Заявка №#app_id# "Стать Консультантом" находится на рассмотрении до #date#.',
+                'title_template' => 'Новая заявка'
+            ],
+            'CHANGE_MENTOR' => [
+                'message' => 'Заявка на смену Наставника №#app_id# на рассмотрении. ',
+                'title_template' => 'Новая заявка'
+            ],
+        ],
+
         'ACCEPTED' => [
             'CHANGE_OF_PERSONAL_DATA' => [
-                'message' => 'Ваша заявка на смену персональных данных была рассмотрена и одобрена. Данные изменены.',
+                'message' => 'Ваши данные успешно изменены.',
                 'link_template' => '/personal/'
             ],
             'CHANGE_OF_LEGAL_ENTITY_DATA' => [
@@ -30,50 +45,54 @@ return  [
                 'link_template' => '/personal/'
             ],
             'BECOME_CONSULTANT' => [
-                'message' => 'Ваша заявка на смену роли была рассмотрена и одобрена. Данные изменены.',
+                'message' => 'Заявка №#app_id# "Стать Консультантом" одобрена. Поздравляем! Теперь Вы Консультант AmeAppetite!',
                 'link_template' => '/personal/'
+            ],
+            'CHANGE_MENTOR' => [
+                'message' => 'У Вас новый Наставник: #FIO#, #phone#',
+                'link_template' => '/personal/',
+            ],
+            'CHANGE_MENTOR_FOR_BUYERS' => [
+                'message' => 'Обратите внимание, у Вашего Наставника новый номер телефона: #phone#, электронный адрес #email#, город проживания #city#',
+                'title_template' => 'Смена данных наставника',
+                'link_template' => '/personal/',
             ],
             'REGISTRATION' => [
                 'message' => 'Ваша заявка на регистрацию была рассмотрена была рассмотрена и одобрена.',
-                'link_template' => '',
             ],
             'CHANGE_ROLE' => [
                 'message' => 'Ваша заявка на изменение роли была рассмотрена и одобрена.',
-                'link_template' => '',
             ],
             'SUPPORT' => [
                 'Ваша заявка в техподдержку была рассмотрена и одобрена.',
-                'link_template' => '',
             ]
         ],
 
         'REJECTED' => [
             'CHANGE_OF_PERSONAL_DATA' => [
-                'message' => 'Ваша заявка на смену персональных данных была отклонена.',
-                'link_template' => ''
+                'message' => 'Заявка на смену данных №#app_id# отклонена. Для уточнения деталей свяжитесь со службой поддержки.',
             ],
             'CHANGE_OF_LEGAL_ENTITY_DATA' => [
                 'message' => 'Ваша заявка на смену юридических данных была отклонена.',
-                'link_template' => ''
             ],
             'BECOME_CONSULTANT' => [
-                'message' => 'Ваша заявка на смену роли была отклонена.',
-                'link_template' => ''
+                'message' => 'Заявка №#app_id# "Стать Консультантом" отклонена. Для уточнения деталей свяжитесь со службой поддержки.',
+            ],
+            'CHANGE_MENTOR' => [
+                'message' => 'Заявка на смену Наставника №#app_id# отклонена. Для уточнения деталей свяжитесь со службой поддержки.',
             ],
             'REGISTRATION' => [
                 'message' => 'Ваша заявка на регистрацию была отклонена.',
-                'link_template' => '',
             ],
             'CHANGE_ROLE' => [
                 'message' => 'Ваша заявка на изменение роли была отклонена.',
-                'link_template' => '',
             ],
             'SUPPORT' => [
-                'Ваша заявка в техподдержку была отклонена.',
-                'link_template' => '',
+                'message' => 'Ваша заявка в техподдержку была отклонена.',
             ],
         ],
 
-        'title' => 'Статус заявки изменился'
+        'title' => 'Статус заявки изменился',
+        'link' => '/notifications/'
     ]
 ];
