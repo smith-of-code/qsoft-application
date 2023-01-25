@@ -88,6 +88,10 @@
 
             display: inline-block;
             max-width: rem(130px);
+
+            @media #{$screen-tablet} {
+                width: auto !important;
+            }
         
             @media #{$screen-desktop} {
                 max-width: rem(200px) !important;
@@ -98,9 +102,10 @@
         &-response {
             font-weight: $font-weight-medium;
             order: 3;
+            text-align: end;
 
             max-width: rem(187px);
-            word-break: break-all;
+            word-break: break-word;
 
             color: $tuna;
         }
