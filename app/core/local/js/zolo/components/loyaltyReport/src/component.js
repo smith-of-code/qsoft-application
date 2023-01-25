@@ -373,6 +373,7 @@ export const LoyaltyReport = {
                         </nav>
 
                         <div class="tabs__body">
+                        <template v-if="user.is_consultant">
                             <!--Таб Личные-->
                             <div class="tabs__block tabs__block--active" data-tab-section="block1">
                                 <OrdersReport :orders-report="mutableOrdersReport.self" />
@@ -384,6 +385,14 @@ export const LoyaltyReport = {
                                 <OrdersReport :orders-report="mutableOrdersReport.team" :isGroup="true" />
                             </div>
                             <!--/Таб Групповые-->
+                        </template>
+                        <template v-else>
+                            <!--Таб Личные-->
+                            <div class="tabs__block tabs__block--active">
+                                <OrdersReport :orders-report="mutableOrdersReport.self" />
+                            </div>
+                            <!--/Таб Личные-->
+                        </template>
                         </div>
                     </div>
                 </div>

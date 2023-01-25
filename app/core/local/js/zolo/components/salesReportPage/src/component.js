@@ -126,8 +126,6 @@ export const SalesReportPage = {
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
-                    case 'bonuses_count':
-                        return this.buyersSortAsc ? parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total);
                 }
             });
         },
@@ -413,7 +411,6 @@ export const SalesReportPage = {
                                                     :current-accounting-period="currentAccountingPeriod"
                                                     :accounting-periods="member.accounting_periods"
                                                     :loyalty-status="member.loyalty_status"
-                                                    :bonuses-income="member.bonuses_income"
                                                     :accordion="true"
                                                 />
                                             </div>

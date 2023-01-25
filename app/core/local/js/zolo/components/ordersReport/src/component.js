@@ -66,7 +66,7 @@ export const OrdersReport = {
                         </div>
                     </li>
 
-                    <li class="results__item">
+                    <li v-if="ordersReport.current_period_bonuses" class="results__item">
                         <div class="result">
                             <div class="result__main">
                                 <p class="result__title">Сумма {{ label }} баллов за текущий период</p>
@@ -89,7 +89,7 @@ export const OrdersReport = {
                             <div class="result__main">
                                 <p class="result__title">Количество {{ label }} заказов со статусом «Возврат»</p>
                                 <p class="result__total">
-                                    {{ formatNumber(ordersReport.part_refunded_orders_count + ordersReport.full_refunded_orders_count, false) }}
+                                    {{ formatNumber(Number(ordersReport.part_refunded_orders_count) + Number(ordersReport.full_refunded_orders_count), false) }}
                                 </p>
                             </div>
                             <div class="result__addition">
