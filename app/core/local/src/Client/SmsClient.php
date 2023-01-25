@@ -1,6 +1,7 @@
 <?php
 
 namespace QSoft\Client;
+use QSoft\Environment;
 
 class SmsClient
 {
@@ -17,6 +18,10 @@ class SmsClient
 
     public function sendMessage(string $message, string $phoneNumber)
     {
+        if (! Environment::isProd()) {
+            return [];
+        }
+
         $data = [
             'to' => $phoneNumber,
             'text' => $message,
