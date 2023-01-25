@@ -157,6 +157,10 @@
             outline: none;
         }
 
+        &::placeholder {
+            color: $gray;
+        }
+
         &:disabled {
             color: #dddddd;
             border-color: #dddddd;

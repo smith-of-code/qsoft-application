@@ -71,10 +71,6 @@
                 margin-top: 0;
                 padding-right: rem($horizontal-gutter / 2);
                 padding-left: rem($horizontal-gutter / 2);
-
-                .select__item {
-                    max-width: rem(176px);
-                }
             }
 
             @media #{$screen-desktop} {
@@ -84,6 +80,16 @@
 
             &:first-child {
                 margin-top: 0;
+            }
+
+            .select__item {
+                @media #{$screen-tablet} {
+                    max-width: rem(176px);
+                }
+
+                @media #{$screen-desktop} {
+                    max-width: 100%;
+                }
             }
         }
 
