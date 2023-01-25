@@ -18,6 +18,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
      * @var array
      */
     private const TICKET_TYPES = [
+        'REFUND_ORDER' => 'REFUND_ORDER',
         'CHANGE_OF_PERSONAL_DATA' => 'CHANGE_OF_PERSONAL_DATA',
         'SUPPORT' => 'SUPPORT',
         'CHANGE_MENTOR' => 'CHANGE_MENTOR',
