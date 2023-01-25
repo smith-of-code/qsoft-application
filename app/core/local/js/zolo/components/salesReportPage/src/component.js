@@ -369,10 +369,8 @@ export const SalesReportPage = {
                                                                             <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
                                                                             <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
                                                                             <option value="orders_count">По сумме всех личных заказов</option>
-                                                                            <option value="current_bonuses_count">По сумме личных баллов за текущий отчетный период</option>
                                                                             <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
                                                                             <option value="last_order_date">По дате последнего личного заказа</option>
-                                                                            <option value="bonuses_count">По количеству всех заработанных баллов</option>
                                                                         </select>
                             
                                                                         <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
