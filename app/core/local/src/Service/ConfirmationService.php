@@ -40,18 +40,20 @@ class ConfirmationService
             'UF_CODE' => $code,
         ]);
 
-        $this->smsClient->sendMessage(
-            sprintf(
-                Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
-                $code
-            ),
-            $phone ?? $this->user->phone
-        );
+        if (Environment::isProd()) {
+            $this->smsClient->sendMessage(
+                sprintf(
+                    Loc::getMessage('CONFIRMATION_SERVICE_PHONE_VERIFY_TEMPLATE'),
+                    $code
+                ),
+                $phone ?? $this->user->phone
+            );
+        }
     }
 
     public function sendEmailConfirmation(): void
     {
-        $code = $this->generateCode();
+        $code = $this->generateUserCheckWord($this->user->id);
 
         ConfirmationTable::add([
             'UF_FUSER_ID' => $this->user->fUserID,
@@ -86,6 +88,8 @@ class ConfirmationService
             'EVENT_NAME' => 'USER_PASS_REQUEST',
             'LID' => SITE_ID,
             'C_FIELDS' => [
+                'NAME' => $this->user->name ?? '',
+                'LAST_NAME' => $this->user->lastName ?? '',
                 'EMAIL' => $this->user->email,
                 'USER_ID' => $this->user->id,
                 'CONFIRM_CODE' => $code,
@@ -97,7 +101,11 @@ class ConfirmationService
     {
         $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
 
-        return $actualCode && $actualCode === $code;
+        if (! Environment::isProd()) {
+            return true;
+        }
+
+        return $actualCode && hash_equals($actualCode, $code);
     }
 
     public function verifyEmailCode(string $code, string $type): bool
@@ -108,9 +116,22 @@ class ConfirmationService
 
         $time = $seconds > 0 ? $seconds / $this->hourInSeconds : 0;
 
-        return $actualCode['UF_CODE'] 
-            && ($actualCode['UF_CODE'] === $code)
-            && ((float)$time <= 1.0);
+        // Если код просрочен - отказ
+        if ((float) $time > 1.0) {
+            return false;
+        }
+
+        // Если какой-то из кодов не задан - отказ
+        if (! isset($actualCode['UF_CODE']) || empty($actualCode['UF_CODE']) || empty($code)) {
+            return false;
+        }
+
+        // Если коды эквивалентны - подтверждено
+        if (hash_equals($actualCode['UF_CODE'], $code)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function generateCode(): string
@@ -133,14 +154,6 @@ class ConfirmationService
 
     private function generateUserCheckWord(int $userId): ?string
     {
-        global $USER;
-
-        $dbUser = $USER->GetList('', '', ['LOGIN' => htmlspecialcharsbx($_REQUEST['USER_LOGIN'])]);
-
-        if ($arUser = $dbUser->fetch()) {
-            return $arUser["CHECKWORD"];
-        }
-
-        return '';
+        return hash_hmac('sha384', \CMain::GetServerUniqID().uniqid(), '5yt7GD4rvx8gi4r');
     }
 }

@@ -74,11 +74,11 @@
 
         &--company {
             @media #{$screen-tablet} {
-                width: rem(160px);
+                width: rem(165px);
             }
 
             @media #{$screen-desktop} {
-                width: rem(172px);
+                width: rem(175px);
             }
         }
 
@@ -123,9 +123,12 @@
 	}
 
 	&__link {
+        display: inline-block;
+        padding-left: 1px;
+
         transition: color $transition-duration $transition-function,
-                    border-color $transition-duration $transition-function,
-                    background-color $transition-duration $transition-function;
+        border-color $transition-duration $transition-function,
+        background-color $transition-duration $transition-function;
         text-decoration: none;
 
         color: inherit;

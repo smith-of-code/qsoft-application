@@ -111,6 +111,11 @@
                 padding: 0;
 
                 @media #{$screen-tablet} {
+                    padding: rem($gap-medium);
+                    max-width: 100%;
+                }
+
+                @media #{$screen-desktop} {
                     padding: rem($gap-normal);
                 }
             }
