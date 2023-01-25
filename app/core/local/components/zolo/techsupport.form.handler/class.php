@@ -195,8 +195,8 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
             'USER_ID' => $user->id,
         ];
 
-        if ($fields['photo_id']) {
-            $data['PERSONAL_PHOTO'] = CFile::MakeFileArray($fields['photo_id']);
+        if ($fields['PERSONAL_PHOTO']) {
+            $data['PERSONAL_PHOTO'] = CFile::MakeFileArray($fields['PERSONAL_PHOTO']);
         }
 
         return [

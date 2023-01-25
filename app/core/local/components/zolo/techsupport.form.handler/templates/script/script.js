@@ -50,11 +50,13 @@ function initSendForm() {
                 LAST_NAME: $('#personal-last-name').val(),
                 NAME: $('#personal-name').val(),
                 SECOND_NAME: $('#personal-second-name').val(),
-                PERSONAL_PHOTO: $('#photo-id').val(),
                 PERSONAL_BIRTHDAY: $('#birthdate').val(),
                 NEW_MENTOR_ID: $('#new-mentor-id').val(),
                 COUSES: $('#couses-change').find(":selected").text()
             };
+            if ($('[data-dropzone-file]')){
+                fields.PERSONAL_PHOTO =  $('[data-dropzone-file]').val();
+            }
 
             if (fields.TICKET_TYPE === "CHANGE_OF_PERSONAL_DATA") {
                 fields.MESSAGE = $('#message-personal').val()
