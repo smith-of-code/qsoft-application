@@ -19,6 +19,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
      */
     private const TICKET_TYPES = [
         'REFUND_ORDER' => 'REFUND_ORDER',
+        'CHANGE_OF_PERSONAL_DATA' => 'CHANGE_OF_PERSONAL_DATA',
         'SUPPORT' => 'SUPPORT',
         'CHANGE_MENTOR' => 'CHANGE_MENTOR',
         'OTHER' => 'OTHER',
@@ -33,12 +34,6 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     public function configureActions(): array
     {
         return [
-            'load' => [
-                '-prefilters' => [
-                    Csrf::class,
-                    Authentication::class,
-                ],
-            ],
             'sendTicket' => [
                 '-prefilters' => [
                     Csrf::class,
@@ -85,21 +80,6 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         }
     }
 
-    /**
-     * Подготовка данных для вставки.
-     *
-     * @return string
-     * 
-     */
-    public function loadAction(): string
-    {
-        $this->checkRequiredModules();
-        $this->prepareResult();
-
-        return json_encode([
-            'data' => $this->arResult,
-        ]);
-    }
 
     /**
      * Событие создания тикета
@@ -128,13 +108,15 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     public function prepareResult(): void
     {
         $user = new User();
-        $this->arResult['EMAIL'] = $user->email;
-        $this->arResult['ID'] = $user->id;
-        $this->arResult['MENTHOR_ID'] = $user->getMentor()->id ?? false;
-        $this->arResult['NAME'] = $user->name;
-        $this->arResult['LAST_NAME'] = $user->lastName;
-        $this->arResult['SECOND_NAME'] = $user->secondName;
-        $this->arResult['BIRTH_DATE'] = $user->birthday;
+        if($user->isAuthorized) {
+            $this->arResult['EMAIL'] = $user->email;
+            $this->arResult['ID'] = $user->id;
+            $this->arResult['MENTHOR_ID'] = $user->getMentor()->id ?? false;
+            $this->arResult['NAME'] = $user->name;
+            $this->arResult['LAST_NAME'] = $user->lastName;
+            $this->arResult['SECOND_NAME'] = $user->secondName;
+            $this->arResult['BIRTH_DATE'] = $user->birthday;
+        }
     }
 
     public function createTicket($fields)
@@ -158,6 +140,9 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
         $arFields = $this->getFields($fields);
 
         switch ($fields['TICKET_TYPE']) {
+            case self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA']:
+                $result = $arFields[self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA']];
+                break;
             case self::TICKET_TYPES['REFUND_ORDER']:
                 $result = $arFields[self::TICKET_TYPES['REFUND_ORDER']];
                 break;
@@ -202,12 +187,39 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     private function getFields(array $fields): array
     {
         $user = new User();
+        $data = [
+            'NAME' => $fields['NAME'],
+            'LAST_NAME' => $fields['LAST_NAME'],
+            'SECOND_NAME' => $fields['SECOND_NAME'],
+            'PERSONAL_BIRTHDAY' => $fields['PERSONAL_BIRTHDAY'],
+            'MESSAGE' => $fields['MESSAGE'],
+            'USER_ID' => $user->id,
+        ];
+
+        if ($fields['PERSONAL_PHOTO']) {
+            $data['PERSONAL_PHOTO'] = CFile::MakeFileArray($fields['PERSONAL_PHOTO']);
+        }
 
         return [
+            self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA'] => [
+                'TITLE' => 'Заявка на смену персональных данных',
+                'MESSAGE' => 'Пользователь желает сменить персональные данные.
+Комментарий: ' . $fields['MESSAGE'] . '.',
+                'OWNER_SID' => $fields['EMAIL'],
+                'CATEGORY_SID' => self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA'],
+                'CRITICALITY_SID' => '',
+                'STATUS_SID' => '',
+                'MARK_ID' => '',
+                'RESPONSIBLE_USER_ID' => '',
+                'OWNER_USER_ID' => $user->id,
+                'CREATED_USER_ID' => $user->id,
+                'UF_DATA' => json_encode($data),
+                'UF_ACCEPT_REQUEST' => '',
+            ],
             self::TICKET_TYPES['REFUND_ORDER'] => [
                'TITLE' => 'Создано обращение по возврату товара',
                'MESSAGE' => 'Возврат заказа № ' . $fields['ORDER_NUMBER'] . '
-С коментарием: ' . $fields['MESSAGE'],
+С комментарием: ' . $fields['MESSAGE'],
                'OWNER_SID' => $fields['EMAIL'],
                'CATEGORY_SID' => self::TICKET_TYPES['REFUND_ORDER'],
                'OWNER_USER_ID' => $user->id,
@@ -244,7 +256,7 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                'MESSAGE' => 'Пользователь желает сменить наставника по причине "' . $fields['COUSES'] . '
 ID старого наставника: ' . $user->mentorId . '
 ID нового наставника: ' . $fields['NEW_MENTOR_ID'] . '.
-Коментарий: ' . $fields['MESSAGE'] . '.'
+Комментарий: ' . $fields['MESSAGE'] . '.'
 ,
                'OWNER_SID' => $fields['EMAIL'],
                'CATEGORY_SID' => self::TICKET_TYPES['CHANGE_MENTOR'],

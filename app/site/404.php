@@ -53,7 +53,7 @@ global $APPLICATION, $USER;
                 станица с Формой авторизации.
              -->
             <?php if ($USER->IsAuthorized()) {?>
-                <button type="button" class="error__button button button--rounded button--covered button--red" data-fancybox data-modal-type="modal" data-src="#technical-support" data-selected="OTHER">
+                <button type="button" class="error__button button button--rounded button--covered button--red" data-fancybox data-modal-type="modal" href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="OTHER">
                     Обратиться в техподдержку
                 </button>
             <?php } else { ?>
