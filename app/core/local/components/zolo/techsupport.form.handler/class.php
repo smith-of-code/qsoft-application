@@ -107,13 +107,15 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
     public function prepareResult(): void
     {
         $user = new User();
-        $this->arResult['EMAIL'] = $user->email;
-        $this->arResult['ID'] = $user->id;
-        $this->arResult['MENTHOR_ID'] = $user->getMentor()->id ?? false;
-        $this->arResult['NAME'] = $user->name;
-        $this->arResult['LAST_NAME'] = $user->lastName;
-        $this->arResult['SECOND_NAME'] = $user->secondName;
-        $this->arResult['BIRTH_DATE'] = $user->birthday;
+        if($user->isAuthorized) {
+            $this->arResult['EMAIL'] = $user->email;
+            $this->arResult['ID'] = $user->id;
+            $this->arResult['MENTHOR_ID'] = $user->getMentor()->id ?? false;
+            $this->arResult['NAME'] = $user->name;
+            $this->arResult['LAST_NAME'] = $user->lastName;
+            $this->arResult['SECOND_NAME'] = $user->secondName;
+            $this->arResult['BIRTH_DATE'] = $user->birthday;
+        }
     }
 
     public function createTicket($fields)
