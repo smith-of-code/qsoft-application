@@ -3,7 +3,7 @@ const SUPPORT_TYPE = ["CHANGE_MENTOR", "CHANGE_OF_PERSONAL_DATA", "SUPPORT", "RE
 $(document).on("change", "[data-select]", function () {
     initSendForm();
     initCheckbox();
-    let selected = $('[data-select-control]').val();
+    let selected = $('#ticket-type').val();
     if (selected !== "undefined") {
         changeForm(selected);
     }
