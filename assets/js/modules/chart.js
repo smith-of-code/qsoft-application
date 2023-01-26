@@ -79,12 +79,14 @@ export default function () {
                         }]},
                 options: baseOptions,
             });
+        } else {
+            chartItem.myChart = new Chart(chartItem, {
+                type: 'doughnut',
+                data: data, 
+                options: baseOptions,
+            });
         }
 
-        chartItem.myChart = new Chart(chartItem, {
-            type: 'doughnut',
-            data: data, 
-            options: baseOptions,
-        });
+       
     });
 }
