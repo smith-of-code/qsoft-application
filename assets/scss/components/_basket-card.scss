@@ -1,8 +1,12 @@
 .basket-card {
-    padding: rem($gap-normal) rem($gap-small) rem($gap-big) rem($gap-small);
+    padding: rem($gap-normal);
 
     border: rem(1px) solid $alto;
     border-radius: rem($border-radius-average);
+
+    @media #{$screen-desktop} {
+        padding: rem($gap-normal) rem($gap-small) rem($gap-big) rem($gap-small);
+    }
 
     &__title {
         font-size: rem($font-size-average);
@@ -30,7 +34,10 @@
         align-items: baseline;
 
         margin-bottom: rem($gap-small);
-        padding: 0 rem($gap-small);
+
+        @media #{$screen-desktop} {
+            padding: 0 rem($gap-small);
+        }
 
         &:last-child {
             margin-top: rem($gap-small);
