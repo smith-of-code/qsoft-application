@@ -17,6 +17,10 @@
             display: block;
         }
 
+        &.accordeon__item {
+            cursor: default;
+        }
+
         & + & {
             margin-top: rem($gap-average);
 
