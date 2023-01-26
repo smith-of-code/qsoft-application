@@ -257,7 +257,6 @@ export const SalesReportPage = {
                                                                             <option
                                                                                 v-for="accountingPeriod in consultantAccountingPeriods"
                                                                                 :key="accountingPeriod.name"
-                                                                                :selected="accountingPeriod.name === currentAccountingPeriod.name"
                                                                                 :value="accountingPeriod.from + '-' + accountingPeriod.to"
                                                                             >{{ accountingPeriod.name }}</option>
                                                                         </select>
@@ -347,8 +346,7 @@ export const SalesReportPage = {
                                                                             <option><!-- пустой option для placeholder --></option>
                                                                             <option
                                                                                 v-for="accountingPeriod in buyerAccountingPeriods"
-                                                                                :key="accountingPeriod.name"
-                                                                                :selected="accountingPeriod.name === currentAccountingPeriod.name"
+                                                                                :key="accountingPeriod.name"   
                                                                                 :value="accountingPeriod.from + '-' + accountingPeriod.to"
                                                                             >{{ accountingPeriod.name }}</option>
                                                                         </select>

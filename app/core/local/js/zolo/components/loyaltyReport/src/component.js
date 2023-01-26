@@ -43,6 +43,7 @@ export const LoyaltyReport = {
         bonusesIncome: {
             type: Object,
             required: true,
+            default: {}
         },
         accordion: {
             type: Boolean,
@@ -245,7 +246,8 @@ export const LoyaltyReport = {
                     </form>
                 </div>
 
-                <div v-if="user.is_consultant" class="accounting__diagramm" :hidden="!parseInt(mutableBonusesIncome.total)">
+                <div v-if="user.is_consultant && Object.entries(this.bonusesIncome).length !== 0" class="accounting__diagramm" 
+                    :hidden="!parseInt(mutableBonusesIncome.total)">
                     <h5 class="accounting__diagramm-title">{{title}}</h5>
 
                     <div class="diagramm diagramm--simple">
@@ -259,7 +261,9 @@ export const LoyaltyReport = {
                                         :data-chart='JSON.stringify(mutableBonusesIncome.js_data)'
                                         data-chart-type='stats'
                                     ></canvas>
-                                    <div class="diagramm__sum">{{ formatNumber(mutableBonusesIncome.total) }}</div>
+                                    <div class="diagramm__sum">
+                                        {{ mutableBonusesIncome.total ? formatNumber(mutableBonusesIncome.total) : 0 }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="diagramm__col diagramm__col--sum">
