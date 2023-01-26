@@ -1040,7 +1040,7 @@
                                                                                                 <select class="select__control js-required" name="r11" id="r11" data-select-control data-placeholder="Выберите пол">
                                                                                                     <option><!-- пустой option для placeholder --></option>
                                                                                                     <option value="1">Резидент РФ</option>
-                                                                                                    <option value="2">Незезидент РФ</option>
+                                                                                                    <option value="2">Нерезидент РФ</option>
                                                                                                 </select>
                                                                                             </div>
                                                                                         </div>
