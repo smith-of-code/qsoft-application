@@ -19,6 +19,7 @@ use Bitrix\Sale\BasketPropertyItem;
 use Bitrix\Sale\Order;
 use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
+use QSoft\Helper\OrderHelper;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
@@ -982,6 +983,9 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		while ($arOrder = $this->dbQueryResult['ORDERS']->GetNext())
 		{
+            if ($arOrder['CANCELED'] == 'Y') {
+                $arOrder['STATUS_ID'] = OrderHelper::CANCELLED_STATUS;
+            }
 			if (
 				is_array($this->arParams['RESTRICT_CHANGE_PAYSYSTEM'])
 				&& in_array($arOrder['STATUS_ID'], $this->arParams['RESTRICT_CHANGE_PAYSYSTEM'])
