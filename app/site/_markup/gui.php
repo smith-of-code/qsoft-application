@@ -616,6 +616,30 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
                                     </svg>
                                 </li>
+
+                                <li class="icons__item" title="Icon: jpg">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-jpg"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: jpeg">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-jpeg"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: png">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-png"></use>
+                                    </svg>
+                                </li>
+
+                                <li class="icons__item" title="Icon: heic ">
+                                    <svg class="icon icon--pdf gui__icon gui__icon--big">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-heic"></use>
+                                    </svg>
+                                </li>
                             </ul>
                         </div>
                     </div>
