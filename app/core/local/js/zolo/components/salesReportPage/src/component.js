@@ -73,23 +73,36 @@ export const SalesReportPage = {
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         return this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
                     case 'paid_orders':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count);
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
                     case 'refunded_orders':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count);
-                    case 'orders_count':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.orders_count) < parseInt(b.orders_report.self.orders_count) : parseInt(a.orders_report.self.orders_count) > parseInt(b.orders_report.self.orders_count);
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                    case 'total_sum':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
                     case 'current_bonuses_count':
-                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total);
-                    case 'current_orders_count':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.current_orders_count) < parseInt(b.orders_report.self.current_orders_count) : parseInt(a.orders_report.self.current_orders_count) > parseInt(b.orders_report.self.current_orders_count);
+                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total);
+                    case 'current_period_sum':
+                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
                     case 'last_order_date':
                         aPrepared = a.orders_report.self.last_order_date.split('.');
                         bPrepared = b.orders_report.self.last_order_date.split('.');
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
-                        return this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        if (this.consultantsSortAsc) {
+                            if (isNaN(aDate.getTime())) {
+                                return false;
+                            } else if (isNaN(bDate.getTime())) {
+                                return true;
+                            }
+                            return aDate.getTime() > bDate.getTime();
+                        }
+                        if (isNaN(aDate.getTime())) {
+                            return true;
+                        } else if (isNaN(bDate.getTime())) {
+                            return false;
+                        }
+                        return aDate.getTime() < bDate.getTime();
                     case 'bonuses_count':
-                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total);
+                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total);
                 }
             });
         },
@@ -111,21 +124,32 @@ export const SalesReportPage = {
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
                     case 'paid_orders':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count);
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
                     case 'refunded_orders':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count);
-                    case 'orders_count':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.orders_count) < parseInt(b.orders_report.self.orders_count) : parseInt(a.orders_report.self.orders_count) > parseInt(b.orders_report.self.orders_count);
-                    case 'current_bonuses_count':
-                        return this.buyersSortAsc ? parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total);
-                    case 'current_orders_count':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.current_orders_count) < parseInt(b.orders_report.self.current_orders_count) : parseInt(a.orders_report.self.current_orders_count) > parseInt(b.orders_report.self.current_orders_count);
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                    case 'total_sum':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
+                    case 'current_period_sum':
+                        return this.buyersSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
                     case 'last_order_date':
                         aPrepared = a.orders_report.self.last_order_date.split('.');
                         bPrepared = b.orders_report.self.last_order_date.split('.');
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
-                        return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        if (this.buyersSortAsc) {
+                            if (isNaN(aDate.getTime())) {
+                                return false;
+                            } else if (isNaN(bDate.getTime())) {
+                                return true;
+                            }
+                            return aDate.getTime() > bDate.getTime();
+                        }
+                        if (isNaN(aDate.getTime())) {
+                            return true;
+                        } else if (isNaN(bDate.getTime())) {
+                            return false;
+                        }
+                        return aDate.getTime() < bDate.getTime();
                 }
             });
         },
@@ -277,9 +301,9 @@ export const SalesReportPage = {
                                                                             <option value="date_register">По дате регистрации</option>
                                                                             <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
                                                                             <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
-                                                                            <option value="orders_count">По сумме всех личных заказов</option>
+                                                                            <option value="total_sum">По сумме всех личных заказов</option>
                                                                             <option value="current_bonuses_count">По сумме личных баллов за текущий отчетный период</option>
-                                                                            <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
+                                                                            <option value="current_period_sum">По сумме личных заказов за текущий отчетный период</option>
                                                                             <option value="last_order_date">По дате последнего личного заказа</option>
                                                                             <option value="bonuses_count">По количеству всех заработанных баллов</option>
                                                                         </select>
@@ -361,13 +385,13 @@ export const SalesReportPage = {
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="form__control">
                                                                     <div class="filter__sort select select--small select--sorting select--borderless" data-select>
-                                                                        <select class="select__control" name="select2" id="sort2" data-select-control data-placeholder="Сортировать по">
+                                                                        <select class="select__control" name="buyers_sort" id="buyers_sort" data-select-control data-placeholder="Сортировать по">
                                                                             <option><!-- пустой option для placeholder --></option>
                                                                             <option value="date_register">По дате регистрации</option>
                                                                             <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
                                                                             <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
-                                                                            <option value="orders_count">По сумме всех личных заказов</option>
-                                                                            <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
+                                                                            <option value="total_sum">По сумме всех личных заказов</option>
+                                                                            <option value="current_period_sum">По сумме личных заказов за текущий отчетный период</option>
                                                                             <option value="last_order_date">По дате последнего личного заказа</option>
                                                                         </select>
                             
