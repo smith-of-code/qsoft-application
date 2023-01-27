@@ -21,12 +21,12 @@ function getBasketData(orderId, ofset) {
 }
 
 function setBasketList(data, orderId) {
-
+    let productCartLength = data.PRODUCTS.length;
     let maxProducts = 5;
     let basketTemplate = setBasketTemplate(data, maxProducts)
 
     $('div[data-list-id= ' + orderId + ']').append(basketTemplate['template'])
-    if (basketTemplate['i'] === maxProducts) {
+    if (basketTemplate['i'] === maxProducts && productCartLength > 5) {
         $('[data-look-all=' + orderId + ']').show()
     }
 
