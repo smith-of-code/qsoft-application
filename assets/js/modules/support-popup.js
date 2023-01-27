@@ -12,6 +12,6 @@
              inputMaskInit();
              scrollbar();
              dropzone();
-         }, 200);
+         }, 500);
      })
  }
