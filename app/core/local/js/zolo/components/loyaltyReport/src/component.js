@@ -134,7 +134,7 @@ export const LoyaltyReport = {
             <div class="participant__header box box--rounded-sm" :class="{ 'accordeon__header': accordion, 'participant__item': !accordion, 'box--gray': !accordion }">
                 <div class="participant__row">
                     <div class="participant__col participant__col--avatar">
-                        <div class="participant__avatar avatar avatar--accent">
+                        <div class="participant__avatar avatar avatar--accent avatar--big">
                             <div class="avatar__box">
                                 <img :src="user.photo" class="avatar__picture">
                             </div>
