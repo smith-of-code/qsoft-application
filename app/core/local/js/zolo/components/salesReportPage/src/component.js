@@ -126,8 +126,6 @@ export const SalesReportPage = {
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
-                    case 'bonuses_count':
-                        return this.buyersSortAsc ? parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total);
                 }
             });
         },
@@ -259,7 +257,6 @@ export const SalesReportPage = {
                                                                             <option
                                                                                 v-for="accountingPeriod in consultantAccountingPeriods"
                                                                                 :key="accountingPeriod.name"
-                                                                                :selected="accountingPeriod.name === currentAccountingPeriod.name"
                                                                                 :value="accountingPeriod.from + '-' + accountingPeriod.to"
                                                                             >{{ accountingPeriod.name }}</option>
                                                                         </select>
@@ -349,8 +346,7 @@ export const SalesReportPage = {
                                                                             <option><!-- пустой option для placeholder --></option>
                                                                             <option
                                                                                 v-for="accountingPeriod in buyerAccountingPeriods"
-                                                                                :key="accountingPeriod.name"
-                                                                                :selected="accountingPeriod.name === currentAccountingPeriod.name"
+                                                                                :key="accountingPeriod.name"   
                                                                                 :value="accountingPeriod.from + '-' + accountingPeriod.to"
                                                                             >{{ accountingPeriod.name }}</option>
                                                                         </select>
@@ -371,10 +367,8 @@ export const SalesReportPage = {
                                                                             <option value="paid_orders">По количеству личных заказов со статусом "Оплачен"</option>
                                                                             <option value="refunded_orders">По количеству личных заказов со статусом "Возврат"</option>
                                                                             <option value="orders_count">По сумме всех личных заказов</option>
-                                                                            <option value="current_bonuses_count">По сумме личных баллов за текущий отчетный период</option>
                                                                             <option value="current_orders_count">По сумме личных заказов за текущий отчетный период</option>
                                                                             <option value="last_order_date">По дате последнего личного заказа</option>
-                                                                            <option value="bonuses_count">По количеству всех заработанных баллов</option>
                                                                         </select>
                             
                                                                         <button type="button" class="input__button input__button--select button button--iconed button--covered button--square button--dark" @click="buyersSortAsc = !buyersSortAsc">
@@ -413,7 +407,6 @@ export const SalesReportPage = {
                                                     :current-accounting-period="currentAccountingPeriod"
                                                     :accounting-periods="member.accounting_periods"
                                                     :loyalty-status="member.loyalty_status"
-                                                    :bonuses-income="member.bonuses_income"
                                                     :accordion="true"
                                                 />
                                             </div>

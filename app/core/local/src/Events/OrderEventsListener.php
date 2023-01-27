@@ -38,7 +38,9 @@ class OrderEventsListener
                 if ($bonusesData) {
                     foreach ($bonusesData as $data) {
                         $tmpUser = new User($data['user_id']);
-                        $bonusAccountHelper->addOrderBonuses($tmpUser, $orderId, $data['value'], $data['source'], $data['type']);
+                        if ($user->groups->isConsultant()) {
+                            $bonusAccountHelper->addOrderBonuses($tmpUser, $orderId, $data['value'], $data['source'], $data['type']);
+                        }
                         $bonusAccountHelper->addOrderTransaction($tmpUser, $orderId, $order->getPrice(), $data['type'], $data['source']);
                     }
                 }

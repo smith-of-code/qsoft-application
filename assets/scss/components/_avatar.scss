@@ -6,8 +6,7 @@
     width: rem(60px);
 
     border-radius: 50%;
-    outline: rem(2px) solid $alto;
-    outline-offset: rem(2px);
+    border: rem(2px) solid $alto;
 
     @media #{$screen-desktop} {
         width: rem(52px);
@@ -26,16 +25,16 @@
     }
 
     &:hover {
-        outline: rem(2px) solid $brickRed;
+        border: rem(2px) solid $brickRed;
         box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
     }
 
     &--big {
-        width: rem(60px);
+        width: rem(64px);
     }
 
     &--accent {
-        outline: rem(2px) solid $brickRed;
+        border: rem(2px) solid $brickRed;
         box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
     }
 
@@ -50,5 +49,7 @@
         height: 100%;
 
         object-fit: cover;
+        padding: rem(2px);
+        border-radius: 50%;
     }
 }

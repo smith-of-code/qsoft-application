@@ -172,7 +172,7 @@ export const LegalEntity = {
                                                                     <option
                                                                         value="not_russian"
                                                                         :selected="mutableLegalEntity.documents.nationality === 'not_russian'"
-                                                                    >Незезидент РФ</option>
+                                                                    >Нерезидент РФ</option>
                                                                 </select>
                                                             </div>
                                                         </div>
