@@ -43,6 +43,15 @@ class BonusAccountService
         unset($_SESSION[self::SESSION_BONUS_OFF_KEY]);
     }
 
+    public function getTransactionByOrderId($orderId): array
+    {
+        return TransactionTable::getList([
+            'order' => [],
+            'select' => ['*'],
+            'filter' => ['UF_ORDER_ID' => $orderId]
+        ])->fetchAll();
+    }
+
     public function accrue(int $amount, string $reason, string $source , int $orderId = null)
     {
         TransactionTable::add([
