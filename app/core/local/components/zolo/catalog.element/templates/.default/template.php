@@ -504,7 +504,7 @@ $offerId = $arResult['OFFER_FIRST'];
                                     <a href="<?= $document['SRC'] ?>" class="document__link" download>
                                         <div class="document__icon">
                                             <svg class="icon icon--pdf">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-pdf"></use>
+                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=array_last(explode('.', $document['SRC'])) ?>"></use>
                                             </svg>
                                         </div>
                                         <div class="document__text">
