@@ -74,6 +74,24 @@
         }
     }
 
+    &__item.accordeon__item & {
+        &__avatar {
+            border: rem(2px) solid $alto;
+            box-shadow: none;
+            @media #{$screen-desktop} {
+                width: rem(56px);
+              
+            }
+        }
+    }
+
+    &__item.accordeon__item.accordeon__item--opened & {
+        &__avatar {
+            border: rem(2px) solid $brickRed;
+            box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
+        }
+    }
+
     &__item--main & {
         &__col {
             @media #{$screen-desktop} {
@@ -198,7 +216,7 @@
             margin-right: rem(20px);
 
             @media #{$screen-desktop} {
-                margin-right: rem($gap-medium);
+                margin-right: rem(20px);
             }
         }
 

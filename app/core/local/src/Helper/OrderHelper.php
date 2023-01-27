@@ -168,6 +168,7 @@ class OrderHelper
                 }
             }
 
+            // Бонус за покупку товаров (не считая товары по персональной акции)
             $orderBonusesData[] = [
                 'user_id' => $userId,
                 'value' => $bonuses,
@@ -175,6 +176,7 @@ class OrderHelper
                 'type' => TransactionTable::TYPES['purchase'],
             ];
 
+            // Бонус за покупку товаров (товары по персональной акции)
             if ($bonusesWithPersonalPromotions) {
                 $orderBonusesData[] = [
                     'user_id' => $userId,
@@ -183,6 +185,13 @@ class OrderHelper
                     'type' => TransactionTable::TYPES['purchase_with_personal_promotion'],
                 ];
             }
+        } else { // Добавляем запись, потому что вместе с ней пишется транзакция личной покупки в дальнейшем
+            $orderBonusesData[] = [
+                'user_id' => $userId,
+                'value' => 0,
+                'source' => TransactionTable::SOURCES['personal'],
+                'type' => TransactionTable::TYPES['purchase'],
+            ];
         }
 
         foreach ($user->beneficiariesService->getBeneficiariesIds() as $beneficiaryId) {
@@ -234,12 +243,12 @@ class OrderHelper
     public function getOrdersReport(int $userId, Date $from, Date $to)
     {
         $user = new User($userId);
+        $isConsultant = $user->groups->isConsultant();
 
         $result = [
             'self' => [
                 'total_sum' => .0,
                 'current_period_sum' => .0,
-                'current_period_bonuses' => 0,
                 'orders_count' => 0,
                 'current_orders_count' => 0,
                 'paid_orders_count' => 0,
@@ -252,7 +261,6 @@ class OrderHelper
             'team' => [
                 'total_sum' => .0,
                 'current_period_sum' => .0,
-                'current_period_bonuses' => 0,
                 'orders_count' => 0,
                 'current_orders_count' => 0,
                 'paid_orders_count' => 0,
@@ -263,6 +271,11 @@ class OrderHelper
                 'last_order_date' => null,
             ],
         ];
+
+        if ($isConsultant) {
+            $result['self']['current_period_bonuses'] = 0;
+            $result['team']['current_period_bonuses'] = 0;
+        }
 
         //Считаем личные оплаченные заказы не учитывая транзакции
         $result['self']['paid_orders_count'] = \CSaleOrder::GetList(
@@ -336,6 +349,7 @@ class OrderHelper
                 if (
                     $date->getDiff($from)->invert
                     && !$date->getDiff($to)->invert
+                    && $isConsultant
                 ) $result[$source]['current_period_bonuses'] += $transaction['UF_AMOUNT'];
             } else {
                 $result[$source]['orders_count']++;
@@ -362,6 +376,10 @@ class OrderHelper
         }
         if (count($lastMonthOrders['team'])) {
             $result['team']['last_month_products'] = $this->getOrderProducts($lastMonthOrders['team']);
+        }
+
+        if (! $isConsultant) {
+            unset($result['team']);
         }
 
         return $result;

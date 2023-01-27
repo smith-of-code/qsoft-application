@@ -15,6 +15,7 @@ use \Bitrix\Main\Engine\ActionFilter\Csrf;
 use \QSoft\Entity\User;
 use \Bitrix\Sale\Internals\StatusTable;
 use QSoft\Helper\UserFieldHelper;
+use QSoft\Helper\OrderHelper;
 
 Loader::includeModule('sale');
 Loc::loadMessages(__FILE__);
@@ -101,10 +102,13 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
     private function getOrderDetails(Order $order): array
     {
+
+        $statusId = $order->isCanceled() ? OrderHelper::CANCELLED_STATUS : $order->getField('STATUS_ID');
+
         //Получение названия статуса заказа по краткому обозначению (по ID)
         $statusName = StatusTable::getRow([
             'select' => ['NAME' => 'STATUS_LANG.NAME'],
-            'filter' => ['ID' => $order->getField('STATUS_ID')],
+            'filter' => ['ID' => $statusId],
         ]);
 
         $bonuses = 0;
@@ -124,7 +128,7 @@ class PersonalOrderDetailComponent extends CBitrixComponent implements Controlle
 
         return [
             'ORDER_ID' => $order->getId(), // == arParams['ORDER_ID']
-            'STATUS_ID' => $order->getField('STATUS_ID'),
+            'STATUS_ID' => $statusId,
             'CREATED_AT' => $order->getDateInsert()->format('d.m.Y'),
             'CREATED_BY' => $this->user->getPersonalData()['name_initials'],
             'ORDER_STATUS' => $statusName['NAME'],

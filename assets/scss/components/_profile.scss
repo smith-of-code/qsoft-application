@@ -8,11 +8,17 @@
     }
 
     &__block {
+        padding: 0;
+        border-radius: rem($border-radius-average);
         .file__delete {
             display: none;
         }
         .file__upload {
             display: block;
+        }
+
+        &.accordeon__item {
+            cursor: default;
         }
 
         & + & {

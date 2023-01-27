@@ -149,7 +149,7 @@ export const PersonalData = {
     },
 
     template: `
-        <div class="profile__block" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div class="profile__block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing }">
             <section class="section">
                 <form class="form form--wraped form--separated" action="" method="post" data-profile-form data-validation="profile">
                     <div class="section__box box box--gray box--rounded-sm">
@@ -241,6 +241,7 @@ export const PersonalData = {
 
                                 <div class="section__box-inner section__box-inner--full">
                                     <div class="section__box-content section__box-content--collapsed box box--white box--rounded-sm box--inner" data-identic data-validate-dependent>
+                                    <div class="section__box-block">
                                         <div class="form__row form__row--special">
                                             <div class="form__col">
                                                 <div class="form__field">
@@ -635,6 +636,7 @@ export const PersonalData = {
                                                 </ul>
                                             </div>
                                         </div>
+                                    </div>    
                                     </div>
                                 </div>
                             </div>

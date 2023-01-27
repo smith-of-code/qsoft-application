@@ -107,34 +107,27 @@ class LoyaltySalesReportComponent extends CBitrixComponent implements Controller
 
     public function getUserData(User $user, ?array $accountingPeriod = null): array
     {
+        $result = [];
+
         if (!$accountingPeriod) {
             $accountingPeriod = $this->currentAccountingPeriod;
         }
 
-        return [
-            'user_info' => $user->groups->isConsultant() ? $user->getPersonalData() : array_merge($user->getPersonalData(), [
-                'pets' => array_map(
-                    static fn (string $petKindCode): string => strtolower(str_replace('KIND_', '', $petKindCode)),
-                    array_column(array_column($this->petHelper->getUserPets($user->id), 'kind'), 'code'),
-                ),
-            ]),
-            'accounting_periods' => $this->loyaltyProgramHelper->getAvailableAccountingPeriods($user->id),
-            'orders_report' => $this->orderHelper->getOrdersReport(
-                $user->id,
-                $accountingPeriod['from'],
-                $accountingPeriod['to'],
+        $result['user_info'] = $user->groups->isConsultant() ? $user->getPersonalData() : array_merge($user->getPersonalData(), [
+            'pets' => array_map(
+                static fn (string $petKindCode): string => strtolower(str_replace('KIND_', '', $petKindCode)),
+                array_column(array_column($this->petHelper->getUserPets($user->id), 'kind'), 'code'),
             ),
-            'bonuses_income' => $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod(
-                $user->id,
-                $accountingPeriod['from'],
-                $accountingPeriod['to'],
-            ),
-            'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
-                $user->id,
-                $accountingPeriod['from'],
-                $accountingPeriod['to'],
-            ),
-        ];
+        ]);
+        $result['accounting_periods'] = $this->loyaltyProgramHelper->getAvailableAccountingPeriods($user->id);
+        $result['orders_report'] = $this->orderHelper->getOrdersReport($user->id, $accountingPeriod['from'], $accountingPeriod['to']);
+
+        if ($user->groups->isConsultant()) {
+            $result['bonuses_income'] = $this->loyaltyProgramHelper->getPersonalBonusesIncomeByPeriod($user->id, $accountingPeriod['from'], $accountingPeriod['to']);
+        }
+        $result['loyalty_status'] = $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod($user->id, $accountingPeriod['from'], $accountingPeriod['to']);
+
+        return $result;
     }
 
     public function configureActions(): array

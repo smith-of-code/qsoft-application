@@ -123,6 +123,22 @@
                 color: $brickRed;
             }
         }
+
+        &__item:hover {
+            .accordeon__title {
+                @media #{$screen-desktop} {
+                    color: $brickRed;
+                }
+            }
+        }
+    }
+
+    &__item {
+        .accordeon__item .accordeon__title {
+            @media #{$screen-desktop} {
+                color: $tuna;
+            }
+        }
     }
 
     &__item.accordeon__item--opened & {
@@ -145,6 +161,42 @@
         &__avatar {
             outline: rem(2px) solid $brickRed;
             box-shadow: 0 rem(4px) rem(16px) rgba(#c91430, .24);
+        }
+
+        &__item {
+            .accordeon__toggle {
+                &-icon {
+                    transform: rotate(0deg) !important;
+    
+                    color: $tuna !important;
+                }
+            }
+
+            .accordeon__title {
+                color: $tuna !important;
+    
+                &--dark {
+                    color: $tuna !important;
+                }
+            }
+        }
+
+        &__item.accordeon__item--opened {
+            .accordeon__toggle {
+                &-icon {
+                    transform: rotate(180deg) !important;
+    
+                    color: $brickRed !important;
+                }
+            }
+
+            .accordeon__title {
+                color: $brickRed !important;
+    
+                &--dark {
+                    color: $tuna !important;
+                }
+            }
         }
     }
 

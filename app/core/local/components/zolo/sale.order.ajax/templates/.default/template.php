@@ -20,7 +20,7 @@ else:?>
     <main class="page__basket-order basket-order basket">
 
         <h1 class="page__heading">Оформление заказа</h1>
-        
+
         <div class="content__main" id="content-block">
             <div class="basket__row">
                 <div class="basket__col basket__col--full">
@@ -97,11 +97,11 @@ else:?>
 
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="input">
-                                                        <input type="text" 
-                                                            class="input__control" 
+                                                        <input type="text"
+                                                            class="input__control"
                                                             value="<?=$arResult['ORDER_DELIVERY_DATE'] ?>"
                                                             name="delivery_date"
-                                                            id="delivery-date-required" 
+                                                            id="delivery-date-required"
                                                             placeholder="Дата доставки"
                                                             placeholder="ДД.ММ.ГГГГ"
                                                             data-mask-date-delivery
@@ -235,7 +235,7 @@ else:?>
                             </div>
                         </form>
                     </div>
-                    
+
                 </div>
                 <div class="basket__col basket__col--limited">
                     <div class="basket__order">
@@ -256,8 +256,8 @@ else:?>
                                         <span class="basket-card__point">
                                             ................................................................................................................................................................................................................................................................................................................................................................................................
                                         </span>
-                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['BASKET_BASE_PRICE'], 0, ' ', ' '?>">
-                                            
+                                        <span class="basket-card__total" data-order-total="<?=$arResult['BASKET']['BASKET_BASE_PRICE']?>">
+
                                             <span class="basket-card__total-whole"></span>
                                             <span class="basket-card__total-remains"></span>
                                         </span>
@@ -267,7 +267,7 @@ else:?>
                                         <span class="basket-card__point">
                                             ................................................................................................................................................................................................................................................................................................................................................................................................
                                         </span>
-                                        <span class="basket-card__total basket-card__text--green" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT'], 0, ' ', ' '?>">
+                                        <span class="basket-card__total basket-card__text--green" data-order-total="<?=$arResult['BASKET']['TOTAL_DISCOUNT']?>">
                                             <span class="basket-card__total-whole"></span>
                                             <span class="basket-card__total-remains"></span>
                                         </span>
@@ -286,7 +286,7 @@ else:?>
                                         <span class="basket-card__point">
                                             ................................................................................................................................................................................................................................................................................................................................................................................................
                                         </span>
-                                        <span class="basket-card__total basket-card__total--bold" data-order-total="<?=$arResult['BASKET']['BASKET_PRICE'], 0, ' ', ' '?>">
+                                        <span class="basket-card__total basket-card__total--bold" data-order-total="<?=$arResult['BASKET']['BASKET_PRICE']?>">
                                             <span class="basket-card__total-whole"></span>
                                             <span class="basket-card__total-remains"></span>
                                         </span>

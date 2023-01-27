@@ -376,7 +376,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--Наставник-->
         <?php $mentor = $arResult['MENTOR_INFO']; ?>
         <?php if ($mentor):?>
-            <div class="profile__block" data-accordeon>
+            <div class="profile__block accordeon__item" data-accordeon>
                 <section class="section">
                     <form class="form form--wraped form--separated" action="" method="post">
                         <div class="section__box box box--gray box--rounded-sm">
@@ -387,10 +387,10 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                     <h4 class="section__title section__title--closer">Контактное лицо</h4>
                                 <?php endif;?>
                                 <div class="profile__actions">
-                                    <button type="button"
+                                    <a type="button"
                                             class="profile__actions-button profile__actions-button--edit button button--simple button--red"
                                             data-fancybox data-modal-type="modal"
-                                            data-src="#technical-support" data-selected="CHANGE_MENTOR"
+                                            href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
                                 >
                                         <span class="button__icon">
                                             <svg class="icon icon--repeat">
@@ -398,7 +398,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                             </svg>
                                         </span>
                                         <span class="button__text">Сменить наставника</span>
-                                    </button>
+                                    </a>
 
                                     <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
                                         <span class="accordeon__toggle-icon button__icon">
@@ -412,15 +412,15 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                             <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                                 <div class="profile__actions profile__actions--mobile">
-                                    <button type="button" class="profile__actions-button button button--simple button--red" data-fancybox data-modal-type="modal"
-                                    data-src="#technical-support" data-selected="CHANGE_MENTOR">
+                                    <a type="button" class="profile__actions-button button button--simple button--red" data-fancybox data-modal-type="modal"
+                                    href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR">
                                         <span class="button__icon">
                                             <svg class="icon icon--repeat">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
                                             </svg>
                                         </span>
                                         <span class="button__text">Сменить наставника</span>
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div class="section__wrapper">
@@ -574,7 +574,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
         <!--/Наставник-->
 
         <!--Система лояльности-->
-        <div class="profile__block" data-accordeon>
+        <div class="profile__block accordeon__item" data-accordeon>
             <section class="section">
                 <div class="section__box box box--gray box--rounded-sm">
                     <div class="profile__accordeon-header accordeon__header section__header">
@@ -1076,7 +1076,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
         <!--Персональные акции-->
         <?php if ($arResult['promotion_orders'] || $arResult['personal_promotions']):?>
-            <div class="profile__block" data-accordeon>
+            <div class="profile__block accordeon__item" data-accordeon>
                 <section class="section">
                     <div class="section__box box box--gray box--rounded-sm">
                         <div class="profile__accordeon-header accordeon__header section__header">

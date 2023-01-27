@@ -228,15 +228,17 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
                             </div>
 
                             <!-- Кнопка Вернуть заказ -->
-                            <button type="button" class="card-order__return button button--simple button--red" data-fancybox data-modal-type="modal"
-                                    data-src="#technical-support" data-selected="REFUND_ORDER">
-                                <span class="button__icon">
-                                    <svg class="icon icon--return">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-return"></use>
-                                    </svg>
-                                </span>
-                                <span class="button__text"><?=Loc::getMessage("RETURN_ORDER_BUTTON")?></span>
-                            </button>
+                            <?php if (in_array($details['STATUS_ID'], OrderHelper::SUCCESS_STATUSES)) :?>
+                                <a type="button" class="card-order__return button button--simple button--red" data-fancybox data-modal-type="modal"
+                                   href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="REFUND_ORDER">
+                                    <span class="button__icon">
+                                        <svg class="icon icon--return">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-return"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="button__text"><?=Loc::getMessage("RETURN_ORDER_BUTTON")?></span>
+                                </a>
+                            <?php endif;?>
 
                         </div>
                     </div>

@@ -12,8 +12,9 @@ export default function () {
 
         let id = $(this).data('tab');
         let container = $(this).closest(ELEMENTS_SELECTOR.tabs);
+        let tabList = $(this).closest('.tabs__list');
 
-        container.find(ELEMENTS_SELECTOR.tab).removeClass('tabs__item--active');
+        tabList.find(ELEMENTS_SELECTOR.tab).removeClass('tabs__item--active');
         container.find(`[${ELEMENTS_SELECTOR.section}]`).removeClass('tabs__block--active');
 
         $(this).addClass('tabs__item--active');
