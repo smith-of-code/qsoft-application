@@ -283,6 +283,17 @@
             &--label {
                 margin-top: rem(6px);
             }
+
+            &--label-mini {
+                .form__label {
+                    display: flex;
+                }
+
+                .form__label-text {
+                    line-height: 1;
+                    height: 13px;
+                }
+            }
         }
 
         &-label {
@@ -344,7 +355,7 @@
 
                 background-image: url('/local/templates/.default/images/icons/snowflake.svg');
 
-                
+
             }
         }
 

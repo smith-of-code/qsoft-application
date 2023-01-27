@@ -25,7 +25,7 @@ Loc::loadMessages(__FILE__);
                         <div class="form__field-block form__field-block--input">
                             <div class="form__control">
                                 <div class="select select--mitigate" data-select>
-                                    <select class="select__control js-required" name="TICKET_TYPE" id="ticket-type" data-select-control data-placeholder="Выберите вариант" data-option>
+                                    <select class="select__control select__control--black js-required" name="TICKET_TYPE" id="ticket-type" data-select-control data-placeholder="Выберите вариант" data-option>
                                         <option><!-- пустой option для placeholder --></option>
                                         <option value="CHANGE_OF_PERSONAL_DATA" data-variant="CHANGE_OF_PERSONAL_DATA">Смена персональных данных</option>
                                         <option value="REFUND_ORDER" data-variant="REFUND_ORDER">Возврат заказа</option>
@@ -41,7 +41,7 @@ Loc::loadMessages(__FILE__);
                         <div class="form__col">
                             <div class="form__field">
                                 <div class="form__field-block form__field-block--label">
-                                    <label for="EMAIL" class="form__label">
+                                    <label for="EMAIL" class="form__label form__label--required">
                                         <span class="form__label-text">Email</span>
                                     </label>
                                 </div>
@@ -160,7 +160,7 @@ Loc::loadMessages(__FILE__);
                 <div class="form__row">
                     <div class="form__col">
                         <div class="form__field">
-                            <div class="form__field-block form__field-block--label">
+                            <div class="form__field-block form__field-block--label form__field-block--label-mini">
                                 <label for="MESSAGE" class="form__label">
                                     <span class="form__label-text">Комментарий</span>
                                 </label>
