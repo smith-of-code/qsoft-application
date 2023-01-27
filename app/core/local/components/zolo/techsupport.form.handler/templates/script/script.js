@@ -2,27 +2,12 @@ const SUPPORT_TYPE = ["CHANGE_MENTOR", "CHANGE_OF_PERSONAL_DATA", "SUPPORT", "RE
 
 $(document).on("change", "[data-select]", function () {
     initSendForm();
-    initCheckbox();
     let selected = $('#ticket-type').val();
     if (selected !== "undefined") {
         changeForm(selected);
     }
 });
 
-
-function initCheckbox () {
-    $('input[name=without_second_name]').on('change', function() {
-        const input = $('input[name=SECOND_NAME]');
-        if ($(`input[name=without_second_name]:checked`).length) {
-            input.val('');
-            input.removeClass('input__control--error');
-            input.parent().find('.input__control-error').remove();
-            input.attr('disabled', true);
-        } else {
-            input.attr('disabled', null);
-        }
-    });
-}
 
 function changeForm(savedSelected) {
     for (let key in SUPPORT_TYPE) {
@@ -43,6 +28,18 @@ function changeForm(savedSelected) {
 function initSendForm() {
     $('[data-validation="support"]').validate({
         submitHandler: () => {
+            let dataList = [];
+            $("[data-dropzone-file]").each(function() {
+                dataList.push($(this).val());
+            })
+
+            if ($('#ticket-type').val()  === "CHANGE_OF_PERSONAL_DATA" && dataList.length == 0) {
+                $('.dropzone__control').parent().addClass('dropzone--error');
+                return false;
+            } else {
+                $('.dropzone__control').parent().removeClass('dropzone--error');
+            }
+
             let fields = {
                 TICKET_TYPE: $('#ticket-type').val(),
                 MESSAGE: $('#other-message').val(),
@@ -52,11 +49,9 @@ function initSendForm() {
                 SECOND_NAME: $('#personal-second-name').val(),
                 PERSONAL_BIRTHDAY: $('#birthdate').val(),
                 NEW_MENTOR_ID: $('#new-mentor-id').val(),
-                COUSES: $('#couses-change').find(":selected").text()
+                COUSES: $('#couses-change').find(":selected").text(),
+                FILES: dataList
             };
-            if ($('[data-dropzone-file]')){
-                fields.PERSONAL_PHOTO =  $('[data-dropzone-file]').val();
-            }
 
             if (fields.TICKET_TYPE === "CHANGE_OF_PERSONAL_DATA") {
                 fields.MESSAGE = $('#message-personal').val()

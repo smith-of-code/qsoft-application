@@ -186,19 +186,22 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
      */
     private function getFields(array $fields): array
     {
+        $files =[];
+        foreach ($fields['FILES'] as $fileId) {
+            $files[] = CFile::MakeFileArray($fileId);
+        }
+
+
         $user = new User();
         $data = [
-            'NAME' => $fields['NAME'],
-            'LAST_NAME' => $fields['LAST_NAME'],
-            'SECOND_NAME' => $fields['SECOND_NAME'],
-            'PERSONAL_BIRTHDAY' => $fields['PERSONAL_BIRTHDAY'],
+            'NAME' => ($fields['NAME'] != '') ? $fields['NAME'] : $user->name,
+            'LAST_NAME' => ($fields['LAST_NAME'] != '') ? $fields['LAST_NAME'] : $user->lastName,
+            'SECOND_NAME' => ($fields['SECOND_NAME'] != '') ? $fields['SECOND_NAME'] : $user->secondName,
+            'PERSONAL_BIRTHDAY' => ($fields['PERSONAL_BIRTHDAY'] != '') ? $fields['PERSONAL_BIRTHDAY'] : $user->birthday->format('d.m.Y'),
             'MESSAGE' => $fields['MESSAGE'],
             'USER_ID' => $user->id,
+            'FILES' => $files
         ];
-
-        if ($fields['PERSONAL_PHOTO']) {
-            $data['PERSONAL_PHOTO'] = CFile::MakeFileArray($fields['PERSONAL_PHOTO']);
-        }
 
         return [
             self::TICKET_TYPES['CHANGE_OF_PERSONAL_DATA'] => [
