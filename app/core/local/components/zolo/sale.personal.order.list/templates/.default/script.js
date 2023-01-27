@@ -1,5 +1,4 @@
 
-
 function getBasketData(orderId, ofset) {
     BX.ajax.runComponentAction('zolo:sale.personal.order.detail', 'loadProducts', {
         mode: 'class',
@@ -21,12 +20,12 @@ function getBasketData(orderId, ofset) {
 }
 
 function setBasketList(data, orderId) {
-
+    let productCartLength = data.PRODUCTS.length;
     let maxProducts = 5;
     let basketTemplate = setBasketTemplate(data, maxProducts)
 
     $('div[data-list-id= ' + orderId + ']').append(basketTemplate['template'])
-    if (basketTemplate['i'] === maxProducts) {
+    if (basketTemplate['i'] === maxProducts && productCartLength > maxProducts) {
         $('[data-look-all=' + orderId + ']').show()
     }
 
