@@ -291,6 +291,12 @@
     
                 border-radius: rem($border-radius-middle);
                 background-color: $white;
+
+                &--opened {
+                    .accordeon__title {
+                        color: $tuna; 
+                    }
+                }
             }
 
             &__header {
