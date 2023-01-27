@@ -64,14 +64,14 @@ Loc::loadMessages(__FILE__);
                     <div class="form__col">
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <label for="LAST_NAME" class="form__label form__label--required">
+                                <label for="LAST_NAME" class="form__label">
                                     <span class="form__label-text">Актуальная фамилия</span>
                                 </label>
                             </div>
 
                             <div class="form__field-block form__field-block--input">
                                 <div class="input">
-                                    <input type="text" class="input__control js-required" name="LAST_NAME" id="personal-last-name" placeholder="Введите фамилию"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                    <input type="text" class="input__control" name="LAST_NAME" id="personal-last-name" placeholder="Введите фамилию"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
                                     <span class="input__control-error" style="display:none;"></span>
                                 </div>
                             </div>
@@ -83,14 +83,14 @@ Loc::loadMessages(__FILE__);
                     <div class="form__col">
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <label for="NAME" class="form__label form__label--required">
+                                <label for="NAME" class="form__label">
                                     <span class="form__label-text">Актуальное имя</span>
                                 </label>
                             </div>
 
                             <div class="form__field-block form__field-block--input">
                                 <div class="input">
-                                    <input type="text" class="input__control js-required" name="NAME" id="personal-name" placeholder="Введите имя"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                    <input type="text" class="input__control" name="NAME" id="personal-name" placeholder="Введите имя"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
                                     <span class="input__control-error" style="display:none;"></span>
                                 </div>
                             </div>
@@ -102,14 +102,14 @@ Loc::loadMessages(__FILE__);
                     <div class="form__col">
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <label for="SECOND_NAME" class="form__label form__label--required">
+                                <label for="SECOND_NAME" class="form__label">
                                     <span class="form__label-text">Актуальное отчество</span>
                                 </label>
                             </div>
 
                             <div class="form__field-block form__field-block--input">
                                 <div class="input">
-                                    <input type="text" class="input__control js-required" name="SECOND_NAME" id="personal-second-name" placeholder="Введите отчество"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
+                                    <input type="text" class="input__control" name="SECOND_NAME" id="personal-second-name" placeholder="Введите отчество"  data-variant-value="CHANGE_OF_PERSONAL_DATA">
                                     <span class="input__control-error" style="display:none;"></span>
                                 </div>
                             </div>
@@ -120,33 +120,8 @@ Loc::loadMessages(__FILE__);
                 <div class="form__row">
                     <div class="form__col">
                         <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="without_second_name"
-                                        id="without_second_name"
-                                >
-
-                                <label for="without_second_name" class="checkbox__label">
-                                        <span class="checkbox__icon">
-                                            <svg class="checkbox__icon-pic icon icon--check">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
-                                            </svg>
-                                        </span>
-
-                                    <span class="checkbox__text">У меня нет отчества</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form__row">
-                    <div class="form__col">
-                        <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <label for="birthdate" class="form__label form__label--required">
+                                <label for="birthdate" class="form__label">
                                     <span class="form__label-text">Дата рождения</span>
                                 </label>
                             </div>
@@ -154,7 +129,7 @@ Loc::loadMessages(__FILE__);
                             <div class="form__field-block form__field-block--input">
                                 <div class="input input--iconed">
                                     <input inputmode="numeric"
-                                        class="input__control js-required"
+                                        class="input__control"
                                         name="birthdate"
                                         id="birthdate"
                                         placeholder="ДД.ММ.ГГГГ"
@@ -174,9 +149,9 @@ Loc::loadMessages(__FILE__);
 
                 <div class="form__row">
                     <div class="form__col">
-                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', 'photo', [
-                            'NAME' => 'photo',
-                            'PHOTO' => $arResult['photo'],
+                        <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
+                            'NAME' => 'files',
+                            'FILES' => $arResult['files'],
                             'REQUEST_URL' => '/ajax/popup/popup-support.php'
                         ])?>
                     </div>

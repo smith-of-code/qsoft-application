@@ -15,6 +15,9 @@
             </div>
 
             <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red"
+            <?php if ($arParams['REQUEST_URL']) :?>
+                data-request-url="<?=$arParams['REQUEST_URL']?>"
+            <?php endif;?>
             data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php"}'>
                 <span class="button__icon">
                     <svg class="icon icon--import">

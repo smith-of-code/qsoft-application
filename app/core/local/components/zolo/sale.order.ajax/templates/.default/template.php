@@ -16,7 +16,7 @@ use Bitrix\Main\Application;
 elseif ($arParams['DISABLE_BASKET_REDIRECT'] === 'Y' && $arResult['SHOW_EMPTY_BASKET']):
 	include(Application::getDocumentRoot() . "$templateFolder/empty.php");
 else:?>
-<div class="container">
+<div class="">
     <main class="page__basket-order basket-order basket">
 
         <h1 class="page__heading">Оформление заказа</h1>
