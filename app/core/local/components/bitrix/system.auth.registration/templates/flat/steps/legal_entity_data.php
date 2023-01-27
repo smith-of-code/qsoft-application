@@ -57,7 +57,7 @@
                                             <select class="select__control" name="nationality" id="nationality" data-select-control data-placeholder="Выберите гражданство">
                                                 <option><!-- пустой option для placeholder --></option>
                                                 <option value="russian" <?=$arResult['nationality'] === 'russian' ? 'selected' : ''?>>Резидент РФ</option>
-                                                <option value="not_russian" <?=$arResult['nationality'] === 'not_russian' ? 'selected' : ''?>>Незезидент РФ</option>
+                                                <option value="not_russian" <?=$arResult['nationality'] === 'not_russian' ? 'selected' : ''?>>Нерезидент РФ</option>
                                             </select>
                                         </div>
                                     </div>
