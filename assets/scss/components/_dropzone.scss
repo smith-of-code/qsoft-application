@@ -111,6 +111,41 @@
         padding: 0;
     }
 
+    &--tech {
+        .file__wrapper {
+            width: 100%;
+        }
+
+        .file__info {
+            width: auto;
+        }
+
+        .file__name {
+            width: 122px;
+            margin-right: rem(8px);
+        }
+
+        .file__format {
+            width: rem(33px);
+            margin-right: rem(12px);
+            margin-left: 0;
+        }
+
+        .file__weight {
+            width: rem(74px);
+            margin-right: rem(8px);
+            margin-left: 0;
+        }
+        .file__delete {
+            margin-left: 0;
+            margin-right: rem(8px);
+        }
+
+        .file__upload {
+            margin-left: 0;
+        }
+    }
+
     &__message {
         &--simple {
             flex-direction: column;

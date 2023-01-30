@@ -40,6 +40,27 @@
         }
     }
 
+    &--required & {
+        &__text {
+            overflow: visible;
+            position: relative;
+        }
+
+        &__text::after {
+            $size: 6px;
+            position: absolute;
+            top: 0;
+            right: rem(-8px);
+
+            content: '';
+
+            width: rem($size);
+            height: rem($size);
+
+            background-image: url('/local/templates/.default/images/icons/snowflake.svg');
+        }
+    }
+
     &--vertical {
         flex-direction: column;
     }
