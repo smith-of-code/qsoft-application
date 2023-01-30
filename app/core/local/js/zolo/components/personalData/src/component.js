@@ -210,7 +210,7 @@ export const PersonalData = {
                                                 </div>
 
                                                 <div class="profile__toggle">
-                                                    <button type="button" class="dropzone__button button button--medium button--rounded button--outlined button--green" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic"}'>
+                                                    <button type="button" class="dropzone__button button button--medium button--rounded button--outlined button--green" data-uploader-area='{"paramName": "photo", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic" ,"maxFiles": "1", "maxFileSize": "3" }'>
                                                         <span class="button__icon">
                                                             <svg class="icon icon--import">
                                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -224,8 +224,8 @@ export const PersonalData = {
                                                     <h6 class="dropzone__message-title">Требования к фото:</h6>
                                                     <ul class="dropzone__message-list">
                                                         <li class="dropzone__message-item">формат jpg, jpeg, png, heic</li>
-                                                        <li class="dropzone__message-item">размер 240 Х 320 px</li>
-                                                        <li class="dropzone__message-item">вес не более 1МБ</li>
+                                                        <li class="dropzone__message-item">размер 720 Х 1280 px</li>
+                                                        <li class="dropzone__message-item">вес не более 3МБ</li>
                                                     </ul>
                                                 </div>
                                             </div>
