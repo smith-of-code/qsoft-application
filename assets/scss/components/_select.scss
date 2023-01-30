@@ -634,4 +634,8 @@
         right: rem(11px) !important;
     }
 
+    .select__control.select__control--black + .select2.select2-container--default .select2-selection--single {
+        border: rem(1px) solid $tuna;
+    }
+
 }
