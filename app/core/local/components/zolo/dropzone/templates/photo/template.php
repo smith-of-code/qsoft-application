@@ -34,7 +34,7 @@
                     </ul>
                 </div>
 
-                <button type="button" class="dropzone__button dropzone__button--wide button button--medium button--rounded button--outlined button--red"
+                <button type="button" class="dropzone__button button button--medium button--rounded button--covered button--red"
                         <?php if ($arParams['REQUEST_URL']) :?>
                             data-request-url="<?=$arParams['REQUEST_URL']?>"
                         <?php endif;?>

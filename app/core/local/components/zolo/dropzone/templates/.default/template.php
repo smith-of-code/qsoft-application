@@ -1,6 +1,6 @@
 <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die()?>
 
-<div class="dropzone dropzone--tech" data-uploader>
+<div class="dropzone <?=$arParams['THEME'] == 'FAQ' ? 'dropzone--tech' : ''?>" data-uploader>
     <input type="file" name="<?=$arParams['NAME']?>" multiple class="dropzone__control">
 
     <div class="dropzone__area">
@@ -14,7 +14,8 @@
                 </ul>
             </div>
 
-            <button type="button" class="dropzone__button dropzone__button--wide button button--medium button--rounded button--outlined button--red button--required"
+            <button type="button" class="dropzone__button button button--medium button--rounded button--red
+            <?=$arParams['THEME'] == 'FAQ' ? 'button--outlined button--required dropzone__button--wide' : 'button--covered'?>"
             <?php if ($arParams['REQUEST_URL']) :?>
                 data-request-url="<?=$arParams['REQUEST_URL']?>"
             <?php endif;?>

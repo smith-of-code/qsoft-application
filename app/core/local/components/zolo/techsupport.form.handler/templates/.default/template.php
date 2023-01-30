@@ -152,6 +152,7 @@ Loc::loadMessages(__FILE__);
                         <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                             'NAME' => 'files',
                             'FILES' => $arResult['files'],
+                            'THEME' => 'FAQ',
                             'REQUEST_URL' => '/ajax/popup/popup-support.php'
                         ])?>
                     </div>
