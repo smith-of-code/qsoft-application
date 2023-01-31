@@ -38,7 +38,7 @@
                         <?php if ($arParams['REQUEST_URL']) :?>
                             data-request-url="<?=$arParams['REQUEST_URL']?>"
                         <?php endif;?>
-                        data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic", "maxFiles": 1, "maxFileSize": 6}'>
+                        data-uploader-area='{"paramName": "<?=$arParams['NAME']?>", "url":"/_markup/gui.php", "images": true, "single": true, "acceptedFiles": ".jpg, .jpeg, .png, .heic", "maxFiles": 1, "maxFileSize": 3}'>
                     <span class="button__icon">
                         <svg class="icon icon--import">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
