@@ -59,29 +59,37 @@ export const SalesReportPage = {
                     ? this.consultantsLoyaltyLevelFilter.includes(consultant.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                let aPrepared, bPrepared, aDate, bDate;
+                let result, aPrepared, bPrepared, aDate, bDate;
 
                 switch (this.consultantsSort) {
                     case 'id':
-                        return this.consultantsSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                        result = this.consultantsSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                        break;
                     case 'loyalty_level':
-                        return this.consultantsSortAsc ? a.user_info.loyalty_level > b.user_info.loyalty_level : a.user_info.loyalty_level < b.user_info.loyalty_level;
+                        result = this.consultantsSortAsc ? a.user_info.loyalty_level > b.user_info.loyalty_level : a.user_info.loyalty_level < b.user_info.loyalty_level;
+                        break;
                     case 'date_register':
                         aPrepared = a.user_info.date_register.split('.');
                         bPrepared = b.user_info.date_register.split('.');
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
-                        return this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        result = this.consultantsSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        break;
                     case 'paid_orders':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
+                        result = this.consultantsSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
+                        break;
                     case 'refunded_orders':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                        result = this.consultantsSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                        break;
                     case 'total_sum':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
+                        result = this.consultantsSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
+                        break;
                     case 'current_bonuses_count':
-                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total);
+                        result = this.consultantsSortAsc ? parseInt(a.bonuses_income.total) > parseInt(b.bonuses_income.total) : parseInt(a.bonuses_income.total) < parseInt(b.bonuses_income.total);
+                        break;
                     case 'current_period_sum':
-                        return this.consultantsSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
+                        result = this.consultantsSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
+                        break;
                     case 'last_order_date':
                         aPrepared = a.orders_report.self.last_order_date.split('.');
                         bPrepared = b.orders_report.self.last_order_date.split('.');
@@ -89,21 +97,24 @@ export const SalesReportPage = {
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         if (this.consultantsSortAsc) {
                             if (isNaN(aDate.getTime())) {
-                                return false;
+                                result = false;
                             } else if (isNaN(bDate.getTime())) {
-                                return true;
+                                result = true;
                             }
-                            return aDate.getTime() > bDate.getTime();
+                            result = aDate.getTime() > bDate.getTime();
                         }
                         if (isNaN(aDate.getTime())) {
-                            return true;
+                            result = true;
                         } else if (isNaN(bDate.getTime())) {
-                            return false;
+                            result = false;
                         }
-                        return aDate.getTime() < bDate.getTime();
+                        result = aDate.getTime() < bDate.getTime();
+                        break;
                     case 'bonuses_count':
-                        return this.consultantsSortAsc ? parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total);
+                        result = this.consultantsSortAsc ? parseInt(a.bonuses_income.all_total) > parseInt(b.bonuses_income.all_total) : parseInt(a.bonuses_income.all_total) < parseInt(b.bonuses_income.all_total);
+                        break;
                 }
+                return result ? 1 : -1;
             });
         },
         buyersMembers() {
@@ -112,25 +123,31 @@ export const SalesReportPage = {
                     ? this.buyersLoyaltyLevelFilter.includes(buyer.user_info.loyalty_level)
                     : true;
             }).sort((a, b) => {
-                let aPrepared, bPrepared, aDate, bDate;
+                let result, aPrepared, bPrepared, aDate, bDate;
 
                 switch (this.buyersSort) {
                     case 'id':
-                        return this.buyersSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                        result = this.buyersSortAsc ? parseInt(a.user_info.id) > parseInt(b.user_info.id) : parseInt(a.user_info.id) < parseInt(b.user_info.id);
+                        break;
                     case 'date_register':
                         aPrepared = a.user_info.date_register.split('.');
                         bPrepared = b.user_info.date_register.split('.');
                         aDate = new Date(`${aPrepared[2]}-${aPrepared[1]}-${aPrepared[0]}`);
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
-                        return this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        result = this.buyersSortAsc ? aDate.getTime() > bDate.getTime() : aDate.getTime() < bDate.getTime();
+                        break;
                     case 'paid_orders':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
+                        result = this.buyersSortAsc ? parseInt(a.orders_report.self.paid_orders_count) > parseInt(b.orders_report.self.paid_orders_count) : parseInt(a.orders_report.self.paid_orders_count) < parseInt(b.orders_report.self.paid_orders_count);
+                        break;
                     case 'refunded_orders':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                        result = this.buyersSortAsc ? parseInt(a.orders_report.self.refunded_orders_count) > parseInt(b.orders_report.self.refunded_orders_count) : parseInt(a.orders_report.self.refunded_orders_count) < parseInt(b.orders_report.self.refunded_orders_count);
+                        break;
                     case 'total_sum':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
+                        result = this.buyersSortAsc ? parseInt(a.orders_report.self.total_sum) > parseInt(b.orders_report.self.total_sum) : parseInt(a.orders_report.self.total_sum) < parseInt(b.orders_report.self.total_sum);
+                        break;
                     case 'current_period_sum':
-                        return this.buyersSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
+                        result = this.buyersSortAsc ? parseInt(a.orders_report.self.current_period_sum) > parseInt(b.orders_report.self.current_period_sum) : parseInt(a.orders_report.self.current_period_sum) < parseInt(b.orders_report.self.current_period_sum);
+                        break;
                     case 'last_order_date':
                         aPrepared = a.orders_report.self.last_order_date.split('.');
                         bPrepared = b.orders_report.self.last_order_date.split('.');
@@ -138,19 +155,21 @@ export const SalesReportPage = {
                         bDate = new Date(`${bPrepared[2]}-${bPrepared[1]}-${bPrepared[0]}`);
                         if (this.buyersSortAsc) {
                             if (isNaN(aDate.getTime())) {
-                                return false;
+                                result = false;
                             } else if (isNaN(bDate.getTime())) {
-                                return true;
+                                result = true;
                             }
-                            return aDate.getTime() > bDate.getTime();
+                            result = aDate.getTime() > bDate.getTime();
                         }
                         if (isNaN(aDate.getTime())) {
-                            return true;
+                            result = true;
                         } else if (isNaN(bDate.getTime())) {
-                            return false;
+                            result = false;
                         }
-                        return aDate.getTime() < bDate.getTime();
+                        result = aDate.getTime() < bDate.getTime();
+                        break;
                 }
+                return result ? 1 : -1;
             });
         },
     },
