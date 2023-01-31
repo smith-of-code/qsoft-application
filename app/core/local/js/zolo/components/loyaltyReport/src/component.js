@@ -191,7 +191,9 @@ export const LoyaltyReport = {
                     <div class="participant__col participant__col--tel participant__col--separated">
                         <div class="participant__info">
                             <span class="participant__info-name">Телефон</span>
-                            <span class="participant__info-value">{{ user.phone }}</span>
+                            <span class="participant__info-value">
+                                {{ user.phone ? user.phone : '&nbsp;' }}
+                            </span>
                         </div>
                     </div>
                 </div>
