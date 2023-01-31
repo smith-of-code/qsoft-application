@@ -116,8 +116,8 @@ function uploadFiles(el) {
 
     acceptedFiles = (_acceptedFiles && _acceptedFiles.length) ? _acceptedFiles : baseConfig.acceptedFiles;
     paramName = (_paramName && _paramName.length) ? _paramName : baseConfig.paramName;
-    maxFiles = initParams.single ? 1 : baseConfig.maxFiles;
-    maxFileSize = initParams.single ? 1 : baseConfig.maxFileSize;
+    maxFiles = initParams.maxFiles ? initParams.maxFiles : baseConfig.maxFiles;
+    maxFileSize = initParams.maxFileSize ? initParams.maxFileSize : baseConfig.maxFileSize;
 
     function fileNameCut(line) {
         if (line.length > 12) {

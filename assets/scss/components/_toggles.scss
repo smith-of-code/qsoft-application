@@ -23,5 +23,14 @@
         @media #{$screen-desktop} {
             margin: 0;
         }
+
+        &:nth-child(2) {
+            .toggle__item {
+                @media #{$screen-desktop} {
+                    border-left: none;
+                    border-right: none;
+                }
+            }
+        }
     }
 }

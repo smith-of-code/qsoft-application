@@ -177,21 +177,23 @@ export const LoyaltyReport = {
                     <div v-else class="participant__col participant__col--level">
                         <div class="participant__info">
                             <span class="participant__info-name">Уровень</span>
-                            <span class="participant__info-value">{{ user.loyalty_level }}</span>
+                            <span class="participant__info-value">{{ user.loyalty_level ?  user.loyalty_level : '&nbsp;' }}</span>
                         </div>
                     </div>
 
                     <div class="participant__col participant__col--date">
                         <div class="participant__info">
                             <span class="participant__info-name">На сайте с</span>
-                            <span class="participant__info-value">{{ user.date_register }}</span>
+                            <span class="participant__info-value">{{ user.date_register ? user.date_register : '&nbsp;' }}</span>
                         </div>
                     </div>
 
                     <div class="participant__col participant__col--tel participant__col--separated">
                         <div class="participant__info">
                             <span class="participant__info-name">Телефон</span>
-                            <span class="participant__info-value">{{ user.phone }}</span>
+                            <span class="participant__info-value">
+                                {{ user.phone ? user.phone : '&nbsp;' }}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -200,7 +202,7 @@ export const LoyaltyReport = {
                     <div class="participant__col participant__col--email">
                         <div class="participant__info">
                             <span class="participant__info-name">Email</span>
-                            <span class="participant__info-value participant__info-value--truncate" :data-tippy-content="user.email" data-show-text>{{ user.email }}</span>
+                            <span class="participant__info-value participant__info-value--truncate" :data-tippy-content="user.email" data-show-text>{{ user.email ? user.email : '&nbsp;' }}</span>
                         </div>
                     </div>
                 </div>
