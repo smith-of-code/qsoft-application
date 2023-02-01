@@ -14,6 +14,12 @@ return [
 	'rel' => [
 		'main.polyfill.core',
 		'ui.vue3',
+		'select2',
+		'jquery.nicescroll',
+		'inputmask',
+		'tippy.js',
+		'loda',
+		'swiper',
 		'ui.vue3.pinia',
 	],
 	'skip_core' => true,
