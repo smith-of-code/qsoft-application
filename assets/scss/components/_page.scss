@@ -24,7 +24,7 @@
 
     &__header {
         position: fixed;
-        z-index: $z-index-header-default;
+        z-index: 1500;
         right: 0;
         left: 0;
         flex-shrink: 0;
