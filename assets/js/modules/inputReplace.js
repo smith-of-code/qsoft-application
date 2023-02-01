@@ -15,6 +15,8 @@ export default function inputRepalece(inputItem) {
             } else if (inputAttr === 'text') {
                 $(this).val($(this).val().replace(/[0-9]/g, ''));
                 return  
+            } else if (inputAttr === 'fullName') {
+                $(this).val($(this).val().replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100));
             }
         });
     });
