@@ -208,7 +208,7 @@ else:?>
                                                 </div>
                                                 <div class="form__field-block form__field-block--input">
                                                     <label class="input input--textarea">
-                                                        <textarea type="text" class="input__control" name="comment" id="textarea1" placeholder="Многострочное поле ввода" maxlength="1000" data-textarea-input></textarea>
+                                                        <textarea type="text" class="input__control" name="comment" id="textarea1" placeholder="Не более 1000 символов" maxlength="1000" data-textarea-input></textarea>
                                                         <div class="input__counter">
                                                             <span class="input__counter-current" data-textarea-current></span>
                                                                 /
