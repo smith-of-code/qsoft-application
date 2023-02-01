@@ -229,7 +229,7 @@ $APPLICATION->SetTitle("Заказ №{$details['ORDER_ID']}");
 
                             <!-- Кнопка Вернуть заказ -->
                             <?php if (in_array($details['STATUS_ID'], OrderHelper::SUCCESS_STATUSES)) :?>
-                                <a type="button" class="card-order__return button button--simple button--red" data-fancybox data-modal-type="modal"
+                                <a class="card-order__return button button--simple button--red" data-fancybox data-modal-type="modal"
                                    href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="REFUND_ORDER">
                                     <span class="button__icon">
                                         <svg class="icon icon--return">
