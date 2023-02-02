@@ -78,8 +78,7 @@
 
                 .select2-selection__rendered {
                     line-height: rem($line-height-miniature);
-
-                    padding: rem($gap-mini) rem($gap-small);
+                    padding: rem($gap-mini) rem(25px) rem($gap-mini) rem($gap-small);
                 }
             }
         }
