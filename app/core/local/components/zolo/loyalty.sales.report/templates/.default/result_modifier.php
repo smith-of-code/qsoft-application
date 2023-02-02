@@ -2,13 +2,7 @@
 
 use Bitrix\Main\Type\Date;
 
-dump($arResult['user_team']);
 $currentDate = new Date();
-$date = new Date('25.12.2015 12:30:00');
-
-$diff = (new Date($currentDate))->getDiff($date);
-
-dump($currentDate, $date, $diff->days);
 
 foreach ($arResult['user_team'] as &$team) {
     foreach ($team as &$user) {
