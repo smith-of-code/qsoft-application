@@ -60,7 +60,7 @@ export const SelectOffer = {
                 <p class="specification__category">Фасовка</p>
                 <ul class="packs__list">
                     <li class="packs__item" v-for="(item) in packagings">
-                        <div class="pack pack--bordered">
+                        <div class="pack pack--bordered" v-bind:data-tippy-content="offers.AVAILABLE[item.offerId] ? '' : 'Нет в наличии'">
                             <div class="radio">
                                 <input autocomplete="off" type="radio" class="pack__input radio__input" name="radio_pack"
                                        @click="setOffer"
@@ -84,7 +84,7 @@ export const SelectOffer = {
             <div class="specification__colors colors colors--big">
                 <p class="specification__category">Цвет</p>
                 <ul class="colors__list">
-                    <li class="colors__item" v-for="(item, color) in color2Size" :class="'colors__item-' + color">
+                    <li class="colors__item" v-for="(item, color) in color2Size" :class="'colors__item-' + color" v-bind:data-tippy-content="offers.AVAILABLE[getColorOffer(color)] ? '' : 'Нет в наличии'">
                         <div v-bind:class="'color ' + ((offers.AVAILABLE[getColorOffer(color)]) ? '' : ' color--disabled')">
                             <div class="radio">
                                 <input autocomplete="off" type="radio" class="color__input radio__input" name="radio_color"
