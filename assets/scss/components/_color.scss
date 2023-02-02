@@ -180,17 +180,41 @@
 
     &__input:checked + label & {
         &__item {
-            outline: rem(2px) solid $tuna;
+            border: rem(2px) solid $tuna;
             outline-offset: rem(1px);
+            width: rem(20px);
+            height: rem(20px);
 
             @media #{$screen-desktop} {
-                outline: rem(1px) solid $tuna;
+                border: rem(1px) solid $tuna;
                 outline-offset: rem(4px);
+                width: rem(22px);
+                height: rem(22px);
             }
 
             &--big {
-                outline: rem(2px) solid $tuna !important;
+                border: rem(2px) solid $tuna !important;
                 outline-offset: rem(2px);
+            }
+
+            &-wrapper {
+                @media #{$screen-desktop} {
+                    padding: 20%;
+                }
+            }
+
+            &-pic {
+                top: 50%; 
+                left: 50%;
+                width: rem(14px);
+                height: rem(14px);
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+
+                @media #{$screen-desktop} {
+                    width: rem(12px);
+                    height: rem(12px);
+                }
             }
         }
     }

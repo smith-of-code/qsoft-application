@@ -151,7 +151,8 @@
 
         .select2-container--default {
             .select2-selection--single {
-                height: rem(36px);
+                min-height: rem(36px);
+                height: auto;
 
                 .select2-selection__rendered {
                     line-height: rem(22px);
