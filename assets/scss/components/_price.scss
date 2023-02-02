@@ -42,6 +42,16 @@
             }
         }
 
+        &--stock#{&}--columned {
+            flex-direction: column;
+        }
+
+        &--stock#{&}--columned & {
+            &-total {
+                margin-bottom: rem(4px);
+            }
+        }
+
         &-value {
             display: flex;
             align-items: baseline;
