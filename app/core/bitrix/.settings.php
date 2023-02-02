@@ -7,6 +7,19 @@ return array (
     'value' => true,
     'readonly' => true,
   ),
+
+  'cache' => array( 'value' => array( 'type' => array(
+  'class_name' => '\\Bitrix\\Main\\Data\\CacheEngineRedis',
+  'extension' => 'redis'
+  ),
+  'redis' => array(
+   'host' => getenv('REDIS_CACHE_HOST'),
+  'port' => getenv('REDIS_CACHE_PORT'),
+  )
+  ),
+  'sid' => $_SERVER["DOCUMENT_ROOT"]."#01"
+  ),
+  
   'cache_flags' => 
   array (
     'value' => 
