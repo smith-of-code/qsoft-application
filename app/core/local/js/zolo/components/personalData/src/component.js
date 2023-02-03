@@ -76,6 +76,13 @@ export const PersonalData = {
             this.emailError = false;
             let error = false;
 
+            this.mutableUserInfo = {
+                ...this.mutableUserInfo,
+                last_name: this.mutableUserInfo.last_name.replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100),
+                first_name: this.mutableUserInfo.first_name.replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100),
+                second_name: this.mutableUserInfo.second_name.replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100)
+            }
+
             if (this.userInfo.phone !== this.mutableUserInfo.phone.replaceAll(/\(|\)|\s|-+/g, '') && this.phoneVerified !== this.mutableUserInfo.phone) {
                 error = true;
                 this.phoneError = true;
@@ -261,7 +268,7 @@ export const PersonalData = {
                                                                 placeholder="Введите фамилию"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.last_name"
-                                                                data-replace-input="text"
+                                                                data-replace-input="fullName"
                                                             >
                                                         </div>
                                                     </div>
@@ -286,7 +293,7 @@ export const PersonalData = {
                                                                 placeholder="Введите имя"
                                                                 :readonly="!editing"
                                                                 v-model="mutableUserInfo.first_name" 
-                                                                data-replace-input="text"
+                                                                data-replace-input="fullName"
                                                             >
                                                         </div>
                                                     </div>
@@ -312,7 +319,7 @@ export const PersonalData = {
                                                                 :readonly="!editing" 
                                                                 data-identic-input
                                                                 v-model="mutableUserInfo.second_name"
-                                                                data-replace-input="text"
+                                                                data-replace-input="fullName"
                                                             >
                                                         </div>
                                                     </div>

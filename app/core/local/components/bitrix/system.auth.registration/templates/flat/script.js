@@ -68,7 +68,7 @@ class CSystemAuthRegistrationComponent {
             || input.attr('name') == 'last_name'
             || input.attr('name') == 'second_name'
         ) {
-            input.val(value.replaceAll(/[^a-zA-Zа-яА-ЯёЁ]+/gu, '').slice(0, 100));
+            input.val(value.replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100));
         }
     }
 
