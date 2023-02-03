@@ -128,10 +128,6 @@
             }
 
             &-list {
-                @media #{$screen-tablet} {
-                    justify-content: space-between;
-                }
-
                 @media #{$screen-desktop} {
                     justify-content: flex-start;
                 }
