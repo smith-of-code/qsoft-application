@@ -118,14 +118,6 @@
               
             }
         }
-
-        &__col {
-            &--level {
-                @media #{$screen-desktop} {
-                    text-align: center;
-                }
-            }
-        }
     }
 
     &__item.accordeon__item.accordeon__item--opened & {
