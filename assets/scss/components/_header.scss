@@ -175,13 +175,29 @@
 
         &-input {
             &-control {
+                font-size: rem($font-size-mini) !important;
+                font-weight: $font-weight-medium !important;
+                line-height: $line-height-normal !important;
+                border-radius: rem(4px);
+                
                 @media #{$screen-desktop} {
                     border-color: #f2f1f4;
                     background-color: #f2f1f4;
+
+                    padding-right: rem(20px) !important;
+                    padding-left: rem(20px) !important;
     
                     &:focus {
                         border-color: #f2f1f4;
                     }
+                }
+
+                &::placeholder {
+                    font-size: rem($font-size-mini) !important;
+                    font-weight: $font-weight-medium !important;
+                    line-height: $line-height-normal !important;
+
+                    color: $gray;
                 }
             }
         }
