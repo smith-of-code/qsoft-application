@@ -18,24 +18,31 @@ export default function tooltip() {
         let block = $('[data-tippy-content]');
         
         block.each(function(index, item) {
-            tippy(item, {
-                theme: 'light',
-                arrow: false,
-                appendTo: 'parent',
-                onShown(instance) {
-                    instance.enable();
-                    instance.setProps({
-                        duration: 10,
-                      });
-                    const tippyElement = instance.reference
-                    const elementAttr = $(tippyElement).attr('data-tippy-content');
-                    if (elementAttr) {
-                        instance.setContent(elementAttr);
-                    }
-                    return
-                  },
-                
-            });
+
+            let attrLength = $(item).attr('data-tippy-content').length
+
+            if (attrLength > 0) {
+                tippy(item, {
+                    theme: 'light',
+                    arrow: false,
+                    appendTo: 'parent',
+                    onShown(instance) {
+                        instance.enable();
+                        instance.setProps({
+                            duration: 10,
+                          });
+                        const tippyElement = instance.reference
+                        const elementAttr = $(tippyElement).attr('data-tippy-content');
+                        if (elementAttr) {
+                            instance.setContent(elementAttr);
+                        }
+                        return
+                      },
+                    
+                });
+            } else {
+                return
+            } 
         })
     }, 500);
 

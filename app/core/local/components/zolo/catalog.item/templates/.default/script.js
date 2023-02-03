@@ -443,6 +443,7 @@
 			let colorScope = obj.closest('.color');
 			if (colorScope.length > 0 && colorScope.hasClass('color--disabled')) {
 				colorScope.removeClass('color--disabled');
+				colorScope.attr('data-tippy-content', 'нет в наличии');
 				return;
 			}
 			// Обновляем параметры для радиокнопки выбора фасовки
@@ -469,6 +470,7 @@
 			let colorScope = obj.closest('.color');
 			if (colorScope.length > 0 && ! colorScope.hasClass('color--disabled')) {
 				colorScope.addClass('color--disabled');
+				colorScope.attr('data-tippy-content', 'нет в наличии');
 				return;
 			}
 			// Обновляем параметры для радиокнопки выбора фасовки
