@@ -119,10 +119,10 @@
             }
         }
 
-        &__col {
-            &--level {
+        &__col.participant__col--level {
+            .participant__info-value {
                 @media #{$screen-desktop} {
-                    text-align: center;
+                    margin-left: rem(3px);
                 }
             }
         }
