@@ -387,11 +387,11 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                     <h4 class="section__title section__title--closer">Контактное лицо</h4>
                                 <?php endif;?>
                                 <div class="profile__actions">
-                                    <a type="button"
-                                            class="profile__actions-button profile__actions-button--edit button button--simple button--red"
-                                            data-fancybox data-modal-type="modal"
-                                            href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
-                                >
+                                    <a
+                                        class="profile__actions-button profile__actions-button--edit button button--simple button--red"
+                                        data-fancybox data-modal-type="modal"
+                                        href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
+                                    >
                                         <span class="button__icon">
                                             <svg class="icon icon--repeat">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
