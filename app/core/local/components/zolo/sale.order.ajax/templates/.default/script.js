@@ -36,6 +36,33 @@ class SaleOrderAjaxComponent {
                 return;
             }
 
+            if ($(item).attr('name') === 'phone') {
+                let valuePhone =  $(item).val().replaceAll(/[^0-9+\.]/g,'');
+                let span = $('<span class="input__control-error">Неккорекнтый номер телефона</span>');
+                let phoneSplit = valuePhone.split('');
+
+                if (valuePhone.length < 12 || phoneSplit[2] != 9) {
+                    $(item).addClass('input__control--error');
+                    if ($(item).parent().find('.input__control-error').length === 0) {
+                        $(item).parent().append(span);
+                    }
+                    return
+                }
+            }
+
+            if ($(item).attr('name') === 'email') {
+                let valuePhone =  $(item).val().replaceAll(/[^a-zA-z\-0-9_\.]/g,'');
+                let span = $('<span class="input__control-error">Указан некорректный почтовый адрес</span>');
+                let format = /[_]/;
+
+                if (format.test(valuePhone)) {
+                    $(item).addClass('input__control--error');
+                    if ($(item).parent().find('.input__control-error').length === 0) {
+                        $(item).parent().append(span);
+                    }
+                    return
+                }
+            }
 
             if ($(item).attr('type') !== 'hidden' && !$(item).val()) {
                 $(item).addClass('input__control--error');
@@ -44,7 +71,11 @@ class SaleOrderAjaxComponent {
                 $('[data-create-order]').addClass('button--disabled');
 
                 let span = $('<span class="input__control-error">Поле обязательно к заполнению</span>');
-                $(item).parent().append(span);
+
+                if ($(item).parent().find('.input__control-error').length === 0) {
+                    $(item).parent().append(span);
+                }
+               
                 return;
             }
 
