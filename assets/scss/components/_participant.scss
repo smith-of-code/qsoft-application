@@ -118,6 +118,14 @@
               
             }
         }
+
+        &__col.participant__col--level {
+            .participant__info-value {
+                @media #{$screen-desktop} {
+                    margin-left: rem(3px);
+                }
+            }
+        }
     }
 
     &__item.accordeon__item.accordeon__item--opened & {
