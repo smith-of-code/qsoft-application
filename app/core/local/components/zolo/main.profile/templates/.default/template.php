@@ -1110,7 +1110,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                     <div class="profile__order-col">
                                                         <div class="price">
-                                                            <div class="price__calculation price__calculation--columned">
+                                                            <div class="price__calculation--stock price__calculation price__calculation--columned">
                                                                 <p class="price__calculation-total" data-price="<?=$order['price']?>">
                                                                     <span class="price__calculation-total--whole"></span>
                                                                     <span class="price__calculation-total--remains"></span>
