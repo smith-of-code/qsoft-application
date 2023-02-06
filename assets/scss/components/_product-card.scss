@@ -232,7 +232,7 @@
     &__breed {
         margin-bottom: rem(10px);
         @media #{$screen-desktop} {
-            max-width: rem(159px);
+            max-width: max-content;
         }
     }
 
