@@ -189,6 +189,8 @@ export default function inputMaskInit($container, mask) {
 
                 if (buffer.buffer[0] === '3') {
                     valExp = new RegExp(`[01]`);
+                } else if (buffer.buffer[0] === '0') {
+                    valExp = new RegExp(`[1-9]`);
                 } else {
                     valExp = new RegExp("[0-9]");
                 }
@@ -288,6 +290,8 @@ export default function inputMaskInit($container, mask) {
 
                 if (buffer.buffer[0] === '3') {
                     valExp = new RegExp(`[01]`);
+                } else if (buffer.buffer[0] === '0') {
+                    valExp = new RegExp(`[1-9]`);
                 } else {
                     valExp = new RegExp("[0-9]");
                 }
