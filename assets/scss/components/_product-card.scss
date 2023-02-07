@@ -182,14 +182,17 @@
 
     &__article {
         font-size: rem($font-size-small);
-        line-height: rem($line-height-miniature);
+        font-weight: $font-weight-medium;
+        line-height: $line-height-small;
 
         margin-bottom: rem(14px);
 
         @media #{$screen-tablet} {
-            line-height: rem($line-height-small);
-
             margin-bottom: rem($gap-average);
+        }
+
+        @media #{$screen-desktop} {
+            line-height: 22px;
         }
     }
 
