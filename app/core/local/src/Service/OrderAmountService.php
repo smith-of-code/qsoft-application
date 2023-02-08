@@ -2,12 +2,8 @@
 
 namespace QSoft\Service;
 
-use Bitrix\Highloadblock\HighloadBlockTable;
-use Bitrix\Main\Entity;
-use Bitrix\Main\Loader;
 use Carbon\Carbon;
 use QSoft\Entity\User;
-use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
 use QSoft\PropertiesDigest\Transactions;
 
@@ -36,27 +32,34 @@ class OrderAmountService
      */
     public function getOrdersTotalSumForUser(Carbon $startDateTime, Carbon $endDateTime = null): int
     {
+        $sourseList = TransactionTable::getPublicatedFieldId('UF_SOURCE');
+        $measureList = TransactionTable::getPublicatedFieldId('UF_MEASURE');
+
         $filter = [
             '=UF_USER_ID' => $this->user->id,
             '>=UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime($startDateTime),
-            '=UF_SOURCE' => Transactions::SOURCE_PERSONAL,
-            '=UF_MEASURE' => Transactions::MEASURE_MONEY
+            '=UF_SOURCE' => $sourseList[Transactions::SOURCE_PERSONAL],
+            '=UF_MEASURE' => $measureList[Transactions::MEASURE_MONEY]
         ];
+
         // Если есть дата окончания - добавляем в фильтр
         if (isset($endDateTime)) {
             $filter['<UF_CREATED_AT'] = DateTimeService::CarbonToBitrixDateTime($endDateTime);
         }
+
         // Получаем личные транзакции пользователя за последний квартал
         $transactions = TransactionTable::getList([
             'select' => ['ID', 'UF_AMOUNT'],
             'filter' => $filter,
             'cache' => ['ttl' => 3600]
         ])->fetchAll();
+
         // Суммируем стоимость транзакций
         $total = 0;
         foreach ($transactions as $transaction) {
             $total += (int) $transaction['UF_AMOUNT'];
         }
+
         return $total;
     }
 
@@ -72,27 +75,34 @@ class OrderAmountService
      */
     public function getOrdersTotalSumForUserTeam(Carbon $startDateTime, Carbon $endDateTime = null): int
     {
+        $sourseList = TransactionTable::getPublicatedFieldId('UF_SOURCE');
+        $measureList = TransactionTable::getPublicatedFieldId('UF_MEASURE');
+
         $filter = [
             '=UF_USER_ID' => $this->user->id,
             '>=UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime($startDateTime),
-            '=UF_SOURCE' => Transactions::SOURCE_GROUP,
-            '=UF_MEASURE' => Transactions::MEASURE_MONEY
+            '=UF_SOURCE' => $sourseList[Transactions::SOURCE_GROUP],
+            '=UF_MEASURE' => $measureList[Transactions::MEASURE_MONEY]
         ];
+
         // Если есть дата окончания - добавляем в фильтр
         if (isset($endDateTime)) {
             $filter['<UF_CREATED_AT'] = DateTimeService::CarbonToBitrixDateTime($endDateTime);
         }
+
         // Получаем групповые транзакции пользователя за последний квартал
         $transactions = TransactionTable::getList([
             'select' => ['ID', 'UF_AMOUNT'],
             'filter' => $filter,
             'cache' => ['ttl' => 3600]
         ])->fetchAll();
+
         // Суммируем стоимость транзакций
         $total = 0;
         foreach ($transactions as $transaction) {
             $total += (int) $transaction['UF_AMOUNT'];
         }
+
         return $total;
     }
 }
