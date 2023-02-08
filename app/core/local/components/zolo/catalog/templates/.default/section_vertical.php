@@ -183,6 +183,7 @@ else
                     'CURRENCY_ID' => $arParams['CURRENCY_ID'],
                     'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
                     'HIDE_NOT_AVAILABLE_OFFERS' => $arParams["HIDE_NOT_AVAILABLE_OFFERS"],
+                    'USE_FILTER' => 'Y',
 
                     'LABEL_PROP' => $arParams['LABEL_PROP'],
                     'LABEL_PROP_MOBILE' => $arParams['LABEL_PROP_MOBILE'],
