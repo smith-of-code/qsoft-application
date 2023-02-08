@@ -179,17 +179,18 @@ $containerName = "container-{$navParams['NavNum']}";?>
                 });
             </script>
         </form>
-
-        <div class="catalog__toggle">
-            <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
-                <span class="button__icon button__icon--right button__icon--medium">
-                    <svg class="icon icon--filter">
-                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
-                    </svg>
-                </span>
-                <span class="button__text">Фильтр</span>
-            </button>
-        </div>
+        <?php if (isset($this->arParams["USE_FILTER"]) && $this->arParams["USE_FILTER"] == "Y"):?>
+            <div class="catalog__toggle">
+                <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
+                    <span class="button__icon button__icon--right button__icon--medium">
+                        <svg class="icon icon--filter">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                        </svg>
+                    </span>
+                    <span class="button__text">Фильтр</span>
+                </button>
+            </div>
+        <?php endif;?>
     </div>
 </div>
 
