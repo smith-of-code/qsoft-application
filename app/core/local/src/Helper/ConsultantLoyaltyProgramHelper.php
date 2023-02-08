@@ -16,6 +16,18 @@ use RuntimeException;
  */
 class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 {
+
+    /**
+     * Признак изменения уровня.
+     * 1 = поднять уровень
+     * 0 = не изменять уровень
+     * 1 = снизить уровень
+     *
+     * @var int
+     */
+    private $toggleLevel = 0;
+    private $lowerLevel = 'K1';
+
     public function __construct()
     {
         parent::__construct();
@@ -33,16 +45,26 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         // Получим доступный для перехода уровень
         $availableLevel = $this->getAvailableLoyaltyLevelToUpgrade($user);
 
+        // Если не набрано нужное количество очков за период и если не первый уровень, снижжаес уровень.
+        if ($this->toggleLevel < 0 && $user->loyaltyLevel != $this->lowerLevel) {
+            $levelsIDs = $this->getLevelsIDs();
+            $user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$this->lowerLevel]]);
+        }
+
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
+            return true;
+
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
                 // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
                 (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -65,7 +87,13 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         // Получаем индекс текущего уровня (для определения позиции относительно остальных уровней)
         $currentLevelIndex = $levels[$user->loyaltyLevel]['level'];
 
+        $this->lowerLevel = $lowerLevel = 'K1';
+
         foreach ($sortedLevels as $index => $xmlId) {
+            if ($xmlId == $user->loyaltyLevel) {
+                $this->lowerLevel = $lowerLevel;
+            }
+            $lowerLevel = $xmlId;
             // Проверяем только вышестоящие уровни
             if ($index <= $currentLevelIndex) {
                 continue;
@@ -99,16 +127,23 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
         $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
         $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+
         $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
         $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
         $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
 
         $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
         $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
 
+        if ($personalTotal < $personalTotalToUpgrade && $teamTotal < $teamTotalToUpgrade) {
+            $this->toggleLevel = -1;
+        }
+
         // Проверяем условия
         if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
+            $this->toggleLevel = 1;
             return true;
         }
 

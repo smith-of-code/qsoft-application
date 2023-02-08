@@ -5,7 +5,6 @@ namespace QSoft\Helper;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Type\DateTime;
-use Bitrix\Sale\OrderTable;
 use QSoft\Entity\User;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
@@ -105,7 +104,8 @@ class LoyaltyProgramHelper
     public function getLoyaltyLevelInfo(string $level) : ?array
     {
         $levels = $this->getLoyaltyLevels();
-        return $levels[$levels['types'][substr($level, 0, 1)]][$level] ?? null;
+
+        return $levels[$level] ?? null;
     }
 
     /**
@@ -158,6 +158,7 @@ class LoyaltyProgramHelper
         $allTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
                 '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
             ],
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
@@ -166,6 +167,7 @@ class LoyaltyProgramHelper
         $currentAccountingPeriodTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
+                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
                 '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
                 [
                     'LOGIC' => 'AND',
