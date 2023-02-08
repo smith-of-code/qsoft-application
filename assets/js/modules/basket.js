@@ -318,6 +318,7 @@ export default async function () {
 
         await checkStatusBasket();
         const bonusInputValueReset = bonusInputControl.val('');
+        bonusInputControl.attr('value', '');
         totalBonus = 0;
     }
 
@@ -325,6 +326,7 @@ export default async function () {
         const bonusInput = $(ELEMENTS_SELECTOR.bonusInput);
         const bonusInputControl = bonusInput.find('.input__control');
         const bonusInputValue = bonusInputControl.val('');
+        bonusInputControl.attr('value', '');
 
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
     }

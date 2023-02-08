@@ -69,7 +69,7 @@
     }
 
     &__item {
-        $size: 14px;
+        $size: 20px;
 
         position: relative;
         overflow: hidden;
@@ -80,15 +80,19 @@
         margin-right: rem(8px);
 
         border-radius: 50%;
+        border: rem(2px) solid transparent;
+        width: rem($size);
+        height: rem($size);
 
         @media #{$screen-desktop} {
-            $size: 12px;
+            $size: 22px;
 
             width: rem($size);
             height: rem($size);
             margin-right: 0;
 
-            border: none;
+            //border: none;
+            border: rem(1px) solid transparent;
         }
 
         &::before {
@@ -154,17 +158,27 @@
             @include position-stretching;
 
             border-radius: 50%;
+            @media #{$screen-desktop} {
+                padding: 20%;
+            }
         }
 
         &-pic {
             @include position-stretching;
-
-            width: 100%;
-            height: 100%;
-
             object-fit: cover;
+            top: 50%; 
+            left: 50%;
 
-            border-radius: inherit;
+            width: rem(14px);
+            height: rem(14px);
+
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+
+            @media #{$screen-desktop} {
+                width: rem(12px);
+                height: rem(12px);
+            } 
         }
     }
 
