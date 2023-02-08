@@ -11,6 +11,7 @@ export default function tooltip() {
             appendTo: 'parent',
             content: template[0].innerHTML,
             allowHTML: true,
+            zIndex: 1400,
         });
     });
 
@@ -26,6 +27,7 @@ export default function tooltip() {
                     theme: 'light',
                     arrow: false,
                     appendTo: 'parent',
+                    zIndex: 1400,
                     onShown(instance) {
                         instance.enable();
                         instance.setProps({
