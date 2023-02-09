@@ -33,9 +33,15 @@ class PersonalCalculatorComponent extends CBitrixComponent implements Controller
     {
         $currentAccountingPeriod = $this->loyaltyProgramHelper->getCurrentAccountingPeriod();
 
+        if ($this->user->groups->isConsultant()) {
+            $group = 'consultant';
+        } else {
+            $group = 'customer';
+        }
+
         $this->arResult = [
             'levels' => $this->loyaltyProgramHelper->getLoyaltyLevels(),
-            'current_level' => $this->loyaltyProgramHelper->getLoyaltyLevelInfo($this->user->loyaltyLevel),
+            'current_level' => $this->loyaltyProgramHelper->getLoyaltyLevelInfo($this->user->loyaltyLevel, $group),
             'loyalty_status' => $this->loyaltyProgramHelper->getLoyaltyStatusByPeriod(
                 $this->user->id,
                 $currentAccountingPeriod['from'],

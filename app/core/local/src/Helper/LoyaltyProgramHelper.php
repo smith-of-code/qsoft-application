@@ -41,6 +41,7 @@ class LoyaltyProgramHelper
     /**
      * Возвращает конфигурацию уровней программы лояльности
      * @return mixed
+     
      */
     public function getConfiguration()
     {
@@ -101,9 +102,13 @@ class LoyaltyProgramHelper
      * @param string $level Уровень программы лояльности
      * @return array|null
      */
-    public function getLoyaltyLevelInfo(string $level) : ?array
+    public function getLoyaltyLevelInfo(string $level, string $group = '') : ?array
     {
         $levels = $this->getLoyaltyLevels();
+
+        if (array_key_exists($group, $levels)) {
+            $level = $level[$group];
+        }
 
         return $levels[$level] ?? null;
     }
@@ -224,7 +229,14 @@ class LoyaltyProgramHelper
     public function getLoyaltyStatusByPeriod(int $userId, Date $from, Date $to): array
     {
         $user = new User($userId);
-        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+
+        if ($user->groups->isConsultant()) {
+            $group = 'consultant';
+        } else {
+            $group = 'customer';
+        }
+
+        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel, $group);
         $nextLoyaltyLevelInfo = $this->getNextLoyaltyLevelInfo($user->loyaltyLevel);
 
         $result = [

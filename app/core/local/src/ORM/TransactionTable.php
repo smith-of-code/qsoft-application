@@ -51,7 +51,7 @@ final class TransactionTable extends BaseTable
         'UF_MEASURE' => EnumDecorator::class,
     ];
 
-	public static function getPublicatedFieldId($fieldName)
+	public static function getFieldListIds($fieldName)
 	{
 		$result = [];
         $hlblock = HlBlockHelper::getEnumFieldValues(self::getTableName(), $fieldName);

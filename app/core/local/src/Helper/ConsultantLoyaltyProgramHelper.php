@@ -47,13 +47,13 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         // Если не набрано нужное количество очков за период и если не первый уровень, снижжаес уровень.
         if ($this->toggleLevel < 0 && $user->loyaltyLevel != $this->lowerLevel) {
+
             $levelsIDs = $this->getLevelsIDs();
             $user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$this->lowerLevel]]);
         }
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            return true;
 
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
@@ -117,8 +117,8 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
      */
     public function checkIfCanUpgradeToLevel(User $user, string $level) : bool
     {
-        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
-        $levelInfo = $this->getLoyaltyLevelInfo($level);
+        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel, 'consultant');
+        $levelInfo = $this->getLoyaltyLevelInfo($level, 'consultant');
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
@@ -136,8 +136,12 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
         $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
-
-        if ($personalTotal < $personalTotalToUpgrade && $teamTotal < $teamTotalToUpgrade) {
+        dump([$personalTotal, $personalTotalToUpgrade, $teamTotal, $teamTotalToUpgrade,$level]);
+        if (
+            $personalTotal < $personalTotalToUpgrade
+            && $teamTotal < $teamTotalToUpgrade
+            && $this->toggleLevel == 0
+        ) {
             $this->toggleLevel = -1;
         }
 

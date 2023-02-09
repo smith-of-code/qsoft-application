@@ -32,8 +32,8 @@ class OrderAmountService
      */
     public function getOrdersTotalSumForUser(Carbon $startDateTime, Carbon $endDateTime = null): int
     {
-        $sourseList = TransactionTable::getPublicatedFieldId('UF_SOURCE');
-        $measureList = TransactionTable::getPublicatedFieldId('UF_MEASURE');
+        $sourseList = TransactionTable::getFieldListIds('UF_SOURCE');
+        $measureList = TransactionTable::getFieldListIds('UF_MEASURE');
 
         $filter = [
             '=UF_USER_ID' => $this->user->id,
@@ -75,8 +75,8 @@ class OrderAmountService
      */
     public function getOrdersTotalSumForUserTeam(Carbon $startDateTime, Carbon $endDateTime = null): int
     {
-        $sourseList = TransactionTable::getPublicatedFieldId('UF_SOURCE');
-        $measureList = TransactionTable::getPublicatedFieldId('UF_MEASURE');
+        $sourseList = TransactionTable::getFieldListIds('UF_SOURCE');
+        $measureList = TransactionTable::getFieldListIds('UF_MEASURE');
 
         $filter = [
             '=UF_USER_ID' => $this->user->id,

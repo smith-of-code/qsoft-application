@@ -70,12 +70,15 @@ class BonusAccountHelper
 
     public function refundOrderBonuses(User $user, float $amount): bool
     {
-        if (! $user->groups->isConsultant()) {
-            return false;
+        if (!$user->active) {
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
+        }
+        if (!$user->groups->isConsultant()) {
+            throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         return $user->update([
-            'UF_BONUS_POINTS' => $user->bonusPoints - $amount,
+            'UF_BONUS_POINTS' => $user->bonusPoints + $amount,
             'UF_LOYALTY_CHECK_DATE' => new DateTime,
         ]);
     }
@@ -83,10 +86,10 @@ class BonusAccountHelper
     public function addOrderBonuses(User $user, int $orderId, int $amount, string $source, string $type): bool
     {
         if (!$user->active) {
-            return false;
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
         }
         if (!$user->groups->isConsultant()) {
-            return false;
+            throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         $transactionResult = $this->transactions->add($user->id, $type, $source, TransactionTable::MEASURES['points'], $amount, $orderId);
@@ -100,7 +103,7 @@ class BonusAccountHelper
     public function addOrderTransaction(User $user, int $orderId, float $amount, string $type, string $source): bool
     {
         if (!$user->active) {
-            return false;
+            throw new RuntimeException('Пользователь заблокирован');
         }
 
         return $this->transactions->add($user->id, $type, $source, TransactionTable::MEASURES['money'], $amount, $orderId)->isSuccess();
