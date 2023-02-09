@@ -78,7 +78,7 @@ if (!$arResult['pets']) {
                     <div class="pet-card__edit box box--rounded-sm" data-pets-edit>
                         <form class="form" action="" method="post" data-pets-form data-validation="add-pets">
                             <div class="pet-card__row form__row">
-                                <div class="pet-card__col pet-card__col--1-3 pet-card__col--3 form__col">
+                                <div class="pet-card__col pet-card__col--1-3 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="pets-<?=$index?>-type" class="form__label form__label--required">
@@ -168,7 +168,7 @@ if (!$arResult['pets']) {
                                     </div>
                                 </div>
 
-                                <div class="pet-card__col pet-card__col--1-2 pet-card__col--1 form__col">
+                                <div class="pet-card__col pet-card__col--1-2 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="pets-<?=$index?>-breed" class="form__label form__label--required">
@@ -200,7 +200,7 @@ if (!$arResult['pets']) {
                                     </div>
                                 </div>
 
-                                <div class="pet-card__col pet-card__col--1-2 pet-card__col--2 form__col">
+                                <div class="pet-card__col pet-card__col--1-2 form__col">
                                     <div class="form__field">
                                         <div class="form__field-block form__field-block--label">
                                             <label for="pets-<?=$index?>-name" class="form__label form__label--required">
@@ -218,7 +218,7 @@ if (!$arResult['pets']) {
                             </div>
 
                             <div class="pet-card__buttons">
-                                <button type="submit" class="pet-card__button button button--rounded button--covered button--green button--full <?=!$pet ? 'button--disabled' : ''?>" <?=!$pet ? 'disabled' : ''?> data-pets-save>
+                                <button type="submit" class="pet-card__button pet-card__button--2 button button--rounded button--covered button--green button--full <?=!$pet ? 'button--disabled' : ''?>" <?=!$pet ? 'disabled' : ''?> data-pets-save>
                                     Сохранить изменения
                                 </button>
 

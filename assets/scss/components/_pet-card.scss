@@ -236,6 +236,9 @@
     }
 
     &__buttons {
+        display: flex;
+        flex-direction: column;
+
         margin-top: rem($gap-normal);
 
         @media #{$screen-tablet} {
@@ -257,5 +260,24 @@
                 margin-right: rem($gap-medium);
             }
         }
+
+        &--2 + & {
+            margin-bottom: rem($gap-medium);
+            margin-top: 0;
+
+            @media #{$screen-tablet} {
+                margin-bottom: 0;
+                margin-right: rem($gap-medium);
+            }
+        }
+        
+
+        &--2 {
+            order: 2;
+            @media #{$screen-tablet} {
+                order: initial;
+            }
+        }
+
     }
 }
