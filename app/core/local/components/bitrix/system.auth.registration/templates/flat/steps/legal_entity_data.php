@@ -206,6 +206,7 @@
                                                 id="register_locality"
                                                 placeholder="Населенный пункт"
                                                 value="<?=$arResult['register_locality']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -229,6 +230,7 @@
                                                 id="register_street"
                                                 placeholder="Улица"
                                                 value="<?=$arResult['register_street']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -248,12 +250,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="register_house"
                                                 id="register_house"
                                                 placeholder="Дом"
                                                 value="<?=$arResult['register_house']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -271,12 +274,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="register_apartment"
                                                 id="register_apartment"
                                                 placeholder="Квартира"
                                                 value="<?=$arResult['register_apartment']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -331,6 +335,7 @@
                                                 id="living_locality"
                                                 placeholder="Населенный пункт"
                                                 value="<?=$arResult['living_locality']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -354,6 +359,7 @@
                                                 id="living_street"
                                                 placeholder="Улица"
                                                 value="<?=$arResult['living_street']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -373,12 +379,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="living_house"
                                                 id="living_house"
                                                 placeholder="Дом"
                                                 value="<?=$arResult['living_house']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -396,12 +403,13 @@
                                 <div class="form__field-block form__field-block--input">
                                     <div class="input">
                                         <input
-                                                type="number"
+                                                type="text"
                                                 class="input__control"
                                                 name="living_apartment"
                                                 id="living_apartment"
                                                 placeholder="Квартира"
                                                 value="<?=$arResult['living_apartment']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -1046,6 +1054,7 @@
                                                 id="ltc_locality"
                                                 placeholder="Населенный пункт"
                                                 value="<?=$arResult['ltc_locality']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -1069,6 +1078,7 @@
                                                 id="ltc_street"
                                                 placeholder="Улица"
                                                 value="<?=$arResult['ltc_street']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -1094,6 +1104,7 @@
                                                 id="ltc_address_1"
                                                 placeholder="Дом, корпус, строение"
                                                 value="<?=$arResult['ltc_address_1']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
@@ -1117,6 +1128,7 @@
                                                 id="ltc_address_2"
                                                 placeholder="Этаж, помещение, комната"
                                                 value="<?=$arResult['ltc_address_2']?>"
+                                                data-replace-input="adress"
                                         >
                                     </div>
                                 </div>
