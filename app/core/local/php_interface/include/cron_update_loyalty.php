@@ -18,7 +18,3 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_be
 
 $loyaltyUpdater = new UpdateLoyaltyService();
 $loyaltyUpdater->updateUsersLoyalty();
-
-echo PHP_EOL;
-echo 'access granted';
-echo PHP_EOL;

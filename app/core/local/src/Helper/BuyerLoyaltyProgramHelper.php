@@ -62,7 +62,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
         $sortedLevels = $this->getSortedLevels();
         // Получаем индекс текущего уровня (для определения позиции относительно остальных уровней)
         $currentLevelIndex = $levels[$user->loyaltyLevel]['level'];
-        dump([$user->id]);
+
         foreach ($sortedLevels as $index => $xmlId) {
             // Проверяем только вышестоящие уровни
             if ($index <= $currentLevelIndex) {
@@ -89,7 +89,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
     {
         $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
         $levelInfo = $this->getLoyaltyLevelInfo($level);
-        // dump([$currentLevelInfo, $levelInfo, $user->id, $level, $user->loyaltyLevel]);
+
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }

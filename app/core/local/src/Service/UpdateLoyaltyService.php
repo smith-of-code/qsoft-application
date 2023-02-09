@@ -32,7 +32,7 @@ class UpdateLoyaltyService
                             'CURRENT_LEVEL' => $user->loyaltyLevel,
                         ]
                     );
-                } catch(RuntimeException $e) {dump(['error1',$user->id]);
+                } catch(RuntimeException $e) {
                     $this->setLog(
                         'У пользователя задан не корректный уровень лояльности',
                         'error',
@@ -48,7 +48,7 @@ class UpdateLoyaltyService
             if ($user->groups->isConsultant()) {
                 try{
                     $this->updateConsultantLoyaltyLevel($user);
-                } catch(RuntimeException $e) {dump(['error2',$user->id]);
+                } catch(RuntimeException $e) {
                     $this->setLog(
                         'У пользователя задан не корректный уровень лояльности',
                         'error',
@@ -69,7 +69,7 @@ class UpdateLoyaltyService
     {
         $helper = new BuyerLoyaltyProgramHelper(true);
 
-        dump($helper->upgradeLoyaltyLevel($user));
+        $helper->upgradeLoyaltyLevel($user);
 
         unset($helper);
     }
@@ -78,7 +78,7 @@ class UpdateLoyaltyService
     {
         $helper = new ConsultantLoyaltyProgramHelper(true);
 
-        dump($helper->upgradeLoyaltyLevel($user));
+        $helper->upgradeLoyaltyLevel($user);
 
         unset($helper);
     }
