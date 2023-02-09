@@ -614,8 +614,6 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                         <?php if ($arResult['personal_data']['is_consultant']):?>
 
-                        <?= dump($arResult['LL'])?>
-
                             <div class="section__box-inner">
                                 <h5 class="box__heading box__heading--middle">Достижения в системе лояльности</h5>
 
