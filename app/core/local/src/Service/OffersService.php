@@ -6,9 +6,11 @@ use Bitrix\Catalog\Model\Price;
 use Bitrix\Iblock\PropertyTable;
 use Bitrix\Iblock\PropertyIndex\Manager;
 use Bitrix\Main\Loader;
+use Psr\Log\LogLevel;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 /**
@@ -46,10 +48,30 @@ class OffersService
     public function __construct() {
 
         if (! Loader::includeModule('iblock')) {
-            throw new RuntimeException('Не найден модуль "iblock"');
+            $error = new RuntimeException('Не найден модуль "iblock"');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
         if (! Loader::includeModule('sale')) {
-            throw new RuntimeException('Не найден модуль "sale"');
+            $error = new RuntimeException('Не найден модуль "sale"');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
 

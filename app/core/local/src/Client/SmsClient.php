@@ -1,7 +1,10 @@
 <?php
 
 namespace QSoft\Client;
+
+use Psr\Log\LogLevel;
 use QSoft\Environment;
+use QSoft\Logger\Logger;
 
 class SmsClient
 {
@@ -47,11 +50,31 @@ class SmsClient
         $responseArray = json_decode($response, true);
 
         if (json_last_error() != JSON_ERROR_NONE) {
-            throw new \Exception('Error response format', $info['http_code']);
+            $error = new \Exception('Error response format', $info['http_code']);
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         if ($info['http_code'] != 200) {
-            throw new \Exception($responseArray['error_message'], $info['http_code']);
+            $error = new \Exception($responseArray['error_message'], $info['http_code']);
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         return $responseArray;

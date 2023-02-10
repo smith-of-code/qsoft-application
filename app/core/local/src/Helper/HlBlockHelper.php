@@ -6,6 +6,8 @@ use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Loader;
 use CUserFieldEnum;
 use CUserTypeEntity;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 class HlBlockHelper
@@ -13,12 +15,32 @@ class HlBlockHelper
     public static function getEnumFieldValues(string $tableName, string $fieldName): array
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Module highloadblock not install');
+            $error = new RuntimeException('Module highloadblock not install');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => $tableName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
+            $error = new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $field = CUserTypeEntity::GetList([], [
@@ -27,7 +49,17 @@ class HlBlockHelper
         ])->Fetch();
 
         if (!$field) {
-            throw new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
+            $error = new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         return CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;

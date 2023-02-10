@@ -4,8 +4,10 @@ namespace QSoft\Service;
 
 use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\ORM\Data\UpdateResult;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Logger\Logger;
 use QSoft\ORM\LegalEntityTable;
 
 class LegalEntityService
@@ -20,7 +22,17 @@ class LegalEntityService
     public function getData(): array
     {
         if (!$this->user->groups->isConsultant()) {
-            throw new \RuntimeException('User is not a consultant');
+            $error = new \RuntimeException('User is not a consultant');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
         $types = HlBlockHelper::getPreparedEnumFieldValues(LegalEntityTable::getTableName(), 'UF_STATUS');
 
@@ -33,7 +45,17 @@ class LegalEntityService
         ]);
 
         if (!in_array($types[$legalEntity['UF_STATUS']]['code'], LegalEntityTable::STATUSES)) {
-            throw new \RuntimeException('Unknown legal entity status');
+            $error = new \RuntimeException('Unknown legal entity status');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         return [

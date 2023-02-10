@@ -6,7 +6,9 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
+use QSoft\Logger\Logger;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -93,7 +95,17 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала

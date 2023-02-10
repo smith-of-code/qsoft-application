@@ -2,6 +2,8 @@
 
 namespace QSoft\Queue\Jobs;
 
+use Bitrix\Main\Composite\Debug\Logger;
+use Psr\Log\LogLevel;
 use RuntimeException;
 use Throwable;
 
@@ -19,7 +21,17 @@ abstract class BaseJob
     {
         $self = new static;
         if (!$self->validateInputData($data)) {
-            throw new RuntimeException($self->getQueueName() . ' queue: data is not valid');
+            $error = new RuntimeException($self->getQueueName() . ' queue: data is not valid');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
         app('queue')->push(static::class, $data, $self->getQueueName());
     }

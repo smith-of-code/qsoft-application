@@ -32,7 +32,17 @@ class OrderService
         if (!isset($this->order)) {
             $this->order = Order::load($this->orderId);
             if (!$this->order) {
-                throw new RuntimeException('Order not found');
+                $error = new RuntimeException('Order not found');
+                Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                    ->setLog(
+                        $error->getMessage(),
+                        [
+                            'message' => $error->getMessage(),
+                            'namespace' => __NAMESPACE__ ,
+                            'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        ],
+                    );
+                throw $error;
             }
         }
         return $this->order;

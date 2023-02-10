@@ -17,7 +17,9 @@ use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Order;
 use CCatalogProduct;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 class BasketHelper
@@ -102,13 +104,33 @@ class BasketHelper
         if ($discounts = Discount::buildFromBasket($basket, $context)) {
             $discountsResult = $discounts->calculate();
             if (!$discountsResult->isSuccess()) {
-                throw new RuntimeException($discountsResult->getErrorMessages());
+                $error = new RuntimeException($discountsResult->getErrorMessages());
+                Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                    ->setLog(
+                        $error->getMessage(),
+                        [
+                            'message' => $error->getMessage(),
+                            'namespace' => __NAMESPACE__ ,
+                            'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        ],
+                    );
+                throw $error;
             }
             $discountsData = $discountsResult->getData();
             if ($discountsData['BASKET_ITEMS']) {
                 $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
                 if (!$applyResult->isSuccess()) {
-                    throw new RuntimeException($applyResult->getErrorMessages());
+                    $error = new RuntimeException($applyResult->getErrorMessages());
+                    Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                        ->setLog(
+                            $error->getMessage(),
+                            [
+                                'message' => $error->getMessage(),
+                                'namespace' => __NAMESPACE__ ,
+                                'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                            ],
+                        );
+                    throw $error;
                 }
             }
         }

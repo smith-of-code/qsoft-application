@@ -29,7 +29,17 @@ class TransactionsHelper
     public function __construct() {
         $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION; //.const
         if (! isset($this->hlId)) {
-            throw new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
+            $error = new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
     }
 

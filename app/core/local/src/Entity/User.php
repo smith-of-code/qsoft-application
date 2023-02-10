@@ -15,10 +15,11 @@ use CFile;
 use CMain;
 use CUser;
 use CUserFieldEnum;
-
+use Psr\Log\LogLevel;
 use QSoft\Service\BeneficiariesService;
 use QSoft\Service\ConfirmationService;
 use QSoft\Entity\Mutators\UserPropertiesMutator;
+use QSoft\Logger\Logger;
 use QSoft\Service\BonusAccountService;
 use QSoft\Service\LegalEntityService;
 use QSoft\Service\LoyaltyService;
@@ -240,7 +241,17 @@ class User
 
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
-            throw new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
+            $error = new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         // Для пользовательских полей типа "Список" получаем установленное значение

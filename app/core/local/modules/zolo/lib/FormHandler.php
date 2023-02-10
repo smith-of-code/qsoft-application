@@ -8,6 +8,7 @@ use Bitrix\Main\Loader;
 use QSoft\Entity\User;
 use Bitrix\Report\VisualConstructor\Fields\Div;
 use \CTicket;
+use QSoft\Logger\Logger;
 
 class FormHandler
 {
@@ -36,11 +37,31 @@ class FormHandler
     private function initModule(): void
     {
         if (!Loader::includeModule('support')) {
-            throw new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
+            $error = new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         if (!Loader::includeModule('report')) {
-            throw new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
+            $error = new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
     }
 

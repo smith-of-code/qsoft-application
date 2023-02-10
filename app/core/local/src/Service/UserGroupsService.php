@@ -68,7 +68,17 @@ class UserGroupsService
         $this->getUserGroups();
 
         if (! isset($this->allGroups[$groupCode])) {
-            throw new RuntimeException('User group does not exist');
+            $error = new RuntimeException('User group does not exist');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         // Добавим в группу
@@ -96,7 +106,17 @@ class UserGroupsService
         $this->getUserGroups();
 
         if (! isset($allGroups[$groupCode])) {
-            throw new RuntimeException('User group does not exist');
+            $error = new RuntimeException('User group does not exist');
+            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __NAMESPACE__ ,
+                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         // Удалим из группы
