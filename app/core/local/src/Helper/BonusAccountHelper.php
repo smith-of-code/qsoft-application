@@ -38,14 +38,14 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -55,14 +55,14 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -140,14 +140,14 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -157,14 +157,14 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -195,42 +195,42 @@ class BonusAccountHelper
     {
         if (!$user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
         }
         if (!$user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
         }
         if ($user->bonusPoints < $amount) {
             $error = new RuntimeException('У пользователя недостаточно бонусов');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
                         'user' => $user->id,
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;

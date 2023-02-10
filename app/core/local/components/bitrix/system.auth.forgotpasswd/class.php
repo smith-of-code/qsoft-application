@@ -7,7 +7,9 @@ use Bitrix\Main\Engine\Contract\Controllerable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\UserTable;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
+use QSoft\Logger\Logger;
 use QSoft\Service\ConfirmationService;
 
 class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Controllerable
@@ -43,7 +45,17 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
             $recaptcha = new QSoft\Common\Recaptcha();
             $response = $recaptcha->isValidResponse($captcha);
             if (!$response) {
-                throw new Exception('Recaptcha not passed');
+                $error = new Exception('Recaptcha not passed');
+                Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                    ->setLog(
+                        $error->getMessage(),
+                        [
+                            'message' => $error->getMessage(),
+                            'namespace' => __CLASS__,
+                            'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                        ],
+                    );
+                throw $error;
             }
         } catch (\Exception $e) {
             throw new Exception('Recaptcha error');

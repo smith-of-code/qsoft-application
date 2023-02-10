@@ -242,13 +242,13 @@ class User
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
             $error = new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;

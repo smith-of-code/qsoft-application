@@ -7,7 +7,9 @@ use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
 use Bitrix\Main\Security\Random;
+use Psr\Log\LogLevel;
 use QSoft\Factory\SliderElementFactory;
+use QSoft\Logger\Logger;
 use RuntimeException;
 use Throwable;
 
@@ -16,7 +18,17 @@ class SliderElementSeeder implements Seederable
     public static function seed(?string $blockName = null): void
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Не удалось загрузить модуль highloadblock');
+            $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $connection = Application::getInstance()->getConnection();
@@ -24,12 +36,32 @@ class SliderElementSeeder implements Seederable
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $sliderBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => 'HlSlider']]);
         if (!$sliderBlock) {
-            throw new RuntimeException(sprintf('Не найден hl-блок %s', 'HlSlider'));
+            $error = new RuntimeException(sprintf('Не найден hl-блок %s', 'HlSlider'));
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $sliderIds = [];

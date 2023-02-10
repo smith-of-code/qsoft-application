@@ -49,26 +49,26 @@ class OffersService
 
         if (! Loader::includeModule('iblock')) {
             $error = new RuntimeException('Не найден модуль "iblock"');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
         }
         if (! Loader::includeModule('sale')) {
             $error = new RuntimeException('Не найден модуль "sale"');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -78,7 +78,17 @@ class OffersService
         $this->offersIbId = (int) \CIBlock::GetList([], ['CODE' => 'product_offer'])->Fetch()['ID'];
 
         if (! $this->offersIbId) {
-            throw new RuntimeException('Не найден инфоблок "product_offer"');
+            $error = new RuntimeException('Не найден инфоблок "product_offer"');
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $this->groups = UserGroupHelper::getAllUserGroups();

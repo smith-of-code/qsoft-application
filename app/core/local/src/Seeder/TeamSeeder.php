@@ -8,13 +8,25 @@ use Bitrix\Main\Application;
 use QSoft\Factory\TeamFactory;
 use RuntimeException;
 use CUser;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 class TeamSeeder implements Seederable
 {
     public static function seed(?string $blockName = null): void
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Не удалось загрузить модуль highloadblock');
+            $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $connection = Application::getInstance()->getConnection();
@@ -22,7 +34,17 @@ class TeamSeeder implements Seederable
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $userIds = [];

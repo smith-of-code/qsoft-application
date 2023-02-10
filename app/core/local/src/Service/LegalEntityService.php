@@ -23,13 +23,13 @@ class LegalEntityService
     {
         if (!$this->user->groups->isConsultant()) {
             $error = new \RuntimeException('User is not a consultant');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -46,13 +46,13 @@ class LegalEntityService
 
         if (!in_array($types[$legalEntity['UF_STATUS']]['code'], LegalEntityTable::STATUSES)) {
             $error = new \RuntimeException('Unknown legal entity status');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;

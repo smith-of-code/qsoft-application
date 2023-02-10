@@ -13,11 +13,13 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Logger\Logger;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
@@ -296,10 +298,30 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $recaptcha = new QSoft\Common\Recaptcha();
             $response = $recaptcha->isValidResponse($data['captcha']);
             if (!$response) {
-                throw new Exception('Капча не пройдена');
+                $error = new Exception('Капча не пройдена');
+                Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                    ->setLog(
+                        $error->getMessage(),
+                        [
+                            'message' => $error->getMessage(),
+                            'namespace' => __CLASS__,
+                            'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                        ],
+                    );
+                    throw $error;
             }
         } catch (\Exception $e) {
-            throw new Exception('Ошибка проверки капчи');
+            $error = new Exception('Ошибка проверки капчи');
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $phone = normalizePhoneNumber($data['phone']);

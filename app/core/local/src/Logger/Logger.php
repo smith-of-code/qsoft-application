@@ -89,7 +89,7 @@ class Logger extends FileLogger
             .'{date} - '
             . $message
             . PHP_EOL
-            . str_replace('Array', 'Datails', print_r($details, true))
+            . (!empty($details) ? str_replace('Array', 'Datails', print_r($details, true)) : '') 
             . '{delimiter}';
     }
 

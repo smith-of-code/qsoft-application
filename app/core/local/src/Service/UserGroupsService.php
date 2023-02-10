@@ -3,13 +3,14 @@
 namespace QSoft\Service;
 
 use Bitrix\Main\ArgumentException;
-use Bitrix\Main\GroupTable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\UserGroupTable;
 use http\Exception\RuntimeException;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\UserGroupHelper;
+use QSoft\Logger\Logger;
 
 class UserGroupsService
 {
@@ -69,13 +70,13 @@ class UserGroupsService
 
         if (! isset($this->allGroups[$groupCode])) {
             $error = new RuntimeException('User group does not exist');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;
@@ -107,13 +108,13 @@ class UserGroupsService
 
         if (! isset($allGroups[$groupCode])) {
             $error = new RuntimeException('User group does not exist');
-            Logger::createLogger(__CLASS__, 0, LogLevel::ERROR)
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
                 ->setLog(
                     $error->getMessage(),
                     [
                         'message' => $error->getMessage(),
-                        'namespace' => __NAMESPACE__ ,
-                        'file_path' => (new \ReflectionClass(__NAMESPACE__))->getFileName(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
             throw $error;

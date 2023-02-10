@@ -9,11 +9,13 @@ use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
 use CCatalogProduct;
 use CUser;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
+use QSoft\Logger\Logger;
 use QSoft\ORM\BeneficiariesTable;
 
 class UserEventsListener
@@ -93,6 +95,10 @@ class UserEventsListener
                 (new BonusAccountHelper)->addReferralBonuses($mentor);
             }
         }
+        Logger::createLogger('User', 0, LogLevel::INFO)
+            ->setLog(
+                "Пользователю с ID {$fields['ID']} изменили колличество балов с {$user->bonusPoints} на {$fields['UF_BONUS_POINTS']}"
+            );
     }
 
     public static function OnBeforeUserAdd(array &$fields)
@@ -147,5 +153,9 @@ class UserEventsListener
 //            $basketItem->save();
         }
         $basket->save();
+    }
+
+    public static function OnAfterUserUpdate(&$arFields)
+    {
     }
 }
