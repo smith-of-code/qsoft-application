@@ -384,7 +384,7 @@ export default function () {
         let oneTimeCharges = bigData.oneTimeCharges + bigData.oneTimeChargesTransitionLevel; // Разовые начисления
         let sum = incomeFromPersonalSales + profitFromPersonalPurchases + incomeFromGroup + oneTimeCharges;
         
-        $(ELEMENTS_SELECTOR.calculatorComputingSum).text(sum.toLocaleString());
+        $(ELEMENTS_SELECTOR.calculatorComputingSum).text(sum.toLocaleString('ru-RU'));
 
         // Обновление основной диаграммы
         let chart = $(ELEMENTS_SELECTOR.chart);

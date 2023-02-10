@@ -9,7 +9,7 @@
     }
 
     @media #{$screen-desktop} {
-        padding: rem($gap-normal) rem(20px);
+        padding: rem($gap-normal) rem(20px) rem(10px) rem(20px);
     }
 
     &__heading {
@@ -32,6 +32,9 @@
         margin-bottom: rem($gap-small);
 
         @media #{$screen-desktop} {
+            height: rem(110px);
+            display: flex;
+            flex-direction: column;
             margin-bottom: rem(22px);
         }
 
@@ -42,6 +45,10 @@
                 font-size: rem($font-size-mini);
             }
         }
+    }
+
+    &__quantity {
+        margin-top: auto;
     }
 
     &__packs,

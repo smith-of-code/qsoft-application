@@ -156,7 +156,9 @@ $containerName = "container-{$navParams['NavNum']}";?>
                 data-select-control
                 data-placeholder="Сортировка"
             >
-                <option value="<?= $APPLICATION->GetCurPageParam('sort=popularity', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'SORT' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
+                <option><!-- пустой option для placeholder --></option>
+                <option value="<?= $APPLICATION->GetCurPageParam('sort=popularity', ['sort']);?>" 
+                <?= $arParams['ELEMENT_SORT_FIELD'] === 'SORT' && isset($_GET['sort']) && $_GET['sort'] == 'popularity' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По популярности</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=price-asc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'asc' ? 'selected' : ''?>>По цене (по возрастанию)</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=price-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'CATALOG_PRICE_1' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>По цене (по убыванию)</option>
                 <option value="<?= $APPLICATION->GetCurPageParam('sort=date-desc', ['sort']);?>" <?= $arParams['ELEMENT_SORT_FIELD'] === 'TIMESTAMP_X' && $arParams["ELEMENT_SORT_ORDER"] === 'desc' ? 'selected' : ''?>>Сначала новые товары</option>
@@ -179,17 +181,18 @@ $containerName = "container-{$navParams['NavNum']}";?>
                 });
             </script>
         </form>
-
-        <div class="catalog__toggle">
-            <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
-                <span class="button__icon button__icon--right button__icon--medium">
-                    <svg class="icon icon--filter">
-                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
-                    </svg>
-                </span>
-                <span class="button__text">Фильтр</span>
-            </button>
-        </div>
+        <?php if (isset($this->arParams["USE_FILTER"]) && $this->arParams["USE_FILTER"] == "Y"):?>
+            <div class="catalog__toggle">
+                <button type="button" class="filter__toggle button button--square button--covered button--black-red button--full" data-filter-button>
+                    <span class="button__icon button__icon--right button__icon--medium">
+                        <svg class="icon icon--filter">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-filter"></use>
+                        </svg>
+                    </span>
+                    <span class="button__text">Фильтр</span>
+                </button>
+            </div>
+        <?php endif;?>
     </div>
 </div>
 

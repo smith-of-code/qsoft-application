@@ -124,6 +124,10 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         );
 
         if ($this->user->groups->isConsultant()) {
+            $this->arResult['LL'] = $this->loyaltyProgramHelper->getLoyaltyLevels()['consultant'];
+        }
+
+        if ($this->user->groups->isConsultant()) {
             $this->arResult['legal_entity'] = $this->user->legalEntity->getData();
             $this->arResult['legal_entity_types'] = HlBlockHelper::getPreparedEnumFieldValues(
                 LegalEntityTable::getTableName(),
