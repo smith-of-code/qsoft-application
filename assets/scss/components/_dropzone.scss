@@ -156,7 +156,7 @@
                 background: $athensGray;
 
                 margin-top: rem($gap-small);
-                padding: rem($gap-average);
+                padding: rem($gap-average) rem(11px);
 
                 @media #{$screen-tablet} {
                     width: rem(148px);
@@ -169,6 +169,7 @@
                 font-size: rem($font-size-miniature);
                 font-weight: $font-weight-medium;
                 line-height: ($line-height-miniature / $font-size-miniature);
+                letter-spacing: 0.01em;
 
                 color: $tuna;
 
