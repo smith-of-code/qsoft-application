@@ -126,13 +126,17 @@ function setSuccessMessage(id) {
                 </svg>
             </div>
 
-            <h4 class="notification__title">
-                Заявка успешно отправлена!
+            <h4 class="notification__title notification__title--centered">
+                Заявка №${id}. Благодарим Вас за обращение.
             </h4>
 
             <p class="notification__text">
-                Ваша заявка отправлена. Проверьте вашу электронную почту.
+                Нам потребуется некоторое время для подготовки ответа. Наши специалисты свяжутся с Вами в течении 72 часов.
             </p>
+
+            <button data-fancybox-close type="button" class="notification__button notification__button--close button button--rounded button--covered button--red">
+                Закрыть
+            </button>
         </div>
     `;
 
