@@ -35,7 +35,6 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            return true;
             if ($user->update(['UF_PERSONAL_DISCOUNT_LEVEL' => $levelsIDs[$availableLevel]])) {
                 $user->loyaltyLevel = $availableLevel;
                 return true;
@@ -85,7 +84,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
      * @throws ObjectPropertyException
      * @throws SystemException
      */
-    public function checkIfCanUpgradeToLevel(User $user, string $level, bool $quarter = false) : bool
+    public function checkIfCanUpgradeToLevel(User $user, string $level) : bool
     {
         $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
         $levelInfo = $this->getLoyaltyLevelInfo($level);

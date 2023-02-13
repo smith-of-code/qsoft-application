@@ -37,35 +37,13 @@ class BonusAccountHelper
     {
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
-            $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
         }
 
         // Начисление баллов доступно только для Консультанта
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
-            $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         // Получаем количество баллов для начисления
@@ -139,35 +117,13 @@ class BonusAccountHelper
     {
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
-            $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
         }
 
         // Начисление баллов доступно только для Консультанта
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
-            $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь не является Консультантом');
         }
 
         // Получаем количество баллов для начисления
@@ -194,46 +150,13 @@ class BonusAccountHelper
     public function subtractOrderBonuses(User $user, int $amount): bool
     {
         if (!$user->active) {
-            $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
         }
         if (!$user->groups->isConsultant()) {
-            $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('Пользователь не является Консультантом');
         }
         if ($user->bonusPoints < $amount) {
-            $error = new RuntimeException('У пользователя недостаточно бонусов');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $error;
+            throw new RuntimeException('У пользователя недостаточно бонусов');
         }
 
         return $user->update([

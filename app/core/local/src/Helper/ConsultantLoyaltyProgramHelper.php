@@ -26,12 +26,13 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
      * @var int
      */
     private $toggleLevel = 0;
-    private $lowerLevel = 'K1';
+    private $lowerLevel;
 
     public function __construct()
     {
         parent::__construct();
         $this->configPath .= '.consultant';
+        $this->lowerLevel = $this->getLowestLevel();
     }
 
     /**
@@ -45,11 +46,13 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         // Получим доступный для перехода уровень
         $availableLevel = $this->getAvailableLoyaltyLevelToUpgrade($user);
 
-        // Если не набрано нужное количество очков за период и если не первый уровень, снижжаес уровень.
+        // Если не набрано нужное количество очков за период и если не первый уровень, снижает уровень.
         if ($this->toggleLevel < 0 && $user->loyaltyLevel != $this->lowerLevel) {
 
             $levelsIDs = $this->getLevelsIDs();
             $user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$this->lowerLevel]]);
+
+            return true;
         }
 
         if (isset($availableLevel)) {
@@ -87,7 +90,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         // Получаем индекс текущего уровня (для определения позиции относительно остальных уровней)
         $currentLevelIndex = $levels[$user->loyaltyLevel]['level'];
 
-        $this->lowerLevel = $lowerLevel = 'K1';
+        $lowerLevel = $this->lowerLevel;
 
         foreach ($sortedLevels as $index => $xmlId) {
             if ($xmlId == $user->loyaltyLevel) {
