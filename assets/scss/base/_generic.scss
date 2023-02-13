@@ -14,7 +14,6 @@ html {
 
     position: relative;
     z-index: $z-index-html;
-    overflow-y: scroll;
 
     color: $color-text;
     background: $white;
@@ -22,10 +21,15 @@ html {
 
 body {
     @include text-medium;
+    overflow-y: scroll;
 
     letter-spacing: 0.02em;
 
     text-rendering: optimizeLegibility;
+
+    &.fancybox-active {
+        overflow-y: hidden;
+    }
 }
 
 h1 {
