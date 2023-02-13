@@ -5,9 +5,17 @@ $(document).on("change", "[data-select]", function () {
     let selected = $('#ticket-type').val();
     if (selected !== "undefined") {
         changeForm(selected);
+        activateButton()
     }
 });
 
+function activateButton()
+{
+    console.log();
+    $('#confirm-ticket-button').attr('disabled', false);
+    $('#confirm-ticket-button').css("background-color", "#d82f49");
+    $('#confirm-ticket-button').css("cursor", "pointer");
+}
 
 function changeForm(savedSelected) {
     for (let key in SUPPORT_TYPE) {
