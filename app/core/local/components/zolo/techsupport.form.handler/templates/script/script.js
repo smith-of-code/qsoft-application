@@ -11,7 +11,6 @@ $(document).on("change", "[data-select]", function () {
 
 function activateButton()
 {
-    console.log();
     $('#confirm-ticket-button').attr('disabled', false);
     $('#confirm-ticket-button').css("background-color", "#d82f49");
     $('#confirm-ticket-button').css("cursor", "pointer");
