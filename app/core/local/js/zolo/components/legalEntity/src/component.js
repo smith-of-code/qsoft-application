@@ -324,6 +324,7 @@ export const LegalEntity = {
                                                                 placeholder="Населенный пункт"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_locality"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -349,6 +350,7 @@ export const LegalEntity = {
                                                                 placeholder="Улица"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_street"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -376,6 +378,7 @@ export const LegalEntity = {
                                                                 placeholder="Дом"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_house"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -401,6 +404,7 @@ export const LegalEntity = {
                                                                 placeholder="Квартира"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.register_apartment"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -459,6 +463,7 @@ export const LegalEntity = {
                                                                     placeholder="Населенный пункт"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_locality"
+                                                                    data-replace-input="adress"
                                                                 >
                                                             </div>
                                                         </div>
@@ -485,6 +490,7 @@ export const LegalEntity = {
                                                                     placeholder="Улица"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_street"
+                                                                    data-replace-input="adress"
                                                                 >
                                                             </div>
                                                         </div>
@@ -513,6 +519,7 @@ export const LegalEntity = {
                                                                     placeholder="Дом"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_house"
+                                                                    data-replace-input="adress"
                                                                 >
                                                             </div>
                                                         </div>
@@ -539,6 +546,7 @@ export const LegalEntity = {
                                                                     placeholder="Квартира"
                                                                     :readonly="!editing"
                                                                     v-model="mutableLegalEntity.documents.living_apartment"
+                                                                    data-replace-input="adress"
                                                                 >
                                                             </div>
                                                         </div>
@@ -1453,6 +1461,7 @@ export const LegalEntity = {
                                                                 placeholder="Населенный пункт"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.ltc_locality"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -1477,6 +1486,7 @@ export const LegalEntity = {
                                                                 placeholder="Улица"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.ltc_street"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -1503,6 +1513,7 @@ export const LegalEntity = {
                                                                 placeholder="Дом, корпус, строение"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.ltc_address_1"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
@@ -1527,6 +1538,7 @@ export const LegalEntity = {
                                                                 placeholder="Этаж, помещение, комната"
                                                                 :readonly="!editing"
                                                                 v-model="mutableLegalEntity.documents.ltc_address_2"
+                                                                data-replace-input="adress"
                                                             >
                                                         </div>
                                                     </div>
