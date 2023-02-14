@@ -55,6 +55,7 @@
  import truncateBySymbols from './modules/truncateBySymbols';
  import inputRepalece from './modules/inputReplace';
  import fixWidth from './modules/fixWidth';
+ import inputRequired from './modules/inputRequired';
 
  const app = {
     ready() {
@@ -105,6 +106,7 @@
         truncateBySymbols();
         inputRepalece();
         fixWidth();
+        inputRequired();
     },
 
     load() {
