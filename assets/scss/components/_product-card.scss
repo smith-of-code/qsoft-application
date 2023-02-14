@@ -181,7 +181,7 @@
     }
 
     &__article {
-        font-size: rem($font-size-small);
+        font-size: rem($font-size-miniature);
         font-weight: $font-weight-medium;
         line-height: $line-height-small;
 
@@ -192,6 +192,7 @@
         }
 
         @media #{$screen-desktop} {
+            font-size: rem($font-size-small);
             line-height: 22px;
         }
     }
