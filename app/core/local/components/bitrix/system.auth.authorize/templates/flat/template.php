@@ -39,7 +39,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин">
+                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин" data-input-required>
                             </div>
                         </div>
                     </div>
