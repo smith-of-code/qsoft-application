@@ -58,6 +58,7 @@ export default async function () {
         if (!bonusAccept && !errorCard) {
             acceptBonus();
         } else if (bonusAccept) {
+            buttonIcon.html(iconDefault);
             resetBonus();
         } else if (errorCard) {
             errorCard = false;
@@ -93,8 +94,7 @@ export default async function () {
             resetBonus();
         }
 
-        button.removeClass('button--dark')
-        .addClass('button--green');
+        button.removeClass('button--dark').addClass('button--green');
     });
 
     async function checkPriceProduct() {
@@ -225,7 +225,7 @@ export default async function () {
         const percentageBonusPay = calcBonusPercent(bonusInputValueNumber, totalBasket); 
 
         if (!bonusInputValue) {
-          return  
+          return;
         }
 
         if (bonusBalance < bonusInputValueNumber) {
@@ -258,6 +258,7 @@ export default async function () {
             const updateNds = calcNds(priceBasket);
 
             acceptNds(updateNds);
+            acceptTotal(priceBasket);
             acceptEconomy(updateEconomy);
             acceptBonusBalance(updateBalanceBonus);
 
@@ -305,21 +306,25 @@ export default async function () {
         const bonusInputControl = bonusInput.find('.input__control');
         const bonusInputValue = bonusInputControl.val()
         const bonusInputValueNumber = Number(bonusInputValue);
-        
+
+        const totalBasket = $(ELEMENTS_SELECTOR.total).text().replace(/\s/g,'');
         const totalEconomy = $(ELEMENTS_SELECTOR.economy).text().replace(/\s/g,'');
         const totalBonusBalance = $(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,'');
 
         const resetBonus = parseInt(totalBonus) + parseInt(totalBonusBalance);
         const resetEconomy = parseFloat(totalEconomy.replace(/,/g, '.')) - parseFloat(totalBonus);
+        const resetTotal = parseFloat(totalBasket.replace(/,/g, '.')) + parseFloat(totalBonus);
 
         $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus + ' ББ');
         acceptEconomy(resetEconomy);
+        acceptTotal(resetTotal);
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
 
         await checkStatusBasket();
         const bonusInputValueReset = bonusInputControl.val('');
         bonusInputControl.attr('value', '');
         totalBonus = 0;
+        bonusAccept = false;
     }
 
     function resetInput() {

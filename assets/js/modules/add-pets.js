@@ -65,8 +65,21 @@ export default function () {
         let dateInput = element.find(ELEMENTS_SELECTOR.dateInput).val();
         element.find(ELEMENTS_SELECTOR.date).text(dateInput);
 
+        //тип
+        let typeInput = element.find(`${ELEMENTS_SELECTOR.typeInput} option:selected`).data('pets-species');
+        let icon = (typeInput == 'dog') ? 'dog' : 'cat';
+        element.find(ELEMENTS_SELECTOR.type).html(`<svg class="icon icon--${icon}">
+            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>
+        </svg>`);
+
         //порода
-        let breedInput = element.find(`${ELEMENTS_SELECTOR.breedInput} option:selected`).text();
+        var breedContainer = null;
+        if (typeInput == 'dog') {
+            breedContainer = element.find(`div[data-breed="KIND_DOG"]`);
+        } else {
+            breedContainer = element.find(`div[data-breed="KIND_CAT"]`);
+        }
+        let breedInput = breedContainer.find(`${ELEMENTS_SELECTOR.breedInput} option:selected`).text();
         element.find(ELEMENTS_SELECTOR.breed).text(breedInput);
 
         //пол
@@ -74,13 +87,6 @@ export default function () {
         let gender = genderInput.indexOf('Девочка') !== -1 ? 'woman' : 'man';
         element.find(ELEMENTS_SELECTOR.gender).html(`<svg class="icon icon--${gender}">
             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${gender}"></use>
-        </svg>`);
-
-        //тип
-        let typeInput = element.find(`${ELEMENTS_SELECTOR.typeInput} option:selected`).data('pets-species');
-        let icon = (typeInput == 'dog') ? 'dog' : 'cat';
-        element.find(ELEMENTS_SELECTOR.type).html(`<svg class="icon icon--${icon}">
-            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-${icon}"></use>
         </svg>`);
 
         element.removeClass('pet-card--editing');

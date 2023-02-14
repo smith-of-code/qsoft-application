@@ -15,3 +15,10 @@
         padding: rem($gap-small) rem($gap-average);
     }
 }
+
+[data-tippy-root] {
+   z-index: 1400 !important;
+    @media #{$screen-desktop} {
+        z-index: 2000 !important;
+    }
+}
