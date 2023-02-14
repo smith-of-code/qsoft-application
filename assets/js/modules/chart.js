@@ -20,7 +20,7 @@ export default function () {
             plugins: {
                 datalabels: {
                     formatter(value) {
-                        return value === 0 ? '' : value.toLocaleString();
+                        return value === 0 ? '' : value.toLocaleString('ru-RU');
                     },
                     color: '#3A3A43',
                     anchor: 'end',
