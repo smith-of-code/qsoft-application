@@ -79,4 +79,12 @@
     &__footer {
         flex-shrink: 0;
     }
+
+    &.block-mobile {
+        overflow-y: hidden;
+
+        @media #{$screen-tablet} {
+            overflow-y: scroll;
+        }
+    }
 }

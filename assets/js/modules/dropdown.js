@@ -51,9 +51,11 @@ export default function () {
 
     $(document).on('click', ELEMENTS_SELECTOR.buttonMenu, function() {
         $(this).toggleClass('header__catalog-button-menu--active');
+        $('body').addClass('block-mobile');
     });
 
     $(document).on('click', ELEMENTS_SELECTOR.close, function() {
         $(this).closest(ELEMENTS_SELECTOR.dropdown).removeClass('dropdown--active');
+        $('body').removeClass('block-mobile');
     });
 }
