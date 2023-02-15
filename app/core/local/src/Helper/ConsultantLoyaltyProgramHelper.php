@@ -33,7 +33,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
     {
         // Получим доступный для перехода уровень
         $availableLevel = $this->getAvailableLoyaltyLevelToUpgrade($user);
-        (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
 
@@ -107,8 +107,8 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
      */
     public function checkIfCanUpgradeToLevel(User $user, string $level) : bool
     {
-        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel, 'consultant');
-        $levelInfo = $this->getLoyaltyLevelInfo($level, 'consultant');
+        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+        $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');

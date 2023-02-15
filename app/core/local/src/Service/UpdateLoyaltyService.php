@@ -18,7 +18,7 @@ class UpdateLoyaltyService
         $allUsersIds = $this->getAllUsersIds();
 
         foreach ($allUsersIds as $id) {
-            $user = new User(430);
+            $user = new User($id);
 
             if ($user->groups->isBuyer()) {
                 try{

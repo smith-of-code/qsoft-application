@@ -119,8 +119,11 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
             $this->arResult['current_accounting_period']['from'],
             $this->arResult['current_accounting_period']['to'],
         );
+
+        $group = $this->user->groups->isConsultant() ? 'consultant' : 'customer';
+
         $this->arResult['loyalty_level_info'] = $this->loyaltyProgramHelper->getLoyaltyLevelInfo(
-            $this->arResult['personal_data']['loyalty_level']
+            $this->arResult['personal_data']['loyalty_level'], $group
         );
 
         if ($this->user->groups->isConsultant()) {

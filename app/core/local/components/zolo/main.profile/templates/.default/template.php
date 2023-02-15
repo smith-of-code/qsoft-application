@@ -1030,7 +1030,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                         <div class="success-cards success-cards--full">
                                             <div class="success-cards__item success-cards__item--full">
                                                 <div class="success-card success-card--red">
-                                                    <span class="success-card__title heading heading--large"><?=$arResult['loyalty_level_info']['benefits']['personal_discount']?>%</span>
+                                                    <span class="success-card__title heading heading--large"><?=$arResult['loyalty_level_info']['benefits']['personal_discount']; dump($arResult['loyalty_level_info']);?>%</span>
                                                     <span class="success-card__info">Персональная скидка</span>
                                                 </div>
                                             </div>
