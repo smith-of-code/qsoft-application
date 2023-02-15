@@ -32,7 +32,7 @@ global $USER;
                 <div class="header__catalog-button header__catalog-button--hidden">
                     <button type="button"
                             class="button button--covered button--square button--small button--red button--burger"
-                            data-dropdown-button>
+                            data-dropdown-button data-dropdown-burger>
                                     <span class="button__icon button__icon--medium">
                                         <svg class="icon icon--burger">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-burger"></use>
