@@ -37,7 +37,7 @@ export const Dropzone = {
             this.$emit('upload', response.data);
         },
         deleteFile(file) {
-            this.store.deleteFile(file.id);
+            // this.store.deleteFile(file.id); Файлы не удаляются т.к. они нужны для тикетов тех поддержки
             this.files.splice(this.files.indexOf(file), 1);
             this.$emit('delete', file.id);
         },
