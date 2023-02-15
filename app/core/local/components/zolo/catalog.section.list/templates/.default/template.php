@@ -106,7 +106,7 @@ CLOSE_LEVEL_1;
             $openLevel1 = <<<OPEN_LEVEL_1
             <!-- ОТКРЫТИЕ ВЛОЖЕННОГО СПИСКА -->
             <li class="category__item">
-                <div class="accordeon accordeon--small" data-accordeon>
+                <div class="accordeon accordeon--small accordeon__item" data-accordeon>
                     <div class="accordeon__header" data-accordeon-toggle>
                         <a href="$url" class="accordeon__title category__item-link button button--simple button--red">$name</a>
                         <button type="button" class="accordeon__toggle button button--circular button--mini button--mixed button--gray-red">
