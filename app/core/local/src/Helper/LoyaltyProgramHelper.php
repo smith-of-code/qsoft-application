@@ -101,12 +101,15 @@ class LoyaltyProgramHelper
      * @param string $level Уровень программы лояльности
      * @return array|null
      */
-    public function getLoyaltyLevelInfo(string $level, string $group = '') : ?array
+    public function getLoyaltyLevelInfo(string $level) : ?array
     {
         $levels = $this->getLoyaltyLevels();
 
-        if (array_key_exists($group, $levels)) {
-            $levels = $levels[$group];
+        // Из классов не видно группы консультанта или покупателя, поэтому возвращаю старый метод
+        // получения группы. Из скрипта этот метод не нужен, так-как там уже идет вызов готового 
+        // когфига под группу.
+        if (!array_key_exists($level, $levels)) {
+            $levels = $levels[$levels['types'][substr($level, 0, 1)]];
         }
 
         return $levels[$level] ?? null;
@@ -162,8 +165,6 @@ class LoyaltyProgramHelper
         $allTransactions = TransactionTable::getList([
             'filter' => [
                 '=UF_USER_ID' => $userId,
-                '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
-                '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
             ],
             'select' => ['ID', 'UF_TYPE', 'UF_AMOUNT'],
         ])->fetchAll();
