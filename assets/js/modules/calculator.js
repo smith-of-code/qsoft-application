@@ -124,7 +124,7 @@ function changeOneTimeCharges() {
     setData('oneTimeCharges', oneTimeCharges);
     setData('oneTimeChargesTransitionLevel', oneTimeChargesTransitionLevel);
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
-    resetChart()
+    resetChart();
 }
 
 function chartSum(elem, num) {
@@ -170,6 +170,15 @@ export default function () {
         return;
     }
 
+    //Установка текущего уровня при инициализации страницы
+    let levelTabs = $(ELEMENTS_SELECTOR.calculatorLevel);
+    levelTabs.each((index, tab) => {
+       if ($(tab).is(':checked')) {
+            let level = +$(tab).val();
+            setData('currentLevel', level);
+       }
+    })
+   
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
         let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
@@ -371,7 +380,8 @@ export default function () {
         'click',
         `${ELEMENTS_SELECTOR.quantityDecreaseConsultants}, ${ELEMENTS_SELECTOR.quantityIncreaseConsultants}`,
         function() {
-        viewsAttractConsAdviser()
+        changeOneTimeCharges();
+        viewsAttractConsAdviser();
     });
     
     // Расчет в диаграмму
