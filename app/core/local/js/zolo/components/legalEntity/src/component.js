@@ -629,7 +629,7 @@ export const LegalEntity = {
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="tin" class="form__label form__label--required">
@@ -794,7 +794,7 @@ export const LegalEntity = {
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="ip_name" class="form__label form__label--required">
@@ -822,7 +822,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="tin" class="form__label form__label--required">
@@ -897,7 +897,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="ogrnip" class="form__label form__label--required">
@@ -1055,7 +1055,7 @@ export const LegalEntity = {
                                 <div class="section__box-content box box--white box--rounded-sm box--inner">
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="ltc_full_name" class="form__label form__label--required">
@@ -1083,7 +1083,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="ltc_short_name" class="form__label form__label--required">
@@ -1121,7 +1121,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="ogrn" class="form__label form__label--required">
@@ -1150,7 +1150,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="tin" class="form__label form__label--required">
@@ -1225,7 +1225,7 @@ export const LegalEntity = {
                     
                                     <div class="section__box-block">
                                         <div class="form__row">
-                                            <div class="form__col">
+                                            <div class="form__col form__col--50">
                                                 <div class="form__field">
                                                     <div class="form__field-block form__field-block--label">
                                                         <label for="kpp" class="form__label form__label--required">
