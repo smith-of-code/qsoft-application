@@ -93,10 +93,7 @@ class LoyaltyProgramHelper
      */
     public function getLoyaltyLevels() : array
     {
-        if (empty($this->levels)) {
-            $this->levels = $this->getConfiguration();
-        }
-        return $this->levels;
+        return $this->getConfiguration();
     }
 
     /**
@@ -109,7 +106,7 @@ class LoyaltyProgramHelper
         $levels = $this->getLoyaltyLevels();
 
         if (array_key_exists($group, $levels)) {
-            $level = $levels[$group];
+            $levels = $levels[$group];
         }
 
         return $levels[$level] ?? null;
