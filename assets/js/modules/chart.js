@@ -16,7 +16,7 @@ export default function () {
                 padding: 40
             },
             borderWidth: 2,
-
+            aspectRatio: 1,
             plugins: {
                 datalabels: {
                     formatter(value) {
@@ -40,6 +40,10 @@ export default function () {
 
         if ($(chartItem).attr('data-chart-no-tooltip') != undefined) {
             baseOptions.plugins.tooltip.enabled = false;
+        }
+
+        if ($(chartItem).attr('data-calculator-chart') != undefined) {
+            baseOptions.aspectRatio = 1.1
         }
 
         if (chartType === 'stats') {
