@@ -13,8 +13,7 @@ export default function symbolCounter() {
 
     $(document).on('input', ELEMENTS_SELECTOR.input, function () {
         let currentNumber = $(this).val().length;
-
-        $(ELEMENTS_SELECTOR.current).text(currentNumber);
+        $(this).parent().find(ELEMENTS_SELECTOR.current).text(currentNumber);
     });
 
     $(document).on('focus', ELEMENTS_SELECTOR.input, function (evt) {
