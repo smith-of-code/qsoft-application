@@ -165,7 +165,7 @@ export const LoyaltyReport = {
                                 </div>
                             </div>
                             <div v-else class="participant__info-pets">
-                                <div v-for="pet in user.pets" :key="pet" class="participant__info-pet" :class="'participant__info-pet--' + pet">
+                                <div v-for="pet in user.pets.slice(0,2)" :key="pet" class="participant__info-pet" :class="'participant__info-pet--' + pet">
                                     <svg class="icon" :class="'icon--' + pet">
                                         <use :xlink:href="'/local/templates/.default/images/icons/sprite.svg#icon-' + pet + '-seating'"></use>
                                     </svg>
