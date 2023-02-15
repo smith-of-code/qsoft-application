@@ -17,6 +17,8 @@ class LoyaltyProgramHelper
 {
     protected string $configPath = 'loyalty_level_terms';
 
+    protected $lowerLevel;
+
     /**
      * @var array Массив ID значений свойства пользователя "Уровень в программе лояльности" ("XML_ID" => "ID")
      */

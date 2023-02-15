@@ -3,6 +3,7 @@
 namespace QSoft\Helper;
 
 use Bitrix\Main\Type\DateTime;
+use Carbon\Carbon;
 use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Logger\Logger;
@@ -129,6 +130,10 @@ class BonusAccountHelper
         // Получаем количество баллов для начисления
         $amount = $this->consultantLoyalty->getUpgradeLevelBonus($user->loyaltyLevel);
 
+        if ($this->bonusCantBeUpdate($user)) {
+            return false;
+        }
+
         if (isset($amount) && $amount) {
             // Добавляем транзакцию
             $this->transactions->add(
@@ -144,6 +149,18 @@ class BonusAccountHelper
                 'UF_BONUS_POINTS' => $user->bonusPoints + $amount
             ]);
         }
+        return false;
+    }
+
+    private function bonusCantBeUpdate(User $user)
+    {
+        $lastTransaction = $this->transactions->getLatestTransactionLevelUp($user);
+        $dateDiff = Carbon::now()->diffInMonths($lastTransaction);
+
+        if ($user->loyaltyLevel === (new LoyaltyProgramHelper())->getHighestLevel() && ($dateDiff === 6)) {
+            return true;
+        }
+
         return false;
     }
 

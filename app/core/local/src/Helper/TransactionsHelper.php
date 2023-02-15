@@ -79,7 +79,7 @@ class TransactionsHelper
             '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
             '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
             '=UF_TYPE' => TransactionTable::TYPES["upgrade_to_$user->loyaltyLevel"],
-            '<UF_CREATED_AT' => DateTimeService::getStartOfMonth(-6)
+            '<UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime(DateTimeService::getStartOfMonth(-6))
         ];
         
         $result = TransactionTable::GetList([

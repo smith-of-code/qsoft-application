@@ -35,11 +35,14 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            if ($user->update(['UF_PERSONAL_DISCOUNT_LEVEL' => $levelsIDs[$availableLevel]])) {
+
+            if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
                 $user->loyaltyLevel = $availableLevel;
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -57,26 +60,41 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         // Получаем информацию об уровнях
         $levels = $this->getLoyaltyLevels();
+
         // Получаем порядок уровней
         $sortedLevels = $this->getSortedLevels();
+
         // Получаем индекс текущего уровня (для определения позиции относительно остальных уровней)
         $currentLevelIndex = $levels[$user->loyaltyLevel]['level'];
 
+        $lowerLevel = $this->lowerLevel;
+
         foreach ($sortedLevels as $index => $xmlId) {
+            if ($xmlId == $user->loyaltyLevel) {
+                $this->lowerLevel = $lowerLevel;
+            }
+
+            $lowerLevel = $xmlId;
+
             // Проверяем только вышестоящие уровни
             if ($index <= $currentLevelIndex) {
                 continue;
             }
+
             if ($this->checkIfCanUpgradeToLevel($user, $xmlId)) {
                 $availableLevel = $xmlId;
             }
+        }
+
+        if (! $this->checkIfCanRetentionLevel($user, $user->loyaltyLevel)) {
+            $availableLevel = $this->lowerLevel;
         }
 
         return $availableLevel;
     }
 
     /**
-     * Проверяет возможность улучшения до конкретного уровня программы лояльности\
+     * Проверяет возможность улучшения до конкретного уровня программы лояльности
      * @param User $user Пользователь
      * @param string $level Уровень программы лояльности
      * @return bool
@@ -93,15 +111,66 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }
 
-        // Получим необходимые данные по затратам за прошедший месяц
-        $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
-        $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
+        // Получим необходимые данные по затратам за прошедший квартал персоналоно
+        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
+        $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
 
-        $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
+        // Получим необходимые данные по затратам за прошедший квартал в команде
+        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
+        $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
-        // Проверяем условия
-        if ($personalTotal >= $personalTotalToUpgrade) {
+        $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
+
+        // Условия для повышения
+        $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
+        $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
+
+        // Проверяем условия на повышение
+        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Проверяет возможность улучшения до конкретного уровня программы лояльности
+     * @param User $user Пользователь
+     * @param string $level Уровень программы лояльности
+     * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function checkIfCanRetentionLevel(User $user, string $level) : bool
+    {
+        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+        $levelInfo = $this->getLoyaltyLevelInfo($level);
+
+        if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
+            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+        }
+
+        // Получим необходимые данные по затратам за прошедший квартал персоналоно
+        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
+        $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+
+        $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
+
+        // Получим необходимые данные по затратам за прошедший квартал в команде
+        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
+        $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+
+        $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
+
+        // Условия для удержания
+        $personalTotalToRetention = (int) $levelInfo['hold_level_terms']['self_total'];
+        $teamTotalToRetention = (int) $levelInfo['hold_level_terms']['team_total'];
+
+        // Проверяем условия на удержание
+        if ($personalTotal >= $personalTotalToRetention && $teamTotal >= $teamTotalToRetention) {
             return true;
         }
 

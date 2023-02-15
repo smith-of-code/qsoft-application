@@ -18,20 +18,11 @@ class UpdateLoyaltyService
         $allUsersIds = $this->getAllUsersIds();
 
         foreach ($allUsersIds as $id) {
-            $user = new User($id);
+            $user = new User(440);
 
             if ($user->groups->isBuyer()) {
                 try{
                     $this->updateBuyersLoyaltyLevel($user);
-                    $this->setLog(
-                        'У пользователя задан не корректный уровень лояльности',
-                        'error',
-                        [
-                            'USER_ID' => $user->id,
-                            'IS_CONSULTANT' => $user->groups->isConsultant(),
-                            'CURRENT_LEVEL' => $user->loyaltyLevel,
-                        ]
-                    );
                 } catch(RuntimeException $e) {
                     $this->setLog(
                         'У пользователя задан не корректный уровень лояльности',
@@ -91,7 +82,7 @@ class UpdateLoyaltyService
      */
     private function getAllUsersIds(): array
     {
-        $usersResult = (new CUser())->GetList();
+        $usersResult = (new CUser())->GetList('', '', [], ['SELECT' => ['ID']]);
 
         while ($raw = $usersResult->GetNext()){
             $users[] = $raw['ID'];
@@ -106,7 +97,7 @@ class UpdateLoyaltyService
     {
         $logFile 
             = $_SERVER["DOCUMENT_ROOT"]
-                . '/local/php_interface/include/logs/cron/user.loyalty.service.update_'
+                . '/local/app/logs/cron/user.loyalty.service.update_'
                 . FormatDate('d.m.Y')
                 . '.log';
         $maxLogSize = 0;
