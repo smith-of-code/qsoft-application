@@ -56,7 +56,7 @@ export default function(){
                         let $card = $(event.target).closest('.card-counting');
                         let $input = $card.find('.card-counting__value-count');
 
-                        $input.val(ui.value.toLocaleString('ru-RU')).css('width', `${ui.value.toLocaleString().length + 2}ch`);
+                        $input.val(ui.value.toLocaleString('ru-RU')).css('width', `${ui.value.toLocaleString().length + 1}ch`);
 
                         $input.trigger('changeCalculator');
                     },
@@ -80,7 +80,7 @@ export default function(){
 
                             $card.find(ELEMENTS_SELECTOR.rangeMin)
                                 .val(minVal.toLocaleString('ru-RU'))
-                                .css('width', `${minVal.toLocaleString().length + 2}ch`);
+                                .css('width', `${minVal.toLocaleString().length + 1}ch`);
 
                             slider.slider('option','value', minVal);
                         });

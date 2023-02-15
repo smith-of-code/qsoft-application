@@ -93,6 +93,6 @@ return  [
         ],
 
         'title' => 'Статус заявки изменился',
-        'link' => '/notifications/'
+        'link' => '/personal/notifications/'
     ]
 ];
