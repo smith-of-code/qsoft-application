@@ -86,7 +86,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
             }
         }
 
-        if (! $this->checkIfCanRetentionLevel($user, $user->loyaltyLevel)) {
+        if (! $this->checkIfCantRetentionLevel($user, $user->loyaltyLevel)) {
             $availableLevel = $this->lowerLevel;
         }
 
@@ -136,7 +136,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
     }
 
     /**
-     * Проверяет возможность улучшения до конкретного уровня программы лояльности
+     * Проверяет возможное снижение до конкретного уровня программы лояльности
      * @param User $user Пользователь
      * @param string $level Уровень программы лояльности
      * @return bool
@@ -144,7 +144,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
      * @throws ObjectPropertyException
      * @throws SystemException
      */
-    public function checkIfCanRetentionLevel(User $user, string $level) : bool
+    public function checkIfCantRetentionLevel(User $user, string $level) : bool
     {
         $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
         $levelInfo = $this->getLoyaltyLevelInfo($level);
