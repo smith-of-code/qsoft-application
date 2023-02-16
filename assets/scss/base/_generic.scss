@@ -276,6 +276,8 @@ input {
 
 .compensate-for-scrollbar {
     .header__row {
-        margin-right: 17px;
+        @media #{$screen-desktop} {
+            margin-right: 17px;
+        }
     }
 }
