@@ -56,8 +56,8 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/stssync/calendar/index.php',
     'SORT' => 100,
   ),
-  14 =>
-  array(
+  14 => 
+  array (
     'CONDITION' => '#^/personal/orders/#',
     'ID' => 'zolo:sale.personal.orders',
     'PATH' => '/personal/orders/index.php',
@@ -87,7 +87,7 @@ $arUrlRewrite=array (
     'PATH' => '/personal/index.php',
     'SORT' => 100,
   ),
-  15 =>
+  15 => 
   array (
     'CONDITION' => '#^/catalog/#',
     'RULE' => '',
