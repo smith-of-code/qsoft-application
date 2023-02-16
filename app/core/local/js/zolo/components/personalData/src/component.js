@@ -108,6 +108,7 @@ export const PersonalData = {
             });
             this.editing = false;
 
+            this.initUserInfo();
             $.fancybox.open({ src: '#thanks' });
         },
         async sendCode(value, type) {
