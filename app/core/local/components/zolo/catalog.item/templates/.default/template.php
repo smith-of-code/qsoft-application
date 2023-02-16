@@ -126,15 +126,15 @@ if (isset($arResult['ITEM']))
                         class="product-card__label label label--pink"
                         style="<?= $actualItem['showLabel'] === 'SEASONAL_OFFER' ? '' : 'display: none;'?>"
                     >
-                        <span class="product-card__label-desktop">сезонное предложение</span>
-                        <span class="product-card__label-mobile">сез. предложение</span> 
+                        <span class="product-card__label-desktop">Сезонное предложение</span>
+                        <span class="product-card__label-mobile">Лучший выбор</span> 
                     </div>
                     <div id="<?=$domElementsIds['label'] . '_LIMITED_OFFER'?>"
                         class="product-card__label label label--violet"
                         style="<?= $actualItem['showLabel'] === 'LIMITED_OFFER' ? '' : 'display: none;'?>"
                     >
-                        <span class="product-card__label-desktop">ограниченное предложение</span>
-                        <span class="product-card__label-mobile">огр. предложение</span>
+                        <span class="product-card__label-desktop">Ограниченное предложение</span>
+                        <span class="product-card__label-mobile">Популярно</span>
                     </div>
                 </div>
                 <!-- Картинка товара -->
