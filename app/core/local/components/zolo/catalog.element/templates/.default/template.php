@@ -50,7 +50,7 @@ $offerId = $arResult['OFFER_FIRST'];
                     if (!empty($offerImgs)) : ?>
                         <? foreach ($offerImgs as $image) : ?>
                         <div class="swiper-slide slider__slide">
-                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                            <article class="product-card product-card--detail product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
                                     <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
                                     <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
@@ -80,7 +80,7 @@ $offerId = $arResult['OFFER_FIRST'];
                         <? endforeach; ?>
                     <? else : ?>
                     <div class="swiper-slide slider__slide">
-                        <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                        <article class="product-card product-card--detail product-card--slide box box--circle box--hovering box--border">
                             <div class="product-card__header">
                                 <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
                                     <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
@@ -111,7 +111,7 @@ $offerId = $arResult['OFFER_FIRST'];
                     <? endif; ?>
                     <? if (!empty($arResult['PRODUCT_VIDEO'])) : ?>
                         <div class="swiper-slide slider__slide">
-                            <article class="product-card product-card--slide box box--circle box--hovering box--border">
+                            <article class="product-card product-card--detail product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
                                     <? if ($arResult['DISCOUNT_LABELS'][$offerId]['NAME']) : ?>
                                         <div class="product-card__label label label--<?= $arResult['DISCOUNT_LABELS'][$offerId]['COLOR']?>"><?= strtolower($arResult['DISCOUNT_LABELS'][$offerId]['NAME'])?></div>
