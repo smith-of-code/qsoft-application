@@ -38,10 +38,9 @@ class SaleOrderAjaxComponent {
 
             if ($(item).attr('name') === 'phone') {
                 let valuePhone =  $(item).val().replaceAll(/[^0-9+\.]/g,'');
-                let span = $('<span class="input__control-error">Неккорекнтый номер телефона</span>');
-                let phoneSplit = valuePhone.split('');
+                let span = $('<span class="input__control-error">Некорректный номер телефона</span>');
 
-                if (valuePhone.length < 12 || phoneSplit[2] != 9) {
+                if (valuePhone.length < 12) {
                     $(item).addClass('input__control--error');
                     if ($(item).parent().find('.input__control-error').length === 0) {
                         $(item).parent().append(span);
