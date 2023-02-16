@@ -149,6 +149,17 @@ function setSuccessMessage(id) {
 
     $('[data-support-content]').html(successMessage);
     $('[data-support-content]').addClass('modal__content--support-notification');
+
+    let buttonClose =  $('[data-fancybox-close]');
+    let checkPageError = $('.page__error').length;
+
+    buttonClose.each((index, button) => {
+        $(button).on('click', function() {
+            if (checkPageError !== 0) {
+                window.location.href = "/";
+            }
+        })
+    })
 }
 
 function setErrorMessage() {

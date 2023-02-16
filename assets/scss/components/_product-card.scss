@@ -97,6 +97,17 @@
         }
     }
 
+    &--detail & {
+        &__label {
+            z-index: 1;
+            max-width: max-content !important;
+        }
+
+        &__favourite {
+            z-index: 1;
+        }
+    }
+
     &__link {
         @include position-stretching;
     }
