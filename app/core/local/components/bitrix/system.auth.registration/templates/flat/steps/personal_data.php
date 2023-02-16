@@ -277,7 +277,7 @@
                             <?=$arResult['agree_with_personal_data_processing'] === 'true' ? 'checked' : ''?>
                         >
 
-                        <label for="agree_with_personal_data_processing" class="checkbox__label">
+                        <label for="agree_with_personal_data_processing" class="checkbox__label checkbox__label--required">
                                 <span class="checkbox__icon">
                                     <svg class="checkbox__icon-pic icon icon--check">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
@@ -299,7 +299,7 @@
                             <?=$arResult['agree_with_terms_of_use'] === 'true' ? 'checked' : ''?>
                         >
 
-                        <label for="agree_with_terms_of_use" class="checkbox__label">
+                        <label for="agree_with_terms_of_use" class="checkbox__label checkbox__label--required">
                                 <span class="checkbox__icon">
                                     <svg class="checkbox__icon-pic icon icon--check">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
@@ -321,7 +321,7 @@
                             <?=$arResult['agree_with_company_rules'] === 'true' ? 'checked' : ''?>
                         >
 
-                        <label for="agree_with_company_rules" class="checkbox__label">
+                        <label for="agree_with_company_rules" class="checkbox__label checkbox__label--required">
                                 <span class="checkbox__icon">
                                     <svg class="checkbox__icon-pic icon icon--check">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
