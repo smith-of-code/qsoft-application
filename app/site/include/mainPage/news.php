@@ -11,7 +11,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                             <a class="widget__link" href="/info/news/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
-                                    <img class="widget__image" src="/local/templates/.default/images/megaphone.png">
+                                    <div class="widget__wrapper widget__wrapper--green">
+                                        <img class="widget__icon" src="/local/templates/.default/images/icons/megaphone.svg">
+                                    </div>
                                 </div>
                                 <div class="widget__content">
                                     <h4 class="widget__title">
@@ -41,7 +43,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                             <a class="widget__link" href="/info/events/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
-                                    <img class="widget__image" src="/local/templates/.default/images/calendar.png">
+                                    <div class="widget__wrapper widget__wrapper--red">
+                                        <img class="widget__icon" src="/local/templates/.default/images/icons/calendar.svg">
+                                    </div>
                                 </div>
                                 <div class="widget__content">
                                     <h4 class="widget__title">
@@ -71,8 +75,9 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                             <a class="widget__link" href="/info/expert-advice/" target="_blank"></a>
                             <div class="widget__inner">
                                 <div class="widget__head">
-                                    <img class="widget__image"
-                                         src="/local/templates/.default/images/college-graduation.png">
+                                    <div class="widget__wrapper widget__wrapper--gold">
+                                        <img class="widget__icon" src="/local/templates/.default/images/icons/collegegraduation.svg">
+                                    </div>
                                 </div>
                                 <div class="widget__content">
                                     <h4 class="widget__title">
