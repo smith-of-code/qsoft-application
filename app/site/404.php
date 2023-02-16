@@ -63,6 +63,13 @@ global $APPLICATION, $USER;
                     </button>
                 </a>
             <?php }?>
+
+            <?php $APPLICATION->IncludeComponent(
+                "zolo:techsupport.form.handler",
+                "script",
+                [],
+                false
+            );?>
             </div>
         </div>
     </body>
