@@ -692,7 +692,7 @@
                                         </div>
 
                                         <div class="quantity__total">
-                                                                            <span class="profitability__sum quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="15">
+                                                                            <span class="profitability__sum quantity__total-sum" data-quantity-sum="1" data-quantity-min="1" data-quantity-max="999">
                                                                                 1
                                                                             </span>
                                         </div>
