@@ -111,24 +111,17 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }
 
-        // Получим необходимые данные по затратам за прошедший квартал персоналоно
-        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
-        $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+        // Получим необходимые данные по затратам за прошедший месяц персоналоно
+        $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
+        $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
 
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
 
-        // Получим необходимые данные по затратам за прошедший квартал в команде
-        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
-        $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
-
-        $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
-
         // Условия для повышения
         $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
-        $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
 
         // Проверяем условия на повышение
-        if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
+        if ($personalTotal >= $personalTotalToUpgrade) {
             return true;
         }
 
@@ -153,24 +146,17 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }
 
-        // Получим необходимые данные по затратам за прошедший квартал персоналоно
-        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
-        $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
+        // Получим необходимые данные по затратам за прошедший месяц персоналоно
+        $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
+        $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
 
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
 
-        // Получим необходимые данные по затратам за прошедший квартал в команде
-        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
-        $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
-
-        $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
-
         // Условия для удержания
         $personalTotalToRetention = (int) $levelInfo['hold_level_terms']['self_total'];
-        $teamTotalToRetention = (int) $levelInfo['hold_level_terms']['team_total'];
 
         // Проверяем условия на удержание
-        if ($personalTotal >= $personalTotalToRetention && $teamTotal >= $teamTotalToRetention) {
+        if ($personalTotal >= $personalTotalToRetention) {
             return true;
         }
 

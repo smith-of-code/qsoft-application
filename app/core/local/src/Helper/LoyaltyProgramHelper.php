@@ -230,13 +230,7 @@ class LoyaltyProgramHelper
     {
         $user = new User($userId);
 
-        if ($user->groups->isConsultant()) {
-            $group = 'consultant';
-        } else {
-            $group = 'customer';
-        }
-
-        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel, $group);
+        $loyaltyLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
         $nextLoyaltyLevelInfo = $this->getNextLoyaltyLevelInfo($user->loyaltyLevel);
 
         $result = [

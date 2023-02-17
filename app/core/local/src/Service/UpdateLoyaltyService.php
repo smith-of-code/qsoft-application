@@ -58,7 +58,7 @@ class UpdateLoyaltyService
 
     private function updateBuyersLoyaltyLevel(User $user)
     {
-        $helper = new BuyerLoyaltyProgramHelper(true);
+        $helper = new BuyerLoyaltyProgramHelper();
 
         $helper->upgradeLoyaltyLevel($user);
 
@@ -95,9 +95,12 @@ class UpdateLoyaltyService
 
     private function setLog($message, $type, $context = [])
     {
+        // /var/www/zolo.vpool/p5/app/logs/cron/user.loyalty.service.update_17.02.2023.log
+        // $_SERVER["DOCUMENT_ROOT"] = /var/www/zolo.vpool/p5/app/core/local/php_interface/include/../../../
+        // $_SERVER["DOCUMENT_ROOT"] = /var/www/zolo.vpool/p5/app/core/
         $logFile 
             = $_SERVER["DOCUMENT_ROOT"]
-                . '/local/app/logs/cron/user.loyalty.service.update_'
+                . '../logs/cron/user.loyalty.service.update_'
                 . FormatDate('d.m.Y')
                 . '.log';
         $maxLogSize = 0;
