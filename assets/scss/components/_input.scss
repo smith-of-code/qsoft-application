@@ -280,6 +280,8 @@
         }
 
         &-password {
+            padding: 0;
+            background: transparent;
             &-icon {
                 &--show {
                     display: none;

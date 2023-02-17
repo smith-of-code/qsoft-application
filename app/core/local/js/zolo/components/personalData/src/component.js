@@ -573,14 +573,14 @@ export const PersonalData = {
                                                                 :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.password"
                                                             >
-                                                            <span class="input__icon input__icon-password" data-password-toggle>
+                                                            <button class="input__icon input__icon-password" data-password-toggle>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
                                                                 </svg>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
                                                                 </svg>
-                                                            </span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,14 +607,14 @@ export const PersonalData = {
                                                                 :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.confirm_password"
                                                             >
-                                                            <span class="input__icon input__icon-password" data-password-toggle>
+                                                            <button class="input__icon input__icon-password" data-password-toggle>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
                                                                 </svg>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
                                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
                                                                 </svg>
-                                                            </span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
