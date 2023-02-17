@@ -24,15 +24,22 @@ class UpdateLoyaltyService
                 try{
                     $this->updateBuyersLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    $this->setLog(
-                        $e->getMessage(),
-                        'error',
-                        [
-                            'USER_ID' => $user->id,
-                            'IS_CONSULTANT' => $user->groups->isConsultant(),
-                            'CURRENT_LEVEL' => $user->loyaltyLevel,
-                        ]
-                    );
+                    Logger::createLogger(
+                        'user.loyalty.service.update_',
+                        0,
+                        LogLevel::ERROR,
+                        $_SERVER["DOCUMENT_ROOT"] . '../logs/cron/'
+                    )
+                        ->setLog(
+                            $e->getMessage(),
+                            [
+                                'message' => $e->getMessage(),
+                                'user' => $user->id,
+                                'namespace' => __CLASS__,
+                                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                            ],
+                        );
+                    throw $error;
                 }
             }
 
@@ -40,15 +47,22 @@ class UpdateLoyaltyService
                 try{
                     $this->updateConsultantLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    $this->setLog(
-                        $e->getMessage(),
-                        'error',
-                        [
-                            'USER_ID' => $user->id,
-                            'IS_CONSULTANT' => $user->groups->isConsultant(),
-                            'CURRENT_LEVEL' => $user->loyaltyLevel,
-                        ]
-                    );
+                    Logger::createLogger(
+                        'user.loyalty.service.update_',
+                        0,
+                        LogLevel::ERROR,
+                        $_SERVER["DOCUMENT_ROOT"] . '../logs/cron/'
+                    )
+                        ->setLog(
+                            $e->getMessage(),
+                            [
+                                'message' => $e->getMessage(),
+                                'user' => $user->id,
+                                'namespace' => __CLASS__,
+                                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                            ],
+                        );
+                    throw $error;
                 }
             }
 
@@ -91,27 +105,5 @@ class UpdateLoyaltyService
         unset($usersResult);
 
         return $users ?? [];
-    }
-
-    private function setLog($message, $type, $context = [])
-    {
-        // /var/www/zolo.vpool/p5/app/logs/cron/user.loyalty.service.update_17.02.2023.log
-        // $_SERVER["DOCUMENT_ROOT"] = /var/www/zolo.vpool/p5/app/core/local/php_interface/include/../../../
-        // $_SERVER["DOCUMENT_ROOT"] = /var/www/zolo.vpool/p5/app/core/
-        $logFile 
-            = $_SERVER["DOCUMENT_ROOT"]
-                . '../logs/cron/user.loyalty.service.update_'
-                . FormatDate('d.m.Y')
-                . '.log';
-        $maxLogSize = 0;
-
-        $logger = new FileLogger($logFile, $maxLogSize);
-        if ($type == LogLevel::ERROR) {
-            $logger->setLevel(LogLevel::ERROR);
-            $logger->error($message, $context);
-        } elseif($type == LogLevel::DEBUG) {
-            $logger->setLevel(LogLevel::DEBUG);
-            $logger->debug($message, $context);
-        }
     }
 }

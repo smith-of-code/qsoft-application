@@ -6,9 +6,7 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
-use Psr\Log\LogLevel;
 use QSoft\Entity\User;
-use QSoft\Logger\Logger;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -113,17 +111,22 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+            $e = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createLogger(
+                'user.loyalty.service.update_',
+                0,
+                LogLevel::ERROR,
+            )
                 ->setLog(
-                    $error->getMessage(),
+                    $e->getMessage(),
                     [
-                        'message' => $error->getMessage(),
+                        'message' => $e->getMessage(),
+                        'user' => $user->id,
                         'namespace' => __CLASS__,
                         'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
                     ],
                 );
-            throw $error;
+            throw $e;
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
@@ -163,7 +166,22 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level, 'consultant');
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+            $e = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createLogger(
+                'user.loyalty.service.update_',
+                0,
+                LogLevel::ERROR,
+            )
+                ->setLog(
+                    $e->getMessage(),
+                    [
+                        'message' => $e->getMessage(),
+                        'user' => $user->id,
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $e;
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
