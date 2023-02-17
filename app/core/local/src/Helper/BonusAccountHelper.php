@@ -188,6 +188,16 @@ class BonusAccountHelper
                 $amount
             );
 
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::INFO)
+                ->setLog(
+                    "Пользователю с id: {$user->id} начислено ,балов: {$amount}.",
+                    [
+                        'user' => $user->id,
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+
             // Обновляем количество баллов пользователя
             return $user->update([
                 'UF_BONUS_POINTS' => $user->bonusPoints + $amount
