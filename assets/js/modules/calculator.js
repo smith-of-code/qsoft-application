@@ -73,8 +73,6 @@ function setDataVariables(typeCalc, rub, point) {
         calculateGroup();
     }
 
-    controlComputingButton();
-
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
     resetChart()
 }
@@ -93,18 +91,6 @@ function calculateGroup() {
     $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html(sum.toLocaleString('ru-RU'));
 
     return sum;
-}
-
-function controlComputingButton() {
-    let personal = ($(ELEMENTS_SELECTOR.calculatorPersonalPointsSum).html()),
-        group = $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html();
-    if (personal !== '0' || group !== '0') {
-        $(ELEMENTS_SELECTOR.calculatorComputing).attr('disabled', false);
-        $(ELEMENTS_SELECTOR.calculatorComputing).removeClass('button--disabled');
-    } else {
-        $(ELEMENTS_SELECTOR.calculatorComputing).attr('disabled', true);
-        $(ELEMENTS_SELECTOR.calculatorComputing).addClass('button--disabled');
-    }
 }
 
 function getDataLevelProperty(calcRange) {
