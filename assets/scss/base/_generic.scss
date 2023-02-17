@@ -274,3 +274,10 @@ input {
     }
 }
 
+.compensate-for-scrollbar {
+    .header__row {
+        @media #{$screen-desktop} {
+            margin-right: 17px;
+        }
+    }
+}
