@@ -16,33 +16,11 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                 <ul class="contacts__list">
                     <li class="contacts__item">
                         <div class="contacts__card">
-                            <svg class="contacts__card-icon icon icon--location">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-location"></use>
-                            </svg>
-                            <span class="contacts__card-title heading heading--small">Адрес:</span>
-                            <span class="contacts__card-text">Проспект Мира, 9</span>
-                        </div>
-                    </li>
-
-                    <li class="contacts__item">
-                        <div class="contacts__card">
                             <svg class="contacts__card-icon icon icon--call">
                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-call"></use>
                             </svg>
                             <span class="contacts__card-title heading heading--small">Телефон:</span>
-                            <span class="contacts__card-text">8 (800) 123-45-67</span>
-                        </div>
-                    </li>
-
-                    <li class="contacts__item">
-                        <div class="contacts__card">
-                            <svg class="contacts__card-icon icon icon--clock">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-clock"></use>
-                            </svg>
-                            <span class="contacts__card-title heading heading--small">Часы работы:</span>
-                            <span class="contacts__card-text">
-                                                                Пн-Пт 9:00 - 18:00, Сб-Вс 11:00 - 17:00
-                                                            </span>
+                            <span class="contacts__card-text">8 (800) 777 20 70</span>
                         </div>
                     </li>
 
@@ -53,9 +31,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                             </svg>
                             <span class="contacts__card-title heading heading--small">Email:</span>
                             <span class="contacts__card-text">
-                                                                ameappetite_info@yandex.ru <br>
-                                                                <span class="contacts__card-spec">(по вопросам сотрудничества)</span>
-                                                            </span>
+                                info@amestore.ru <br>
+                                <span class="contacts__card-spec">(по вопросам сотрудничества)</span>
+                            </span>
                         </div>
                     </li>
                 </ul>
@@ -104,6 +82,12 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+            <div class="contacts__wrapper">
+                <div class="contacts__picture">
+                    <img class="contacts__images" src="/local/templates/.default/images/about-contact.png" alt="">
                 </div>
             </div>
         </div>
