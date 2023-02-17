@@ -17,6 +17,8 @@ export default function inputRepalece(inputItem) {
                 return  
             } else if (inputAttr === 'fullName') {
                 $(this).val($(this).val().replaceAll(/[^a-zA-Zа-яА-ЯёЁ-]+/gu, '').slice(0, 100));
+            } else if (inputAttr === 'adress') {
+                $(this).val($(this).val().replaceAll(/[^0-9A-Za-zа-яА-ЯёЁ\.,-/\s]+/gu, ''));
             }
         });
     });
