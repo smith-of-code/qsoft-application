@@ -190,7 +190,7 @@ class BonusAccountHelper
 
             Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::INFO)
                 ->setLog(
-                    "Пользователю с id: {$user->id} начислено ,балов: {$amount}.",
+                    "Пользователю с id: {$user->id} начислено балов: {$amount}.",
                     [
                         'user' => $user->id,
                         'namespace' => __CLASS__,
