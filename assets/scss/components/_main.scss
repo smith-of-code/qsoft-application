@@ -34,11 +34,13 @@
             }
 
             &--closer {
+                margin-bottom: rem($gap-medium);
+
                 @media #{$screen-tablet} {
                     margin-bottom: rem($gap-normal);
                 }
 
-                @media #{$screen-tablet} {
+                @media #{$screen-desktop} {
                     margin-bottom: rem($gap-big);
                 }
             }
