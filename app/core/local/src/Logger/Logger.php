@@ -20,6 +20,7 @@ class Logger extends FileLogger
      * @var string
      */
     private $fixLevel;
+    private $path;
 
     /**
      * Определение трех основных параметров
@@ -28,8 +29,8 @@ class Logger extends FileLogger
      * И размер файла перед его ротацией, то-есть сколько должен весить файл, прежде чем его
      * архивирует логгер
      *
-     * @param array $logName
-     * @param mixed $size
+     * @param array $fileName
+     * @param mixed $maxSize
      * @param string $level Можно задать при помощи констант класса LogLevel
      *      class Psr\Log\LogLevel
      *      {
@@ -42,15 +43,18 @@ class Logger extends FileLogger
      *          const INFO      = 'info';
      *          const DEBUG     = 'debug';
      *      }
+     * @param mixed $logPath - путь до файла логов, если неоходимо сделать его в другом месте
      * 
      */
-    public function __construct($fileName, $maxSize = 0, $level = 'info') {
+    public function __construct($fileName, $maxSize = 0, $level = 'info', $logPath = null) {
         $this->fixLevel = $level;
         self::$supportedLevels = parent::$supportedLevels;
         parent::__construct($this->setPath($fileName, $level), $maxSize);
         $this->setLevel($level);
 
-
+        if (!$logPath) {
+            $this->path = $logPath;
+        }
     }
 
     /**
@@ -110,9 +114,7 @@ class Logger extends FileLogger
     private function setPath($logName, $level)
     {
         $root = str_replace('/htdocs', '', $_SERVER['DOCUMENT_ROOT']);
-        $path =
-            $root
-            . '/app/core/local/php_interface/logs/'
+        $path = ($this->path ?? $root . '/app/logs/')
             . $logName . '/';
 
         if (!$this->createPath($path)) {
