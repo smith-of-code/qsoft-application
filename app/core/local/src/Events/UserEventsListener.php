@@ -8,14 +8,14 @@ use Bitrix\Main\UserTable;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
 use CCatalogProduct;
-use CUser;
 use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
+use CUser;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
-use QSoft\Logger\Logger;
 use QSoft\ORM\BeneficiariesTable;
 
 class UserEventsListener
@@ -34,6 +34,10 @@ class UserEventsListener
 
         if (isset($fields['UF_BONUS_POINTS']) && (!is_numeric($fields['UF_BONUS_POINTS']) || (int)$fields['UF_BONUS_POINTS'] < 0)) {
             $fields['UF_BONUS_POINTS'] = 0;
+        }
+
+        if (isset($fields['UF_BONUS_POINTS'])) {dd($fields);
+            self::setLogBonusChange($user, (int)$fields['UF_BONUS_POINTS']);
         }
 
         // Если произошло изменение ментора
@@ -95,10 +99,21 @@ class UserEventsListener
                 (new BonusAccountHelper)->addReferralBonuses($mentor);
             }
         }
-        Logger::createLogger('User', 0, LogLevel::INFO)
-            ->setLog(
-                "Пользователю с ID {$fields['ID']} изменили колличество балов с {$user->bonusPoints} на {$fields['UF_BONUS_POINTS']}"
-            );
+    }
+
+    private static function setLogBonusChange(User $user, int $amount): void
+    {
+        global $USER;
+
+        Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::INFO)
+        ->setLog(
+            "Пользователю с id: {$user->id} были изменены балы с {$user->bonusPoints} на {$amount} пользователем с id: {$USER->GetID()}.",
+            [
+                'user' => $user->id,
+                'namespace' => __CLASS__,
+                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+            ],
+        );
     }
 
     public static function OnBeforeUserAdd(array &$fields)
@@ -153,9 +168,5 @@ class UserEventsListener
 //            $basketItem->save();
         }
         $basket->save();
-    }
-
-    public static function OnAfterUserUpdate(&$arFields)
-    {
     }
 }
