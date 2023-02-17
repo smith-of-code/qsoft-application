@@ -36,7 +36,7 @@ class UserEventsListener
             $fields['UF_BONUS_POINTS'] = 0;
         }
 
-        if (isset($fields['UF_BONUS_POINTS'])) {dd($fields);
+        if (isset($fields['UF_BONUS_POINTS'])) {
             self::setLogBonusChange($user, (int)$fields['UF_BONUS_POINTS']);
         }
 
