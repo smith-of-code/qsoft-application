@@ -21,10 +21,15 @@ html {
 
 body {
     @include text-medium;
+    overflow-y: scroll;
 
     letter-spacing: 0.02em;
 
     text-rendering: optimizeLegibility;
+
+    &.fancybox-active {
+        overflow-y: hidden;
+    }
 }
 
 h1 {
@@ -274,3 +279,10 @@ input {
     }
 }
 
+.compensate-for-scrollbar {
+    .header__row {
+        @media #{$screen-desktop} {
+            margin-right: 17px;
+        }
+    }
+}
