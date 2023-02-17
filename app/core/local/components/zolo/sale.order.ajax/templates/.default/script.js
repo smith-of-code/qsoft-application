@@ -5,6 +5,7 @@ class SaleOrderAjaxComponent {
     }
 
     initListeners() {
+        $('[data-create-order]').on('click', this.disableButton);
         $('[data-create-order]').on('click', this.createOrder);
         $(`.form select`).on('change', this.removeError);
         $(`.form input`).on('keyup', this.removeError);
@@ -19,6 +20,11 @@ class SaleOrderAjaxComponent {
         const city = $('[name=city]').val();
         $('[data-city]').hide();
         $(`[data-city="${city}"]`).show();
+    }
+
+    disableButton() {
+        $('[data-create-order]').attr('disabled', 'disabled');
+        $('[data-create-order]').addClass('button--disabled');
     }
 
     removeError() {
