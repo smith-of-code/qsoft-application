@@ -136,7 +136,7 @@ export const LoyaltyReport = {
                     <div class="participant__col participant__col--avatar">
                         <div class="participant__avatar avatar avatar--accent avatar--big">
                             <div class="avatar__box">
-                                <img :src="user.photo" class="avatar__picture">
+                                <img :src="user.photo ?  user.photo : '/local/templates/.default/images/no-avatar.webp'" class="avatar__picture">
                             </div>
                         </div>
                     </div>
