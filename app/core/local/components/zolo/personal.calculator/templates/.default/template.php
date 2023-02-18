@@ -724,7 +724,7 @@
 
                         </div>
 
-                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full" data-calculator-computing>
+                        <button type="button" class="profitability__computing button button--medium button--rounded button--covered button--red button--full button--disabled" disabled data-calculator-computing>
                             <span class="button__text">Рассчитать</span>
                         </button>
                     </form>
