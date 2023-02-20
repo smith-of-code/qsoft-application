@@ -154,10 +154,13 @@ export default async function () {
             $(ELEMENTS_SELECTOR.cart)
             .find('.basket__cart-null')
             .show()
+            $(ELEMENTS_SELECTOR.card).hide();
+           
         } else {
             $(ELEMENTS_SELECTOR.cart)
             .find('.basket__cart-null')
             .hide()
+            $(ELEMENTS_SELECTOR.card).show();
         }
 
         basketList.each(function(index, item) {
