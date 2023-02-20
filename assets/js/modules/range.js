@@ -68,6 +68,49 @@ export default function(){
                             minVal = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
                             minVal = Math.floor(minVal);
 
+                            let inputBonus = $(this).attr('data-calculator-range-input-point');
+                            let inputTotal = $(this).attr('data-calculator-range-input-rub');
+                            
+                            let currentLevel
+                            let levelTabs = $('[data-calculator-level]');
+                            levelTabs.each((index, tab) => {
+                               if ($(tab).is(':checked')) {
+                                    currentLevel = +$(tab).val();
+                               }
+                            })
+
+                            if (inputBonus !== undefined) {
+                                if (currentLevel === 1) {
+                                    if (minVal % 1 !== 0) {
+                                        for (let index = minVal; index % 1 !== 0; index++) {
+                                            minVal = index + 1 
+                                        }
+                                    }
+                                } else if (currentLevel === 2) {
+                                    if (minVal % 2 !== 0) {
+                                        for (let index = minVal; index % 2 !== 0; index++) {
+                                            minVal = index + 1 
+                                        }
+                                    }
+                                }  else if (currentLevel === 3) {
+                                    if (minVal % 3 !== 0) {
+                                        for (let index = minVal; index % 3 !== 0; index++) {
+                                            minVal = index + 1 
+                                        }
+                                    }
+                                } else {
+                                    minVal = minVal
+                                }
+                            }
+
+                            if (inputTotal !== undefined) {
+                                if (minVal % 100 !== 0) {
+                                    for (let index = minVal; index % 100 !== 0; index++) {
+                                        minVal = index + 1 
+                                    }
+                                }
+                            }
+
                             let min = slider.slider('option', 'min');
                             let max = slider.slider('option', 'max');
 
