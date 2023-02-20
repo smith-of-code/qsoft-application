@@ -2,12 +2,13 @@
 
 namespace QSoft\ORM;
 
+use QSoft\ORM\Decorators\EnumDecorator;
 use Bitrix\Main\Entity\DatetimeField;
-use Bitrix\Main\Entity\FloatField;
 use Bitrix\Main\Entity\IntegerField;
+use Bitrix\Main\Entity\FloatField;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
-use QSoft\ORM\Decorators\EnumDecorator;
+use QSoft\Helper\HlBlockHelper;
 use QSoft\ORM\Entity\EnumField;
 
 Loc::loadMessages(__FILE__);
@@ -49,6 +50,18 @@ final class TransactionTable extends BaseTable
         'UF_SOURCE' => EnumDecorator::class,
         'UF_MEASURE' => EnumDecorator::class,
     ];
+
+	public static function getFieldListIds($fieldName)
+	{
+		$result = [];
+        $hlblock = HlBlockHelper::getEnumFieldValues(self::getTableName(), $fieldName);
+
+		foreach ($hlblock as $field) {
+			$result[$field['XML_ID']] = $field['ID'];
+		}
+
+		return $result;
+	}
 
     public static function getTableName(): string
     {
