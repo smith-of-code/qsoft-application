@@ -7,6 +7,7 @@ use Bitrix\Sale\BasketBase;
 use Bitrix\Sale\Order;
 use Bitrix\Sale\Basket;
 use QSoft\Logger\Logger;
+use Psr\Log\LogLevel;
 use RuntimeException;
 
 class OrderService
@@ -34,15 +35,8 @@ class OrderService
             $this->order = Order::load($this->orderId);
             if (!$this->order) {
                 $error = new RuntimeException('Order not found');
-                Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                    ->setLog(
-                        $error->getMessage(),
-                        [
-                            'message' => $error->getMessage(),
-                            'namespace' => __CLASS__,
-                            'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                        ],
-                    );
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+     
                 throw $error;
             }
         }

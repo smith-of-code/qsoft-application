@@ -19,15 +19,8 @@ class TransactionSeeder implements Seederable
     {
         if (!Loader::includeModule('highloadblock')) {
             $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+ 
             throw $error;
         }
 
@@ -37,15 +30,8 @@ class TransactionSeeder implements Seederable
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
             $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+ 
             throw $error;
         }
 

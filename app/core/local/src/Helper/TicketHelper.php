@@ -55,15 +55,8 @@ class TicketHelper
     {
         if (!in_array($category, array_keys(self::CATEGORIES))) {
             $error = new RuntimeException('Incorrect ticket category');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 

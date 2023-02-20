@@ -87,6 +87,24 @@ class Logger extends FileLogger
         return $this;
     }
 
+    public static function createFormatedLog($classNamee, $logLevel, $message = null, Excetion $exception = null)
+    {
+        if (isset($exception)) {
+            $error = $exception;
+            $message = $error->getMessage();
+        }
+
+        Logger::createLogger((new \ReflectionClass($classNamee))->getShortName(), 0, LogLevel::ERROR)
+            ->setLog(
+                $message,
+                [
+                    'message' => $message,
+                    'namespace' => $classNamee,
+                    'file_path' => (new \ReflectionClass($classNamee))->getFileName(),
+                ],
+            );
+    }
+
     private function parseFormatMessage(string $message, array $details = [])
     {
         return PHP_EOL

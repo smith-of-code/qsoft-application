@@ -3,6 +3,7 @@
 namespace QSoft\Helper;
 
 use Bitrix\Main\Type\DateTime;
+use Carbon\Carbon;
 use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Logger\Logger;
@@ -38,16 +39,8 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 
@@ -55,16 +48,8 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 
@@ -140,16 +125,8 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 
@@ -157,21 +134,17 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 
         // Получаем количество баллов для начисления
         $amount = $this->consultantLoyalty->getUpgradeLevelBonus($user->loyaltyLevel);
+
+        if ($this->bonusCantBeUpdate($user)) {
+            return false;
+        }
 
         if (isset($amount) && $amount) {
             // Добавляем транзакцию
@@ -183,6 +156,9 @@ class BonusAccountHelper
                 $amount
             );
 
+            $message = "Пользователю с id: {$user->id} начислено балов: {$amount}.";
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
+
             // Обновляем количество баллов пользователя
             return $user->update([
                 'UF_BONUS_POINTS' => $user->bonusPoints + $amount
@@ -191,48 +167,36 @@ class BonusAccountHelper
         return false;
     }
 
+    private function bonusCantBeUpdate(User $user)
+    {
+        $lastTransaction = $this->transactions->getLatestTransactionLevelUp($user);
+        $dateDiff = Carbon::now()->diffInMonths($lastTransaction);
+
+        if ($user->loyaltyLevel === (new LoyaltyProgramHelper())->getHighestLevel() && ($dateDiff === 6)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function subtractOrderBonuses(User $user, int $amount): bool
     {
         if (!$user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
         if (!$user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
         if ($user->bonusPoints < $amount) {
             $error = new RuntimeException('У пользователя недостаточно бонусов');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
 

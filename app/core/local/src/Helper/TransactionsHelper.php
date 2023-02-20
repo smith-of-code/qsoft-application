@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
 use QSoft\ORM\TransactionTable;
@@ -30,15 +32,8 @@ class TransactionsHelper
         $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION; //.const
         if (! isset($this->hlId)) {
             $error = new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+
             throw $error;
         }
     }
@@ -64,6 +59,7 @@ class TransactionsHelper
         if (empty($this->sources)) {
             $this->sources = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_SOURCE');
         }
+
         return $this->sources;
     }
 
@@ -76,6 +72,7 @@ class TransactionsHelper
         if (empty($this->measures)) {
             $this->measures = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_MEASURE');
         }
+
         return $this->measures;
     }
 

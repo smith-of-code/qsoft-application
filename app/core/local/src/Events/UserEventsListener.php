@@ -105,15 +105,9 @@ class UserEventsListener
     {
         global $USER;
 
-        Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::INFO)
-        ->setLog(
-            "Пользователю с id: {$user->id} были изменены балы с {$user->bonusPoints} на {$amount} пользователем с id: {$USER->GetID()}.",
-            [
-                'user' => $user->id,
-                'namespace' => __CLASS__,
-                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-            ],
-        );
+        $message = "Пользователю с id: {$user->id} были изменены балы с {$user->bonusPoints} на {$amount}";
+        $message .= " пользователем с id: {$USER->GetID()}.";
+        Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
     }
 
     public static function OnBeforeUserAdd(array &$fields)
@@ -165,7 +159,7 @@ class UserEventsListener
             }
             $authBasketHelper->increase($basketItem->getProductId(), $detailPage, $nonreturnable, $basketItem->getQuantity());
             $basketItem->delete();
-//            $basketItem->save();
+            // $basketItem->save();
         }
         $basket->save();
     }
