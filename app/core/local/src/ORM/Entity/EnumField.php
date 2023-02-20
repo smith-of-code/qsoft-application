@@ -36,30 +36,16 @@ class EnumField extends BaseEnumField
     {
         if (!Loader::includeModule('highloadblock')) {
             $error = new RuntimeException('Module highloadblock not install');
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
             throw $error;
         }
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => $tableName]]);
         if (!$hlBlock) {
             $error = new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
             throw $error;
         }
 
@@ -70,15 +56,8 @@ class EnumField extends BaseEnumField
 
         if (!$field) {
             $error = new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
-            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
-                ->setLog(
-                    $error->getMessage(),
-                    [
-                        'message' => $error->getMessage(),
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
             throw $error;
         }
 

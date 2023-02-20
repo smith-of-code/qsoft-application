@@ -108,22 +108,10 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            $e = new RuntimeException('Не найдена информация об уровне программы лояльности');
-            Logger::createLogger(
-                'user.loyalty.service.update_',
-                0,
-                LogLevel::ERROR,
-            )
-                ->setLog(
-                    $e->getMessage(),
-                    [
-                        'message' => $e->getMessage(),
-                        'user' => $user->id,
-                        'namespace' => __CLASS__,
-                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                    ],
-                );
-            throw $e;
+            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         // Получим необходимые данные по затратам за прошедший месяц персоналоно

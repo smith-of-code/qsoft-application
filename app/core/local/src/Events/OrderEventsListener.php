@@ -88,15 +88,11 @@ class OrderEventsListener
         $pointName = self::wordDeclension($points, 'балл');
 
         if ($points !== 0) {
-            Logger::createLogger('orders', 0, LogLevel::INFO)
-            ->setLog(
-                "Пользователю с ID {$arFields['USER_ID']} начисленно {$points} {$pointName} за заказ № {$id}"
-            );
+            $message = "Пользователю с ID {$arFields['USER_ID']} начисленно {$points} {$pointName} за заказ № {$id}";
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
         } else {
-            Logger::createLogger('orders', 0, LogLevel::INFO)
-            ->setLog(
-                "Пользователю не начисленно баллов за заказ № {$id}"
-            );
+            $message = "Пользователю не начисленно баллов за заказ № {$id}";
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
         }
     }
 

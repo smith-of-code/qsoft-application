@@ -87,7 +87,45 @@ class Logger extends FileLogger
         return $this;
     }
 
-    private function parseFormatMessage(string $message, array $details = [])
+    /**
+     * Красткая запись createLogger под определенный контекст
+     *
+     * @param string $classNamee
+     * @param string $logLevel - Можно задать при помощи констант класса LogLevel
+     * @param string|null $message
+     * @param mixed|null $exception \Exception
+     * 
+     * @return void
+     * 
+     */
+    public static function createFormatedLog(
+        string $classNamee,
+        string $logLevel,
+        string $message = null,
+    ): void
+    {
+
+        self::createLogger((new \ReflectionClass($classNamee))->getShortName(), 0, $logLevel)
+            ->setLog(
+                $message,
+                [
+                    'message' => $message,
+                    'namespace' => $classNamee,
+                    'file_path' => (new \ReflectionClass($classNamee))->getFileName(),
+                ],
+            );
+    }
+
+    /**
+     * Создание формата сообщения
+     *
+     * @param string $message
+     * @param array $details
+     * 
+     * @return string
+     * 
+     */
+    private function parseFormatMessage(string $message, array $details = []): string
     {
         return PHP_EOL
             .'{date} - '
@@ -97,7 +135,13 @@ class Logger extends FileLogger
             . '{delimiter}';
     }
 
-    private function setFormatArguments()
+    /**
+     * Задаем аргументы для форматтирования.
+     *
+     * @return array
+     * 
+     */
+    private function setFormatArguments(): array
     {
         return [
             'date' => Carbon::now()->format('d.m.Y H:i:s'),
@@ -106,12 +150,15 @@ class Logger extends FileLogger
     }
 
     /**
-     * Создание пути к логу
+     *  Создание пути к логу
      *
-     * @return [type]
+     * @param string $logName
+     * @param string $level
+     * 
+     * @return string
      * 
      */
-    private function setPath($logName, $level)
+    private function setPath(string $logName, string $level): string
     {
         $root = str_replace('/htdocs', '', $_SERVER['DOCUMENT_ROOT']);
         $path = ($this->path ?? $root . '/app/logs/')
@@ -124,7 +171,15 @@ class Logger extends FileLogger
         return $path . $level . '_' . Carbon::now()->format('m.Y') . '.log';
     }
 
-    private function createPath($path)
+    /**
+     * Создание папки для логов
+     *
+     * @param string $path
+     * 
+     * @return bool
+     * 
+     */
+    private function createPath(string $path):bool
     {
         if (file_exists($path)) {
             return true;
@@ -139,7 +194,13 @@ class Logger extends FileLogger
         return false;
     }
 
-	protected function getFormatter()
+	/**
+	 * Получаем форматтер логов
+	 *
+	 * @return LogFformater
+	 * 
+	 */
+	protected function getFormatter(): LogFormatter
 	{
 		if ($this->formatter === null)
 		{
