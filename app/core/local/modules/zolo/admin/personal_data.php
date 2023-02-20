@@ -280,7 +280,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
                             <div class="form__field-block form__field-block--input">
                                 <div class="form__control">
                                     <div class="select select--mitigate" data-select>
-                                        <select class="select__control" name="pickup_point_id" id="pickup_point_id" data-select-control data-placeholder="Выберите пункт выдачи заказов">
+                                        <select class="select__control" name="pickup_point_id" id="pickup_point_id" data-select-control data-placeholder="Пункт выдачи заказов">
                                             <option><?=$pickupPoints[$ticketData['UF_PICKUP_POINT_ID']]?></option>
                                         </select>
                                     </div>

@@ -231,7 +231,7 @@
         &--mobile {
             margin-bottom: rem(20px);
 
-            @media #{$screen-desktop} {
+            @media #{$screen-tablet} {
                 display: none;
             }
         }
@@ -246,7 +246,7 @@
             &--edit {
                 display: none;
 
-                @media #{$screen-desktop} {
+                @media #{$screen-tablet} {
                     display: flex;
                 }
             }
@@ -358,6 +358,30 @@
         &-body  {
             @media #{$screen-desktop} {
                 display: block !important;
+            }
+        }
+    }
+
+    .accordeon__item {
+        .profile__accordeon-header {
+           .profile__actions-button--edit {
+                @media #{$screen-tablet} {
+                    display: none;
+                }
+
+                @media #{$screen-desktop} {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .accordeon__item.accordeon__item--opened {
+        .profile__accordeon-header {
+           .profile__actions-button--edit {
+                @media #{$screen-tablet} {
+                    display: flex;
+                }
             }
         }
     }
