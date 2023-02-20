@@ -542,7 +542,7 @@ export const PersonalData = {
                                                                 <Select
                                                                     name="pickup_point_id"
                                                                     :options="pickupPoints[userCity.id] ?? {}"
-                                                                    placeholder="Выберите пункт выдачи заказов"
+                                                                    placeholder="Пункт выдачи заказов"
                                                                     :selected="mutableUserInfo.pickup_point_id"
                                                                     @custom-change="(value) => { mutableUserInfo.pickup_point_id = value }"
                                                                 />
