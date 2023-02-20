@@ -101,7 +101,7 @@ class Logger extends FileLogger
     public static function createFormatedLog(
         string $classNamee,
         string $logLevel,
-        string $message = null,
+        string $message = null
     ): void
     {
 
