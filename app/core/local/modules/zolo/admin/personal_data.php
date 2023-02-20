@@ -28,6 +28,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/bitrix/modules/main/include/prolog_admin_a
 $ticketId = $_REQUEST['ID'];
 
 if (!$ticketId) {
+    echo 'Не задан ID обращения';
     die();
 }
 
@@ -456,7 +457,7 @@ $ticketData = (new TicketHelper)->getTicketData($ticketId);
 
         <div class="registration__actions registration__actions--inlined registration__actions--separated">
             <div class="registration__actions-col">
-                <a href="/bitrix/admin/ticket_edit.php?ID=<?=$ticketId?>" class="button button--rounded button--covered button--white-green button--full">
+                <a href="/bitrix/admin/ticket_edit.php?ID=<?=intval($ticketId)?>" class="button button--rounded button--covered button--white-green button--full">
                     <span class="button__text">Вернуться к тикету</span>
                 </a>
             </div>
