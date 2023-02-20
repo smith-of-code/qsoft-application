@@ -10,6 +10,7 @@ use Bitrix\Main\Diag\FileLogger;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use RuntimeException;
+use QSoft\Logger\Logger;
 
 class UpdateLoyaltyService
 {
