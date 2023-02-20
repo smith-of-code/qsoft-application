@@ -534,29 +534,12 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
         $orderId = (new OrderHelper)->createOrder($userId, $data);
 
-		if ($this->addBonusPayments((int)$data['bonuses_subtract'], (int)$orderId, (int)$userId) {
+		if ((new OrderHelper)->addBonusPayments((int)$data['bonuses_subtract'], (int)$orderId, (int)$userId)) {
 			// место для логгера.
 		}
 
         return ['status' => 'success', 'id' => $orderId];
     }
-
-	/**
-	 * Добавление оплаты бонусными балами
-	 *
-	 * @param int $bonusPoints
-	 * @param int $orderId
-	 * @param int $userId
-	 * 
-	 * @return bool
-	 * 
-	 */
-	private function addBonusPayments(int $bonusPoints, int $orderId, int $userId): bool
-	{
-        global $USER;
-
-		return (new OrderHelper)->addBonusPayments($bonusPoints, $orderId, $userId);
-	}
 
 	/**
 	 * Returns array of order properties from request

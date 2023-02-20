@@ -258,7 +258,7 @@ class OrderHelper
             return true;
         }
         
-        $paySystemId = $this->getPaymentSustemIdByXMLCode(self::LOYALTY_POINTS_PAYMENT_XML_CODE);
+        $paySystemId = $this->getPaymentSystemIdByXMLCode(self::LOYALTY_POINTS_PAYMENT_XML_CODE);
 
         // Создаем объект заказа
 		$orderObj = Order::load($orderID);
@@ -295,7 +295,7 @@ class OrderHelper
      * @return int
      * 
      */
-    public function getPaymentSustemIdByXMLCode(string $xmlCode): int
+    public function getPaymentSystemIdByXMLCode(string $xmlCode): int
     {
         $cSaleResult = \CSalePaySystem::GetList(
             ["SORT" => "ASC"],
