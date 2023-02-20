@@ -24,21 +24,8 @@ class UpdateLoyaltyService
                 try{
                     $this->updateBuyersLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    Logger::createLogger(
-                        'user.loyalty.service.update_',
-                        0,
-                        LogLevel::ERROR,
-                        $_SERVER["DOCUMENT_ROOT"] . '../logs/cron/'
-                    )
-                        ->setLog(
-                            $e->getMessage(),
-                            [
-                                'message' => $e->getMessage(),
-                                'user' => $user->id,
-                                'namespace' => __CLASS__,
-                                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                            ],
-                        );
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+
                     throw $error;
                 }
             }
@@ -47,22 +34,9 @@ class UpdateLoyaltyService
                 try{
                     $this->updateConsultantLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    Logger::createLogger(
-                        'user.loyalty.service.update_',
-                        0,
-                        LogLevel::ERROR,
-                        $_SERVER["DOCUMENT_ROOT"] . '../logs/cron/'
-                    )
-                        ->setLog(
-                            $e->getMessage(),
-                            [
-                                'message' => $e->getMessage(),
-                                'user' => $user->id,
-                                'namespace' => __CLASS__,
-                                'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
-                            ],
-                        );
-                    throw $error;
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+
+                    throw $e;
                 }
             }
 

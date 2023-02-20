@@ -156,7 +156,7 @@ class BonusAccountHelper
                 $amount
             );
 
-            $message = "Пользователю с id: {$user->id} начислено балов: {$amount}.";
+            $message = "Пользователю с id: {$user->id} начислено баллов: {$amount}.";
             Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
 
             // Обновляем количество баллов пользователя
