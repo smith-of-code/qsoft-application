@@ -105,7 +105,7 @@ class UserEventsListener
     {
         global $USER;
 
-        $message = "Пользователю с id: {$user->id} были изменены балы с {$user->bonusPoints} на {$amount}";
+        $message = "Пользователю с id: {$user->id} были изменены баллы с {$user->bonusPoints} на {$amount}";
         $message .= " пользователем с id: {$USER->GetID()}.";
         Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
     }

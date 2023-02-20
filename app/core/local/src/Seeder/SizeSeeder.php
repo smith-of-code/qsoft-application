@@ -17,7 +17,7 @@ class SizeSeeder implements Seederable
     {
         if (!Loader::includeModule('highloadblock')) {
             $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -28,7 +28,7 @@ class SizeSeeder implements Seederable
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
             $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

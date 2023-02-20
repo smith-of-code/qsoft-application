@@ -55,7 +55,7 @@ class TicketHelper
     {
         if (!in_array($category, array_keys(self::CATEGORIES))) {
             $error = new RuntimeException('Incorrect ticket category');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

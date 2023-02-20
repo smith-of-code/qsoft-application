@@ -242,7 +242,7 @@ class User
         $user = CUser::GetByID($userId);
         if (!$user || !$user = $user->fetch()) {
             $error = new RuntimeException('Пользователь с ID = ' . $userId . ' не найден');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

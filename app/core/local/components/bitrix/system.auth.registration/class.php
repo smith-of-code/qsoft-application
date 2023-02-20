@@ -299,13 +299,13 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $response = $recaptcha->isValidResponse($data['captcha']);
             if (!$response) {
                 $error = new Exception('Капча не пройдена');
-                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
                 throw $error;
             }
         } catch (\Exception $e) {
             $error = new Exception('Ошибка проверки капчи');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -315,14 +315,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         if (empty($phone)) {
             $error = new Exception('Не указан номер телефона');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
 
         if (empty($email)) {
             $error = new Exception('Не указан адрес электронной почты');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -337,7 +337,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         if ($searchResult) {
             $error = new Exception('Такой пользователь уже существует');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

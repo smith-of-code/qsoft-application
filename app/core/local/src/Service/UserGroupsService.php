@@ -70,7 +70,7 @@ class UserGroupsService
 
         if (! isset($this->allGroups[$groupCode])) {
             $error = new RuntimeException('User group does not exist');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }
@@ -101,7 +101,7 @@ class UserGroupsService
 
         if (! isset($allGroups[$groupCode])) {
             $error = new RuntimeException('User group does not exist');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }

@@ -39,7 +39,7 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -48,7 +48,7 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -125,7 +125,7 @@ class BonusAccountHelper
         // Для отключенного аккаунта добавление баллов невозможно
         if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -134,7 +134,7 @@ class BonusAccountHelper
         // (для Конечных покупателей балльная система не используется)
         if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -181,21 +181,21 @@ class BonusAccountHelper
 
     public function subtractOrderBonuses(User $user, int $amount): bool
     {
-        if (!$user->active) {
+        if (! $user->active) {
             $error = new RuntimeException('Пользователь заблокирован - начисление бонусов невозможно');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
-        if (!$user->groups->isConsultant()) {
+        if (! $user->groups->isConsultant()) {
             $error = new RuntimeException('Пользователь не является Консультантом');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
         if ($user->bonusPoints < $amount) {
             $error = new RuntimeException('У пользователя недостаточно бонусов');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

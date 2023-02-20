@@ -35,7 +35,7 @@ class OrderService
             $this->order = Order::load($this->orderId);
             if (!$this->order) {
                 $error = new RuntimeException('Order not found');
-                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
      
                 throw $error;
             }

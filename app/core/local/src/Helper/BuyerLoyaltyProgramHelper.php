@@ -93,7 +93,7 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
             $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

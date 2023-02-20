@@ -32,7 +32,7 @@ class TransactionsHelper
         $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION; //.const
         if (! isset($this->hlId)) {
             $error = new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

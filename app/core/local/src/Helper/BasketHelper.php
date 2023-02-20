@@ -105,7 +105,7 @@ class BasketHelper
             $discountsResult = $discounts->calculate();
             if (!$discountsResult->isSuccess()) {
                 $error = new RuntimeException($discountsResult->getErrorMessages());
-                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
                 throw $error;
             }
@@ -114,7 +114,7 @@ class BasketHelper
                 $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
                 if (!$applyResult->isSuccess()) {
                     $error = new RuntimeException($applyResult->getErrorMessages());
-                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
                     throw $error;
                 }

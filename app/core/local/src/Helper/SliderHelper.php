@@ -30,7 +30,7 @@ class SliderHelper
 
         if (! Loader::includeModule('highloadblock')) {
             $error = new RuntimeException('Модуль highloadblock не найден');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -42,7 +42,7 @@ class SliderHelper
 
         if (! $sliderHL || ! $sliderElementHL) {
             $error = new RuntimeException('Не найдены HL-блоки для слайдеров');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

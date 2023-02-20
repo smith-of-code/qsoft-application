@@ -46,13 +46,13 @@ class SystemAuthForgotPasswordComponent extends \CBitrixComponent implements Con
             $response = $recaptcha->isValidResponse($captcha);
             if (!$response) {
                 $error = new Exception('Recaptcha not passed');
-                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
                 throw $error;
             }
         } catch (\Exception $e) {
             $error = new Exception('Recaptcha error');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }

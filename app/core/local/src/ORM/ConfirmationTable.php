@@ -108,7 +108,7 @@ final class ConfirmationTable extends BaseTable
     {
         if ($type !== self::TYPES['confirm_email'] && $type !== self::TYPES['reset_password']) {
             $error = new RuntimeException('Incorrect email message type');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

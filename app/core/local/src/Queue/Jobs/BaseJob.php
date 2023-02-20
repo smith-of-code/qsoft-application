@@ -22,7 +22,7 @@ abstract class BaseJob
         $self = new static;
         if (!$self->validateInputData($data)) {
             $error = new RuntimeException($self->getQueueName() . ' queue: data is not valid');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

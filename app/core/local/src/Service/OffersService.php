@@ -49,13 +49,13 @@ class OffersService
 
         if (! Loader::includeModule('iblock')) {
             $error = new RuntimeException('Не найден модуль "iblock"');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }
         if (! Loader::includeModule('sale')) {
             $error = new RuntimeException('Не найден модуль "sale"');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }
@@ -65,7 +65,7 @@ class OffersService
 
         if (! $this->offersIbId) {
             $error = new RuntimeException('Не найден инфоблок "product_offer"');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }

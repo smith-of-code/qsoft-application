@@ -39,14 +39,14 @@ class FormHandler
     {
         if (!Loader::includeModule('support')) {
             $error = new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
 
         if (!Loader::includeModule('report')) {
             $error = new SystemException(Loc::GetMessage('SUPPORT_NOT_INCLUDED'));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

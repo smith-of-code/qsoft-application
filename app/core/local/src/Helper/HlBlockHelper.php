@@ -16,7 +16,7 @@ class HlBlockHelper
     {
         if (!Loader::includeModule('highloadblock')) {
             $error = new RuntimeException('Module highloadblock not install');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -24,7 +24,7 @@ class HlBlockHelper
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => $tableName]]);
         if (!$hlBlock) {
             $error = new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
@@ -36,7 +36,7 @@ class HlBlockHelper
 
         if (!$field) {
             $error = new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

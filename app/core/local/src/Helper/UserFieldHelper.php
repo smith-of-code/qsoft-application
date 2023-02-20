@@ -46,7 +46,7 @@ class UserFieldHelper
 
         if ($id <= 0) {
             $error = new RuntimeException('Некорректный ID пользовательского поля');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

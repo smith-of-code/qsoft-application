@@ -23,7 +23,7 @@ class DiscountsHelper
     {
         if (! Loader::includeModule('iblock')) {
             $error = new \Exception(Loc::GetMessage('IBLOCK_MODULE_NOT_INCLUDED'));
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }

@@ -23,7 +23,7 @@ class LegalEntityService
     {
         if (!$this->user->groups->isConsultant()) {
             $error = new \RuntimeException('User is not a consultant');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }
@@ -39,7 +39,7 @@ class LegalEntityService
 
         if (!in_array($types[$legalEntity['UF_STATUS']]['code'], LegalEntityTable::STATUSES)) {
             $error = new \RuntimeException('Unknown legal entity status');
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
  
             throw $error;
         }

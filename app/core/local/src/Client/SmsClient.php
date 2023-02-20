@@ -51,14 +51,14 @@ class SmsClient
 
         if (json_last_error() != JSON_ERROR_NONE) {
             $error = new \Exception('Error response format', $info['http_code']);
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
 
         if ($info['http_code'] != 200) {
             $error = new \Exception($responseArray['error_message'], $info['http_code']);
-            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, null, $error);
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
 
             throw $error;
         }
