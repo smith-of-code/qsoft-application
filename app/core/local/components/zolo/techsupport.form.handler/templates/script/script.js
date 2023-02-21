@@ -5,9 +5,16 @@ $(document).on("change", "[data-select]", function () {
     let selected = $('#ticket-type').val();
     if (selected !== "undefined") {
         changeForm(selected);
+        activateButton()
     }
 });
 
+function activateButton()
+{
+    $('#confirm-ticket-button').attr('disabled', false);
+    $('#confirm-ticket-button').css("background-color", "#d82f49");
+    $('#confirm-ticket-button').css("cursor", "pointer");
+}
 
 function changeForm(savedSelected) {
     for (let key in SUPPORT_TYPE) {
@@ -126,18 +133,33 @@ function setSuccessMessage(id) {
                 </svg>
             </div>
 
-            <h4 class="notification__title">
-                Заявка успешно отправлена!
+            <h4 class="notification__title notification__title--centered">
+                Заявка №${id}. Благодарим Вас за обращение.
             </h4>
 
             <p class="notification__text">
-                Ваша заявка отправлена. Проверьте вашу электронную почту.
+                Нам потребуется некоторое время для подготовки ответа. Наши специалисты свяжутся с Вами в течении 72 часов.
             </p>
+
+            <button data-fancybox-close type="button" class="notification__button notification__button--close button button--rounded button--covered button--red">
+                Закрыть
+            </button>
         </div>
     `;
 
     $('[data-support-content]').html(successMessage);
     $('[data-support-content]').addClass('modal__content--support-notification');
+
+    let buttonClose =  $('[data-fancybox-close]');
+    let checkPageError = $('.page__error').length;
+
+    buttonClose.each((index, button) => {
+        $(button).on('click', function() {
+            if (checkPageError !== 0) {
+                window.location.href = "/";
+            }
+        })
+    })
 }
 
 function setErrorMessage() {

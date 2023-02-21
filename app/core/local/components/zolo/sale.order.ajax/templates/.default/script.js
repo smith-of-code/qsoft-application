@@ -5,6 +5,7 @@ class SaleOrderAjaxComponent {
     }
 
     initListeners() {
+        $('[data-create-order]').on('click', this.disableButton);
         $('[data-create-order]').on('click', this.createOrder);
         $(`.form select`).on('change', this.removeError);
         $(`.form input`).on('keyup', this.removeError);
@@ -19,6 +20,11 @@ class SaleOrderAjaxComponent {
         const city = $('[name=city]').val();
         $('[data-city]').hide();
         $(`[data-city="${city}"]`).show();
+    }
+
+    disableButton() {
+        $('[data-create-order]').attr('disabled', 'disabled');
+        $('[data-create-order]').addClass('button--disabled');
     }
 
     removeError() {
@@ -38,10 +44,9 @@ class SaleOrderAjaxComponent {
 
             if ($(item).attr('name') === 'phone') {
                 let valuePhone =  $(item).val().replaceAll(/[^0-9+\.]/g,'');
-                let span = $('<span class="input__control-error">Неккорекнтый номер телефона</span>');
-                let phoneSplit = valuePhone.split('');
+                let span = $('<span class="input__control-error">Некорректный номер телефона</span>');
 
-                if (valuePhone.length < 12 || phoneSplit[2] != 9) {
+                if (valuePhone.length < 12) {
                     $(item).addClass('input__control--error');
                     if ($(item).parent().find('.input__control-error').length === 0) {
                         $(item).parent().append(span);

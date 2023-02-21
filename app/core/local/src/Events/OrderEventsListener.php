@@ -29,6 +29,10 @@ class OrderEventsListener
 
         switch ($status) {
             case OrderHelper::ACCOMPLISHED_STATUS:
+                if ($user->bonusAccount->getTransactionByOrderId($orderId) != []) {
+                    break;
+                }
+
                 $bonusesData = null;
                 /** @var PropertyValue $property */
                 foreach ($order->getPropertyCollection() as $property) {

@@ -41,7 +41,7 @@ export const OfferImage = {
                 <div class="swiper-wrapper" data-card-favourite-block :class="'test-' + currentOfferId">
                     <template v-if="images && images.length > 0">
                         <div v-for="(image) in images" class="swiper-slide slider__slide">
-                            <article v-bind:key="image.ID" class="product-card product-card--slide box box--circle box--hovering box--border">
+                            <article v-bind:key="image.ID" class="product-card product-card--detail product-card--slide box box--circle box--hovering box--border">
                                 <div class="product-card__header">
                                     <div v-if="offers.DISCOUNT_LABELS[currentOfferId].NAME"
                                          v-bind:class="'product-card__label label label--' +  offers.DISCOUNT_LABELS[currentOfferId].COLOR">

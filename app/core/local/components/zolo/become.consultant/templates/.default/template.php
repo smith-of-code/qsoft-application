@@ -194,6 +194,7 @@
                                                         name="register_locality"
                                                         id="register_locality"
                                                         placeholder="Населенный пункт"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -216,6 +217,7 @@
                                                         name="register_street"
                                                         id="register_street"
                                                         placeholder="Улица"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -240,6 +242,7 @@
                                                         name="register_house"
                                                         id="register_house"
                                                         placeholder="Дом"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -262,6 +265,7 @@
                                                         name="register_apartment"
                                                         id="register_apartment"
                                                         placeholder="Квартира"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -314,6 +318,7 @@
                                                         name="living_locality"
                                                         id="living_locality"
                                                         placeholder="Населенный пункт"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -336,6 +341,7 @@
                                                         name="living_street"
                                                         id="living_street"
                                                         placeholder="Улица"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -360,6 +366,7 @@
                                                         name="living_house"
                                                         id="living_house"
                                                         placeholder="Дом"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -382,6 +389,7 @@
                                                         name="living_apartment"
                                                         id="living_apartment"
                                                         placeholder="Квартира"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -997,6 +1005,7 @@
                                                         name="ltc_locality"
                                                         id="ltc_locality"
                                                         placeholder="Населенный пункт"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -1019,6 +1028,7 @@
                                                         name="ltc_street"
                                                         id="ltc_street"
                                                         placeholder="Улица"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -1043,6 +1053,7 @@
                                                         name="ltc_address_1"
                                                         id="ltc_address_1"
                                                         placeholder="Дом, корпус, строение"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>
@@ -1065,6 +1076,7 @@
                                                         name="ltc_address_2"
                                                         id="ltc_address_2"
                                                         placeholder="Этаж, помещение, комната"
+                                                        data-replace-input="adress"
                                                 >
                                             </div>
                                         </div>

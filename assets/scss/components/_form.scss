@@ -257,6 +257,12 @@
                 width: auto;
             }
         }
+
+        &--50 {
+            @media #{$screen-tablet} {
+                width: 50%;
+            }
+        }
     }
 
     &__field {
@@ -363,7 +369,7 @@
             &--desktop {
                 display: none;
 
-                @media #{$screen-tablet} {
+                @media #{$screen-desktop} {
                     display: block;
                 }
             }
@@ -372,7 +378,7 @@
                 display: block;
                 pointer-events: all;
 
-                @media #{$screen-tablet} {
+                @media #{$screen-desktop} {
                    display: none;
                 }
             }

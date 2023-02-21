@@ -37,7 +37,7 @@ export const Dropzone = {
             this.$emit('upload', response.data);
         },
         deleteFile(file) {
-            this.store.deleteFile(file.id);
+            // this.store.deleteFile(file.id); Файлы не удаляются т.к. они нужны для тикетов тех поддержки
             this.files.splice(this.files.indexOf(file), 1);
             this.$emit('delete', file.id);
         },
@@ -57,7 +57,7 @@ export const Dropzone = {
           <input type="file" ref="file" :name="componentId" :id="componentId" multiple class="dropzone__control" @change="uploadFile($event)">
           <div class="dropzone__area">
             <div class="profile__toggle dropzone__message dz-message needsclick">
-              <label :for="componentId" class="dropzone__button button button--medium button--rounded button--covered button--red">
+              <label :for="componentId" class="dropzone__button dropzone__button--profile button button--medium button--rounded button--covered button--red">
                     <span class="button__icon">
                         <svg class="icon icon--import">
                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-import"></use>
@@ -67,7 +67,7 @@ export const Dropzone = {
               </label>
             </div>
     
-            <div class="dropzone__previews dz-previews">
+            <div class="dropzone__previews dropzone__previews--profile dz-previews">
               <div v-for="file in files" :key="file.id" class="file dz-processing dz-image-preview dz-success dz-complete">
                 <div class="file__wrapper">
                   <div class="file__prewiew">

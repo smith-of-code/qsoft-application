@@ -545,6 +545,10 @@
     .select2-container {
         width: 100% !important;
 
+        &:focus {
+            outline: none !important;
+        }
+
         &.select2 {
             &:focus {
                 outline: none;
@@ -612,6 +616,10 @@
 
     &__color {
         display: flex;
+    }
+
+    .select__control + .select2-container *:focus {
+        outline: none;
     }
 
     .select__control[name=select-color] + .select2-container *:focus {

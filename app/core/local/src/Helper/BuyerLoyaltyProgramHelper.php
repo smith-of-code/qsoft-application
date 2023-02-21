@@ -37,11 +37,14 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            if ($user->update(['UF_PERSONAL_DISCOUNT_LEVEL' => $levelsIDs[$availableLevel]])) {
+
+            if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
                 $user->loyaltyLevel = $availableLevel;
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -59,26 +62,41 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         // Получаем информацию об уровнях
         $levels = $this->getLoyaltyLevels();
+
         // Получаем порядок уровней
         $sortedLevels = $this->getSortedLevels();
+
         // Получаем индекс текущего уровня (для определения позиции относительно остальных уровней)
         $currentLevelIndex = $levels[$user->loyaltyLevel]['level'];
 
+        $lowerLevel = $this->lowerLevel;
+
         foreach ($sortedLevels as $index => $xmlId) {
+            if ($xmlId == $user->loyaltyLevel) {
+                $this->lowerLevel = $lowerLevel;
+            }
+
+            $lowerLevel = $xmlId;
+
             // Проверяем только вышестоящие уровни
             if ($index <= $currentLevelIndex) {
                 continue;
             }
+
             if ($this->checkIfCanUpgradeToLevel($user, $xmlId)) {
                 $availableLevel = $xmlId;
             }
+        }
+
+        if (! $this->checkIfCantRetentionLevel($user, $user->loyaltyLevel)) {
+            $availableLevel = $this->lowerLevel;
         }
 
         return $availableLevel;
     }
 
     /**
-     * Проверяет возможность улучшения до конкретного уровня программы лояльности\
+     * Проверяет возможность улучшения до конкретного уровня программы лояльности
      * @param User $user Пользователь
      * @param string $level Уровень программы лояльности
      * @return bool
@@ -98,15 +116,52 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
             throw $error;
         }
 
-        // Получим необходимые данные по затратам за прошедший месяц
+        // Получим необходимые данные по затратам за прошедший месяц персоналоно
         $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
         $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
+
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
 
+        // Условия для повышения
         $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
 
-        // Проверяем условия
+        // Проверяем условия на повышение
         if ($personalTotal >= $personalTotalToUpgrade) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Проверяет возможное снижение до конкретного уровня программы лояльности
+     * @param User $user Пользователь
+     * @param string $level Уровень программы лояльности
+     * @return bool
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function checkIfCantRetentionLevel(User $user, string $level) : bool
+    {
+        $currentLevelInfo = $this->getLoyaltyLevelInfo($user->loyaltyLevel);
+        $levelInfo = $this->getLoyaltyLevelInfo($level);
+
+        if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
+            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+        }
+
+        // Получим необходимые данные по затратам за прошедший месяц персоналоно
+        $selfPeriodStart = DateTimeService::getStartOfMonth(-1);
+        $selfPeriodEnd = DateTimeService::getEndOfMonth(-1);
+
+        $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
+
+        // Условия для удержания
+        $personalTotalToRetention = (int) $levelInfo['hold_level_terms']['self_total'];
+
+        // Проверяем условия на удержание
+        if ($personalTotal >= $personalTotalToRetention) {
             return true;
         }
 

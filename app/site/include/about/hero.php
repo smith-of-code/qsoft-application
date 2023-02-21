@@ -7,7 +7,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
             <img class="about__hero-images-picture" src="/local/templates/.default/images/about-hero.png" alt="hero-img">
         </div>
         <h3 class="about__hero-title section__title">
-            AmeAppetite <br>
+            AmeStore <br>
             Заботимся мы — счастливее вы!
         </h3>
         <div class="about__hero-description">

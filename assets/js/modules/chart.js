@@ -16,11 +16,11 @@ export default function () {
                 padding: 40
             },
             borderWidth: 2,
-
+            aspectRatio: 1,
             plugins: {
                 datalabels: {
                     formatter(value) {
-                        return value === 0 ? '' : value.toLocaleString();
+                        return value === 0 ? '' : value.toLocaleString('ru-RU');
                     },
                     color: '#3A3A43',
                     anchor: 'end',
@@ -40,6 +40,10 @@ export default function () {
 
         if ($(chartItem).attr('data-chart-no-tooltip') != undefined) {
             baseOptions.plugins.tooltip.enabled = false;
+        }
+
+        if ($(chartItem).attr('data-calculator-chart') != undefined) {
+            baseOptions.aspectRatio = 1.1
         }
 
         if (chartType === 'stats') {

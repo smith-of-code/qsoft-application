@@ -170,6 +170,10 @@
             }
         }
 
+        &--hideplaceholder::placeholder {
+            opacity: 0;
+        }
+
         &--disabled {
             color: #dddddd;
             border-color: #dddddd;

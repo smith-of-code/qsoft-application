@@ -707,7 +707,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
+                                                                <h6 class="advantage__title">Персональная скидка на Стартовый набор Консультанта</h6>
                                                                 <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
                                                             </div>
                                                         </div>
@@ -722,21 +722,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="advantages__item">
-                                                        <div class="advantage">
-                                                            <div class="advantage__icon">
-                                                                <svg class="icon icon--tick-circle">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="advantage__content">
-                                                                <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K1']['benefits']['personal_bonuses_for_cost']['size']?> бонусный балл за каждые полные <?=$arResult['LL']['K1']['benefits']['personal_bonuses_for_cost']['step']?> рублей личных покупок</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -751,7 +737,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K1']['benefits']['referral_size']?> бонусных баллов за каждого приглашенного Вами Консультанта</h6>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -765,7 +751,21 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                <h6 class="advantage__title">Скидка <?=$arResult['LL']['K1']['benefits']['personal_discount']?>% на товары в каталоге</h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="advantages__item">
+                                                        <div class="advantage">
+                                                            <div class="advantage__icon">
+                                                                <svg class="icon icon--tick-circle">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="advantage__content">
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K1']['benefits']['personal_bonuses_for_stock']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K1']['benefits']['personal_bonuses_for_stock']['step']?> рублей от стоимости товара по Персональной акции</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -780,8 +780,8 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
-                                                                <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K1']['benefits']['group_bonuses_for_cost']['size']?> бонусный балл за каждые полные <?=$arResult['LL']['K1']['benefits']['group_bonuses_for_cost']['step']?> рублей покупок Вашей группы</h6>
+                                                                <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -822,36 +822,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                                <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="advantages__item">
-                                                        <div class="advantage">
-                                                            <div class="advantage__icon">
-                                                                <svg class="icon icon--tick-circle">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="advantages__item">
-                                                        <div class="advantage">
-                                                            <div class="advantage__icon">
-                                                                <svg class="icon icon--tick-circle">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="advantage__content">
-                                                                <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K2']['benefits']['personal_bonuses_for_cost']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K2']['benefits']['personal_bonuses_for_cost']['step']?> рублей личных покупок</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -866,7 +837,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K2']['benefits']['referral_size']?> бонусных баллов за каждого приглашенного Вами Консультанта</h6>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -880,7 +851,21 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                <h6 class="advantage__title">Скидка <?=$arResult['LL']['K2']['benefits']['personal_discount']?>% на товары в каталоге</h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="advantages__item">
+                                                        <div class="advantage">
+                                                            <div class="advantage__icon">
+                                                                <svg class="icon icon--tick-circle">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="advantage__content">
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K2']['benefits']['personal_bonuses_for_stock']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K2']['benefits']['personal_bonuses_for_stock']['step']?> рублей от стоимости товара по Персональной акции</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -895,8 +880,22 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
-                                                                <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K2']['benefits']['group_bonuses_for_cost']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K2']['benefits']['group_bonuses_for_cost']['step']?> рублей покупок Вашей группы</h6>
+                                                                <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="advantages__item">
+                                                        <div class="advantage">
+                                                            <div class="advantage__icon">
+                                                                <svg class="icon icon--tick-circle">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="advantage__content">
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K2']['benefits']['upgrade_level_bonuses']?> бонусных баллов за переход с уровня K1 на уровень K2</h6>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -937,36 +936,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                                <p class="advantage__subtitle">Скидка активна в течение 14 дней после регистрации</p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="advantages__item">
-                                                        <div class="advantage">
-                                                            <div class="advantage__icon">
-                                                                <svg class="icon icon--tick-circle">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 бонусный балл за каждые полные 100 рублей личных покупок</h6>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="advantages__item">
-                                                        <div class="advantage">
-                                                            <div class="advantage__icon">
-                                                                <svg class="icon icon--tick-circle">
-                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
-                                                                </svg>
-                                                            </div>
-
-                                                            <div class="advantage__content">
-                                                                <h6 class="advantage__title">100 бонусных баллов за каждого приглашенного Вами Консультанта</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K3']['benefits']['personal_bonuses_for_cost']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K3']['benefits']['personal_bonuses_for_cost']['step']?> рублей личных покупок</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -981,7 +951,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">Скидка 7% на товары в каталоге</h6>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K3']['benefits']['referral_size']?> бонусных баллов за каждого приглашенного Вами Консультанта</h6>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -995,7 +965,21 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">2 бонусных балла за каждые полные 100 рублей от стоимости товара по Персональной акции</h6>
+                                                                <h6 class="advantage__title">Скидка <?=$arResult['LL']['K3']['benefits']['personal_discount']?>% на товары в каталоге</h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="advantages__item">
+                                                        <div class="advantage">
+                                                            <div class="advantage__icon">
+                                                                <svg class="icon icon--tick-circle">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="advantage__content">
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K3']['benefits']['personal_bonuses_for_stock']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K3']['benefits']['personal_bonuses_for_stock']['step']?> рублей от стоимости товара по Персональной акции</h6>
                                                                 <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
                                                             </div>
                                                         </div>
@@ -1010,8 +994,24 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                                             </div>
 
                                                             <div class="advantage__content">
-                                                                <h6 class="advantage__title">1 ББ за каждые полные 100 рублей покупок Вашей группы</h6>
-                                                                <p class="advantage__subtitle">после учета применяемых скидок к заказу с этим товаром</p>
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K3']['benefits']['group_bonuses_for_cost']['size']?> бонусных балла за каждые полные <?=$arResult['LL']['K3']['benefits']['group_bonuses_for_cost']['step']?> рублей покупок Вашей группы</h6>
+                                                                <p class="advantage__subtitle">После учета применяемых скидок к заказу с этим товаром</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="advantages__item">
+                                                        <div class="advantage">
+                                                            <div class="advantage__icon">
+                                                                <svg class="icon icon--tick-circle">
+                                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle"></use>
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="advantage__content">
+                                                                <h6 class="advantage__title"><?=$arResult['LL']['K3']['benefits']['upgrade_level_bonuses']?> бонусных баллов за соблюдение следующих условий:</h6>
+                                                                <p class="advantage__subtitle">За переход с уровня K2 на уровень K3</p>
+                                                                <p class="advantage__subtitle">За выполнение условий поддержания уровня K3 в течении 6 месяцев</p>
                                                             </div>
                                                         </div>
                                                     </li>

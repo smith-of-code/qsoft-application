@@ -7,9 +7,12 @@ use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Psr\Log\LogLevel;
 use QSoft\Logger\Logger;
+use Carbon\Carbon;
 use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
+use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\TransactionTable;
+use QSoft\Service\DateTimeService;
 use RuntimeException;
 
 class TransactionsHelper
@@ -74,6 +77,25 @@ class TransactionsHelper
         }
 
         return $this->measures;
+    }
+
+    public function getLatestTransactionLevelUp($user)
+    {
+        $filter = [
+            '=UF_USER_ID' => $user->id,
+            '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
+            '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+            '=UF_TYPE' => TransactionTable::TYPES["upgrade_to_$user->loyaltyLevel"],
+            '<UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime(DateTimeService::getStartOfMonth(-6))
+        ];
+        
+        $result = TransactionTable::GetList([
+            'select' => ['ID', 'UF_CREATED_AT'],
+            'filter' => $filter,
+            'cache' => ['ttl' => 3600]
+        ])->Fetch();
+
+        return $result['UF_CREATED_AT'] ?? Carbon::now();
     }
 
     /**
