@@ -79,6 +79,10 @@ class OrderEventsListener
 
     public static function OnOrderAdd ($id, &$arFields)
     {
+        if (isset($arFields['USER_ID']) && (new User($arFields['USER_ID']))->groups->isBuyer()) {
+            return;
+        }
+        
         $points = 0;
         foreach ($arFields['BASKET_ITEMS'] as $item) {
             $points += $item['PROPS']['BONUSES']['VALUE'];
