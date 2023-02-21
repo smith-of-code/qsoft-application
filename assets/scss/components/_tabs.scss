@@ -254,6 +254,14 @@
         }
     }
 
+    &--profile & {
+        &__item {
+            @media #{$screen-tablet} {
+                width: rem(161px);
+            }
+        }
+    }
+
     &__list {
         display: flex;
         align-items: center;

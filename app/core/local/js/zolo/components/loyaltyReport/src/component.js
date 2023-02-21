@@ -291,7 +291,7 @@ export const LoyaltyReport = {
                         Плановые показатели
                     </h5>
 
-                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
+                    <div class="tabs tabs--profile tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
                         <nav class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">
@@ -365,7 +365,7 @@ export const LoyaltyReport = {
                         Покупки
                     </h5>
 
-                    <div class="tabs tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
+                    <div class="tabs tabs--profile tabs--white tabs--small tabs--circle tabs--red tabs--full-mob" data-tabs>
                         <nav v-if="user.is_consultant" class="tabs__items">
                             <ul class="tabs__list">
                                 <li class="tabs__item tabs__item--active" data-tab="block1">
