@@ -24,7 +24,7 @@ $fields = [];
 if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 	$formHandler = (new FormHandler());
 	$fields = $formHandler->GetFormData($_REQUEST['ID']);
-}dump($fields);
+}
 ?>
 <div>
 	<div>
@@ -56,7 +56,7 @@ if (loader::includeModule('zolo') && $_REQUEST['ID'] > 0) {
 	</div>
 	<hr>
 	<div>
-		<a href="/bitrix/admin/ticket_edit.php?ID=<?= $_REQUEST['ID'] ?>&lang=<?= LANG ?>">
+		<a href="/bitrix/admin/ticket_edit.php?ID=<?= intval($_REQUEST['ID']) ?>&lang=<?= LANG ?>">
 			<-- Вернуться в тикет
 		</a>
 	</div>

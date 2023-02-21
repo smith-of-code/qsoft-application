@@ -30,7 +30,7 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             </a>
         </li>
 
-        <?php $isCurrentUrl  = $currentUrl == $arParams['ORDER_HISTORY_URL'] ? 'menu__item--active' : ''?>
+        <?php $isCurrentUrl = (strripos($currentUrl, $arParams['ORDER_HISTORY_URL']) !== false) ? 'menu__item--active' : ''?>
         <li class="menu__item <?=$isCurrentUrl  ? 'menu__item--active' : ''?>">
             <a href="<?=$arParams['ORDER_HISTORY_URL']?>" class="menu__link">
                 <span class="menu__icon <?=$isCurrentUrl  ? 'menu__icon--active' : ''?>">

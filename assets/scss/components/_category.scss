@@ -7,5 +7,10 @@
     &__item {
         padding-top: rem($gap-medium / 2);
         padding-bottom: rem($gap-medium / 2);
+
+        & .accordeon__item {
+            padding: 0;
+            background-color: transparent;
+        }
     }
 }

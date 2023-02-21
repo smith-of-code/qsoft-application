@@ -38,14 +38,9 @@
         }
 
         &--basket {
-            margin-right: rem(6px);
-
-            @media #{$screen-tablet} {
-                margin-right: 0;
-            }
-
-            @media #{$screen-desktop} {
-                margin-right: rem(14px);
+            width: rem(112px);
+            & .button--simple {
+                width: 100%;
             }
         }
     }

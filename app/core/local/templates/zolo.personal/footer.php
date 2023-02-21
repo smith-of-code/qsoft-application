@@ -95,7 +95,7 @@ $APPLICATION->IncludeComponent(
 
         <div class="footer__bottom">
             <p class="footer__copyright">
-                &copy; AmeAppetite, 2022
+                &copy; AmeStore, 2023
             </p>
             <div class="footer__logo logo">
                 <a target="_blank" class="logo__link" href="https://qsoft.ru">

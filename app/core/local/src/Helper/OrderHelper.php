@@ -143,6 +143,8 @@ class OrderHelper
 
         $orderBonusesData = [];
         if ($user->groups->isConsultant()) {
+            $personTypeId = \CSalePersonType::GetList([], ['CODE' => 'legal_entity'], false, false, [])->fetch()['ID'];
+            $order->setField('PERSON_TYPE_ID', $personTypeId);
             $bonuses = 0;
             $bonusesWithPersonalPromotions = 0;
             /** @var BasketItem $basketItem */

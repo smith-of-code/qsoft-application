@@ -13,6 +13,7 @@ $APPLICATION->IncludeComponent(
         "PATH_TO_COPY" => "/personal/cart/",
         "PATH_TO_PAYMENT" => "/personal/order/payment/",
         "ORDERS_PER_PAGE" => 5,
+        "DEFAULT_SORT" => 'ID',
         "SET_TITLE" => "Y",
         "SAVE_IN_SESSION" => "Y",
         "NAV_TEMPLATE" => "",

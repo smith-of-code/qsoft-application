@@ -13,16 +13,14 @@ export default function symbolCounter() {
 
     $(document).on('input', ELEMENTS_SELECTOR.input, function () {
         let currentNumber = $(this).val().length;
-
-        $(ELEMENTS_SELECTOR.current).text(currentNumber);
+        $(this).parent().find(ELEMENTS_SELECTOR.current).text(currentNumber);
     });
 
     $(document).on('focus', ELEMENTS_SELECTOR.input, function (evt) {
-        $(evt.target).attr("placeholder", "");
+        $(evt.target).addClass('input__control--hideplaceholder');
     });
 
     $(document).on('blur', ELEMENTS_SELECTOR.input, function (evt) {
-        let count = $(evt.target).attr('maxlength')
-        $(evt.target).attr("placeholder", `Не более ${count} символов`);
+        $(evt.target).removeClass('input__control--hideplaceholder');
     });
 }

@@ -37,7 +37,7 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
                         <li class="card-order__item card-order__item--delivery">
                             <div class="info-slot">
                                 <p class="info-slot__value info-slot__value--marked">
-                                    <?=$arResult['INFO']['STATUS'][$order['ORDER']['STATUS_ID']]['NAME'] ?>
+                                    <?=htmlspecialcharsbx($arResult['INFO']['STATUS'][$order['ORDER']['STATUS_ID']]['NAME']) ?>
                                 </p>
                             </div>
                         </li>

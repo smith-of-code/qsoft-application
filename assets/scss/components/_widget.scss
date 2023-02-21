@@ -90,21 +90,59 @@
         @include position-stretching($position: absolute, $z-index: 1);
     }
 
-    &__image {
+    &__wrapper {
         $size: 88px;
 
-        width: rem($size);
-        height: rem($size);
+        padding: rem(20px);
+        width: rem( $size);
+        height: rem( $size);
+
+        background-color: transparent;
+        border-radius: rem($border-radius);
 
         @media #{$screen-tablet} {
             $size: 82px;
+
+            width: rem( $size);
+            height: rem( $size);
+        }
+
+        @media #{$screen-desktop} {
+            $size: 124px;
+            padding: rem(26px);
+            width: rem( $size);
+            height: rem( $size);
+        }
+
+        &--green {
+            background-color: $mintTulip;
+        }
+
+        &--red {
+            background-color: $azalea;
+        }
+
+        &--gold {
+            background-color: $eggWhite;
+        }
+    }
+
+    &__icon {
+        $size: 48px;
+
+        width: rem($size);
+        height: rem($size);
+        max-width: none;
+
+        @media #{$screen-tablet} {
+            $size: 42px;
 
             width: rem($size);
             height: rem($size)
         }
 
         @media #{$screen-desktop} {
-            $size: 124px;
+            $size: 72px;
 
             width: rem($size);
             height: rem($size)

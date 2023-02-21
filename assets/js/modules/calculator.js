@@ -73,6 +73,8 @@ function setDataVariables(typeCalc, rub, point) {
         calculateGroup();
     }
 
+    controlComputingButton();
+
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
     resetChart()
 }
@@ -91,6 +93,18 @@ function calculateGroup() {
     $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html(sum.toLocaleString('ru-RU'));
 
     return sum;
+}
+
+function controlComputingButton() {
+    let personal = ($(ELEMENTS_SELECTOR.calculatorPersonalPointsSum).html()),
+        group = $(ELEMENTS_SELECTOR.calculatorGroupPointsSum).html();
+    if (personal !== '0' || group !== '0') {
+        $(ELEMENTS_SELECTOR.calculatorComputing).attr('disabled', false);
+        $(ELEMENTS_SELECTOR.calculatorComputing).removeClass('button--disabled');
+    } else {
+        $(ELEMENTS_SELECTOR.calculatorComputing).attr('disabled', true);
+        $(ELEMENTS_SELECTOR.calculatorComputing).addClass('button--disabled');
+    }
 }
 
 function getDataLevelProperty(calcRange) {
@@ -124,12 +138,12 @@ function changeOneTimeCharges() {
     setData('oneTimeCharges', oneTimeCharges);
     setData('oneTimeChargesTransitionLevel', oneTimeChargesTransitionLevel);
     $(ELEMENTS_SELECTOR.calculatorComputingBlock).hide();
-    resetChart()
+    resetChart();
 }
 
 function chartSum(elem, num) {
     let sum = elem.closest('.diagramm__main').find('.diagramm__sum');
-    sum.html(num.toLocaleString());
+    sum.html(num.toLocaleString('ru-RU'));
 }
 
 function resetChart() {
@@ -170,6 +184,15 @@ export default function () {
         return;
     }
 
+    //Установка текущего уровня при инициализации страницы
+    let levelTabs = $(ELEMENTS_SELECTOR.calculatorLevel);
+    levelTabs.each((index, tab) => {
+       if ($(tab).is(':checked')) {
+            let level = +$(tab).val();
+            setData('currentLevel', level);
+       }
+    })
+   
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
         let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
@@ -181,7 +204,7 @@ export default function () {
         currentPoint = Math.floor(currentPoint);
 
         let rangeInputPoint = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputPoint);
-        rangeInputPoint.val(currentPoint.toLocaleString());
+        rangeInputPoint.val(currentPoint.toLocaleString('ru-RU'));
         rangeInputPoint.trigger('changeRange');
 
         setDataVariables(property.typeCalc, value, currentPoint);
@@ -197,7 +220,7 @@ export default function () {
         currentRub = Math.floor(currentRub);
 
         let rangeInputRub = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputRub);
-        rangeInputRub.val(currentRub.toLocaleString());
+        rangeInputRub.val(currentRub.toLocaleString('ru-RU'));
         rangeInputRub.trigger('changeRange');
 
         setDataVariables(property.typeCalc, currentRub, value);
@@ -238,7 +261,7 @@ export default function () {
                 currentPoint = property.maxPoints;
             }
 
-            $(input).val(currentPoint.toLocaleString());
+            $(input).val(currentPoint.toLocaleString('ru-RU'));
 
             rangePoints.slider('option', {
                 min: property.minPoints,
@@ -311,8 +334,8 @@ export default function () {
 
                     <div class="group__sum price price--inlined">
                         <div class="price__calculation">
-                            <p class="price__calculation-total">${bigData.consultantRub.toLocaleString()} ₽</p>
-                            <p class="price__calculation-accumulation">${bigData.consultantPoints.toLocaleString()} ББ</p>
+                            <p class="price__calculation-total">${bigData.consultantRub.toLocaleString('ru-RU')} ₽</p>
+                            <p class="price__calculation-accumulation">${bigData.consultantPoints.toLocaleString('ru-RU')} ББ</p>
                         </div>
                     </div>
 
@@ -371,7 +394,8 @@ export default function () {
         'click',
         `${ELEMENTS_SELECTOR.quantityDecreaseConsultants}, ${ELEMENTS_SELECTOR.quantityIncreaseConsultants}`,
         function() {
-        viewsAttractConsAdviser()
+        changeOneTimeCharges();
+        viewsAttractConsAdviser();
     });
     
     // Расчет в диаграмму

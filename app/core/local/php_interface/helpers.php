@@ -70,7 +70,7 @@ if (!function_exists('mb_ucfirst')) {
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
-        return htmlspecialchars(str_replace("'", '"', CUtil::PhpToJSObject($array)));
+        return htmlspecialchars(json_encode(CUtil::JsObjectToPhp(CUtil::PhpToJSObject($array))));
     }
 }
 if (!function_exists('numberToRoman')) {
