@@ -25,7 +25,7 @@ class UpdateLoyaltyService
                 try{
                     $this->updateBuyersLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
 
                     throw $e;
                 }
@@ -46,7 +46,7 @@ class UpdateLoyaltyService
                 try{
                     $this->updateConsultantLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
 
                     throw $e;
                 }
