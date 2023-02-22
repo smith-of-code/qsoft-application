@@ -1,0 +1,1 @@
+Интегратор и Техподдержка: <a href="https://qsoft.ru/" target="_blank" rel="nofollow">QSOFT</a>

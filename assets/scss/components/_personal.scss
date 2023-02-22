@@ -38,7 +38,12 @@
         }
 
         &--basket {
-            width: rem(112px);
+            @media #{$screen-desktop} {
+                width: rem(112px);
+            }
+            @media #{$screen-tablet} {
+                width: rem(112px);
+            }
             & .button--simple {
                 width: 100%;
             }
