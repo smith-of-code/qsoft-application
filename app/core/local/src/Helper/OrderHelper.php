@@ -34,6 +34,7 @@ class OrderHelper
     public const CANCELLED_STATUS = 'OC';
     public const PARTLY_REFUNDED_STATUS = 'PR';
     public const FULL_REFUNDED_STATUS = 'FR';
+    public const LOYALTY_POINTS_PAYMENT_XML_CODE = 'LOYALTY_POINTS_PAYMENT';
 
     public const ORDER_STATUSES = [
         'accomplished' => self::ACCOMPLISHED_STATUS,
@@ -240,6 +241,73 @@ class OrderHelper
         $this->basketHelper->clearPersonalPromotions();
 
         return $orderId;
+    }
+
+	/**
+	 * Добавление оплаты бонусными балами.
+	 *
+	 * @param int $bonusPoints
+	 * @param int $orderID
+	 * @param int $userId
+	 * 
+	 * @return bool
+	 * 
+	 */
+	public function addBonusPayments(int $bonusPoints, int $orderID, int $userId): bool
+	{
+        // Если бонусов списано ноль, то возвращаем true, так-как скрипт сработал корректно.
+        if ($bonusPoints <= 0 || $orderID === 0) {
+            return true;
+        }
+        
+        $paySystemId = $this->getPaymentSystemIdByXMLCode(self::LOYALTY_POINTS_PAYMENT_XML_CODE);
+
+        // Создаем объект заказа
+		$orderObj = Order::load($orderID);
+
+		// Создаем объект новой оплаты
+		$paymentCollection = $orderObj->getPaymentCollection();
+
+        //Указывается ID платежной системы
+		$service = PaySystemManager::getObjectById($paySystemId);
+
+        // Объект бонусной платежной системы
+		$newPayment = $paymentCollection->createItem($service);
+
+        // Заполняем поля
+		$newPayment->setField('SUM', $bonusPoints);
+		$newPayment->setField('EMP_PAID_ID', $userId);
+		$newPayment->setField('PAID', 'Y');
+		$newPayment->setField('PS_STATUS', 'Y');
+		$newPayment->setField('PS_STATUS_CODE', 'SUCCESSFUL');
+		$newPayment->setField('PS_STATUS_DESCRIPTION', '');
+		$newPayment->setField('PS_SUM', $bonusPoints); 
+		$newPayment->setField('PS_CURRENCY', 'RUB');
+
+		$result = $orderObj->save();
+
+        return $result->isSuccess();
+	}
+
+    /**
+     * Возвращает id платежной системы
+     *
+     * @param string $xmlCode
+     * 
+     * @return int
+     * 
+     */
+    public function getPaymentSystemIdByXMLCode(string $xmlCode): int
+    {
+        $cSaleResult = \CSalePaySystem::GetList(
+            ["SORT" => "ASC"],
+            ['XML_ID' => $xmlCode],
+            false,
+            false,
+            ['*']
+        );
+        
+        return (int)$cSaleResult->Fetch()['ID'];
     }
 
     public function getOrdersReport(int $userId, Date $from, Date $to)
