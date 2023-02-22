@@ -114,6 +114,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
             throw new RuntimeException('Не найдена информация об уровне программы лояльности');
         }
 
+        // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
         $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
         $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
@@ -124,7 +125,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $teamTotal = $user->orderAmount->getOrdersTotalSumForUserTeam($teamPeriodStart, $teamPeriodEnd);
 
         $personalTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['self_total'];
-        $teamTotalToRetention = (int) $levelInfo['upgrade_level_terms']['team_total'];
+        $teamTotalToUpgrade = (int) $levelInfo['upgrade_level_terms']['team_total'];
 
         // Проверяем условия
         if ($personalTotal >= $personalTotalToUpgrade && $teamTotal >= $teamTotalToUpgrade) {
@@ -153,7 +154,6 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
-
         $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['hold_level_terms']['self_period_months'], 3) * (-1));
         $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
