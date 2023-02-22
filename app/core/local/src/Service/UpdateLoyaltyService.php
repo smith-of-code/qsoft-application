@@ -16,7 +16,7 @@ class UpdateLoyaltyService
 {
     public function updateBuyerLoyalty()
     {
-        $allUsersIds = [1];//$this->getAllUsersIds();
+        $allUsersIds = $this->getAllUsersIds();
 
         foreach ($allUsersIds as $id) {
             $user = new User($id);
@@ -37,7 +37,7 @@ class UpdateLoyaltyService
 
     public function updateConsultantLoyalty()
     {
-        $allUsersIds = [1];//$this->getAllUsersIds();
+        $allUsersIds = $this->getAllUsersIds();
 
         foreach ($allUsersIds as $id) {
             $user = new User($id);
