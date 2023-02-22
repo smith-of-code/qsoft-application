@@ -42,6 +42,11 @@ function setData(data) {
         },
         url: '/ajax/order_list.php',
         success: function (data) {
+            if (data == '') {
+                $('#order_list').append('<h4>По вашему запросу ничего не найдено!</h4>');
+                return;
+            }
+
             $('#order_list').append(data)
         },
         error: function (error) {

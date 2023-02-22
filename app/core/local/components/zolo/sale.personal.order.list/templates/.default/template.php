@@ -24,8 +24,9 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 
 $arResult['IS_CONSULTANT'] = (new User)->groups->isConsultant();
 
-$this->addExternalJS($this->GetFolder(). "/script.js"); 
-if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
+$this->addExternalJS($this->GetFolder(). "/script.js");
+
+if (!empty($arResult['ORDERS']) && empty($arResult['ERRORS'])): ?>
 
     <div class="private__row">
 
@@ -177,6 +178,26 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
             </div>
         </div>
     </div>
+<?php else: ?>
+    <div class="private__row">
+        <div class="private__col private__col--full">
+            <div class="orders">
+                <?$APPLICATION->IncludeComponent("zolo:sale.personal.order.filter", "", []);?>
+                <section class="orders__section">
+                    <div class="cards-order">
+                        <ul class="cards-order__list" id="order_list">
+                            <?php if (isset($_REQUEST['filter_id'])): ?>
+                                <h4><?=getMessage('ORDER_NOT_FOUND')?></h4>
+                            <?php else: ?>
+                                <h4><?=getMessage('EMPTY_ORDER_HISTORY')?></h4>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                    <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="display:none;"><?=getMessage('SHOW_MORE') ?></button>
+                </section>
+            </div>
+        </div>
+<?php endif; ?>
 <script>
     const isConsultant = <?=$arResult['IS_CONSULTANT'] ? 'true' : 'false'?>;
     let offset = <?=$arResult['OFFSET'] ?? 1?>;
@@ -246,4 +267,3 @@ if (!empty($arResult) && empty($arResult['ERRORS'])): ?>
         });
     }
 </script>
-<?php endif; ?>

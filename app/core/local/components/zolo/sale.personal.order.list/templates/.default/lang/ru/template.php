@@ -14,3 +14,5 @@ $MESS['PRODUCT_COUNT'] = 'Количество';
 $MESS['PRODUCT_BB'] = 'Сумма баллов';
 $MESS['SHOW_MORE'] = 'Показать больше';
 $MESS['LOOK_ALL'] = 'Смотреть все';
+$MESS['EMPTY_ORDER_HISTORY'] = 'История заказов пуста!';
+$MESS['ORDER_NOT_FOUND'] = 'По вашему запросу ничего не найдено!';
