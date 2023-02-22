@@ -45,14 +45,14 @@
                         <div class="form__field-block form__field-block--input" data-password-block>
                             <div class="input input--iconed">
                                 <input type="password" class="input__control" name="password" id="password" placeholder="Введите пароль" data-password-input>
-                                <span class="input__icon input__icon-password" data-password-toggle>
+                                <button class="input__icon input__icon-password" data-password-toggle>
                                     <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
                                     </svg>
                                     <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
                                     </svg>
-                                </span>
+                                </button>
                             </div>
                         </div>
 
@@ -74,14 +74,14 @@
                         <div class="form__field-block form__field-block--input" data-password-block>
                             <div class="input input--iconed">
                                 <input type="password" class="input__control" name="password_confirm" id="password_confirm" placeholder="Введите пароль" data-password-input>
-                                <span class="input__icon input__icon-password" data-password-toggle>
+                                <button class="input__icon input__icon-password" data-password-toggle>
                                     <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
                                     </svg>
                                     <svg class="input__icon-password-icon input__icon-password-icon--hidden icon icon--eye-off">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye-off"></use>
                                     </svg>
-                                </span>
+                                </button>
                             </div>
                         </div>
                     </div>
