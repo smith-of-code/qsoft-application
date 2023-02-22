@@ -354,12 +354,18 @@ class CatalogElementComponent extends Element
                     'package'=> $offer['PROPERTY_PACKAGING_VALUE']
                 ];
             }
-            
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
-                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
+                    $result['PHOTOS'][$offer['ID']][] = CFile::ResizeImageGet(
+                        $item,
+                        ['width' => CATALOG_SKU_DETAIL_PICTURES_MAX_WIDTH, 'height'=> CATALOG_SKU_DETAIL_PICTURES_MAX_HEIGHT],
+                        BX_RESIZE_IMAGE_EXACT,
+                        true,
+                    );
+                    //$result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
                 }
             }
+
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
             $result['AVAILABLE'][$offer['ID']] = $offer['CATALOG_AVAILABLE'] == 'Y';
         }
