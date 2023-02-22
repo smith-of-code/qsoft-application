@@ -530,7 +530,13 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     {
         global $USER;
 
-        $orderId = (new OrderHelper)->createOrder($USER->GetID(), $data);
+		$userId = $USER->GetID();
+
+        $orderId = (new OrderHelper)->createOrder($userId, $data);
+
+		if ((new OrderHelper)->addBonusPayments((int)$data['bonuses_subtract'], (int)$orderId, (int)$userId)) {
+			// место для логгера.
+		}
 
         return ['status' => 'success', 'id' => $orderId];
     }
