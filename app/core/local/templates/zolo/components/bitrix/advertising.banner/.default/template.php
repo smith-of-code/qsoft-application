@@ -10,9 +10,24 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     $sliders = [];
     for ($i = 0; $i < count($params); $i++) {
         $slider = array_merge($params[$i], $files[$i]);
-        $slider['IMG'] = CFile::GetPath($slider['IMG']);
-        $slider['IMG_MOBILE'] = CFile::GetPath($slider['IMG_MOBILE']);
-        $slider['IMG_TABLET'] = CFile::GetPath($slider['IMG_TABLET']);
+
+        $slider['IMG'] = CFile::ResizeImageGet(
+            $slider['IMG'],
+            ['width' => MAIN_PAGE_SLIDER_PICTURES_DESKTOP_MAX_WIDTH, 'height'=> MAIN_PAGE_SLIDER_PICTURES_DESKTOP_MAX_HEIGHT],
+            BX_RESIZE_IMAGE_EXACT,
+        )['src'];
+
+        $slider['IMG_MOBILE'] = CFile::ResizeImageGet(
+            $slider['IMG_MOBILE'],
+            ['width' => MAIN_PAGE_SLIDER_PICTURES_MOBILE_MAX_WIDTH, 'height'=> MAIN_PAGE_SLIDER_PICTURES_MOBILE_MAX_HEIGHT],
+            BX_RESIZE_IMAGE_EXACT,
+        )['src'];
+
+        $slider['IMG_TABLET'] = CFile::ResizeImageGet(
+            $slider['IMG_TABLET'],
+            ['width' => MAIN_PAGE_SLIDER_PICTURES_TABLET_MAX_WIDTH, 'height'=> MAIN_PAGE_SLIDER_PICTURES_TABLET_MAX_HEIGHT],
+            BX_RESIZE_IMAGE_EXACT,
+        )['src'];
 
         // Пропускаем слайды без картинок
         if (
