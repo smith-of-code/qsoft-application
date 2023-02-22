@@ -173,6 +173,7 @@ if (!empty($arResult['ORDERS']) && empty($arResult['ERRORS'])): ?>
                         </div>
 
                         <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="<?=$arResult['IS_LAST'] ? 'display:none;' : '' ?>"><?=getMessage('SHOW_MORE') ?></button>
+                        <button type="button" id="backToOrders" onClick="window.location.href = '/personal/orders/';" class="orders__button button button--rounded button--outlined button--green button--full" style="display:none;"><?=getMessage('BACK_TO_ORDERS') ?></button>
                     </section>
                 </div>
             </div>
@@ -193,7 +194,11 @@ if (!empty($arResult['ORDERS']) && empty($arResult['ERRORS'])): ?>
                             <?php endif; ?>
                         </ul>
                     </div>
-                    <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="display:none;"><?=getMessage('SHOW_MORE') ?></button>
+                    <?php if (isset($_REQUEST['filter_id'])): ?>
+                        <button type="button" id="backToOrders" onClick="window.location.href = '/personal/orders/';" class="orders__button button button--rounded button--outlined button--green button--full"><?=getMessage('BACK_TO_ORDERS') ?></button>
+                    <? else: ?>
+                        <button type="button" id="showMore" class="orders__button button button--rounded button--outlined button--green button--full" style="display:none;"><?=getMessage('SHOW_MORE') ?></button>
+                    <?endif;?>
                 </section>
             </div>
         </div>

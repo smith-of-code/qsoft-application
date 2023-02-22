@@ -44,6 +44,7 @@ function setData(data) {
         success: function (data) {
             if (data == '') {
                 $('#order_list').append('<h4>По вашему запросу ничего не найдено!</h4>');
+                backToOrders.style.cssText = '';
                 return;
             }
 
