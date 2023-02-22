@@ -253,10 +253,10 @@
 
     &__footer {
         margin-top: auto;
-        padding: 0 rem($gap-small) rem($gap-average);
+        padding: 0 rem($gap-small) rem($gap-small);
 
         @media #{$screen-desktop} {
-            padding: 0 rem(20px) rem($gap-average);
+            padding: 0 rem(20px) rem(20px);
         }
     }
 
