@@ -42,11 +42,11 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
                 // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
-                (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
 
                 return true;
             }
         }
+        (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
 
         return false;
     }
