@@ -95,6 +95,9 @@ class CatalogElementComponent extends Element
 
                 $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
                 foreach ($this->arResult['OFFERS'] as &$offer) {
+                    $offerPrices = $this->user->products->getOfferPrices($offer['ID']);
+                    $offer = array_merge($offer, $offerPrices);
+                    $this->arResult['PRICES'][$offer['ID']] = $offerPrices;
                     $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
                 }
             } elseif ($cache->startDataCache()) {
