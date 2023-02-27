@@ -45,8 +45,8 @@ class UpdateLoyaltyService
     {
         $allUsersIds = $this->getAllUsersIds();
 
-        // foreach ($allUsersIds as $id) {
-            $user = new User(325);
+        foreach ($allUsersIds as $id) {
+            $user = new User($id);
 
             if ($user->groups->isConsultant()) {
                 try{
@@ -57,7 +57,7 @@ class UpdateLoyaltyService
             }
 
             unset($user);
-        // }
+        }
     }
 
     private function updateBuyersLoyaltyLevel(User $user)
