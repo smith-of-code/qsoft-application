@@ -25,7 +25,15 @@ class UpdateLoyaltyService
                 try{
                     $this->updateBuyersLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                }
+            }
+
+            if ($user->groups->isConsultant()) {
+                try{
+                    $this->updateConsultantLoyaltyLevel($user);
+                } catch(RuntimeException $e) {
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
                 }
             }
 
@@ -37,8 +45,8 @@ class UpdateLoyaltyService
     {
         $allUsersIds = $this->getAllUsersIds();
 
-        // foreach ($allUsersIds as $id) {
-            $user = new User(325);
+        foreach ($allUsersIds as $id) {
+            $user = new User($id);
 
             if ($user->groups->isConsultant()) {
                 try{
@@ -49,7 +57,7 @@ class UpdateLoyaltyService
             }
 
             unset($user);
-        // }
+        }
     }
 
     private function updateBuyersLoyaltyLevel(User $user)
