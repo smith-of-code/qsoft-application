@@ -142,10 +142,6 @@ class BonusAccountHelper
         // Получаем количество баллов для начисления
         $amount = $this->consultantLoyalty->getUpgradeLevelBonus($user->loyaltyLevel);
 
-        if ($this->bonusCantBeUpdate($user)) {
-            return false;
-        }
-
         if (isset($amount) && $amount) {
             // Добавляем транзакцию
             $this->transactions->add(
@@ -167,12 +163,24 @@ class BonusAccountHelper
         return false;
     }
 
-    private function bonusCantBeUpdate(User $user)
+    public function createHoldOnK3Transaction($user)
     {
-        $lastTransaction = $this->transactions->getLatestTransactionLevelUp($user);
+        $this->transactions->add(
+            $user->id,
+            TransactionTable::TYPES["hold_on_K3"],
+            TransactionTable::SOURCES['personal'],
+            TransactionTable::MEASURES['points'],
+            0
+        );
+    }
+
+    public function bonusCanBeUpdate(User $user)
+    {
+        $lastTransaction = new Carbon($this->transactions->getDateTransactionLevelK3Hold($user));
+
         $dateDiff = Carbon::now()->diffInMonths($lastTransaction);
 
-        if ($user->loyaltyLevel === (new LoyaltyProgramHelper())->getHighestLevel() && ($dateDiff === 6)) {
+        if ($user->loyaltyLevel === (new LoyaltyProgramHelper('.consultant'))->getHighestLevel() && ($dateDiff === 6)) {
             return true;
         }
 

@@ -14,7 +14,7 @@ use QSoft\Logger\Logger;
 
 class UpdateLoyaltyService
 {
-    public function updateUsersLoyalty()
+    public function updateBuyerLoyalty()
     {
         $allUsersIds = $this->getAllUsersIds();
 
@@ -39,6 +39,25 @@ class UpdateLoyaltyService
 
             unset($user);
         }
+    }
+
+    public function updateConsultantLoyalty()
+    {
+        $allUsersIds = $this->getAllUsersIds();
+
+        // foreach ($allUsersIds as $id) {
+            $user = new User(325);
+
+            if ($user->groups->isConsultant()) {
+                try{
+                    $this->updateConsultantLoyaltyLevel($user);
+                } catch(RuntimeException $e) {
+                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                }
+            }
+
+            unset($user);
+        // }
     }
 
     private function updateBuyersLoyaltyLevel(User $user)

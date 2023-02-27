@@ -17,7 +17,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                              </svg>
                          </span>
                          <span class="button__text">
-                            <a class="button button--simple button--red button--over" href="/catalog/for_dogs/">
+                            <a class="button button--simple button--red" href="/catalog/for_dogs/">
                                 Смотреть
                             </a>
                         </span>
@@ -41,7 +41,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                             </svg>
                         </span>
                         <span class="button__text">
-                            <a class="button button--simple button--red button--over" href="/catalog/for_cats/">
+                            <a class="button button--simple button--red" href="/catalog/for_cats/">
                                 Смотреть
                             </a>
                         </span>

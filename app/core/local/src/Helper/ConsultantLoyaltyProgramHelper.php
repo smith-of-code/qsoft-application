@@ -41,13 +41,17 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
-
+                (new BonusAccountHelper())->createHoldOnK3Transaction($user);
                 // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
-                (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
 
                 return true;
             }
+        }
+
+        if ((new BonusAccountHelper())->bonusCanBeUpdate($user)) {
+            (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+            return true;
         }
 
         return false;
@@ -120,7 +124,6 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
-
         $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
         $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
@@ -163,11 +166,10 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
-
-        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['self_period_months'], 3) * (-1));
+        $selfPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['hold_level_terms']['self_period_months'], 3) * (-1));
         $selfPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
-        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['upgrade_level_terms']['team_period_months'], 3) * (-1));
+        $teamPeriodStart = DateTimeService::getStartOfQuarter(intdiv($levelInfo['hold_level_terms']['team_period_months'], 3) * (-1));
         $teamPeriodEnd = DateTimeService::getEndOfQuarter(-1);
 
         $personalTotal = $user->orderAmount->getOrdersTotalSumForUser($selfPeriodStart, $selfPeriodEnd);
@@ -177,7 +179,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $teamTotalToRetention = (int) $levelInfo['hold_level_terms']['team_total'];
 
         // Проверяем условия
-        if ($personalTotal >= $personalTotalTRetention && $teamTotal >= $teamTotalToRetention) {
+        if ($personalTotal < $personalTotalTRetention && $teamTotal < $teamTotalToRetention) {
             return true;
         }
 

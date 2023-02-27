@@ -5,6 +5,7 @@ $arResult = $_REQUEST['data']['orders'];
 define('SEF_FOLDER', $_REQUEST['data']['sefFolder']);
 $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
 ?>
+<?php if (!empty($arResult['ORDERS'])): ?>
 <!-- Карточка заказа -->
 <?php foreach ($arResult['ORDERS'] as $order): ?>
     <?php $paid = $order['ORDER']['PAYED'] == 'Y'; ?>
@@ -134,12 +135,13 @@ $arResult['IS_CONSULTANT'] = (new \QSoft\Entity\User)->groups->isConsultant();
             </div>
         </article>
     </li>
-<?php endforeach; ?>
-<!-- Карточка заказа -->
-<script>
-    $('div').one('click', function () {
-        if ($(this).attr('button-next-id') !== undefined) {
-            getBasketData($(this).attr('button-next-id'), basketOfset);
-        }
-    });
-</script>
+    <?php endforeach; ?>
+    <!-- Карточка заказа -->
+    <script>
+        $('div').one('click', function () {
+            if ($(this).attr('button-next-id') !== undefined) {
+                getBasketData($(this).attr('button-next-id'), basketOfset);
+            }
+        });
+    </script>
+<?php endif; ?>

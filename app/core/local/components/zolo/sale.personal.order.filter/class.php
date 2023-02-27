@@ -1,9 +1,10 @@
 <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 
-use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\Application;
+use Bitrix\Main\Loader;
 use Bitrix\Sale\Registry;
 
 /**
@@ -40,6 +41,7 @@ class SalePersonalOrderFilterComponent extends CBitrixComponent
             $this->checkModules();
             $this->initRegistry();
             $this->initFilter();
+            $this->initSearch();
 
             $this->SetResultCacheKeys([]);
             $this->includeComponentTemplate();
@@ -76,6 +78,13 @@ class SalePersonalOrderFilterComponent extends CBitrixComponent
         }
 
         $this->arResult['PAYMENT'] = $this->paymentStatus;
+    }
+
+    private function initSearch()
+    {
+        $request = Application::getInstance()->getContext()->getRequest();
+
+        $this->arResult['SEARCH'] = $request['filter_id'];
     }
 
     /**

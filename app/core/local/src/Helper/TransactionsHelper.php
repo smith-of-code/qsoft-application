@@ -98,6 +98,25 @@ class TransactionsHelper
         return $result['UF_CREATED_AT'] ?? Carbon::now();
     }
 
+    public function getDateTransactionLevelK3Hold($user)
+    {
+        $filter = [
+            '=UF_USER_ID' => $user->id,
+            '=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal']),
+            '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+            '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', TransactionTable::TYPES["hold_on_K3"]),
+            '<UF_CREATED_AT' => DateTimeService::CarbonToBitrixDateTime(DateTimeService::getStartOfMonth(-5))
+        ];
+
+        $result = TransactionTable::GetList([
+            'select' => ['ID', 'UF_CREATED_AT', 'UF_SOURCE', 'UF_MEASURE', 'UF_TYPE'],
+            'filter' => $filter,
+            'cache' => ['ttl' => 3600]
+        ])->Fetch();
+
+        return $result['UF_CREATED_AT'] ?? Carbon::now();
+    }
+
     /**
      * Добавляет запись в HL Транзакции
      * @param int $userId ID пользователя
