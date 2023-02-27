@@ -38,7 +38,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
         if (isset($availableLevel)) {
             $levelsIDs = $this->getLevelsIDs();
-            dump($availableLevel);
+
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
                 if ($availableLevel != 'K3') {
