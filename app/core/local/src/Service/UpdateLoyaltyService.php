@@ -52,7 +52,7 @@ class UpdateLoyaltyService
                 try{
                     $this->updateConsultantLoyaltyLevel($user);
                 } catch(RuntimeException $e) {
-                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
                 }
             }
 
