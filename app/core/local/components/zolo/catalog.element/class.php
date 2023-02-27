@@ -95,10 +95,13 @@ class CatalogElementComponent extends Element
 
                 $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
                 foreach ($this->arResult['OFFERS'] as &$offer) {
-                    $offerPrices = $this->user->products->getOfferPrices($offer['ID']);
-                    $offer = array_merge($offer, $offerPrices);
-                    $this->arResult['PRICES'][$offer['ID']] = $offerPrices;
                     $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
+
+                    $offerPrices = $this->user->products->getOfferPrices($offer['ID']);
+                    $this->arResult['PRICES'][$offer['ID']] = $offerPrices;
+                    $offer = array_merge($offer, $offerPrices);
+
+                    $offer['BONUSES'] = $this->user->loyalty->calculateBonusesByPrice($offer['PRICE']);
                 }
             } elseif ($cache->startDataCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
