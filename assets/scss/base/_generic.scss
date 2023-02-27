@@ -15,6 +15,10 @@ html {
     position: relative;
     z-index: $z-index-html;
 
+    overflow-x: hidden;
+
+    margin-right: calc(-1 * (100vw - 100%));
+
     color: $color-text;
     background: $white;
 }
@@ -276,13 +280,5 @@ input {
 
     &::-ms-clear {
         display: none;
-    }
-}
-
-.compensate-for-scrollbar {
-    .header__row {
-        @media #{$screen-desktop} {
-            margin-right: 17px;
-        }
     }
 }
