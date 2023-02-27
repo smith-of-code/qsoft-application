@@ -28,7 +28,9 @@ export default function () {
                     offset: -1,
                     display: 'auto',
                 },
-                tooltip: {},
+                tooltip: {
+                    mode: false
+                },
             }
         };
 
