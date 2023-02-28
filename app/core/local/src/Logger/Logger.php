@@ -46,15 +46,16 @@ class Logger extends FileLogger
      * @param mixed $logPath - путь до файла логов, если неоходимо сделать его в другом месте
      * 
      */
-    public function __construct($fileName, $maxSize = 0, $level = 'info', $logPath = null) {
-        $this->fixLevel = $level;
-        self::$supportedLevels = parent::$supportedLevels;
-        parent::__construct($this->setPath($fileName, $level), $maxSize);
-        $this->setLevel($level);
-
-        if (!$logPath) {
+    public function __construct($fileName, $maxSize = 0, $level = 'info', $logPath = null)
+    {
+        if ($logPath  !== null) {
             $this->path = $logPath;
         }
+        $this->fixLevel = $level;
+        self::$supportedLevels = parent::$supportedLevels;
+
+        parent::__construct($this->setPath($fileName, $level), $maxSize);
+        $this->setLevel($level);
     }
 
     /**
@@ -66,9 +67,9 @@ class Logger extends FileLogger
      * 
      * @return Logger
      */
-    public static function createLogger(string $logName, int $size = 0, string $level = 'info'): Logger
+    public static function createLogger(string $logName, int $size = 0, string $level = 'info', $logPath = null): Logger
     {
-        return new Logger($logName, $size, $level);
+        return new Logger($logName, $size, $level, $logPath);
     }
 
     /**
@@ -99,19 +100,19 @@ class Logger extends FileLogger
      * 
      */
     public static function createFormatedLog(
-        string $classNamee,
+        string $className,
         string $logLevel,
-        string $message = null
+        string $message = null,
+        string $customPath = null
     ): void
     {
-
-        self::createLogger((new \ReflectionClass($classNamee))->getShortName(), 0, $logLevel)
+        self::createLogger((new \ReflectionClass($className))->getShortName(), 0, $logLevel, $customPath)
             ->setLog(
                 $message,
                 [
                     'message' => $message,
-                    'namespace' => $classNamee,
-                    'file_path' => (new \ReflectionClass($classNamee))->getFileName(),
+                    'namespace' => $className,
+                    'file_path' => (new \ReflectionClass($className))->getFileName(),
                 ],
             );
     }
