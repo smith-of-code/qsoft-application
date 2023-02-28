@@ -153,7 +153,9 @@ class BonusAccountHelper
             );
 
             $message = "Пользователю с id: {$user->id} начислено баллов: {$amount}.";
-            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
+
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message, __DIR__ . '/../../../../../app/logs/');
+
 
             // Обновляем количество баллов пользователя
             return $user->update([
@@ -181,6 +183,7 @@ class BonusAccountHelper
         $dateDiff = Carbon::now()->diffInMonths($lastTransaction);
 
         if ($user->loyaltyLevel === (new LoyaltyProgramHelper('.consultant'))->getHighestLevel() && ($dateDiff === 6)) {
+
             return true;
         }
 
