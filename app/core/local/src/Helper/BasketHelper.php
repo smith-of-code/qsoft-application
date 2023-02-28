@@ -18,6 +18,8 @@ use Bitrix\Sale\Fuser;
 use Bitrix\Sale\Order;
 use CCatalogProduct;
 use QSoft\Entity\User;
+use QSoft\Logger\Logger;
+use Psr\Log\LogLevel;
 use RuntimeException;
 
 class BasketHelper
@@ -102,13 +104,19 @@ class BasketHelper
         if ($discounts = Discount::buildFromBasket($basket, $context)) {
             $discountsResult = $discounts->calculate();
             if (!$discountsResult->isSuccess()) {
-                throw new RuntimeException($discountsResult->getErrorMessages());
+                $error = new RuntimeException($discountsResult->getErrorMessages());
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+                throw $error;
             }
             $discountsData = $discountsResult->getData();
             if ($discountsData['BASKET_ITEMS']) {
                 $applyResult = $basket->applyDiscount($discountsData['BASKET_ITEMS']);
                 if (!$applyResult->isSuccess()) {
-                    throw new RuntimeException($applyResult->getErrorMessages());
+                    $error = new RuntimeException($applyResult->getErrorMessages());
+                    Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+                    throw $error;
                 }
             }
         }

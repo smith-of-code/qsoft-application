@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use Carbon\Carbon;
 use QSoft\Entity\User;
 use QSoft\Helper\UserFieldHelper;
@@ -32,7 +34,10 @@ class TransactionsHelper
     public function __construct() {
         $this->hlId = HIGHLOAD_BLOCK_HLTRANSACTION; //.const
         if (! isset($this->hlId)) {
-            throw new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
+            $error = new RuntimeException('Не задана константа HIGHLOAD_BLOCK_HLTRANSACTION');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
     }
 
@@ -57,6 +62,7 @@ class TransactionsHelper
         if (empty($this->sources)) {
             $this->sources = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_SOURCE');
         }
+
         return $this->sources;
     }
 
@@ -69,6 +75,7 @@ class TransactionsHelper
         if (empty($this->measures)) {
             $this->measures = UserFieldHelper::getUserFieldEnumValuesIds('HLBLOCK_' . $this->hlId, 'UF_MEASURE');
         }
+
         return $this->measures;
     }
 

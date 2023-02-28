@@ -2,10 +2,12 @@
 
 namespace QSoft\Service;
 
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 /**
@@ -42,7 +44,17 @@ class LoyaltyService
         }
 
         if (!isset($loyaltyHelper)) {
-            throw new RuntimeException('Пользователь не является участником программы лояльности');
+            $error = new RuntimeException('Пользователь не является участником программы лояльности');
+            Logger::createLogger((new \ReflectionClass(__CLASS__))->getShortName(), 0, LogLevel::ERROR)
+                ->setLog(
+                    $error->getMessage(),
+                    [
+                        'message' => $error->getMessage(),
+                        'namespace' => __CLASS__,
+                        'file_path' => (new \ReflectionClass(__CLASS__))->getFileName(),
+                    ],
+                );
+            throw $error;
         }
 
         $levels = $loyaltyHelper->getLoyaltyLevels();

@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use CUserFieldEnum;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use http\Exception\RuntimeException;
+use QSoft\Logger\Logger;
+use Psr\Log\LogLevel;
 
 /**
  * Класс для работы с пользовательскими полями
@@ -41,8 +43,12 @@ class UserFieldHelper
     static public function getUserFieldEnumValues(int $id) : array
     {
         $result = [];
+
         if ($id <= 0) {
-            throw new RuntimeException('Некорректный ID пользовательского поля');
+            $error = new RuntimeException('Некорректный ID пользовательского поля');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
         $vals = CUserFieldEnum::GetList(
             [],

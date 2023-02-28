@@ -5,9 +5,7 @@ namespace QSoft\Basket;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
-use Bitrix\Sale\Basket;
 use Bitrix\Sale\BasketBase;
-use Bitrix\Sale\Fuser;
 use QSoft\Entity\User;
 use QSoft\Helper\BasketHelper;
 

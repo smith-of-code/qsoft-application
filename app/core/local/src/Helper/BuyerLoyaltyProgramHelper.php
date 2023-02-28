@@ -6,7 +6,9 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
+use QSoft\Logger\Logger;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 
@@ -108,7 +110,10 @@ class BuyerLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         // Получим необходимые данные по затратам за прошедший месяц персоналоно

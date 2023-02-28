@@ -27,7 +27,7 @@ class SliderElementSeeder implements Seederable
             throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
         }
 
-        $sliderBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => 'HlSlider']]);
+        $sliderBlock = HighloadBlockTable::getRow(['filter' => ['=ID' => HIGHLOAD_BLOCK_HLSLIDER]]);
         if (!$sliderBlock) {
             throw new RuntimeException(sprintf('Не найден hl-блок %s', 'HlSlider'));
         }

@@ -8,13 +8,18 @@ use Bitrix\Main\Application;
 use QSoft\Factory\TeamFactory;
 use RuntimeException;
 use CUser;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 class TeamSeeder implements Seederable
 {
     public static function seed(?string $blockName = null): void
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Не удалось загрузить модуль highloadblock');
+            $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
         $connection = Application::getInstance()->getConnection();
@@ -22,7 +27,10 @@ class TeamSeeder implements Seederable
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $userIds = [];

@@ -10,6 +10,8 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\DateTime;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use QSoft\ORM\Decorators\CreatedAtDecorator;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\Entity\EnumField;
@@ -105,7 +107,10 @@ final class ConfirmationTable extends BaseTable
     public static function getActiveEmailCode(int $fuserId, string $type)
     {
         if ($type !== self::TYPES['confirm_email'] && $type !== self::TYPES['reset_password']) {
-            throw new RuntimeException('Incorrect email message type');
+            $error = new RuntimeException('Incorrect email message type');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $result = self::getRow([
