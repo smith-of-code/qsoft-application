@@ -14,7 +14,6 @@ define('NO_AGENT_CHECK', true);
 define('NOT_CHECK_PERMISSIONS', true);
 
 $_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/../../../';
-require_once($_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_before.php');
-
+require_once($_SERVER["DOCUMENT_ROOT"] . 'bitrix/modules/main/include/prolog_before.php');
 $loyaltyUpdater = new UpdateLoyaltyService();
 $loyaltyUpdater->updateConsultantLoyalty();

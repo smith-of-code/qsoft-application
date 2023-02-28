@@ -39,12 +39,18 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
+                if (($user->loyaltyLevel != 'K2' && $availableLevel == 'K3')) {
+                    $user->loyaltyLevel = 'K2';
+                    (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                }
+
                 if ($availableLevel != 'K3') {
                     (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
-                } else {
+                }
+
+                if ($availableLevel == 'K3') {
                     (new BonusAccountHelper())->createHoldOnK3Transaction($user);
                 }
-                // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
 
                 return true;
