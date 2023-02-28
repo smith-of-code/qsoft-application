@@ -2,6 +2,8 @@
 
 namespace QSoft\Queue\Jobs;
 
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use RuntimeException;
 use Throwable;
 
@@ -19,7 +21,10 @@ abstract class BaseJob
     {
         $self = new static;
         if (!$self->validateInputData($data)) {
-            throw new RuntimeException($self->getQueueName() . ' queue: data is not valid');
+            $error = new RuntimeException($self->getQueueName() . ' queue: data is not valid');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
         app('queue')->push(static::class, $data, $self->getQueueName());
     }

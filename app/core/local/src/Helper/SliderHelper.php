@@ -5,6 +5,8 @@ namespace QSoft\Helper;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\UserFieldTable;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 /**
@@ -26,9 +28,11 @@ class SliderHelper
     {
         $result = [];
 
-        if (! Loader::includeModule('highloadblock'))
-        {
-            throw new RuntimeException('Модуль highloadblock не найден');
+        if (! Loader::includeModule('highloadblock')) {
+            $error = new RuntimeException('Модуль highloadblock не найден');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $sliderHL = HighloadBlockTable::getById(HIGHLOAD_BLOCK_HLSLIDER)->fetch();
@@ -37,7 +41,10 @@ class SliderHelper
         $sliderElementDataClass = (HighloadBlockTable::compileEntity($sliderElementHL))->getDataClass();
 
         if (! $sliderHL || ! $sliderElementHL) {
-            throw new RuntimeException('Не найдены HL-блоки для слайдеров');
+            $error = new RuntimeException('Не найдены HL-блоки для слайдеров');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         // Получим ID слайдера по коду

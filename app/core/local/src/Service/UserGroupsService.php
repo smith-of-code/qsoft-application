@@ -3,13 +3,14 @@
 namespace QSoft\Service;
 
 use Bitrix\Main\ArgumentException;
-use Bitrix\Main\GroupTable;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\UserGroupTable;
 use http\Exception\RuntimeException;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\UserGroupHelper;
+use QSoft\Logger\Logger;
 
 class UserGroupsService
 {
@@ -68,7 +69,10 @@ class UserGroupsService
         $this->getUserGroups();
 
         if (! isset($this->allGroups[$groupCode])) {
-            throw new RuntimeException('User group does not exist');
+            $error = new RuntimeException('User group does not exist');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
         // Добавим в группу
@@ -96,7 +100,10 @@ class UserGroupsService
         $this->getUserGroups();
 
         if (! isset($allGroups[$groupCode])) {
-            throw new RuntimeException('User group does not exist');
+            $error = new RuntimeException('User group does not exist');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
         // Удалим из группы

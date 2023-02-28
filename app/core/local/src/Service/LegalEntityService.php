@@ -4,8 +4,10 @@ namespace QSoft\Service;
 
 use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\ORM\Data\UpdateResult;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\HlBlockHelper;
+use QSoft\Logger\Logger;
 use QSoft\ORM\LegalEntityTable;
 
 class LegalEntityService
@@ -20,7 +22,10 @@ class LegalEntityService
     public function getData(): array
     {
         if (!$this->user->groups->isConsultant()) {
-            throw new \RuntimeException('User is not a consultant');
+            $error = new \RuntimeException('User is not a consultant');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
         $types = HlBlockHelper::getPreparedEnumFieldValues(LegalEntityTable::getTableName(), 'UF_STATUS');
 
@@ -33,7 +38,10 @@ class LegalEntityService
         ]);
 
         if (!in_array($types[$legalEntity['UF_STATUS']]['code'], LegalEntityTable::STATUSES)) {
-            throw new \RuntimeException('Unknown legal entity status');
+            $error = new \RuntimeException('Unknown legal entity status');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
         return [

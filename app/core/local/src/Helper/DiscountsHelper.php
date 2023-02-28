@@ -4,6 +4,8 @@ namespace QSoft\Helper;
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 class DiscountsHelper
 {
@@ -20,7 +22,10 @@ class DiscountsHelper
     public static function checkModules()
     {
         if (! Loader::includeModule('iblock')) {
-            throw new \Exception(Loc::GetMessage('IBLOCK_MODULE_NOT_INCLUDED'));
+            $error = new \Exception(Loc::GetMessage('IBLOCK_MODULE_NOT_INCLUDED'));
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
     }
 

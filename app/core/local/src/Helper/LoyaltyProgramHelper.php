@@ -28,11 +28,15 @@ class LoyaltyProgramHelper
      */
     protected array $levels;
 
-    public function __construct()
+    public function __construct($type = null)
     {
         $this->levelsIDs = [];
         $this->levels = [];
         $this->includeModules();
+        if ($type != null) {
+            $this->configPath .= $type;
+        }
+
     }
 
     private function includeModules(): void

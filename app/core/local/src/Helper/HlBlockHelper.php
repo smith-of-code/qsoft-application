@@ -6,6 +6,8 @@ use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Loader;
 use CUserFieldEnum;
 use CUserTypeEntity;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 class HlBlockHelper
@@ -13,12 +15,18 @@ class HlBlockHelper
     public static function getEnumFieldValues(string $tableName, string $fieldName): array
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Module highloadblock not install');
+            $error = new RuntimeException('Module highloadblock not install');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=TABLE_NAME' => $tableName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
+            $error = new RuntimeException(sprintf('Highloadblock %s not found', $tableName));
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $field = CUserTypeEntity::GetList([], [
@@ -27,7 +35,10 @@ class HlBlockHelper
         ])->Fetch();
 
         if (!$field) {
-            throw new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
+            $error = new RuntimeException(sprintf('Highloadblock field %s not found', $fieldName));
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         return CUserFieldEnum::GetList([], ['USER_FIELD_ID' => $field['ID']])->arResult;
