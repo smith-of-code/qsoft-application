@@ -6,7 +6,7 @@ use Bitrix\Sale\PropertyValue;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\OrderHelper;
-use QSoft\Notifiers\ChangeOrderStatusNotifier;
+use QSoft\Notifiers\ChangeOrderNotifier;
 use Bitrix\Sale\Order;
 
 class OrderEventsListener
@@ -18,7 +18,7 @@ class OrderEventsListener
         $order = Order::load($orderId);
         $user = new User($order->getUserId());
 
-        $notifier = new ChangeOrderStatusNotifier($orderId, $status);
+        $notifier = new ChangeOrderNotifier($orderId, $status);
         $user->notification->sendNotification(
             $notifier->getTitle(),
             $notifier->getMessage(),
@@ -73,5 +73,33 @@ class OrderEventsListener
         }
 
         $order->save();
+    }
+
+    public static function OnBeforeOrderUpdate(int $orderId, $fields): void
+    {
+        $order = Order::load($orderId);
+        $user = new User($order->getUserId());
+
+        if ($order->getField('STATUS_ID') == $fields['STATUS_ID']) {
+            $notifier = new ChangeOrderNotifier($orderId, 'SAME');
+            $user->notification->sendNotification(
+                $notifier->getTitle(),
+                $notifier->getMessage(),
+                $notifier->getLink()
+            );
+        }
+    }
+
+    public static function OnBeforeOrderDelete(int $orderId): void
+    {
+        $order = Order::load($orderId);
+        $user = new User($order->getUserId());
+
+        $notifier = new ChangeOrderNotifier($orderId, 'DEL');
+        $user->notification->sendNotification(
+            $notifier->getTitle(),
+            $notifier->getMessage(),
+            $notifier->getLink()
+        );
     }
 }

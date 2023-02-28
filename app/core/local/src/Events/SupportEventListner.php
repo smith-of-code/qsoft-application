@@ -48,6 +48,8 @@ class SupportEventListner
             $category = (new CTicketDictionary())->GetByID($ticketValues['CATEGORY_ID'])->GetNext();
         }
 
+        $sms = false;
+
         switch ($category['SID']) {
             case TicketHelper::CHANGE_PERSONAL_DATA_CATEGORY:
                 // Событие для смены персональных данных.
@@ -56,6 +58,7 @@ class SupportEventListner
                     && $this->isRequestAccepted($ticketValues['UF_ACCEPT_REQUEST'])
                 ) {
                     $this->changeUserFields($ticketValues);
+                    $phoneChange = strripos($ticketValues['UF_DATA'], 'PERSONAL_PHONE');
                     $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['OWNER_USER_ID'])->Fetch();
                     $rsUser = \CUser::GetList('', '', ['UF_MENTOR_ID' => $ticketValues['OWNER_USER_ID']]);
                     while($buyer = $rsUser->fetch()) {
@@ -66,8 +69,17 @@ class SupportEventListner
                             $notifier->getMessage(),
                             $notifier->getLink()
                         );
-                    }
+                        if ($phoneChange) {
+                            $phoneNumberToSend
+                                = (new \CUser)->GetList('', '', ['ID' => $buyer['ID']])->GetNext()['PERSONAL_PHONE'];
 
+                            $message = $notifier->getMessage();
+
+                            if (!empty($phoneNumberToSend)) {
+                                $this->sendSMS($message, $phoneNumberToSend);
+                            }
+                        }
+                    }
                 }
                 break;
             case TicketHelper::CHANGE_LEGAL_ENTITY_DATA_CATEGORY:
@@ -85,6 +97,7 @@ class SupportEventListner
                 ) {
                     $this->becomeConsultant($ticketValues);
                 }
+                $sms = true;
                 break;
             case TicketHelper::REGISTRATION_CATEGORY:
                 // Событие для регистрации консультанта.
@@ -94,6 +107,7 @@ class SupportEventListner
                 ) {
                     $this->registrateConsultant($ticketValues);
                 }
+                $sms = true;
                 break;
             case TicketHelper::CHANGE_ROLE_CATEGORY:
                 // Событие для смены роли на консультанта.
@@ -103,6 +117,7 @@ class SupportEventListner
                 ) {
                     $this->changeRole($ticketValues);
                 }
+                $sms = true;
                 break;
             case TicketHelper::CHANGE_MENTOR:
                 // Событие для смены наставника.
@@ -113,7 +128,12 @@ class SupportEventListner
                     $this->changeMentor($ticketValues);
                 }
                 $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['NEW_MENTOR_ID'])->Fetch();
+                $sms = true;
                 break;
+            case TicketHelper::REFUND_ORDER:
+                $sms = true;
+                break;
+            case TicketHelper::OTHER_CATEGORY:
             case TicketHelper::SUPPORT_CATEGORY:
                 // Событие для техподдержки.
                 break;
@@ -126,6 +146,17 @@ class SupportEventListner
             $notifier->getMessage(),
             $notifier->getLink()
         );
+
+        if ($sms) {
+            $phoneNumberToSend
+                = (new \CUser)->GetList('', '', ['ID' => $ticketValues['OWNER_USER_ID']])->GetNext()['PERSONAL_PHONE'];
+
+            $message = $notifier->getMessage();
+
+            if (!empty($phoneNumberToSend)) {
+                $this->sendSMS($message, $phoneNumberToSend);
+            }
+        }
     }
 
     /**
@@ -153,26 +184,17 @@ class SupportEventListner
         $ticketValues['IS_NEW'] = true;
         $user = new User($ticketValues['OWNER_USER_ID']);
         $notifier = new SupportTicketUpdateNotifier($ticketValues);
+
         $user->notification->sendNotification(
             $notifier->getTitle(),
             $notifier->getMessage(),
             $notifier->getLink()
         );
 
-        if ($category['SID'] != TicketHelper::SUPPORT_CATEGORY) {
+        if (!in_array($category['SID'],[TicketHelper::SUPPORT_CATEGORY, TicketHelper::OTHER_CATEGORY])) {
             $fields = $this->prepareFieldsByMessage($ticketValues);
     
             CTicket::addMessage($ticketValues['ID'], $fields, $arrFILES);
-            
-            $phoneNumberToSend
-                = (new \CUser)->GetList('', '', ['ID' => $ticket['RESPONSIBLE_USER_ID']])->GetNext()['PERSONAL_PHONE'];
-
-            $message 
-                = 'Создана новая заявка на ' . $category['DESCR'] . ' № ' . $ticket['ID'] . '.';
-
-            if (!empty($phoneNumberToSend)) {
-                $this->sendSMS($message, $phoneNumberToSend);
-            }
         }
     }
 
@@ -264,8 +286,9 @@ class SupportEventListner
             "TICKET_STATUS" => $status['VALUE'], // статус заявки
             "TICKET_CATEGORY" => $category['DESCR'], // статус заявки
             "TICKET_NUMBER" => $ticket['ID'], // номер тикета
+            "RESPONSE_TEXT" => $ticket['MESSAGE'], // ответ сотрудника ТП
             "OWNER_NAME" => $ticket['OWNER_NAME'], // ФИО пользователя
-            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО пользователя
+            "RESPONSIBLE_NAME" => $ticket['RESPONSIBLE_NAME'], // ФИО сотрудника ТП
         ];
     }
 
@@ -377,6 +400,21 @@ class SupportEventListner
      * @return void
      */
     private function registrateConsultant(array $ticketValues): void
+    {
+        $fields = json_decode($ticketValues['UF_DATA'], true);
+
+        $user = new User($ticketValues['OWNER_USER_ID']);
+        $user
+            ->legalEntity
+            ->create($this->prepareProps($fields['LEGAL_ENTITY'], $ticketValues['OWNER_USER_ID']));
+    }
+
+    /**
+     * @param array $formValues
+     *
+     * @return void
+     */
+    private function refundOrder(array $ticketValues): void
     {
         $fields = json_decode($ticketValues['UF_DATA'], true);
 

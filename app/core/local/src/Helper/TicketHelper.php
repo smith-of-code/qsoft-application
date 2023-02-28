@@ -17,6 +17,7 @@ class TicketHelper
     public const CHANGE_MENTOR = 'CHANGE_MENTOR';
     public const REFUND_ORDER = 'REFUND_ORDER';
     public const REGISTRATION_CATEGORY = 'REGISTRATION';
+    public const OTHER_CATEGORY = 'OTHER';
     public const CHANGE_ROLE_CATEGORY = 'CHANGE_ROLE';
     public const SUPPORT_CATEGORY = 'SUPPORT';
 
