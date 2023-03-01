@@ -75,6 +75,7 @@
         &--mobile {
             display: block;
             margin-top: rem(24px);
+            margin-bottom: rem(24px);
 
             @media #{$screen-tablet} {
                 display: none;
