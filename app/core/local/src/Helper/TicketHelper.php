@@ -8,6 +8,8 @@ use CTicketDictionary;
 use QSoft\Entity\User;
 use RuntimeException;
 use Bitrix\Sale;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 class TicketHelper
 {
@@ -53,7 +55,10 @@ class TicketHelper
     public function createTicket(int $userId, string $category, string $data): int
     {
         if (!in_array($category, array_keys(self::CATEGORIES))) {
-            throw new RuntimeException('Incorrect ticket category');
+            $error = new RuntimeException('Incorrect ticket category');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $user = new User($userId);

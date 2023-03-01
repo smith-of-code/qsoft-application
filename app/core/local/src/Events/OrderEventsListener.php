@@ -8,6 +8,8 @@ use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\OrderHelper;
 use QSoft\Notifiers\ChangeOrderNotifier;
 use Bitrix\Sale\Order;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 class OrderEventsListener
 {
@@ -113,9 +115,44 @@ class OrderEventsListener
         \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
     }
 
-    public static function OnOrderAdd(int $orderId, $fields): void
+
+    public static function OnOrderAdd ($id, &$arFields)
     {
+        if (isset($arFields['USER_ID']) && (new User($arFields['USER_ID']))->groups->isBuyer()) {
+            return;
+        }
+        
+        $points = 0;
+        foreach ($arFields['BASKET_ITEMS'] as $item) {
+            $points += $item['PROPS']['BONUSES']['VALUE'];
+        }
+
+        // склонение слова.
+        $pointName = self::wordDeclension($points, 'балл');
+
+        if ($points !== 0) {
+            $message = "Пользователю с ID {$arFields['USER_ID']} начисленно {$points} {$pointName} за заказ № {$id}";
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
+        } else {
+            $message = "Пользователю не начисленно баллов за заказ № {$id}";
+            Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
+        }
+
         $mailFields = ['ORDER_ID' => $orderId];
-        \CEvent::Send('NEW_ORDER_FOR_ADMIN', SITE_ID, $mailFields);
+        \CEvent::Send('NEW_ORDER_FOR_ADMIN', SITE_ID, $mailFields);        
+    }
+
+    private function wordDeclension(int $number, string$word)
+    {
+        if (!in_array($number, range(11, 19))) {
+            if (substr($number, -1) == 2 || substr($number, -1) == 3 || substr($number, -1) == 4) {
+                $ending = 'a';
+            } elseif (substr($number, -1) == 1) {
+                $ending = '';
+            } else {
+                $ending = 'oв';
+            }
+        }
+        return $word . $ending;
     }
 }

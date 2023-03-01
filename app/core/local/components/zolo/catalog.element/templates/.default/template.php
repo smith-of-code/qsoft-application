@@ -65,11 +65,11 @@ $offerId = $arResult['OFFER_FIRST'];
                                         </button>
                                     </div>
 
-                                    <a href="<?= $image['SRC'] ?>" data-fancybox="gallery">
+                                    <a href="<?= $image['src'] ?>" data-fancybox="gallery">
                                         <div class="product-card__wrapper">
                                             <div class="product-card__image box box--circle">
                                                 <div class="product-card__box">
-                                                    <img src="<?= $image['SRC'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
+                                                    <img src="<?= $image['src'] ?>" alt="<?= $arResult['NAME'] ?>" class="product-card__pic">
                                                 </div>
                                             </div>
                                         </div>

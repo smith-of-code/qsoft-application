@@ -52,6 +52,7 @@ $eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener
 $eventManager->addEventHandler('sale', 'OnBeforeOrderUpdate', [OrderEventsListener::class, 'OnBeforeOrderUpdate']);
 $eventManager->addEventHandler('sale', 'OnBeforeOrderDelete', [OrderEventsListener::class, 'OnBeforeOrderDelete']);
 $eventManager->addEventHandler('sale', 'OnCondSaleActionsControlBuildList', [LoyaltyLevelEquals::class, 'GetControlDescr']);
+$eventManager->addEventHandler('sale', 'OnOrderAdd', [OrderEventsListener::class, 'OnOrderAdd']);
 
 // События для пересчета бонусов ТП при обновлении правил корзины
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterAdd', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);

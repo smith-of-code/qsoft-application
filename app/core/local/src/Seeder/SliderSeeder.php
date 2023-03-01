@@ -6,7 +6,9 @@ use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Application;
 use Bitrix\Main\Security\Random;
+use Psr\Log\LogLevel;
 use QSoft\Factory\SliderFactory;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 class SliderSeeder implements Seederable
@@ -14,7 +16,10 @@ class SliderSeeder implements Seederable
     public static function seed(?string $blockName = null): void
     {
         if (!Loader::includeModule('highloadblock')) {
-            throw new RuntimeException('Не удалось загрузить модуль highloadblock');
+            $error = new RuntimeException('Не удалось загрузить модуль highloadblock');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $connection = Application::getInstance()->getConnection();
@@ -22,7 +27,10 @@ class SliderSeeder implements Seederable
 
         $hlBlock = HighloadBlockTable::getRow(['filter' => ['=NAME' => $blockName]]);
         if (!$hlBlock) {
-            throw new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            $error = new RuntimeException(sprintf('Не найден hl-блок %s', $blockName));
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $entityManager = HighloadBlockTable::compileEntity($hlBlock)->getDataClass();

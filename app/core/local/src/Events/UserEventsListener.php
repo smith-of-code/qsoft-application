@@ -9,6 +9,8 @@ use Bitrix\Main\UserTable;
 use Bitrix\Sale\BasketItem;
 use Bitrix\Sale\Fuser;
 use CCatalogProduct;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 use CUser;
 use QSoft\Client\SmsClient;
 use QSoft\Entity\User;
@@ -36,6 +38,10 @@ class UserEventsListener
 
         if (isset($fields['UF_BONUS_POINTS']) && (!is_numeric($fields['UF_BONUS_POINTS']) || (int)$fields['UF_BONUS_POINTS'] < 0)) {
             $fields['UF_BONUS_POINTS'] = 0;
+        }
+
+        if (isset($fields['UF_BONUS_POINTS'])) {
+            self::setLogBonusChange($user, (int)$fields['UF_BONUS_POINTS']);
         }
 
         // Если произошло изменение ментора
@@ -134,6 +140,15 @@ class UserEventsListener
         }
     }
 
+    private static function setLogBonusChange(User $user, int $amount): void
+    {
+        global $USER;
+
+        $message = "Пользователю с id: {$user->id} были изменены баллы с {$user->bonusPoints} на {$amount}";
+        $message .= " пользователем с id: {$USER->GetID()}.";
+        Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
+    }
+
     public static function OnBeforeUserAdd(array &$fields)
     {
         global $APPLICATION;
@@ -196,7 +211,7 @@ class UserEventsListener
             }
             $authBasketHelper->increase($basketItem->getProductId(), $detailPage, $nonreturnable, $basketItem->getQuantity());
             $basketItem->delete();
-//            $basketItem->save();
+            // $basketItem->save();
         }
         $basket->save();
     }

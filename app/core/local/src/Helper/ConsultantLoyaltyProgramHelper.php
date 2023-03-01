@@ -10,6 +10,8 @@ use QSoft\Entity\User;
 use QSoft\Notifiers\ConsultantUpgradeNotifier;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
+use Psr\Log\LogLevel;
+use QSoft\Logger\Logger;
 
 /**
  * Класс для работы с программой лояльности
@@ -40,12 +42,18 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
 
             // Обновляем уровень
             if ($user->update(['UF_LOYALTY_LEVEL' => $levelsIDs[$availableLevel]])) {
+                if (($user->loyaltyLevel != 'K2' && $availableLevel == 'K3')) {
+                    $user->loyaltyLevel = 'K2';
+                    (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
+                }
+
                 if ($availableLevel != 'K3') {
                     (new BonusAccountHelper())->addUpgradeLevelBonuses($user);
-                } else {
+                }
+
+                if ($availableLevel == 'K3') {
                     (new BonusAccountHelper())->createHoldOnK3Transaction($user);
                 }
-                // Начисляем баллы за повышение уровня
                 $user->loyaltyLevel = $availableLevel;
 
                 // Отправляем уведомление с поздравлениями
@@ -182,7 +190,10 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level);
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала
@@ -221,7 +232,10 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         $levelInfo = $this->getLoyaltyLevelInfo($level, 'consultant');
 
         if (! isset($levelInfo) || ! isset($currentLevelInfo)) {
-            throw new RuntimeException('Не найдена информация об уровне программы лояльности');
+            $error = new RuntimeException('Не найдена информация об уровне программы лояльности');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         // Получим необходимые данные по затратам за прошедший квартал / два прошедших квартала

@@ -6,9 +6,11 @@ use Bitrix\Catalog\Model\Price;
 use Bitrix\Iblock\PropertyTable;
 use Bitrix\Iblock\PropertyIndex\Manager;
 use Bitrix\Main\Loader;
+use Psr\Log\LogLevel;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
+use QSoft\Logger\Logger;
 use RuntimeException;
 
 /**
@@ -46,17 +48,26 @@ class OffersService
     public function __construct() {
 
         if (! Loader::includeModule('iblock')) {
-            throw new RuntimeException('Не найден модуль "iblock"');
+            $error = new RuntimeException('Не найден модуль "iblock"');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
         if (! Loader::includeModule('sale')) {
-            throw new RuntimeException('Не найден модуль "sale"');
+            $error = new RuntimeException('Не найден модуль "sale"');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
 
         $this->offersIbId = (int) \CIBlock::GetList([], ['CODE' => 'product_offer'])->Fetch()['ID'];
 
         if (! $this->offersIbId) {
-            throw new RuntimeException('Не найден инфоблок "product_offer"');
+            $error = new RuntimeException('Не найден инфоблок "product_offer"');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+ 
+            throw $error;
         }
 
         $this->groups = UserGroupHelper::getAllUserGroups();

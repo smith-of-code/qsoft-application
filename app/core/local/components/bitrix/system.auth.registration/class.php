@@ -13,11 +13,13 @@ use Bitrix\Main\SystemException;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\UserPhoneAuthTable;
 use Bitrix\Main\UserTable;
+use Psr\Log\LogLevel;
 use QSoft\Entity\User;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Logger\Logger;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\Decorators\EnumDecorator;
 use QSoft\ORM\LegalEntityTable;
@@ -296,21 +298,33 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $recaptcha = new QSoft\Common\Recaptcha();
             $response = $recaptcha->isValidResponse($data['captcha']);
             if (!$response) {
-                throw new Exception('Капча не пройдена');
+                $error = new Exception('Капча не пройдена');
+                Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+                throw $error;
             }
         } catch (\Exception $e) {
-            throw new Exception('Ошибка проверки капчи');
+            $error = new Exception('Ошибка проверки капчи');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $phone = normalizePhoneNumber($data['phone']);
         $email = $data['email'];
 
         if (empty($phone)) {
-            throw new Exception('Не указан номер телефона');
+            $error = new Exception('Не указан номер телефона');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         if (empty($email)) {
-            throw new Exception('Не указан адрес электронной почты');
+            $error = new Exception('Не указан адрес электронной почты');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $searchResult = UserTable::getCount([
@@ -322,7 +336,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         ]);
 
         if ($searchResult) {
-            throw new Exception('Такой пользователь уже существует');
+            $error = new Exception('Такой пользователь уже существует');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
         }
 
         $user = new CUser;

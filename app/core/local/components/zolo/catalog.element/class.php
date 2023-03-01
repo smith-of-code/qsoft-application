@@ -96,6 +96,12 @@ class CatalogElementComponent extends Element
                 $wishlist = array_flip(array_column($this->user->wishlist->getAll(), 'UF_PRODUCT_ID'));
                 foreach ($this->arResult['OFFERS'] as &$offer) {
                     $offer['IN_WISHLIST'] = isset($wishlist[$offer['ID']]);
+
+                    $offerPrices = $this->user->products->getOfferPrices($offer['ID']);
+                    $this->arResult['PRICES'][$offer['ID']] = $offerPrices;
+                    $offer = array_merge($offer, $offerPrices);
+
+                    $offer['BONUSES'] = $this->user->loyalty->calculateBonusesByPrice($offer['PRICE']);
                 }
             } elseif ($cache->startDataCache()) {
                 if (CIBlockType::GetList([], ['=ID' => $this->arParams['IBLOCK_TYPE']])->SelectedRowsCount() <= 0) {
@@ -354,12 +360,18 @@ class CatalogElementComponent extends Element
                     'package'=> $offer['PROPERTY_PACKAGING_VALUE']
                 ];
             }
-            
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
                 foreach ($offer['PROPERTY_IMAGES_VALUE'] as $item) {
-                    $result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
+                    $result['PHOTOS'][$offer['ID']][] = CFile::ResizeImageGet(
+                        $item,
+                        ['width' => CATALOG_SKU_DETAIL_PICTURES_MAX_WIDTH, 'height'=> CATALOG_SKU_DETAIL_PICTURES_MAX_HEIGHT],
+                        BX_RESIZE_IMAGE_EXACT,
+                        true,
+                    );
+                    //$result['PHOTOS'][$offer['ID']][] = $data['FILES'][$item];
                 }
             }
+
             $result['BASKET_COUNT'][$offer['ID']] = $data['BASKET'][$offer['ID']]['QUANTITY'] ?? 0;
             $result['AVAILABLE'][$offer['ID']] = $offer['CATALOG_AVAILABLE'] == 'Y';
         }

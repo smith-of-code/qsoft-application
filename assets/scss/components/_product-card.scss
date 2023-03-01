@@ -283,7 +283,6 @@
 
         @media #{$screen-tablet} {
             top: rem($gap-medium);
-            left: rem($gap-medium);
         }
 
         &.label{
@@ -291,25 +290,25 @@
             padding: rem(3px) rem(8px);
 
             @media #{$screen-tablet} {
-                max-width: rem(105px);
+                max-width: rem(115px);
                 font-size: rem(12px);
                 padding: rem(2px) rem(8px);
             }
 
             @media #{$screen-desktop} {
-                max-width: rem(205px);
+                max-width: max-content;
             }
         }
 
         &-desktop {
             display: none;
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: inline-block;
             }
         }
 
         &-mobile {
-            @media #{$screen-tablet} {
+            @media #{$screen-desktop} {
                 display: none;
             }
         }

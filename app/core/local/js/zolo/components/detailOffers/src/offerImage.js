@@ -57,11 +57,11 @@ export const OfferImage = {
                                         </button>
                                     </div>
 
-                                    <a v-bind:href="image.SRC" data-fancybox="gallery">
+                                    <a v-bind:href="image.src" data-fancybox="gallery">
                                         <div class="product-card__wrapper">
                                             <div class="product-card__image box box--circle">
                                                 <div class="product-card__box">
-                                                    <img v-bind:src="image.SRC" v-bind:alt="offers.TITLE" class="product-card__pic">
+                                                    <img v-bind:src="image.src" v-bind:alt="offers.TITLE" class="product-card__pic">
                                                 </div>
                                             </div>
                                         </div>
