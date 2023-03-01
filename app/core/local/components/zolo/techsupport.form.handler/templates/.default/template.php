@@ -374,7 +374,7 @@ Loc::loadMessages(__FILE__);
             <!--/Другое-->
 
             <div class="modal__section-actions">
-                <button type="submit" id="confirm-ticket-button" class="form__footer-button button button--rounded button--covered button--red button--full" style="background-color:#dddddd; cursor:default;" disabled>Отправить</button>
+                <button type="submit" id="confirm-ticket-button" class="form__footer-button button button--rounded button--covered button--full" style="background-color:#dddddd; cursor:default;" disabled>Отправить</button>
             </div>
         </form>
     </section>
