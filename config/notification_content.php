@@ -40,6 +40,25 @@ return  [
 //        ],
     ],
 
+    'CONSULTANT_UPGRADE' =>[
+        'SALES_PLAN' => [
+            'message' => 'Вы еще можете успеть выполнить план продаж. Посмотрите свой отчет за квартал.',
+        ],
+        'HOLD_PLAN' => [
+            'message' => 'Купите на #shortage# рублей до #to#, чтобы сохранить скидку #discount#% в следующем квартале.',
+            'link_template' => '/catalog/',
+        ],
+        'UPGRADE_PLAN' => [
+            'message' => 'Вы еще можете успеть выполнить план продаж. Совершите покупки на #shortage# и убедитесь, что остальные условия сохранения уровня соблюдены.',
+        ],
+        'LEVEL_UP' => [
+            'message' => 'Поздравляем, теперь Вы Консультант #level# AmeAppetite! Узнайте больше о возможностях.',
+            'link_template' => '/personal/calculator/',
+            'title_template' => 'Уровень консультанта повышен',
+        ],
+        'link' => '/personal/sales-report/',
+        'title' => 'Успей выполнить план продаж',
+    ],
 
     'CHANGE_ORDER_STATUS' => [
         'message' => 'Статус Вашего заказа был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
@@ -48,16 +67,16 @@ return  [
     ],
 
     'CHANGE_ORDER' => [
-            'CHANGE_STATUS' => [
-                'message' => 'Статус Вашего заказа был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
-                'link_template' => '/personal/orders/#order_id#',
-                'title_template' => 'Ваш заказ №#order_id# #status_name#'
-            ],
-            'CHANGE_ORDER' => [
-                'message' => 'Ваше заказ был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
-                'link_template' => '/personal/orders/#order_id#',
-                'title_template' => 'Ваш заказ №#order_id# изменен'
-            ],
+        'CHANGE_STATUS' => [
+            'message' => 'Статус Вашего заказа был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
+            'link_template' => '/personal/orders/#order_id#',
+            'title_template' => 'Ваш заказ №#order_id# #status_name#'
+        ],
+        'CHANGE_ORDER' => [
+            'message' => 'Ваше заказ был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
+            'link_template' => '/personal/orders/#order_id#',
+            'title_template' => 'Ваш заказ №#order_id# изменен'
+        ],
     ],
 
     'UPDATE_SUPPORT_TICKET' => [

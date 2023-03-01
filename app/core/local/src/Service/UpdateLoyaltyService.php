@@ -60,6 +60,25 @@ class UpdateLoyaltyService
         }
     }
 
+    public function sendNotification()
+    {
+        $allUsersIds = $this->getAllUsersIds();
+
+        foreach ($allUsersIds as $id) {
+            $user = new User($id);
+
+            if ($user->groups->isConsultant() && $user->loyaltyLevel != 'K3') {
+                try{
+                    $this->sendConsultantNotification($user);
+                } catch(RuntimeException $e) {
+                    //Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $e->getMessage());
+                }
+            }
+
+            unset($user);
+        }
+    }
+
     private function updateBuyersLoyaltyLevel(User $user)
     {
         $helper = new BuyerLoyaltyProgramHelper();
@@ -74,6 +93,15 @@ class UpdateLoyaltyService
         $helper = new ConsultantLoyaltyProgramHelper();
 
         $helper->upgradeLoyaltyLevel($user);
+
+        unset($helper);
+    }
+
+    private function sendConsultantNotification(User $user)
+    {
+        $helper = new ConsultantLoyaltyProgramHelper();
+
+        $helper->checkUpgradeNotification($user);
 
         unset($helper);
     }

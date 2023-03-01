@@ -101,5 +101,21 @@ class OrderEventsListener
             $notifier->getMessage(),
             $notifier->getLink()
         );
+
+        $userData = $user->getPersonalData();
+        $mailFields = [
+            "MESSAGE_TAKER" => $userData['email'], // почта получателя
+            "MESSAGE_TEXT" => $notifier->getMessage(), // текст уведомления
+            "OWNER_NAME" => $userData['full_name'], // ФИО пользователя
+            "TITLE" => $notifier->getTitle(), // Тема письма
+        ];
+
+        \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
+    }
+
+    public static function OnOrderAdd(int $orderId, $fields): void
+    {
+        $mailFields = ['ORDER_ID' => $orderId];
+        \CEvent::Send('NEW_ORDER_FOR_ADMIN', SITE_ID, $mailFields);
     }
 }

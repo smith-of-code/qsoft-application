@@ -3,9 +3,9 @@
 use Bitrix\Main\SystemException;
 use QSoft\Migration\Migration;
 
-class AdminEditMail extends Migration
+class NewOrderForAdminMail extends Migration
 {
-    private const ADMIN_EDIT_EVENT = 'ADMIN_EDIT_EVENT';
+    private const EVENT_NAME = 'NEW_ORDER_FOR_ADMIN';
 
     /**
      * @return void
@@ -15,13 +15,11 @@ class AdminEditMail extends Migration
     {
         $eventType = [
                 'LID' => 'ru',
-                'EVENT_NAME' => self::ADMIN_EDIT_EVENT,
-                'NAME' => 'Изменения в профиле',
+                'EVENT_NAME' => self::EVENT_NAME,
+                'NAME' => 'На сайте размещен новый заказ',
                 // Предотвращаем пробелы в инпуте в начале строк
                 'DESCRIPTION' => '
-#MESSAGE_TEXT# - текст письма
-#MESSAGE_TAKER# - почта получателя
-#OWNER_NAME# - ФИО клиента',
+#ORDER_ID# - ID заказа',
         ];
 
         $eventTypeObject = new \CEventType;
@@ -33,26 +31,23 @@ class AdminEditMail extends Migration
 
         $eventMailTemplate = [
             'ACTIVE'=> 'Y',
-            'EVENT_NAME' => self::ADMIN_EDIT_EVENT,
+            'EVENT_NAME' => self::EVENT_NAME,
             'LID' => SITE_ID,
             'EMAIL_FROM' => '#DEFAULT_EMAIL_FROM#',
-            'EMAIL_TO' => '#MESSAGE_TAKER#',
-            'SUBJECT' => 'Изменения в профиле',
+            'EMAIL_TO' => '#DEFAULT_EMAIL_FROM#',
+            'SUBJECT' => 'На сайте размещен новый заказ',
             'BODY_TYPE' => 'html',
             'MESSAGE' => '
                 <!doctype html>
                 <html lang="ru">
                     <head>
                         <meta charset="utf-8">
-                        <title>Изменения в профиле</title>
+                        <title>На сайте размещен новый заказ</title>
                     </head>
                     <body>
-                        <h2>Здравствуйте, #OWNER_NAME#.</h2>
+                        <h2>Здравствуйте.</h2>
                         <p>
-                             #MESSAGE_TEXT#.
-                        </p>
-                        <p>
-                             С уважением, служба техподдержки #SITE_NAME#.
+                             На сайте размещен новый заказ: <a href="https://#SERVER_NAME#/bitrix/admin/sale_order_view.php?ID=#ORDER_ID#">#ORDER_ID#</a>
                         </p>
                         <p>
                              Письмо сформировано автоматически.
@@ -79,7 +74,7 @@ class AdminEditMail extends Migration
     {
         $eventMessageObject = new CEventMessage();
 
-        $evenMessage = $eventMessageObject->GetList([], [], ['EVENT_NAME' => self::ADMIN_EDIT_EVENT]);
+        $evenMessage = $eventMessageObject->GetList([], [], ['EVENT_NAME' => self::EVENT_NAME]);
 
         if(!$evenMessage){
             throw new SystemException($eventMessageObject->LAST_ERROR);
@@ -92,7 +87,7 @@ class AdminEditMail extends Migration
         $eventTypeObject = new CEventType();
 
         // Не стандартный getList
-        $evenTypeName = $eventTypeObject->GetList(['EVENT_NAME' => self::ADMIN_EDIT_EVENT])->GetNext();
+        $evenTypeName = $eventTypeObject->GetList(['EVENT_NAME' => self::EVENT_NAME])->GetNext();
 
         if(!$evenTypeName){
             throw new SystemException($eventTypeObject->LAST_ERROR);

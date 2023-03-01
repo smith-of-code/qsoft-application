@@ -17,7 +17,7 @@ use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\UserGroupHelper;
 use QSoft\ORM\BeneficiariesTable;
-use QSoft\Notifiers\EditingFromAdminPanel;
+use QSoft\Notifiers\EditingFromAdminPanelNotifier;
 
 class UserEventsListener
 {
@@ -147,7 +147,7 @@ class UserEventsListener
         }
 
         if ($APPLICATION->GetCurPage() == '/bitrix/admin/user_edit.php') {
-            $notifier = New EditingFromAdminPanel('ADD_NEW_USER', $fields);
+            $notifier = New EditingFromAdminPanelNotifier('ADD_NEW_USER', $fields);
             $message = $notifier->getMessage();
             if (!empty($fields['PHONE_NUMBER'])) {
                 self::sendSMS($message, $fields['PHONE_NUMBER']);
@@ -208,7 +208,7 @@ class UserEventsListener
         $user = new User($fields['ID']);
         $userData = $user->getPersonalData();
 
-        $notifier = New EditingFromAdminPanel($eventName, $fields);
+        $notifier = New EditingFromAdminPanelNotifier($eventName, $fields);
         $user->notification->sendNotification(
             $notifier->getTitle(),
             $notifier->getMessage(),
@@ -220,7 +220,7 @@ class UserEventsListener
             self::sendSMS($message, $userData['phone']);
         }
         if (!empty($userData['email'])) {
-            self::sendEmail($userData, $eventName, $message);
+            self::sendEmail($userData, $notifier->getTitle(), $message);
         }
     }
 
@@ -230,7 +230,7 @@ class UserEventsListener
         $smsClient->sendMessage($message, $phoneNumber);
     }
 
-    private function sendEmail(array $userData, string $eventName, $message): void
+    private function sendEmail(array $userData, string $title, $message): void
     {
         $fullName = $userData['full_name'] ??
             $userData['LAST_NAME'] . ' ' . $userData['NAME'] . ' ' . $userData['SECOND_NAME'];
@@ -239,11 +239,9 @@ class UserEventsListener
             "MESSAGE_TAKER" => $userData['OWNER_EMAIL'] ?? $userData['EMAIL'], // почта получателя
             "MESSAGE_TEXT" => $message, // текст уведомления
             "OWNER_NAME" => $fullName, // ФИО пользователя
+            "TITLE" => $title, // Тема письма
         ];
 
-        EmailEvent::send([
-            "EVENT_NAME" => $eventName,
-            "C_FIELDS" => $fields
-        ]);
+        \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $fields);
     }
 }

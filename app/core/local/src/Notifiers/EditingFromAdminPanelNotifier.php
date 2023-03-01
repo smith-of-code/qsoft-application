@@ -4,7 +4,7 @@ namespace QSoft\Notifiers;
 
 use QSoft\Entity\User;
 
-class EditingFromAdminPanel extends NotificationContent
+class EditingFromAdminPanelNotifier extends NotificationContent
 {
 
     private array $fields;

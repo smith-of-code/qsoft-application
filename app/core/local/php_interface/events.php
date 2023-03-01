@@ -47,6 +47,7 @@ $eventManager->addEventHandler('support', 'OnAfterTicketAdd', [new SupportEventL
  * Sale module events
  */
 
+$eventManager->addEventHandler('sale', 'OnOrderAdd', [OrderEventsListener::class, 'OnOrderAdd']);
 $eventManager->addEventHandler('sale', 'OnSaleStatusOrder', [OrderEventsListener::class, 'OnSaleStatusOrder']);
 $eventManager->addEventHandler('sale', 'OnBeforeOrderUpdate', [OrderEventsListener::class, 'OnBeforeOrderUpdate']);
 $eventManager->addEventHandler('sale', 'OnBeforeOrderDelete', [OrderEventsListener::class, 'OnBeforeOrderDelete']);
