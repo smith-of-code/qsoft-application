@@ -22,6 +22,7 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
         $confirmResult = (new User($this->arParams['USER_ID']))->confirmation->verifyEmailCode(
             $this->arParams['CONFIRM_CODE'],
             ConfirmationTable::TYPES['reset_password'],
+            false,
         );
 
         if ($confirmResult) {
@@ -43,8 +44,13 @@ class SystemAuthChangePasswordComponent extends CBitrixComponent implements Cont
         ];
     }
 
-    public function changePasswordAction(int $userId, string $password, string $confirmPassword): array
+    public function changePasswordAction(int $userId, string $password, string $confirmPassword, string $code): array
     {
-        return ['status' => (new User($userId))->changePassword($password, $confirmPassword) ? 'success' : 'error'];
+        $result = (new User($userId))->changePassword($password, $confirmPassword);
+        if ($result) {
+            ConfirmationTable::deactivateCode($code);
+        }
+
+        return ['status' => $result ? 'success' : 'error'];
     }
 }

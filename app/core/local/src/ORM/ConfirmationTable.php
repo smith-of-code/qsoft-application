@@ -151,6 +151,6 @@ final class ConfirmationTable extends BaseTable
 
         $idForUpdate['UF_IS_USED'] = '1';
 
-        (ConfirmationTable::update($idForUpdate['ID'], $idForUpdate));
+        ConfirmationTable::update($idForUpdate['ID'], $idForUpdate);
     }
 }

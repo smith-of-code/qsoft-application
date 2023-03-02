@@ -31,6 +31,7 @@ class SystemAuthForgotPasswordComponent {
               userId: $('#user_id').val(),
               password,
               confirmPassword,
+              code: $('#code').val(),
           },
       });
 
