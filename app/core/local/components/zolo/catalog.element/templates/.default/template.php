@@ -439,7 +439,7 @@ $offerId = $arResult['OFFER_FIRST'];
                     <div class="tabs__block accordeon__body" data-tab-section="block2"  data-accordeon-content="">
                         <div class="description">
                             <div class="description__col description__col--half">
-                                <h5>Состав</h5>
+                                <h5>Общий состав</h5>
 
                                 <p><?= $arResult['COMPOSITION']?></p>
                             </div>
