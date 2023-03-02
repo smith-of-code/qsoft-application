@@ -325,6 +325,4 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
         ];
     }
 
-    //TODO смена ментора
-    //TODO модерация
 }
