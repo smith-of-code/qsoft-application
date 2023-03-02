@@ -7,7 +7,8 @@ const ELEMENTS_SELECTOR = {
 };
 
 export default function showPassword() {
-    $(document).on('click', ELEMENTS_SELECTOR.icon, function () {
+    $(document).on('click', ELEMENTS_SELECTOR.icon, function (e) {
+        e.preventDefault(); // Предотвращаем отправку формы, в которой находится переключатель
         const $parent = $(this).closest(ELEMENTS_SELECTOR.block);
         const $input = $parent.find(ELEMENTS_SELECTOR.input);
 
