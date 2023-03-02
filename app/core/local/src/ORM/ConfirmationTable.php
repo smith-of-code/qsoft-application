@@ -3,6 +3,7 @@
 namespace QSoft\ORM;
 
 use Bitrix\Main\ArgumentException;
+use Bitrix\Main\Entity\BooleanField;
 use Bitrix\Main\Entity\DatetimeField;
 use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\Entity\StringField;
@@ -76,6 +77,10 @@ final class ConfirmationTable extends BaseTable
                 'required' => true,
                 'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_CREATED_AT_FIELD'),
             ]),
+            new BooleanField('UF_IS_USED', [
+                'required' => true,
+                'title' => Loc::getMessage('CONFIRMATION_ENTITY_UF_IS_USED'),
+            ]),
         ];
     }
 
@@ -92,6 +97,7 @@ final class ConfirmationTable extends BaseTable
                 '=UF_FUSER_ID' => $fuserId,
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['sms']),
                 '>UF_CREATED_AT' => (new DateTime)->add('-' . self::ACTIVE_TIME . ' seconds'),
+                '=UF_IS_USED' => '0',
             ],
             'select' => ['UF_CODE'],
         ]);
@@ -119,10 +125,32 @@ final class ConfirmationTable extends BaseTable
                 '=UF_FUSER_ID' => $fuserId,
                 '=UF_CHANNEL' => EnumDecorator::prepareField('UF_CHANNEL', self::CHANNELS['email']),
                 '=UF_TYPE' => EnumDecorator::prepareField('UF_TYPE', $type),
+                '=UF_IS_USED' => '0',
             ],
             'select' => ['UF_CODE', 'UF_CREATED_AT'],
         ]);
 
         return $result ? $result : null;
+    }
+
+    /**
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     * @throws ArgumentException
+     * @throws \Exception
+     */
+    public static function deactivateCode($code): void
+    {
+        $idForUpdate = ConfirmationTable::getRow([
+            'order' => ['ID' => 'DESC'],
+            'filter' => [
+                '=UF_CODE' => $code,
+            ],
+            'select' => ['*'],
+        ]);
+
+        $idForUpdate['UF_IS_USED'] = '1';
+
+        (ConfirmationTable::update($idForUpdate['ID'], $idForUpdate));
     }
 }

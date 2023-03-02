@@ -128,6 +128,7 @@ class ConfirmationService
 
         // Если коды эквивалентны - подтверждено
         if (hash_equals($actualCode['UF_CODE'], $code)) {
+            ConfirmationTable::deactivateCode($code);
             return true;
         }
 
