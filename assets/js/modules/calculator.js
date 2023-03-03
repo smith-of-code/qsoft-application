@@ -201,8 +201,6 @@ export default function () {
         value = value - value % property.standardPoints;
         $(this).val(value);
 
-        console.log(value);
-
         let currentPoint = (value - value % property.standardPoints) / property.standardPoints * property.stepPoints;
         currentPoint = Math.floor(currentPoint);
 
@@ -220,8 +218,6 @@ export default function () {
         let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
         value = value - value % property.stepPoints;
         $(this).val(value);
-
-        console.log(value);
 
         let currentRub = (value - value % property.stepPoints) / property.stepPoints * property.standardPoints;
         currentRub = Math.floor(currentRub);
