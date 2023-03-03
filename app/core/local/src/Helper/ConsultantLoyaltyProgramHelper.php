@@ -73,7 +73,7 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
                     "TITLE" => $notifier->getTitle(), // Тема письма
                 ];
 
-                \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
+                \CEvent::Send('NOTIFICATION_EVENT', 's1', $mailFields);
 
                 return true;
             }

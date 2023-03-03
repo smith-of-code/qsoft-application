@@ -220,7 +220,7 @@ class UserEventsListener
     {
         $sms = ['CHANGE_MENTOR', 'BECOME_CONSULTANT'];
 
-        $user = new User($fields['ID']);
+        $user = new User($fields['id']);
         $userData = $user->getPersonalData();
 
         $notifier = New EditingFromAdminPanelNotifier($eventName, $fields);
@@ -251,12 +251,12 @@ class UserEventsListener
             $userData['LAST_NAME'] . ' ' . $userData['NAME'] . ' ' . $userData['SECOND_NAME'];
 
         $fields = [
-            "MESSAGE_TAKER" => $userData['OWNER_EMAIL'] ?? $userData['EMAIL'], // почта получателя
+            "MESSAGE_TAKER" => $userData['OWNER_EMAIL'] ?? $userData['email'], // почта получателя
             "MESSAGE_TEXT" => $message, // текст уведомления
             "OWNER_NAME" => $fullName, // ФИО пользователя
             "TITLE" => $title, // Тема письма
         ];
 
-        \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $fields);
+        \CEvent::Send('NOTIFICATION_EVENT', 's1', $fields);
     }
 }
