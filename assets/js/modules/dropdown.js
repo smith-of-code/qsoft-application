@@ -13,6 +13,10 @@ export default function () {
 
         dropdown.toggleClass('dropdown--active');
         
+        const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+        const body = document.body;
+        body.style.top = `-${scrollY}`;
+        
         $(document).on('click.dropdown'+rund, function (e) {
             let elem = $(e.target);
 
@@ -57,5 +61,14 @@ export default function () {
     $(document).on('click', ELEMENTS_SELECTOR.close, function() {
         $(this).closest(ELEMENTS_SELECTOR.dropdown).removeClass('dropdown--active');
         $('body').removeClass('block-mobile');
+
+        const body = document.body;
+        const scrollY = body.style.top;
+        body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    });
+
+    window.addEventListener('scroll', () => {
+        document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
     });
 }

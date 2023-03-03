@@ -39,7 +39,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин" data-input-required>
+                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин" data-login-input data-input-required>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
 
                         <div class="form__field-block form__field-block--input" data-password-block>
                             <div class="input input--iconed">
-                                <input type="password" class="input__control" name="USER_PASSWORD" id="USER_PASSWORD" placeholder="Введите пароль" data-password-input>
+                                <input type="password" class="input__control" name="USER_PASSWORD" id="USER_PASSWORD" placeholder="Введите пароль" data-password-input data-input-required>
                                 <button class="input__icon input__icon-password" data-password-toggle>
                                     <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-eye"></use>
@@ -87,7 +87,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
                 <?php if ($_POST['NOT_ACTIVE_ERROR']):?>
                     <span style="color: red;">Email не подтвержден</span>
                 <?php elseif ($arResult['POST']):?>
-                    <span style="color: red;">Неверный логин или пароль</span>
+                    <span style="color: red;">Логин или пароль не совпадают с данными в нашей системе. Пожалуйста, попробуйте еще раз.</span>
                 <?php endif;?>
 
                 <?php if (isset($_SESSION['TRY_AUTH']) && !($_SESSION['TRY_AUTH'] % AUTH_TO_CAPTCHA)):?>

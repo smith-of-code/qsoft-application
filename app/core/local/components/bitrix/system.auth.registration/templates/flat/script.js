@@ -638,12 +638,13 @@ class CSystemAuthRegistrationComponent {
                   },
               },
           });
-      } catch (error) {}
-
-      if (!response || response.status !== 'success') {
+      } catch (error) {
           grecaptcha.reset();
-          $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
-
+          if (error.errors.length > 0) {
+              $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">' + error.errors[0].message + '</span>');
+          } else {
+              $(`.${registrationData.currentStep} .form`).append('<span class="input__control-error">Неизвестная ошибка. Попробуйте позже</span>');
+          }
           return;
       }
 

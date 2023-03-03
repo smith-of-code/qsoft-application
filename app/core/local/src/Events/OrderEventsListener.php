@@ -6,7 +6,7 @@ use Bitrix\Sale\PropertyValue;
 use QSoft\Entity\User;
 use QSoft\Helper\BonusAccountHelper;
 use QSoft\Helper\OrderHelper;
-use QSoft\Notifiers\ChangeOrderStatusNotifier;
+use QSoft\Notifiers\ChangeOrderNotifier;
 use Bitrix\Sale\Order;
 use Psr\Log\LogLevel;
 use QSoft\Logger\Logger;
@@ -20,7 +20,7 @@ class OrderEventsListener
         $order = Order::load($orderId);
         $user = new User($order->getUserId());
 
-        $notifier = new ChangeOrderStatusNotifier($orderId, $status);
+        $notifier = new ChangeOrderNotifier($orderId, $status);
         $user->notification->sendNotification(
             $notifier->getTitle(),
             $notifier->getMessage(),
@@ -77,6 +77,45 @@ class OrderEventsListener
         $order->save();
     }
 
+    public static function OnBeforeOrderUpdate(int $orderId, $fields): void
+    {
+        $order = Order::load($orderId);
+        $user = new User($order->getUserId());
+
+        if ($order->getField('STATUS_ID') == $fields['STATUS_ID']) {
+            $notifier = new ChangeOrderNotifier($orderId, 'SAME');
+            $user->notification->sendNotification(
+                $notifier->getTitle(),
+                $notifier->getMessage(),
+                $notifier->getLink()
+            );
+        }
+    }
+
+    public static function OnBeforeOrderDelete(int $orderId): void
+    {
+        $order = Order::load($orderId);
+        $user = new User($order->getUserId());
+
+        $notifier = new ChangeOrderNotifier($orderId, 'DEL');
+        $user->notification->sendNotification(
+            $notifier->getTitle(),
+            $notifier->getMessage(),
+            $notifier->getLink()
+        );
+
+        $userData = $user->getPersonalData();
+        $mailFields = [
+            "MESSAGE_TAKER" => $userData['email'], // почта получателя
+            "MESSAGE_TEXT" => $notifier->getMessage(), // текст уведомления
+            "OWNER_NAME" => $userData['full_name'], // ФИО пользователя
+            "TITLE" => $notifier->getTitle(), // Тема письма
+        ];
+
+        \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
+    }
+
+
     public static function OnOrderAdd ($id, &$arFields)
     {
         if (isset($arFields['USER_ID']) && (new User($arFields['USER_ID']))->groups->isBuyer()) {
@@ -98,6 +137,9 @@ class OrderEventsListener
             $message = "Пользователю не начисленно баллов за заказ № {$id}";
             Logger::createFormatedLog(__CLASS__, LogLevel::INFO, $message);
         }
+
+        $mailFields = ['ORDER_ID' => $orderId];
+        \CEvent::Send('NEW_ORDER_FOR_ADMIN', SITE_ID, $mailFields);        
     }
 
     private function wordDeclension(int $number, string$word)

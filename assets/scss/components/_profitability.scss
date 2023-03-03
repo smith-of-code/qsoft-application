@@ -128,7 +128,7 @@
                 font-weight: $font-weight-bold;
                 line-height: ($line-height-middle / $font-size-middle);
 
-                width: rem(200px);
+                min-width: rem(215px);
 
                 color: $brickRed;
             }

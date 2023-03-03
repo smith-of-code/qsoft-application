@@ -201,7 +201,13 @@ $arResult = $ticketData['documents'];?>
                 <div class="section__box-block">
                     <h6 class="box__heading box__heading--small">Копия паспорта</h6>
                     <?php foreach ($arResult['passport'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -508,10 +514,16 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                            <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                                <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                            <?php else :?>
+                                <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                    <span class="button__text">Скачать файл </span>
+                                </a>
+                            <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -620,15 +632,27 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
                     <?php foreach ($arResult['personal_tax_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
             </div>
@@ -779,10 +803,16 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -790,7 +820,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -826,7 +862,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия устава ООО</h6>
 
                     <?php foreach ($arResult['llc_charter'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -834,7 +876,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия протокола участников (решения участника) ООО об избрании руководителя организации</h6>
 
                     <?php foreach ($arResult['llc_members'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -842,7 +890,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия приказа о вступлнеии в должность генерального директора</h6>
 
                     <?php foreach ($arResult['ceo_appointment'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -850,7 +904,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ООО/листа записи ЕГРЮЛ о внесении записи об ООО в ЕГРЮЛ</h6>
 
                     <?php foreach ($arResult['llc_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -878,7 +938,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                     <?php foreach ($arResult['procuration'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -987,7 +1053,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -1197,10 +1269,16 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -1208,7 +1286,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия уведомления о применении УСН упрощенной системы налогоплательщика(в случае применения УСН)</h6>
 
                     <?php foreach ($arResult['usn_notification'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -1244,7 +1328,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Копия свидетельства о государственной регистрации ИП/листа записи ЕГРИП</h6>
 
                     <?php foreach ($arResult['ip_registration_certificate'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
 
@@ -1353,7 +1443,13 @@ $arResult = $ticketData['documents'];?>
                     <h6 class="box__heading box__heading--small">Сведения о банковских реквизитах</h6>
 
                     <?php foreach ($arResult['bank_details'] as $file):?>
-                        <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php if (in_array(strtoupper($file['format']), ['JPEG', 'PNG', 'JPG'])) :?>
+                            <img src="<?=$file['src']?>" style="max-width: 300px;" />
+                        <?php else :?>
+                            <a href="<?=$file['src']?>" target="_blank" class="button button--rounded button--covered button--white-green button--full">
+                                <span class="button__text">Скачать файл </span>
+                            </a>
+                        <?php endif;?>
                     <?php endforeach;?>
                 </div>
             </div>

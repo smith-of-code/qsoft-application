@@ -1,6 +1,7 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 
 <input type="hidden" name="user_id" id="user_id" value="<?=$arParams['USER_ID']?>" />
+<input type="hidden" name="code" id="code" value="<?=$arParams['CONFIRM_CODE']?>" />
 
 <h1 class="content__heading content__heading--centered">Создание нового пароля</h1>
 

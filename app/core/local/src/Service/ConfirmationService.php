@@ -51,7 +51,7 @@ class ConfirmationService
         }
     }
 
-    public function sendEmailConfirmation(): void
+    public function sendEmailConfirmation($event): void
     {
         $code = $this->generateUserCheckWord($this->user->id);
 
@@ -60,10 +60,11 @@ class ConfirmationService
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
+            'UF_IS_USED' => '0',
         ]);
 
         Event::send([
-            'EVENT_NAME' => 'NEW_USER_CONFIRM',
+            'EVENT_NAME' => $event,
             'LID' => SITE_ID,
             'C_FIELDS' => [
                 'EMAIL' => $this->user->email,
@@ -82,6 +83,7 @@ class ConfirmationService
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
+            'UF_IS_USED' => '0',
         ]);
 
         Event::send([
@@ -108,12 +110,16 @@ class ConfirmationService
         return $actualCode && hash_equals($actualCode, $code);
     }
 
-    public function verifyEmailCode(string $code, string $type): bool
+    public function verifyEmailCode(string $code, string $type, $resetCode = true): bool
     {
         $actualCode = ConfirmationTable::getActiveEmailCode($this->user->fUserID, $type);
 
-        $seconds = time() - $actualCode['UF_CREATED_AT']->getTimestamp();
+        // Если какой-то из кодов не задан - отказ
+        if (! isset($actualCode['UF_CODE']) || empty($actualCode['UF_CODE']) || empty($code)) {
+            return false;
+        }
 
+        $seconds = time() - $actualCode['UF_CREATED_AT']->getTimestamp();
         $time = $seconds > 0 ? $seconds / $this->hourInSeconds : 0;
 
         // Если код просрочен - отказ
@@ -121,13 +127,11 @@ class ConfirmationService
             return false;
         }
 
-        // Если какой-то из кодов не задан - отказ
-        if (! isset($actualCode['UF_CODE']) || empty($actualCode['UF_CODE']) || empty($code)) {
-            return false;
-        }
-
         // Если коды эквивалентны - подтверждено
         if (hash_equals($actualCode['UF_CODE'], $code)) {
+            if ($resetCode) {
+                ConfirmationTable::deactivateCode($code);
+            }
             return true;
         }
 
