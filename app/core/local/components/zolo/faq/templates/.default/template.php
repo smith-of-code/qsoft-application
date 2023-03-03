@@ -14,7 +14,7 @@ $isAuthorized = $arResult['IS_AUTHORIZED'];
     <div class="breadcrumbs">
         <ul class="breadcrumbs__list">
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">Главная</a>
+                <a href="/" class="breadcrumbs__link">Главная</a>
             </li>
             <li class="breadcrumbs__item breadcrumbs__item--active">
                 <a class="breadcrumbs__link">FAQ</a>
