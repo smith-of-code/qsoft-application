@@ -195,12 +195,15 @@ export default function () {
    
     // Событие изменение ползунка rub / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputRub, function() {
-        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
-
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
+        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
+        value = value - value % property.standardPoints;
+        $(this).val(value);
 
-        let currentPoint = value / property.standardPoints * property.stepPoints;
+        console.log(value);
+
+        let currentPoint = (value - value % property.standardPoints) / property.standardPoints * property.stepPoints;
         currentPoint = Math.floor(currentPoint);
 
         let rangeInputPoint = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputPoint);
@@ -212,11 +215,15 @@ export default function () {
 
     // Событие изменение ползунка point / зависимость друг от друга
     $(document).on('change changeCalculator', ELEMENTS_SELECTOR.calculatorRangeInputPoint, function() {
-        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
         let calcRange = $(this).closest(ELEMENTS_SELECTOR.calculatorRange);
         let property = getDataLevelProperty(calcRange);
+        let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
+        value = value - value % property.stepPoints;
+        $(this).val(value);
 
-        let currentRub = value / property.stepPoints * property.standardPoints;
+        console.log(value);
+
+        let currentRub = (value - value % property.stepPoints) / property.stepPoints * property.standardPoints;
         currentRub = Math.floor(currentRub);
 
         let rangeInputRub = $(this).closest(ELEMENTS_SELECTOR.calculatorRange).find(ELEMENTS_SELECTOR.calculatorRangeInputRub);
@@ -253,7 +260,7 @@ export default function () {
             let property = getDataLevelProperty(calcRange);
 
             let currentRub = +calcRange.find(ELEMENTS_SELECTOR.calculatorRangeInputRub).val().replace(/\s/g, "").replace(/,/g,"");
-            let currentPoint = currentRub / property.standardPoints * property.stepPoints;
+            let currentPoint = (currentRub - (currentRub % property.standardPoints)) / property.standardPoints * property.stepPoints;
             currentPoint = Math.floor(currentPoint);
             if (currentPoint < property.minPoints) {
                 currentPoint = property.minPoints;
