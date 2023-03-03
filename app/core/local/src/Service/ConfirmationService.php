@@ -108,12 +108,16 @@ class ConfirmationService
         return $actualCode && hash_equals($actualCode, $code);
     }
 
-    public function verifyEmailCode(string $code, string $type): bool
+    public function verifyEmailCode(string $code, string $type, $resetCode = true): bool
     {
         $actualCode = ConfirmationTable::getActiveEmailCode($this->user->fUserID, $type);
 
-        $seconds = time() - $actualCode['UF_CREATED_AT']->getTimestamp();
+        // Если какой-то из кодов не задан - отказ
+        if (! isset($actualCode['UF_CODE']) || empty($actualCode['UF_CODE']) || empty($code)) {
+            return false;
+        }
 
+        $seconds = time() - $actualCode['UF_CREATED_AT']->getTimestamp();
         $time = $seconds > 0 ? $seconds / $this->hourInSeconds : 0;
 
         // Если код просрочен - отказ
@@ -121,13 +125,11 @@ class ConfirmationService
             return false;
         }
 
-        // Если какой-то из кодов не задан - отказ
-        if (! isset($actualCode['UF_CODE']) || empty($actualCode['UF_CODE']) || empty($code)) {
-            return false;
-        }
-
         // Если коды эквивалентны - подтверждено
         if (hash_equals($actualCode['UF_CODE'], $code)) {
+            if ($resetCode) {
+                ConfirmationTable::deactivateCode($code);
+            }
             return true;
         }
 
