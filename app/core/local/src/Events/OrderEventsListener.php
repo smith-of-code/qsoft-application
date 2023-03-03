@@ -112,7 +112,7 @@ class OrderEventsListener
             "TITLE" => $notifier->getTitle(), // Тема письма
         ];
 
-        \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
+        \CEvent::Send('NOTIFICATION_EVENT', 's1', $mailFields);
     }
 
 
@@ -139,7 +139,7 @@ class OrderEventsListener
         }
 
         $mailFields = ['ORDER_ID' => $orderId];
-        \CEvent::Send('NEW_ORDER_FOR_ADMIN', SITE_ID, $mailFields);        
+        \CEvent::Send('NEW_ORDER_FOR_ADMIN', 's1', $mailFields);
     }
 
     private function wordDeclension(int $number, string$word)
