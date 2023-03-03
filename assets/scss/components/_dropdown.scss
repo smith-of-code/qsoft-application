@@ -80,12 +80,16 @@
 
             overflow-y: auto;
 
+            height: 100vh;
+
             @media #{$screen-tablet} {
                 position: absolute;
                 top: calc(100% + 70px);
                 right: 0;
                 bottom: auto;
                 left: 0;
+
+                height: auto;
             }
 
             @media #{$screen-desktop} {
