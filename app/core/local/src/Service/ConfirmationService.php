@@ -60,6 +60,7 @@ class ConfirmationService
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_email'],
             'UF_CODE' => $code,
+            'UF_IS_USED' => '0',
         ]);
 
         Event::send([
@@ -82,6 +83,7 @@ class ConfirmationService
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['email'],
             'UF_TYPE' => ConfirmationTable::TYPES['reset_password'],
             'UF_CODE' => $code,
+            'UF_IS_USED' => '0',
         ]);
 
         Event::send([
