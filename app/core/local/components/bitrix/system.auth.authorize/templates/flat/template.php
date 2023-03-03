@@ -87,7 +87,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
                 <?php if ($_POST['NOT_ACTIVE_ERROR']):?>
                     <span style="color: red;">Email не подтвержден</span>
                 <?php elseif ($arResult['POST']):?>
-                    <span style="color: red;">Неверный логин или пароль</span>
+                    <span style="color: red;">Логин или пароль не совпадают с данными в нашей системе. Пожалуйста, попробуйте еще раз.</span>
                 <?php endif;?>
 
                 <?php if (isset($_SESSION['TRY_AUTH']) && !($_SESSION['TRY_AUTH'] % AUTH_TO_CAPTCHA)):?>

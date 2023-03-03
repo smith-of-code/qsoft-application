@@ -490,7 +490,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ]);
         }
 
-        (new User($result['ID']))->confirmation->sendEmailConfirmation();
+        (new User($result['ID']))->confirmation->sendEmailConfirmation('NEW_USER_CONFIRM');
 
         $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 

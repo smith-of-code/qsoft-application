@@ -7,6 +7,7 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Exception;
 use QSoft\Entity\User;
+use QSoft\Notifiers\ConsultantUpgradeNotifier;
 use QSoft\Service\DateTimeService;
 use RuntimeException;
 use Psr\Log\LogLevel;
@@ -55,6 +56,25 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
                 }
                 $user->loyaltyLevel = $availableLevel;
 
+                // Отправляем уведомление с поздравлениями
+                $fields = ['level' => $availableLevel];
+                $notifier = new ConsultantUpgradeNotifier('LEVEL_UP', $fields);
+                $user->notification->sendNotification(
+                    $notifier->getTitle(),
+                    $notifier->getMessage(),
+                    $notifier->getLink()
+                );
+
+                $userData = $user->getPersonalData();
+                $mailFields = [
+                    "MESSAGE_TAKER" => $userData['email'], // почта получателя
+                    "MESSAGE_TEXT" => $notifier->getMessage(), // текст уведомления
+                    "OWNER_NAME" => $userData['full_name'], // ФИО пользователя
+                    "TITLE" => $notifier->getTitle(), // Тема письма
+                ];
+
+                \CEvent::Send('NOTIFICATION_EVENT', SITE_ID, $mailFields);
+
                 return true;
             }
         }
@@ -65,6 +85,49 @@ class ConsultantLoyaltyProgramHelper extends LoyaltyProgramHelper
         }
 
         return false;
+    }
+
+    /**
+     * Проверяет условия повышения и поддержания уровня в программе лояльности для пользователя
+     * @param User $user Пользователь
+     * @throws Exception
+     */
+    public function checkUpgradeNotification(User $user): void
+    {
+        $period = $this->getCurrentAccountingPeriod();
+        $loyaltyStatus = $this->getLoyaltyStatusByPeriod(
+            $user->id,
+            $period['from'],
+            $period['to'],
+        );
+
+        $fields = [
+            'to' => FormatDate('j F', $period['to']),
+            'discount' => (new ConsultantLoyaltyProgramHelper)->getLoyaltyLevelInfo(
+                $user->loyaltyLevel
+            )['benefits']['personal_discount'],
+        ];
+
+        if ($loyaltyStatus['team']['upgrade_value'] < $loyaltyStatus['team']['current_value']) {
+            $notification = 'SALES_PLAN';
+        } elseif ($loyaltyStatus['self']['hold_value'] > $loyaltyStatus['self']['current_value']) {
+            $shortage = $loyaltyStatus['self']['hold_value'] - $loyaltyStatus['self']['current_value'];
+            $fields['shortage'] = $shortage . StringHelper::createWordForm($shortage, ' рубль', ' рубля', ' рублей');
+            $notification = 'HOLD_PLAN';
+        } elseif ($loyaltyStatus['self']['upgrade_value'] > $loyaltyStatus['self']['current_value']) {
+            $shortage = $loyaltyStatus['self']['upgrade_value'] - $loyaltyStatus['self']['current_value'];
+            $fields['shortage'] = $shortage . StringHelper::createWordForm($shortage, ' рубль', ' рубля', ' рублей');
+            $notification = 'UPGRADE_PLAN';
+        }
+
+        if (isset($notification)) {
+            $notifier = new ConsultantUpgradeNotifier($notification, $fields);
+            $user->notification->sendNotification(
+                $notifier->getTitle(),
+                $notifier->getMessage(),
+                $notifier->getLink()
+            );
+        }
     }
 
     /**
