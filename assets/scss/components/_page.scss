@@ -81,10 +81,18 @@
     }
 
     &.block-mobile {
+        position: fixed;
+
         overflow-y: hidden;
 
+        height: 100vh;
+
         @media #{$screen-tablet} {
+            position: initial;
+
             overflow-y: scroll;
+
+            height: auto;
         }
     }
 }
