@@ -47,7 +47,7 @@ class SystemAuthForgotPasswordComponent {
           confirmPasswordInput.parent().append(spanRequired);
       }
 
-      if (password.length === 0 && confirmPassword.length === 0) {
+      if (password.length === 0 || confirmPassword.length === 0) {
           return;
       }
 
