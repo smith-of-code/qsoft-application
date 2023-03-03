@@ -110,15 +110,15 @@ class AddFieldsForUsers extends Migration
                 'DEFAULT_VALUE' => '1',
             ],
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Согласен на получение информации о продуктах, спецпредложениях и акциях',
+                'ru' => 'Согласен на получение информации о продуктах, спец. предложениях и акциях',
                 'en' => 'Agree to receive information about products, special offers and promotions',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Согласен на получение информации о продуктах, спецпредложениях и акциях',
+                'ru' => 'Согласен на получение информации о продуктах, спец. предложениях и акциях',
                 'en' => 'Agree to receive information about products, special offers and promotions',
             ],
             'LIST_FILTER_LABEL' => [
-                'ru' => 'Согласен на получение информации о продуктах, спецпредложениях и акциях',
+                'ru' => 'Согласен на получение информации о продуктах, спец. предложениях и акциях',
                 'en' => 'Agree to receive information about products, special offers and promotions',
             ],
         ],
