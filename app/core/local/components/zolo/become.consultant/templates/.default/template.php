@@ -594,7 +594,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'personal_tax_registration_certificate',
@@ -773,7 +773,7 @@
                         </div>
 
                         <div class="section__box-block">
-                            <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе</h6>
+                            <h6 class="box__heading box__heading--small">Загрузить копию свидетельства о постановке на учет российской организации в налоговом органе (ИНН)</h6>
 
                             <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
                                 'NAME' => 'tax_registration_certificate',

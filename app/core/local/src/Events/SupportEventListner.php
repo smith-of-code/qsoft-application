@@ -38,6 +38,7 @@ class SupportEventListner
      */
     public function onAfterTicketUpdate(array $ticketValues): void
     {
+        $ticketValues['UF_DATA'] = json_decode($ticketValues['UF_DATA'], true);
         if ($ticketValues['UF_ACCEPT_REQUEST'] == '') {
             return;
         }
@@ -127,7 +128,7 @@ class SupportEventListner
                 ) {
                     $this->changeMentor($ticketValues);
                 }
-                $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['NEW_MENTOR_ID'])->Fetch();
+                $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['UF_DATA']['NEW_MENTOR_ID'])->Fetch();
                 $sms = true;
                 break;
             case TicketHelper::REFUND_ORDER:
