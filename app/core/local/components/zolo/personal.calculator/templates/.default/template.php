@@ -481,6 +481,41 @@
                                             </div>
                                         </li>
 
+                                        <li class="cards-counting__item">
+                                            <div class="card-counting">
+                                                <div class="card-counting__inner">
+                                                    <div class="card-counting__value">
+                                                        <!-- скрипт выводит значение data-current в value-count -->
+                                                        <input
+                                                                type="text"
+                                                                class="card-counting__value-count"
+                                                                data-range-min
+                                                                data-calculator-range-input-point
+                                                        />
+                                                        <span class="card-counting__value-suffix">
+                                                                                            ББ
+                                                                                        </span>
+                                                    </div>
+
+                                                    <div class="card-counting__range range" data-range>
+                                                        <div
+                                                                class="range-slider"
+                                                                data-range-slider
+                                                                data-type="min"
+                                                                data-min="0"
+                                                                data-current="0"
+                                                                data-max="100000"
+                                                                data-step="1"
+                                                                data-calculator-range-points
+                                                        ></div>
+                                                    </div>
+
+                                                    <p class="card-counting__name">
+                                                        Средняя сумма баллов 1 покупателя
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
