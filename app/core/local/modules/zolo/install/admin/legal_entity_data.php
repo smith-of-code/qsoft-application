@@ -508,7 +508,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />
@@ -625,7 +625,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия справки о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет физического лица в качестве плательщика налога на профессиональный доход</h6>
 
                     <?php foreach ($arResult['personal_tax_registration_certificate'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />
@@ -779,7 +779,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />
@@ -1197,7 +1197,7 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="section__box-block">
-                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе</h6>
+                    <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет в налоговом органе (ИНН)</h6>
 
                     <?php foreach ($arResult['tax_registration_certificate'] as $file):?>
                         <img src="<?=$file['src']?>" style="max-width: 300px;" />
