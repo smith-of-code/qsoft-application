@@ -111,7 +111,17 @@ class ProductService
         ])->fetchAll();
         $packagingValues = array_combine(array_column($packagingValues, 'ID'), $packagingValues);
 
-        usort($offers, static fn ($a, $b) => $a['PROPERTY_PACKAGING_ENUM_ID'] === null && $packagingValues[$a['PROPERTY_PACKAGING_ENUM_ID']]['SORT'] > $packagingValues[$b['PROPERTY_PACKAGING_ENUM_ID']]['SORT']);
+        usort($offers, static function ($a, $b) use ($packagingValues) {
+            if ($b['PROPERTY_PACKAGING_ENUM_ID'] === null) {
+                return false;
+            }
+            $aSort = $packagingValues[$a['PROPERTY_PACKAGING_ENUM_ID']]['SORT'];
+            $bSort = $packagingValues[$b['PROPERTY_PACKAGING_ENUM_ID']]['SORT'];
+            if ($aSort === $bSort) {
+                return $a['PROPERTY_PACKAGING_ENUM_ID'] > $b['PROPERTY_PACKAGING_ENUM_ID'];
+            }
+            return $aSort > $bSort;
+        });
 
         return array_combine(array_column($offers, 'ID'), $offers);
     }
