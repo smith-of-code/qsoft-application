@@ -161,6 +161,32 @@ class UserEventsListener
             $fields['UF_LOYALTY_LEVEL'] = $levelsIDs[$firstLevel];
         }
 
+        // Если указан ID наставника - проверяем корректность
+        if (isset($fields['UF_MENTOR_ID']) && ! empty($fields['UF_MENTOR_ID'])) {
+            if (! $fields['UF_MENTOR_ID']) {
+                $APPLICATION->throwException('Пользователь обязан иметь наставника');
+                return false;
+            }
+
+            if (! is_numeric($fields['UF_MENTOR_ID']) || (int) $fields['UF_MENTOR_ID'] <= 0) {
+                $APPLICATION->throwException('Некорректный ID наставника');
+                return false;
+            }
+
+            try {
+                $mentor = new User($fields['UF_MENTOR_ID']);
+            } catch (\Exception $e) {
+                $APPLICATION->throwException($e->getMessage());
+                return false;
+            }
+
+            if (! $mentor->active || ! $mentor->groups->isConsultant()
+            ) {
+                $APPLICATION->throwException('Указанный пользователь не может быть наставником.');
+                return false;
+            }
+        }
+
         if ($APPLICATION->GetCurPage() == '/bitrix/admin/user_edit.php') {
             $notifier = New EditingFromAdminPanelNotifier('ADD_NEW_USER', $fields);
             $message = $notifier->getMessage();

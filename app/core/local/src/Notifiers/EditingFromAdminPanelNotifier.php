@@ -24,13 +24,28 @@ class EditingFromAdminPanelNotifier extends NotificationContent
         return $this->notificationContent[$this->typeNotification]['title_template'];
     }
 
+    /**
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     * @throws \Bitrix\Main\ArgumentException
+     */
     public function getMessage(): string
     {
-        $mentor = new User($this->fields['UF_MENTOR_ID']);
         $replacement = [
-            '#FIO#' => $mentor->getFullName(),
-            '#phone#' => $mentor->getPersonalData()['phone'],
+            '#FIO#' => 'наставник не задан',
+            '#phone#' => 'наставник не задан',
         ];
+
+        if (isset($this->fields['UF_MENTOR_ID']) && $this->fields['UF_MENTOR_ID'] > 0) {
+            $mentor = new User(intval($this->fields['UF_MENTOR_ID']));
+
+            if (isset($mentor) && $mentor instanceof User) {
+                $replacement = [
+                    '#FIO#' => $mentor->getFullName(),
+                    '#phone#' => $mentor->getPersonalData()['phone'],
+                ];
+            }
+        }
 
         return str_replace(array_keys($replacement), array_values($replacement), $this->notificationContent[$this->typeNotification]['message']);
     }
