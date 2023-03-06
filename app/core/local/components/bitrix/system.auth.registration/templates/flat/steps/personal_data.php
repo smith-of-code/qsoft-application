@@ -328,7 +328,7 @@
                                     </svg>
                                 </span>
 
-                            <span class="checkbox__text">Я согласен с правилами компании</span>
+                            <span class="checkbox__text">Я согласен с правилами компании<?= $arResult['type'] == 'consultant' ? ' для Консультанта' : ''?></span>
                         </label>
                     </div>
                 </li>
@@ -350,7 +350,7 @@
                                     </svg>
                                 </span>
 
-                            <span class="checkbox__text">Я согласен на получение информации о продуктах, спецпредложениях и акциях</span>
+                            <span class="checkbox__text">Я согласен на получение информации о продуктах, спец. предложениях и акциях</span>
                         </label>
                     </div>
                 </li>
