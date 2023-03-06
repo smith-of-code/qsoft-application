@@ -254,7 +254,7 @@
                                                 class="input__control"
                                                 name="register_house"
                                                 id="register_house"
-                                                placeholder="Дом"
+                                                placeholder="Дом, корпус, литера"
                                                 value="<?=$arResult['register_house']?>"
                                                 data-replace-input="adress"
                                         >
@@ -383,7 +383,7 @@
                                                 class="input__control"
                                                 name="living_house"
                                                 id="living_house"
-                                                placeholder="Дом"
+                                                placeholder="Дом, корпус, литера"
                                                 value="<?=$arResult['living_house']?>"
                                                 data-replace-input="adress"
                                         >
