@@ -120,10 +120,4 @@
     &__requirement {
         margin-bottom: rem($gap-medium);
     }
-
-    & .dropzone__area {
-        .file__upload {
-            display: none;
-        }
-    }
 }
