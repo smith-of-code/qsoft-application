@@ -38,7 +38,7 @@ class SupportEventListner
      */
     public function onAfterTicketUpdate(array $ticketValues): void
     {
-        $ticketValues['UF_DATA'] = json_decode($ticketValues['UF_DATA'], true);
+        $decodedData = json_decode($ticketValues['UF_DATA'], true);
         if ($ticketValues['UF_ACCEPT_REQUEST'] == '') {
             return;
         }
@@ -63,16 +63,16 @@ class SupportEventListner
                     $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['OWNER_USER_ID'])->Fetch();
                     $rsUser = \CUser::GetList('', '', ['UF_MENTOR_ID' => $ticketValues['OWNER_USER_ID']]);
                     while($buyer = $rsUser->fetch()) {
-                        $buyer  = new User($buyer['ID']);
+                        $userBuyer  = new User($buyer['ID']);
                         $notifier = new SupportTicketUpdateNotifier($ticketValues, 'CHANGE_MENTOR_FOR_BUYERS');
-                        $buyer->notification->sendNotification(
+                        $userBuyer->notification->sendNotification(
                             $notifier->getTitle(),
                             $notifier->getMessage(),
                             $notifier->getLink()
                         );
                         if ($phoneChange) {
                             $phoneNumberToSend
-                                = (new \CUser)->GetList('', '', ['ID' => $buyer['ID']])->GetNext()['PERSONAL_PHONE'];
+                                = (new \CUser)->GetList('', '', ['ID' => $userBuyer->id])->GetNext()['PERSONAL_PHONE'];
 
                             $message = $notifier->getMessage();
 
@@ -128,7 +128,7 @@ class SupportEventListner
                 ) {
                     $this->changeMentor($ticketValues);
                 }
-                $ticketValues['MENTOR'] = \CUser::GetByID($ticketValues['UF_DATA']['NEW_MENTOR_ID'])->Fetch();
+                $ticketValues['MENTOR'] = \CUser::GetByID($decodedData['NEW_MENTOR_ID'])->Fetch();
                 $sms = true;
                 break;
             case TicketHelper::REFUND_ORDER:
