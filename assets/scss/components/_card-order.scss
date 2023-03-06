@@ -287,7 +287,7 @@
 
         & .accordeon {
             &__item {
-                padding: rem($gap-medium);
+                padding: rem($gap-mini) rem($gap-medium);
     
                 border-radius: rem($border-radius-middle);
                 background-color: $white;
