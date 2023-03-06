@@ -138,7 +138,7 @@ function uploadFiles(el) {
 
     if (initParams.images === true) {
         previewTemplate = `
-            <div class="dropzone__previews-picture dz-preview" data-uploader-preview title="Заменить обложку">
+            <div class="dropzone__previews-picture dz-preview" data-uploader-preview>
                 <div class="dropzone__previews-picture-box">
                     <div class="dropzone__previews-picture-image">
                         <img src="" alt="" class="dropzone__previews-picture-image-pic" data-dz-thumbnail />
