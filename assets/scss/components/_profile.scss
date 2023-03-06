@@ -225,6 +225,8 @@
     }
 
     &__actions {
+        z-index: 0;
+
         display: flex;
         align-items: center;
 
@@ -248,6 +250,7 @@
 
                 @media #{$screen-tablet} {
                     display: flex;
+                    opacity: 0;
                 }
             }
 
@@ -381,6 +384,7 @@
            .profile__actions-button--edit {
                 @media #{$screen-tablet} {
                     display: flex;
+                    opacity: 1;
                 }
             }
         }
