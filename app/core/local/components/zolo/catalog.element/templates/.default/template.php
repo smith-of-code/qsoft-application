@@ -439,13 +439,15 @@ $offerId = $arResult['OFFER_FIRST'];
                     <div class="tabs__block accordeon__body" data-tab-section="block2"  data-accordeon-content="">
                         <div class="description">
                             <div class="description__col description__col--half">
-                                <h5>Общий состав</h5>
+                                <h5 class="description__col-title">Общий состав</h5>
 
                                 <p><?= $arResult['COMPOSITION']?></p>
                             </div>
 
                             <div class="description__col description__col--half">
-                                <h5>Пищевая ценность <span class="description__annotation">На 100 г продукта</span></h5>
+                                <h5 class="description__col-title">Пищевая ценность   
+                                    <span class="description__annotation">На 100 г продукта</span>
+                                </h5>
 
                                 <div class="nutritionals">
                                     <?php foreach ($arResult['ENERGY_VALUE'] as $key => $value): ?>

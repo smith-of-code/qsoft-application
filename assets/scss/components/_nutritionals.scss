@@ -3,10 +3,12 @@
     align-items: center;
     flex-wrap: wrap;
 
+    margin-top: rem(-8px);
     margin-right: rem(-$gap-medium / 2);
     margin-left: rem(-$gap-medium / 2);
 
     @media #{$screen-tablet} {
+        margin-top: 0;
         margin-right: rem(-$gap-normal / 2);
         margin-left: rem(-$gap-normal / 2);
     }
