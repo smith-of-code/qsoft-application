@@ -157,7 +157,7 @@ class User
      */
     public bool $agreeWithCompanyRules;
     /**
-     * @var bool Согласен на получение информации о продуктах, спецпредложениях и акциях
+     * @var bool Согласен на получение информации о продуктах, спец. предложениях и акциях
      */
     public bool $agreeToReceiveInformationAboutPromotions;
     /**
