@@ -618,7 +618,7 @@
                                                                 data-type="min"
                                                                 data-min="0"
                                                                 data-current="0"
-                                                                data-max="50000"
+                                                                data-max="100000"
                                                                 data-step="1"
                                                                 data-calculator-range-points
                                                         ></div>
