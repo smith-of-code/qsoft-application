@@ -4,6 +4,8 @@ namespace QSoft\Service;
 
 use Bitrix\Catalog\GroupTable;
 use Bitrix\Catalog\PriceTable;
+use Bitrix\Iblock\PropertyEnumerationTable;
+use Bitrix\Iblock\PropertyTable;
 use Bitrix\Sale\Internals\BasketPropertyTable;
 use Bitrix\Sale\Internals\BasketTable;
 use CCatalogProduct;
@@ -94,7 +96,34 @@ class ProductService
             $offer['SELECTS'] = $this->getOfferSelects($offer);
             $offers[$offer['ID']] = $offer;
         }
-        return $offers;
+
+        $packagingValues = PropertyEnumerationTable::getList([
+            'filter' => [
+                '=PROPERTY.CODE' => 'PACKAGING',
+            ],
+            'select' => ['ID', 'SORT'],
+            'runtime' => [
+                'PROPERTY' => [
+                    'data_type' => PropertyTable::class,
+                    'reference' => ['=this.PROPERTY_ID' => 'ref.ID']
+                ],
+            ],
+        ])->fetchAll();
+        $packagingValues = array_combine(array_column($packagingValues, 'ID'), $packagingValues);
+
+        usort($offers, static function ($a, $b) use ($packagingValues) {
+            if ($b['PROPERTY_PACKAGING_ENUM_ID'] === null) {
+                return false;
+            }
+            $aSort = $packagingValues[$a['PROPERTY_PACKAGING_ENUM_ID']]['SORT'];
+            $bSort = $packagingValues[$b['PROPERTY_PACKAGING_ENUM_ID']]['SORT'];
+            if ($aSort === $bSort) {
+                return $a['PROPERTY_PACKAGING_ENUM_ID'] > $b['PROPERTY_PACKAGING_ENUM_ID'];
+            }
+            return $aSort > $bSort;
+        });
+
+        return array_combine(array_column($offers, 'ID'), $offers);
     }
 
     public function getOfferPrices(int $offerId): array
