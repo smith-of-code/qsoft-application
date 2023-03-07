@@ -44,11 +44,11 @@ const GREEN = "green", ORANGE = "orange";
                                 <span class="card-notify__send-time"><?=$notification['TIME']?></span>
                             </time>
                             <div class="card-notify__status">
-                                        <span class="card-notify__status-mark">
-                                            <svg class="card-notify__status-icon icon icon--tick-circle-bold">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-tick-circle-bold"></use>
-                                            </svg>
-                                        </span>
+                                <span class="card-notify__status-mark">
+                                    <svg class="card-notify__status-icon icon icon--<?=$notification['STATUS'] == Loc::getMessage("READ") ? 'tick-circle-bold' : 'attention'?>">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-<?=$notification['STATUS'] == Loc::getMessage("READ") ? 'tick-circle-bold' : 'attention'?>"></use>
+                                    </svg>
+                                </span>
                                 <p class="card-notify__status-text">
                                     <?=$notification['STATUS']?>
                                 </p>
