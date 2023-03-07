@@ -83,8 +83,7 @@ export const Dropzone = {
                   </div>
     
                   <div class="file__info">
-                    <div class="file__format">{{ file.format }}</div>
-    
+                    <div class="file__format">{{ file.src.slice(-5) == '.heic' ? 'HEIC' : file.format }}</div>
                     <div class="file__weight">{{ file.size }}</div>
     
                     <div v-if="editing" class="file__delete">
