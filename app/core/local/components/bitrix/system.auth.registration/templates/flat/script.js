@@ -210,7 +210,6 @@ class CSystemAuthRegistrationComponent {
                 }
 
 
-
                 if ($(item).parent().data('breed') === 'empty' && $(item).parent().css('display') !== 'none') {
                     return;
                 }
@@ -417,6 +416,18 @@ class CSystemAuthRegistrationComponent {
                         bic.addClass('input__control--error');
                     } else {
                         bic.removeClass('input__control--error');
+                        data[$(item).attr('name')] = $(item).val();
+                    }
+                    return;
+                }
+                else if ($(item).attr('name') === 'email') { // Проверка Почты
+                    const email = $("input[name='email']");
+                    const emailValue = email.val();
+                    const validateFlag = emailValue.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+                    if (!validateFlag) {
+                        email.addClass('input__control--error');
+                    } else {
+                        email.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
                     return;
