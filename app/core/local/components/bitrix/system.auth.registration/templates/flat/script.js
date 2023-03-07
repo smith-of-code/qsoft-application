@@ -423,7 +423,8 @@ class CSystemAuthRegistrationComponent {
                 else if ($(item).attr('name') === 'email') { // Проверка Почты
                     const email = $("input[name='email']");
                     const emailValue = email.val();
-                    const validateFlag = emailValue.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+                    const rule = emailValue.split('@')[0].replace('_','');
+                    const validateFlag = emailValue.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/) && rule;
                     if (!validateFlag) {
                         email.addClass('input__control--error');
                     } else {
