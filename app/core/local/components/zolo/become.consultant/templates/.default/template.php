@@ -82,6 +82,7 @@
                                                     id="passport_series"
                                                     placeholder="12 34"
                                                     data-passport-seria
+                                                    value=""
                                                 >
                                             </div>
                                         </div>
@@ -105,6 +106,7 @@
                                                     id="passport_number"
                                                     placeholder="Введите номер паспорта"
                                                     data-passport-number
+                                                    value=""
                                                 >
                                             </div>
                                         </div>
@@ -129,6 +131,7 @@
                                                     name="who_got"
                                                     id="who_got"
                                                     placeholder="Кем выдан"
+                                                    value=""
                                                 >
                                             </div>
                                         </div>
@@ -153,6 +156,7 @@
                                                        data-mask-date
                                                        data-pets-date-input
                                                        data-pets-change
+                                                       value=""
                                                        autocomplete="off"
                                                 >
                                                 <span class="input__icon">
@@ -194,6 +198,7 @@
                                                         name="register_locality"
                                                         id="register_locality"
                                                         placeholder="Населенный пункт"
+                                                        value=""
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -217,6 +222,7 @@
                                                         name="register_street"
                                                         id="register_street"
                                                         placeholder="Улица"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -237,11 +243,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="register_house"
                                                         id="register_house"
-                                                        placeholder="Дом"
+                                                        placeholder="Дом, корпус, литера"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -260,11 +267,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="register_apartment"
                                                         id="register_apartment"
                                                         placeholder="Квартира"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -289,6 +297,7 @@
                                                         name="register_postal_code"
                                                         id="register_postal_code"
                                                         placeholder="Индекс"
+                                                        value
                                                         data-mask-post-reg
                                                 >
                                             </div>
@@ -318,6 +327,7 @@
                                                         name="living_locality"
                                                         id="living_locality"
                                                         placeholder="Населенный пункт"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -341,6 +351,7 @@
                                                         name="living_street"
                                                         id="living_street"
                                                         placeholder="Улица"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -361,11 +372,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="living_house"
                                                         id="living_house"
-                                                        placeholder="Дом"
+                                                        placeholder="Дом, корпус, литера"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -389,6 +401,7 @@
                                                         name="living_apartment"
                                                         id="living_apartment"
                                                         placeholder="Квартира"
+                                                        value
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -408,11 +421,12 @@
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
                                                 <input
-                                                        type="number"
+                                                        type="text"
                                                         class="input__control"
                                                         name="living_postal_code"
                                                         id="living_postal_code"
                                                         placeholder="Индекс"
+                                                        value
                                                         data-mask-post-living
                                                 >
                                             </div>
@@ -469,9 +483,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="tin"
-                                                        id="tin"
+                                                        id="tin_self"
                                                         placeholder="ИНН"
                                                         data-inn
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -508,6 +523,7 @@
                                                         name="bank_name"
                                                         id="bank_name"
                                                         placeholder="Наименование банка"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -528,9 +544,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="bic"
-                                                        id="bic"
+                                                        id="bic_self"
                                                         placeholder="БИК"
                                                         data-bik
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -555,6 +572,7 @@
                                                         name="checking_account"
                                                         id="checking_account"
                                                         placeholder="Расчетный счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -577,6 +595,7 @@
                                                         name="correspondent_account"
                                                         id="correspondent_account"
                                                         placeholder="Корреспондентский счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -650,6 +669,7 @@
                                                         name="ltc_full_name"
                                                         id="ltc_full_name"
                                                         placeholder="Наименование организации (полное)"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -686,6 +706,7 @@
                                                         name="ltc_short_name"
                                                         id="ltc_short_name"
                                                         placeholder="Наименование организации (сокращенное)"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -713,6 +734,7 @@
                                                         id="ogrn"
                                                         placeholder="ОГРН"
                                                         data-ogrn
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -737,9 +759,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="tin"
-                                                        id="tin"
+                                                        id="tin_ltc"
                                                         placeholder="ИНН"
                                                         data-short-inn
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -807,6 +830,7 @@
                                                         id="kpp"
                                                         placeholder="КПП"
                                                         data-kpp
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -900,6 +924,7 @@
                                                         name="bank_name"
                                                         id="bank_name"
                                                         placeholder="Наименование банка"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -920,9 +945,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="bic"
-                                                        id="bic"
+                                                        id="bic_ltc"
                                                         placeholder="БИК"
                                                         data-bik
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -947,6 +973,7 @@
                                                         name="checking_account"
                                                         id="checking_account"
                                                         placeholder="Расчетный счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -969,6 +996,7 @@
                                                         name="correspondent_account"
                                                         id="correspondent_account"
                                                         placeholder="Корреспондентский счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1005,6 +1033,7 @@
                                                         name="ltc_locality"
                                                         id="ltc_locality"
                                                         placeholder="Населенный пункт"
+                                                        value=""
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -1028,6 +1057,7 @@
                                                         name="ltc_street"
                                                         id="ltc_street"
                                                         placeholder="Улица"
+                                                        value=""
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -1053,6 +1083,7 @@
                                                         name="ltc_address_1"
                                                         id="ltc_address_1"
                                                         placeholder="Дом, корпус, строение"
+                                                        value=""
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -1076,6 +1107,7 @@
                                                         name="ltc_address_2"
                                                         id="ltc_address_2"
                                                         placeholder="Этаж, помещение, комната"
+                                                        value=""
                                                         data-replace-input="adress"
                                                 >
                                             </div>
@@ -1100,6 +1132,7 @@
                                                         name="ltc_postal_code"
                                                         id="ltc_postal_code"
                                                         placeholder="Индекс"
+                                                        value=""
                                                         data-mask-post-ltc
                                                 >
                                             </div>
@@ -1158,6 +1191,7 @@
                                                         name="ip_name"
                                                         id="ip_name"
                                                         placeholder="Наименование ИП"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1182,9 +1216,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="tin"
-                                                        id="tin"
+                                                        id="tin_ip"
                                                         placeholder="ИНН"
                                                         data-inn
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1252,6 +1287,7 @@
                                                         id="ogrnip"
                                                         placeholder="ОГРНИП"
                                                         data-ogrnip
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1288,6 +1324,7 @@
                                                         name="bank_name"
                                                         id="bank_name"
                                                         placeholder="Наименование банка"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1308,9 +1345,10 @@
                                                         type="text"
                                                         class="input__control"
                                                         name="bic"
-                                                        id="bic"
+                                                        id="bic_ip"
                                                         placeholder="БИК"
                                                         data-bik
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1335,6 +1373,7 @@
                                                         name="checking_account"
                                                         id="checking_account"
                                                         placeholder="Расчетный счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
@@ -1357,6 +1396,7 @@
                                                         name="correspondent_account"
                                                         id="correspondent_account"
                                                         placeholder="Корреспондентский счет"
+                                                        value=""
                                                 >
                                             </div>
                                         </div>
