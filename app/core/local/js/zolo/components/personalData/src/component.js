@@ -164,7 +164,7 @@ export const PersonalData = {
                         <div class="profile__accordeon-header accordeon__header section__header">
                             <h4 class="section__title section__title--closer">Персональные данные</h4>
                             <div class="profile__actions">
-                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true">
+                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-personal button button--simple button--red" @click="editing = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -687,12 +687,20 @@ export const PersonalData = {
             <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
                 <div class="modal__content">
                     <header class="modal__section modal__section--header">
-                        <p class="heading heading--small">Подтверждение номера</p>
+                        <p v-if="this.confirmationType == 'phone'" class="heading heading--small">
+                        Подтверждение номера
+                        </p>
+                        <p v-else class="heading heading--small">
+                        Подтверждение адреса электронной почты
+                        </p>
                     </header>
             
                     <section class="modal__section modal__section--content">
-                        <p class="modal__section-text">
+                        <p v-if="this.confirmationType == 'phone'" class="modal__section-text">
                             На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
+                        </p>
+                        <p v-else class="modal__section-text">
+                            На указанный адрес электронной почты отправлен код подтверждения. Пожалуйста, введите его в окно ниже
                         </p>
             
                         <div class="form__row">

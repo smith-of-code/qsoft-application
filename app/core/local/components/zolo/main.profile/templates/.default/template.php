@@ -45,7 +45,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <h4 class="section__title section__title--closer">Персональные данные</h4>
 
                                 <div class="profile__actions">
-                                    <button type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" data-profile-edit>
+                                    <button type="button" class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-personal button button--simple button--red" data-profile-edit>
                                         <span class="button__icon">
                                             <svg class="icon icon--edit">
                                                 <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>

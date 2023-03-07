@@ -38,6 +38,7 @@ class ConfirmationService
             'UF_CHANNEL' => ConfirmationTable::CHANNELS['sms'],
             'UF_TYPE' => ConfirmationTable::TYPES['confirm_phone'],
             'UF_CODE' => $code,
+            'UF_IS_USED' => '0',
         ]);
 
         if (Environment::isProd()) {
@@ -53,7 +54,12 @@ class ConfirmationService
 
     public function sendEmailConfirmation($event): void
     {
-        $code = $this->generateUserCheckWord($this->user->id);
+        // Для события изменения Email генерируем короткий код
+        if ($event === 'CHANGE_EMAIL') {
+            $code = $this->generateCode();
+        } else {
+            $code = $this->generateUserCheckWord($this->user->id);
+        }
 
         ConfirmationTable::add([
             'UF_FUSER_ID' => $this->user->fUserID,
@@ -102,12 +108,17 @@ class ConfirmationService
     public function verifySmsCode(string $code): bool
     {
         $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
+        $result = $actualCode && hash_equals($actualCode, $code);
 
         if (! Environment::isProd()) {
-            return true;
+            $result = true;
         }
 
-        return $actualCode && hash_equals($actualCode, $code);
+        if ($result) {
+            ConfirmationTable::deactivateCode($code);
+        }
+
+        return $result;
     }
 
     public function verifyEmailCode(string $code, string $type, $resetCode = true): bool
