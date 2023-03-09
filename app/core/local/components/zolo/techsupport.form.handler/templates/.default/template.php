@@ -309,9 +309,9 @@ Loc::loadMessages(__FILE__);
                                         <select class="select__control js-required" name="COUSES" id="couses-change" data-select-control data-placeholder="Выберите причину"  data-variant-value="CHANGE_MENTOR">
                                             <option><!-- пустой option для placeholder --></option>
                                             <option value="1">Мой наставник не связался со мной после регистрации в течение длительного времени</option>
-                                            <option value="2">Мой наставник не выходит на связь</option>
+                                            <option value="2">Мой наставник не выходит на связь &sol; слишком долго отвечает на вопросы &sol; не может ответить на мои вопросы</option>
                                             <option value="3">Мой наставник некорректно общается</option>
-                                            <option value="4">Мой наставник переехал</option>
+                                            <option value="4">Мой наставник переехал &sol; живет в другом городе&sol;стране</option>
                                             <option value="5">Мой наставник зарегистрирован под чужим именем</option>
                                             <option value="6">Другое</option>
                                         </select>
