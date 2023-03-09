@@ -687,21 +687,23 @@ export const PersonalData = {
             <article id="approve-number" class="modal modal--small modal--centered box box--circle box--hanging" style="display: none">
                 <div class="modal__content">
                     <header class="modal__section modal__section--header">
-                        <p v-if="this.confirmationType == 'phone'" class="heading heading--small">
+                        <p v-if="this.confirmationType == 'phone'" class="heading heading--small heading--centered">
                         Подтверждение номера
                         </p>
-                        <p v-else class="heading heading--small">
+                        <p v-else class="heading heading--small heading--centered">
                         Подтверждение адреса электронной почты
                         </p>
                     </header>
             
                     <section class="modal__section modal__section--content">
-                        <p v-if="this.confirmationType == 'phone'" class="modal__section-text">
-                            На указанный номер телефона отправлен код подтверждения. Пожалуйста, введите его в окно ниже
-                        </p>
-                        <p v-else class="modal__section-text">
-                            На указанный адрес электронной почты отправлен код подтверждения. Пожалуйста, введите его в окно ниже
-                        </p>
+                        <div v-if="this.confirmationType == 'phone'">
+                            <p class="modal__section-text">На указанный номер телефона отправлен код подтверждения.</p>
+                            <p class="modal__section-text">Пожалуйста, введите его в окно ниже</p>
+                        </div>
+                        <div v-else>
+                            <p class="modal__section-text">На указанный адрес электронной почты отправлен код подтверждения.</p>
+                            <p class="modal__section-text">Пожалуйста, введите его в окно ниже</p>
+                        </div>
             
                         <div class="form__row">
                             <div class="form__col">
