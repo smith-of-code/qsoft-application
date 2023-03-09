@@ -17,8 +17,14 @@ class DiscountsComponent extends CBitrixComponent implements Controllerable
         return [
             'load' => [
                 '-prefilters' => [
-                    Csrf::class,
                     Authentication::class,
+                    Csrf::class,
+                ],
+            ],
+            'loadDiscounts' => [
+                '-prefilters' => [
+                    Authentication::class,
+                    Csrf::class,
                 ],
             ]
         ];
