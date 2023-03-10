@@ -4,7 +4,7 @@ import dropzone from 'dropzone';
 dropzone.prototype.defaultOptions.dictDefaultMessage = 'Перетащите файлы для загрузки в это поле';
 dropzone.prototype.defaultOptions.dictFallbackMessage = 'К сожалению, ваш браузер не поддерживает Drag-n-Drop';
 dropzone.prototype.defaultOptions.dictFallbackText = 'Пожалуйста, воспользуйтесь старой доброй формой для загрузки';
-dropzone.prototype.defaultOptions.dictFileTooBig = 'Файл слишком большой ({{filesize}}MB). Максимальный допустимый размер файла {{maxFilesize}}MB';
+dropzone.prototype.defaultOptions.dictFileTooBig = 'Размер вложения превышает допустимый предел';
 dropzone.prototype.defaultOptions.dictInvalidFileType = 'Вы не можете загружать файлы этого типа';
 dropzone.prototype.defaultOptions.dictResponseError = 'Произошла ошибка при загрузке файла. Попробуйте еще раз. Если ошибка будет повторяться - передайте эту информацию администратору сайта: Код ошибки {{statusCode}}';
 dropzone.prototype.defaultOptions.dictCancelUpload = 'Отменить загрузку';

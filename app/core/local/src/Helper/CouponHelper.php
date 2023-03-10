@@ -71,7 +71,11 @@ class CouponHelper
         if ($imagesMap) {
             $images = CFile::GetList([], ['@ID' => implode(',', array_keys($imagesMap))]);
             while ($image = $images->Fetch()) {
-                $result[$imagesMap[$image['ID']]]['image'] = CFile::GetFileSRC($image);
+                $result[$imagesMap[$image['ID']]]['image'] = CFile::ResizeImageGet(
+                    $image['ID'],
+                    ['width' => MAIN_PROFILE_PERSONAL_COUPONS_PICTURES_MAX_WIDTH, 'height'=> MAIN_PROFILE_PERSONAL_COUPONS_PICTURES_MAX_HEIGHT],
+                    BX_RESIZE_IMAGE_EXACT,
+                )['src'];
             }
         }
 
