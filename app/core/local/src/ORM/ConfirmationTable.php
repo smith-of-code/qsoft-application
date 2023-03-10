@@ -99,7 +99,7 @@ final class ConfirmationTable extends BaseTable
                 '>UF_CREATED_AT' => (new DateTime)->add('-' . self::ACTIVE_TIME . ' seconds'),
                 '=UF_IS_USED' => '0',
             ],
-            'select' => ['UF_CODE'],
+            'select' => ['UF_CODE']
         ]);
 
         return $result ? $result['UF_CODE'] : null;
@@ -130,7 +130,7 @@ final class ConfirmationTable extends BaseTable
             'select' => ['UF_CODE', 'UF_CREATED_AT'],
         ]);
 
-        return $result ? $result : null;
+        return $result ?: null;
     }
 
     /**
@@ -139,7 +139,7 @@ final class ConfirmationTable extends BaseTable
      * @throws ArgumentException
      * @throws \Exception
      */
-    public static function deactivateCode($code): void
+    public static function deactivateCode($code): bool
     {
         $idForUpdate = ConfirmationTable::getRow([
             'order' => ['ID' => 'DESC'],
@@ -149,8 +149,13 @@ final class ConfirmationTable extends BaseTable
             'select' => ['*'],
         ]);
 
-        $idForUpdate['UF_IS_USED'] = '1';
+        if (isset($idForUpdate)) {
+            $idForUpdate['UF_IS_USED'] = '1';
 
-        ConfirmationTable::update($idForUpdate['ID'], $idForUpdate);
+            ConfirmationTable::update($idForUpdate['ID'], $idForUpdate);
+            return true;
+        }
+
+        return false;
     }
 }
