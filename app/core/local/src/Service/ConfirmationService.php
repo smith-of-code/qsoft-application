@@ -105,6 +105,11 @@ class ConfirmationService
         ]);
     }
 
+    /**
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     * @throws \Bitrix\Main\SystemException
+     */
     public function verifySmsCode(string $code): bool
     {
         $actualCode = ConfirmationTable::getActiveSmsCode($this->user->fUserID);
@@ -115,7 +120,7 @@ class ConfirmationService
         }
 
         if ($result) {
-            ConfirmationTable::deactivateCode($code);
+            ConfirmationTable::deactivateCode($actualCode);
         }
 
         return $result;
