@@ -252,7 +252,7 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
                                     </svg>
 
-                                    <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на <?=$arResult['levels']['consultant']['K2']['hold_level_terms']['self_total']?> рублей с учетом всех примененных скидок;</p>
+                                    <p class="profitability__tooltip-text">Ежемесячное совершение личных покупок на <?=$arResult['levels']['consultant']['K3']['hold_level_terms']['self_total']?> рублей с учетом всех примененных скидок;</p>
                                 </li>
 
                                 <li class="profitability__tooltip-item">
@@ -260,7 +260,7 @@
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check-mark"></use>
                                     </svg>
 
-                                    <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму <?=$arResult['levels']['consultant']['K2']['hold_level_terms']['team_total']?> рублей с учетом всех примененных скидок</p>
+                                    <p class="profitability__tooltip-text">Ежемесячное совершение покупок Вашей группой на общую сумму <?=$arResult['levels']['consultant']['K3']['hold_level_terms']['team_total']?> рублей с учетом всех примененных скидок</p>
                                 </li>
                             </ul>
                         </div>
