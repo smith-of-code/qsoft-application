@@ -15,10 +15,6 @@ html {
     position: relative;
     z-index: $z-index-html;
 
-    overflow-x: hidden;
-
-    margin-right: calc(-1 * (100vw - 100%));
-
     color: $color-text;
     background: $white;
 }
@@ -26,6 +22,9 @@ html {
 body {
     @include text-medium;
     overflow-y: scroll;
+    overflow-x: hidden;
+
+    margin-right: calc(-1 * (100vw - 100%));
 
     letter-spacing: 0.02em;
 

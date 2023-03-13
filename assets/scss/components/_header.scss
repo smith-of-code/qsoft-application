@@ -1,4 +1,7 @@
 .header {
+
+    margin-right: calc(-1 * (100vw - 100%));
+    
     border-bottom-right-radius: rem($gap-small);
     border-bottom-left-radius: rem($gap-small);
     box-shadow: $box-shadow-mini;
