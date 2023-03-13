@@ -112,7 +112,7 @@ class CSystemAuthRegistrationComponent {
 
     changeNeedProxy() {
       const dropzone = $('input[name=procuration]');
-        if ($(`#${$(this).attr('id')}`).val() === 'true') {
+        if ($(`#${$(this).attr('id')}`).val() !== 'true') {
             dropzone.parent().parent().show();
         } else {
             dropzone.parent().parent().hide();

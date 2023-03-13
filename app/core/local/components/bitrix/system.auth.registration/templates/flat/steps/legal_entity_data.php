@@ -912,7 +912,7 @@
                     </div>
                 </div>
 
-                <div class="section__box-block" <?=$arResult['procuration'] ? '' : 'style="display:none;"'?>>
+                <div class="section__box-block" <?=$arResult['procuration'] || ! isset($arResult['need_proxy']) || $arResult['need_proxy'] !== 'true' ? '' : 'style="display:none;"'?>>
                     <h6 class="box__heading box__heading--small">Загрузить копию доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                     <?php $APPLICATION->IncludeComponent('zolo:dropzone', '', [
