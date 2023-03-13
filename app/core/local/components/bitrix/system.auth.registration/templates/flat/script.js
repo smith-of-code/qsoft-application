@@ -32,7 +32,7 @@ class CSystemAuthRegistrationComponent {
       $(`.form input[type=checkbox]`).on('change', this.removeError);
       $(`.form input`).on('keyup', this.removeError);
       $('input[name=without_second_name]').on('change', this.blockInputByCheckbox);
-      $('input[name=need_proxy]').on('change', this.changeNeedProxy);
+      $('select[name=need_proxy]').on('change', this.changeNeedProxy);
       $('input[name=without_mentor_id]').on('change', this.clearInputByCheckbox);
       $('select[name=status]').on('change', this.changeLegalEntity);
       $(document).on('change', 'select[data-pet-kind]', this.checkBreedSelects);
@@ -112,7 +112,7 @@ class CSystemAuthRegistrationComponent {
 
     changeNeedProxy() {
       const dropzone = $('input[name=procuration]');
-        if ($(`#${$(this).attr('id')}:checked`).length) {
+        if ($(`#${$(this).attr('id')}`).val() === 'true') {
             dropzone.parent().parent().show();
         } else {
             dropzone.parent().parent().hide();
