@@ -41,11 +41,18 @@ function attach(items) {
     for (let i = 0; i < items.length; i++) {
         let item = items[i];
         let addition = document.querySelector('.cards-article__item').cloneNode(true);
+        // Картинка
         addition.querySelector('.card-article__banner-image').setAttribute('href', item['PICTURE']);
+        // Заголовок
         addition.querySelector('.card-article__title').innerText = item['NAME'];
+        // Анонс
         addition.querySelector('.card-article__text').innerText = item['PREVIEW_TEXT'];
+        // Дата публикации
         addition.querySelector('.card-article__send').innerHTML = item['PUBLISHED_AT'];
+        // URL детальной страницы
         addition.querySelector('.card-article__link').setAttribute('href', item['DETAIL_URL']);
+
+        // Маркер и цвет нижней полосы
         setMarker(item, addition);
         document.querySelector('.cards-article__list').appendChild(addition);
     }
@@ -53,9 +60,11 @@ function attach(items) {
 
 function setMarker(item, element = document) {
     let marker = element.querySelector('.card-article__label');
+    let article = element.querySelector('article.card-article');
     marker.innerText = item['MARKER_NAME'];
     marker.className = "card-article__label label label--secondary";
     marker.classList.add("label--" + item['MARKER_COLOR']);
+    article.className = "card-article card-article--" + item['MARKER_COLOR'] + " box box--hovering box--circle";
 }
 
 function hideShowMoreButton() {
