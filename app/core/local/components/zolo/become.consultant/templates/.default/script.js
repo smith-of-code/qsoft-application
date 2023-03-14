@@ -9,7 +9,7 @@ class BecomeConsultantComponent {
         $(`.form input`).on('keyup', this.removeError);
         $(`.form select, .form input[type=checkbox]`).on('change', this.removeError);
         $('select[name=status]').on('change', this.changeLegalEntity);
-        $('input[name=need_proxy]').on('change', this.changeNeedProxy);
+        $('select[name=need_proxy]').on('change', this.changeNeedProxy);
         $('input[name=without_living]').on('click', this.checkLivingBlock);
 
         $('button[data-submit]').on('click', this.changeStepListener);
@@ -78,7 +78,7 @@ class BecomeConsultantComponent {
 
     changeNeedProxy() {
         const dropzone = $('input[name=procuration]');
-        if ($(`#${$(this).attr('id')}:checked`).length) {
+        if ($(`#${$(this).attr('id')}`).val() !== 'true') {
             dropzone.parent().parent().show();
         } else {
             dropzone.parent().parent().hide();
