@@ -279,14 +279,14 @@ Loc::loadMessages(__FILE__);
                     <div class="form__col">
                         <div class="form__field">
                             <div class="form__field-block form__field-block--label">
-                                <label for="NEW_MENTOR_ID" class="form__label form__label--required">
+                                <label for="NEW_MENTOR_ID" class="form__label form__label">
                                     <span class="form__label-text">ID нового наставника</span>
                                 </label>
                             </div>
 
                             <div class="form__field-block form__field-block--input">
                                 <div class="input">
-                                    <input type="number" class="input__control js-required js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR" data-replace-input="number">
+                                    <input type="number" class="input__control js-number" name="NEW_MENTOR_ID" id="new-mentor-id" placeholder=""  data-variant-value="CHANGE_MENTOR" data-replace-input="number">
                                     <span class="input__control-error" style="display:none;"></span>
                                 </div>
                             </div>

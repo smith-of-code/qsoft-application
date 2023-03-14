@@ -150,16 +150,18 @@ class TechsupportFormHandlerComponent extends CBitrixComponent implements Contro
                 $result = $arFields[self::TICKET_TYPES['SUPPORT']];
                 break;
             case self::TICKET_TYPES['CHANGE_MENTOR']:
-                if ((int)$fields['NEW_MENTOR_ID'] === $user->id) {
-                    throw new Exception('ID нового наставника совпадает с вашим');
-                }
-                try {
-                    $mentor = new User($fields['NEW_MENTOR_ID']);
-                } catch (RuntimeException $e) {
-                    throw new Exception('Такого пользователя не существует');
-                }
-                if (!$mentor->active || !$mentor->groups->isConsultant() || in_array($mentor->id, $user->beneficiariesService->getTeamIds())) {
-                    throw new Exception('Указанный пользователь не может быть Вашим наставником');
+                if (!empty($fields['NEW_MENTOR_ID'])) {
+                    if ((int)$fields['NEW_MENTOR_ID'] === $user->id) {
+                        throw new Exception('ID нового наставника совпадает с вашим');
+                    }
+                    try {
+                        $mentor = new User($fields['NEW_MENTOR_ID']);
+                    } catch (RuntimeException $e) {
+                        throw new Exception('Такого пользователя не существует');
+                    }
+                    if (!$mentor->active || !$mentor->groups->isConsultant() || in_array($mentor->id, $user->beneficiariesService->getTeamIds())) {
+                        throw new Exception('Указанный пользователь не может быть Вашим наставником');
+                    }
                 }
 
                 $result = $arFields[self::TICKET_TYPES['CHANGE_MENTOR']];
