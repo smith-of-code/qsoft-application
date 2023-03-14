@@ -82,6 +82,14 @@
                 margin-top: 0;
             }
 
+            &--full {
+                .select__item {
+                    @media #{$screen-tablet} {
+                        max-width: 100% !important;
+                    }
+                }
+            }
+
             .select__item {
                 @media #{$screen-tablet} {
                     max-width: rem(176px);
