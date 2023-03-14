@@ -18,7 +18,6 @@ return [
 		'jquery.nicescroll',
 		'inputmask',
 		'tippy.js',
-		'loda',
 		'swiper',
 		'ui.vue3.pinia',
 	],
