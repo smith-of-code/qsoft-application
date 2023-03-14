@@ -59,8 +59,8 @@ export const SelectOfferMobile = {
                         <option v-for="(item) in packagings"
                                 v-bind:value="item.offerId"
                                 v-bind:selected="currentOfferId == item.offerId"
-                                v-bind:disabled="!offers.AVAILABLE[item.offerId]"
-                                v-bind:data-option-after="'<span class=&quot;stock ' + (offers.AVAILABLE[item.offerId] ? 'stock--yes' : '') + '&quot;>' +  (!offers.AVAILABLE[item.offerId] ? 'нет ' : '') + 'в наличии</span>'"
+                                v-bind:disabled="offers.AVAILABLE[item.offerId] !== 'true'"
+                                v-bind:data-option-after="'<span class=&quot;stock ' + (offers.AVAILABLE[item.offerId] === 'true' ? 'stock--yes' : '') + '&quot;>' +  (offers.AVAILABLE[item.offerId] !== 'true' ? 'нет ' : '') + 'в наличии</span>'"
                                 v-on:click="setOffer"
                         >
                             <span >{{item.package}}</span>
@@ -79,12 +79,12 @@ export const SelectOfferMobile = {
                                 v-on:click="setOffer"
                                 v-bind:value="getColorOffer(color)"
                                 v-bind:selected="currentOfferId == getColorOffer(color)"
-                                v-bind:disabled="!offers.AVAILABLE[getColorOffer(color)]"
+                                v-bind:disabled="offers.AVAILABLE[getColorOffer(color)] !== 'true'"
                                 v-bind:data-option-before="'<div class=&quot;color__item ' + color + '&quot;><div class=&quot;color__item-wrapper&quot;><img src=&quot;' + allColors[color].file_src + '&quot; class=&quot;color__item-pic&quot;></div></div>'"
                         >
                             &lt;span class=&quot;color__name&quot;&gt; {{ offers.COLOR_NAMES[color] }} &lt;/span&gt;
-                            &lt;span class=&quot;stock {{ (offers.AVAILABLE[getColorOffer(color)] ? ' stock--yes' : '') }} &quot;&gt;
-                            {{ (!offers.AVAILABLE[getColorOffer(color)] ? 'нет ' : '') }}в наличии &lt;/span&gt;
+                            &lt;span class=&quot;stock {{ (offers.AVAILABLE[getColorOffer(color)] === 'true' ? ' stock--yes' : '') }} &quot;&gt;
+                            {{ (offers.AVAILABLE[getColorOffer(color)] !== 'true' ? 'нет ' : '') }}в наличии &lt;/span&gt;
                         </option>
                     </select>
                 </div>
@@ -96,12 +96,12 @@ export const SelectOfferMobile = {
                         <option><!-- пустой option для placeholder --></option>
                         <option v-for="(item, size) in size2Color"
                                 v-bind:value="store.getIdBySize(size)"
-                                v-bind:disabled="!offers.AVAILABLE[store.getIdBySize(size)]"
+                                v-bind:disabled="offers.AVAILABLE[store.getIdBySize(size)] !== 'true'"
                                 v-bind:selected="currentOfferId == store.getIdBySize(size)"
                         >
                             {{ offers.SIZE_NAMES[size] }} &lt;span class=&quot;stock
-                            {{ (offers.AVAILABLE[store.getIdBySize(size)] ? ' stock--yes' : '') }}&quot;&gt;
-                            {{(!offers.AVAILABLE[store.getIdBySize(size)] ? 'нет' : '')}} в наличии&lt;/span&gt;
+                            {{ (offers.AVAILABLE[store.getIdBySize(size)] === 'true' ? ' stock--yes' : '') }}&quot;&gt;
+                            {{(offers.AVAILABLE[store.getIdBySize(size)] !== 'true' ? 'нет' : '')}} в наличии&lt;/span&gt;
                         </option>
                     </select>
                 </div>
