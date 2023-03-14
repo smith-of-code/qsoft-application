@@ -202,11 +202,13 @@ export default async function () {
         const basketTotalSale = basketAmoutOrderSale;
         const ndsTotal = Math.round(calcNds(basketTotalSale));
         const economyTotal = calcEconomy(basketAmoutOrder, basketTotalSale);
+        const bonusBalance = parseInt($(ELEMENTS_SELECTOR.bonusBalance).text().replace(/\s/g,''));
 
         acceptProductTotal(basketProductTotal);
         acceptNds(ndsTotal);
         acceptAmount(basketTotal);
         acceptEconomy(economyTotal);
+        acceptBonusBalance(bonusBalance);
         acceptBonusOrder(baseketBonusItem);
 
         return basketAmoutOrder
@@ -318,7 +320,7 @@ export default async function () {
         const resetEconomy = parseFloat(totalEconomy.replace(/,/g, '.')) - parseFloat(totalBonus);
         const resetTotal = parseFloat(totalBasket.replace(/,/g, '.')) + parseFloat(totalBonus);
 
-        $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus + ' ББ');
+        $(ELEMENTS_SELECTOR.bonusBalance).html(resetBonus.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
         acceptEconomy(resetEconomy);
         acceptTotal(resetTotal);
         bonusInput.find('.input__placeholder').html('Сколько баллов списать')
@@ -375,10 +377,6 @@ export default async function () {
         }
     }
 
-    function acceptBonusBalance(total) {
-        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
-    }
-
     function acceptAmount(total) {
         const spanWhole = $(ELEMENTS_SELECTOR.amount).find(".basket-card__total-whole");
         const spanRemains = $(ELEMENTS_SELECTOR.amount).find(".basket-card__total-remains");
@@ -400,8 +398,12 @@ export default async function () {
         $(ELEMENTS_SELECTOR.productTotal).html(total.toLocaleString('ru-RU'));
     }
 
+    function acceptBonusBalance(total) {
+        $(ELEMENTS_SELECTOR.bonusBalance).html(total.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
+    }
+
     function acceptBonusOrder(total) {
-        $(ELEMENTS_SELECTOR.bonusOrder).html(total.toLocaleString('ru-RU') + ' ББ');
+        $(ELEMENTS_SELECTOR.bonusOrder).html(total.toLocaleString('ru-RU', {minimumFractionDigits: 0}) + ' ББ');
     }
 
     function roundetPrice(price, whole, remains) {
