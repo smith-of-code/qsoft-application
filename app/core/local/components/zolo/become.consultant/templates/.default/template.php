@@ -886,7 +886,7 @@
                                                 <select class="select__control" name="need_proxy" id="need_proxy" data-select-control data-placeholder="Выберите право подписи">
                                                     <option><!-- пустой option для placeholder --></option>
                                                     <option value="true" <?=$arResult['need_proxy'] === 'true' ? 'selected' : ''?>>У меня есть право подписи документов ООО</option>
-                                                    <option value="false" <?=$arResult['need_proxy'] === 'false' ? 'selected' : ''?>>У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо</option>
+                                                    <option value="false" <?=$arResult['need_proxy'] === 'false' ? 'selected' : ''?>>У меня нет права подписи документов ООО, я хотел(а) бы добавить уполномоченное лицо</option>
                                                 </select>
                                             </div>
                                         </div>
