@@ -7,7 +7,7 @@ export default function inputRequired() {
     $(document).on('blur', ELEMENTS_SELECTOR.input, function () {
         let input = $(this);
         let value = input.val();
-        let span = `<span class="input__control-error">Обязательное поле</span>`;
+        let span = `<span class="input__control-error">Поле обязательно к заполнению</span>`;
         let checkSpan = input.parent().find('.input__control-error').length;
 
         if (!value) {

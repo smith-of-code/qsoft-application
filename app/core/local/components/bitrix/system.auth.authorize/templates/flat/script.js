@@ -9,7 +9,7 @@ class SystemAuthComponent {
           const passwordInput = $('input[data-password-input]');
           let login = loginInput.val().toString();
           let password = passwordInput.val().toString();
-          let span = `<span class="input__control-error">Обязательное поле</span>`;
+          let span = `<span class="input__control-error">Поле обязательно к заполнению</span>`;
           let hasErrors = false;
 
           loginInput.removeClass('input__control--error');
