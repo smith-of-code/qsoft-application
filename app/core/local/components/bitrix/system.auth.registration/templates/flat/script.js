@@ -461,7 +461,11 @@ class CSystemAuthRegistrationComponent {
                 })
             }
            
-            if ($(`.${registrationData.currentStep} .input__control--error`).length || $(`.${registrationData.currentStep} .dropzone--error`).length) {
+            if (
+                $(`.${registrationData.currentStep} .input__control--error`).length
+                || $(`.${registrationData.currentStep} .dropzone--error`).length
+                || $(`.${registrationData.currentStep} .file.dz-error`).length
+            ) {
                 return;
             }
         }

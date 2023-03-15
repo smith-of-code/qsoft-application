@@ -293,7 +293,7 @@ class BecomeConsultantComponent {
             }
         });
 
-        if ($('.input__control--error').length || $('.dropzone--error').length) {
+        if ($('.input__control--error').length || $('.dropzone--error').length || $('.file.dz-error').length) {
             return;
         }
 
