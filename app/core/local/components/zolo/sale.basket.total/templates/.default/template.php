@@ -10,7 +10,9 @@ $APPLICATION->setTitle('Корзина');?>
     <div class="basket__row">
         <div class="basket__col basket__col--full">
             <div class="cards-cart basket__cart" data-basket>
-                <div class="basket__cart-null heading heading--average">Корзина пуста</div>
+                <div class="basket__cart-null heading heading--average">
+                    <a class="button button--simple button--red" href="/catalog/">В корзине пока нет товаров, посмотрите Каталог</a>
+                </div>
 
                 <ul class="cards-cart__list basket__list" data-basket-list>
                     <?php foreach ($arResult['BASKET_ITEMS'] as $basketItem):?>
