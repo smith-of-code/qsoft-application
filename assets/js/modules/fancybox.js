@@ -34,7 +34,7 @@ export default function () {
 
             $('.fancybox-active').css('position', 'fixed');
             $('body').css('top', `${-offset}px`);
-            $('header').css('top', `${bitrixPanel.offsetHeight}px`);
+            $('header').css('top', bitrixPanel ? `${bitrixPanel.offsetHeight}px` : '0px');
         },
         beforeClose: function() {
             $('.fancybox-active').css('position', '');
@@ -56,7 +56,7 @@ export default function () {
 
             $('.fancybox-active').css('position', 'fixed');
             $('body').css('top', `${-offset}px`);
-            $('header').css('top', `${bitrixPanel.offsetHeight}px`);
+            $('header').css('top', bitrixPanel ? `${bitrixPanel.offsetHeight}px` : '0px');
         },
         beforeClose: function() {
             $('.fancybox-active').css('position', '');
@@ -75,7 +75,7 @@ export default function () {
 
             $('.fancybox-active').css('position', 'fixed');
             $('body').css('top', `${-offset}px`);
-            $('header').css('top', `${bitrixPanel.offsetHeight}px`);
+            $('header').css('top', bitrixPanel ? `${bitrixPanel.offsetHeight}px` : '0px');
         },
         beforeClose: function() {
             $('.fancybox-active').css('position', '');
