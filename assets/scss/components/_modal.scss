@@ -114,10 +114,12 @@
             }
 
             &-actions {
-                margin-bottom: rem($gap-big);
+                margin-bottom: 0;
+                padding-bottom: rem($gap-big);
 
                 @media #{$screen-tablet} {
-                    margin-bottom: rem(64px);
+                    margin-bottom: 0;
+                    padding-bottom: rem(48px);
                 }
             }
         }
