@@ -1323,7 +1323,7 @@ export const LegalEntity = {
                                                                 <option 
                                                                     value="false"
                                                                     :selected="mutableLegalEntity.documents.need_proxy === 'false'"
-                                                                >У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо</option>
+                                                                >У меня нет права подписи документов ООО, я хотел(а) бы добавить уполномоченное лицо</option>
                                                             </select>
                                                         </div>
                                                     </div>
