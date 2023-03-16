@@ -33,11 +33,6 @@ return  [
             'message' => 'Вы зарегистрированы на сайте AmeAppetite!',
             'link_template' => '/personal/',
         ],
-//        'CHANGE_ORDER' => [
-//            'message' => 'Ваше заказ был изменен. Информацию о заказе Вы можете узнать на детальной странице заказа.',
-//            'link_template' => '/personal/orders/#order_id#',
-//            'title_template' => 'Ваш заказ №#order_id# изменен'
-//        ],
     ],
 
     'CONSULTANT_UPGRADE' =>[
@@ -122,6 +117,10 @@ return  [
             ],
             'CHANGE_MENTOR' => [
                 'message' => 'У Вас новый Наставник: #FIO#, #phone#',
+                'link_template' => '/personal/',
+            ],
+            'CHANGE_MENTOR_SEARCH' => [
+                'message' => 'Ваша заявка рассмотрена. В ближайшее время Вам будет назначен новый наставник.',
                 'link_template' => '/personal/',
             ],
             'CHANGE_MENTOR_FOR_BUYERS' => [
