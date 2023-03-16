@@ -142,6 +142,11 @@
     }
 
     &__item.accordeon__item--opened & {
+
+        &__icon {
+            color: $brickRed;
+        }
+
         &__toggle {
             &-icon {
                 transform: rotate(180deg);
@@ -182,6 +187,7 @@
         }
 
         &__item.accordeon__item--opened {
+
             .accordeon__toggle {
                 &-icon {
                     transform: rotate(180deg) !important;
