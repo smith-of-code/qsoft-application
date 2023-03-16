@@ -41,7 +41,7 @@ class SupportTicketUpdateNotifier extends NotificationContent
             '#city#' => $this->ticket['MENTOR']['PERSONAL_CITY'],
         ];
 
-        if ($this->categorySid == 'CHANGE_MENTOR' && empty($this->ticket['MENTOR'])) {
+        if ($this->categorySid == 'CHANGE_MENTOR' && $this->acceptRequest == 'ACCEPTED' && empty($this->ticket['MENTOR'])) {
             return $this->notificationContent[$this->acceptRequest][$this->categorySid . '_SEARCH']['message'];
         }
 
