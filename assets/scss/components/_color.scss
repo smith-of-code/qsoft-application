@@ -183,7 +183,7 @@
     }
 
     &__name {
-        width: rem(115px);
+        max-width: rem(115px);
         word-break: break-word;
         white-space: normal;
     }
