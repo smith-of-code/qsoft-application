@@ -223,11 +223,11 @@ this.zolo = this.zolo || {};
             return '#C73C5E';
           } else if (label === 'За переход на К1') {
             return '#D26925';
-          } else if (label === 'За переход на К2') {
+          } else if (label === 'За переход на K2') {
             return '#C99308';
-          } else if (label === 'За переход на К3') {
+          } else if (label === 'За переход на K3') {
             return '#2D8859';
-          } else if (label === 'За удержание на К3') {
+          } else if (label === 'За удержание на K3') {
             return '#3887B5';
           } else {
             return '#333';
