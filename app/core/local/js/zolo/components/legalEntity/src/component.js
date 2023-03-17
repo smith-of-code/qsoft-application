@@ -38,6 +38,7 @@ export const LegalEntity = {
 
     mounted() {
         $('select[name=status]').on('change', () => this.changeLegalEntityType());
+        $('select[name=need_proxy]').on('change', () => this.changeNeedProxy());
     },
 
     methods: {
@@ -46,6 +47,9 @@ export const LegalEntity = {
         },
         changeLegalEntityType() {
             this.mutableLegalEntity.type = this.types[$('select[name=status]').val()];
+        },
+        changeNeedProxy() {
+            this.mutableLegalEntity.documents.need_proxy = $('select[name=need_proxy]').val();
         },
         edit() {
             this.editing = true;
@@ -1206,7 +1210,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе</h6>
+                                        <h6 class="box__heading box__heading--small">Копия свидетельства о постановке на учет российской организации в налоговом органе (ИНН)</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.tax_registration_certificate"
@@ -1271,7 +1275,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block">
-                                        <h6 class="box__heading box__heading--small">Копия приказа о вступлнеии в должность генерального директора</h6>
+                                        <h6 class="box__heading box__heading--small">Копия приказа о вступлении в должность генерального директора</h6>
 
                                       <Dropzone
                                           :files="mutableLegalEntity.documents.ceo_appointment"
@@ -1289,34 +1293,48 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="form__row">
-                                        <div class="form__col">
+                                        <div class="form__col form__col--full">
                                             <div class="form__field">
-                                                <div class="checkbox">
-                                                    <input
-                                                        type="checkbox"
-                                                        class="checkbox__input"
-                                                        name="need_proxy"
-                                                        id="need_proxy"
-                                                        :readonly="!editing"
-                                                        v-model="mutableLegalEntity.documents.need_proxy"
-                                                        :checked="mutableLegalEntity.documents.need_proxy" 
-                                                    >
-                    
-                                                    <label for="need_proxy" class="checkbox__label">
-                                                        <span class="checkbox__icon">
-                                                            <svg class="checkbox__icon-pic icon icon--check">
-                                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-check">
-                                                            </svg>
-                                                        </span>
-                    
-                                                        <span class="checkbox__text">У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо</span>
+                                                
+                                                <div class="form__field-block form__field-block--label">
+                                                    <label for="need_proxy" class="form__label form__label--required">
+                                                        <span class="form__label-text">Право подписи</span>
                                                     </label>
+                                                </div>
+                                                
+                                                <div class="form__field-block form__field-block--input">
+                                                    <div class="form__control">
+                                                        <div class="select select--mitigate" data-select>
+                                                            <select 
+                                                                class="select__control" 
+                                                                name="need_proxy" 
+                                                                id="need_proxy" 
+                                                                :readonly="!editing"
+                                                                data-select-control 
+                                                                data-placeholder="Выберите право подписи"
+                                                                >
+                                                                <option
+                                                                    :selected="mutableLegalEntity.documents.need_proxy !== 'true' && mutableLegalEntity.documents.need_proxy !== 'false'"
+                                                                ><!-- пустой option для placeholder --></option>
+                                                                <option 
+                                                                    value="true"
+                                                                    :selected="mutableLegalEntity.documents.need_proxy === 'true'"
+                                                                >У меня есть право подписи документов ООО</option>
+                                                                <option 
+                                                                    value="false"
+                                                                    :selected="mutableLegalEntity.documents.need_proxy === 'false'"
+                                                                >У меня нет права подписи документов ООО, я хотел(а) бы добавить уполномоченное лицо</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                     
-                                    <div class="section__box-block">
+                                    <div class="section__box-block"
+                                         v-show="mutableLegalEntity.documents.procuration || mutableLegalEntity.documents.need_proxy !== 'true'"
+                                    >
                                         <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
                                       <Dropzone
