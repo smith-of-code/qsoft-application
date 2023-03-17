@@ -12,6 +12,7 @@ export const LegalEntity = {
             originalLegalEntity: {},
             mutableLegalEntity: {},
             editing: false,
+            onceEdited: false,
             error: false,
         };
     },
@@ -80,7 +81,7 @@ export const LegalEntity = {
     },
 
     template: `
-        <div :id="componentId" class="profile__block legal_entity_block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div :id="componentId" class="profile__block legal_entity_block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing, 'accordeon__item--opened': onceEdited }">
             <section class="section">
                 <div class="form form--wraped form--separated">
                     <div class="section__box box box--gray box--rounded-sm">
@@ -88,7 +89,7 @@ export const LegalEntity = {
                             <h4 class="section__title section__title--closer">Юридические данные</h4>
 
                             <div class="profile__actions">
-                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="edit">
+                                <button v-show="!editing" type="button" class="profile__actions-button profile__actions-button--edit button button--simple button--red" @click="editing = true, onceEdited = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
