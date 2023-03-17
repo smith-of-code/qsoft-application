@@ -13,6 +13,78 @@ export const LegalEntity = {
             mutableLegalEntity: {},
             editing: false,
             error: false,
+            filesFields: [
+                'passport',
+                'tax_registration_certificate',
+                'bank_details',
+                'personal_tax_registration_certificate',
+                'usn_notification',
+                'ip_registration_certificate',
+                'llc_charter',
+                'llc_members',
+                'ceo_appointment',
+                'llc_registration_certificate',
+                'procuration',
+            ],
+            maskFields: [
+                'passport_series',
+                'passport_number',
+                'getting_date',
+                'register_postal_code',
+                'living_postal_code',
+                'ogrn',
+                'ogrnip',
+                'tin',
+                'kpp',
+                'bic',
+            ],
+            generalRequiredFields: [
+                'passport_series',
+                'passport_number',
+                'who_got',
+                'getting_date',
+                'passport',
+                'register_locality',
+                'register_street',
+                'register_house',
+                'register_apartment',
+                'register_postal_code',
+                'living_locality',
+                'living_street',
+                'living_house',
+                'living_apartment',
+                'living_postal_code',
+                'bank_name',
+                'bic',
+                'checking_account',
+                'correspondent_account',
+                'bank_details',
+            ],
+            requiredFields: {
+                STATUS_SELF_EMPLOYED: [
+                    'tin',
+                    'tax_registration_certificate',
+                ],
+                STATUS_IP: [
+                    'ip_name',
+                    'tin',
+                    'tax_registration_certificate',
+                    'ogrnip',
+                    'ip_registration_certificate',
+                ],
+                STATUS_JURIDICAL: [
+                    'ltc_full_name',
+                    'ltc_short_name',
+                    'ogrn',
+                    'tin',
+                    'tax_registration_certificate',
+                    'kpp',
+                    'llc_charter',
+                    'llc_members',
+                    'ceo_appointment',
+                    'llc_registration_certificate',
+                ],
+            },
         };
     },
 
@@ -27,12 +99,54 @@ export const LegalEntity = {
         },
     },
 
+    computed: {
+        canSave() {
+            if (JSON.stringify(this.originalLegalEntity) === JSON.stringify(this.mutableLegalEntity)) {
+                return false;
+            }
+
+            let result = true;
+            for (const document in this.mutableLegalEntity.documents) {
+                const value = this.mutableLegalEntity.documents[document];
+
+                if (
+                    !this.generalRequiredFields.includes(document)
+                    && !this.requiredFields[this.mutableLegalEntity.type.code].includes(document)
+                ) {
+                    continue;
+                }
+
+                if (!value.length && typeof value !== 'number') {
+                    if (document.indexOf('living_') !== -1 && this.mutableLegalEntity.documents['without_living']) {
+                        continue;
+                    }
+                    result = false;
+                    break;
+                }
+
+                if (this.maskFields.includes(document) && (!(!!value) || value.indexOf('_') !== -1)) {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        },
+    },
+
     setup() {
         return { legalEntityStore: useLegalEntityStore() };
     },
 
     created() {
         this.originalLegalEntity = JSON.parse(JSON.stringify(this.legalEntity));
+
+        for (const field of this.filesFields) {
+            if (this.originalLegalEntity.documents[field] === undefined) {
+                this.originalLegalEntity.documents[field] = [];
+            }
+        }
+
         this.initLegalEntity();
     },
 
@@ -58,14 +172,6 @@ export const LegalEntity = {
             this.editing = false;
         },
         saveChanges() {
-            this.error = false;
-            for (const document in this.mutableLegalEntity.documents) {
-                if (!document || !document.length) {
-                    this.error = true;
-                    return;
-                }
-            }
-
             this.legalEntityStore.saveLegalEntityData(this.mutableLegalEntity);
             this.editing = false;
 
@@ -736,7 +842,7 @@ export const LegalEntity = {
                                                                 id="checking_account"
                                                                 placeholder="Расчетный счет"
                                                                 :readonly="!editing"
-                                                                v-model="mutableLegalEntity.documents.bic"
+                                                                v-model="mutableLegalEntity.documents.checking_account"
                                                             >
                                                         </div>
                                                     </div>
@@ -1584,7 +1690,7 @@ export const LegalEntity = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="profile__button-save button button--rounded button--covered button--green button--full" @click="saveChanges">
+                                    <button type="button" :class="{ 'button--disabled': !canSave }" :disabled="canSave ? false : true" class="profile__button-save button button--rounded button--covered button--green button--full" @click="saveChanges">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>
