@@ -391,7 +391,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <?php endif;?>
                                 <div class="profile__actions">
                                     <a
-                                        class="profile__actions-button profile__actions-button--edit button button--simple button--red"
+                                        class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-mentor button button--simple button--red"
                                         data-fancybox data-modal-type="modal"
                                         href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
                                     >
