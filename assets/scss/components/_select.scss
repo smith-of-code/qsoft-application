@@ -508,6 +508,10 @@
         &[aria-disabled=true] {
             cursor: default;
         }
+
+        & .color__name {
+            width: rem(115px);
+        }
     }
 
     .select2-results__option--selected {
