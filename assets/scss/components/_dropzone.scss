@@ -118,6 +118,11 @@
 
         .file__info {
             width: auto;
+
+            @media #{$screen-tablet} {
+                width: 100%;
+            }
+            
         }
 
         .file__name {
@@ -132,17 +137,16 @@
         }
 
         .file__weight {
-            width: rem(74px);
+            width: auto;
             margin-right: rem(8px);
-            margin-left: 0;
+            margin-left: auto;
         }
         .file__delete {
-            margin-left: 0;
-            margin-right: rem(8px);
+            margin-left: auto;
         }
 
         .file__upload {
-            margin-left: 0;
+            display: none;
         }
     }
 
