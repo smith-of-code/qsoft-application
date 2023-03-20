@@ -1,9 +1,15 @@
 .requirement {
-    padding: rem(20px) rem($gap-medium);
+    padding: rem($gap-average) rem($gap-small);
+
+    @media #{$screen-tablet} {
+        padding: rem($gap-medium) rem($gap-small);
+    }
 
     @media #{$screen-desktop} {
         display: flex;
         justify-content: center;
+
+        padding: rem($gap-medium) rem($gap-medium);
     }
 
     &--inlined {
@@ -36,6 +42,8 @@
     &__text {
         @include text-miniature;
         font-weight: $font-weight-medium;
+
+        width: max-content;
     }
 
     &__list {
