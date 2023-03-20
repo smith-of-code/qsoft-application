@@ -68,13 +68,13 @@ export default function () {
                                         return '#D82F49'
                                     } else if (item === 'С товаров по персональной акции') {
                                         return '#C73C5E'
-                                    } else if (item === 'За переход на К1') {
+                                    } else if (item === 'За переход на K1') {
                                         return '#D26925'
-                                    } else if (item === 'За переход на К2') {
+                                    } else if (item === 'За переход на K2') {
                                         return '#C99308'
-                                    } else if (item === 'За переход на К3') {
+                                    } else if (item === 'За переход на K3') {
                                         return '#2D8859'
-                                    } else if (item === 'За удержание на К3') {
+                                    } else if (item === 'За удержание на K3') {
                                         return '#3887B5'
                                     } else {
                                         return '#333'

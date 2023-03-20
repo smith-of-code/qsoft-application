@@ -8,6 +8,7 @@ export const PersonalData = {
         return {
             mutableUserInfo: {},
             editing: false,
+            onceEdited: false,
             phoneError: false,
             emailError: false,
             passwordError: false,
@@ -38,6 +39,9 @@ export const PersonalData = {
     },
 
     computed: {
+        canSave() {
+            return JSON.stringify(this.userInfo) !== JSON.stringify(this.mutableUserInfo);
+        },
         userCity() {
             return Object.values(this.cities).find(city => city.name === this.mutableUserInfo.city);
         },
@@ -157,14 +161,14 @@ export const PersonalData = {
     },
 
     template: `
-        <div class="profile__block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing }">
+        <div class="profile__block accordeon__item" data-accordeon :class="{ 'profile__block--edit': editing, 'accordeon__item--opened': onceEdited }">
             <section class="section">
                 <form class="form form--wraped form--separated" action="" method="post" data-profile-form data-validation="profile">
                     <div class="section__box box box--gray box--rounded-sm">
                         <div class="profile__accordeon-header accordeon__header section__header">
                             <h4 class="section__title section__title--closer">Персональные данные</h4>
                             <div class="profile__actions">
-                                <button v-if="!editing" type="button" class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-personal button button--simple button--red" @click="editing = true">
+                                <button v-show="!editing" type="button" class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-personal button button--simple button--red" @click="editing = true, onceEdited = true">
                                     <span class="button__icon">
                                         <svg class="icon icon--edit">
                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-edit"></use>
@@ -657,7 +661,7 @@ export const PersonalData = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" @click="saveUserInfo">
+                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !canSave }" :disabled="canSave ? false : true" @click="saveUserInfo">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>

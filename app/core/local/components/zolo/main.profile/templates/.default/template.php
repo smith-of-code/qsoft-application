@@ -1,12 +1,15 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)  die();
-
+/**
+ * @var $APPLICATION
+ * @var $arResult
+ */
 use Bitrix\Main\Localization\Loc;
 
 global $APPLICATION;
 $APPLICATION->setTitle('Личный Кабинет');?>
 
 <div class="profile">
-    <?php if (!$arResult['personal_data']['is_consultant']): ?>
+    <?php if (! $arResult['personal_data']['is_consultant']): ?>
         <div class="profile__consultant consultant box box--gray box--rounded-sm">
             <div class="consultant__col consultant__col--left">
                 <p class="consultant__text">Стань консультантом и получи все привилегии <span class="consultant__text-accent">AmeБизнес</span></p>
@@ -388,7 +391,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                 <?php endif;?>
                                 <div class="profile__actions">
                                     <a
-                                        class="profile__actions-button profile__actions-button--edit button button--simple button--red"
+                                        class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-mentor button button--simple button--red"
                                         data-fancybox data-modal-type="modal"
                                         href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
                                     >

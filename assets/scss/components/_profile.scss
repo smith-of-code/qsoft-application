@@ -80,6 +80,14 @@
                     display: block;
                 }
             }
+
+            &.requirement {
+                &--inlined {
+                    @media #{$screen-tablet} {
+                        display: flex;
+                    }
+                }
+            }
         }
 
         &__notification {
@@ -250,11 +258,15 @@
 
                 @media #{$screen-tablet} {
                     display: flex;
-                    opacity: 0;
+                    visibility: hidden;
                 }
 
                 &-personal {
-                    opacity: 1;
+                    visibility: visible;
+                }
+
+                &-mentor {
+                    visibility: visible;
                 }
             }
 
@@ -388,7 +400,7 @@
            .profile__actions-button--edit {
                 @media #{$screen-tablet} {
                     display: flex;
-                    opacity: 1;
+                    visibility: visible;
                 }
             }
         }

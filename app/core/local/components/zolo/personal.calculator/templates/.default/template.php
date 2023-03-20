@@ -37,11 +37,17 @@
                         </div>
                     </div>
                 <?php else:?>
+                    <div class="profitability__hint" data-tippy-html>
+                    <svg class="icon icon--question-circle">
+                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                    </svg>
+
                     <div style="display: none;" data-tippy-template>
                         <div class="profitability__tooltip">
-                            <p class="profitability__tooltip-title">Поздравляем! Вы достигли максимального уровня</p>
+                            <p class="profitability__tooltip-title">Поздравляем! <br> Вы достигли максимального уровня</p>
                         </div>
                     </div>
+                </div>
                 <?php endif;?>
             </div>
 

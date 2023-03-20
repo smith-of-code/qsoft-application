@@ -21,6 +21,10 @@ html {
 
 body {
     @include text-medium;
+
+    right: 0;
+    left: 0;
+
     overflow-y: scroll;
     overflow-x: hidden;
 

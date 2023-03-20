@@ -74,23 +74,23 @@ export const LoyaltyReport = {
     methods: {
         acceptColor: (label) => {
             if (label === 'За покупки группы') {
-                return '#945DAB'
+              return '#945DAB';
             } else if (label === 'С личных покупок') {
-                return '#2C877F'
+              return '#2C877F';
             } else if (label === 'За приглашенных консультантов') {
-                return '#D82F49'
+              return '#D82F49';
             } else if (label === 'С товаров по персональной акции') {
-                return '#C73C5E'
+              return '#C73C5E';
             } else if (label === 'За переход на К1') {
-                return '#D26925'
-            } else if (label === 'За переход на К2') {
-                return '#C99308'
-            } else if (label === 'За переход на К3') {
-                return '#2D8859'
-            } else if (label === 'За удержание на К3') {
-                return '#3887B5'
+              return '#D26925';
+            } else if (label === 'За переход на K2') {
+              return '#C99308';
+            } else if (label === 'За переход на K3') {
+              return '#2D8859';
+            } else if (label === 'За удержание на K3') {
+              return '#3887B5';
             } else {
-                return '#333'
+              return '#333';
             }
         },
 

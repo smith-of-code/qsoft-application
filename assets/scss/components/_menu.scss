@@ -283,10 +283,12 @@
     &__division {
         margin-top: rem($gap-medium);
         padding-top: rem(36px);
-        padding-bottom: rem(70px);
+        padding-bottom: rem(144px);
 
         background-image: url('/local/templates/.default/images/animals.png');
-        background-size: cover;
+        background-size: contain;
+        background-color: #f4f3f6;
+        background-position: bottom;
         background-repeat: no-repeat;
 
         @media #{$screen-tablet} {
