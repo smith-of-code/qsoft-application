@@ -39,6 +39,9 @@ export const PersonalData = {
     },
 
     computed: {
+        canSave() {
+            return JSON.stringify(this.userInfo) !== JSON.stringify(this.mutableUserInfo);
+        },
         userCity() {
             return Object.values(this.cities).find(city => city.name === this.mutableUserInfo.city);
         },
@@ -658,7 +661,7 @@ export const PersonalData = {
                                 </div>
 
                                 <div class="section__actions-col">
-                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" @click="saveUserInfo">
+                                    <button type="button" class="profile__button-personal button button--rounded button--covered button--green button--full" :class="{ 'button--disabled': !canSave }" :disabled="canSave ? false : true" @click="saveUserInfo">
                                         <span class="button__text">Сохранить изменения</span>
                                     </button>
                                 </div>

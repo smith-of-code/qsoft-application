@@ -80,6 +80,14 @@
                     display: block;
                 }
             }
+
+            &.requirement {
+                &--inlined {
+                    @media #{$screen-tablet} {
+                        display: flex;
+                    }
+                }
+            }
         }
 
         &__notification {
