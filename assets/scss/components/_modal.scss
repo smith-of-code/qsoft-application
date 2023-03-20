@@ -95,12 +95,19 @@
 
         &__section {
             &--content {
-                height: rem(450px);
-                max-height: rem(650px);
-                padding-right: rem(30px);
+                min-height: rem(320px);
+                max-height: rem(505px);
 
                 @media #{$screen-tablet} {
                     padding-right: rem(200px);
+                }
+
+                &.os-host-overflow-y {
+                    padding-right: rem(30px);
+
+                    @media #{$screen-tablet} {
+                        padding-right: rem(200px);
+                    }
                 }
 
                 .os-scrollbar-vertical {
@@ -114,10 +121,12 @@
             }
 
             &-actions {
-                margin-bottom: rem($gap-big);
+                margin-bottom: 0;
+                padding-bottom: rem($gap-big);
 
                 @media #{$screen-tablet} {
-                    margin-bottom: rem(64px);
+                    margin-bottom: 0;
+                    padding-bottom: rem(64px);
                 }
             }
         }
