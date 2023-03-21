@@ -8,9 +8,17 @@ export const Dropzone = {
             type: Array,
             default: [],
         },
+        formats: {
+            type: String,
+            default: '.pdf,.jpg,.jpeg,.png',
+        },
         editing: {
             type: Boolean,
             default: false,
+        },
+        maxFiles: {
+            type: Number,
+            default: 10,
         },
     },
 
@@ -26,20 +34,32 @@ export const Dropzone = {
 
     methods: {
         async uploadFile(event) {
+            let totalFilesCount = this.files.length;
+            if (totalFilesCount >= this.maxFiles) {
+                return;
+            }
             const data = new FormData();
             for (let i = 0; i < event.target.files.length; i++) {
                 data.append(`file-${i}`, event.target.files[i]);
+                totalFilesCount += 1;
+                if (totalFilesCount >= this.maxFiles) {
+                    break;
+                }
             }
             const response = await this.store.uploadFile(data);
-            for (const fileInfo of response.data) {
-                this.files.push(fileInfo);
+            if (response.data.length > 0) {
+                for (const fileInfo of response.data) {
+                    this.files.push(fileInfo);
+                }
+                this.$emit('upload', response.data);
             }
-            this.$emit('upload', response.data);
         },
         deleteFile(file) {
             // this.store.deleteFile(file.id); Файлы не удаляются т.к. они нужны для тикетов тех поддержки
             this.files.splice(this.files.indexOf(file), 1);
-            this.$emit('delete', file.id);
+            if (file.id > 0) {
+                this.$emit('delete', file.id);
+            }
         },
     },
 
@@ -54,7 +74,16 @@ export const Dropzone = {
       </div>
       
       <div class="dropzone">
-          <input type="file" ref="file" :name="componentId" :id="componentId" multiple class="dropzone__control" @change="uploadFile($event)">
+          <input 
+          type="file" 
+          ref="file" 
+          :name="componentId" 
+          :id="componentId" 
+          multiple 
+          class="dropzone__control" 
+          @change="uploadFile($event)" 
+          :accept="formats"
+          >
           <div class="dropzone__area">
             <div class="profile__toggle dropzone__message dz-message needsclick">
               <label :for="componentId" class="dropzone__button dropzone__button--profile button button--medium button--rounded button--covered button--red">
@@ -83,7 +112,7 @@ export const Dropzone = {
                   </div>
     
                   <div class="file__info">
-                    <div class="file__format">{{ file.src.slice(-5) == '.heic' ? 'HEIC' : file.format }}</div>
+                    <div class="file__format">{{ file.format }}</div>
                     <div class="file__weight">{{ file.size }}</div>
     
                     <div v-if="editing" class="file__delete">
@@ -106,7 +135,7 @@ export const Dropzone = {
                     </div>
                   </div>
                 </div>
-                <div class="file__error"></div>
+                <div class="file__error" data-dz-errormessage="">{{ file.error }}</div>
               </div>
             </div>
           </div>

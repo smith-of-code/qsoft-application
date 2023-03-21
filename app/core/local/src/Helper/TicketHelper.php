@@ -54,6 +54,27 @@ class TicketHelper
 
     public function createTicket(int $userId, string $category, string $data): int
     {
+        $data = json_decode($data, true, 512, JSON_UNESCAPED_UNICODE);
+
+        // Убираем ошибочные записи файлов (с id = 0)
+        // Это нужно, чтобы не добавлялись записи с файлами, превысившими лимит по размеру
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $index => $file) {
+                    if (isset($file['id'])
+                        && isset($file['name'])
+                        && isset($file['format'])
+                        && isset($file['size'])
+                        && intval($file['id']) == 0
+                    ) {
+                        unset($data[$key][$index]);
+                    }
+                }
+            }
+        }
+
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
         if (!in_array($category, array_keys(self::CATEGORIES))) {
             $error = new RuntimeException('Incorrect ticket category');
             Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
