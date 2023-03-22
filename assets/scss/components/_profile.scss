@@ -88,6 +88,32 @@
                     }
                 }
             }
+
+            & .requirement__col {
+                &--right {
+                    margin-top: rem($gap-mini);
+                    margin-left: rem($gap-small);
+
+                    @media #{$screen-tablet} {
+                        margin-top: 0;
+                        margin-left: rem($gap-average);
+                    }
+        
+                    @media #{$screen-desktop} {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.section__actions {
+                display: flex;
+                flex-direction: column-reverse;
+
+                @media #{$screen-tablet} {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
         }
 
         &__notification {
