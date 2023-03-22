@@ -108,6 +108,12 @@
         }
     }
 
+    &--detail {
+        a {
+            cursor: zoom-in;
+        }
+    }
+
     &__link {
         @include position-stretching;
     }
