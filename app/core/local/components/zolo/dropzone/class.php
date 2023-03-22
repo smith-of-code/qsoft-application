@@ -162,6 +162,10 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
         $files = Context::getCurrent()->getRequest()->getFileList()->toArray();
         foreach ($files as $file) {
 
+            if (isset($error)) {
+                unset($error);
+            }
+
             // Валидация формата файла
             $extension = $this->getFormat($file);
             if (! isset($extension) || ! in_array(strtolower($extension), $this->arParams['ALLOWABLE_FORMATS'], true)) {
