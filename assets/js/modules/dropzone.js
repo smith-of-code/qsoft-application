@@ -39,7 +39,7 @@ const DATA_ATTRIBUTES = {
 const baseConfig = {
     paramName: '',
     url: targetUrl,
-    acceptedFiles: '.jpg, .jpeg, .png, .heic, .pdf',
+    acceptedFiles: '.jpg, .jpeg, .png, .pdf',
     addRemoveLinks: false,
     dictRemoveFile: '',
     dictCancelUpload: '',

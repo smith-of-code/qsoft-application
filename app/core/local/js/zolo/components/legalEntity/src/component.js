@@ -178,6 +178,16 @@ export const LegalEntity = {
         },
         saveChanges() {
             this.legalEntityStore.saveLegalEntityData(this.mutableLegalEntity);
+
+            let hasWrongFiles = false;
+            $(`#${this.componentId} [data-dz-errormessage]`).each(function () {
+                if ($(this).text().length > 0) hasWrongFiles = true;
+            });
+
+            if (hasWrongFiles) {
+                return;
+            }
+
             this.editing = false;
 
             this.originalLegalEntity = JSON.parse(JSON.stringify(this.mutableLegalEntity));

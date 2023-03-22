@@ -17,10 +17,26 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
     public function onPrepareComponentParams($arParams): array
     {
         $arParams['IBLOCK_ID'] = intval($arParams['IBLOCK_ID']);
-        if (!$arParams['NAME']) {
+
+        if (! $arParams['NAME']) {
             $arParams['NAME'] = 'file';
         }
-        if (!$arParams['FILES']) {
+
+        if (! $arParams['ALLOWABLE_FORMATS']) {
+            $arParams['ALLOWABLE_FORMATS'] = 'pdf, jpg, jpeg, png';
+        }
+        $arParams['ALLOWABLE_FORMATS'] = explode(',', strtolower(preg_replace('/\s+/', '', $arParams['ALLOWABLE_FORMATS'])));
+
+        if (! $arParams['MAX_FILE_SIZE']) {
+            $arParams['MAX_FILE_SIZE'] = 5242880; // 5 Мб
+        }
+        $arParams['MAX_FILE_SIZE'] = intval($arParams['MAX_FILE_SIZE']);
+
+        if (! $arParams['MAX_FILES']) {
+            $arParams['MAX_FILES'] = 10; // не более 10 файлов
+        }
+
+        if (! $arParams['FILES']) {
             $arParams['FILES'] = [];
         }
         return $arParams;
@@ -58,9 +74,8 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
         } catch (SystemException|\Throwable $e) {
             global $APPLICATION;
             $APPLICATION->RestartBuffer();
-            echo json_encode(['test' => $e->getMessage()]);
+            echo json_encode(['error' => $e->getMessage()]);
             die();
-            ShowError($e->getMessage());
         }
     }
 
@@ -146,16 +161,59 @@ class DropzoneComponent extends CBitrixComponent implements Controllerable
         $result = [];
         $files = Context::getCurrent()->getRequest()->getFileList()->toArray();
         foreach ($files as $file) {
-            $fileId = CFile::SaveFile($file, 'dropzone');
-            $result[] = [
-                'id' => $fileId,
+
+            // Валидация формата файла
+            $extension = $this->getFormat($file);
+            if (! isset($extension) || ! in_array(strtolower($extension), $this->arParams['ALLOWABLE_FORMATS'], true)) {
+                continue; // Пропускаем файл
+            }
+
+            // Валидация размера файла
+            if (! isset($file['size']) || intval($file['size']) <= 0 || intval($file['size']) > $this->arParams['MAX_FILE_SIZE']) {
+                $error = 'Размер вложения превышает допустимый предел';
+            }
+
+            if (! isset($error)) {
+                $fileId = CFile::SaveFile($file, 'dropzone');
+            }
+            $resultFileProps = [
+                'id' => $fileId ?? 0,
                 'name' => $file['name'],
-                'format' => explode('/', strtoupper($file['type']))[1],
-                'size' => filesizeFormat($file['size']),
-                'src' => CFile::GetPath($fileId),
+                'format' => $extension,
+                'size' => filesizeFormat($file['size'])
             ];
+            if (isset($fileId) && $fileId > 0) {
+                $resultFileProps['src'] = CFile::GetPath($fileId) ?? '';
+            }
+            if (isset($error)) {
+                $resultFileProps['error'] = $error;
+            }
+            $result[] = $resultFileProps;
         }
         return $result;
+    }
+
+    /**
+     * @param $file array массив, содержащий информацию о файле (название, MIME-тип)
+     * @return string|null формат файла (пример: "PDF")
+     */
+    public function getFormat($file) : ?string
+    {
+        $extension = '';
+        if ($file['type']) {
+            $extension = explode('/', strtoupper($file['type']))[1];
+        }
+        if (! $extension || empty($extension) || $extension === 'OCTET-STREAM') {
+            // Получим формат по расширению в имени файла
+            if (isset($file['name']) && ! empty($file['name'])) {
+                $splittedName = explode('.', $file['name']);
+                if (is_array($splittedName)) $extension = last($splittedName);
+                else $extension = null;
+            } else {
+                $extension = null;
+            }
+        }
+        return $extension;
     }
 
     public function deleteAction(int $id): void

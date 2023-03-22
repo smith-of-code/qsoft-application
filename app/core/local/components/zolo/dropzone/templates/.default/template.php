@@ -10,7 +10,7 @@
                 <ul class="dropzone__message-list">
                     <li class="dropzone__message-item">до 10 файлов</li>
                     <li class="dropzone__message-item">вес каждого файла не более 5 МБ</li>
-                    <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG, HEIC</li>
+                    <li class="dropzone__message-item">форматы файлов: PDF, JPG, JPEG, PNG</li>
                 </ul>
             </div>
 
