@@ -577,6 +577,7 @@ export const PersonalData = {
                                                                 data-password-input
                                                                 :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.password"
+                                                                autocomplete="off"
                                                             >
                                                             <button class="input__icon input__icon-password" data-password-toggle>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
@@ -611,6 +612,7 @@ export const PersonalData = {
                                                                 data-password-input
                                                                 :class="{ 'input__control--error': passwordError && !validatePassword }"
                                                                 v-model="mutableUserInfo.confirm_password"
+                                                                autocomplete="off"
                                                             >
                                                             <button class="input__icon input__icon-password" data-password-toggle>
                                                                 <svg class="input__icon-password-icon input__icon-password-icon--show icon icon--eye">
