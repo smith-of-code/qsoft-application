@@ -19,6 +19,7 @@ use QSoft\Helper\BuyerLoyaltyProgramHelper;
 use QSoft\Helper\ConsultantLoyaltyProgramHelper;
 use QSoft\Helper\HlBlockHelper;
 use QSoft\Helper\PetHelper;
+use QSoft\Helper\UserGroupHelper;
 use QSoft\Logger\Logger;
 use QSoft\ORM\ConfirmationTable;
 use QSoft\ORM\Decorators\EnumDecorator;
@@ -250,13 +251,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     $value = $value['files'];
                 } else {
                     $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
-                    $filePath = "/upload/register/$field" . uniqid() . $value['name'];
-                    file_put_contents("$_SERVER[DOCUMENT_ROOT]$filePath", $file);
-                    $arFile = CFile::MakeFileArray("$_SERVER[DOCUMENT_ROOT]$filePath");
-                    $fileId = CFile::SaveFile($arFile, "$_SERVER[DOCUMENT_ROOT]$filePath");
+                    $fileName = preg_replace('/[^a-zA-Zа-яА-ЯЁё._-]/', '', $value['name']);
+                    $filePath = "/register/$field" . uniqid() . $fileName;
+                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/upload' . $filePath, $file);
+                    $arFile = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"] . '/upload' . $filePath);
+                    $fileId = CFile::SaveFile($arFile, $filePath);
                     $value = [
                         'id' => $fileId,
-                        'src' => $filePath,
+                        'src' => '/upload' . $filePath,
                     ];
                 }
             }
@@ -292,6 +294,12 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         return ['status' => $verifyResult ? 'success' : 'error'];
     }
 
+    /**
+     * @throws ObjectException
+     * @throws ObjectPropertyException
+     * @throws ArgumentException
+     * @throws SystemException
+     */
     public function registerAction(array $data): array
     {
         try {
@@ -345,16 +353,32 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         $user = new CUser;
         $registrationData = $this->getRegisterData();
 
+        // Если по какой-то причине тип пользователя не определён
+        if (! isset($registrationData['type']) || ! in_array($registrationData['type'], ['consultant', 'buyer'], true)) {
+            if (isset($data['status'])) {
+                $registrationData['type'] = 'consultant';
+            } else {
+                $registrationData['type'] = 'buyer';
+            }
+        }
+
         $loyaltyProgramHelper = $registrationData['type'] === 'consultant' ? new ConsultantLoyaltyProgramHelper : new BuyerLoyaltyProgramHelper;
         $firstLevel = $loyaltyProgramHelper->getLowestLevel();
         $levelsIDs = $loyaltyProgramHelper->getLevelsIDs();
 
-        $userGroupId = GroupTable::getRow([
-            'filter' => [
-                '=STRING_ID' => $registrationData['type'],
-            ],
-            'select' => ['ID'],
-        ])['ID'];
+        $groups = UserGroupHelper::getAllUserGroups();
+
+        $userGroupId = intval($groups[$registrationData['type']]);
+
+        if (
+            ($userGroupId != intval($groups['consultant']) && $userGroupId != intval($groups['buyer']))
+            || $userGroupId <= 0
+        ) {
+            $error = new Exception('Ошибка определения роли пользователя');
+            Logger::createFormatedLog(__CLASS__, LogLevel::ERROR, $error->getMessage());
+
+            throw $error;
+        }
 
         $result = $user->Register(
             uniqid('user_', true),
@@ -494,6 +518,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
         $this->setRegisterData(array_merge($registrationData, ['currentStep' => 'final']));
 
+        // Сбрасываем данные регистрации в сессии, чтобы при повторной регистрации снова началось с 1 этапа
+        $this->resetRegisterData();
+
         return ['status' => 'success'];
     }
 
@@ -509,5 +536,10 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     {
         Application::getInstance()->getSession()->set(self::SESSION_KEY, $data);
         return $data;
+    }
+
+    private function resetRegisterData()
+    {
+        Application::getInstance()->getSession()->remove(self::SESSION_KEY);
     }
 }

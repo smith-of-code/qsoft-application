@@ -73,13 +73,8 @@ class OrderHelper
             'filter' => [
                 '=USER_ID' => $userId,
                 '!=COUPON.ID' => null,
-                [
-                    'LOGIC' => 'OR',
-                    ['=TRANSACTION.ID' => null],
-                    ['=TRANSACTION.UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points'])],
-                ],
             ],
-            'select' => ['ID', 'ACCOUNT_NUMBER', 'PRICE', 'DATE_INSERT', 'BONUSES' => 'TRANSACTION.UF_AMOUNT'],
+            'select' => ['ID', 'ACCOUNT_NUMBER', 'PRICE', 'DATE_INSERT'],
             'runtime' => [
                 'COUPON' => [
                     'data_type' => OrderCouponsTable::class,
@@ -91,6 +86,33 @@ class OrderHelper
                 ],
             ],
         ]);
+
+        // Подсчитываем баллы, полученные по заказу
+        if (isset($order['ID'])) {
+            $bonusTransactions = TransactionTable::getList([
+                'filter' => [
+                    '=UF_USER_ID' => $userId,
+                    '=UF_ORDER_ID' => $order['ID'],
+                    '=UF_MEASURE' => EnumDecorator::prepareField('UF_MEASURE', TransactionTable::MEASURES['points']),
+                    [
+                        'LOGIC' => 'OR',
+                        ['=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['personal'])],
+                        ['=UF_SOURCE' => EnumDecorator::prepareField('UF_SOURCE', TransactionTable::SOURCES['purchase_with_personal_promotion'])],
+                    ],
+                ],
+                'select' => ['UF_AMOUNT'],
+            ]);
+
+            $bonuses = 0;
+
+            while ($transaction = $bonusTransactions->fetch()) {
+                $bonuses += intval($transaction['UF_AMOUNT']);
+            }
+        }
+
+        if (isset($bonuses) && $bonuses > 0) {
+            $order['BONUSES'] = $bonuses;
+        }
 
         return $order ? [array_combine(
             array_map(static fn (string $key): string => strtolower($key), array_keys($order)),
