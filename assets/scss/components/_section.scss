@@ -171,11 +171,21 @@
                 width: 50%;
             }
 
+            & {
+                margin-bottom: rem($gap-mini);
+
+                @media #{$screen-tablet} {
+                    margin-bottom: 0;
+                }
+            }
+
             & + & {
-                margin-top: rem($gap-medium);
+                margin-top: 0;
+                margin-bottom: rem($gap-medium);
 
                 @media #{$screen-tablet} {
                     margin-top: 0;
+                    margin-bottom: 0;
                     margin-left: rem($gap-medium);
                 }
             }
