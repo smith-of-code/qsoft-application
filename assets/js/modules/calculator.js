@@ -199,7 +199,7 @@ export default function () {
         let property = getDataLevelProperty(calcRange);
         let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
         value = value - value % property.standardPoints;
-        $(this).val(value);
+        $(this).val(value.toLocaleString('ru-RU'));
 
         let currentPoint = (value - value % property.standardPoints) / property.standardPoints * property.stepPoints;
         currentPoint = Math.floor(currentPoint);
@@ -217,7 +217,7 @@ export default function () {
         let property = getDataLevelProperty(calcRange);
         let value = +$(this).val().replace(/\s/g, "").replace(/,/g,"");
         value = value - value % property.stepPoints;
-        $(this).val(value);
+        $(this).val(value.toLocaleString('ru-RU'));
 
         let currentRub = (value - value % property.stepPoints) / property.stepPoints * property.standardPoints;
         currentRub = Math.floor(currentRub);
