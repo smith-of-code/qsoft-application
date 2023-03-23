@@ -79,7 +79,16 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
     protected $isRequestViaAjax;
     protected $user = null;
 
-	public function onPrepareComponentParams($arParams)
+    /**
+     * @throws Main\NotImplementedException
+     * @throws Main\ArgumentNullException
+     * @throws Main\LoaderException
+     * @throws Main\ArgumentTypeException
+     * @throws Main\ArgumentOutOfRangeException
+     * @throws Main\InvalidOperationException
+     * @throws Main\ArgumentException
+     */
+    public function onPrepareComponentParams($arParams)
 	{
 		global $APPLICATION;
 
@@ -189,8 +198,32 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
 		$siteId = $this->getSiteId();
 
+		$basketHelper = (new QSoft\Helper\BasketHelper)->getBasket(true);
+
+		// Валидируем списываемые баллы
+        $useBonuses = 0;
+        if (isset($_POST['bonuses'])) {
+            $useBonuses = intval($_POST['bonuses']);
+            if ($useBonuses <= 0) {
+                $useBonuses = 0;
+            }
+
+            // Ограничиваем не более количества баллов на счету
+            if ($useBonuses > $this->user->bonusPoints) {
+                $useBonuses = $this->user->bonusPoints;
+            }
+
+            $price = $basketHelper->getPrice();
+
+            // Ограничиваем не более 99% от текущей стоимости заказа
+            $priceLimit = $price * 0.99;
+            if ($useBonuses > $priceLimit) {
+                $useBonuses = floor($priceLimit);
+            }
+        }
+
 		$this->arResult = [
-            'BONUSES_SUBTRACT' => ((int) $_POST['bonuses']) ?: 0,
+            'BONUSES_SUBTRACT' => $useBonuses,
             'PERSON_TYPE' => [],
 			'PAY_SYSTEM' => [],
 			'ORDER_PROP' => [],

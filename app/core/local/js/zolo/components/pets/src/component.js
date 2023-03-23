@@ -267,7 +267,7 @@ export const Pets = {
                                                                     class="input__control"
                                                                     name="UF_NAME"
                                                                     id="text19"
-                                                                    placeholder="Выбрать"
+                                                                    placeholder="Введите кличку питомца"
                                                                     data-pets-name-input
                                                                     v-model="pet.name"
                                                                 >
