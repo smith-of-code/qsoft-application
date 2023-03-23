@@ -94,7 +94,8 @@ class UserEventsListener
             ]);
 
             if ($APPLICATION->GetCurPage() == '/bitrix/admin/user_edit.php') {
-                self::sendNotification('CHANGE_MENTOR', $fields);
+                $userData['UF_MENTOR_ID'] = $fields['UF_MENTOR_ID'];
+                self::sendNotification('CHANGE_MENTOR', $userData);
             }
 
             if (
