@@ -484,6 +484,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     'ltc_address_1' => $data['ltc_address_1'],
                     'ltc_address_2' => $data['ltc_address_2'],
                     'ltc_postal_code' => $data['ltc_postal_code'],
+                    'need_proxy' => $data['need_proxy'],
                 ];
 
                 if (! isset($data['need_proxy']) || $data['need_proxy'] !== 'true') {

@@ -915,20 +915,23 @@ $arResult = $ticketData['documents'];?>
                 </div>
 
                 <div class="form__row">
-                    <div class="form__col">
+                    <div class="form__col form__col--full">
                         <div class="form__field">
-                            <div class="checkbox">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox__input"
-                                        name="need_proxy"
-                                        id="need_proxy"
-                                    <?=$arResult['need_proxy'] ? 'checked' : ''?>
-                                >
-
-                                <label for="need_proxy" class="checkbox__label">
-                                    <span class="checkbox__text">У меня нет права подписи документов ООО, я хотел бы добавить уполномоченное лицо</span>
+                            <div class="form__field-block form__field-block--label">
+                                <label for="need_proxy" class="form__label form__label--required">
+                                    <span class="form__label-text">Право подписи</span>
                                 </label>
+                            </div>
+
+                            <div class="form__field-block form__field-block--input">
+                                <div class="form__control">
+                                    <div class="select select--mitigate" data-select>
+                                        <select class="select__control" name="need_proxy" id="need_proxy" data-select-control data-placeholder="Выберите право подписи">
+                                            <option value="true" <?=$arResult['need_proxy'] === 'true' ? 'selected' : ''?>>У меня есть право подписи документов ООО</option>
+                                            <option value="false" <?=$arResult['need_proxy'] === 'false' ? 'selected' : ''?>>У меня нет права подписи документов ООО, я хотел(а) бы добавить уполномоченное лицо</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
