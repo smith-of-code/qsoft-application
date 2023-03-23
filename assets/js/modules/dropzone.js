@@ -217,10 +217,10 @@ function uploadFiles(el) {
             self.on('success', (file, data) => {
                 //для интеграции с бэком
                 let decData = JSON.parse(data);
-                let photoID = decData["FILE_ID"];
-                file.id = photoID;
+                file.id = decData["FILE_ID"];
 
                 $(file.previewElement).find('[data-dropzone-file]').val(file.id);
+                $(file.previewElement).closest('[data-uploader]').find('input[type=file]').trigger('change');
             });
         },
     });

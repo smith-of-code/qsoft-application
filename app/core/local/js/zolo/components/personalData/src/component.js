@@ -66,6 +66,12 @@ export const PersonalData = {
         this.initUserInfo();
     },
 
+    mounted() {
+        $('input[type=file][name=photo]').on('change', () => {
+            this.mutableUserInfo.photo_id = $('input[type=file][name=photo]').parent().find('input[type=hidden]').val();
+        });
+    },
+
     methods: {
         initUserInfo() {
             this.mutableUserInfo = JSON.parse(JSON.stringify(this.userInfo));
@@ -211,7 +217,7 @@ export const PersonalData = {
                                     </div>
 
                                     <div class="profile__dropzone dropzone dropzone--image dropzone--simple" data-uploader>
-                                        <input type="file" name="photo" multiple class="dropzone__control js-required">
+                                        <input type="file" name="photo" class="dropzone__control js-required">
                                         <div class="dropzone__area">
                                             <div class="dropzone__message dropzone__message--simple dz-message needsclick">
                                                 <div class="dropzone__message-button dz-button link needsclick" data-uploader-previews>
