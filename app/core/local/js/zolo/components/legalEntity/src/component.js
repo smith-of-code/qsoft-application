@@ -55,21 +55,20 @@ export const LegalEntity = {
                 'living_house',
                 'living_apartment',
                 'living_postal_code',
+                'tin',
+                'tax_registration_certificate',
                 'bank_name',
                 'bic',
                 'checking_account',
                 'correspondent_account',
-                'bank_details',
             ],
             requiredFields: {
                 STATUS_SELF_EMPLOYED: [
-                    'tin',
-                    'tax_registration_certificate',
+                    'personal_tax_registration_certificate',
                 ],
                 STATUS_IP: [
                     'ip_name',
-                    'tin',
-                    'tax_registration_certificate',
+                    'usn_notification',
                     'ogrnip',
                     'ip_registration_certificate',
                 ],
@@ -77,13 +76,19 @@ export const LegalEntity = {
                     'ltc_full_name',
                     'ltc_short_name',
                     'ogrn',
-                    'tin',
-                    'tax_registration_certificate',
+                    'usn_notification',
                     'kpp',
                     'llc_charter',
                     'llc_members',
                     'ceo_appointment',
                     'llc_registration_certificate',
+                    'need_proxy',
+                    'procuration',
+                    'ltc_locality',
+                    'ltc_street',
+                    'ltc_address_1',
+                    'ltc_address_2',
+                    'ltc_postal_code',
                 ],
             },
         };
@@ -121,6 +126,12 @@ export const LegalEntity = {
                     if (document.indexOf('living_') !== -1 && this.mutableLegalEntity.documents['without_living']) {
                         continue;
                     }
+                    if (document === 'procuration' && this.mutableLegalEntity.documents['need_proxy'] === 'true') {
+                        continue;
+                    }
+                    if (document === 'usn_notification' && this.mutableLegalEntity.documents['nds_payer']) {
+                        continue;
+                    }
                     result = false;
                     break;
                 }
@@ -145,6 +156,13 @@ export const LegalEntity = {
         for (const field of this.filesFields) {
             if (this.originalLegalEntity.documents[field] === undefined) {
                 this.originalLegalEntity.documents[field] = [];
+            }
+            if (field == 'procuration') {
+                if (this.originalLegalEntity.documents[field] === undefined) {
+                    this.originalLegalEntity.documents.need_proxy = 'true';
+                } else {
+                    this.originalLegalEntity.documents.need_proxy = 'false';
+                }
             }
         }
 
@@ -979,8 +997,8 @@ export const LegalEntity = {
                                                             name="nds_payer_ip"
                                                             id="nds_payer_ip"
                                                             :readonly="!editing"
-                                                            v-model="mutableLegalEntity.documents.nds_payer_ip"
-                                                            :checked="mutableLegalEntity.documents.nds_payer_ip" 
+                                                            v-model="mutableLegalEntity.documents.nds_payer"
+                                                            :checked="mutableLegalEntity.documents.nds_payer" 
                                                         >
                         
                                                         <label for="nds_payer_ip" class="checkbox__label">
@@ -1307,8 +1325,8 @@ export const LegalEntity = {
                                                             name="nds_payer_ltc"
                                                             id="nds_payer_ltc"
                                                             :readonly="!editing"
-                                                            v-model="mutableLegalEntity.documents.nds_payer_ltc"
-                                                            :checked="mutableLegalEntity.documents.nds_payer_ltc" 
+                                                            v-model="mutableLegalEntity.documents.nds_payer"
+                                                            :checked="mutableLegalEntity.documents.nds_payer" 
                                                         >
                         
                                                         <label for="nds_payer_ltc" class="checkbox__label">
@@ -1425,8 +1443,7 @@ export const LegalEntity = {
                                                             <select 
                                                                 class="select__control" 
                                                                 name="need_proxy" 
-                                                                id="need_proxy" 
-                                                                :readonly="!editing"
+                                                                id="need_proxy"
                                                                 data-select-control 
                                                                 data-placeholder="Выберите право подписи"
                                                                 >
@@ -1450,7 +1467,7 @@ export const LegalEntity = {
                                     </div>
                     
                                     <div class="section__box-block"
-                                         v-show="mutableLegalEntity.documents.procuration || mutableLegalEntity.documents.need_proxy !== 'true'"
+                                         v-show="mutableLegalEntity.documents.need_proxy !== 'true'"
                                     >
                                         <h6 class="box__heading box__heading--small">Копия доверенности на представителя (в случае подписания представителем-не руководителем ООО)</h6>
 
