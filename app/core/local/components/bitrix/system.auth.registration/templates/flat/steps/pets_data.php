@@ -210,7 +210,7 @@ if (!$arResult['pets']) {
 
                                         <div class="form__field-block form__field-block--input">
                                             <div class="input">
-                                                <input value="<?=$pet['name']?>" type="text" class="input__control" name="pets-<?=$index?>-name" id="pets-<?=$index?>-name" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                                <input value="<?=$pet['name']?>" type="text" class="input__control" name="pets-<?=$index?>-name" id="pets-<?=$index?>-name" placeholder="Введите кличку питомца" data-pets-name-input data-pets-change>
                                             </div>
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@ if (!$arResult['pets']) {
 
                                     <div class="form__field-block form__field-block--input">
                                         <div class="input">
-                                            <input type="text" class="input__control" name="pets-#ID#-name" id="pets-#ID#-name" placeholder="Выбрать" data-pets-name-input data-pets-change>
+                                            <input type="text" class="input__control" name="pets-#ID#-name" id="pets-#ID#-name" placeholder="Введите кличку питомца" data-pets-name-input data-pets-change>
                                         </div>
                                     </div>
                                 </div>
