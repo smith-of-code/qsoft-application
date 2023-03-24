@@ -251,14 +251,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                     $value = $value['files'];
                 } else {
                     $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value['data']));
-                    $fileName = preg_replace('/[^a-zA-Zа-яА-ЯЁё._-]/', '', $value['name']);
-                    $filePath = "/register/$field" . uniqid() . $fileName;
-                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/upload' . $filePath, $file);
-                    $arFile = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"] . '/upload' . $filePath);
+                    $fileName = preg_replace('/[^0-9a-zA-Zа-яА-ЯЁё._-]/', '_', $value['name']);
+                    $filePath = "/upload/register/$field" . uniqid() . $fileName;
+                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . $filePath, $file);
+                    $arFile = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"] . $filePath);
                     $fileId = CFile::SaveFile($arFile, $filePath);
                     $value = [
                         'id' => $fileId,
-                        'src' => '/upload' . $filePath,
+                        'src' => $filePath,
                     ];
                 }
             }
