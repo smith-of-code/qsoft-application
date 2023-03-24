@@ -70,7 +70,34 @@ if (!function_exists('mb_ucfirst')) {
 if (!function_exists('phpToVueObject')) {
     function phpToVueObject(array $array): string
     {
-        return htmlspecialchars(json_encode(CUtil::JsObjectToPhp(CUtil::PhpToJSObject($array))));
+        $array = convertBitrixDateTimeRecursive($array);
+        return htmlspecialchars(json_encode($array), ENT_QUOTES | ENT_HTML401);
+    }
+}
+
+if (!function_exists('convertBitrixDateTimeRecursive')) {
+    /**
+     * Рекурсивно преобразует даты Bitrix в строковые представления
+     * @param array $array массив данных для обработки
+     * @param int $maxDepth максимальная глубина вложенности, при которой будет выполняться функция
+     * @return array обработанный массив
+     */
+    function convertBitrixDateTimeRecursive(array $array, int $maxDepth = 32) : array
+    {
+        if ($maxDepth <= 0) {
+            return $array;
+        }
+        foreach ($array as $key => $val) {
+            if (
+                $val instanceof Bitrix\Main\Type\Date
+                || $val instanceof Bitrix\Main\Type\DateTime
+            ) {
+                $array[$key] = (string) $val;
+            } elseif (is_array($val)) {
+                $array[$key] = convertBitrixDateTimeRecursive($val, $maxDepth - 1);
+            }
+        }
+        return $array;
     }
 }
 if (!function_exists('numberToRoman')) {
