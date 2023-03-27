@@ -157,8 +157,8 @@ export const LegalEntity = {
             if (this.originalLegalEntity.documents[field] === undefined) {
                 this.originalLegalEntity.documents[field] = [];
             }
-            if (field == 'procuration') {
-                if (this.originalLegalEntity.documents[field] === undefined) {
+            if (field == 'procuration' && typeof this.originalLegalEntity.documents.need_proxy == 'undefined') {
+                if (typeof this.originalLegalEntity.documents[field] == 'undefined' || this.originalLegalEntity.documents[field].length === 0) {
                     this.originalLegalEntity.documents.need_proxy = 'true';
                 } else {
                     this.originalLegalEntity.documents.need_proxy = 'false';
@@ -733,7 +733,7 @@ export const LegalEntity = {
                                                             id="without_living"
                                                             data-identic-change
                                                             data-validate-dependent-change
-                                                            :readonly="!editing"
+                                                            :disabled="!editing"
                                                             v-model="mutableLegalEntity.documents.without_living"                                                            
                                                         >
 
@@ -996,7 +996,7 @@ export const LegalEntity = {
                                                             class="checkbox__input"
                                                             name="nds_payer_ip"
                                                             id="nds_payer_ip"
-                                                            :readonly="!editing"
+                                                            :disabled="!editing"
                                                             v-model="mutableLegalEntity.documents.nds_payer"
                                                             :checked="mutableLegalEntity.documents.nds_payer" 
                                                         >
@@ -1324,7 +1324,7 @@ export const LegalEntity = {
                                                             class="checkbox__input"
                                                             name="nds_payer_ltc"
                                                             id="nds_payer_ltc"
-                                                            :readonly="!editing"
+                                                            :disabled="!editing"
                                                             v-model="mutableLegalEntity.documents.nds_payer"
                                                             :checked="mutableLegalEntity.documents.nds_payer" 
                                                         >
@@ -1439,7 +1439,7 @@ export const LegalEntity = {
                                                 
                                                 <div class="form__field-block form__field-block--input">
                                                     <div class="form__control">
-                                                        <div class="select select--mitigate" data-select>
+                                                        <div class="profile__toggle-select select select--mitigate" data-select>
                                                             <select 
                                                                 class="select__control" 
                                                                 name="need_proxy" 
