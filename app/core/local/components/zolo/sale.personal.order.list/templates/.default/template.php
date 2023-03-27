@@ -248,6 +248,10 @@ if (!empty($arResult['ORDERS']) && empty($arResult['ERRORS'])): ?>
             payd:  $('#PAYD').val(),
             order: $('#SORTING').hasClass('desc') ? 'DESC' : 'ASC',
         };
+        // Если метод фильтрации не задан - по умолчанию сортируем по дате создания заказа
+        if (filter.by.length === 0) {
+            filter.by = 'DATE_INSERT';
+        }
 
         e.preventDefault();
         BX.ajax.runComponentAction('zolo:sale.personal.order.list', 'load', {
