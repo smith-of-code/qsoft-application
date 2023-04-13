@@ -70,9 +70,17 @@ this.zolo = this.zolo || {};
           type: Array,
           "default": []
         },
+        formats: {
+          type: String,
+          "default": '.pdf,.jpg,.jpeg,.png'
+        },
         editing: {
           type: Boolean,
           "default": false
+        },
+        maxFiles: {
+          type: Number,
+          "default": 10
         }
       },
       data: function data() {
@@ -90,40 +98,72 @@ this.zolo = this.zolo || {};
           var _this = this;
 
           return babelHelpers.asyncToGenerator( /*#__PURE__*/_regeneratorRuntime$1().mark(function _callee() {
-            var data, i, response, _iterator, _step, fileInfo;
+            var totalFilesCount, data, i, response, _iterator, _step, fileInfo;
 
             return _regeneratorRuntime$1().wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    data = new FormData();
+                    totalFilesCount = _this.files.length;
 
-                    for (i = 0; i < event.target.files.length; i++) {
-                      data.append("file-".concat(i), event.target.files[i]);
+                    if (!(totalFilesCount >= _this.maxFiles)) {
+                      _context.next = 3;
+                      break;
                     }
 
-                    _context.next = 4;
+                    return _context.abrupt("return");
+
+                  case 3:
+                    data = new FormData();
+                    i = 0;
+
+                  case 5:
+                    if (!(i < event.target.files.length)) {
+                      _context.next = 13;
+                      break;
+                    }
+
+                    data.append("file-".concat(i), event.target.files[i]);
+                    totalFilesCount += 1;
+
+                    if (!(totalFilesCount >= _this.maxFiles)) {
+                      _context.next = 10;
+                      break;
+                    }
+
+                    return _context.abrupt("break", 13);
+
+                  case 10:
+                    i++;
+                    _context.next = 5;
+                    break;
+
+                  case 13:
+                    _context.next = 15;
                     return _this.store.uploadFile(data);
 
-                  case 4:
+                  case 15:
                     response = _context.sent;
-                    _iterator = _createForOfIteratorHelper(response.data);
 
-                    try {
-                      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                        fileInfo = _step.value;
+                    if (response.data.length > 0) {
+                      _iterator = _createForOfIteratorHelper(response.data);
 
-                        _this.files.push(fileInfo);
+                      try {
+                        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                          fileInfo = _step.value;
+
+                          _this.files.push(fileInfo);
+                        }
+                      } catch (err) {
+                        _iterator.e(err);
+                      } finally {
+                        _iterator.f();
                       }
-                    } catch (err) {
-                      _iterator.e(err);
-                    } finally {
-                      _iterator.f();
+
+                      _this.$emit('upload', response.data);
                     }
 
-                    _this.$emit('upload', response.data);
-
-                  case 8:
+                  case 17:
                   case "end":
                     return _context.stop();
                 }
@@ -134,10 +174,13 @@ this.zolo = this.zolo || {};
         deleteFile: function deleteFile(file) {
           // this.store.deleteFile(file.id); Файлы не удаляются т.к. они нужны для тикетов тех поддержки
           this.files.splice(this.files.indexOf(file), 1);
-          this.$emit('delete', file.id);
+
+          if (file.id > 0) {
+            this.$emit('delete', file.id);
+          }
         }
       },
-      template: "\n      <div v-if=\"!editing && !files.length\" class=\"profile__notification\">\n        <span class=\"profile__notification-icon\">\n            <svg class=\"icon icon--danger\">\n                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-danger\"></use>\n            </svg>\n        </span>\n        <p class=\"profile__notification-text\">\u041D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0440\u0438\u043B\u043E\u0436\u0438\u0442\u044C \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B. \u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0432 \u0440\u0435\u0436\u0438\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F.</p>\n      </div>\n      \n      <div class=\"dropzone\">\n          <input type=\"file\" ref=\"file\" :name=\"componentId\" :id=\"componentId\" multiple class=\"dropzone__control\" @change=\"uploadFile($event)\">\n          <div class=\"dropzone__area\">\n            <div class=\"profile__toggle dropzone__message dz-message needsclick\">\n              <label :for=\"componentId\" class=\"dropzone__button dropzone__button--profile button button--medium button--rounded button--covered button--red\">\n                    <span class=\"button__icon\">\n                        <svg class=\"icon icon--import\">\n                            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-import\"></use>\n                        </svg>\n                    </span>\n                <span class=\"button__text\">\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u0430\u0439\u043B</span>\n              </label>\n            </div>\n    \n            <div class=\"dropzone__previews dropzone__previews--profile dz-previews\">\n              <div v-for=\"file in files\" :key=\"file.id\" class=\"file dz-processing dz-image-preview dz-success dz-complete\">\n                <div class=\"file__wrapper\">\n                  <div class=\"file__prewiew\">\n                    <div class=\"file__icon\">\n                      <svg class=\"icon icon--gallery\">\n                        <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-gallery\"></use>\n                      </svg>\n                    </div>\n    \n                    <div class=\"file__name\">\n                      <h6 class=\"file__name-heading heading heading--tiny\">{{ file.name }}</h6>\n                    </div>\n                  </div>\n    \n                  <div class=\"file__info\">\n                    <div class=\"file__format\">{{ file.src.slice(-5) == '.heic' ? 'HEIC' : file.format }}</div>\n                    <div class=\"file__weight\">{{ file.size }}</div>\n    \n                    <div v-if=\"editing\" class=\"file__delete\">\n                      <button type=\"button\" class=\"file__delete-button button button--iconed button--simple button--gray\" @click=\"deleteFile(file)\">\n                        <span class=\"file__delete-button-icon button__icon\">\n                            <svg class=\"icon icon--delete\">\n                                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-delete\"></use>\n                            </svg>\n                        </span>\n                      </button>\n                    </div>\n                    <div v-else class=\"file__upload\">\n                      <a class=\"button button--iconed button--simple button--gray\" :href=\"file.src\" download>\n                        <span class=\"button__icon\">\n                            <svg class=\"icon icon--import\">\n                                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-import\"></use>\n                            </svg>\n                        </span>\n                      </a>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"file__error\"></div>\n              </div>\n            </div>\n          </div>\n      </div>\n    "
+      template: "\n      <div v-if=\"!editing && !files.length\" class=\"profile__notification\">\n        <span class=\"profile__notification-icon\">\n            <svg class=\"icon icon--danger\">\n                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-danger\"></use>\n            </svg>\n        </span>\n        <p class=\"profile__notification-text\">\u041D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0440\u0438\u043B\u043E\u0436\u0438\u0442\u044C \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B. \u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0432 \u0440\u0435\u0436\u0438\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F.</p>\n      </div>\n      \n      <div class=\"dropzone\">\n          <input \n          type=\"file\" \n          ref=\"file\" \n          :name=\"componentId\" \n          :id=\"componentId\" \n          multiple \n          class=\"dropzone__control\" \n          @change=\"uploadFile($event)\" \n          :accept=\"formats\"\n          >\n          <div class=\"dropzone__area\">\n            <div class=\"profile__toggle dropzone__message dz-message needsclick\">\n              <label :for=\"componentId\" class=\"dropzone__button dropzone__button--profile button button--medium button--rounded button--covered button--red\">\n                    <span class=\"button__icon\">\n                        <svg class=\"icon icon--import\">\n                            <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-import\"></use>\n                        </svg>\n                    </span>\n                <span class=\"button__text\">\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u0430\u0439\u043B</span>\n              </label>\n            </div>\n    \n            <div class=\"dropzone__previews dropzone__previews--profile dz-previews\">\n              <div v-for=\"file in files\" :key=\"file.id\" class=\"file dz-processing dz-image-preview dz-success dz-complete\">\n                <div class=\"file__wrapper\">\n                  <div class=\"file__prewiew\">\n                    <div class=\"file__icon\">\n                      <svg class=\"icon icon--gallery\">\n                        <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-gallery\"></use>\n                      </svg>\n                    </div>\n    \n                    <div class=\"file__name\">\n                      <h6 class=\"file__name-heading heading heading--tiny\">{{ file.name }}</h6>\n                    </div>\n                  </div>\n    \n                  <div class=\"file__info\">\n                    <div class=\"file__format\">{{ file.format }}</div>\n                    <div class=\"file__weight\">{{ file.size }}</div>\n    \n                    <div v-if=\"editing\" class=\"file__delete\">\n                      <button type=\"button\" class=\"file__delete-button button button--iconed button--simple button--gray\" @click=\"deleteFile(file)\">\n                        <span class=\"file__delete-button-icon button__icon\">\n                            <svg class=\"icon icon--delete\">\n                                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-delete\"></use>\n                            </svg>\n                        </span>\n                      </button>\n                    </div>\n                    <div v-else class=\"file__upload\">\n                      <a class=\"button button--iconed button--simple button--gray\" :href=\"file.src\" download>\n                        <span class=\"button__icon\">\n                            <svg class=\"icon icon--import\">\n                                <use xlink:href=\"/local/templates/.default/images/icons/sprite.svg#icon-import\"></use>\n                            </svg>\n                        </span>\n                      </a>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"file__error\" data-dz-errormessage=\"\">{{ file.error }}</div>\n              </div>\n            </div>\n          </div>\n      </div>\n    "
     };
 
     exports.Dropzone = Dropzone;
