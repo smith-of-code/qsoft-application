@@ -65,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 //var_dump($_SERVER["DOCUMENT_ROOT"].'/info/plug/');
 //var_dump();
 //exit();
+//    var_dump($filePath);
+//    var_dump(file_exists($filePath));
 
     if ( strpos($filePath,$_SERVER["DOCUMENT_ROOT"].'/info/plug/') !== false  &&    file_exists($filePath) && !is_dir($filePath)){
 
