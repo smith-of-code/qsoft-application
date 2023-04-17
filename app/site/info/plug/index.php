@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 //var_dump();
 //exit();
 
-    if ( strpos($filePath,$_SERVER["DOCUMENT_ROOT"].'/info/plug/') !== false  &&    file_exists($filePath)){
+    if ( strpos($filePath,$_SERVER["DOCUMENT_ROOT"].'/info/plug/') !== false  &&    file_exists($filePath) && !is_dir($filePath)){
+
         $mimeType = mime_content_type($filePath);
         if (strpos($filePath,'.css') !== false){
             $mimeType = 'text/css';
