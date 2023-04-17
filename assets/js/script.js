@@ -3,7 +3,7 @@
  */
  import $ from 'jquery';
  window.$ = $;
-
+    window.jQuery = $;
  // Пример подключения плагина
  // import pluginName from 'plugin-name';
  import svg4everybody from 'svg4everybody';
@@ -56,6 +56,7 @@
  import inputRepalece from './modules/inputReplace';
  import fixWidth from './modules/fixWidth';
  import inputRequired from './modules/inputRequired';
+ import dragscroll from './modules/dragscroll'
 
  const app = {
     ready() {
@@ -107,6 +108,7 @@
         inputRepalece();
         fixWidth();
         inputRequired();
+        dragscroll()
     },
 
     load() {
