@@ -27,7 +27,7 @@ const reset = function(i, el) {
     }
 
     // cloning into array since HTMLCollection is updated dynamically
-    dragged = [].slice.call(_document.getElementsByClassName('colors__list'));
+    dragged = [].slice.call(_document.getElementsByClassName('dragscroll'));
     for (i = 0; i < dragged.length;) {
         (function(el, lastClientX, lastClientY, pushed, scroller, cont){
             (cont = el.container || el)[addEventListener](

@@ -1,0 +1,12 @@
+.dragscroll{
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow: auto;
+    cursor: grab;
+    -ms-overflow-style: none;
+}
+
+.dragscroll::-webkit-scrollbar { width: 0; }
+.dragscroll{ overflow: -moz-scrollbars-none; }
+
+

@@ -18,12 +18,7 @@
     &__list {
         display: flex;
         align-items: center;
-        //flex-wrap: wrap;
-
-        flex-wrap: nowrap;
-        width: 100%;
-        overflow: auto;
-        cursor: grab;
+        flex-wrap: wrap;
 
         margin-top: rem(-$gap);
         margin-right: rem(-$gap / 2);
@@ -35,9 +30,6 @@
             margin-left: rem(-$gap-small / 2);
         }
     }
-    &__list::-webkit-scrollbar { width: 0; }
-    &__list{ -ms-overflow-style: none; }
-    &__list{ overflow: -moz-scrollbars-none; }
 
     &__item {
         margin-top: rem($gap);

@@ -154,7 +154,7 @@ if (isset($arResult['ITEM']))
                     $jsInfo['elementsIds']['props']['PROP_' . $offerPropId]['desktop']['type'] = 'radio';
                     ?>
                         <div class="product-card__colors colors">
-                            <ul class="colors__list">
+                            <ul class="colors__list dragscroll">
                                 
                                 <? foreach ($arParams['SKU_PROPS']['COLOR']['VALUES'] as $value):
 
