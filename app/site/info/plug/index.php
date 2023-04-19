@@ -1,6 +1,6 @@
 <?php
 if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore' && $_SERVER['PHP_AUTH_PW'] === 'xeech;ech8Ah'){
-    header('Location: /');
+    require $_SERVER['DOCUMENT_ROOT'].'/bitrix/urlrewrite.php';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
