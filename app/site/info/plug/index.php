@@ -1,6 +1,6 @@
 <?php
 if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore' && $_SERVER['PHP_AUTH_PW'] === 'ieShei3u'){
-    include $_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php';
     exit();
 }
 
