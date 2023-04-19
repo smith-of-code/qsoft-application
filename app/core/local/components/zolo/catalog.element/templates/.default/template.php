@@ -465,7 +465,7 @@ $offerId = $arResult['OFFER_FIRST'];
                                     <span class="description__annotation">На 100 г продукта</span>
                                 </h5>
 
-                                <div class="nutritionals mt-1">
+                                <div class="nutritionals">
                                     <?php foreach ($arResult['ENERGY_VALUE'] as $key => $value): ?>
                                         <?php if ($value): ?>
                                             <div class="nutritionals__item">
