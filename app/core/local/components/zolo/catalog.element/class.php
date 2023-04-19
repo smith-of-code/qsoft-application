@@ -132,7 +132,6 @@ class CatalogElementComponent extends Element
                 $fileIds = $this->getFilesByItem($product);
                 $offers = $this->getOffers($product['ID'], $fileIds); // TODO filesids
                 $this->arResult['OFFERS'] = $offers;
-
                 $sectionDocuments = $this->getSectionFiles($product['IBLOCK_SECTION_ID'], $fileIds);
                 $this->arResult['DOCUMENTS'] = array_merge($sectionDocuments, $product['PROPERTY_DOCUMENTS_VALUE'] ?? []);
 
@@ -287,6 +286,7 @@ class CatalogElementComponent extends Element
     private function transformData(array $data): array
     {
         $colors = HLReferencesHelper::getColorNames();
+
         $result = [
             'IS_CONSULTANT' => $this->user->isAuthorized && $this->user->groups->isConsultant(),
             'ID' => $data['PRODUCT']['ID'],
@@ -406,7 +406,7 @@ class CatalogElementComponent extends Element
             }
         }
 
-        $result['ENERGY_VALUE'] = [
+        $result['NUTRITIONAL_VALUE'] = [
             'PROTEIN' => $data['PRODUCT']['PROPERTY_PROTEIN_VALUE'],
             'ENERGY' => $data['PRODUCT']['PROPERTY_ENERGY_VALUE'],
             'CRUDE_FIBRE' => $data['PRODUCT']['PROPERTY_CRUDE_FIBRE_VALUE'],
@@ -415,8 +415,13 @@ class CatalogElementComponent extends Element
             'ROW_ASH' => $data['PRODUCT']['PROPERTY_ROW_ASH_VALUE'],
         ];
 
-        $result['ENERGY_VALUE'] = array_filter($result['ENERGY_VALUE'], fn ($value) => !empty($value));
+        $result['ENERGY_VALUE'] = [
+            'KILOCALLORIES' => $data['PRODUCT']['PROPERTY_KILOCALLORIES_VALUE'],
+            'KILOJOULE' => $data['PRODUCT']['PROPERTY_KILOJOULE_VALUE'],
+        ];
 
+        $result['NUTRITIONAL_VALUE'] = array_filter($result['NUTRITIONAL_VALUE'], fn ($value) => !empty($value));
+        $result['ENERGY_VALUE'] = array_filter($result['ENERGY_VALUE'], fn ($value) => !empty($value));
         return $result;
     }
 

@@ -14,7 +14,6 @@ $navChain = CIBlockSection::GetNavChain($arResult['IBLOCK_ID'], $arResult['SECTI
 while ($navChainItem = $navChain->GetNext()) {
     $APPLICATION->AddChainItem($navChainItem['NAME'], $navChainItem['SECTION_PAGE_URL']);
 }
-
 if ($arParams['SET_TITLE']) {
     $APPLICATION->SetTitle($arResult['TITLE']);
     $APPLICATION->AddChainItem($arResult['TITLE']);
@@ -450,6 +449,23 @@ $offerId = $arResult['OFFER_FIRST'];
                                 </h5>
 
                                 <div class="nutritionals">
+                                    <?php foreach ($arResult['NUTRITIONAL_VALUE'] as $key => $value): ?>
+                                        <?php if ($value): ?>
+                                            <div class="nutritionals__item">
+                                                <div class="nutritional">
+                                                    <span class="nutritional__name"><?=$arResult['PROPERTY_NAMES'][$key] ?></span>
+                                                    <span class="nutritional__size"><?=$value ?></span>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <h5 class="description__col-title">Энергетическая ценность
+                                    <span class="description__annotation">На 100 г продукта</span>
+                                </h5>
+
+                                <div class="nutritionals mt-1">
                                     <?php foreach ($arResult['ENERGY_VALUE'] as $key => $value): ?>
                                         <?php if ($value): ?>
                                             <div class="nutritionals__item">
