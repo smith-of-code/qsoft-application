@@ -461,6 +461,7 @@ $offerId = $arResult['OFFER_FIRST'];
                                     <?php endforeach; ?>
                                 </div>
 
+                                <?php if (!empty($arResult['ENERGY_VALUE'])): ?>
                                 <h5 class="description__col-title">Энергетическая ценность
                                     <span class="description__annotation">На 100 г продукта</span>
                                 </h5>
@@ -477,6 +478,7 @@ $offerId = $arResult['OFFER_FIRST'];
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
