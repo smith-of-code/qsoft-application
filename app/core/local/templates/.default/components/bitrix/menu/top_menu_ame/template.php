@@ -2,6 +2,12 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
     die();
 }
+use \Bitrix\Main\Service\GeoIp;
+
+$ipAddress = GeoIp\Manager::getRealIp();
+
+$geolocation = GeoIp\Manager::getDataResult($ipAddress, "ru");
+
 ?>
 <?php if (!empty($arResult)): ?>
     <div class="header__row header__row--nav">
@@ -31,6 +37,27 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
                         <?php endforeach; ?>
                     </ul>
                 </nav>
+
+                <div class="geolocation">
+<!--                    <div class="modal geolocation__modal">-->
+<!--                        <div class="modal__content">-->
+<!--                            <section class="modal__section modal__section--content">-->
+<!---->
+<!--                            </section>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="geolocation__city">
+                        <img class="geolocation__icon" src="/local/templates/.default/images/icons/geolocation.svg" alt="">
+                        <span><?=$geolocation->getGeoData()->cityName?></span>
+<!--                        <pre>-->
+<!--                            --><?php //var_dump($result->getGeoData()->cityName); ?>
+<!--                        </pre>-->
+
+                    </div>
+                    <div class="geolocation__address">
+                        <span>Укажите адрес доставки</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

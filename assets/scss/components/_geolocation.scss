@@ -1,0 +1,34 @@
+.geolocation{
+  display: flex;
+  position: relative;
+  &__city{
+    cursor: pointer;
+    display: flex;
+    padding-right:13px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 26px;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+  }
+  &__address{
+    cursor: pointer;
+    padding-left:13px;
+    border-left: 1px solid #E2E2E2;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 26px;
+    color: #BC1639;
+
+  }
+  &__icon{
+    margin-right: 8px;
+    width: 10px;
+  }
+  &__modal{
+    position: absolute;
+  }
+}
