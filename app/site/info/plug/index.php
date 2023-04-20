@@ -1,9 +1,4 @@
 <?php
-if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore' && $_SERVER['PHP_AUTH_PW'] === 'ieShei3u'){
-    var_dump($_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php');
-    exit();
-    require_once $_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php';
-}else{
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $arResult = array();
@@ -91,8 +86,6 @@ if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore'
         }
     }
 
-
-}
 
 
 
