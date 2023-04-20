@@ -1,6 +1,7 @@
 <?php
 if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore' && $_SERVER['PHP_AUTH_PW'] === 'ieShei3u'){
-//    var_dump($_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php');
+    var_dump($_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php');
+    exit();
     require_once $_SERVER['DOCUMENT_ROOT'].'/urlrewrite.php';
 }else{
 
@@ -79,6 +80,8 @@ if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] === 'amestore'
                 $mimeType = 'image/svg+xml';
             }
             header("Content-Type: $mimeType");
+            header('Content-Length: ' . filesize($filePath));
+            header('Last-Modified: ' . filemtime($filePath));
             echo file_get_contents($_SERVER["DOCUMENT_ROOT"].$_SERVER["DOCUMENT_URI"]);
         }else{
             $mimeType = mime_content_type($_SERVER["DOCUMENT_ROOT"].'/info/plug/index.html');
