@@ -6,7 +6,7 @@ form.addEventListener('submit',async (event)=>{
     const chanel = location.pathname === '/info/ame-business'?3:2
     const email = form.email.value
 
-    let url = `https://amestore.ru/info/ame-business?email=${email}&chanel=${chanel}`
+    let url = `/info/ame-business?email=${email}&chanel=${chanel}`
 
 
     let response = await fetch(url, {
