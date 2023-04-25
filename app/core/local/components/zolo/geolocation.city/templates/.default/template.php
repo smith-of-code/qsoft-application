@@ -2,7 +2,7 @@
 
 use \Bitrix\Main\Service\GeoIp;
 
-$geolocation = GeoIp\Manager::getDataResult('95.31.209.94', "ru");
+$geolocation = GeoIp\Manager::getDataResult('', "ru");
 CUtil::InitJSCore(array('window'));
 //var_dump(\Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang));
 ?>
@@ -131,7 +131,7 @@ CUtil::InitJSCore(array('window'));
                     //   'content_post': this.JSParamsToPHP(arParams, 'PARAMS')+ '&' +
 
                     //  this.JSParamsToPHP(arProp, 'PROP')+'&'+this.SESS,
-                    'width': 451,
+                    'width': 528,
                     'height': 725,
 
                     'draggable': false,
