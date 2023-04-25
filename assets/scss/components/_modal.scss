@@ -280,7 +280,6 @@
                 top: rem($button-offset);
                 right: rem($button-offset);
             }
-
             &-icon {
                 $icon-size: 24px;
 
@@ -290,6 +289,14 @@
                 color: $saltBox;
                 fill: transparent;
             }
+            &-icon-1 {
+
+            }
+        }
+        &-close.outside {
+            $button-outside: -20px;
+            top: rem($button-outside);
+            right: rem($button-outside);
         }
 
         &-content {
@@ -310,3 +317,74 @@
         }
     }
 }
+
+
+
+
+
+
+.modal2.bx-core-adm-dialog {
+    $height-input: 48px;
+    $height-input-medium: 44px;
+    $height-input-small: 36px;
+
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%,-50%);
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 50px 50px 0 0;
+    & .bx-core-adm-dialog-content-wrap.adm-workarea {
+    }
+    & .bx-core-adm-dialog-head{
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        top: 87px;
+        left: 21px;
+        & .bx-core-adm-dialog-head-icons{
+            margin: 0;
+            padding-right:21px ;
+            background-color:transparent;
+        }
+    }
+
+    & .modal2__close{
+        z-index: 99999;
+        //position: fixed;
+        //top: 15.5%;
+        //right: 33%;
+        width: 46px;
+        height: 46px;
+        background: url("/local/templates/.default/images/icons/close.svg") #00000033 no-repeat center;
+        border-radius: 50%;
+        &:hover{
+           background-position: center;
+        }
+    }
+    & .bx-core-adm-dialog-content-wrap-inner{
+        padding: 36px;
+    }
+    & .bx-core-adm-dialog-content{
+        background-color: white;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+    & .input {
+        padding-right: 0;
+        padding-left:0;
+    }
+    & input[type="text"],  input[type="password"],  input[type="email"] {
+         font-size: rem($font-size-average);
+         height: rem($height-input);;
+        padding-right: rem($gap-medium);
+        padding-left: rem($gap-medium);
+        font-weight: $font-weight-semibold;
+    }
+
+}
+
+
+
