@@ -68,7 +68,7 @@
 
         @media #{$screen-tablet-only} {
             justify-content: space-around;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
         }
     }
 
