@@ -34,6 +34,33 @@
 
   &__city-list{
     margin-top: 24px;
+    overflow: auto;
+    height: 550px;
+    padding-right: 10px;
+    scrollbar-width: 12px;
+    scrollbar-color: rgba(255, 255, 255, 0.8) rgba(2, 142, 74, 1);
+    &::-webkit-scrollbar{
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(2, 142, 74, 1);
+      border-radius: calc(12px / 2);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: calc(12px / 2);
+      border: 3px solid rgba(2, 142, 74, 1);
+    }
+
+    :root {
+      --scrollbarBg: rgba(2, 142, 74, 1);
+      --scrollbarThumb: rgba(255, 255, 255, 0.8);
+      --scrollbarWidth: 12px;
+      --scrollbarBorder: 3px solid rgba(2, 142, 74, 1);
+      --scrollbarBorderRadius: calc(12px / 2);
+    }
+
   }
 }
 
