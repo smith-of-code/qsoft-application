@@ -349,7 +349,7 @@
             padding-right:21px ;
             background-color:transparent;
             @media #{$screen-mobile-lg} {
-                margin: 18px 0 0 0;
+                margin: 62px 0 0 0;
             }
         }
         @media #{$screen-mobile-lg} {
@@ -381,6 +381,7 @@
             height: 13px;
             background: url("/local/templates/.default/images/icons/close_black.svg") no-repeat center;
             border-radius: 0;
+            background-size: cover;
         }
     }
     & .bx-core-adm-dialog-content-wrap-inner{
@@ -388,6 +389,7 @@
         @media #{$screen-mobile-lg} {
             width: 100%!important;
             height: 100vh!important;
+            padding-top: 80px;
         }
     }
     & .bx-core-adm-dialog-content{
