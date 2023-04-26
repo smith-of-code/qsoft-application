@@ -131,7 +131,6 @@
 
             @media #{$screen-tablet} {
                 order: initial;
-
                 width: auto;
                 margin-top: 0;
                 padding-left: rem($gap-big);
@@ -139,6 +138,13 @@
 
             @media #{$screen-desktop} {
                 padding-left: rem($gap-medium);
+            }
+
+            @media (max-width: 836px) {
+                order: 1;
+                margin-top: rem(12px);
+                padding-left: 0;
+                min-width: 270px;
             }
         }
 
@@ -157,23 +163,25 @@
         &--tablet {
             display: none;
 
-            @media #{$screen-tablet} {
-                display: block;
-            }
-
-            @media #{$screen-desktop} {
-                display: none;
-            }
+            //@media #{$screen-tablet} {
+            //    display: none;
+            //}
+            //
+            //@media #{$screen-desktop} {
+            //    display: none;
+            //}
         }
 
         &--desktop {
             @media #{$screen-tablet} {
-                display: none;
+                display: block;
             }
 
             @media #{$screen-desktop} {
                 display: block;
             }
+
+
         }
 
         &-input {
@@ -186,14 +194,14 @@
                 padding-right: rem(20px) !important;
                 padding-left: rem(20px) !important;
                 
-                @media #{$screen-desktop} {
-                    border-color: #f2f1f4;
-                    background-color: #f2f1f4;
-
-                    &:focus {
-                        border-color: #f2f1f4;
-                    }
-                }
+                //@media #{$screen-desktop} {
+                //    border-color: #f2f1f4;
+                //    background-color: #f2f1f4;
+                //
+                //    &:focus {
+                //        border-color: #f2f1f4;
+                //    }
+                //}
 
                 &::placeholder {
                     font-size: rem($font-size-mini) !important;
