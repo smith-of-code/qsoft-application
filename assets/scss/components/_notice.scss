@@ -1,7 +1,8 @@
 .notice {
     flex-direction: column;
-    height: rem(692px);
-
+    &__list{
+        max-height: rem(692px);
+    }
     &__content {
         flex-grow: 1;
 
@@ -43,5 +44,10 @@
     &__action {
         padding: rem($gap-normal);
         padding-top: rem(20px);
+    }
+    &__no-message{
+        display: flex;
+        align-items: center;
+        padding: 50px;
     }
 }

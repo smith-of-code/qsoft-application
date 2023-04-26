@@ -29,40 +29,50 @@ use Bitrix\Main\Localization\Loc;
         <!--выпадающий список уведомлений-->
         <div class="notice dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow"
                 data-dropdown-block>
-            <div class="notice__content" data-scrollbar>
-                <ul class="notice__list">
-                    <?php foreach ($arResult['NOTIFICATIONS'] as $notification): ?>
-                        <li class="notice__item">
-                            <!--Статус-->
-                            <article class="status">
-                                <a href="<?=$notification['LINK']?>" id="<?=$notification['ID']?>" class="status__link"></a>
-                                <div class="status__header">
-                                    <svg class="status__header-icon icon icon--notification">
-                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
-                                    </svg>
 
-                                    <p class="status__header-heading heading heading--tiny"><?=$notification['TITLE']?></p>
-                                </div>
 
-                                <p class="status__info"><?=$notification['MESSAGE']?></p>
+            <?php if (!empty($arResult['NOTIFICATIONS'])):?>
+                <div class="notice__content" data-scrollbar>
+                    <ul class="notice__list">
+                        <?php foreach ($arResult['NOTIFICATIONS'] as $notification): ?>
+                            <li class="notice__item">
+                                <!--Статус-->
+                                <article class="status">
+                                    <a href="<?=$notification['LINK']?>" id="<?=$notification['ID']?>" class="status__link"></a>
+                                    <div class="status__header">
+                                        <svg class="status__header-icon icon icon--notification">
+                                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-notification"></use>
+                                        </svg>
 
-                                <div class="status__footer">
-                                    <span class="status__date"><?=$notification['DATE']?></span>
-                                    <span class="status__time"> <?=$notification['TIME']?></span>
-                                </div>
-                            </article>
-                            <!--Статус-->
-                        </li>
-                    <?php endforeach?>
-                </ul>
+                                        <p class="status__header-heading heading heading--tiny"><?=$notification['TITLE']?></p>
+                                    </div>
+
+                                    <p class="status__info"><?=$notification['MESSAGE']?></p>
+
+                                    <div class="status__footer">
+                                        <span class="status__date"><?=$notification['DATE']?></span>
+                                        <span class="status__time"> <?=$notification['TIME']?></span>
+                                    </div>
+                                </article>
+                                <!--Статус-->
+                            </li>
+                        <?php endforeach?>
+                    </ul>
+                </div>
+
+                <div class="notice__action">
+                    <a href="<?=$arResult['NOTIFICATIONS_URL']?>"
+                       class="button button--rounded-big button--bold button--outlined button--green button--full">
+                        <?=Loc::getMessage('SHOW_ALL')?>
+                    </a>
+                </div>
+
+            <?php else: ?>
+            <div class="notice__no-message">
+                <h5 class="notice__no-message-text">Новых уведомлений нет</h5>
             </div>
+            <?php endif; ?>
 
-            <div class="notice__action">
-                <a href="<?=$arResult['NOTIFICATIONS_URL']?>"
-                    class="button button--rounded-big button--bold button--outlined button--green button--full">
-                    <?=Loc::getMessage('SHOW_ALL')?>
-                </a>
-            </div>
         </div>
         <!--выпадающий список уведомлений-->
     </div>
