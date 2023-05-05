@@ -244,6 +244,19 @@
         }
     }
 
+    &--covered#{&}--green {
+        color: $white;
+        border-color: $seaGreen;
+        background-color: $seaGreen;
+
+        &:hover {
+            color: $white;
+            border-color: $seaGreen;
+            background-color: $seaGreen;
+        }
+    }
+
+
     &--covered#{&}--black-red {
         color: $white;
         border-color: $tuna;

@@ -3,6 +3,10 @@
         max-width: rem(343px);
     }
 
+    &#{&}--wide2 {
+        width: rem(528px);
+    }
+
     &#{&}--wide {
         width: rem(770px);
     }
