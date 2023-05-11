@@ -2,8 +2,8 @@
 
 use \Bitrix\Main\Service\GeoIp;
 
-//$ip ='95.31.209.94';
-$ip ='';
+$ip ='95.31.209.94';
+//$ip ='';
 $lang = 'ru';
 
 $geolocation = GeoIp\Manager::getDataResult($ip, $lang);
@@ -132,6 +132,15 @@ CUtil::InitJSCore(array('window'));
                                 isActive:false
                             }
                         ],
+                        place:{
+                            address:'',
+                            flat:'',
+                            index:'',
+                            entry:'',
+                            housepin:'',
+                            floor:'',
+                        },
+                        searchResult:[]
                     };
                 },
 
@@ -182,13 +191,50 @@ CUtil::InitJSCore(array('window'));
                             })
 
                     },
+                    fillPlace(place){
+                        this.place.address = place.value
+                    },
                     setCity(city){
                         this.cityId = city.ID
                         this.setActiveTab('tab1')
                     },
                     isSelectedCity(city){
                         return city.ID === this.cityId
+                    },
+
+                    async saveCity(){
+                        // prominado – префикс партнера, отделяется двоеточием
+// module – название модуля
+// api – приставка из .settings.php
+// updater.apply – название класса и метода без постфикса Action
+
+                        BX.ajax.runAction('wizandr:geolocation.usercity.add',{data:{
+                            place:'валаби 42 сидней'
+                            }})
+                            .then(function() {
+                                // Код после выполнения экшена
+                            });
+                        // const response = await BX.ajax.runAction('wizandr:geolocation.Item.add', {
+                        //     data: {
+                        //        dsdsd:332323
+                        //     }
+                        // }).then((response) => response.data)
                     }
+                },
+                watch:{
+                    'place.address'(newVal){
+                        if (newVal.length > 3){
+                            BX.ajax.runAction('wizandr:geolocation.usercity.dadata',{data:{
+                                    query:newVal
+                                }})
+                                .then((res)=> {
+                                    this.searchResult = res.data
+                                    // Код после выполнения экшена
+                                });
+                        }
+
+                    }
+
                 },
 
                 template: `
@@ -255,9 +301,13 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control " name="address">
+                                <input type="text" class="input__control" v-model="place.address" name="address">
                             </div>
                         </div>
+                        <div v-if="searchResult.length && place.address.length > 3" class="form__field-search--result">
+                            <p v-for="placeItem in searchResult" @click="fillPlace(placeItem)" >{{placeItem.value}}</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -274,7 +324,7 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control " name="flat">
+                                <input type="text" class="input__control" v-model="place.flat" name="flat">
                             </div>
                         </div>
                     </div>
@@ -290,7 +340,7 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control " name="index">
+                                <input type="text" class="input__control" v-model="place.index" name="index">
                             </div>
                         </div>
                     </div>
@@ -308,7 +358,7 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control " name="entry">
+                                <input type="text" class="input__control" v-model="place.entry" name="entry">
                             </div>
                         </div>
                     </div>
@@ -324,7 +374,7 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control " name="floor">
+                                <input type="text" class="input__control" v-model="place.floor" name="floor">
                             </div>
                         </div>
                     </div>
@@ -340,12 +390,20 @@ CUtil::InitJSCore(array('window'));
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" name="housepin">
+                                <input type="text" class="input__control" v-model="place.housepin" name="housepin">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+        <div class="modal-geolocation__container">
+            <button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
+                    <b class="button__text" @click="saveCity()">Сохранить адрес</b>
+            </button>
+        </div>
+
         </section>
 
     `

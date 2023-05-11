@@ -37,7 +37,8 @@
     "qsoft/database": "~5.0.1",
     "qsoft/queue": "~5.7.2",
     "guzzlehttp/guzzle": "^7.5",
-    "ext-json": "*"
+    "ext-json": "*",
+    "hflabs/dadata": "^22.3"
   },
   "autoload": {
     "psr-4": {
