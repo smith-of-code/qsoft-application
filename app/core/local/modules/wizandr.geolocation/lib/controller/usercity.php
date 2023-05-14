@@ -8,14 +8,53 @@ use Bitrix\Main\Application;
 
 class Usercity extends Controller
 {
+
+
+    public function configureActions(): array
+    {
+        return [
+            'savecity' => [
+                'prefilters' => [
+                    new \Bitrix\Main\Engine\ActionFilter\Csrf(),
+                ]
+            ],
+            'dadata' => [
+                'prefilters' => [
+                    new \Bitrix\Main\Engine\ActionFilter\Csrf(),
+                ]
+            ],
+        ];
+    }
+
+
+    public function listAction()
+    {
+
+        $userId = $this->getCurrentUser()->getId();
+
+        $result = Application::getConnection()->query("SELECT * FROM arrival_place WHERE user_id= $userId ");
+        $result2 =[];
+        while($row = $result->fetch()){
+            $result2[] = $row;
+        }
+        return $result2;
+    }
+
     public function addAction()
     {
 
         $userId = $this->getCurrentUser()->getId();
         $place = $this->getRequest()['place'];
-        Application::getConnection()->query("INSERT INTO arrival_place (user_id, arrival) VALUES (150, ' $place ')");
-        return $this->getCurrentUser()->getId();
-        $request = $this->getRequest();
+
+        $queryField = "";
+        $queryValue = "";
+
+        foreach ( $place as $field => $value){
+            $queryField .= ",$field ";
+            $queryValue .= ",'$value'";
+        }
+//        return "INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )";
+        Application::getConnection()->query("INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )");
 
         return ['response' => 'success'];
     }
@@ -23,8 +62,10 @@ class Usercity extends Controller
     public function deleteAction()
     {
 
-        return $this->getCurrentUser()->getId();
-        $request = $this->getRequest();
+        $userId = $this->getCurrentUser()->getId();
+        $placeId = $this->getRequest()['place_id'];
+
+        Application::getConnection()->query("DELETE FROM arrival_place WHERE id = $placeId AND user_id = $userId");
 
         return ['response' => 'success'];
     }
@@ -47,10 +88,22 @@ class Usercity extends Controller
 //            ],
             'restrict_value'=>true,
             'from_bound'=>['value'=>'city'],
-            'to_bound'=>['value'=>'house']
+            'to_bound'=>['value'=> $this->getRequest()['only_city']?'city':'house']
 
         ]);
         return $response;
 
     }
+
+
+    public function savecityAction(){
+
+        $session = \Bitrix\Main\Application::getInstance()->getSession();
+        $session->set('current_city', $this->getRequest()['city']);
+
+            return true;
+
+
+    }
+
 }

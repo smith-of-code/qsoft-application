@@ -162,9 +162,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                     <?php
                     $APPLICATION->IncludeComponent("zolo:geolocation.city",[])
                     ?>
-                    <div class="geolocation__address">
-                        <span>Укажите адрес доставки</span>
-                    </div>
                 </div>
             </div>
         </div>

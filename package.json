@@ -37,11 +37,15 @@
         "normalize.css": "^8.0.1",
         "overlayscrollbars": "^1.13.3",
         "picturefill": "^3.0.3",
+        "rollup-plugin-commonjs": "^9.0.0",
+        "rollup-plugin-vue": "^5.0.0",
         "select2": "^4.1.0-rc.0",
         "svg4everybody": "^2.1.9",
         "svgxuse": "^1.2.6",
         "swiper": "^5.4.5",
-        "tippy.js": "^6.0.3"
+        "tippy.js": "^6.0.3",
+        "vue-template-compiler": "^2.7.14",
+        "vue-yandex-maps": "^0.11.15"
     },
     "devDependencies": {
         "@babel/core": "^7.11.4",

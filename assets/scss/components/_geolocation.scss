@@ -1,7 +1,7 @@
 .geolocation{
   display: flex;
   position: relative;
-  &__city{
+  &__city-btn{
     cursor: pointer;
     display: flex;
     padding-right:13px;
@@ -13,7 +13,7 @@
 
     color: #000000;
   }
-  &__address{
+  &__address-btn{
     cursor: pointer;
     padding-left:13px;
     border-left: 1px solid #E2E2E2;
@@ -99,6 +99,7 @@
   }
   & .geolocation__header{
     text-align: left;
+    max-width: rem(366px);
   }
   & input[type="text"],  input[type="password"],  input[type="email"] {
     font-size: rem($font-size-average);
@@ -156,4 +157,14 @@
     text-align: center;
     margin: rem(15px) 0 rem(26px) 0;
   }
+}
+
+.geolocation__address{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: rem(1307px);
+}
+
+.geolocation__address--form{
+  max-width: rem(475px);
 }
