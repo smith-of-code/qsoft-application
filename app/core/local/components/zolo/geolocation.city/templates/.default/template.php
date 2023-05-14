@@ -116,7 +116,7 @@ while ($vars = $db_vars->Fetch()) {
     });
 
     <?php if (!$session->has('current_city')): ?>
-        geolocation_fancybox.click()
+        geolocation_fancybox[0].click()
     <?php endif;?>
 
 
