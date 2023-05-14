@@ -8,34 +8,8 @@
       "email": "support@qsoft.ru"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-application.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft_database.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-foundation.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft_migration.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-queue.git"
-    }
-  ],
   "require": {
     "php": "~7.4.16",
-    "qsoft/foundation": "~5.0",
-    "qsoft/migration": "~6.1.0",
-    "qsoft/database": "~5.0.1",
-    "qsoft/queue": "~5.7.2",
     "guzzlehttp/guzzle": "^7.5",
     "ext-json": "*",
     "hflabs/dadata": "^22.3"
