@@ -110,8 +110,8 @@ $user = new User;?>
                         <!--выпадающий список уведомлений-->
 
                         <?php if ($user->isAuthorized):?>
-                            <div class="personal__item personal__item--hidden">
-                                <div class="dropdown dropdown--hover" data-dropdown>
+                            <div class="personal__item personal__item--hidden" >
+                                <div class="dropdown dropdown--hover" data-dropdown onclick="location.href='/personal';">
                                     <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
                                         <span class="button__icon button__icon--mixed">
                                             <svg class="icon icon--user">
@@ -120,26 +120,26 @@ $user = new User;?>
                                         </span>
                                         <span class="personal__button-text button__text">Профиль</span>
                                     </button>
-                                    <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>
-                                        <div class="logout__name">
-                                            <button class="logout__button-name button button--simple button--red" onclick="location.href='/personal';">
-                                                <span class="logout__lastname" data-truncate-symbols="17"><?=$user->lastName?></span>
-                                                <span class="logout__names" data-truncate-symbols="15"><?=$user->name?>&nbsp;</span>
-                                                <span class="logout__secondname" data-truncate-symbols="17"><?=$user->secondName?></span>  
-                                            </button>
-                                        </div>
-                                        <div class="logout__id">
-                                            ID <?=$user->id?>
-                                        </div>
-                                        <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout>
-                                            <span class="button__icon">
-                                                <svg class="icon icon--basket">
-                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-logout"></use>
-                                                </svg>
-                                            </span>
-                                            <span class="button__text">Выйти из профиля</span>
-                                        </button>
-                                    </div>
+<!--                                    <div class="logout dropdown__box dropdown__box--shifted dropdown__box--scrolled box box--shadow" data-dropdown-block>-->
+<!--                                        <div class="logout__name">-->
+<!--                                            <button class="logout__button-name button button--simple button--red" onclick="location.href='/personal';">-->
+<!--                                                <span class="logout__lastname" data-truncate-symbols="17">--><?//=$user->lastName?><!--</span>-->
+<!--                                                <span class="logout__names" data-truncate-symbols="15">--><?//=$user->name?><!--&nbsp;</span>-->
+<!--                                                <span class="logout__secondname" data-truncate-symbols="17">--><?//=$user->secondName?><!--</span>  -->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                        <div class="logout__id">-->
+<!--                                            ID --><?//=$user->id?>
+<!--                                        </div>-->
+<!--                                        <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout>-->
+<!--                                            <span class="button__icon">-->
+<!--                                                <svg class="icon icon--basket">-->
+<!--                                                    <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-logout"></use>-->
+<!--                                                </svg>-->
+<!--                                            </span>-->
+<!--                                            <span class="button__text">Выйти из профиля</span>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         <?php else: ?>

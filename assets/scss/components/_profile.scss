@@ -234,12 +234,17 @@
                 object-fit: cover;
             }
         }
+
+        .logout__button{
+            margin-top: rem(10px);
+        }
     }
 
     &__level {
         font-size: rem($font-size-small);
         font-weight: $font-weight-semibold;
         line-height: ($line-height-small / $font-size-small);
+        text-align: center;
 
         display: block;
 
@@ -252,6 +257,7 @@
         font-size: rem($font-size-small);
         font-weight: $font-weight-medium;
         line-height: (22px / $font-size-small);
+        text-align: center;
 
         display: block;
 
