@@ -29,10 +29,8 @@ CUtil::InitJSCore(array('window'));
 ?>
 
 <?php
-\Bitrix\Main\UI\Extension::load("ui.vue3");
-?>
-<?php
 Bitrix\Main\Loader::includeModule('sale');
+
 $db_vars = CSaleLocation::GetList(
     array(
         "SORT" => "ASC",
@@ -58,16 +56,17 @@ while ($vars = $db_vars->Fetch()) {
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat&amp;apikey=457432fc-6d98-40a8-a99e-66c743f91e8f"
         type="text/javascript"></script>
 
+<div class="geolocation">
+    <div class="geolocation__city-btn">
+        <img class="geolocation__icon" src="/local/templates/.default/images/icons/geolocation.svg"
+             alt="">
+        <span id="geolocationName"><?= $geolocationName ?></span>
+    </div>
+    <div class="geolocation__address-btn">
+        <span id="geolocationAddress">Укажите адрес доставки</span>
+    </div>
+</div>
 
-<!--<script src="http://api-maps.yandex.ru/2.1/?lang=ru-RU" type="text/javascript"></script>-->
-<div class="geolocation__city-btn">
-    <img class="geolocation__icon" src="/local/templates/.default/images/icons/geolocation.svg"
-         alt="">
-    <span id="geolocationName"><?= $geolocationName ?></span>
-</div>
-<div class="geolocation__address-btn">
-    <span id="geolocationAddress">Укажите адрес доставки</span>
-</div>
 <script>
 
 
