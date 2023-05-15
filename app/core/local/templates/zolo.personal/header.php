@@ -110,7 +110,7 @@ $user = new User;?>
                         <!--выпадающий список уведомлений-->
 
                         <?php if ($user->isAuthorized):?>
-                            <div class="personal__item personal__item--hidden" >
+                            <div class="personal__item personal__item--hidden">
                                 <div class="dropdown dropdown--hover" data-dropdown onclick="location.href='/personal';">
                                     <button type="button" class="button button--simple button--red button--vertical" data-dropdown-button>
                                         <span class="button__icon button__icon--mixed">
