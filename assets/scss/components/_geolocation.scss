@@ -1,6 +1,10 @@
 .geolocation{
   display: flex;
   position: relative;
+  @media #{$screen-mobile-md} {
+    width: 100%;
+    justify-content: center;
+  }
   &__city-btn{
     cursor: pointer;
     display: flex;
