@@ -105,7 +105,7 @@ else
             );
             ?>
 
-            <div class="catalog__main">
+            <div class="catalog__main" style="width: 100%;">
                 <?
                 $catalogSectionParams = array(
                     "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
