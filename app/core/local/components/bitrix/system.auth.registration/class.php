@@ -103,11 +103,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
-//                    [
-//                        'index' => 2,
-//                        'code' => 'choose_mentor',
-//                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
-//                    ],
+                    [
+                        'index' => 2,
+                        'code' => 'choose_mentor',
+                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
+                    ],
                     [
                         'index' => 5,
                         'code' => 'set_password',
@@ -132,11 +132,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
-//                    [
-//                        'index' => 3,
-//                        'code' => 'choose_mentor',
-//                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
-//                    ],
+                    [
+                        'index' => 3,
+                        'code' => 'choose_mentor',
+                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
+                    ],
                     [
                         'index' => 4,
                         'code' => 'legal_entity_data',
@@ -156,11 +156,9 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
         ];
 
         if (\Bitrix\Main\Application::getInstance()->getSession()->has('mentor_user_id')){
-            unset($registration_types['buyer'][2]);
-            unset($registration_types['consultant'][2]);
+            unset($registration_types['buyer']['steps'][2]);
+            unset($registration_types['consultant']['steps'][2]);
         }
-
-
         return $registration_types;
     }
 
