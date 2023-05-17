@@ -38,7 +38,8 @@
     "qsoft/queue": "~5.7.2",
     "guzzlehttp/guzzle": "^7.5",
     "ext-json": "*",
-    "hflabs/dadata": "^22.3"
+    "hflabs/dadata": "^22.3",
+    "ext-openssl": "*"
   },
   "autoload": {
     "psr-4": {

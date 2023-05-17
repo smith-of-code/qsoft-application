@@ -6,7 +6,7 @@
     "scripts": {
         "start": "webpack --mode=development --progress --watch",
         "build": "webpack --mode=production && cd app/core/local/js/ && ../../../../bitrix_cli build",
-        "watch": "webpack --mode=development --progress --watch && cd app/core/local/js/ && ../../../../bitrix_cli build -w"
+        "watch": " cd app/core/local/js/ && ../../../../bitrix_cli build -w"
     },
     "author": "Manerova Olga",
     "license": "ISC",

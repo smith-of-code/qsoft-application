@@ -16,6 +16,7 @@ export const PersonalData = {
             emailVerified: false,
             verifyError: false,
             confirmationType: false,
+            copyInProgress:false
         };
     },
 
@@ -36,6 +37,10 @@ export const PersonalData = {
             type: Object,
             required: true,
         },
+        refLink:{
+            type: String,
+            default: null
+        }
     },
 
     computed: {
@@ -73,6 +78,14 @@ export const PersonalData = {
     },
 
     methods: {
+        copyLink(){
+            this.copyInProgress = true
+            navigator.clipboard.writeText(location.origin + this.refLink)
+            setTimeout(()=>{
+                this.copyInProgress = false
+            },5000)
+
+        },
         initUserInfo() {
             this.mutableUserInfo = JSON.parse(JSON.stringify(this.userInfo));
         },
@@ -275,7 +288,7 @@ export const PersonalData = {
 <!--                                            ID 543                                        </div>-->
 <!--                                        -->
 <!--                                    </div>-->
-                                    
+                                    <a @click.prevent="copyLink()" :href="refLink">{{copyInProgress?'Ссылка скопированна':'Реферальная ссылка'}}</a>
                                 </div>
 
                                 <div class="section__box-inner section__box-inner--full">

@@ -29,6 +29,7 @@ use QSoft\Service\ProductService;
 use QSoft\Service\UserDiscountsService;
 use QSoft\Service\PetService;
 use QSoft\Service\UserGroupsService;
+use QSoft\Service\UserReferalService;
 use QSoft\Service\WishlistService;
 use ReflectionProperty;
 use RuntimeException;
@@ -282,6 +283,7 @@ class User
         $this->products = new ProductService($this);
         $this->wishlist = new WishlistService($this);
         $this->bonusAccount = new BonusAccountService($this);
+        $this->referal = new UserReferalService($this);
     }
 
     /**

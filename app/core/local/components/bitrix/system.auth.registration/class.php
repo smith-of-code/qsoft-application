@@ -89,7 +89,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
 
     private function getRegistrationTypes(): array
     {
-        return [
+        $registration_types = [
             'buyer' => [
                 'name' => 'buyer',
                 'steps' => [
@@ -103,11 +103,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
-                    [
-                        'index' => 2,
-                        'code' => 'choose_mentor',
-                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
-                    ],
+//                    [
+//                        'index' => 2,
+//                        'code' => 'choose_mentor',
+//                        'name' => Loc::getMessage('CHOOSE_CONTACT_STEP'),
+//                    ],
                     [
                         'index' => 5,
                         'code' => 'set_password',
@@ -132,11 +132,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                         'code' => 'pets_data',
                         'name' => Loc::getMessage('PETS_DATA_STEP'),
                     ],
-                    [
-                        'index' => 3,
-                        'code' => 'choose_mentor',
-                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
-                    ],
+//                    [
+//                        'index' => 3,
+//                        'code' => 'choose_mentor',
+//                        'name' => Loc::getMessage('CHOOSE_MENTOR_STEP'),
+//                    ],
                     [
                         'index' => 4,
                         'code' => 'legal_entity_data',
@@ -154,6 +154,14 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 ],
             ],
         ];
+
+        if (\Bitrix\Main\Application::getInstance()->getSession()->has('mentor_user_id')){
+            unset($registration_types['buyer'][2]);
+            unset($registration_types['consultant'][2]);
+        }
+
+
+        return $registration_types;
     }
 
     private function confirmEmail()
@@ -318,6 +326,8 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             throw $error;
         }
 
+        $session = \Bitrix\Main\Application::getInstance()->getSession();
+
         $phone = normalizePhoneNumber($data['phone']);
         $email = $data['email'];
 
@@ -389,6 +399,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             $data['email'],
         );
         $user->Logout();
+
         $user->Update($result['ID'], [
             'NAME' => $data['first_name'],
             'LAST_NAME' => $data['last_name'],
@@ -403,7 +414,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 static fn (array $city): bool => $city['XML_ID'] === $data['city'],
             ))['VALUE'],
             'GROUP_ID' => [$userGroupId],
-            'UF_MENTOR_ID' => $data['mentor_id'],
+            'UF_MENTOR_ID' => $session->has('mentor_user_id')??$data['mentor_id'],
             'UF_LOYALTY_LEVEL' => $levelsIDs[$firstLevel],
             'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'] === 'true',
             'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'] === 'true',
@@ -542,5 +553,6 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
     private function resetRegisterData()
     {
         Application::getInstance()->getSession()->remove(self::SESSION_KEY);
+        Application::getInstance()->getSession()->remove('mentor_user_id');
     }
 }

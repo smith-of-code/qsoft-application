@@ -39,6 +39,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
             prop-genders='<?=phpToVueObject($arResult['user_genders'])?>'
             prop-cities='<?=phpToVueObject($arResult['cities'])?>'
             prop-pickup-points='<?=phpToVueObject($arResult['pickup_points'])?>'
+            prop-ref-link='<?=$arResult['ref_link']?>'
         >
             <div class="profile__block" data-accordeon data-profile-block>
                 <section class="section">

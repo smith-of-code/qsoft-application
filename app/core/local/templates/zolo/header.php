@@ -9,7 +9,21 @@ Extension::load('zolo.loader');
 
 global $APPLICATION;
 
-$user = new User;?>
+$user = new User;
+
+$mentor_user_id = $user->referal->getUserIdByRefRequest();
+
+if ($mentor_user_id !== false){
+    $session = \Bitrix\Main\Application::getInstance()->getSession();
+    if (!$session->has('mentor_user_id'))
+    {
+        $session->set('mentor_user_id', $mentor_user_id);
+        $session->save();
+    }
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="ru">
