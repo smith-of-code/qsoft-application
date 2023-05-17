@@ -18,6 +18,11 @@ class Usercity extends Controller
                     new \Bitrix\Main\Engine\ActionFilter\Csrf(),
                 ]
             ],
+            'list' => [
+                'prefilters' => [
+                    new \Bitrix\Main\Engine\ActionFilter\Csrf(),
+                ]
+            ],
             'dadata' => [
                 'prefilters' => [
                     new \Bitrix\Main\Engine\ActionFilter\Csrf(),
@@ -31,13 +36,17 @@ class Usercity extends Controller
     {
 
         $userId = $this->getCurrentUser()->getId();
-
-        $result = Application::getConnection()->query("SELECT * FROM arrival_place WHERE user_id= $userId ");
-        $result2 =[];
-        while($row = $result->fetch()){
-            $result2[] = $row;
+        if ($userId){
+            $result = Application::getConnection()->query("SELECT * FROM arrival_place WHERE user_id= $userId ");
+            $result2 =[];
+            while($row = $result->fetch()){
+                $result2[] = $row;
+            }
+            return $result2;
+        }else{
+            return [];
         }
-        return $result2;
+
     }
 
     public function addAction()
