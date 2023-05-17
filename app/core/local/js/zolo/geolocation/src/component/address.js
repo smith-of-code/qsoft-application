@@ -13,7 +13,7 @@ export const Address =
 					floor: '',
 				},
 				isOpenSearchResult:false,
-				listArrivalPlace:[],
+
 				searchResult:[],
 				settings :{
 					apiKey: '',
@@ -51,13 +51,7 @@ export const Address =
 				this.isOpenSearchResult = false
 				console.log(this.place)
 			},
-			fetchListArrivalPlace(){
-				BX.ajax.runAction('wizandr:geolocation.usercity.list')
-					.then((res) => {
-						this.listArrivalPlace = res.data
-						// Код после выполнения экшена
-					});
-			},
+
 			async saveCity() {
 				// prominado – префикс партнера, отделяется двоеточием
 				// module – название модуля
@@ -74,15 +68,7 @@ export const Address =
 				});
 			},
 
-			deleteArivalPlace(id){
-				BX.ajax.runAction('wizandr:geolocation.usercity.delete', {
-					data: {
-						place_id: id
-					}
-				})
-					.then(function () {
-					});
-			}
+
 		},
 		watch: {
 			'place.address'(newVal) {

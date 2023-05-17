@@ -96,6 +96,7 @@ while ($vars = $db_vars->Fetch()) {
             $('.fancybox-active').css('top', '');
             $('header').css('top', '');
             $('html').scrollTop(offset);
+            localStorage.setItem('hide_auto_open_geolocation_popup',true)
         },
 
         afterShow: function (e) {
@@ -115,7 +116,9 @@ while ($vars = $db_vars->Fetch()) {
     });
 
     <?php if (!$session->has('current_city')): ?>
-        geolocation_fancybox[0].click()
+        if (localStorage.getItem('hide_auto_open_geolocation_popup') !== 'true'){
+            geolocation_fancybox[0].click()
+        }
     <?php endif;?>
 
 

@@ -64,6 +64,19 @@
       --scrollbarBorder: 3px solid rgb(105, 103, 109);
       --scrollbarBorderRadius: calc(12px / 2);
     }
+    @media #{$screen-mobile-md} {
+      .radio-green{
+        &__label{
+          font-weight: 600!important;
+          font-size: rem(16px);
+          line-height: rem(24px);
+          .radio-green__small{
+            line-height: rem(20px);
+          }
+        }
+      }
+    }
+
 
   }
 }
@@ -73,9 +86,13 @@
   $height-input: 48px;
   $height-input-medium: 44px;
   $height-input-small: 36px;
+  width: rem(528px);
   &__container{
     max-width: rem(413px);
-    padding: 0 rem(20px);
+    //padding: 0 rem(20px);
+    @media #{$screen-mobile-md} {
+      max-width: rem(311px);
+    }
   }
   & .modal__content{
     padding-top: rem(20px);
@@ -94,12 +111,13 @@
     }
   }
   & .modal__section--header{
-    padding-left: 2rem;
+    padding-left: rem(58px);
     margin-bottom: rem(20px);
 
   }
   & .form__col{
     padding-right: 1.5rem;
+    padding-left: 0;
   }
   & .geolocation__header{
     text-align: left;
@@ -160,6 +178,25 @@
     color: $black;
     text-align: center;
     margin: rem(15px) 0 rem(26px) 0;
+  }
+
+  &__arrival-card{
+    margin-top: 22px;
+    position: relative;
+    border: 2px solid #D0D0D0;
+    border-radius: 8px;
+    padding: 24px;
+    h4{
+      margin-top: 0;
+    }
+    button{
+      position: absolute;
+      top: 22px;
+      right: 15px;
+    }
+    &:hover{
+      border: 2px solid #378A5F;
+    }
   }
 }
 

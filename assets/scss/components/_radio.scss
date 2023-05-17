@@ -12,8 +12,8 @@
     &__label {
         font-style: normal;
         font-weight: 600!important;
-        font-size: 20px;
-        line-height: 23px;
+        font-size: rem(20px);
+        line-height: rem(23px);
         display: flex;
         flex-direction: column;
         letter-spacing: 0.02em;
