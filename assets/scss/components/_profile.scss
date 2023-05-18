@@ -173,6 +173,17 @@
 
     &__info {
         margin-top: rem($gap-small);
+        .logout__button{
+            padding-left: rem(10.5px);
+            padding-right: rem(10.5px);
+            .button__text{
+                font-size: rem(10px);
+                line-height: rem(16px);
+            }
+            .button__icon{
+                width: rem(17px);
+            }
+        }
     }
 
     &__avatar {

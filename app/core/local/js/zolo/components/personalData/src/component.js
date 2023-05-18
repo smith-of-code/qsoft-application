@@ -267,8 +267,7 @@ export const PersonalData = {
                                             Уровень {{ mutableUserInfo.loyalty_level }}
                                         </span>
                                         <span class="profile__id">ID {{ mutableUserInfo.id }}</span>
-                                        </div>
-                                    <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout="">
+                                        <button type="button" class="logout__button button button--rounded button--outlined button--red" data-logout="">
                                             <span class="button__icon">
                                                 <svg class="icon icon--basket">
                                                     <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-logout"></use>
@@ -276,19 +275,7 @@ export const PersonalData = {
                                             </span>
                                             <span class="button__text">Выйти из профиля</span>
                                         </button>
-<!--                                    <div class="logout box box&#45;&#45;shadow" data-dropdown-block="">-->
-<!--                                        <div class="logout__name">-->
-<!--                                            <button class="logout__button-name button button&#45;&#45;simple button&#45;&#45;red" onclick="location.href='/personal';">-->
-<!--                                                <span class="logout__lastname" data-truncate-symbols="17">Львович</span>-->
-<!--                                                <span class="logout__names" data-truncate-symbols="15">Leo&nbsp;</span>-->
-<!--                                                <span class="logout__secondname" data-truncate-symbols="17">Левович</span>  -->
-<!--                                            </button>-->
-<!--                                        </div>-->
-<!--                                        <div class="logout__id">-->
-<!--                                            ID 543                                        </div>-->
-<!--                                        -->
-<!--                                    </div>-->
-                                    <a @click.prevent="copyLink()" :href="refLink">{{copyInProgress?'Ссылка скопированна':'Реферальная ссылка'}}</a>
+                                        </div>
                                 </div>
 
                                 <div class="section__box-inner section__box-inner--full">
