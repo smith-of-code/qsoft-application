@@ -20,7 +20,7 @@
     }
 }
 
-@media ($screen-tablet) {
+@media #{$screen-tablet} {
     .navigation {
         display: block;
     }
