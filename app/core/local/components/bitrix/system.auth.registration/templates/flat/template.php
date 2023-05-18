@@ -1,4 +1,6 @@
-<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die;
+<?php use Bitrix\Main\Application;
+
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die;
 
 /**
  * Bitrix vars
@@ -44,12 +46,20 @@ $isCurrentStepPassed = false;
     </section>
 
     <?php foreach (scandir(__DIR__ . '/steps') as $stepTemplate): ?>
-        <section
-                class="section section--limited-big step-container <?=str_replace('.php', '', $stepTemplate)?>"
-            <?=$stepTemplate !== "$arResult[currentStep].php" ? 'style="display: none"' : ''?>
-        >
-            <?php include "steps/$stepTemplate"; ?>
-        </section>
+
+        <?php if (in_array($stepTemplate,['.','..']) || ($stepTemplate === 'choose_mentor.php' && Application::getInstance()->getSession()->has('mentor_user_id'))): ?>
+
+
+        <?php else: ?>
+            <section
+                    class="section section--limited-big step-container <?=str_replace('.php', '', $stepTemplate)?>"
+                <?=$stepTemplate !== "$arResult[currentStep].php" ? 'style="display: none"' : ''?>
+            >
+                <?php include "steps/$stepTemplate"; ?>
+            </section>
+        <?php endif; ?>
+
+
     <?php endforeach; ?>
 </div>
 

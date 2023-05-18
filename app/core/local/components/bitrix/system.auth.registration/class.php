@@ -84,6 +84,12 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ];
         }
 
+        //если текущий шаг "выбор контактного лица" то меняем на первый шаг и перезаписываем шаги
+        if ($this->arResult['currentStep']==='choose_mentor' && Application::getInstance()->getSession()->has('mentor_user_id')){
+            $this->arResult['currentStep'] = $registrationTypes[$this->arResult['type']]['steps'][0]['code'];
+            $this->arResult['steps'] = $registrationTypes[$this->arResult['type']]['steps'];
+        }
+
         $this->IncludeComponentTemplate();
     }
 
@@ -155,9 +161,11 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
             ],
         ];
 
-        if (\Bitrix\Main\Application::getInstance()->getSession()->has('mentor_user_id')){
+        if (Application::getInstance()->getSession()->has('mentor_user_id')){
             unset($registration_types['buyer']['steps'][2]);
+            $registration_types['buyer']['steps'] = array_values($registration_types['buyer']['steps']);
             unset($registration_types['consultant']['steps'][2]);
+            $registration_types['consultant']['steps'] = array_values($registration_types['consultant']['steps']);
         }
         return $registration_types;
     }
