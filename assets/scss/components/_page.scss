@@ -53,6 +53,10 @@
             padding-bottom: rem(80px);
         }
 
+        @media (max-width: 836px) {
+            padding-top: rem(96px);
+        }
+
         &--breadcrumbs {
             padding-top: rem($gap-normal);
         }
