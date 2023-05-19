@@ -2,8 +2,8 @@
 
 use \Bitrix\Main\Service\GeoIp;
 
-$ip = '95.31.209.94';
-//$ip ='';
+//$ip = '95.31.209.94';
+$ip ='';
 $lang = 'ru';
 
 $geolocation = GeoIp\Manager::getDataResult($ip, $lang);

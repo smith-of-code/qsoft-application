@@ -22,6 +22,7 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
     const INCOMES_CALCULATOR_URL = '/personal/calculator/';
     const SALES_REPORT_URL = '/personal/sales-report/';
     const NOTIFICATIONS_URL = '/personal/notifications/';
+    const REFERALS_URL = '/personal/referals/';
 
     private bool $isError = false;
 
@@ -34,6 +35,7 @@ class PersonalMainProfileNavigationMenu extends CBitrixComponent
         $arParams['INCOMES_CALCULATOR_URL'] = $arParams['INCOMES_CALCULATOR_URL'] ?: self::INCOMES_CALCULATOR_URL;
         $arParams['SALES_REPORT_URL'] = $arParams['SALES_REPORT_URL'] ?: self::SALES_REPORT_URL;
         $arParams['NOTIFICATIONS_URL'] = $arParams['NOTIFICATIONS_URL'] ?: self::NOTIFICATIONS_URL;
+        $arParams['REFERALS_URL'] = $arParams['REFERALS_URL'] ?: self::REFERALS_URL;
 
         return $arParams;
     }

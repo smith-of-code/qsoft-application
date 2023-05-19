@@ -37,10 +37,6 @@ export const PersonalData = {
             type: Object,
             required: true,
         },
-        refLink:{
-            type: String,
-            default: null
-        }
     },
 
     computed: {
@@ -78,14 +74,6 @@ export const PersonalData = {
     },
 
     methods: {
-        copyLink(){
-            this.copyInProgress = true
-            navigator.clipboard.writeText(location.origin + this.refLink)
-            setTimeout(()=>{
-                this.copyInProgress = false
-            },5000)
-
-        },
         initUserInfo() {
             this.mutableUserInfo = JSON.parse(JSON.stringify(this.userInfo));
         },

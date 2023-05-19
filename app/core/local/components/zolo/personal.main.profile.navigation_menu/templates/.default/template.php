@@ -55,6 +55,18 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
+            <?php $isCurrentUrl  = $currentUrl == $arParams['REFERALS_URL'] ? 'menu__item--active' : ''?>
+            <li class="menu__item  <?=$isCurrentUrl  ? 'menu__item--active' : ''?>">
+                <a href="<?=$arParams['REFERALS_URL']?>" class="menu__link">
+                    <span class="menu__icon <?=$isCurrentUrl  ? 'menu__icon--active' : ''?>">
+                        <svg class="icon icon--calculator gui__icon">
+                            <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-link"></use>
+                        </svg>
+                    </span>
+                    <span class="menu__text"><?=Loc::getMessage('REFERALS_TAB_NAME')?></span>
+                </a>
+            </li>
+
             <?php $isCurrentUrl  = $currentUrl == $arParams['SALES_REPORT_URL'] ? 'menu__item--active' : ''?>
             <li class="menu__item  <?=$isCurrentUrl  ? 'menu__item--active' : ''?>">
                 <a href="<?=$arParams['SALES_REPORT_URL']?>" class="menu__link">

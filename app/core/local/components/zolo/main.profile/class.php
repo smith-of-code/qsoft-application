@@ -125,7 +125,6 @@ class MainProfileComponent extends CBitrixComponent implements Controllerable
 
         if ($this->user->groups->isConsultant()) {
             $this->arResult['LL'] = $this->loyaltyProgramHelper->getLoyaltyLevels()['consultant'];
-            $this->arResult['ref_link'] = '/?refid=' . $this->user->referal->getReferalId();
 
         }
 

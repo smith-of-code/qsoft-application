@@ -63,6 +63,13 @@ $arUrlRewrite=array (
     'PATH' => '/personal/orders/index.php',
     'SORT' => 100,
   ),
+    16 =>
+    array (
+        'CONDITION' => '#^/personal/referals/#',
+        'ID' => 'zolo:sale.personal.referals',
+        'PATH' => '/personal/referals/index.php',
+        'SORT' => 100,
+    ),
   13 => 
   array (
     'CONDITION' => '#^/info/events/#',

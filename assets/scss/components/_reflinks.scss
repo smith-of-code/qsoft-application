@@ -1,0 +1,123 @@
+.reflink {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    padding: 10px 12px;
+    justify-content: space-between;
+    flex-direction: row;
+    background: #FFFFFF;
+    border-radius: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    &:nth-child(1){
+        border-radius: 8px 8px 0 0
+    }
+    &:nth-last-child(1){
+        border-radius: 0 0 8px 8px
+    }
+    @media #{$screen-tablet} {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 8px;
+    }
+    @media #{$screen-desktop} {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        border-radius: 8px;
+    }
+    &__title {
+        font-style: normal;
+        letter-spacing: 0.02em;
+        color: #3A3A43;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 18px;
+
+        @media #{$screen-tablet} {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        @media #{$screen-desktop} {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+
+    &__box {
+        margin-top: 11px;
+        display: flex;
+        background: #FFFFFF;
+        border-radius: 30px ;
+        border: 1px solid #D0D0D0;
+        &.active{
+            border: 1px solid #2D8859;
+        }
+        @media #{$screen-tablet} {
+            margin-top: 0;
+        }
+
+        @media #{$screen-desktop} {
+            margin-top: 0;
+        }
+    }
+
+
+    &__link {
+        padding: 7px 20px;
+        display: block;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 185px;
+        letter-spacing: 0.02em;
+        color: #3A3A43;
+
+        @media #{$screen-tablet} {
+            max-width: 202px;
+        }
+
+        @media #{$screen-desktop} {
+            max-width: 360px;
+        }
+
+
+    }
+
+    &__button {
+        padding: 7px 12px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+
+        /* identical to box height, or 133% */
+
+        text-align: right;
+        letter-spacing: 0.02em;
+        background: #F4F3F6;
+        border-radius: 0 30px 30px 0;
+        &:hover{
+            background: #2D8859;
+            color: #FFFFFF;
+        }
+        @media #{$screen-tablet} {
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        @media #{$screen-desktop} {
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        &.active{
+            background: #2D8859;
+            color: #FFFFFF;
+        }
+    }
+}
