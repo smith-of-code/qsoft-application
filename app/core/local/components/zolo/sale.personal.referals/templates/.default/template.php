@@ -46,7 +46,7 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                     <div class="reflink">
                         <p class="reflink__title"><?=$item['title'] ?></p>
                         <div class="reflink__box">
-                            <a class="reflink__link" href="<?=$item['link'] ?>"><?=$item['link'] ?></a>
+                            <a class="reflink__link" onclick="event.preventDefault();" href="<?=$item['link'] ?>"><?=$item['link'] ?></a>
                             <button class="reflink__button">Скопировать</button>
                         </div>
                     </div>
