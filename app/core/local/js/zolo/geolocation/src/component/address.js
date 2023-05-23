@@ -11,6 +11,11 @@ export const Address =
 					entry: '',
 					housepin: '',
 					floor: '',
+					cityName:'',
+					fias_level:null
+				},
+				errors:{
+					address: ''
 				},
 				isOpenSearchResult:false,
 
@@ -21,7 +26,8 @@ export const Address =
 					coordorder: 'latlong',
 					enterprise: false,
 					version: '2.1'
-				}
+				},
+				acceptSearch:true
 			};
 		},
 
@@ -30,11 +36,13 @@ export const Address =
 		created() {},
 		mounted() {
 
-			new ymaps.Map('yandMap1',{
-				center: [55.74954, 37.621587],
-				zoom: 10,
-				controls: []
-			})
+			this.place.address = localStorage.getItem('deliveryPlaceAddress')
+
+			// new ymaps.Map('yandMap1',{
+			// 	center: [55.74954, 37.621587],
+			// 	zoom: 10,
+			// 	controls: []
+			// })
 
 
 
@@ -47,39 +55,72 @@ export const Address =
 				this.place.address = place.value
 				this.place.postal_code = place.data.postal_code
 				this.place.kladr_id = place.data.kladr_id
-
+				this.place.city = place.data.city
+				this.place.region = place.data.region
+				this.place.fias_level = place.data.fias_level
 				this.isOpenSearchResult = false
 				console.log(this.place)
 			},
 
-			async saveCity() {
+			async saveAddress() {
+				if (this.place.fias_level !== '8'){
+					this.errors.address = 'Не заполнен номер дома'
+					return
+				}
 				// prominado – префикс партнера, отделяется двоеточием
 				// module – название модуля
 				// api – приставка из .settings.php
 				// updater.apply – название класса и метода без постфикса Action
 
-				BX.ajax.runAction('wizandr:geolocation.usercity.add', {
+				//ищем по условию, что если название города и региона в нижнем регистре совпадает, за исключением тех случаев когда город и регион одинаковы в dadata (Санкт петербург)
+				let city = this.$bitrix.Data.get('saleCities').find(e=>
+					e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase()
+					&&
+					(
+						this.place.city  === this.place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(this.place.region.toLowerCase()))
+					)
+				)
+
+				console.log(city)
+				if (!city){
+					city = this.$bitrix.Data.get('saleCities').find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
+				}
+				this.$emit('updateCity',city)
+
+				localStorage.setItem('deliveryPlaceId',this.place.id)
+				localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
+				localStorage.setItem('deliveryPlaceAddress',this.place.address)
+
+				BX.ajax.runAction('wizandr:geolocation.useraddress.add', {
 					data: {
 						place: this.place
 					}
-				})
-				.then(function () {
-
+				}).then(function () {
+					location.reload()
+				}).catch(err=>{
+					location.reload()
 				});
 			},
-
 
 		},
 		watch: {
 			'place.address'(newVal) {
-				if (newVal.length > 3) {
-					BX.ajax.runAction('wizandr:geolocation.usercity.dadata', {
+				this.errors.address = ''
+				if (newVal.length > 3 && this.acceptSearch) {
+					BX.ajax.runAction('wizandr:geolocation.dadata.suggest', {
 						data: {
 							query: newVal
 						}
 					})
 						.then((res) => {
 							this.searchResult = res.data
+							if (!this.isOpenSearchResult){
+								this.fillPlace(res.data[0])
+							}
+							this.acceptSearch = false
+							setTimeout(()=>{
+								this.acceptSearch = true
+							},3000)
 							// Код после выполнения экшена
 						});
 				}
@@ -103,7 +144,8 @@ export const Address =
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" autocomplete="off" v-model="place.address" @input="isOpenSearchResult=true" name="address">
+                                <input type="text" class="input__control" :class="{'input__control--error':errors.address.length}" autocomplete="off" v-model="place.address" @input="isOpenSearchResult=true" @focus="place.address = place.address" name="address">
+                            	<span v-if="errors.address.length" class="input__control-error">{{errors.address}}</span>
                             </div>
                         </div>
                         <div v-if="searchResult.length && isOpenSearchResult" class="form__field-search--result">
@@ -197,17 +239,22 @@ export const Address =
                     </div>
                 </div>
             </div>
+            <div class="form__row">
+				<div class="form__col">
+					<button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
+							<b class="button__text" @click="saveAddress()">Сохранить адрес</b>
+					 </button>
+				</div>
+			</div>
+		</div>
 
-            </div>
-
-            <div class="geolocation__yamap__container">
-            <div id="yandMap1" style="width:746px; height: 400px;" ></div>
-            </div>
+<!--            <div class="geolocation__yamap__container">-->
+<!--            <div id="yandMap1" style="width:746px; height: 400px;" ></div>-->
+<!--            </div>-->
 
             <div class="modal-geolocation__container">
-                <button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
-                        <b class="button__text" @click="saveCity()">Сохранить адрес</b>
-                </button>
+            
+
             </div>
 
         </section>

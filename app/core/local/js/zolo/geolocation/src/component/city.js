@@ -4,18 +4,14 @@ export const City =
 			return {
 				cityId: '',
 				cities:[],
-				listArrivalPlace:[],
+				listDeliveryPlace:[],
 			};
 		},
 		mounted() {
 			this.cityId = this.$bitrix.Data.get('currentCityId')
 			this.cities = this.$bitrix.Data.get('saleCities')
 
-			BX.ajax.runAction('wizandr:geolocation.usercity.list')
-				.then((res) => {
-					this.listArrivalPlace = res.data
-					// Код после выполнения экшена
-				});
+			this.fetchListDeliveryPlace()
 		},
 		computed:{
 			activeCity() {
@@ -27,15 +23,15 @@ export const City =
 				return text.replace(' ', `&nbsp;`)
 			},
 
-			fetchListArrivalPlace(){
+			fetchListDeliveryPlace(){
 				BX.ajax.runAction('wizandr:geolocation.usercity.list')
 					.then((res) => {
-						this.listArrivalPlace = res.data
+						this.listDeliveryPlace = res.data
 						// Код после выполнения экшена
 					});
 			},
 
-			deleteArivalPlace(id){
+			deleteDeliveryPlace(id){
 				BX.ajax.runAction('wizandr:geolocation.usercity.delete', {
 					data: {
 						place_id: id
@@ -44,20 +40,26 @@ export const City =
 					.then(function () {
 
 				});
-				this.listArrivalPlace.splice(this.listArrivalPlace.findIndex(e=>e.id === id),1)
+				this.listDeliveryPlace.splice(this.listDeliveryPlace.findIndex(e=>e.id === id),1)
 
+			},
+			setCurrentDelivery(place){
+				localStorage.setItem('deliveryPlaceId',place.id)
+				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
+				localStorage.setItem('deliveryPlaceAddress',place.address)
+			},
+
+			isActiveDeliveryPlace(place){
+				return ''+place.id === localStorage.getItem('deliveryPlaceId')
 			}
 
-			// getArrivalName(arrivalItem){
-			// 	arrivalItem
-			// }
 		},
 
 		template: `
 
         <section  class="modal__section modal__section--content modal-geolocation__content1" data-scrollbar data-modal-section>
 
-            <img v-if="!listArrivalPlace.length" src="/local/templates/.default/images/delivery-box.png" alt="">
+            <img v-if="!listDeliveryPlace.length" src="/local/templates/.default/images/delivery-box.png" alt="">
 			<div v-else class="modal-geolocation__container">
 			<p>
 				Выберите адрес, чтобы увидеть условия доставки при оформлении заказа
@@ -74,20 +76,20 @@ export const City =
                 @click="$emit('setTab','change-city')">Изменить</p>
             </div>
             
-            <div class="modal-geolocation__arrival-card"  v-for="arrival_item in listArrivalPlace">
-            	<button @click="deleteArivalPlace(arrival_item.id)" type="button" class="button button--ordinary button--iconed button--simple button--big button--red modal-geolocation__arrival-rm">
+            <div class="modal-geolocation__delivery-card" :class="{active:isActiveArivalPlace(delivery_item)}"  @click="setCurrentDelivery(delivery_item)"  v-for="delivery_item in listDeliveryPlace">
+            	<button @click.stop="deleteDeliveryPlace(delivery_item.id)" type="button" class="button button--ordinary button--iconed button--simple button--big button--red modal-geolocation__delivery-rm">
 					<span class="button__icon">
 						<svg class="icon">
-							<use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+							<use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>R
 						</svg>
 					</span>
 				</button>
-            	<h4 class="modal-geolocation__arrival-header">Доставка по адресу</h4>
-            	<p class="modal-geolocation__arrival-text">{{arrival_item.address}}</p>
+            	<h4 class="modal-geolocation__delivery-header">Доставка по адресу</h4>
+            	<p class="modal-geolocation__delivery-text">{{delivery_item.address}}</p>
 			</div>
             
             
-            <p v-if="!listArrivalPlace.length" class="modal-geolocation__message">
+            <p v-if="!listDeliveryPlace.length" class="modal-geolocation__message">
                 Сохраните ваш адрес, удобный пункт выдачи или постамат, чтобы видеть условия доставки при оформлении заказа
             </p>
             <p v-else class="modal-geolocation__message">
@@ -96,7 +98,7 @@ export const City =
             
             
             <button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
-                    <b class="button__text" @click="$emit('setTab','address')">{{!listArrivalPlace.length?'Выбрать на карте':'Добавить'}}</b>
+                    <b class="button__text" @click="$emit('setTab','address')">{{!listDeliveryPlace.length?'Выбрать на карте':'Добавить'}}</b>
             </button>
             </div>
 

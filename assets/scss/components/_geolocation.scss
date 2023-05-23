@@ -180,7 +180,8 @@
     margin: rem(15px) 0 rem(26px) 0;
   }
 
-  &__arrival-card{
+  &__delivery-card{
+    cursor: pointer;
     margin-top: 22px;
     position: relative;
     border: 2px solid #D0D0D0;
@@ -195,6 +196,9 @@
       right: 15px;
     }
     &:hover{
+      border: 2px solid #378A5F;
+    }
+    &.active{
       border: 2px solid #378A5F;
     }
   }

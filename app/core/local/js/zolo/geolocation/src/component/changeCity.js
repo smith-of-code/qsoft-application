@@ -41,25 +41,7 @@ export const ChangeCity =
 				return +city.ID === +this.cityId
 			},
 
-			setCity(city){
 
-				BX.ajax.runAction('wizandr:geolocation.usercity.savecity', {
-					data: {
-						city: city,
-					}
-				})
-				.then((res) => {
-					if (res.status === 'success'){
-						localStorage.setItem('current_city-id',city.CITY_ID)
-						localStorage.setItem('current_city-name',city.CITY_NAME)
-						localStorage.setItem('current_city-region-name',city.REGION_NAME)
-						this.$bitrix.Data.set('currentCityId',city.CITY_ID)
-						$('#geolocationName').text(city.CITY_NAME)
-						this.$emit('setTab','city')
-					}
-				});
-
-			}
 		},
 
 		template: `
@@ -79,7 +61,7 @@ export const ChangeCity =
 
                <div class="radio-green" v-for="city in filterCity" :key="city">
         <label class="radio-green__label" for="city">{{city.CITY_NAME}}<small class="radio-green__small">{{city.REGION_NAME}}</small></label>
-        <input class="radio-green__input" type="radio" name="city" @change="setCity(city)" :checked="isSelectedCity(city)" >
+        <input class="radio-green__input" type="radio" name="city" @change="$emit('updateCity',city)" :checked="isSelectedCity(city)" >
       </div>
 
         </div>

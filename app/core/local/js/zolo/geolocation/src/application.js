@@ -48,6 +48,7 @@ export class GeoLocation
 				this.$bitrix.Application.set(context);
 				this.$bitrix.Data.set('saleCities',context.props.cities)
 				this.$bitrix.Data.set('currentCityId',context.props.currentCityId)
+				this.$bitrix.Data.set('currentCityKladrId',context.props.currentCityId)
 			},
 			template: '<GeolocationMain :start-tab="activeTab"/>'
 		});

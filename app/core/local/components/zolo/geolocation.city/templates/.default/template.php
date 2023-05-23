@@ -2,33 +2,30 @@
 
 use \Bitrix\Main\Service\GeoIp;
 
-//$ip = '95.31.209.94';
-$ip ='';
+$ip = '95.31.209.94';
+//$ip ='';
 $lang = 'ru';
 
 $geolocation = GeoIp\Manager::getDataResult($ip, $lang);
-
 
 $geolocationId = \Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang);
 
 $geolocationName = $geolocation->getGeoData()->cityName;
 
+$geolocationKladrId = $geolocation->getGeoData()->daData['city_kladr_id'];
+
 $session = \Bitrix\Main\Application::getInstance()->getSession();
 
 if ($session->has('current_city')){
     $geolocationId = $session->get('current_city')['CITY_ID'];
+    $geolocationKladrId = $session->get('current_city')['city_kladr_id'];
     $geolocationName = $session->get('current_city')['CITY_NAME'];
 }
 
 CUtil::InitJSCore(array('window'));
-//var_dump(\Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang));
-?>
 
-<?
 \Bitrix\Main\UI\Extension::load("zolo.geolocation");
-?>
 
-<?php
 Bitrix\Main\Loader::includeModule('sale');
 
 $db_vars = CSaleLocation::GetList(
@@ -68,7 +65,19 @@ while ($vars = $db_vars->Fetch()) {
 </div>
 
 <script>
+    let geolocation_address = $('#geolocationAddress')
 
+    if(localStorage.getItem('deliveryPlaceAddress')){
+        let places = localStorage.getItem('deliveryPlaceAddress').split(',')
+        resultPlaces = []
+        places.forEach(e=>{
+            if (!e.startsWith('г ') && !e.startsWith(' г ')){
+                resultPlaces.push(e)
+            }
+        })
+
+        geolocation_address.text(resultPlaces.join(','))
+    }
 
     const geolocation_fancybox = $('.geolocation__city-btn, .geolocation__address-btn').fancybox({
         baseClass: 'modal',
@@ -107,7 +116,8 @@ while ($vars = $db_vars->Fetch()) {
             const taskManager = new BX.GeoLocation('#geolocation',{
                 cities:<?=json_encode($cities, JSON_UNESCAPED_UNICODE) ?>,
                 currentCityId:<?=$geolocationId?>,
-                activeTab
+                activeTab,
+                currentCityKladrId:<?=$geolocationKladrId?>,
             });
             taskManager.start();
         },
