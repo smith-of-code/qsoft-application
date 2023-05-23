@@ -106,7 +106,7 @@ export const Address =
 		watch: {
 			'place.address'(newVal) {
 				this.errors.address = ''
-				if (newVal.length && newVal.length > 3 && this.acceptSearch) {
+				if (newVal && newVal.length > 3 && this.acceptSearch) {
 					BX.ajax.runAction('wizandr:geolocation.dadata.suggest', {
 						data: {
 							query: newVal
