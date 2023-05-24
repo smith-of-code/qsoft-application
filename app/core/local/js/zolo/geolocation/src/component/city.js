@@ -97,8 +97,8 @@ export const City =
             </p>
             
             
-            <button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
-                    <b class="button__text" @click="$emit('setTab','address')">{{!listDeliveryPlace.length?'Выбрать на карте':'Добавить'}}</b>
+            <button @click="$emit('setTab','address')" type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
+                    <b class="button__text" >{{!listDeliveryPlace.length?'Выбрать на карте':'Добавить'}}</b>
             </button>
             </div>
 

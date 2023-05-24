@@ -250,8 +250,8 @@ export const Address =
             </div>
             <div class="form__row">
 				<div class="form__col">
-					<button type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
-							<b class="button__text" @click="saveAddress()">Сохранить адрес</b>
+					<button @click="saveAddress()" type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
+							<b class="button__text" >Сохранить адрес</b>
 					 </button>
 				</div>
 			</div>
