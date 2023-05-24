@@ -14,16 +14,39 @@
         $size: 24px;
             
         display: block;
-
+        border-radius: 50%;
         width: rem($size);
         height: rem($size);
 
-        transition: color $transition-duration $transition-function;
+        transition: all $transition-duration $transition-function;
 
         color: $white;
 
         &:hover {
             color: $mandy;
+            background: white;
+
+        }
+
+        &-youtube:hover{
+            color: #c4302b;
+        }
+
+        &-telegram:hover{
+            color: #c4302b;
+        }
+        &-telegram:hover{
+            color: #0088CC;
+        }
+        &-vk:hover{
+            color: #0077FF;
+        }
+        &-whatsapp:hover{
+            color: #43d854;
+            background-color: #3a3a43;
+        }
+        &-viber:hover{
+            color: #7360F2;
         }
 
         &:active {
