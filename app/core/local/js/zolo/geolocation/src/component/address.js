@@ -6,6 +6,7 @@ export const Address =
 				place: {
 					kladr_id:null,
 					address: '',
+					addressShort: '',
 					flat: '',
 					postal_code: '',
 					entry: '',
@@ -53,13 +54,16 @@ export const Address =
 		methods: {
 			fillPlace(place) {
 				this.place.address = place.value
+				this.place.addressShort = place.data.street_with_type + ', ' + place.data.house + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
+
+
 				this.place.postal_code = place.data.postal_code
 				this.place.kladr_id = place.data.kladr_id
 				this.place.city = place.data.city
 				this.place.region = place.data.region
 				this.place.fias_level = place.data.fias_level
 				this.isOpenSearchResult = false
-				console.log(this.place)
+				console.log(place)
 			},
 
 			async saveAddress() {
@@ -81,24 +85,29 @@ export const Address =
 					)
 				)
 
-				console.log(city)
 				if (!city){
 					city = this.$bitrix.Data.get('saleCities').find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
 				}
-				this.$emit('updateCity',city)
 
-				localStorage.setItem('deliveryPlaceId',this.place.id)
-				localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
-				localStorage.setItem('deliveryPlaceAddress',this.place.address)
 
 				BX.ajax.runAction('wizandr:geolocation.useraddress.add', {
 					data: {
 						place: this.place
 					}
 				}).then(function () {
-					location.reload()
+					this.$emit('updateCity',city)
+
+					localStorage.setItem('deliveryPlaceId',this.place.id)
+					localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
+					localStorage.setItem('deliveryPlaceAddressShort',this.place.address)
+					localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
 				}).catch(err=>{
-					location.reload()
+					this.$emit('updateCity',city)
+
+					localStorage.setItem('deliveryPlaceId',this.place.id)
+					localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
+					localStorage.setItem('deliveryPlaceAddress',this.place.address)
+					localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
 				});
 			},
 

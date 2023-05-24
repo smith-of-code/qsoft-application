@@ -79,9 +79,14 @@ export const GeolocationMain =
 								localStorage.setItem('current_city-city_kladr_id',dadataCity.city_kladr_id)
 								localStorage.setItem('current_city-name',city.CITY_NAME)
 								localStorage.setItem('current_city-region-name',city.REGION_NAME)
-								this.$bitrix.Data.set('currentCityId',city.CITY_ID)
-								$('#geolocationName').text(city.CITY_NAME)
-								this.setActiveTab('city')
+
+								if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
+									localStorage.removeItem('deliveryPlaceId')
+									localStorage.removeItem('deliveryPlaceKladrId')
+									localStorage.removeItem('deliveryPlaceAddress')
+									localStorage.removeItem('deliveryPlaceAddressShort')
+								}
+								location.reload()
 							}
 						});
 

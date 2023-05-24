@@ -65,25 +65,16 @@ while ($vars = $db_vars->Fetch()) {
 </div>
 
 <script>
-    let geolocation_address = $('#geolocationAddress')
 
-    if(localStorage.getItem('deliveryPlaceAddress')){
-        let places = localStorage.getItem('deliveryPlaceAddress').split(',')
-        resultPlaces = []
-        places.forEach(e=>{
-            if (!e.startsWith('г ') && !e.startsWith(' г ')){
-                resultPlaces.push(e)
-            }
-        })
-
-        geolocation_address.text(resultPlaces.join(','))
+    if(localStorage.getItem('deliveryPlaceAddressShort')){
+        $('#geolocationAddress').text(localStorage.getItem('deliveryPlaceAddressShort'))
     }
 
     if (localStorage.getItem('current_city-name')){
         $('#geolocationName').text(localStorage.getItem('current_city-name'))
     }
 
-    const geolocation_fancybox = $('.geolocation__city-btn, .geolocation__address-btn').fancybox({
+    window.geolocation_fancybox = $('.geolocation__city-btn, .geolocation__address-btn').fancybox({
         baseClass: 'modal',
         src: `
     <article class="modal box box--circle box--hanging modal-geolocation" data-support>
