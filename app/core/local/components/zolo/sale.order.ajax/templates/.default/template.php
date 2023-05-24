@@ -229,7 +229,7 @@ else:?>
                                 </div>
                                 <div class="form__col">
                                     <button type="button" class="button button--rounded button--covered button--green button--full" data-create-order>
-                                        Оформить заказ
+                                        Отправить заказ
                                     </button>
                                 </div>
                             </div>
