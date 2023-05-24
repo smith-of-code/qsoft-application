@@ -8,8 +8,8 @@ $lang = 'ru';
 
 $geolocation = GeoIp\Manager::getDataResult($ip, $lang);
 
-$geolocationId = \Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang);
 
+$geolocationId = \Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang);
 $geolocationName = $geolocation->getGeoData()->cityName;
 
 $geolocationKladrId = $geolocation->getGeoData()->daData['city_kladr_id'];
@@ -77,6 +77,10 @@ while ($vars = $db_vars->Fetch()) {
         })
 
         geolocation_address.text(resultPlaces.join(','))
+    }
+
+    if (localStorage.getItem('current_city-name')){
+        $('#geolocationName').text(localStorage.getItem('current_city-name'))
     }
 
     const geolocation_fancybox = $('.geolocation__city-btn, .geolocation__address-btn').fancybox({

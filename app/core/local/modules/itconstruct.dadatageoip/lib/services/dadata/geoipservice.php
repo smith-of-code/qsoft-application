@@ -70,7 +70,7 @@ class GeoIpService extends Base
 			$cache->initCache(
 				360000000,
 				md5($ip),
-				'/itconstruct/dadata/geoip/'
+				'240523/itconstruct/dadata/geoip/'
 			)
         ) {
 
@@ -143,7 +143,7 @@ class GeoIpService extends Base
 		$client->setHeader('Accept', 'application/json');
 		$client->setHeader('Authorization', 'Token ' . $this->config['DADATA_TOKEN']);
 		$httpRes = $client->get(
-			self::BASE_URL . 'iplocate/address?ip=' . $ip
+			self::BASE_URL . 'iplocate/address?ip=' . ($ip === '127.0.0.1'?'85.26.146.169':$ip)
 		);
 
 		$status = $client->getStatus();
@@ -172,6 +172,7 @@ class GeoIpService extends Base
 			$result->addError(new Error($strError));
 			return $result;
 		}
+
         $geoData = new Data();
         $geoData->ip = $ip;
         $geoData->lang = $lang = strlen($lang) > 0 ? $lang : 'en';
