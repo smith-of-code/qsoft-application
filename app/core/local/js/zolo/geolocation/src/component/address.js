@@ -1,6 +1,7 @@
 
 export const Address =
 	{
+		inject: ['saveAddressToLS','clearAddressFromLS'],
 		data() {
 			return {
 				place: {
@@ -37,7 +38,25 @@ export const Address =
 		created() {},
 		mounted() {
 
+			this.place.kladr_id = localStorage.getItem('deliveryPlaceKladrId')
 			this.place.address = localStorage.getItem('deliveryPlaceAddress')
+			this.place.addressShort = localStorage.getItem('deliveryPlaceAddressShort')
+			this.place.flat = localStorage.getItem('deliveryPlaceFlat')
+			this.place.postal_code = localStorage.getItem('deliveryPlacePostalCode')
+			this.place.entry = localStorage.getItem('deliveryPlaceAddressEntry')
+			this.place.housepin = localStorage.getItem('deliveryPlaceAddressHousepin')
+			this.place.floor = localStorage.getItem('deliveryPlaceFloor')
+
+
+
+			// localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
+			// localStorage.setItem('deliveryPlaceAddress',place.address)
+			// localStorage.setItem('deliveryPlaceAddressShort',place.addressShort)
+			//
+			// localStorage.setItem('deliveryPlaceFlat',place.flat)
+			// localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
+			// localStorage.setItem('deliveryPlaceAddressEntry',place.entry)
+			// localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin)
 
 			// new ymaps.Map('yandMap1',{
 			// 	center: [55.74954, 37.621587],
@@ -95,21 +114,28 @@ export const Address =
 						place: this.place
 					}
 				}).then(function () {
+					this.saveAddressToLS(this.place)
 					this.$emit('updateCity',city)
 
-					localStorage.setItem('deliveryPlaceId',this.place.id)
-					localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
-					localStorage.setItem('deliveryPlaceAddressShort',this.place.address)
-					localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
+
 				}).catch(err=>{
+					this.saveAddressToLS(this.place)
 					this.$emit('updateCity',city)
 
-					localStorage.setItem('deliveryPlaceId',this.place.id)
-					localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
-					localStorage.setItem('deliveryPlaceAddress',this.place.address)
-					localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
 				});
 			},
+
+
+			// saveAddressToLS(){
+			// 	localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
+			// 	localStorage.setItem('deliveryPlaceAddress',this.place.address)
+			// 	localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
+			//
+			// 	localStorage.setItem('deliveryPlaceFlat',this.place.flat)
+			// 	localStorage.setItem('deliveryPlacePostalCode',this.place.postal_code)
+			// 	localStorage.setItem('deliveryPlaceAddressEntry',this.place.entry)
+			// 	localStorage.setItem('deliveryPlaceAddressHousepin',this.place.housepin)
+			// }
 
 		},
 		watch: {

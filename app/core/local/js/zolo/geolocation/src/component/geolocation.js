@@ -10,6 +10,15 @@ export const GeolocationMain =
 			City
 		},
 
+		provide() {
+			// use function syntax so that we can access `this`
+			return {
+				saveAddressToLS:this.saveAddressToLS,
+				clearAddressFromLS:this.clearAddressFromLS
+			}
+		},
+
+
 		data() {
 			return {
 				tabs: [
@@ -81,10 +90,7 @@ export const GeolocationMain =
 								localStorage.setItem('current_city-region-name',city.REGION_NAME)
 
 								if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
-									localStorage.removeItem('deliveryPlaceId')
-									localStorage.removeItem('deliveryPlaceKladrId')
-									localStorage.removeItem('deliveryPlaceAddress')
-									localStorage.removeItem('deliveryPlaceAddressShort')
+									this.clearAddressFromLS()
 								}
 								location.reload()
 							}
@@ -92,10 +98,31 @@ export const GeolocationMain =
 
 
 				})
+			},
 
+			saveAddressToLS(place){
+				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
+				localStorage.setItem('deliveryPlaceAddress',place.address)
+				localStorage.setItem('deliveryPlaceAddressShort',place.addressShort)
 
+				localStorage.setItem('deliveryPlaceFlat',place.flat)
+				localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
+				localStorage.setItem('deliveryPlaceAddressEntry',place.entry)
+				localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin)
+				localStorage.setItem('deliveryPlaceFloor',place.floor)
 
+			},
 
+			clearAddressFromLS(){
+				localStorage.removeItem('deliveryPlaceKladrId')
+				localStorage.removeItem('deliveryPlaceAddress')
+				localStorage.removeItem('deliveryPlaceAddressShort')
+
+				localStorage.removeItem('deliveryPlaceFlat')
+				localStorage.removeItem('deliveryPlacePostalCode')
+				localStorage.removeItem('deliveryPlaceAddressEntry')
+				localStorage.removeItem('deliveryPlaceAddressHousepin')
+				localStorage.removeItem('deliveryPlaceFloor')
 			}
 		},
 		watch: {
