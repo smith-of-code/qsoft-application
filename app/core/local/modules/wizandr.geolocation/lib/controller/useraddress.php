@@ -17,6 +17,11 @@ class Useraddress extends Controller
                 'prefilters' => [
                     new \Bitrix\Main\Engine\ActionFilter\Csrf(),
                 ]
+            ],
+            'add'=>[
+                'prefilters' => [
+                    new \Bitrix\Main\Engine\ActionFilter\Csrf(),
+                ]
             ]
         ];
     }
@@ -43,17 +48,19 @@ class Useraddress extends Controller
     {
 
         $userId = $this->getCurrentUser()->getId();
-        $place = $this->getRequest()['place'];
+        if ($userId){
+            $place = $this->getRequest()['place'];
 
-        $queryField = "";
-        $queryValue = "";
+            $queryField = "";
+            $queryValue = "";
 
-        foreach ( $place as $field => $value){
-            $queryField .= ",$field ";
-            $queryValue .= ",'$value'";
-        }
+            foreach ( $place as $field => $value){
+                $queryField .= ",$field ";
+                $queryValue .= ",'$value'";
+            }
 //        return "INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )";
-        Application::getConnection()->query("INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )");
+            Application::getConnection()->query("INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )");
+        }
 
         return ['response' => 'success'];
     }
