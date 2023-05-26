@@ -390,18 +390,18 @@ $APPLICATION->setTitle('Личный Кабинет');?>
                                     <h4 class="section__title section__title--closer">Контактное лицо</h4>
                                 <?php endif;?>
                                 <div class="profile__actions">
-                                    <a
-                                        class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-mentor button button--simple button--red"
-                                        data-fancybox data-modal-type="modal"
-                                        href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"
-                                    >
-                                        <span class="button__icon">
-                                            <svg class="icon icon--repeat">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Сменить наставника</span>
-                                    </a>
+<!--                                    <a-->
+<!--                                        class="profile__actions-button profile__actions-button--edit profile__actions-button--edit-mentor button button--simple button--red"-->
+<!--                                        data-fancybox data-modal-type="modal"-->
+<!--                                        href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR"-->
+<!--                                    >-->
+<!--                                        <span class="button__icon">-->
+<!--                                            <svg class="icon icon--repeat">-->
+<!--                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>-->
+<!--                                            </svg>-->
+<!--                                        </span>-->
+<!--                                        <span class="button__text">Сменить наставника</span>-->
+<!--                                    </a>-->
 
                                     <button type="button" class="profile__actions-button profile__actions-button--toggle accordeon__toggle button button--circular button--mini button--covered button--red-white" data-accordeon-toggle>
                                         <span class="accordeon__toggle-icon button__icon">
@@ -415,15 +415,15 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                             <div class="profile__accordeon-body accordeon__body accordeon__body--closer" data-accordeon-content>
                                 <div class="profile__actions profile__actions--mobile">
-                                    <a type="button" class="profile__actions-button button button--simple button--red" data-fancybox data-modal-type="modal"
-                                    href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR">
-                                        <span class="button__icon">
-                                            <svg class="icon icon--repeat">
-                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="button__text">Сменить наставника</span>
-                                    </a>
+<!--                                    <a type="button" class="profile__actions-button button button--simple button--red" data-fancybox data-modal-type="modal"-->
+<!--                                    href="javascript:" data-type="ajax" data-src="/ajax/popup/popup-support.php" data-selected="CHANGE_MENTOR">-->
+<!--                                        <span class="button__icon">-->
+<!--                                            <svg class="icon icon--repeat">-->
+<!--                                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-repeat"></use>-->
+<!--                                            </svg>-->
+<!--                                        </span>-->
+<!--                                        <span class="button__text">Сменить наставника</span>-->
+<!--                                    </a>-->
                                 </div>
 
                                 <div class="section__wrapper">
