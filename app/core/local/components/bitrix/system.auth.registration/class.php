@@ -420,7 +420,7 @@ class SystemAuthRegistrationComponent extends CBitrixComponent implements Contro
                 static fn (array $city): bool => $city['XML_ID'] === $data['city'],
             ))['VALUE'],
             'GROUP_ID' => [$userGroupId],
-            'UF_MENTOR_ID' => $session->has('mentor_user_id')??$data['mentor_id'],
+            'UF_MENTOR_ID' => $session->has('mentor_user_id')?$session->get('mentor_user_id'):$data['mentor_id'],
             'UF_LOYALTY_LEVEL' => $levelsIDs[$firstLevel],
             'UF_AGREE_WITH_PERSONAL_DATA_PROCESSING' => $data['agree_with_personal_data_processing'] === 'true',
             'UF_AGREE_WITH_TERMS_OF_USE' => $data['agree_with_terms_of_use'] === 'true',

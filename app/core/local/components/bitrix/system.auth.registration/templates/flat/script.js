@@ -159,6 +159,10 @@ class CSystemAuthRegistrationComponent {
     }
 
     async changeStepListener() {
+        if (window.blockedChangeStepListener){return}
+
+        window.blockedChangeStepListener = true
+
         $('[data-send-code]').css('color', 'black');
 
         const mentorInput = $('#mentor_id');
@@ -530,6 +534,8 @@ class CSystemAuthRegistrationComponent {
         $('.step-container').hide();
         $(`.${registrationData.currentStep}`).show();
         window.scrollTo(0, 0);
+
+        window.blockedChangeStepListener = false
     }
 
     checkBreedSelects() {

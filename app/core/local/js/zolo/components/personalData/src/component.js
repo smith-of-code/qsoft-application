@@ -538,7 +538,7 @@ export const PersonalData = {
                                                                     name="city"
                                                                     :options="cities"
                                                                     placeholder="Выберите город"
-                                                                    :selected="userCity.id"
+                                                                    :selected="userCity?userCity.id:false"
                                                                     @custom-change="(value) => { mutableUserInfo.city = cities[value].name }"
                                                                 />
                                                             </div>
@@ -560,7 +560,7 @@ export const PersonalData = {
                                                             <div class="profile__toggle-select select select--mitigate" data-select>
                                                                 <Select
                                                                     name="pickup_point_id"
-                                                                    :options="pickupPoints[userCity.id] ?? {}"
+                                                                    :options="pickupPoints[userCity?userCity.id:null] ?? {}"
                                                                     placeholder="Пункт выдачи заказов"
                                                                     :selected="mutableUserInfo.pickup_point_id"
                                                                     @custom-change="(value) => { mutableUserInfo.pickup_point_id = value }"
