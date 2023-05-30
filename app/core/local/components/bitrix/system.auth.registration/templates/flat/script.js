@@ -194,6 +194,7 @@ class CSystemAuthRegistrationComponent {
         if (isForwardDirection) {
             if (data.currentStep === 'personal_data' && data.confirmedPhone !== $('input[name=phone]').val().replaceAll(/\(|\)|\s|-+/g, '')) {
                 $('[data-send-code]').css('color', 'red');
+                window.blockedChangeStepListener = false
                 return;
             }
 
@@ -210,29 +211,35 @@ class CSystemAuthRegistrationComponent {
                     && $(item).closest('.legal_entity').length
                     && !$(item).closest('.legal_entity').hasClass(data.status)
                 ) {
+                    window.blockedChangeStepListener = false
                     return;
                 }
 
 
                 if ($(item).parent().data('breed') === 'empty' && $(item).parent().css('display') !== 'none') {
+                    window.blockedChangeStepListener = false
                     return;
                 }
 
                 if ($(item).attr('type') === 'hidden' || !$(item).attr('name')) {
+                    window.blockedChangeStepListener = false
                     return;
                 }
 
                 if ($(item).attr('name').startsWith('pets')) {
                     if ($(item).closest('.pet-card--editing')?.length) {
+                        window.blockedChangeStepListener = false
                         return;
                     }
                     if ($(item).attr('name').indexOf('breed') !== -1 && $(item).closest('[data-breed]').css('display') === 'none') {
+                        window.blockedChangeStepListener = false
                         return;
                     }
 
                     const separateKey = $(item).attr('name').split('-');
                     if ($(item).attr('name').indexOf('breed') !== -1) {
                         data[separateKey[0]][separateKey[1]].breed = $(item).val();
+                        window.blockedChangeStepListener = false
                         return;
                     }
                     if (!data[separateKey[0]]) data[separateKey[0]] = {};
@@ -252,6 +259,7 @@ class CSystemAuthRegistrationComponent {
                 else if ($(item).attr('type') === 'file') {
                     if ($(item).attr('multiple')) {
                         if ($(item).attr('name') === 'procuration' && $(item).parent().parent().css('display') === 'none') {
+                            window.blockedChangeStepListener = false
                             return;
                         }
 
@@ -277,6 +285,7 @@ class CSystemAuthRegistrationComponent {
                             )
                         ) {
                             if ($(item).attr('name') === 'bank_details') {
+                                window.blockedChangeStepListener = false
                                 return;
                             }
                             $(item).parent().addClass('dropzone--error');
@@ -318,6 +327,7 @@ class CSystemAuthRegistrationComponent {
                         indexPost.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'living_postal_code') {
@@ -330,6 +340,7 @@ class CSystemAuthRegistrationComponent {
                         indexPostLiving.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'ltc_postal_code') {
@@ -341,6 +352,7 @@ class CSystemAuthRegistrationComponent {
                         indexPostLtc.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'passport_series') { // Проверка серии паспорта
@@ -352,6 +364,7 @@ class CSystemAuthRegistrationComponent {
                         passportSeries.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'passport_number') { // Проверка номера паспорта
@@ -363,6 +376,7 @@ class CSystemAuthRegistrationComponent {
                         passportNumber.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'tin') { // Проверка ИНН
@@ -378,6 +392,7 @@ class CSystemAuthRegistrationComponent {
                         tin.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'ogrnip') { // Проверка ОГРНИП
@@ -389,6 +404,7 @@ class CSystemAuthRegistrationComponent {
                         ogrnip.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'ogrn') { // Проверка ОГРН
@@ -400,6 +416,7 @@ class CSystemAuthRegistrationComponent {
                         ogrn.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'kpp') { // Проверка КПП
@@ -411,6 +428,7 @@ class CSystemAuthRegistrationComponent {
                         kpp.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'bic') { // Проверка БИК
@@ -422,6 +440,7 @@ class CSystemAuthRegistrationComponent {
                         bic.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else if ($(item).attr('name') === 'email') { // Проверка Почты
@@ -435,6 +454,7 @@ class CSystemAuthRegistrationComponent {
                         email.removeClass('input__control--error');
                         data[$(item).attr('name')] = $(item).val();
                     }
+                    window.blockedChangeStepListener = false
                     return;
                 }
                 else {
@@ -444,6 +464,7 @@ class CSystemAuthRegistrationComponent {
                             || ($(item).attr('name') === 'mentor_id' && $('input[name=without_mentor_id]:checked').length)
                             || ($(item).attr('name').indexOf('living') !== -1 && $('input[name=without_living]:checked').length)
                         ) {
+                            window.blockedChangeStepListener = false
                             return;
                         }
                         $(item).addClass('input__control--error');
@@ -470,6 +491,7 @@ class CSystemAuthRegistrationComponent {
                 || $(`.${registrationData.currentStep} .dropzone--error`).length
                 || $(`.${registrationData.currentStep} .file.dz-error`).length
             ) {
+                window.blockedChangeStepListener = false
                 return;
             }
         }
@@ -491,6 +513,7 @@ class CSystemAuthRegistrationComponent {
                 emailInput.addClass('input__control--error');
                 emailInput.parent().append(`<span class="input__control-error">${response.data.message}</span>`);
             }
+            window.blockedChangeStepListener = false
             return;
         }
 
@@ -517,6 +540,7 @@ class CSystemAuthRegistrationComponent {
                     $(this).removeClass('steps-counter__item--passed');
                     circle.removeClass('steps-counter__circle--passed');
                 }
+                window.blockedChangeStepListener = false
                 return;
             }
 
