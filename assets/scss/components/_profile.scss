@@ -184,6 +184,12 @@
                 width: rem(17px);
             }
         }
+
+        @media #{$screen-tablet-only} {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
     }
 
     &__avatar {
@@ -262,6 +268,7 @@
         margin-bottom: rem($gap-mini);
 
         letter-spacing: 0.02em;
+
     }
 
     &__id {
@@ -273,6 +280,10 @@
         display: block;
 
         letter-spacing: 0.02em;
+
+        @media #{$screen-tablet-only} {
+            text-align: left;
+        }
     }
 
     &__actions {
