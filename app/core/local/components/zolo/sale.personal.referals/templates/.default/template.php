@@ -21,22 +21,18 @@ $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             <div class="profile__accordeon-header accordeon__header section__header">
                 <h4 class="section__title section__title--closer">Реферальные ссылки</h4>
 
-                <div class="profile__actions">
-<!--                    <button-->
-<!--                            type="button"-->
-<!--                            class="button button--iconed button--simple button--red"-->
-<!--                            data-fancybox=""-->
-<!--                            data-modal-type="modal"-->
-<!--                            data-src="#upgrade-conditions"-->
-<!---->
-<!--                    >-->
-                        <span
-                                class="button__icon">
-                            <svg class="icon icon--basket warning__icon">
-                                <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
-                            </svg>
-                        </span>
-<!--                    </button>-->
+                <div class="profitability__hint" data-tippy-html="">
+                    <svg class="icon icon--question-circle">
+                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-question-circle"></use>
+                    </svg>
+
+                    <div style="display: none;" data-tippy-template="">
+                        <div class="profitability__tooltip">
+                            <p class="profitability__tooltip-title">Вы можете поделиться своей персональной ссылкой на сайт или на регистрацию в качестве покупателя или консультанта. Все новые покупатели или консультанты, пришедшие по ссылке и прошедшие регистрацию, попадут в первый уровень Вашей структуры.</p>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
