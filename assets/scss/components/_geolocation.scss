@@ -133,7 +133,10 @@
     padding-left: rem(25px);
     margin-bottom: rem(20px);
     &.city{
-      padding-left: rem(58px);
+
+      @media #{$screen-tablet} {
+        padding-left: rem(58px);
+      }
     }
 
   }
