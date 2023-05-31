@@ -113,7 +113,7 @@ export const Address =
 					data: {
 						place: this.place
 					}
-				}).then(function () {
+				}).then(res=> {
 					this.saveAddressToLS(this.place)
 					this.$emit('updateCity',city)
 

@@ -101,15 +101,16 @@ export const GeolocationMain =
 			},
 
 			saveAddressToLS(place){
+				console.log(place)
 				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
 				localStorage.setItem('deliveryPlaceAddress',place.address)
 				localStorage.setItem('deliveryPlaceAddressShort',place.addressShort)
 
-				localStorage.setItem('deliveryPlaceFlat',place.flat)
+				localStorage.setItem('deliveryPlaceFlat',place.flat??'')
 				localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
-				localStorage.setItem('deliveryPlaceAddressEntry',place.entry)
-				localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin)
-				localStorage.setItem('deliveryPlaceFloor',place.floor)
+				localStorage.setItem('deliveryPlaceAddressEntry',place.entry??'')
+				localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin??'')
+				localStorage.setItem('deliveryPlaceFloor',place.floor??'')
 
 			},
 

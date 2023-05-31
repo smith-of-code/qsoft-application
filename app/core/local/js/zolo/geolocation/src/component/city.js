@@ -24,7 +24,7 @@ export const City =
 			},
 
 			fetchListDeliveryPlace(){
-				BX.ajax.runAction('wizandr:geolocation.usercity.list')
+				BX.ajax.runAction('wizandr:geolocation.useraddress.list')
 					.then((res) => {
 						this.listDeliveryPlace = res.data
 						// Код после выполнения экшена
@@ -32,7 +32,7 @@ export const City =
 			},
 
 			deleteDeliveryPlace(id){
-				BX.ajax.runAction('wizandr:geolocation.usercity.delete', {
+				BX.ajax.runAction('wizandr:geolocation.useraddress.delete', {
 					data: {
 						place_id: id
 					}
@@ -76,7 +76,7 @@ export const City =
                 @click="$emit('setTab','change-city')">Изменить</p>
             </div>
             
-            <div class="modal-geolocation__delivery-card" :class="{active:isActiveArivalPlace(delivery_item)}"  @click="setCurrentDelivery(delivery_item)"  v-for="delivery_item in listDeliveryPlace">
+            <div class="modal-geolocation__delivery-card" :class="{active:isActiveDeliveryPlace(delivery_item)}"  @click="setCurrentDelivery(delivery_item)"  v-for="delivery_item in listDeliveryPlace">
             	<button @click.stop="deleteDeliveryPlace(delivery_item.id)" type="button" class="button button--ordinary button--iconed button--simple button--big button--red modal-geolocation__delivery-rm">
 					<span class="button__icon">
 						<svg class="icon">
