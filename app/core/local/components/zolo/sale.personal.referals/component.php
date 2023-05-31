@@ -20,11 +20,11 @@ $site= 'http://'.$arSite['DOMAINS'];
 
 $this->arResult['ref_links']=[
     [
-      'title'=>'Регистрация нового клиента',
+      'title'=>'Регистрация нового покупателя',
       'link'=>$site.'/login/?refid='.$refid.'&register=yes&type=buyer',
     ],
     [
-        'title'=>'Регистрация нового партнера',
+        'title'=>'Регистрация нового консультанта',
         'link'=>$site.'/login/?refid='.$refid.'&register=yes&type=consultant',
     ],
     [
