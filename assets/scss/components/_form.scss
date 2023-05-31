@@ -337,6 +337,8 @@
         }
 
         &-search--result{
+            height: 250px;
+            overflow: auto;
             position: absolute;
             z-index: 11;
             padding: rem(20px);

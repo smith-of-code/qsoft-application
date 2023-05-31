@@ -162,7 +162,7 @@ export const Address =
                             	<span v-if="errors.address.length" class="input__control-error">{{errors.address}}</span>
                             </div>
                         </div>
-                        <div v-if="searchResult.length && isOpenSearchResult" class="form__field-search--result">
+                        <div v-if="searchResult.length && isOpenSearchResult" class="form__field-search--result  scroll_bar_alt">
                             <p v-for="placeItem in searchResult" @click="fillPlace(placeItem)" >{{placeItem.value}}</p>
                         </div>
 

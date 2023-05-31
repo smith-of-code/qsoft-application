@@ -79,3 +79,29 @@
         }
     }
 }
+
+.scroll_bar_alt{
+    scrollbar-width: 7px;
+    scrollbar-color: rgb(105, 103, 109) rgb(105, 103, 109);
+    &::-webkit-scrollbar{
+        width: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgb(208, 208, 208);
+        border-radius: calc(12px / 2);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(105, 103, 109);
+        border-radius: calc(12px / 2);
+        border: 3px solid rgb(105, 103, 109);
+    }
+
+    :root {
+        --scrollbarBg: rgb(105, 103, 109);
+        --scrollbarThumb: rgba(255, 255, 255, 0.8);
+        --scrollbarWidth: 7px;
+        --scrollbarBorder: 3px solid rgb(105, 103, 109);
+        --scrollbarBorderRadius: calc(12px / 2);
+    }
+}

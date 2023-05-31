@@ -33,7 +33,7 @@ class Dadata extends Controller
 
 //        $dadata->suggest($this->getRequest());
 
-        $response = $dadata->suggest("address", $this->getRequest()['query'], 5, [
+        $response = $dadata->suggest("address", $this->getRequest()['query'], 50, [
 //            "locations" => [
 //                ['kladr_id'=> "2601700000000"]
 //            ],
