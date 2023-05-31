@@ -167,6 +167,9 @@
   }
   &__change-city{
     cursor: pointer;
+    &:hover{
+      color: #BC1639;
+    }
   }
   &__curr-city{
     display: flex;
