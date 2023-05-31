@@ -130,8 +130,11 @@
     }
   }
   & .modal__section--header{
-    padding-left: rem(58px);
+    padding-left: rem(25px);
     margin-bottom: rem(20px);
+    &.city{
+      padding-left: rem(58px);
+    }
 
   }
   & .form__col{

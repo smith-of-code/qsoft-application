@@ -136,7 +136,7 @@ export const GeolocationMain =
 
 		template: `
 
-        <header class="modal__section modal__section--header ">
+        <header class="modal__section modal__section--header" :class="{'city':activeTab.name === 'city'}">
             <h3 class="geolocation__header">{{activeTab.title}}</h3>
         </header>
         <component :is="activeTab.name" @setTab="setActiveTab($event)" @updateCity="setCity" />
