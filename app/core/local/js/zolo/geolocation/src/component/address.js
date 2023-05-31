@@ -7,13 +7,14 @@ export const Address =
 				place: {
 					kladr_id:null,
 					address: '',
-					addressShort: '',
+					address_short: '',
 					flat: '',
 					postal_code: '',
 					entry: '',
 					housepin: '',
 					floor: '',
-					cityName:'',
+					city:'',
+					region:'',
 					fias_level:null
 				},
 				errors:{
@@ -40,23 +41,14 @@ export const Address =
 
 			this.place.kladr_id = localStorage.getItem('deliveryPlaceKladrId')
 			this.place.address = localStorage.getItem('deliveryPlaceAddress')
-			this.place.addressShort = localStorage.getItem('deliveryPlaceAddressShort')
+			this.place.address_short = localStorage.getItem('deliveryPlaceAddressShort')
 			this.place.flat = localStorage.getItem('deliveryPlaceFlat')
 			this.place.postal_code = localStorage.getItem('deliveryPlacePostalCode')
 			this.place.entry = localStorage.getItem('deliveryPlaceAddressEntry')
 			this.place.housepin = localStorage.getItem('deliveryPlaceAddressHousepin')
 			this.place.floor = localStorage.getItem('deliveryPlaceFloor')
-
-
-
-			// localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
-			// localStorage.setItem('deliveryPlaceAddress',place.address)
-			// localStorage.setItem('deliveryPlaceAddressShort',place.addressShort)
-			//
-			// localStorage.setItem('deliveryPlaceFlat',place.flat)
-			// localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
-			// localStorage.setItem('deliveryPlaceAddressEntry',place.entry)
-			// localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin)
+			this.place.city = localStorage.getItem('deliveryPlaceCity')
+			this.place.region = localStorage.getItem('deliveryPlaceRegion')
 
 			// new ymaps.Map('yandMap1',{
 			// 	center: [55.74954, 37.621587],
@@ -73,7 +65,7 @@ export const Address =
 		methods: {
 			fillPlace(place) {
 				this.place.address = place.value
-				this.place.addressShort = place.data.street_with_type + ', ' + place.data.house + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
+				this.place.address_short = place.data.street_with_type + ', ' + place.data.house + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
 
 
 				this.place.postal_code = place.data.postal_code
@@ -86,14 +78,11 @@ export const Address =
 			},
 
 			async saveAddress() {
-				if (this.place.fias_level !== '8'){
+				console.log(+this.place.fias_level)
+				if (+this.place.fias_level < 7){
 					this.errors.address = 'Не заполнен номер дома'
 					return
 				}
-				// prominado – префикс партнера, отделяется двоеточием
-				// module – название модуля
-				// api – приставка из .settings.php
-				// updater.apply – название класса и метода без постфикса Action
 
 				//ищем по условию, что если название города и региона в нижнем регистре совпадает, за исключением тех случаев когда город и регион одинаковы в dadata (Санкт петербург)
 				let city = this.$bitrix.Data.get('saleCities').find(e=>
@@ -126,16 +115,6 @@ export const Address =
 			},
 
 
-			// saveAddressToLS(){
-			// 	localStorage.setItem('deliveryPlaceKladrId',this.place.kladr_id)
-			// 	localStorage.setItem('deliveryPlaceAddress',this.place.address)
-			// 	localStorage.setItem('deliveryPlaceAddressShort',this.place.addressShort)
-			//
-			// 	localStorage.setItem('deliveryPlaceFlat',this.place.flat)
-			// 	localStorage.setItem('deliveryPlacePostalCode',this.place.postal_code)
-			// 	localStorage.setItem('deliveryPlaceAddressEntry',this.place.entry)
-			// 	localStorage.setItem('deliveryPlaceAddressHousepin',this.place.housepin)
-			// }
 
 		},
 		watch: {

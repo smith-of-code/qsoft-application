@@ -8,5 +8,9 @@ create table if not exists arrival_place
     postal_code text   null comment 'индекс',
     entry text   null comment 'подъезд',
     housepin text   null comment 'домофон',
-    floor text   null comment 'Этаж'
+    address_short text   null comment 'Адрес короткий',
+    floor text   null comment 'Этаж',
+    fias_level text   null comment 'уровень объекта',
+    city text   null comment 'Город',
+    region text   null comment 'Регион'
 );
