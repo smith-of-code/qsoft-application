@@ -24,7 +24,7 @@ export const GeolocationMain =
 				tabs: [
 					{
 						name: 'city',
-						title: 'Куда доставить ваш заказ?',
+						title: 'Куда доставить ваш&nbsp;заказ?',
 						isActive: true
 					},
 					{
@@ -34,7 +34,7 @@ export const GeolocationMain =
 					},
 					{
 						name: 'address',
-						title: 'Укажите ваш адрес для доставки заказов',
+						title: 'Укажите ваш адрес для&nbsp;доставки заказов',
 						isActive: false
 					}
 				],
@@ -135,10 +135,14 @@ export const GeolocationMain =
 		},
 
 		template: `
-
-        <header class="modal__section modal__section--header" :class="{'city':activeTab.name === 'city'}">
-            <h3 class="geolocation__header">{{activeTab.title}}</h3>
-        </header>
+			<section  class="modal__section modal__section--content" :class="{'modal-geolocation__content1':activeTab.name === 'city'}" data-scrollbar data-modal-section>
+            
+            <header :class="{'modal-geolocation__container':activeTab.name === 'city'}">
+            <h3 class="geolocation__header" v-html="activeTab.title"></h3>
+			</header>
+            
         <component :is="activeTab.name" @setTab="setActiveTab($event)" @updateCity="setCity" />
+        
+         </section>
     `
 	};

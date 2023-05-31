@@ -65,7 +65,7 @@ export const Address =
 		methods: {
 			fillPlace(place) {
 				this.place.address = place.value
-				this.place.address_short = place.data.street_with_type + ', ' + place.data.house + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
+				this.place.address_short = place.data.street_with_type  + (place.data.house? ', '+place.data.house:'') + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
 
 
 				this.place.postal_code = place.data.postal_code
@@ -78,7 +78,6 @@ export const Address =
 			},
 
 			async saveAddress() {
-				console.log(+this.place.fias_level)
 				if (+this.place.fias_level < 7){
 					this.errors.address = 'Не заполнен номер дома'
 					return
@@ -145,7 +144,6 @@ export const Address =
 
 		template: `
 
-        <section class="modal__section modal__section--content geolocation__address" data-scrollbar data-modal-section>
             <div class="geolocation__address--form">
             <div class="form__row">
                 <div class="form__col">
@@ -271,7 +269,6 @@ export const Address =
 
             </div>
 
-        </section>
 
     `
 	};

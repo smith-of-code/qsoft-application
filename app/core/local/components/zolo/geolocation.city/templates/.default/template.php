@@ -66,6 +66,11 @@ global $USER
 
 <script>
 
+    if (localStorage.getItem('ls_v') !== '1'){
+        localStorage.clear()
+        localStorage.setItem('ls_v','1')
+    }
+
     if(localStorage.getItem('deliveryPlaceAddressShort')){
         $('#geolocationAddress').text(localStorage.getItem('deliveryPlaceAddressShort'))
     }

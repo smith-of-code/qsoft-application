@@ -107,17 +107,23 @@
   $height-input-small: 36px;
   width: rem(528px);
   &__container{
-    max-width: rem(413px);
-    //padding: 0 rem(20px);
-    @media #{$screen-mobile-md} {
-      max-width: rem(311px);
+    width: 100%;
+    padding: 0 20px;
+    @media #{$screen-tablet} {
+      padding: 0 40px;
     }
   }
   & .modal__content{
     padding-top: rem(20px);
   }
   & .modal__section--content{
-    padding-left: 2rem;
+    padding-left: rem(18px);
+    padding-right: rem(18px);
+    @media #{$screen-tablet} {
+      padding-left: rem(29px);
+      padding-right: rem(29px);
+    }
+
     &.modal-geolocation__content1{
       padding-left: 1rem;
       display: flex;
@@ -140,13 +146,16 @@
     }
 
   }
-  & .form__col{
-    padding-right: 1.5rem;
-    padding-left: 0;
-  }
   & .geolocation__header{
+    font-size: rem(20px);
     text-align: left;
-    max-width: rem(366px);
+    max-width: rem(295px);
+
+    //padding: 0 rem(20px);
+    @media #{$screen-tablet} {
+      font-size: rem(24px);
+      max-width: rem(413px);
+    }
   }
   & input[type="text"],  input[type="password"],  input[type="email"] {
     font-size: rem($font-size-average);
@@ -239,5 +248,9 @@
 }
 
 .geolocation__address--form{
+  margin-top: rem(18px);
+  @media #{$screen-tablet} {
+    margin-top: rem(50px);
+  }
   max-width: rem(475px);
 }

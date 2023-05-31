@@ -1,16 +1,20 @@
 export const City =
 	{
+		inject: ['saveAddressToLS','clearAddressFromLS'],
+
 		data() {
 			return {
 				cityId: '',
 				cities:[],
 				listDeliveryPlace:[],
+				activeDeliveryPlaceId:0
 			};
 		},
 		mounted() {
 			this.cityId = this.$bitrix.Data.get('currentCityId')
 			this.cities = this.$bitrix.Data.get('saleCities')
 
+			this.activeDeliveryPlaceId = localStorage.getItem('deliveryPlaceId')??0
 			this.fetchListDeliveryPlace()
 		},
 		computed:{
@@ -43,24 +47,37 @@ export const City =
 				this.listDeliveryPlace.splice(this.listDeliveryPlace.findIndex(e=>e.id === id),1)
 
 			},
-			setCurrentDelivery(place){
-				localStorage.setItem('deliveryPlaceId',place.id)
-				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
-				localStorage.setItem('deliveryPlaceAddress',place.address)
+			setCurrentDelivery(event,place){
+
+				let city = this.$bitrix.Data.get('saleCities').find(e=>
+					e.CITY_NAME.toLowerCase() === place.city.toLowerCase()
+					&&
+					(
+						place.city  === place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(place.region.toLowerCase()))
+					)
+				)
+
+				if (!city){
+					city = this.$bitrix.Data.get('saleCities').find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
+				}
+
+				console.log(place)
+				this.activeDeliveryPlaceId = place.id
+				this.saveAddressToLS(place)
+				this.$emit('updateCity',city)
 			},
 
 			isActiveDeliveryPlace(place){
-				return ''+place.id === localStorage.getItem('deliveryPlaceId')
+				return place.id === this.activeDeliveryPlaceId
 			}
 
 		},
 
 		template: `
 
-        <section  class="modal__section modal__section--content modal-geolocation__content1" data-scrollbar data-modal-section>
 
             <img v-if="!listDeliveryPlace.length" src="/local/templates/.default/images/delivery-box.png" alt="">
-			<div v-else class="modal-geolocation__container">
+			<div v-else class="modal-geolocation__container mt-15">
 			<p>
 				Выберите адрес, чтобы увидеть условия доставки при оформлении заказа
 			</p>
@@ -76,7 +93,7 @@ export const City =
                 @click="$emit('setTab','change-city')">Изменить</p>
             </div>
             
-            <div class="modal-geolocation__delivery-card" :class="{active:isActiveDeliveryPlace(delivery_item)}"  @click="setCurrentDelivery(delivery_item)"  v-for="delivery_item in listDeliveryPlace">
+            <div class="modal-geolocation__delivery-card" :class="{active:isActiveDeliveryPlace(delivery_item)}"  @click="setCurrentDelivery($event,delivery_item)"  v-for="delivery_item in listDeliveryPlace">
             	<button @click.stop="deleteDeliveryPlace(delivery_item.id)" type="button" class="button button--ordinary button--iconed button--simple button--big button--red modal-geolocation__delivery-rm">
 					<span class="button__icon">
 						<svg class="icon">
@@ -104,7 +121,7 @@ export const City =
 
 
 
-        </section>
+       
 
     `
 	};

@@ -45,7 +45,6 @@ export const ChangeCity =
 		},
 
 		template: `
-        <section class="modal__section modal__section--content" data-scrollbar data-modal-section>
         <div class="form__row">
                     <div class="form__col">
                         <div class="form__field">
@@ -65,7 +64,6 @@ export const ChangeCity =
       </div>
 
         </div>
-        </section>
 
     `
 	};
