@@ -15,11 +15,11 @@ $mentor_user_id = $user->referal->getUserIdByRefRequest();
 
 if ($mentor_user_id !== false){
     $session = \Bitrix\Main\Application::getInstance()->getSession();
-    if (!$session->has('mentor_user_id'))
-    {
+//    if (!$session->has('mentor_user_id'))
+//    {
         $session->set('mentor_user_id', $mentor_user_id);
         $session->save();
-    }
+//    }
 }
 
 ?>

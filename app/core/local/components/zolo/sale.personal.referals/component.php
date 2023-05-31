@@ -15,7 +15,7 @@ $refid = $user->referal->getReferalId();
 
 $rsSites = CSite::GetByID('s1');
 $arSite = $rsSites->Fetch();
-$site= 'http://'.$arSite['DOMAINS'];
+$site= 'https://'.$arSite['DOMAINS'];
 
 
 $this->arResult['ref_links']=[
