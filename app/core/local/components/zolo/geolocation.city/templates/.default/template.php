@@ -47,7 +47,7 @@ while ($vars = $db_vars->Fetch()) {
         $cities[] = $vars;
     }
 }
-
+global $USER
 ?>
 
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat&amp;apikey=457432fc-6d98-40a8-a99e-66c743f91e8f"
@@ -105,7 +105,8 @@ while ($vars = $db_vars->Fetch()) {
 
         afterShow: function (e) {
             let activeTab ='city'
-            if(e.$trigger[0].classList.contains('geolocation__address-btn')){
+            console.log()
+            if(<?=$USER->IsAuthorized()?'false':'true'?> && e.$trigger[0].classList.contains('geolocation__address-btn') && !localStorage.getItem('deliveryPlaceAddressShort')){
                 activeTab ='address'
             }
             const taskManager = new BX.GeoLocation('#geolocation',{
