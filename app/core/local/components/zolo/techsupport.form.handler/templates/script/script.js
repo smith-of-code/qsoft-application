@@ -40,7 +40,14 @@ function initSendForm() {
                 dataList.push($(this).val());
             })
 
-            if ($('#ticket-type').val()  === "CHANGE_OF_PERSONAL_DATA" && dataList.length == 0) {
+            let dropzoneFileError = false;
+            $("[data-dz-errormessage]").each(function() {
+                if ($(this)[0].innerText.length){
+                    dropzoneFileError = true
+                }
+            })
+
+            if ($('#ticket-type').val()  === "CHANGE_OF_PERSONAL_DATA" && ( dataList.length == 0 || dropzoneFileError )) {
                 $('.dropzone__control').parent().addClass('dropzone--error');
                 return false;
             } else {
