@@ -28,6 +28,11 @@
 
         }
 
+        &:active {
+            color: $mandy2;
+            background: white;
+        }
+
         &-youtube:hover{
             color: #c4302b;
         }
@@ -48,8 +53,26 @@
             color: #7360F2;
         }
 
-        &:active {
-            color: $mandy2;
+
+        &-youtube:active{
+            color: #c4302b;
         }
+
+        &-telegram:active{
+            color: #c4302b;
+        }
+        &-telegram:active{
+            color: #0088CC;
+        }
+        &-vk:active{
+            color: #0077FF;
+        }
+        &-whatsapp:active{
+            color: #43d854;
+        }
+        &-viber:active{
+            color: #7360F2;
+        }
+
     }
 }
