@@ -18,7 +18,8 @@ export const Address =
 					fias_level:null
 				},
 				errors:{
-					address: ''
+					address: '',
+					save:''
 				},
 				isOpenSearchResult:false,
 
@@ -38,6 +39,8 @@ export const Address =
 		computed: {},
 		created() {},
 		mounted() {
+
+			this.place.id = localStorage.getItem('deliveryPlaceId')??'0'
 
 			this.place.kladr_id = localStorage.getItem('deliveryPlaceKladrId')
 			this.place.address = localStorage.getItem('deliveryPlaceAddress')
@@ -78,6 +81,9 @@ export const Address =
 			},
 
 			async saveAddress() {
+
+				this.errors.save = ''
+
 				if (+this.place.fias_level < 7){
 					this.errors.address = 'Не заполнен номер дома'
 					return
@@ -102,13 +108,14 @@ export const Address =
 						place: this.place
 					}
 				}).then(res=> {
+
+					this.place.id = res.data.id
 					this.saveAddressToLS(this.place)
 					this.$emit('updateCity',city)
-
 
 				}).catch(err=>{
-					this.saveAddressToLS(this.place)
-					this.$emit('updateCity',city)
+
+					this.errors.save = 'Адрес уже добавлен'
 
 				});
 			},
@@ -256,6 +263,7 @@ export const Address =
 					<button @click="saveAddress()" type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
 							<b class="button__text" >Сохранить адрес</b>
 					 </button>
+					 <span v-if="errors.save.length" class="input__control-error">{{errors.save}}</span>
 				</div>
 			</div>
 		</div>

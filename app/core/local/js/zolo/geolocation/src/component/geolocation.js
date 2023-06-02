@@ -102,6 +102,8 @@ export const GeolocationMain =
 
 			saveAddressToLS(place){
 				console.log(place)
+				localStorage.setItem('deliveryPlaceId',place.id)
+				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
 				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
 				localStorage.setItem('deliveryPlaceAddress',place.address)
 				localStorage.setItem('deliveryPlaceAddressShort',place.address_short)

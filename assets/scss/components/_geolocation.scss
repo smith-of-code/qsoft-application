@@ -210,11 +210,16 @@
   &__message{
     font-style: normal;
     font-weight: 500;
-    font-size: $font-size-normal;
-    line-height: $line-height-medium;
+    font-size: $font-size-miniature;
+    line-height: $line-height-miniature;
     color: $black;
     text-align: center;
     margin: rem(15px) 0 rem(26px) 0;
+    @media #{$screen-tablet} {
+      font-size: $font-size-normal;
+      line-height: $line-height-normal;
+    }
+
   }
 
   &__delivery-card{
@@ -238,6 +243,13 @@
     &.active{
       border: 2px solid #378A5F;
     }
+  }
+  &__delivery-text{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
   }
 }
 

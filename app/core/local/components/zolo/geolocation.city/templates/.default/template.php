@@ -47,7 +47,13 @@ while ($vars = $db_vars->Fetch()) {
         $cities[] = $vars;
     }
 }
-global $USER
+global $USER;
+
+
+
+//var_dump($session->get('arrival_place'));
+//exit();
+
 ?>
 
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat&amp;apikey=457432fc-6d98-40a8-a99e-66c743f91e8f"

@@ -29,6 +29,15 @@ class Useraddress extends Controller
 
     public function listAction()
     {
+        $session = Application::getInstance()->getSession();
+        try {
+            if ($session->get('arrival_place')){
+                $this->addAction($session->get('arrival_place'));
+            }
+        }catch ( \Bitrix\Main\DB\SqlQueryException $e){
+
+        }
+        $session->remove('arrival_place');
 
         $userId = $this->getCurrentUser()->getId();
         if ($userId){
@@ -44,25 +53,43 @@ class Useraddress extends Controller
 
     }
 
-    public function addAction()
+    public function addAction($place = null)
     {
-
+//            var_dump('dddddddddddd');
+//            exit();
         $userId = $this->getCurrentUser()->getId();
+
+        $insertedId = 0;
+
         if ($userId){
-            $place = $this->getRequest()['place'];
+            $place = $place ?? $this->getRequest()['place'];
 
             $queryField = "";
             $queryValue = "";
 
             foreach ( $place as $field => $value){
-                $queryField .= ",$field ";
-                $queryValue .= ",'$value'";
+                if ($field !== 'id'){
+                    $queryField .= ",$field ";
+                    $queryValue .= ",'$value'";
+                }
+
             }
-//        return "INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )";
-            Application::getConnection()->query("INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )");
+
+        $conn = Application::getConnection();
+        $conn->query("INSERT INTO arrival_place (user_id $queryField) VALUES ( $userId $queryValue )");
+        $insertedId = $conn->getInsertedId();
+
+        }else{
+            $session = Application::getInstance()->getSession();
+            $session->set('arrival_place',$this->getRequest()['place']);
+            $session->save();
+
         }
 
-        return ['response' => 'success'];
+        return [
+            'response' => 'success',
+            'id' => (string) $insertedId
+            ];
     }
 
     public function deleteAction()

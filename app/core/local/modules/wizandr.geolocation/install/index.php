@@ -44,7 +44,13 @@ Class wizandr_geolocation extends CModule
 
         $sql = file_get_contents(__DIR__ .'/install.sql');
         if ($sql) {
-            Bitrix\Main\Application::getConnection()->query($sql);
+            foreach (explode(';',$sql) as $item){
+                if (!empty($item)){
+                    Bitrix\Main\Application::getConnection()->query($item);
+                }
+
+            }
+
         }
 
         return true;
