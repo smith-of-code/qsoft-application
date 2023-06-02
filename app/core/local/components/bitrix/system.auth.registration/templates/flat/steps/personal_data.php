@@ -256,6 +256,7 @@
                                         placeholder="example@email.com"
                                         data-mail
                                         inputmode="email"
+                                        autocomplete="off"
                                         value="<?=$arResult['email']?>"
                                 >
                             </div>
