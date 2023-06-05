@@ -1,7 +1,7 @@
 
 export const Address =
 	{
-		inject: ['saveAddressToLS','clearAddressFromLS'],
+		inject: ['saveAddressToLS','clearAddressFromLS','cities'],
 		data() {
 			return {
 				place: {
@@ -90,7 +90,7 @@ export const Address =
 				}
 
 				//ищем по условию, что если название города и региона в нижнем регистре совпадает, за исключением тех случаев когда город и регион одинаковы в dadata (Санкт петербург)
-				let city = this.$bitrix.Data.get('saleCities').find(e=>
+				let city = this.cities.find(e=>
 					e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase()
 					&&
 					(
@@ -99,7 +99,7 @@ export const Address =
 				)
 
 				if (!city){
-					city = this.$bitrix.Data.get('saleCities').find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
+					city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
 				}
 
 

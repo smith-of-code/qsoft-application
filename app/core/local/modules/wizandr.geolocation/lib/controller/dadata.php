@@ -18,6 +18,11 @@ class Dadata extends Controller
                     new \Bitrix\Main\Engine\ActionFilter\Csrf(),
                 ]
             ],
+            'address' => [
+                'prefilters' => [
+                    new \Bitrix\Main\Engine\ActionFilter\Csrf(),
+                ]
+            ],
         ];
     }
 
@@ -48,6 +53,17 @@ class Dadata extends Controller
 
         return $response;
 
+    }
+
+    public function addressAction(){
+
+        $token = "b714c8a4d4ca56388036421eba8705054660b17b";
+        $secret = "24f241f126e828907e21a452b295184874d6b3b2";
+        $dadata = new \Dadata\DadataClient($token, $secret);
+
+        $response = $dadata->geolocate("address", $this->getRequest()['lat'],$this->getRequest()['lon'],$this->getRequest()['count']);
+
+        return $response;
     }
 
 }

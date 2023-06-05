@@ -1,14 +1,13 @@
 export const ChangeCity =
 	{
 		components: {},
-
+		inject:['cities','currentCity'],
 		data() {
 			return {
 				cityId:null,
 				inputSearchCity: '',
 				searchResult: [],
 				isOpenSearchResult:false,
-				cities:[]
 			};
 		},
 
@@ -32,8 +31,7 @@ export const ChangeCity =
 		},
 
 		mounted() {
-			this.cityId = this.$bitrix.Data.get('currentCityId')
-			this.cities = this.$bitrix.Data.get('saleCities')
+			this.cityId = this.currentCity.ID
 		},
 
 		methods: {

@@ -14,7 +14,9 @@ export const GeolocationMain =
 			// use function syntax so that we can access `this`
 			return {
 				saveAddressToLS:this.saveAddressToLS,
-				clearAddressFromLS:this.clearAddressFromLS
+				clearAddressFromLS:this.clearAddressFromLS,
+				cities:this.cities,
+				currentCity:this.currentCity
 			}
 		},
 
@@ -38,6 +40,11 @@ export const GeolocationMain =
 						isActive: false
 					}
 				],
+				cities:[],
+				currentCity:{},
+				coords:{lat:0,lon:0},
+				geoIpInfo:null,
+				loaded:false
 			};
 		},
 		props:{
@@ -51,11 +58,73 @@ export const GeolocationMain =
 
 		created() {},
 
-		mounted() {
+		async mounted() {
 			this.setActiveTab(this.startTab)
+
+			await this.getCityList()
+
+			await this.getCurrentCity()
+
+			if (!this.currentCity.ID){
+				navigator.geolocation.getCurrentPosition(async (pos)=>{
+						const crd = pos.coords;
+
+						this.coords.lat = crd.latitude
+						this.coords.lon = crd.longitude
+
+						let getGeoIpInfo = await this.getGeoIpInfo()
+						this.geoIpInfo = getGeoIpInfo.data[0].data
+
+
+						let city = this.cities.find(e=>{
+							return e.CITY_NAME === this.geoIpInfo.city
+						})
+
+						this.saveCity(city,this.geoIpInfo)
+
+					}, (err)=>{
+						console.log(err)
+					},
+					{
+						enableHighAccuracy: true,
+						timeout: 5000,
+						maximumAge: 0,
+					});
+			}
+
+
+			this.loaded = true
+
 		},
 
 		methods: {
+
+			async getCityList(){
+				let res = await BX.ajax.runAction('wizandr:geolocation.usercity.getcitylist')
+
+				this.cities.push(...res.data)
+			},
+
+			async getCurrentCity(){
+				let res = await BX.ajax.runAction('wizandr:geolocation.usercity.getcity')
+
+				this.currentCity = Object.assign(this.currentCity,res.data)
+			},
+
+			async getGeoIpInfo(){
+
+				return  BX.ajax.runAction('wizandr:geolocation.dadata.address',{
+					data:{
+						lat:this.coords.lat,
+						lon:this.coords.lon,
+						count:1
+					}
+
+				})
+
+			},
+
+
 			setActiveTab(name) {
 				this.tabs.forEach(e => {
 					e.isActive = e.name === name;
@@ -76,28 +145,31 @@ export const GeolocationMain =
 				})
 				.then((res) => {
 					dadataCity = res.data[0].data
-
-					BX.ajax.runAction('wizandr:geolocation.usercity.savecity', {
-						data: {
-							city: {...city,...{city_kladr_id:dadataCity.city_kladr_id}},
-						}
-					})
-						.then((res) => {
-							if (res.status === 'success'){
-								localStorage.setItem('current_city-id',city.CITY_ID)
-								localStorage.setItem('current_city-city_kladr_id',dadataCity.city_kladr_id)
-								localStorage.setItem('current_city-name',city.CITY_NAME)
-								localStorage.setItem('current_city-region-name',city.REGION_NAME)
-
-								if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
-									this.clearAddressFromLS()
-								}
-								location.reload()
-							}
-						});
-
-
+					this.saveCity(city,dadataCity)
 				})
+			},
+
+			saveCity(city,dadataCity){
+
+				console.log(city,dadataCity)
+				BX.ajax.runAction('wizandr:geolocation.usercity.savecity', {
+					data: {
+						city: {...city,...{city_kladr_id:dadataCity.city_kladr_id}},
+					}
+				})
+					.then((res) => {
+						if (res.status === 'success'){
+							localStorage.setItem('current_city-id',city.CITY_ID)
+							localStorage.setItem('current_city-city_kladr_id',dadataCity.city_kladr_id)
+							localStorage.setItem('current_city-name',city.CITY_NAME)
+							localStorage.setItem('current_city-region-name',city.REGION_NAME)
+
+							if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
+								this.clearAddressFromLS()
+							}
+							location.reload()
+						}
+					});
 			},
 
 			saveAddressToLS(place){
@@ -137,7 +209,7 @@ export const GeolocationMain =
 		},
 
 		template: `
-			<section  class="modal__section modal__section--content" :class="{'modal-geolocation__content1':activeTab.name === 'city'}" data-scrollbar data-modal-section>
+			<section v-if="loaded"  class="modal__section modal__section--content" :class="{'modal-geolocation__content1':activeTab.name === 'city'}" data-scrollbar data-modal-section>
             
             <header :class="{'modal-geolocation__container':activeTab.name === 'city'}">
             <h3 class="geolocation__header" v-html="activeTab.title"></h3>

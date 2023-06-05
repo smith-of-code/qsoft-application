@@ -1,25 +1,21 @@
 export const City =
 	{
-		inject: ['saveAddressToLS','clearAddressFromLS'],
-
+		inject: ['saveAddressToLS','clearAddressFromLS','cities','currentCity'],
+		emits:['updateCity','setTab'],
 		data() {
 			return {
-				cityId: '',
-				cities:[],
 				listDeliveryPlace:[],
 				activeDeliveryPlaceId:0
 			};
 		},
 		mounted() {
-			this.cityId = this.$bitrix.Data.get('currentCityId')
-			this.cities = this.$bitrix.Data.get('saleCities')
 
 			this.activeDeliveryPlaceId = localStorage.getItem('deliveryPlaceId')??0
 			this.fetchListDeliveryPlace()
 		},
 		computed:{
 			activeCity() {
-				return this.cities.find(e => +this.cityId === +e.ID)
+				return this.cities.find(e => +this.currentCity.ID === +e.ID)
 			},
 		},
 		methods:{
@@ -48,8 +44,9 @@ export const City =
 
 			},
 			setCurrentDelivery(event,place){
+				if (this.isActiveDeliveryPlace(place)) { return }
 
-				let city = this.$bitrix.Data.get('saleCities').find(e=>
+				let city = this.cities.find(e=>
 					e.CITY_NAME.toLowerCase() === place.city.toLowerCase()
 					&&
 					(
@@ -58,7 +55,7 @@ export const City =
 				)
 
 				if (!city){
-					city = this.$bitrix.Data.get('saleCities').find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
+					city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
 				}
 
 				console.log(place)
@@ -76,7 +73,7 @@ export const City =
 		template: `
 
 
-            <img v-if="!listDeliveryPlace.length" src="/local/templates/.default/images/delivery-box.png" alt="">
+            <div v-if="!listDeliveryPlace.length" class="modal-geolocation__delivery-img" ></div>
 			<div v-else class="modal-geolocation__container mt-15">
 			<p>
 				Выберите адрес, чтобы увидеть условия доставки при оформлении заказа
@@ -87,13 +84,15 @@ export const City =
             <div class="modal-geolocation__city">
                 <div class="modal-geolocation__curr-city">
                     <img class="modal-geolocation__curr-city-icon" src="/local/templates/.default/images/icons/geolocation-big.svg" alt="">
-                    <span class="modal-geolocation__curr-city-text" v-if="activeCity">Ваш город <b v-html="nbsp(activeCity.CITY_NAME)"></b></span>
+                    <span class="modal-geolocation__curr-city-text">
+                    <span class="mr-10">Ваш город</span> <b class="no-brake" v-html="nbsp(activeCity?.CITY_NAME??'Москва')"></b>
+                    </span>
                 </div>
                 <p class="modal-geolocation__change-city"
                 @click="$emit('setTab','change-city')">Изменить</p>
             </div>
             
-            <div class="modal-geolocation__delivery-card" :class="{active:isActiveDeliveryPlace(delivery_item)}"  @click="setCurrentDelivery($event,delivery_item)"  v-for="delivery_item in listDeliveryPlace">
+            <div class="modal-geolocation__delivery-card" :class="{active:isActiveDeliveryPlace(delivery_item),last:idx === listDeliveryPlace.length-1}"  @click="setCurrentDelivery($event,delivery_item)"  v-for="(delivery_item,idx) in listDeliveryPlace">
             	<button @click.stop="deleteDeliveryPlace(delivery_item.id)" type="button" class="button button--ordinary button--iconed button--simple button--big button--red modal-geolocation__delivery-rm">
 					<span class="button__icon">
 						<svg class="icon">

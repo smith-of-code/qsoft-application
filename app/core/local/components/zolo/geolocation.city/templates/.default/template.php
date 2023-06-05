@@ -1,56 +1,16 @@
 <?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-use \Bitrix\Main\Service\GeoIp;
 
-//$ip = '95.31.209.94';
-$ip ='';
-$lang = 'ru';
-
-$geolocation = GeoIp\Manager::getDataResult($ip, $lang);
-
-
-$geolocationId = \Bitrix\Sale\Location\GeoIp::getLocationId($ip, $lang);
-$geolocationName = $geolocation->getGeoData()->cityName;
-
-$geolocationKladrId = $geolocation->getGeoData()->daData['city_kladr_id'];
-
-$session = \Bitrix\Main\Application::getInstance()->getSession();
-
-if ($session->has('current_city')){
-    $geolocationId = $session->get('current_city')['CITY_ID'];
-    $geolocationKladrId = $session->get('current_city')['city_kladr_id'];
-    $geolocationName = $session->get('current_city')['CITY_NAME'];
-}
 
 CUtil::InitJSCore(array('window'));
 
 \Bitrix\Main\UI\Extension::load("zolo.geolocation");
 
-Bitrix\Main\Loader::includeModule('sale');
 
-$db_vars = CSaleLocation::GetList(
-    array(
-        "SORT" => "ASC",
-        "COUNTRY_NAME_LANG" => "ASC",
-        "CITY_NAME_LANG" => "ASC"
-    ),
-    array("LID" => LANGUAGE_ID),
-    false,
-    false,
-    array()
-);
-
-$cities = [];
-
-while ($vars = $db_vars->Fetch()) {
-    if ($vars["CITY_NAME"]) {
-        $cities[] = $vars;
-    }
-}
 global $USER;
 
 
-
+$session = \Bitrix\Main\Application::getInstance()->getSession();
 //var_dump($session->get('arrival_place'));
 //exit();
 
@@ -63,7 +23,7 @@ global $USER;
     <div class="geolocation__city-btn">
         <img class="geolocation__icon" src="/local/templates/.default/images/icons/geolocation.svg"
              alt="">
-        <span id="geolocationName"><?= $geolocationName ?></span>
+        <span id="geolocationName">Москва</span>
     </div>
     <div class="geolocation__address-btn">
         <span id="geolocationAddress">Укажите адрес доставки</span>
@@ -121,10 +81,7 @@ global $USER;
                 activeTab ='address'
             }
             const taskManager = new BX.GeoLocation('#geolocation',{
-                cities:<?=json_encode($cities, JSON_UNESCAPED_UNICODE) ?>,
-                currentCityId:<?=$geolocationId?>,
                 activeTab,
-                currentCityKladrId:'<?=$geolocationKladrId?>',
             });
             taskManager.start();
         },
