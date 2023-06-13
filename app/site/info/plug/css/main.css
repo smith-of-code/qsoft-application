@@ -4,12 +4,18 @@ body{
 }
 
 .container{
+    position: relative;
     width: 1440px;
     margin: 0 auto;
     padding: 0 105px;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
 }
+
+.container.active{
+    display: flex;
+}
+
 .red-text{
     color: #D82F49;
 }
@@ -23,9 +29,9 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 26px;
-    padding: 47px 29px;
-    padding-right: 20px;
+    padding: 47px 20px 47px 29px;
     position: relative;
+    height: 467px;
 }
 
 .indev__mobile{
@@ -37,15 +43,9 @@ body{
     font-style: normal;
     font-weight: 700;
     font-size: 35px;
-    line-height: 28px;
-    /* or 81% */
-
-    display: flex;
-    align-items: center;
+    line-height: 36px;
     letter-spacing: 0.02em;
-
     color: #3A3A43;
-
 }
 
 .indev__subhead{
@@ -72,6 +72,7 @@ body{
     letter-spacing: 0.02em;
     color: #676767;
     max-width: 60%;
+    margin-top: 20px;
 }
 
 .indev__text p{
@@ -80,9 +81,9 @@ body{
 
 .indev__img-dog{
     position: absolute;
-    max-width: 485px;
-    bottom: -90px;
-    right: -10px;
+    max-width: 406px;
+    bottom: -44px;
+    right: 22px;
 }
 
 .indev__link-login{
@@ -91,6 +92,42 @@ body{
     position: absolute;
     z-index: 2;
     right: 33px;
+}
+
+.indev__lang{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    z-index: 2;
+    right: 190px;
+    top: 100px;
+    padding-top: 25px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 13px;
+    letter-spacing: 0.02em;
+    color: #E9E9E9;
+    width: 85px;
+}
+
+.indev__lang-separator{
+    border-right: 1px solid;
+}
+
+.indev__lang-item{
+    cursor:pointer;
+    color: #E9E9E9;
+}
+.indev__lang-item:first-child{
+    margin-right:10px
+}
+.indev__lang-item:last-child{
+    margin-left:10px
+}
+.indev__lang-item.active{
+    color: #8F8F8F;
 }
 
 .indev__link-login a{
@@ -128,11 +165,12 @@ body{
 }
 
 .subscribe__right{
-    flex-basis: 44.8%;
-    padding: 60px 34px;
+    flex-basis: 43.8%;
+    padding: 40px 34px;
     background: linear-gradient(73.6deg, #F4F4F4 1.34%, #FFFFFF 84.06%);
     border-radius: 26px;
     margin-top: 20px;
+    margin-left: 20px;
 }
 
 .subscribe__right-head{
@@ -297,6 +335,17 @@ body{
     .indev{
         padding: 47px 29px;
         padding-right: 10px;
+        height:auto;
+    }
+
+    .indev__lang{
+        font-size: 15px;
+        right: 30px;
+        top: 100px;
+    }
+
+    .indev__head{
+        max-width:396px;
     }
 
     .indev__subhead{
@@ -307,9 +356,9 @@ body{
     }
 
     .indev__img-dog {
-        max-width: 357px;
-        bottom: -455px;
-        right: -94px;
+        max-width: 299px;
+        bottom: -421px;
+        right: -71px;
     }
 
     .subscribe{
@@ -323,11 +372,13 @@ body{
     .subscribe__right{
         flex-basis: 100%;
         margin-top: 17px;
+        margin-left: 0;
     }
 
     .subscribe__form {
         max-width: 86%;
     }
+
 
 }
 
@@ -341,6 +392,14 @@ body{
 
     .indev{
         padding: 17px 10px;
+        padding-bottom: 52px;
+        height:auto;
+    }
+
+    .indev__lang{
+        font-size: 15px;
+        right: 20px;
+        top: 0;
     }
 
     .indev__desktop{
@@ -377,9 +436,9 @@ body{
     }
 
     .indev__img-dog {
-        max-width:186px;
-        top: -20px;
-        right: -40px;
+        max-width: 157px;
+        top: 15px;
+        right: -30px;
     }
 
     .subscribe{
@@ -389,6 +448,7 @@ body{
     .subscribe__left{
         flex-basis: 100%;
         margin-top: 20px;
+        padding: 25px 17px 12px 17px;
     }
 
     .subscribe__left-head{
@@ -418,6 +478,7 @@ body{
     .subscribe__right-head{
         font-size: 20px;
         line-height: 26px;
+        text-align: center;
     }
 
     .subscribe__right-text{
@@ -446,5 +507,9 @@ body{
     }
     .subscribe__form .custom-checkbox{
         margin-top: 20px;
+    }
+
+    .custom-checkbox label, .custom-checkbox a{
+        font-size: 7px;
     }
 }

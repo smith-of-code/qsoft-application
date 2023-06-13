@@ -10,8 +10,12 @@
 </head>
 <body>
 
-<div class="container">
-
+<div class="container root-container active" data-lang="ru">
+    <div class="indev__lang">
+        <span class="indev__lang-item active" data-lang="ru">RU</span>
+        <div class="indev__lang-separator"></div>
+        <span class="indev__lang-item" data-lang="en">EN</span>
+    </div>
     <div class="indev indev__mobile">
         <h1 class="indev__head">Сайт в разработке</h1>
         <h3 class="indev__subhead">Скоро здесь будет классный проект в области прямых продаж. </h3>
@@ -39,11 +43,13 @@
 <!--        <div class="indev__link-login">-->
 <!--            <a  href="/login">Вход для сотрудников</a>-->
 <!--        </div>-->
+
+
         <img class="indev__img-dog" src="/info/plug/img/dog.png">
     </div>
         <div class="subscribe__left">
-            <h3 class="subscribe__left-head">Если хотите узнать о старте amestore.ru первыми,</h3>
-            <p class="subscribe__left-text">подпишитесь на нашу рассылку!</p>
+            <h3 class="subscribe__left-head">Если хотите узнать о старте amestore.ru первыми,&nbsp;<span class="subscribe__left-text">подпишитесь на нашу рассылку!</span></h3>
+
             <form class="subscribe__form" id="subscribe__form">
                 <div class="fieldset ">
                     <label for="contact">
@@ -55,7 +61,7 @@
                 <div class="custom-checkbox">
                     <input type="checkbox"  id="confirm" name="confirm" value="yes" required>
                     <label for="confirm">
-                        <a target="_blank" href="/info/plug/docs/privacy.pdf">Я ознакомлен(-а) с Политикой по работе с персональными данными и даю свое согласие на обработку моих персональных данных</a>
+                        <a target="_blank" href="/info/plug/docs/privacy.pdf">Я ознакомлен(-а) с Политикой по работе с персональными данными и&nbsp;даю свое согласие на обработку моих персональных данных</a>
                     </label>
                 </div>
 
@@ -65,11 +71,82 @@
         </div>
         <div class="subscribe__right">
             <h3 class="subscribe__right-head">Будет интересно, обещаем<span class="red-text">.</span></h3>
-            <p class="subscribe__right-text">команда</p>
+            <p class="subscribe__right-text">команда&#160;</p>
             <img class="subscribe__right-img" src="/info/plug/img/logo.svg">
         </div>
 
 </div>
+
+
+<!--TODO ENGLISH-->
+<div class="container root-container" data-lang="en">
+    <div class="indev__lang">
+        <span class="indev__lang-item" data-lang="ru">RU</span>
+        <div class="indev__lang-separator"></div>
+        <span class="indev__lang-item active" data-lang="en">EN</span>
+    </div>
+    <div class="indev indev__mobile">
+        <h1 class="indev__head">The website is under construction</h1>
+        <h3 class="indev__subhead">An awesome direct sales project will be here soon. </h3>
+        <img class="indev__img-dog" src="/info/plug/img/dog.png">
+    </div>
+
+    <div class="indev indev__desktop">
+        <h1 class="indev__head">The website is under construction</h1>
+        <h3 class="indev__subhead">An awesome direct sales project&nbsp;will&nbsp;be&nbsp;here&nbsp;soon. </h3>
+        <div class="indev__text">
+            <p>
+                With us you can build your business with a convenient schedule and approach, get access to new quality products and become a member of a unique community&nbsp;of like-minded people.
+            </p>
+            <p>
+                Now we cannot share more details, but we are inviting companies, individual entrepreneurs and enthusiasts of direct sales enthusiasts.
+            </p>
+
+            <p>
+                if you would like to offer products, promotion services or just become
+                a&nbsp;part&nbsp;of&nbsp;a&nbsp;new ambitious project, contact us:
+                <a class="red-text" href="malito:info@amestore.ru">info@amestore.ru</a>
+            </p>
+        </div>
+        <!--        <div class="indev__link-login">-->
+        <!--            <a  href="/login">Вход для сотрудников</a>-->
+        <!--        </div>-->
+
+
+        <img class="indev__img-dog" src="/info/plug/img/dog.png">
+    </div>
+    <div class="subscribe__left">
+        <h3 class="subscribe__left-head">If you want to be the first to know about
+            the&nbsp;launch&nbsp;of&nbsp;amestore.ru, <span class="subscribe__left-text">subscribe to our newsletter!</span></h3>
+
+        <form class="subscribe__form" id="subscribe__form">
+            <div class="fieldset ">
+                <label for="contact">
+                    Your E-mail <span class="red-text">*</span>
+                </label>
+                <input id="contact" name="email" type="email" required>
+            </div>
+            <button class="btn">Subscribe</button>
+            <div class="custom-checkbox">
+                <input type="checkbox"  id="confirm" name="confirm" value="yes" required>
+                <label for="confirm">
+                    <a target="_blank" href="/info/plug/docs/privacy.pdf">I’ve read the Personal Data Policy and give my consent&nbsp;to&nbsp;the&nbsp;processing&nbsp;of&nbsp;my personal data</a>
+                </label>
+            </div>
+
+
+        </form>
+
+    </div>
+    <div class="subscribe__right">
+        <h3 class="subscribe__right-head">We promise it to be something&nbsp;special!</h3>
+        <p class="subscribe__right-text">The team of&#160;</p>
+        <img class="subscribe__right-img" src="/info/plug/img/logo.svg">
+    </div>
+
+</div>
+<!--TODO ENGLISH-->
+
 <script src="/info/plug/js/main.js"></script>
 </body>
 </html>
