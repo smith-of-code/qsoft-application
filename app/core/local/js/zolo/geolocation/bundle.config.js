@@ -1,7 +1,7 @@
 module.exports = {
 	input: './src/application.js',
 	output: './dist/geolocation.bundle.js',
-	namespace: 'BX',
+	namespace: 'Geolocation',
 };
 
 // const vuePlugin = require('rollup-plugin-vue');

@@ -1,6 +1,10 @@
+// import { yandexMap, ymapMarker } from 'vue-yandex-maps'
 
 export const Address =
 	{
+		components: {
+			// yandexMap, ymapMarker
+		},
 		inject: ['saveAddressToLS','clearAddressFromLS','cities'],
 		data() {
 			return {
@@ -57,7 +61,15 @@ export const Address =
 			// 	center: [55.74954, 37.621587],
 			// 	zoom: 10,
 			// 	controls: []
-			// })
+			// },
+			// 	{
+			// 		searchControlProvider: 'yandex#search'
+			// 	})
+
+			this.initYamap()
+
+
+
 
 
 
@@ -66,6 +78,88 @@ export const Address =
 		},
 
 		methods: {
+
+			initYamap(){
+				let that = this
+
+				let  myInput = this.$refs.placeAddress,
+					myPlacemark,
+					myMap = new ymaps.Map('yandMap1', {
+						center: [44.197334,43.127487 ],
+						zoom: 9
+					}, {
+						searchControlProvider: 'yandex#search'
+					});
+
+
+				myPlacemark = createPlacemark([44.197334, 43.127487 ])
+				myMap.geoObjects.add(myPlacemark);
+				myMap.events.add('click', function (e) {
+					var coords = e.get('coords');
+					console.log(coords);
+					// Если метка уже создана – просто передвигаем ее.
+					if (myPlacemark) {
+						myPlacemark.geometry.setCoordinates(coords);
+					}
+					// Если нет – создаем.
+					else {
+						myPlacemark = createPlacemark(coords);
+						myMap.geoObjects.add(myPlacemark);
+						// Слушаем событие окончания перетаскивания на метке.
+						myPlacemark.events.add('dragend', function () {
+
+							getAddress(myPlacemark.geometry.getCoordinates());
+						});
+					}
+					getAddress(coords);
+				});
+
+				// Создание метки.
+				function createPlacemark(coords) {
+					return new ymaps.Placemark(coords, {
+						iconCaption: 'поиск...'
+					}, {
+						preset: 'islands#violetDotIconWithCaption',
+						draggable: true
+					});
+				}
+
+				// Определяем адрес по координатам (обратное геокодирование).
+
+				function getAddress(coords) {
+					myPlacemark.properties.set('iconCaption', 'поиск...');
+					ymaps.geocode(coords).then((res) =>{
+						var firstGeoObject = res.geoObjects.get(0),
+							address = firstGeoObject.getAddressLine();
+
+						myPlacemark.properties
+							.set({
+								// Формируем строку с данными об объекте.
+								iconCaption: [
+									// Название населенного пункта или вышестоящее административно-территориальное образование.
+									firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+									// Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+									firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+								].filter(Boolean).join(', '),
+								// В качестве контента балуна задаем строку с адресом объекта.
+								balloonContent: address
+							});
+						// myInput.value = address;
+						console.log(address)
+						that.place.address = address;
+						console.log(address)
+					});
+
+					console.log('address')
+				}
+			},
+
+			addressInput(e){
+				this.isOpenSearchResult=true
+				this.place.address = e.target.value
+			},
+
+
 			fillPlace(place) {
 				this.place.address = place.value
 				this.place.address_short = place.data.street_with_type  + (place.data.house? ', '+place.data.house:'') + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
@@ -150,8 +244,10 @@ export const Address =
 		},
 
 		template: `
-
+		<div class="modal-geolocation__address">
             <div class="geolocation__address--form">
+            
+            <div>
             <div class="form__row">
                 <div class="form__col">
                     <div class="form__field">
@@ -163,7 +259,7 @@ export const Address =
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" :class="{'input__control--error':errors.address.length}" autocomplete="off" v-model="place.address" @input="isOpenSearchResult=true" @focus="place.address = place.address" name="address">
+                                <input type="text" ref="placeAddress" class="input__control" :class="{'input__control--error':errors.address.length}" autocomplete="off" v-model="place.address" @input="addressInput" @focus="place.address = place.address" name="address">
                             	<span v-if="errors.address.length" class="input__control-error">{{errors.address}}</span>
                             </div>
                         </div>
@@ -258,6 +354,7 @@ export const Address =
                     </div>
                 </div>
             </div>
+			</div>
             <div class="form__row">
 				<div class="form__col">
 					<button @click="saveAddress()" type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
@@ -266,16 +363,14 @@ export const Address =
 					 <span v-if="errors.save.length" class="input__control-error">{{errors.save}}</span>
 				</div>
 			</div>
+			
 		</div>
+			
+		<div id="yandMap1" class="map" style="width:746px; height: 719px;" ></div>
 
-<!--            <div class="geolocation__yamap__container">-->
-<!--            <div id="yandMap1" style="width:746px; height: 400px;" ></div>-->
-<!--            </div>-->
-
-            <div class="modal-geolocation__container">
             
-
-            </div>
+		</div>
+            
 
 
     `

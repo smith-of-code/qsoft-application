@@ -80,7 +80,7 @@ $session = \Bitrix\Main\Application::getInstance()->getSession();
             if(<?=$USER->IsAuthorized()?'false':'true'?> && e.$trigger[0].classList.contains('geolocation__address-btn') && !localStorage.getItem('deliveryPlaceAddressShort')){
                 activeTab ='address'
             }
-            const taskManager = new BX.GeoLocation('#geolocation',{
+            const taskManager = new Geolocation.GeoLocation('#geolocation',{
                 activeTab,
             });
             taskManager.start();

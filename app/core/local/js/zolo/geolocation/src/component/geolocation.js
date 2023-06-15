@@ -80,7 +80,9 @@ export const GeolocationMain =
 							return e.CITY_NAME === this.geoIpInfo.city
 						})
 
-						this.saveCity(city,this.geoIpInfo)
+						this.saveCity(city,this.geoIpInfo,true)
+						await this.getCurrentCity()
+
 
 					}, (err)=>{
 						console.log(err)
@@ -149,9 +151,8 @@ export const GeolocationMain =
 				})
 			},
 
-			saveCity(city,dadataCity){
+			saveCity(city,dadataCity,noReload=false){
 
-				console.log(city,dadataCity)
 				BX.ajax.runAction('wizandr:geolocation.usercity.savecity', {
 					data: {
 						city: {...city,...{city_kladr_id:dadataCity.city_kladr_id}},
@@ -167,7 +168,13 @@ export const GeolocationMain =
 							if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
 								this.clearAddressFromLS()
 							}
-							location.reload()
+							if (!noReload){
+								location.reload()
+							}else {
+								this.getCurrentCity()
+								$('#geolocationName').text(city.CITY_NAME)
+							}
+
 						}
 					});
 			},
@@ -209,7 +216,7 @@ export const GeolocationMain =
 		},
 
 		template: `
-			<section v-if="loaded"  class="modal__section modal__section--content" :class="{'modal-geolocation__content1':activeTab.name === 'city'}" data-scrollbar data-modal-section>
+			<section v-if="loaded"  class="modal__section modal__section--content" :class="['modal-geolocation__content-'+activeTab.name]" data-scrollbar data-modal-section>
             
             <header :class="{'modal-geolocation__container':activeTab.name === 'city'}">
             <h3 class="geolocation__header" v-html="activeTab.title"></h3>

@@ -271,7 +271,7 @@
 
         &-close {
             $button-offset: 12px;
-
+            width: rem(25px);
             position: absolute;
             top: rem($button-offset);
             right: rem($button-offset);
