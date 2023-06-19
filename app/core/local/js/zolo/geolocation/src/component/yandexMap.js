@@ -12,7 +12,7 @@ export const YandexMap =
 				default:[44.197334, 43.127487 ]
 			},
 			center:{
-				default:[44.197334,43.127487 ]
+				default:[37.618918179574344, 55.75949895840033 ]
 			},
 			zoom: {
 				default:15
@@ -54,16 +54,19 @@ export const YandexMap =
 
 				let myPlacemark,
 					myMap = new ymaps.Map(this.id, {
-						center: this.center,
+						center: this.center[0]?this.center:[37.618918179574344, 55.75949895840033],
 						zoom: window.yaMapZoom??this.zoom,
 						controls:['geolocationControl']
 					}, {
 						searchControlProvider: 'yandex#search'
 					});
 
+				if (this.coords[0]){
+					myPlacemark = createPlacemark(this.coords)
+					myMap.geoObjects.add(myPlacemark);
+				}
 
-				myPlacemark = createPlacemark(this.coords)
-				myMap.geoObjects.add(myPlacemark);
+
 				myMap.events.add('click', function (e) {
 					var coords = e.get('coords');
 					console.log(coords);
