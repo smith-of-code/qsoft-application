@@ -194,6 +194,8 @@ export const GeolocationMain =
 				localStorage.setItem('deliveryPlaceFloor',place.floor??'')
 				localStorage.setItem('deliveryPlaceCity',place.city??'')
 				localStorage.setItem('deliveryPlaceRegion',place.region??'')
+				localStorage.setItem('deliveryPlaceGeoLat',place.geo_lat??'')
+				localStorage.setItem('deliveryPlaceGeoLon',place.geo_lon??'')
 
 			},
 
@@ -209,6 +211,8 @@ export const GeolocationMain =
 				localStorage.removeItem('deliveryPlaceFloor')
 				localStorage.removeItem('deliveryPlaceCity')
 				localStorage.removeItem('deliveryPlaceRegion')
+				localStorage.removeItem('deliveryPlaceGeoLat')
+				localStorage.removeItem('deliveryPlaceGeoLon')
 			}
 		},
 		watch: {

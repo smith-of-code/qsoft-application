@@ -1,9 +1,10 @@
 // import { yandexMap, ymapMarker } from 'vue-yandex-maps'
+import {YandexMap} from './yandexMap'
 
 export const Address =
 	{
 		components: {
-			// yandexMap, ymapMarker
+			YandexMap
 		},
 		inject: ['saveAddressToLS','clearAddressFromLS','cities'],
 		data() {
@@ -19,28 +20,28 @@ export const Address =
 					floor: '',
 					city:'',
 					region:'',
-					fias_level:null
+					fias_level:null,
+					geo_lat:'',
+					geo_lon:'',
 				},
 				errors:{
 					address: '',
 					save:''
 				},
 				isOpenSearchResult:false,
-
+				mapKey:'ddfsdf',
 				searchResult:[],
-				settings :{
-					apiKey: '',
-					lang: 'ru_RU',
-					coordorder: 'latlong',
-					enterprise: false,
-					version: '2.1'
-				},
 				acceptSearch:true
 			};
 		},
 
 
-		computed: {},
+		computed: {
+			isMobile(){
+				return window.screen.width < 768
+
+			}
+		},
 		created() {},
 		mounted() {
 
@@ -56,6 +57,8 @@ export const Address =
 			this.place.floor = localStorage.getItem('deliveryPlaceFloor')
 			this.place.city = localStorage.getItem('deliveryPlaceCity')
 			this.place.region = localStorage.getItem('deliveryPlaceRegion')
+			this.place.geo_lat = localStorage.getItem('deliveryPlaceGeoLat')
+			this.place.geo_lon = localStorage.getItem('deliveryPlaceGeoLon')
 
 			// new ymaps.Map('yandMap1',{
 			// 	center: [55.74954, 37.621587],
@@ -66,7 +69,6 @@ export const Address =
 			// 		searchControlProvider: 'yandex#search'
 			// 	})
 
-			this.initYamap()
 
 
 
@@ -79,80 +81,7 @@ export const Address =
 
 		methods: {
 
-			initYamap(){
-				let that = this
 
-				let  myInput = this.$refs.placeAddress,
-					myPlacemark,
-					myMap = new ymaps.Map('yandMap1', {
-						center: [44.197334,43.127487 ],
-						zoom: 9
-					}, {
-						searchControlProvider: 'yandex#search'
-					});
-
-
-				myPlacemark = createPlacemark([44.197334, 43.127487 ])
-				myMap.geoObjects.add(myPlacemark);
-				myMap.events.add('click', function (e) {
-					var coords = e.get('coords');
-					console.log(coords);
-					// Если метка уже создана – просто передвигаем ее.
-					if (myPlacemark) {
-						myPlacemark.geometry.setCoordinates(coords);
-					}
-					// Если нет – создаем.
-					else {
-						myPlacemark = createPlacemark(coords);
-						myMap.geoObjects.add(myPlacemark);
-						// Слушаем событие окончания перетаскивания на метке.
-						myPlacemark.events.add('dragend', function () {
-
-							getAddress(myPlacemark.geometry.getCoordinates());
-						});
-					}
-					getAddress(coords);
-				});
-
-				// Создание метки.
-				function createPlacemark(coords) {
-					return new ymaps.Placemark(coords, {
-						iconCaption: 'поиск...'
-					}, {
-						preset: 'islands#violetDotIconWithCaption',
-						draggable: true
-					});
-				}
-
-				// Определяем адрес по координатам (обратное геокодирование).
-
-				function getAddress(coords) {
-					myPlacemark.properties.set('iconCaption', 'поиск...');
-					ymaps.geocode(coords).then((res) =>{
-						var firstGeoObject = res.geoObjects.get(0),
-							address = firstGeoObject.getAddressLine();
-
-						myPlacemark.properties
-							.set({
-								// Формируем строку с данными об объекте.
-								iconCaption: [
-									// Название населенного пункта или вышестоящее административно-территориальное образование.
-									firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-									// Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
-									firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-								].filter(Boolean).join(', '),
-								// В качестве контента балуна задаем строку с адресом объекта.
-								balloonContent: address
-							});
-						// myInput.value = address;
-						console.log(address)
-						that.place.address = address;
-						console.log(address)
-					});
-
-					console.log('address')
-				}
-			},
 
 			addressInput(e){
 				this.isOpenSearchResult=true
@@ -170,6 +99,11 @@ export const Address =
 				this.place.city = place.data.city
 				this.place.region = place.data.region
 				this.place.fias_level = place.data.fias_level
+				this.place.geo_lat = place.data.geo_lat
+				this.place.geo_lon = place.data.geo_lon
+
+				this.mapKey += 'sdfsd3'
+
 				this.isOpenSearchResult = false
 				console.log(place)
 			},
@@ -355,6 +289,11 @@ export const Address =
                 </div>
             </div>
 			</div>
+			<div class="form__row">
+			<div class="form__col">
+			<yandex-map v-if="isMobile" v-model="place.address" :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_mobile'+mapKey" width="311" height="213"></yandex-map>
+			</div>
+			</div>
             <div class="form__row">
 				<div class="form__col">
 					<button @click="saveAddress()" type="button" class="button button--full button--bold button--medium button--rounded button--covered button--green">
@@ -365,10 +304,7 @@ export const Address =
 			</div>
 			
 		</div>
-			
-		<div id="yandMap1" class="map" style="width:746px; height: 719px;" ></div>
-
-            
+			<yandex-map v-if="!isMobile" v-model="place.address" :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_desktop'+mapKey"></yandex-map>
 		</div>
             
 

@@ -106,7 +106,11 @@
   $height-input-medium: 44px;
   $height-input-small: 36px;
   & .fancybox-close{
-    left: 30rem;
+
+    @media #{$screen-tablet} {
+      left: 30rem;
+    }
+
   }
   &__container{
     width: 100%;
@@ -120,13 +124,14 @@
     //padding-bottom: rem(16px);
   }
   & .modal__section--content{
-    width: rem(528px);
-    padding-left: rem(18px);
-    padding-right: rem(18px);
-    //@media #{$screen-tablet} {
-    //  padding-left: rem(29px);
-    //  padding-right: rem(29px);
-    //}
+    width: rem(343px);
+    //padding-left: rem(29px);
+    //padding-right: rem(29px);
+    @media #{$screen-tablet} {
+      width: rem(528px);
+      padding-left: rem(18px);
+      padding-right: rem(18px);
+    }
 
     &.modal-geolocation__content-city{
       padding-left: 1rem;
@@ -139,11 +144,20 @@
       }
     }
     &.modal-geolocation__content-address{
-      width: rem(1307px);
+      //width: rem(528px);
+      @media #{$screen-tablet} {
+        padding-left: 2rem;
+        width: rem(1307px);
+      }
       & .modal-geolocation__address{
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
+        @media #{$screen-tablet} {
+          flex-direction: row;
+        }
       }
+
     }
 
   }
@@ -322,6 +336,9 @@
 }
 
 .modal-geolocation .map{
-  margin-top: -60px;
-  margin-bottom: -50px;
+
+  @media #{$screen-tablet} {
+    margin-top: -60px;
+    margin-bottom: -50px;
+  }
 }

@@ -58,7 +58,7 @@ export const City =
 					city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
 				}
 
-				console.log(place)
+				// console.log(place)
 				this.activeDeliveryPlaceId = place.id
 				this.saveAddressToLS(place)
 				this.$emit('updateCity',city)
