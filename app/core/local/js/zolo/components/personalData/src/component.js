@@ -336,7 +336,7 @@ export const PersonalData = {
                                                                 class="input__control js-required-dependent" 
                                                                 name="second_name" 
                                                                 id="second_name" 
-                                                                placeholder="Введите отчество" 
+                                                                :placeholder="editing?'Введите отчество':'Не указано'" 
                                                                 :readonly="!editing" 
                                                                 data-identic-input
                                                                 v-model="mutableUserInfo.second_name"
@@ -393,7 +393,7 @@ export const PersonalData = {
                                                                 <Select
                                                                     name="gender"
                                                                     :options="genders"
-                                                                    placeholder="Выберите пол"
+                                                                    :placeholder="!editing?'Не выбран':'Выберите пол'"
                                                                     :selected="mutableUserInfo.gender"
                                                                     @custom-change="(value) => { mutableUserInfo.gender = value }"
                                                                 />
@@ -538,7 +538,7 @@ export const PersonalData = {
                                                                 <Select
                                                                     name="city"
                                                                     :options="cities"
-                                                                    placeholder="Выберите город"
+                                                                    :placeholder="!editing?'Не выбран':'Выберите город'"
                                                                     :selected="userCity?userCity.id:false"
                                                                     @custom-change="(value) => { mutableUserInfo.city = cities[value].name }"
                                                                 />
@@ -562,7 +562,7 @@ export const PersonalData = {
                                                                 <Select
                                                                     name="pickup_point_id"
                                                                     :options="pickupPoints[userCity?userCity.id:null] ?? {}"
-                                                                    placeholder="Пункт выдачи заказов"
+                                                                    :placeholder="!editing?'Не выбран':'Пункт выдачи заказов'"
                                                                     :selected="mutableUserInfo.pickup_point_id"
                                                                     @custom-change="(value) => { mutableUserInfo.pickup_point_id = value }"
                                                                 />

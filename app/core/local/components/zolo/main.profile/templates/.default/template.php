@@ -491,7 +491,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="input">
-                                                                    <input type="text" class="input__control" value="<?=$mentor['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Введите отчество" readonly data-replace-input="text">
+                                                                    <input type="text" class="input__control" value="<?=$mentor['SECOND_NAME']?>" name="text-required" id="text-required" placeholder="Не указано" readonly data-replace-input="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -558,7 +558,7 @@ $APPLICATION->setTitle('Личный Кабинет');?>
 
                                                             <div class="form__field-block form__field-block--input">
                                                                 <div class="input">
-                                                                    <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Пункт выдачи заказов" readonly>
+                                                                    <input type="text" class="input__control" value="<?=$arResult['pickup_points'][array_first(array_filter($arResult['cities'], fn ($x) => $x['name'] === $arResult['personal_data']['city']))['id']][$mentor['UF_PICKUP_POINT_ID']]['name']?>" name="text-required" id="select22" placeholder="Не выбран" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
