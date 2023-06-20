@@ -8,7 +8,8 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
  * @var array $arResult
  * @var CBitrixComponent $component
  */
-
+//var_dump($arResult['POST']["USER_LOGIN"]);
+//exit();
 ?>
 <h1 class="content__heading content__heading--centered">Авторизация</h1>
 
@@ -39,7 +40,7 @@ Bitrix\Main\Page\Asset::getInstance()->addJs("https://www.google.com/recaptcha/a
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="" placeholder="Введите логин" data-login-input data-input-required>
+                                <input type="text" class="input__control" name="USER_LOGIN" id="USER_LOGIN" maxlength="255" value="<?=$arResult['POST']["USER_LOGIN"]?>" placeholder="Введите логин" data-login-input data-input-required>
                             </div>
                         </div>
                     </div>
