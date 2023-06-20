@@ -9,18 +9,15 @@ export const Address =
 		inject: ['saveAddressToLS','clearAddressFromLS','cities'],
 		data() {
 			return {
+				address:'',
 				place: {
-					kladr_id:null,
-					address: '',
 					address_short: '',
+					postal_code:'',
+					city:'',
 					flat: '',
-					postal_code: '',
 					entry: '',
 					housepin: '',
 					floor: '',
-					city:'',
-					region:'',
-					fias_level:null,
 					geo_lat:'',
 					geo_lon:'',
 				},
@@ -47,34 +44,14 @@ export const Address =
 
 			this.place.id = localStorage.getItem('deliveryPlaceId')??'0'
 
-			this.place.kladr_id = localStorage.getItem('deliveryPlaceKladrId')
-			this.place.address = localStorage.getItem('deliveryPlaceAddress')
 			this.place.address_short = localStorage.getItem('deliveryPlaceAddressShort')
-			this.place.flat = localStorage.getItem('deliveryPlaceFlat')
 			this.place.postal_code = localStorage.getItem('deliveryPlacePostalCode')
+			this.place.flat = localStorage.getItem('deliveryPlaceFlat')
 			this.place.entry = localStorage.getItem('deliveryPlaceAddressEntry')
 			this.place.housepin = localStorage.getItem('deliveryPlaceAddressHousepin')
 			this.place.floor = localStorage.getItem('deliveryPlaceFloor')
-			this.place.city = localStorage.getItem('deliveryPlaceCity')
-			this.place.region = localStorage.getItem('deliveryPlaceRegion')
 			this.place.geo_lat = localStorage.getItem('deliveryPlaceGeoLat')
 			this.place.geo_lon = localStorage.getItem('deliveryPlaceGeoLon')
-
-			// new ymaps.Map('yandMap1',{
-			// 	center: [55.74954, 37.621587],
-			// 	zoom: 10,
-			// 	controls: []
-			// },
-			// 	{
-			// 		searchControlProvider: 'yandex#search'
-			// 	})
-
-
-
-
-
-
-
 
 
 		},
@@ -82,30 +59,37 @@ export const Address =
 		methods: {
 
 
+			async changeCoords(coords){
+				// let data = await BX.ajax.runAction('wizandr:geolocation.dadata.address',{
+				// 	data:{
+				// 		lat:coords[1],
+				// 		lon:coords[0],
+				// 		count:1
+				// 	}
+				//
+				// })
+				// this.fillPlace(data.data[0])
 
+
+
+			},
 			addressInput(e){
 				this.isOpenSearchResult=true
 				this.place.address = e.target.value
 			},
 
-
 			fillPlace(place) {
-				this.place.address = place.value
+				this.address = place.value
 				this.place.address_short = place.data.street_with_type  + (place.data.house? ', '+place.data.house:'') + (place.data.block_type?', '+place.data.block_type+' '+place.data.block:'')
 
-
-				this.place.postal_code = place.data.postal_code
-				this.place.kladr_id = place.data.kladr_id
 				this.place.city = place.data.city
-				this.place.region = place.data.region
-				this.place.fias_level = place.data.fias_level
+				this.place.postal_code = place.data.postal_code
 				this.place.geo_lat = place.data.geo_lat
 				this.place.geo_lon = place.data.geo_lon
 
 				this.mapKey += 'sdfsd3'
 
 				this.isOpenSearchResult = false
-				console.log(place)
 			},
 
 			async saveAddress() {
@@ -117,29 +101,29 @@ export const Address =
 					return
 				}
 
-				//ищем по условию, что если название города и региона в нижнем регистре совпадает, за исключением тех случаев когда город и регион одинаковы в dadata (Санкт петербург)
-				let city = this.cities.find(e=>
-					e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase()
-					&&
-					(
-						this.place.city  === this.place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(this.place.region.toLowerCase()))
-					)
-				)
-
-				if (!city){
-					city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
-				}
+				// //ищем по условию, что если название города и региона в нижнем регистре совпадает, за исключением тех случаев когда город и регион одинаковы в dadata (Санкт петербург)
+				// let city = this.cities.find(e=>
+				// 	e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase()
+				// 	&&
+				// 	(
+				// 		this.place.city  === this.place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(this.place.region.toLowerCase()))
+				// 	)
+				// )
+				//
+				// if (!city){
+				// 	city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === this.place.city.toLowerCase())
+				// }
 
 
 				BX.ajax.runAction('wizandr:geolocation.useraddress.add', {
 					data: {
-						place: this.place
+						place: {...this.place}
 					}
 				}).then(res=> {
 
 					this.place.id = res.data.id
 					this.saveAddressToLS(this.place)
-					this.$emit('updateCity',city)
+					this.$emit('updateCity',{CITY_NAME:this.place.city})
 
 				}).catch(err=>{
 
@@ -152,7 +136,7 @@ export const Address =
 
 		},
 		watch: {
-			'place.address'(newVal) {
+			'address'(newVal) {
 				this.errors.address = ''
 				if (newVal && newVal.length > 3 && this.acceptSearch) {
 					BX.ajax.runAction('wizandr:geolocation.dadata.suggest', {
@@ -193,7 +177,7 @@ export const Address =
 
                         <div class="form__field-block form__field-block--input">
                             <div class="input">
-                                <input type="text" ref="placeAddress" class="input__control" :class="{'input__control--error':errors.address.length}" autocomplete="off" v-model="place.address" @input="addressInput" @focus="place.address = place.address" name="address">
+                                <input type="text" ref="placeAddress" class="input__control" :class="{'input__control--error':errors.address.length}" autocomplete="off" v-model="address" @input="addressInput" @focus="address = address" name="address">
                             	<span v-if="errors.address.length" class="input__control-error">{{errors.address}}</span>
                             </div>
                         </div>
@@ -291,7 +275,7 @@ export const Address =
 			</div>
 			<div class="form__row">
 			<div class="form__col">
-			<yandex-map v-if="isMobile" v-model="place.address" :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_mobile'+mapKey" width="311" height="213"></yandex-map>
+			<yandex-map v-if="isMobile" v-model="address" :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_mobile'+mapKey" width="311" height="213"></yandex-map>
 			</div>
 			</div>
             <div class="form__row">
@@ -304,7 +288,7 @@ export const Address =
 			</div>
 			
 		</div>
-			<yandex-map v-if="!isMobile" v-model="place.address" :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_desktop'+mapKey"></yandex-map>
+			<yandex-map v-if="!isMobile" v-model="address" @changeCoords="changeCoords"  :coords="[place.geo_lon,place.geo_lat]" :center="[place.geo_lon,place.geo_lat]" :key="'map_desktop'+mapKey"></yandex-map>
 		</div>
             
 

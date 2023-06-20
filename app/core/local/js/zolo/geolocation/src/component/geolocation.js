@@ -65,7 +65,7 @@ export const GeolocationMain =
 
 			await this.getCurrentCity()
 
-			if (!this.currentCity.ID){
+			if (!this.currentCity.city){
 				navigator.geolocation.getCurrentPosition(async (pos)=>{
 						const crd = pos.coords;
 
@@ -75,12 +75,7 @@ export const GeolocationMain =
 						let getGeoIpInfo = await this.getGeoIpInfo()
 						this.geoIpInfo = getGeoIpInfo.data[0].data
 
-
-						let city = this.cities.find(e=>{
-							return e.CITY_NAME === this.geoIpInfo.city
-						})
-
-						this.saveCity(city,this.geoIpInfo,true)
+						this.saveCity(this.geoIpInfo,true)
 						await this.getCurrentCity()
 
 
@@ -147,32 +142,30 @@ export const GeolocationMain =
 				})
 				.then((res) => {
 					dadataCity = res.data[0].data
-					this.saveCity(city,dadataCity)
+					this.saveCity(dadataCity)
 				})
 			},
 
-			saveCity(city,dadataCity,noReload=false){
+			saveCity(dadataCity,noReload=false){
 
 				BX.ajax.runAction('wizandr:geolocation.usercity.savecity', {
 					data: {
-						city: {...city,...{city_kladr_id:dadataCity.city_kladr_id}},
+						city: dadataCity,
 					}
 				})
 					.then((res) => {
 						if (res.status === 'success'){
-							localStorage.setItem('current_city-id',city.CITY_ID)
-							localStorage.setItem('current_city-city_kladr_id',dadataCity.city_kladr_id)
-							localStorage.setItem('current_city-name',city.CITY_NAME)
-							localStorage.setItem('current_city-region-name',city.REGION_NAME)
+							localStorage.setItem('current_city-name',dadataCity.city)
+							localStorage.setItem('current_city-region-name',dadataCity.region)
 
-							if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(city.CITY_NAME.toLowerCase()) ){
+							if (localStorage.getItem('deliveryPlaceAddress') !== null && !localStorage.getItem('deliveryPlaceAddress').toLowerCase().includes(dadataCity.city.toLowerCase()) ){
 								this.clearAddressFromLS()
 							}
 							if (!noReload){
 								location.reload()
 							}else {
 								this.getCurrentCity()
-								$('#geolocationName').text(city.CITY_NAME)
+								$('#geolocationName').text(dadataCity.city)
 							}
 
 						}
@@ -182,35 +175,25 @@ export const GeolocationMain =
 			saveAddressToLS(place){
 				console.log(place)
 				localStorage.setItem('deliveryPlaceId',place.id)
-				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
-				localStorage.setItem('deliveryPlaceKladrId',place.kladr_id)
-				localStorage.setItem('deliveryPlaceAddress',place.address)
 				localStorage.setItem('deliveryPlaceAddressShort',place.address_short)
+				localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
 
 				localStorage.setItem('deliveryPlaceFlat',place.flat??'')
-				localStorage.setItem('deliveryPlacePostalCode',place.postal_code)
 				localStorage.setItem('deliveryPlaceAddressEntry',place.entry??'')
 				localStorage.setItem('deliveryPlaceAddressHousepin',place.housepin??'')
 				localStorage.setItem('deliveryPlaceFloor',place.floor??'')
-				localStorage.setItem('deliveryPlaceCity',place.city??'')
-				localStorage.setItem('deliveryPlaceRegion',place.region??'')
 				localStorage.setItem('deliveryPlaceGeoLat',place.geo_lat??'')
 				localStorage.setItem('deliveryPlaceGeoLon',place.geo_lon??'')
 
 			},
 
 			clearAddressFromLS(){
-				localStorage.removeItem('deliveryPlaceKladrId')
-				localStorage.removeItem('deliveryPlaceAddress')
 				localStorage.removeItem('deliveryPlaceAddressShort')
-
-				localStorage.removeItem('deliveryPlaceFlat')
 				localStorage.removeItem('deliveryPlacePostalCode')
+				localStorage.removeItem('deliveryPlaceFlat')
 				localStorage.removeItem('deliveryPlaceAddressEntry')
 				localStorage.removeItem('deliveryPlaceAddressHousepin')
 				localStorage.removeItem('deliveryPlaceFloor')
-				localStorage.removeItem('deliveryPlaceCity')
-				localStorage.removeItem('deliveryPlaceRegion')
 				localStorage.removeItem('deliveryPlaceGeoLat')
 				localStorage.removeItem('deliveryPlaceGeoLon')
 			}

@@ -94,6 +94,12 @@ Class wizandr_geolocation extends CModule
     {
         unregisterModule($this->MODULE_ID);
 
+        $sql = file_get_contents(__DIR__ .'/uninstall.sql');
+        if ($sql) {
+            Bitrix\Main\Application::getConnection()->query($sql);
+        }
+
+
         return true;
     }
 

@@ -2,6 +2,7 @@ export const ChangeCity =
 	{
 		components: {},
 		inject:['cities','currentCity'],
+		emits:['updateCity','setTab'],
 		data() {
 			return {
 				cityId:null,

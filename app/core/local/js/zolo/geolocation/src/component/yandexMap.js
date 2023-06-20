@@ -5,7 +5,7 @@ export const YandexMap =
 			// yandexMap, ymapMarker
 		},
 		inject: ['saveAddressToLS','clearAddressFromLS','cities'],
-		emits:['update:modelValue'],
+		emits:['update:modelValue','changeCoords'],
 		props:{
 			modelValue:String,
 			coords:{
@@ -69,7 +69,7 @@ export const YandexMap =
 
 				myMap.events.add('click', function (e) {
 					var coords = e.get('coords');
-					console.log(coords);
+					// console.log(coords);
 					// Если метка уже создана – просто передвигаем ее.
 					if (myPlacemark) {
 						myPlacemark.geometry.setCoordinates(coords);
@@ -84,6 +84,7 @@ export const YandexMap =
 							getAddress(myPlacemark.geometry.getCoordinates());
 						});
 					}
+
 					getAddress(coords);
 				});
 
@@ -106,11 +107,13 @@ export const YandexMap =
 				// Определяем адрес по координатам (обратное геокодирование).
 
 				function getAddress(coords) {
+					that.$emit('changeCoords',coords)
 					// myPlacemark.properties.set('iconCaption', 'поиск...');
 					ymaps.geocode(coords).then((res) =>{
 						var firstGeoObject = res.geoObjects.get(0),
 							address = firstGeoObject.getAddressLine();
 						// console.log(firstGeoObject)
+
 
 						// myPlacemark.properties
 						// 	.set({
@@ -125,7 +128,7 @@ export const YandexMap =
 						// 		balloonContent: address
 						// 	});
 						// myInput.value = address;
-						// console.log(address)
+						console.log(address)
 						that.change(address);
 						// console.log(address)
 					});

@@ -13,11 +13,6 @@ export const City =
 			this.activeDeliveryPlaceId = localStorage.getItem('deliveryPlaceId')??0
 			this.fetchListDeliveryPlace()
 		},
-		computed:{
-			activeCity() {
-				return this.cities.find(e => +this.currentCity.ID === +e.ID)
-			},
-		},
 		methods:{
 			nbsp(text=''){
 				return text.replace(' ', `&nbsp;`)
@@ -46,22 +41,22 @@ export const City =
 			setCurrentDelivery(event,place){
 				if (this.isActiveDeliveryPlace(place)) { return }
 
-				let city = this.cities.find(e=>
-					e.CITY_NAME.toLowerCase() === place.city.toLowerCase()
-					&&
-					(
-						place.city  === place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(place.region.toLowerCase()))
-					)
-				)
-
-				if (!city){
-					city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
-				}
+				// let city = this.cities.find(e=>
+				// 	e.CITY_NAME.toLowerCase() === place.city.toLowerCase()
+				// 	&&
+				// 	(
+				// 		place.city  === place.region || (e.REGION_NAME!==null && e.REGION_NAME.toLowerCase().includes(place.region.toLowerCase()))
+				// 	)
+				// )
+				//
+				// if (!city){
+				// 	city = this.cities.find(e=>e.CITY_NAME.toLowerCase() === place.city.toLowerCase())
+				// }
 
 				// console.log(place)
 				this.activeDeliveryPlaceId = place.id
 				this.saveAddressToLS(place)
-				this.$emit('updateCity',city)
+				this.$emit('updateCity',{CITY_NAME:place.city})
 			},
 
 			isActiveDeliveryPlace(place){
@@ -85,7 +80,7 @@ export const City =
                 <div class="modal-geolocation__curr-city">
                     <img class="modal-geolocation__curr-city-icon" src="/local/templates/.default/images/icons/geolocation-big.svg" alt="">
                     <span class="modal-geolocation__curr-city-text">
-                    <span class="mr-10">Ваш город</span> <b class="no-brake" v-html="nbsp(activeCity?.CITY_NAME??'Москва')"></b>
+                    <span class="mr-10">Ваш город</span> <b class="no-brake" v-html="nbsp(currentCity?.city??'Москва')"></b>
                     </span>
                 </div>
                 <p class="modal-geolocation__change-city"
@@ -101,7 +96,7 @@ export const City =
 					</span>
 				</button>
             	<h4 class="modal-geolocation__delivery-header">Доставка по адресу</h4>
-            	<p class="modal-geolocation__delivery-text">{{delivery_item.address}}</p>
+            	<p class="modal-geolocation__delivery-text">{{delivery_item.city + ', ' + delivery_item.address_short}}</p>
 			</div>
             
             
