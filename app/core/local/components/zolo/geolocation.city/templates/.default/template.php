@@ -31,10 +31,10 @@ $session = \Bitrix\Main\Application::getInstance()->getSession();
 </div>
 
 <script>
-
-    if (localStorage.getItem('ls_v') !== '1'){
+    let ls_v = '2'
+    if (localStorage.getItem('ls_v') !== ls_v){
         localStorage.clear()
-        localStorage.setItem('ls_v','1')
+        localStorage.setItem('ls_v',ls_v)
     }
 
     if(localStorage.getItem('deliveryPlaceAddressShort')){
