@@ -112,7 +112,7 @@ export const YandexMap =
 					ymaps.geocode(coords).then((res) =>{
 						var firstGeoObject = res.geoObjects.get(0),
 							address = firstGeoObject.getAddressLine();
-						// console.log(firstGeoObject)
+						console.log(firstGeoObject)
 
 
 						// myPlacemark.properties
@@ -129,7 +129,7 @@ export const YandexMap =
 						// 	});
 						// myInput.value = address;
 						console.log(address)
-						that.change(address);
+						that.change(address.replaceAll('-го',''));
 						// console.log(address)
 					});
 

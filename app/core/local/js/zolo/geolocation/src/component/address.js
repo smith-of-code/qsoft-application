@@ -145,6 +145,7 @@ export const Address =
 			'address'(newVal) {
 				this.errors.address = ''
 				if (newVal && newVal.length > 3 && this.acceptSearch) {
+					this.acceptSearch = false
 					BX.ajax.runAction('wizandr:geolocation.dadata.suggest', {
 						data: {
 							query: newVal
@@ -155,12 +156,14 @@ export const Address =
 							if (!this.isOpenSearchResult){
 								this.fillPlace(res.data[0])
 							}
-							this.acceptSearch = false
-							setTimeout(()=>{
+							// this.acceptSearch = false
+							// setTimeout(()=>{
 								this.acceptSearch = true
-							},3000)
+							// },3000)
 							// Код после выполнения экшена
-						});
+						}).catch(e=>{
+						this.acceptSearch = true
+					});
 				}
 
 			}
