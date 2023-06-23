@@ -21,6 +21,8 @@ export const Address =
 					geo_lat:'',
 					geo_lon:'',
 				},
+				yandex_map_lat:null,
+				yandex_map_lon:null,
 				errors:{
 					address: '',
 					save:''
@@ -52,7 +54,7 @@ export const Address =
 			this.place.floor = localStorage.getItem('deliveryPlaceFloor')
 			this.place.geo_lat = localStorage.getItem('deliveryPlaceGeoLat')
 			this.place.geo_lon = localStorage.getItem('deliveryPlaceGeoLon')
-
+			this.mapKey += 'sdfsd3'
 
 		},
 
@@ -60,6 +62,9 @@ export const Address =
 
 
 			async changeCoords(coords){
+
+				this.yandex_map_lat=coords[1]
+				this.yandex_map_lon=coords[0]
 				// let data = await BX.ajax.runAction('wizandr:geolocation.dadata.address',{
 				// 	data:{
 				// 		lat:coords[1],
@@ -84,9 +89,10 @@ export const Address =
 
 				this.place.city = place.data.city
 				this.place.postal_code = place.data.postal_code
-				this.place.geo_lat = place.data.geo_lat
-				this.place.geo_lon = place.data.geo_lon
-
+				this.place.geo_lat = this.yandex_map_lat??place.data.geo_lat
+				this.place.geo_lon = this.yandex_map_lon??place.data.geo_lon
+				this.yandex_map_lat = null
+				this.yandex_map_lon = null
 				this.mapKey += 'sdfsd3'
 
 				this.isOpenSearchResult = false
