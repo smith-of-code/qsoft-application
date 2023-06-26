@@ -18,11 +18,14 @@ function initTemplateType() {
 }
 
 function loadItems() {
+    let url = new URL(window.location.href);
+    let marker = url.searchParams.get("marker");
     BX.ajax.runComponentAction('zolo:common.list', 'load', {
         mode: 'class',
         data: {
             offset: offset,
-            iblock_id: IBLOCK_ID
+            iblock_id: IBLOCK_ID,
+            marker:marker??''
         }
     }).then(function (response) {
         console.log(response['status']);

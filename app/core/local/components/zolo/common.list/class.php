@@ -23,10 +23,11 @@ class CommonPageComponent extends CBitrixComponent implements Controllerable
         ];
     }
 
-    public function loadAction($iblock_id, $offset = 0): array
+    public function loadAction($iblock_id, $offset = 0,$marker=''): array
     {
         self::includeModules();
-        $nextItemsPack = $this->getItems($iblock_id, $offset,self::LIMIT + 1);
+
+        $nextItemsPack = $this->getItems($iblock_id, $offset,self::LIMIT + 1,$marker);
         $isLast = self::LIMIT >= count($nextItemsPack);
         $nextItemsPack = $isLast ? $nextItemsPack : array_slice($nextItemsPack, 0, -1);
         return [
@@ -38,18 +39,22 @@ class CommonPageComponent extends CBitrixComponent implements Controllerable
 
     public function executeComponent()
     {
-        $this->arResult = $this->loadAction($this->arParams['IBLOCK_ID']);
+        $marker = $this->request->getQuery('marker')? strtoupper($this->request->getQuery('marker')) :'';
+
+        $this->arResult = $this->loadAction($this->arParams['IBLOCK_ID'],0,$marker);
         $this->arResult['IBLOCK_ID'] = $this->arParams['IBLOCK_ID'];
         $this->includeComponentTemplate();
     }
 
-    private function getItems($iblock_id, $offset = 0, $limit = 0): array
+    private function getItems($iblock_id, $offset = 0, $limit = 0, $marker=''): array
     {
         $dbItems = CIBlockElement::GetList(
             [
                 'PROPERTY_PUBLISHED_AT' =>'DESC'
             ],
-            ['IBLOCK_ID' => $iblock_id],
+            ['IBLOCK_ID' => $iblock_id,
+                'PROPERTY_HL_MARKER'=>$marker
+                ],
             false,
             [
                 'nTopCount' => $limit,

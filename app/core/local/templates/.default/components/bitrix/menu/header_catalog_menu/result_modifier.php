@@ -21,7 +21,7 @@ foreach ($arResult as $value) {
 foreach ($result as &$section) {
     $section['SUBSECTIONS'][] = [
         'TEXT' => 'Советы экспертов',
-        'LINK' => '/info/expert-advice/',
+        'LINK' => "/info/expert-advice?marker=" . ($section['IMAGE_NAME'] == 'dog'?'dogs':'cats'),
     ];
 }
 
