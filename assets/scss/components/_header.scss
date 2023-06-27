@@ -129,22 +129,17 @@
             margin-top: rem(12px);
 
             @media #{$screen-tablet} {
-                order: initial;
                 width: auto;
-                margin-top: 0;
-                padding-left: rem($gap-big);
+                order: 1;
+                margin-top: rem(12px);
+                padding-left: 0;
+                min-width: 270px;
             }
 
             @media #{$screen-desktop} {
                 padding-left: rem($gap-medium);
             }
 
-            @media (max-width: 836px) {
-                order: 1;
-                margin-top: rem(12px);
-                padding-left: 0;
-                min-width: 270px;
-            }
         }
 
         &--personal {
