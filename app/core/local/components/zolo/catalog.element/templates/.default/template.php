@@ -353,12 +353,12 @@ $offerId = $arResult['OFFER_FIRST'];
 
                     <?php if (in_array('FEEDING_ADVICE', $arResult['ADDITIONAL_TABS']) && $arResult['FEEDING_RECOMMENDATIONS']): ?>
                         <li class="detail__information-tabs-item tabs__item" data-tab="block3">
-                            Рекомендации по кормлению
+                            Рекомендации по питанию
                         </li>
                     <?php endif; ?>
 
                     <li class="detail__information-tabs-item tabs__item" data-tab="block4">
-                        Документы
+                        Сертификаты
                     </li>
                 </ul>
             </nav>
@@ -399,7 +399,7 @@ $offerId = $arResult['OFFER_FIRST'];
 
                             <!-- блок Детали -->
                             <?php if (!empty($arResult['PRODUCT_DETAILS'])): ?>
-                                <h5>Детали</h5>
+                                <h5>Особенности продукции</h5>
 
                                 <ul>
                                     <?php foreach ($arResult['PRODUCT_DETAILS'] as $value): ?>

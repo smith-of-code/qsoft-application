@@ -113,7 +113,7 @@ $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navPar
 $containerName = "container-{$navParams['NavNum']}";?>
 
 <div class="detail__attached">
-    <h3 class="detail__attached-title">Сопутствующие товары</h3>
+    <h3 class="detail__attached-title">Вам также может понравиться</h3>
     <div class="product-cards">
         <ul class="product-cards__list" data-entity="<?=$containerName?>">
             <!-- items-container -->
