@@ -439,8 +439,12 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description">
                             <div class="description__col description__col--half">
                                 <h5 class="description__col-title">Общий состав</h5>
+                                <?php if ($arResult['COMPOSITION']['TYPE'] === "HTML"): ?>
+                                    <?=$arResult['COMPOSITION']['TEXT']?>
+                                <?php else: ?>
+                                    <p><?=$arResult['COMPOSITION']['TEXT']?></p>
+                                <?php endif; ?>
 
-                                <p><?= $arResult['COMPOSITION']?></p>
                             </div>
 
                             <div class="description__col description__col--half">
@@ -498,7 +502,11 @@ $offerId = $arResult['OFFER_FIRST'];
                     </div>
 
                     <div class="tabs__block accordeon__body" data-tab-section="block3"  data-accordeon-content>
-                        <?= $arResult['FEEDING_RECOMMENDATIONS'] ?>
+                        <?php if ($arResult['FEEDING_RECOMMENDATIONS']['TYPE'] === "HTML"): ?>
+                            <?=$arResult['FEEDING_RECOMMENDATIONS']['TEXT']?>
+                        <?php else: ?>
+                            <p><?=$arResult['FEEDING_RECOMMENDATIONS']['TEXT']?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -587,7 +595,7 @@ $offerId = $arResult['OFFER_FIRST'];
             "SET_STATUS_404" => "N",
             "SHOW_404" => "N",
             "DISPLAY_COMPARE" => 'N',
-            "PAGE_ELEMENT_COUNT" => 10,
+            "PAGE_ELEMENT_COUNT" => 1,
             "LINE_ELEMENT_COUNT" => $arParams["LINE_ELEMENT_COUNT"],
             "PRICE_CODE" => $arParams["~PRICE_CODE"],
             "USE_PRICE_COUNT" => $arParams["USE_PRICE_COUNT"],
@@ -689,4 +697,5 @@ $offerId = $arResult['OFFER_FIRST'];
 
     }
     ?>
+
 </div>
