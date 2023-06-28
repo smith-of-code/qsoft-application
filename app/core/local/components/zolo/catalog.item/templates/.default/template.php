@@ -331,7 +331,7 @@ if (isset($arResult['ITEM']))
                 <div class="product-card__cart">
                     <div class="quantity" data-quantity>
                         <div class="quantity__button" data-quantity-button>
-                            <button type="button" class="button button--full button--medium button--rounded button--covered button--white-green">
+                            <button type="button" class="button button--full button--medium button--rounded button--covered button--green">
                                 <span class="button__icon">
                                     <svg class="icon icon--basket">
                                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>

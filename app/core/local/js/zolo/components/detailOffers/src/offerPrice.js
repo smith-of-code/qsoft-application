@@ -127,7 +127,7 @@ export const OfferPrice = {
         </div>
         <div v-if="fetched" class="cart__quantity quantity" :class="{ 'quantity--active': items[currentOfferId]?.QUANTITY }">
             <div v-if="!items[currentOfferId]?.QUANTITY" class="quantity__button">
-              <button :disabled="inCartState" type="button" class="button button--full button--medium button--rounded button--covered button--white-green" @click="increaseItem">
+              <button :disabled="inCartState" type="button" class="button button--full button--medium button--rounded button--covered button--green" @click="increaseItem">
                 <span class="button__icon">
                     <svg class="icon icon--basket">
                         <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-basket"></use>
