@@ -178,6 +178,16 @@ $this->setFrameMode(true);
                                             $showed = 5; // Количество чекбоксов, отображаемых в свернутом режиме списка
                                             foreach($arItem["VALUES"] as $val => $ar):
                                                 $count += 1;
+
+                                                if ($ar['CONTROL_ID'] === 'sf_1054_244433346'){
+                                                    if (str_contains($arResult['FORM_ACTION'],  'for_dogs')){
+
+                                                        $ar['VALUE'] = 'Для щенков';
+                                                    }elseif (str_contains($arResult['FORM_ACTION'],  'for_cats')){
+                                                        $ar['VALUE'] = 'Для котят';
+                                                    }
+                                                }
+
                                             ?>
 
                                                 <li class="checkboxes__item"
