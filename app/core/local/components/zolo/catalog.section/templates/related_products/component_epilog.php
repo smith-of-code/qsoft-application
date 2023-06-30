@@ -151,6 +151,9 @@ $containerName = "container-{$navParams['NavNum']}";?>
             }?>
             <!-- items-container -->
         </ul>
+        <button type="button" class="product-cards__button button button--full button--rounded button--covered button--white-green" data-entity="show-more-<?=$containerName?>">
+            Показать еще
+        </button>
         <?php
         $signer = new Signer;
         $signedTemplate = $signer->sign($templateName, 'catalog.section');
@@ -158,6 +161,44 @@ $containerName = "container-{$navParams['NavNum']}";?>
         ?>
     </div>
     <script>
+
+        class ShowMore{
+            showCount = 5
+            showBtn = null
+            container = null
+            items = null
+
+
+            init =()=>{
+                this.showBtn =  document.querySelector('[data-entity="show-more-<?=$containerName?>"]')
+                this.container = document.querySelector('[data-entity="<?=$containerName?>"]')
+                this.items = this.container.querySelectorAll('[data-entity="item"]')
+
+                this.showBtn.addEventListener('click',()=>{
+                    this.showCount += 5
+                    this.showMore(this.showCount)
+
+                })
+
+                this.showMore(this.showCount)
+            }
+            showMore = (count)=>{
+                this.showBtn.style.display = this.showCount > this.items.length?'none':'block'
+
+                this.items.forEach((e,idx)=>{
+                    if (idx>count-1){
+                        e.style.display = 'none'
+                    }else {
+                        e.style.display = 'block'
+                    }
+
+                })
+            }
+
+        }
+        (new ShowMore()).init()
+
+
         BX.message({
             BASKET_URL: '<?=$arParams['BASKET_URL']?>',
             RELATIVE_QUANTITY_MANY: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_MANY'])?>',
