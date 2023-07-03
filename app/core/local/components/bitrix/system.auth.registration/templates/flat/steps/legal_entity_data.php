@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="section__box-block">
+                <div class="section__box-block" id="passport_info">
                     <h6 class="box__heading box__heading--small">Паспортные данные</h6>
 
                     <div class="form__row">

@@ -47,6 +47,14 @@ class CSystemAuthRegistrationComponent {
       $("input[name=bic]").on('change', function() {
           mainInstance.synchronizeSameFields(this);
       });
+
+      $("#nationality").on('change',function (event){
+          if (event.target.value === 'not_russian'){
+              $('#passport_info').hide()
+          }else {
+              $('#passport_info').show()
+          }
+      })
   }
 
   synchronizeSameFields(obj) {
@@ -175,6 +183,8 @@ class CSystemAuthRegistrationComponent {
 
         const isForwardDirection = $(this).data('direction') === 'next';
         let data = registrationData;
+
+        let notResident = $("#nationality")[0].value === 'not_russian'
 
         let inputBirthdate = document.querySelector('#birthdate');
         let inputBirthdateVal = $(inputBirthdate).val();
@@ -358,7 +368,8 @@ class CSystemAuthRegistrationComponent {
                 else if ($(item).attr('name') === 'passport_series') { // Проверка серии паспорта
                     let passportSeries = $("input[name='passport_series']");
                     let passportSeriesValue = passportSeries.val().replace(/[^0-9]/g,'');
-                    if (passportSeriesValue.length < 4 || passportSeriesValue.length > 4) {
+
+                    if (!notResident && (passportSeriesValue.length < 4 || passportSeriesValue.length > 4)) {
                         passportSeries.addClass('input__control--error');
                     } else {
                         passportSeries.removeClass('input__control--error');
@@ -370,7 +381,7 @@ class CSystemAuthRegistrationComponent {
                 else if ($(item).attr('name') === 'passport_number') { // Проверка номера паспорта
                     let passportNumber = $("input[name='passport_number']");
                     let passportNumberValue = passportNumber.val().replace(/[^0-9]/g,'');
-                    if (passportNumberValue.length < 6 || passportNumberValue.length > 6) {
+                    if (!notResident && (passportNumberValue.length < 6 || passportNumberValue.length > 6) ) {
                         passportNumber.addClass('input__control--error');
                     } else {
                         passportNumber.removeClass('input__control--error');
@@ -378,8 +389,27 @@ class CSystemAuthRegistrationComponent {
                     }
                     window.blockedChangeStepListener = false
                     return;
-                }
-                else if ($(item).attr('name') === 'tin') { // Проверка ИНН
+                }else if ( $(item).attr('name') === 'who_got') {
+
+                    if ( !notResident && !$(item).val() ) {
+                        $(item).addClass('input__control--error');
+                    }else {
+                        $(item).removeClass('input__control--error');
+                    }
+                    window.blockedChangeStepListener = false
+                    return;
+
+                }else if ( $(item).attr('name') === 'getting_date') {
+
+                    if ( !notResident && !$(item).val() ) {
+                        $(item).addClass('input__control--error');
+                    }else {
+                        $(item).removeClass('input__control--error');
+                    }
+                    window.blockedChangeStepListener = false
+                    return;
+
+                }else if ($(item).attr('name') === 'tin') { // Проверка ИНН
                     let tin = $(item);
                     let tinValue = tin.val().replace(/[^0-9]/g,'');
                     let shortType = typeof tin.data('shortInn') != 'undefined';
