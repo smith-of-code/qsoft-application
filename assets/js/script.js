@@ -55,6 +55,7 @@
  import truncateBySymbols from './modules/truncateBySymbols';
  import inputRepalece from './modules/inputReplace';
  import fixWidth from './modules/fixWidth';
+ import fixMargin from "./modules/fixMargin";
  import inputRequired from './modules/inputRequired';
  import dragscroll from './modules/dragscroll'
 
@@ -112,11 +113,13 @@
     },
 
     load() {
+        fixMargin();
         bitrixPanelHide();
     },
 
     resize() {
         fixWidth();
+        fixMargin();
     },
 
     scroll() {
@@ -132,4 +135,5 @@ $(() => {
         .on('load', app.load)
         .on('resize', app.resize)
         .on('scroll', app.scroll);
+
 });

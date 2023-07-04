@@ -64,7 +64,7 @@ if ($mentor_user_id !== false){
 
 <body class="page">
 <!--header-->
-<header class="page__header <?= Page::isMain() ? 'header--main page__header--main' : 'header' ?>">
+<header class="page__header <?= Page::isMain() ? 'header--main page__header--main' : 'header' ?>"  data-fixmargin>
 
     <div class="header__row header__row--main">
         <div class="container">
