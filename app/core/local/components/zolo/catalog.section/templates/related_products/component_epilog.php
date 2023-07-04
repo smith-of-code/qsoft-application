@@ -163,7 +163,7 @@ $containerName = "container-{$navParams['NavNum']}";?>
     <script>
 
         class ShowMore{
-            showCount = 5
+            showCount = 4
             showBtn = null
             container = null
             items = null
