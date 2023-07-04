@@ -16,9 +16,6 @@ $session = \Bitrix\Main\Application::getInstance()->getSession();
 
 ?>
 
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat&amp;apikey=457432fc-6d98-40a8-a99e-66c743f91e8f"
-        type="text/javascript"></script>
-
 <div class="geolocation">
     <div class="geolocation__city-btn">
         <img class="geolocation__icon" src="/local/templates/.default/images/icons/geolocation.svg"
@@ -31,12 +28,6 @@ $session = \Bitrix\Main\Application::getInstance()->getSession();
 </div>
 
 <script>
-    let ls_v = '2'
-    if (localStorage.getItem('ls_v') !== ls_v){
-        localStorage.clear()
-        localStorage.setItem('ls_v',ls_v)
-    }
-
     if(localStorage.getItem('deliveryPlaceAddressShort')){
         $('#geolocationAddress').text(localStorage.getItem('deliveryPlaceAddressShort'))
     }

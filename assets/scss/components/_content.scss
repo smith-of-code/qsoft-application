@@ -46,7 +46,7 @@
             margin-top: rem($gap-medium);
 
             @media #{$screen-tablet} {
-                margin-top: rem(20px);
+                margin-top: 0;
             }
         }
     }

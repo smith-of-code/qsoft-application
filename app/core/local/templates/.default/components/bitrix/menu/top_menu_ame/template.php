@@ -31,7 +31,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                         <?php endforeach; ?>
                     </ul>
                 </nav>
-                <?php $APPLICATION->IncludeComponent("zolo:geolocation.city",[]) ?>
+                    <?php $APPLICATION->IncludeComponent("zolo:geolocation.city",'') ?>
             </div>
         </div>
     </div>

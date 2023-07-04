@@ -57,6 +57,8 @@ if ($mentor_user_id !== false){
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" type="text/css" href="/local/templates/.default/css/style.css"/>
     <script src="/local/templates/.default/js/script.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat&amp;apikey=457432fc-6d98-40a8-a99e-66c743f91e8f"
+            type="text/javascript"></script>
     <?php $APPLICATION->ShowHead() ?>
 </head>
 
@@ -216,6 +218,9 @@ if ($mentor_user_id !== false){
 </header>
 <!--/header-->
 
-<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?> <?= Page::isMain() ? 'page__content--main' : '' ?>">
+<div class="page__content content <?= Page::hasBreadcrumbs() ? 'page__content--breadcrumbs' : '' ?> <?= Page::isMain() ? 'page__content--main' : '' ?>" data-fixheight data-fixheight-rel="page__header">
     <div class="container">
+        <div class="geolocation_mobile">
+            <?php $APPLICATION->IncludeComponent("zolo:geolocation.city",'') ?>
+        </div>
         <main class="<?= Page::isMain() ? 'page__main main' : (Page::isCatalog() ? 'page__catalog catalog' : '') ?>">

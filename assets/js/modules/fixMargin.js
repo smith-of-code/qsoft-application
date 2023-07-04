@@ -19,10 +19,6 @@ export default function() {
     $('.page__header').css({marginRight:'-'+scrollWidth+'px'});
 
     $(ELEMENTS_SELECTOR.block).each(function (index, item) {
-        try {
-            item.css({marginRight:'-'+scrollWidth+'px'});
-        }catch (e){
-
-        }
+        $(this).css({marginRight:'-'+scrollWidth+'px'});
     })
 }
