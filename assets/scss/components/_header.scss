@@ -62,7 +62,7 @@
         position: relative;
 
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: space-between;
         flex-wrap: wrap;
 
@@ -129,15 +129,18 @@
             margin-top: rem(12px);
 
             @media #{$screen-tablet} {
-                width: auto;
+                width: 100%;
                 order: 1;
                 margin-top: rem(12px);
                 padding-left: 0;
-                min-width: 270px;
+                min-width: 100%;
             }
 
             @media #{$screen-desktop} {
+                width: auto;
                 padding-left: rem($gap-medium);
+                order: 0;
+                min-width: 270px;
             }
 
         }

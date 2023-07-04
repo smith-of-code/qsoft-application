@@ -622,13 +622,14 @@
         }
 
         &--mixed {
-            $size: 28px;
+            $size: 24px;
+
 
             width: rem($size);
             height: rem($size);
 
             @media #{$screen-desktop} {
-                $size: 24px;
+                $size: 28px;
 
                 width: rem($size);
                 height: rem($size);
