@@ -234,9 +234,9 @@ class User
             $userId = $USER->GetID();
         }
         $this->fUserID = $userId ? Fuser::getIdByUserId($userId) : Fuser::getId();
-        $this->isAuthorized = $userId !== null;
+        $this->isAuthorized = $userId !== null && $userId !== '0';
 
-        if ($userId === null) {
+        if ($userId === null || $userId === '0') {
             return;
         }
 

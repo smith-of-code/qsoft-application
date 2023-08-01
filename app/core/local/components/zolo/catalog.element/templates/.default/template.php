@@ -242,6 +242,10 @@ $offerId = $arResult['OFFER_FIRST'];
                     <?php endforeach; ?>
                 </ul>
                 <!-- Список описаний товара -->
+                <div class="mt-15">
+                    <?=$arResult['PRODUCT_FEATURES']?>
+                </div>
+
             </div>
             <!-- Основная информация -->
 
@@ -381,8 +385,6 @@ $offerId = $arResult['OFFER_FIRST'];
                         <div class="description description--tablet">
 
                         <div class="description__col">
-                            <?=$arResult['PRODUCT_FEATURES']?>
-
                             <? if ($arResult['PRODUCT_IMAGE']) :?>
                             <div class="description__image description__image--mobile">
                                 <img src="<?=$arResult['PRODUCT_IMAGE']['SRC']?>" alt="Товар" class="description__image__pic">
