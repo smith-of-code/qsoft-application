@@ -23,10 +23,9 @@ class Import1CEventsListener
 
         // Условия выборки элементов для обработки
         $arFilter = array(
-            'IBLOCK_ID' => 152,
+            'IBLOCK_ID' => 1024,
             'ACTIVE' => 'Y',
         );
-
         $res = CIBlockElement::GetList(array('ID' => 'ASC'), array_merge($arFilter, array('>ID' => $NS['custom']['lastId'])));
         $errorMessage = null;
 
@@ -40,7 +39,7 @@ class Import1CEventsListener
 
 //            CIBlockElement::SetPropertyValueCode( $arItem['ID'],'SORT',501);
 
-            print 'fa-'. $arItem['ID'];
+//            print 'fa-'. $arItem['ID'];
 //            if (updateElement($arItem['ID']) === false) {
 //                $error = true;
 //            }
