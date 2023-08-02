@@ -2,6 +2,9 @@
 
 namespace QSoft\Events;
 
+use CIBlockElement;
+use COption;
+
 class Import1CEventsListener
 {
     public function customCatalogImportStep()
