@@ -77,4 +77,10 @@ class Import1CEventsListener
         }
 
     }
+
+
+    public function OnBeforeIBlockElementAdd(){
+        print 'dfd3333';
+        die();
+    }
 }
