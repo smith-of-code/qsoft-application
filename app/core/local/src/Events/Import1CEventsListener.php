@@ -79,7 +79,7 @@ class Import1CEventsListener
     }
 
 
-    public function OnBeforeIBlockElementUpdate(&$arFields){
+    public function OnStartIBlockElementAdd(&$arFields){
         print 'dfd3333';
         die();
     }
