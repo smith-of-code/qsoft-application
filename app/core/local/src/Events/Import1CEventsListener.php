@@ -37,7 +37,7 @@ class Import1CEventsListener
                 $error = true;
             }
             */
-            print $arItem['ID'];
+            print 'fa-'. $arItem['ID'];
 //            if (updateElement($arItem['ID']) === false) {
 //                $error = true;
 //            }
