@@ -9,7 +9,6 @@ class Import1CEventsListener
 {
     public function customCatalogImportStep()
     {
-        print 'hello';
         $stepInterval = (int) COption::GetOptionString("catalog", "1C_INTERVAL", "-");
         $startTime = time();
         // Флаг импорта файла торговых предложений
@@ -38,6 +37,10 @@ class Import1CEventsListener
                 $error = true;
             }
             */
+            print $arItem['ID'];
+//            if (updateElement($arItem['ID']) === false) {
+//                $error = true;
+//            }
 
             if ($error === true) {
                 $errorMessage = 'Что-то случилось.';
