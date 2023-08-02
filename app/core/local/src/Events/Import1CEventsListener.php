@@ -31,12 +31,14 @@ class Import1CEventsListener
         $errorMessage = null;
 
         while ($arItem = $res->Fetch()) {
-            /*
+
             // Что-нибудь делаем
-            if (updateElement($arItem['ID']) === false) {
-                $error = true;
-            }
-            */
+//            if (updateElement($arItem['ID']) === false) {
+//                $error = true;
+//            }
+
+            CIBlockElement::SetPropertyValueCode( $arItem['ID'],'SORT',501);
+
             print 'fa-'. $arItem['ID'];
 //            if (updateElement($arItem['ID']) === false) {
 //                $error = true;
