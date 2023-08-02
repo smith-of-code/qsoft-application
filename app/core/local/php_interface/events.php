@@ -70,11 +70,11 @@ class MyClass
     public static function OnBeforeIBlockElementAddHandler(&$arFields)
     {
         print 'dfsd233232';
-//        if(strlen($arFields["CODE"])<=0)
-//        {
+        if(strlen($arFields["CODE"])<=0)
+        {
             global $APPLICATION;
             $APPLICATION->throwException("Введите символьный код.");
             return false;
-//        }
+        }
     }
 }
