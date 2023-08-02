@@ -1,6 +1,7 @@
 <?php
 
 use Bitrix\Main\EventManager;
+use Psr\Log\LogLevel;
 use QSoft\BasketRules\LoyaltyLevelEquals;
 use QSoft\Events\AuthRequired;
 use QSoft\Events\OfferEventsListener;
@@ -70,12 +71,14 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 // файл /bitrix/php_interface/init.php
 // регистрируем обработчик
 $eventManager->AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("CymCode", "OnBeforeIBlockElementAddHandler"));
+
+use QSoft\Logger\Logger;
 class CymCode
 {
 // создаем обработчик события "OnBeforeIBlockElementAdd"
     public static function OnBeforeIBlockElementAddHandler(&$arFields)
     {
-        log_array($arFields);
+        Logger::createFormatedLog(__CLASS__, LogLevel::INFO, 'dfsdfdsf');
         if (strlen($arFields["CODE"]) <= 0) {
             $arFields["CODE"] = CymCode::imTranslite($arFields["NAME"]) . "_" . date('dmY');
 //            log_array($arFields); // убрать после отладки
