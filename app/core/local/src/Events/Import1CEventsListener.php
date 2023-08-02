@@ -79,8 +79,7 @@ class Import1CEventsListener
     }
 
 
-    public function OnStartIBlockElementAdd(&$arFields){
-        print 'dfd3333';
-        die();
+    public function OnBeforeIBlockElementUpdate(&$arFields){
+        $arFields["SORT"] = 501;
     }
 }
