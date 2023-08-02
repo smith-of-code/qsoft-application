@@ -9,7 +9,6 @@ class Import1CEventsListener
 {
     public function customCatalogImportStep()
     {
-        print 'hello';
         $stepInterval = (int) COption::GetOptionString("catalog", "1C_INTERVAL", "-");
         $startTime = time();
         // Флаг импорта файла торговых предложений
@@ -24,7 +23,7 @@ class Import1CEventsListener
 
         // Условия выборки элементов для обработки
         $arFilter = array(
-            'IBLOCK_ID' => 1024,
+            'IBLOCK_ID' => 152,
             'ACTIVE' => 'Y',
         );
 
