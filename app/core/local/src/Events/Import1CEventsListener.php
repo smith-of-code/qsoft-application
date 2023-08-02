@@ -38,7 +38,7 @@ class Import1CEventsListener
 //            }
             print 'fa-'. $arItem['ID'];
 
-            CIBlockElement::SetPropertyValueCode( $arItem['ID'],'SORT',501);
+//            CIBlockElement::SetPropertyValueCode( $arItem['ID'],'SORT',501);
 
             print 'fa-'. $arItem['ID'];
 //            if (updateElement($arItem['ID']) === false) {
