@@ -70,7 +70,7 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 //пример обработчика, который при сохранении элемента переводит в транслит его заголовок, добавляет к заголовку текущую дату (для уникальности) и передает в поле "Символьный код"
 // файл /bitrix/php_interface/init.php
 // регистрируем обработчик
-$eventManager->AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("CymCode", "OnBeforeIBlockElementAddHandler"));
+$eventManager->AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("CymCode", "OnBeforeIBlockElementAddHandler"));
 
 use QSoft\Logger\Logger;
 class CymCode
