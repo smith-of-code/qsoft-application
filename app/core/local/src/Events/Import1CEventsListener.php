@@ -36,6 +36,7 @@ class Import1CEventsListener
 //            if (updateElement($arItem['ID']) === false) {
 //                $error = true;
 //            }
+            print 'fa-'. $arItem['ID'];
 
             CIBlockElement::SetPropertyValueCode( $arItem['ID'],'SORT',501);
 
