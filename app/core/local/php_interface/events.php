@@ -63,7 +63,7 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 
 //$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
 
-AddEventHandler("iblock", "OnStartIBlockElementUpdate", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
+$eventManager->AddEventHandler("iblock", "OnStartIBlockElementUpdate", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
 class MyClass
 {
     // создаем обработчик события "OnBeforeIBlockElementAdd"
