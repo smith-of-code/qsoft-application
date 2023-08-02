@@ -63,18 +63,12 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 
 //$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
 
-AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
+AddEventHandler("iblock", "OnStartIBlockElementUpdate", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
 class MyClass
 {
     // создаем обработчик события "OnBeforeIBlockElementAdd"
     public static function OnBeforeIBlockElementAddHandler(&$arFields)
     {
-//        print 'dfsd233232';
-//        if(strlen($arFields["CODE"])<=0)
-//        {
-            global $APPLICATION;
-            $APPLICATION->throwException("Введите символьный код.");
-            return false;
-//        }
+        print 'dfsdfsd333';
     }
 }
