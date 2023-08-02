@@ -7,6 +7,7 @@ use QSoft\Events\OfferEventsListener;
 use QSoft\Events\SupportEventListner;
 use QSoft\Events\UserEventsListener;
 use QSoft\Events\OrderEventsListener;
+use QSoft\Events\Import1CEventsListener;
 
 $eventManager = EventManager::getInstance();
 
@@ -58,3 +59,6 @@ $eventManager->addEventHandler('sale', 'OnOrderAdd', [OrderEventsListener::class
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterAdd', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterUpdate', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterDelete', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);
+
+
+$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
