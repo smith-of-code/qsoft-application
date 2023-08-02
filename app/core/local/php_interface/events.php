@@ -61,4 +61,20 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterDelete', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);
 
 
-$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
+//$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
+
+AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
+class MyClass
+{
+    // создаем обработчик события "OnBeforeIBlockElementAdd"
+    public static function OnBeforeIBlockElementAddHandler(&$arFields)
+    {
+        print 'dfsd233232';
+//        if(strlen($arFields["CODE"])<=0)
+//        {
+//            global $APPLICATION;
+//            $APPLICATION->throwException("Введите символьный код.");
+//            return false;
+//        }
+    }
+}
