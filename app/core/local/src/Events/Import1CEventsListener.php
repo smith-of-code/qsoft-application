@@ -12,7 +12,7 @@ class Import1CEventsListener
     {
 
         print $arParams;
-        echo $arFields;
+        print $arFields;
 
         $stepInterval = (int) COption::GetOptionString("catalog", "1C_INTERVAL", "-");
         $startTime = time();
