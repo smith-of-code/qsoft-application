@@ -11,7 +11,7 @@ class Import1CEventsListener
     public function customCatalogImportStep($arParams,$arFields)
     {
 
-        echo $arParams;
+        print $arParams;
         echo $arFields;
 
         $stepInterval = (int) COption::GetOptionString("catalog", "1C_INTERVAL", "-");
