@@ -62,5 +62,29 @@ $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfter
 $eventManager->addEventHandler('sale', '\Bitrix\Sale\Internals\Discount::OnAfterDelete', [OfferEventsListener::class, 'UpdateBonusesAndPrices']);
 
 
-$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
+//$eventManager->AddEventHandler('catalog', 'OnSuccessCatalogImport1C', [Import1CEventsListener::class, 'customCatalogImportStep']);
 //$eventManager->AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [Import1CEventsListener::class, 'OnBeforeIBlockElementUpdate']);
+
+AddEventHandler("iblock", "OnBeforeIBlockPropertyAdd", Array("IblockModifer", "OnBeforeIBlockPropertyAddHandler"));
+AddEventHandler("iblock", "OnBeforeIBlockPropertyUpdate", Array("IblockModifer", "OnBeforeIBlockPropertyUpdateHandler"));
+
+class IblockModifer
+{
+    public function OnBeforeIBlockPropertyAddHandler(&$arFields)
+    {
+        if($arFields['IBLOCK_ID'] == 10 and empty($arFields["CODE"])){
+            $arParams = array("replace_space"=>"_","replace_other"=>"_", 'change_case' => 'U', 'max_len' => 20);
+            $tempCode = Cutil::translit($arFields['NAME'],"ru",$arParams);
+            $arFields['CODE'] = $tempCode.'_ASA';
+        }
+    }
+
+    public function OnBeforeIBlockPropertyUpdateHandler(&$arFields)
+    {
+        if($arFields['IBLOCK_ID'] == 10 and empty($arFields["CODE"])){
+            $arParams = array("replace_space"=>"_","replace_other"=>"_", 'change_case' => 'U', 'max_len' => 20);
+            $tempCode = Cutil::translit($arFields['NAME'],"ru",$arParams);
+            $arFields['CODE'] = $tempCode.'_ASA';
+        }
+    }
+}
