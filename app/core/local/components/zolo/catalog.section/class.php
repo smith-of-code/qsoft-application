@@ -739,7 +739,7 @@ class CatalogSectionComponent extends ElementList
     {
         $iblockElements = array();
 
-        if (!empty($elementIterator))
+        if (!empty($elementIterator) && is_array($elementIterator->arResult))
         {
             for ($i = 0; $i < count($elementIterator->arResult); $i++)
             {
@@ -896,7 +896,7 @@ class CatalogSectionComponent extends ElementList
 
     private function resortOldPrices($id)
     {
-        if (empty($this->oldData[$id]['PRICES']) || count($this->oldData[$id]['PRICES']) < 2)
+        if (empty($this->oldData[$id]['PRICES'])  || !is_array($this->oldData[$id]['PRICES']) || count($this->oldData[$id]['PRICES']) < 2)
             return;
         foreach (array_keys($this->oldData[$id]['PRICES']) as $priceCode)
             $this->oldData[$id]['PRICES'][$priceCode]['_SORT'] = $this->storage['PRICES'][$priceCode]['SORT'];
