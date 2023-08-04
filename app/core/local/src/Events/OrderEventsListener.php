@@ -128,7 +128,7 @@ class OrderEventsListener
         }
 
         // склонение слова.
-        $pointName = self::wordDeclension($points, 'балл');
+        $pointName = $this->wordDeclension($points, 'балл');
 
         if ($points !== 0) {
             $message = "Пользователю с ID {$arFields['USER_ID']} начисленно {$points} {$pointName} за заказ № {$id}";
@@ -142,7 +142,7 @@ class OrderEventsListener
         \CEvent::Send('NEW_ORDER_FOR_ADMIN', 's1', $mailFields);
     }
 
-    protected function wordDeclension(int $number, string$word)
+    private function wordDeclension(int $number, string$word)
     {
         if (!in_array($number, range(11, 19))) {
             if (substr($number, -1) == 2 || substr($number, -1) == 3 || substr($number, -1) == 4) {
