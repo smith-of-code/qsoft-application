@@ -463,10 +463,10 @@ class OrderHelper
             $checkedOrders[] = $transaction['UF_ORDER_ID'];
         }
 
-        if (count($lastMonthOrders['self'])) {
+        if (is_countable($lastMonthOrders['self']) && count($lastMonthOrders['self'])) {
             $result['self']['last_month_products'] = $this->getOrderProducts($lastMonthOrders['self']);
         }
-        if (count($lastMonthOrders['team'])) {
+        if (is_countable($lastMonthOrders['team']) && count($lastMonthOrders['team'])) {
             $result['team']['last_month_products'] = $this->getOrderProducts($lastMonthOrders['team']);
         }
 

@@ -8,7 +8,7 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     $params = unserialize($arResult['BANNER_PROPERTIES']['TEMPLATE'], ['allowed_classes' => false])['PROPS'];
     $files = unserialize($arResult['BANNER_PROPERTIES']['TEMPLATE_FILES'], ['allowed_classes' => false]);
     $sliders = [];
-    for ($i = 0; $i < count($params); $i++) {
+    for ($i = 0; $i < is_countable($params)?count($params):0; $i++) {
         $slider = array_merge($params[$i], $files[$i]);
 
         $slider['IMG'] = CFile::ResizeImageGet(
