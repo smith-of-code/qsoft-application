@@ -427,7 +427,7 @@ if ($this->startResultCache(
 	}
 	unset($arSection);
 
-	$arResult["SECTIONS_COUNT"] = count($arResult["SECTIONS"]);
+	$arResult["SECTIONS_COUNT"] = is_countable($arResult["SECTIONS"])? count($arResult["SECTIONS"]):0;
 
 	$this->setResultCacheKeys(array(
 		"SECTIONS_COUNT",

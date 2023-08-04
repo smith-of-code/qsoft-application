@@ -270,7 +270,7 @@ class CBitrixCatalogSmartFilter extends CBitrixComponent
 	{
 		$items = $this->getIBlockItems($this->IBLOCK_ID);
 
-		$this->arResult["PROPERTY_COUNT"] = count($items);
+		$this->arResult["PROPERTY_COUNT"] = is_countable($items)?count($items):0;
 		$this->arResult["PROPERTY_ID_LIST"] = array_keys($items);
 
 		if($this->SKU_IBLOCK_ID)

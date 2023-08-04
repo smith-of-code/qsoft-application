@@ -177,7 +177,7 @@ class CCatalogRecommendedProductsComponent extends CCatalogViewedProductsCompone
 		{
 			$ids = $this->getRecommendedIds($this->arParams['ID'], $this->arParams['OFFERS_PROPERTY_LINK']);
 
-			if(!count($ids))
+			if(!is_countable($ids) || !count($ids))
 			{
 				$ids = $this->getRecommendedIds($info['ID'], $this->arParams['PROPERTY_LINK']);
 			}

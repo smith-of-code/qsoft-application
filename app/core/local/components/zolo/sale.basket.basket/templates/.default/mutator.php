@@ -124,7 +124,7 @@ foreach ($this->basketItems as $row)
 			$isSkuSelected = false;
 			$isImageProperty = false;
 
-			if (count($skuBlock['VALUES']) > 1)
+			if (is_countable($skuBlock['VALUES']) && count($skuBlock['VALUES']) > 1)
 			{
 				$notSelectable = false;
 			}

@@ -379,7 +379,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 			$arDiff = array_diff($arParams['PRODUCT_COLUMNS'], $arDefaults);
 		}
 
-		$this->arResult['GRID']['DEFAULT_COLUMNS'] = count($arParams['PRODUCT_COLUMNS']) > 2 && empty($arDiff);
+		$this->arResult['GRID']['DEFAULT_COLUMNS'] = is_countable($arParams['PRODUCT_COLUMNS']) && count($arParams['PRODUCT_COLUMNS']) > 2 && empty($arDiff);
 
 		if (empty($arParams['PRODUCT_COLUMNS']))
 		{
@@ -1736,7 +1736,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		{
 			$dbAffiliate = CSaleAffiliate::GetList([], ["SITE_ID" => $this->getSiteId(), "ID" => $affiliateID]);
 			$arAffiliates = $dbAffiliate->Fetch();
-			if (count($arAffiliates) > 1)
+			if (is_countable($arAffiliates) && count($arAffiliates) > 1)
 				$this->order->setField('AFFILIATE_ID', $affiliateID);
 		}
 	}
@@ -2438,7 +2438,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 		}
 
 		//delete prop for text location (town)
-		if (count($arDeleteFieldLocation) > 0)
+		if (is_countable($arDeleteFieldLocation) && count($arDeleteFieldLocation) > 0)
 		{
 			foreach ($arDeleteFieldLocation as $fieldId)
 				unset($arResult["ORDER_PROP"]["USER_PROPS_Y"][$fieldId]);
@@ -3851,7 +3851,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
 		$this->executeEvent('OnSaleComponentOrderOneStepPersonType', $order);
 
-		return count($arResult["PERSON_TYPE"]) > 1 && ($personTypeId !== $personTypeIdOld);
+		return is_countable($arResult["PERSON_TYPE"]) && count($arResult["PERSON_TYPE"]) > 1 && ($personTypeId !== $personTypeIdOld);
 	}
 
 	/**
@@ -4271,7 +4271,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
 				if (key($this->arPaySystemServiceAll) == $innerPaySystemId)
 				{
-					if (count($this->arPaySystemServiceAll) > 1)
+					if (is_countable($this->arPaySystemServiceAll) && count($this->arPaySystemServiceAll) > 1)
 					{
 						next($this->arPaySystemServiceAll);
 					}
@@ -4446,7 +4446,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 
 				if (key($this->arPaySystemServiceAll) == $innerPaySystemId)
 				{
-					if (count($this->arPaySystemServiceAll) > 1)
+					if (is_countable($this->arPaySystemServiceAll) && count($this->arPaySystemServiceAll) > 1)
 					{
 						next($this->arPaySystemServiceAll);
 					}
@@ -4634,7 +4634,7 @@ class SaleOrderAjax extends \CBitrixComponent implements Controllerable
 					}
 					else
 					{
-						if (count($calcResult->getErrorMessages()) > 0)
+						if (is_countable($calcResult->getErrorMessages()) && count($calcResult->getErrorMessages()) > 0)
 						{
 							foreach ($calcResult->getErrorMessages() as $message)
 							{

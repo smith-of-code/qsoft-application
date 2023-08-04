@@ -165,7 +165,7 @@ $this->setFrameMode(true);
                                             </ul>
                                         </div>
                                     </div>
-                                <?php elseif (count($arItem["VALUES"]) >= 1): // Показываем список чекбоксов, если вариантов значений несколько ?>
+                                <?php elseif (is_countable($arItem["VALUES"]) && count($arItem["VALUES"]) >= 1): // Показываем список чекбоксов, если вариантов значений несколько ?>
 
                                     <div class="filter__header">
                                         <p class="filter__heading heading heading--small"><?= $arItem["NAME"] ?></p>
@@ -218,7 +218,7 @@ $this->setFrameMode(true);
                                             <?php endforeach; ?>
                                         </ul>
 
-                                        <?php if(count($arItem["VALUES"]) > $showed) : ?>
+                                        <?php if(is_countable($arItem["VALUES"]) && count($arItem["VALUES"]) > $showed) : ?>
                                             <button type="button" class="filter__button button button--simple button--gray button--small" data-toggle-visibility-action="hide">
                                                 <span class="button__icon button__icon--mini button__icon--right">
                                                     <svg class="icon icon--arrow-down">

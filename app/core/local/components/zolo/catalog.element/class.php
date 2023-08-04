@@ -248,7 +248,7 @@ class CatalogElementComponent extends Element
         if (isset($item['PROPERTY_MORE_PHOTO_VALUE']) && $item['PROPERTY_MORE_PHOTO_VALUE']) {
             $result[] = $item['PROPERTY_MORE_PHOTO_VALUE'];
         }
-        if (isset($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
+        if (isset($item['PROPERTY_IMAGES_VALUE']) && is_countable($item['PROPERTY_IMAGES_VALUE']) && count($item['PROPERTY_IMAGES_VALUE']) > 0) {
             $result = array_merge($item['PROPERTY_IMAGES_VALUE'], $result);
         }
         if (isset($item['PROPERTY_DOCUMENTS_VALUE']) && $item['PROPERTY_DOCUMENTS_VALUE']) {

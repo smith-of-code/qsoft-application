@@ -912,7 +912,7 @@ if (
 	{
 		$GLOBALS[$arParams["PAGER_PARAMS_NAME"]]["BASE_LINK"] = $arResult["JS_FILTER_PARAMS"]["SEF_SET_FILTER_URL"];
 	}
-	elseif (count($paramsToAdd) > 1)
+	elseif (is_countable($paramsToAdd) && count($paramsToAdd) > 1)
 	{
 		$GLOBALS[$arParams["PAGER_PARAMS_NAME"]] = array_merge($GLOBALS[$arParams["PAGER_PARAMS_NAME"]], $paramsToAdd);
 	}
