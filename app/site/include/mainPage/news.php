@@ -27,12 +27,12 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                                     <button
                                             type="button"
                                             class="widget__button button button--simple button--red">
-                                                    <span class="widget__button-icon button__icon button__icon--right">
+                                                    <!--<span class="widget__button-icon button__icon button__icon--right">
                                                         <svg class="icon icon--arrow">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                         </svg>
                                                     </span>
-                                        <span class="button__text">Смотреть</span>
+                                        <span class="button__text">Смотреть</span>--> 
                                     </button>
                                 </div>
                             </div>
@@ -59,12 +59,12 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                                     <button
                                             type="button"
                                             class="widget__button button button--simple button--red">
-                                                    <span class="widget__button-icon button__icon button__icon--right">
+                                                    <!--<span class="widget__button-icon button__icon button__icon--right">
                                                         <svg class="icon icon--arrow">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                         </svg>
                                                     </span>
-                                        <span class="button__text">Смотреть</span>
+                                        <span class="button__text">Смотреть</span>--> 
                                     </button>
                                 </div>
                             </div>
@@ -91,12 +91,12 @@ if (! defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)  {
                                     <button
                                             type="button"
                                             class="widget__button button button--simple button--red">
-                                                    <span class="widget__button-icon button__icon button__icon--right">
+                                                    <!--<span class="widget__button-icon button__icon button__icon--right">
                                                         <svg class="icon icon--arrow">
                                                             <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-arrow-right-light"></use>
                                                         </svg>
                                                     </span>
-                                        <span class="button__text">Смотреть</span>
+                                        <span class="button__text">Смотреть</span>--> 
                                     </button>
                                 </div>
                             </div>
