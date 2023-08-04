@@ -1136,7 +1136,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 	private function getUsersByOrders(?array $orderUserIdList): array
 	{
-		if (!$orderUserIdList) {
+		if (!$orderUserIdList || !is_countable($orderUserIdList)) {
 			return [];
 		}
 
