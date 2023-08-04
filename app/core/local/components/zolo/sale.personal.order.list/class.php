@@ -1139,7 +1139,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 		if (!$orderUserIdList || !is_countable($orderUserIdList)) {
 			return [];
 		}
-        var_dump('$orderUserIdList');
+        var_dump($orderUserIdList);
 		$dbResult = CUser::GetList(
 			'',
 			'',
