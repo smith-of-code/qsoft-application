@@ -1144,7 +1144,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 			'',
 			'',
 			['ID' => implode('|', $orderUserIdList)],
-			false,
+			[],
 			[]
 		);
 
