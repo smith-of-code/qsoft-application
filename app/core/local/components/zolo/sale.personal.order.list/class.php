@@ -348,7 +348,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$this->sortBy = ($filter["by"] <> '' ? $filter["by"] : $this->arParams['DEFAULT_SORT']);
 
-		$this->filteredByStatus = (count($filter["status"]) <> 0 ? $filter["status"] : []);
+		$this->filteredByStatus = ( (is_countable($filter["status"]) && count($filter["status"]) <> 0) ? $filter["status"] : []);
 
 		$this->filteredByPayd = ($filter["payd"] <> '' ? $filter["payd"] : '');
 
@@ -424,7 +424,7 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent implements Main
 
 		$this->sortBy = ($filter["by"] <> '' ? $filter["by"] : $this->arParams['DEFAULT_SORT']);
 
-		$this->filteredByStatus = (count($filter["status"]) <> 0 ? $filter["status"] : []);
+		$this->filteredByStatus = ( (is_countable($filter["status"]) && count($filter["status"]) <> 0) ? $filter["status"] : []);
 
 		$this->filteredByPayd = ($filter["payd"] <> '' ? $filter["payd"] : '');
 
