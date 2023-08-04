@@ -142,7 +142,7 @@ class OrderEventsListener
         \CEvent::Send('NEW_ORDER_FOR_ADMIN', 's1', $mailFields);
     }
 
-    private function wordDeclension(int $number, string$word)
+    protected function wordDeclension(int $number, string$word)
     {
         if (!in_array($number, range(11, 19))) {
             if (substr($number, -1) == 2 || substr($number, -1) == 3 || substr($number, -1) == 4) {
