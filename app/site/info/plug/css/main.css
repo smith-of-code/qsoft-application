@@ -61,6 +61,7 @@ body{
     letter-spacing: 0.02em;
 
     color: #676767;
+    max-width: 70%;
 
 }
 
@@ -162,6 +163,11 @@ body{
     border: 1px solid #2D8859;
     border-radius: 17px;
     margin-top: 20px;
+    position:relative;
+}
+
+.subscribe__left .indev__img-dog{
+    display:none;
 }
 
 .subscribe__right{
@@ -254,6 +260,7 @@ body{
 .subscribe__form .fieldset{
     flex-basis: 56%;
 }
+
 .subscribe__form .btn{
     flex-basis: 42%;
 }
@@ -345,11 +352,11 @@ body{
     }
 
     .indev__head{
-        max-width:396px;
+        /*max-width:396px;*/
     }
 
     .indev__subhead{
-        max-width: 55%;
+        max-width: 100%;
     }
     .indev__text{
         max-width: 100%;
@@ -359,6 +366,7 @@ body{
         max-width: 299px;
         bottom: -421px;
         right: -71px;
+        z-index:2;
     }
 
     .subscribe{
@@ -375,10 +383,13 @@ body{
         margin-left: 0;
     }
 
+    .subscribe__right-head{
+        max-width: 290px;
+    }
+
     .subscribe__form {
         max-width: 86%;
     }
-
 
 }
 
@@ -392,7 +403,7 @@ body{
 
     .indev{
         padding: 17px 10px;
-        padding-bottom: 52px;
+        padding-bottom: 0;
         height:auto;
     }
 
@@ -425,7 +436,7 @@ body{
     }
 
     .indev__subhead{
-        max-width: 73%;
+        /*max-width: 70%;*/
         font-size: 14px;
         line-height: 24px;
 
@@ -448,8 +459,16 @@ body{
     .subscribe__left{
         flex-basis: 100%;
         margin-top: 20px;
-        padding: 25px 17px 12px 17px;
+        padding: 25px 17px 25px 17px;
     }
+
+    .subscribe__left .indev__img-dog{
+        display: block;
+        top: 188px;
+        right: -22px;
+        width: 148px;
+    }
+
 
     .subscribe__left-head{
         font-weight: 700;
@@ -504,12 +523,15 @@ body{
     .subscribe__form .btn{
         margin-top: 25px;
         flex-basis: 42%;
+        max-width: 203px;
     }
     .subscribe__form .custom-checkbox{
         margin-top: 20px;
     }
 
     .custom-checkbox label, .custom-checkbox a{
-        font-size: 7px;
+        font-size: 6px;
+        max-width: 255px;
     }
+
 }
