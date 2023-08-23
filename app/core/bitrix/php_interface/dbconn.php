@@ -20,6 +20,6 @@ define("BX_DIR_PERMISSIONS", 0755);
 @umask(~(BX_FILE_PERMISSIONS | BX_DIR_PERMISSIONS) & 0777);
 
 define("BX_DISABLE_INDEX_PAGE", true);
-
+define("BX_CATALOG_IMPORT_1C_PRESERVE", true);
 define("BX_UTF", true);
 mb_internal_encoding("UTF-8");
