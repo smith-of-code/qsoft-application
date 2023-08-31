@@ -118,4 +118,20 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/rest/index.php',
     'SORT' => 100,
   ),
+    12 =>
+        array (
+            'CONDITION' => '#^/payerror/#',
+            'RULE' => '',
+            'ID' => NULL,
+            'PATH' => '/payerror.php',
+            'SORT' => 100,
+        ),
+    17 =>
+        array (
+            'CONDITION' => '#^/paysuccess/#',
+            'RULE' => '',
+            'ID' => NULL,
+            'PATH' => '/paysuccess.php',
+            'SORT' => 100,
+        ),
 );
