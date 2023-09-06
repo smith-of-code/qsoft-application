@@ -10,9 +10,11 @@ class FileHelper
     {
         $result = CFile::GetFileArray($fileId);
 
+        $tmp = explode('.',$result['ORIGINAL_NAME']);
+
         return [
             'src' => $result['SRC'],
-            'name' => implode('.',array_splice(@($tmp=explode('.',$result['ORIGINAL_NAME'])),0, count($tmp) - 1)),
+            'name' => implode('.',array_splice($tmp,0, count($tmp) - 1)),
             'filename' => $result['ORIGINAL_NAME'],
             'size' => filesizeFormat($result['FILE_SIZE']),
         ];
