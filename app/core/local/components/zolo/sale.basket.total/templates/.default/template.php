@@ -4,7 +4,19 @@ global $APPLICATION;
 
 $APPLICATION->setTitle('Корзина');?>
 
-<h1 class="page__heading">Корзина</h1>
+<div class="basket__header">
+    <h1 class="page__heading">Корзина</h1>
+    <?php if($arResult['BASKET_ITEMS']):?>
+    <button type="button" data-basket-clear class="button button--medium button--rounded button--outlined button--green basket__clear">
+                                            <span class="button__icon button__icon--medium">
+                                                <svg class="icon icon--delete">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                    </svg>
+                                            </span>
+        <span class="button__text">Очистить корзину</span>
+    </button>
+    <?php endif;?>
+</div>
 
 <div class="content__main">
     <div class="basket__row">
@@ -166,6 +178,17 @@ $APPLICATION->setTitle('Корзина');?>
                             </article>
                         </li>
                     <?php endforeach;?>
+                    <?php if($arResult['BASKET_ITEMS']):?>
+                        <button type="button" data-basket-clear class="button button--medium button--rounded button--outlined button--green button--full mt-15 basket__clear-mobile">
+                                            <span class="button__icon button__icon--medium">
+                                                <svg class="icon icon--delete">
+                                        <use xlink:href="/local/templates/.default/images/icons/sprite.svg#icon-delete"></use>
+                                    </svg>
+                                            </span>
+                            <span class="button__text">Очистить корзину</span>
+                        </button>
+                    <?php endif;?>
+
                 </ul>
             </div>
         </div>

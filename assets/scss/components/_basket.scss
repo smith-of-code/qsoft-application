@@ -53,4 +53,29 @@
             color: $saltBox;
         }
     }
+
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        max-width: rem(780px);
+        align-items: center;
+    }
+
+    &__clear-mobile{
+        display:flex;
+    }
+    &__clear{
+        display:none;
+    }
+    @media #{$screen-desktop} {
+        &__clear-mobile{
+            display:none;
+        }
+        &__clear{
+            display:flex;
+        }
+    }
+
+
+
 }

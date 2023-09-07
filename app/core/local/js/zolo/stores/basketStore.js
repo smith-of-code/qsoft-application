@@ -66,6 +66,23 @@ export const useBasketStore = defineStore('basket', {
                 this.loading = false;
             }
         },
+
+        async clear() {
+            this.loading = true;
+            try {
+                const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'clear', {
+                    data: { }
+                }).then((response) => response.data);
+
+                this.items = response.items;
+                this.itemsCount = response.itemsCount;
+                this.basketPrice = response.basketPrice;
+            } finally {
+                this.loading = false;
+                location.reload()
+            }
+        },
+
         async repeatOrder() {
             const response = await BX.ajax.runComponentAction('zolo:sale.basket.basket.line', 'repeatOrder', {
                 data: { orderId },

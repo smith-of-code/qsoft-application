@@ -22,6 +22,11 @@ $(document).on('click', 'button[data-basket-item-remove]',async function () {
     acceptTotal(window.stores.basketStore.basketPrice);
 });
 
+$(document).on('click', 'button[data-basket-clear]',async function () {
+    await window.stores.basketStore.clear();
+    acceptTotal(window.stores.basketStore.basketPrice);
+});
+
 $(document).on('click', 'button[data-card-favourite]', function () {
     const id = $(this).closest('[data-basket-item]').data('offer-id');
     if ($(this).data('card-favourite') === 'heart') {
@@ -32,6 +37,7 @@ $(document).on('click', 'button[data-card-favourite]', function () {
 });
 
 function acceptTotal(total) {
+    console.log(total)
     const spanWhole = $('[data-basket-total]').find(".basket-card__total-whole");
     const spanRemains = $('[data-basket-total]').find(".basket-card__total-remains");
 

@@ -69,6 +69,12 @@ class BasketLineController extends Controller
                     Csrf::class,
                 ],
             ],
+            'clear' => [
+                '-prefilters' => [
+                    Authentication::class,
+                    Csrf::class,
+                ],
+            ],
             'repeatOrder' => [
                 '-prefilters' => [
                     Csrf::class,
@@ -154,6 +160,26 @@ class BasketLineController extends Controller
         }
         return $this->getBasketTotalsAction($withPersonalPromotions);
     }
+
+    /**
+     * @param int $offerId
+     * @param int $quantity
+     * @return array|string[]
+     * @throws ArgumentException
+     * @throws ArgumentNullException
+     * @throws ArgumentOutOfRangeException
+     * @throws ArgumentTypeException
+     * @throws NotImplementedException
+     * @throws ObjectNotFoundException
+     * @throws InvalidOperationException
+     */
+    public function clearAction(): array
+    {
+        CSaleBasket::DeleteAll(CSaleBasket::GetBasketUserID());
+
+        return $this->getBasketTotalsAction();
+    }
+
 
     public function repeatOrderAction(int $orderId): array
     {
