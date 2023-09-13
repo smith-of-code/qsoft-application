@@ -95,7 +95,9 @@ class UserEventsListener
 
             if ($APPLICATION->GetCurPage() == '/bitrix/admin/user_edit.php') {
                 $userData['UF_MENTOR_ID'] = $fields['UF_MENTOR_ID'];
-                self::sendNotification('CHANGE_MENTOR', $userData);
+
+                $UserEventsListener = new UserEventsListener;
+                $UserEventsListener->sendNotification('CHANGE_MENTOR', $userData);
             }
 
             if (
@@ -115,7 +117,8 @@ class UserEventsListener
 
             if (mb_substr($userLoyalty, 0, 1) == 'K' && mb_substr($userData['loyalty_level'], 0, 1) == 'B') {
                 if ($APPLICATION->GetCurPage() == '/bitrix/admin/user_edit.php') {
-                    self::sendNotification('BECOME_CONSULTANT', $userData);
+                    $UserEventsListener = new UserEventsListener;
+                    $UserEventsListener->sendNotification('BECOME_CONSULTANT', $userData);
                 }
             }
         }
@@ -134,7 +137,8 @@ class UserEventsListener
             ];
             foreach ($arrComparison as $data => $field) {
                 if ($fields[$field] != $userData[$data]) {
-                    self::sendNotification('CHANGE_OF_PERSONAL_DATA', $userData);
+                    $UserEventsListener = new UserEventsListener;
+                    $UserEventsListener->sendNotification('CHANGE_OF_PERSONAL_DATA', $userData);
                     break;
                 }
             }
