@@ -28,6 +28,8 @@ if ($arParams['SET_META_DESCRIPTION'] === 'Y') {
 }
 
 $offerId = $arResult['OFFER_FIRST'];
+
+
 ?>
 <div id="detailofferStore"
     prop-offers='<?= phpToVueObject($arResult) ?>'

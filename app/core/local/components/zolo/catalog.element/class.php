@@ -357,7 +357,8 @@ class CatalogElementComponent extends Element
             if($offer['PROPERTY_PACKAGING_VALUE']) {
                 $result['PACKAGINGS'][] = [
                     'offerId' => $offer['ID'],
-                    'package'=> $offer['PROPERTY_PACKAGING_VALUE']
+//                    'package'=> $offer['PROPERTY_PACKAGING_VALUE'],
+                    'package'=> $this->getPackagingNameById($offer['PROPERTY_PACKAGING_VALUE'])
                 ];
             }
             if (is_array($offer['PROPERTY_IMAGES_VALUE'])) {
@@ -506,6 +507,34 @@ class CatalogElementComponent extends Element
 
         if ($res) {
             return $res['UF_RELATED_PRODUCT_ID'];
+        }
+
+        return [];
+    }
+
+    private function getPackagingNameById($id) {
+        if (! CModule::IncludeModule('iblock')) {
+            throw new \Exception('Модуль iblock не найден');
+        }
+        if (! CModule::IncludeModule('highloadblock')) {
+            throw new \Exception('Модуль highloadblock не найден');
+        }
+
+        $hlblock = HighloadBlockTable::getList([
+            'filter' => ['=NAME' => 'PACKAGING']
+        ])->fetch();
+
+        if(! $hlblock){
+            throw new \Exception('HL-блок фасоввки не найден');
+        }
+
+        $hlClassName = (HighloadBlockTable::compileEntity($hlblock))->getDataClass();
+
+        $res = $hlClassName::getList([
+            'filter' => ['=UF_XML_ID' => $id],
+        ])->fetch();
+        if ($res) {
+            return $res['UF_NAME'];
         }
 
         return [];
