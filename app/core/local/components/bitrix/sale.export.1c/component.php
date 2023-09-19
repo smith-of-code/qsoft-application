@@ -208,7 +208,7 @@ else
 		else
 		{
 			$export =  new CSaleExport();
-            $export::setXmlEncoding($arParams['CHARSET']);
+            $export::setXmlEncoding('utf-8');
 		}
 
 		if (!$bCrmMode)
