@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "qsoft/foundation": "dev-master",
+        "qsoft/foundation": "dev-main",
         "illuminate/database": "^6.0"
     },
     "autoload": {

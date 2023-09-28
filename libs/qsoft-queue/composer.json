@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": "^8.1",
-    "qsoft/application": "dev-master",
+    "qsoft/application": "dev-main",
     "illuminate/queue": "^6.0"
   },
   "autoload": {

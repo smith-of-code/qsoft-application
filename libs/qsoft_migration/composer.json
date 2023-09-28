@@ -3,7 +3,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./qsoft-database-main"
+            "url": "./qsoft-database"
         }
     ],
     "description": "QSOFT Database",
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "qsoft/database": "dev-master",
+        "qsoft/database": "dev-main",
         "cedriclombardot/twig-generator": "^1.1"
     },
     "autoload": {
