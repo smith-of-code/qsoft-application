@@ -10,35 +10,37 @@
   ],
   "repositories": [
     {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-application.git"
+      "type": "path",
+      "url": "./libs/qsoft-application"
     },
     {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft_database.git"
+      "type": "path",
+      "url": "./libs/qsoft_database"
     },
     {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-foundation.git"
+      "type": "path",
+      "url": "./libs/qsoft-foundation"
     },
     {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft_migration.git"
+      "type": "path",
+      "url": "./libs/qsoft_migration"
     },
     {
-      "type": "vcs",
-      "url": "git@github.com:Amestore/qsoft-queue.git"
+      "type": "path",
+      "url": "./libs/qsoft-queue"
     }
   ],
   "require": {
-    "php": "~7.4.16",
-    "qsoft/foundation": "~5.0",
-    "qsoft/migration": "~6.1.0",
-    "qsoft/database": "~5.0.1",
-    "qsoft/queue": "~5.7.2",
+    "php": "~8.1",
+    "qsoft/foundation": "dev-master",
+    "qsoft/migration": "dev-master",
+    "qsoft/application": "dev-master",
+    "qsoft/database": "dev-master",
+    "qsoft/queue": "dev-master",
     "guzzlehttp/guzzle": "^7.5",
     "ext-json": "*",
     "hflabs/dadata": "^22.3",
+    "psr/http-message": "^1.0",
     "ext-openssl": "*"
   },
   "autoload": {

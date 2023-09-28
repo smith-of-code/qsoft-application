@@ -1,0 +1,140 @@
+
+ server {
+  listen 80;
+  #listen 443 ssl http2;
+  server_name localhost;
+  #include ssl/ssl.conf;
+  #allow 185.116.202.192;
+  #allow 93.80.181.58;
+  #deny all;
+
+client_max_body_size 512m;
+client_body_buffer_size 512m;
+ssi on;
+server_tokens off;
+gzip on;
+gzip_comp_level 7;
+gzip_types application/x-javascript application/javascript text/css;
+charset off;
+
+access_log /var/log/nginx/amestore.access.log;
+error_log /var/log/nginx/amestore.error.log notice;
+root /var/www/htdocs;
+index index.php;
+error_page 404 /404.html;
+
+set $php_sock ${APP_NAME}:9000;
+
+#if ($http_authorization != "Basic YW1lc3RvcmU6aWVTaGVpM3U=") {
+      #set $my_uri @plug;
+      #set $my_type @plug;
+      #set $my_auth_basic off;
+#}
+
+#if ($http_authorization = "Basic YW1lc3RvcmU6aWVTaGVpM3U=") {
+      set $my_uri $uri;
+      set $my_type @bitrix;
+      #set $my_auth_basic "Admin Login";
+#}
+
+#if (!-f $request_filename) {
+     #rewrite [^/]$ $uri/ permanent;
+   #}
+
+location / {
+    #auth_basic $my_auth_basic;
+    #auth_basic_user_file /etc/nginx/auth.basic;
+
+    try_files $my_uri $my_uri/ $my_type;
+
+}
+
+location /basic-auth {
+            #auth_basic "Admin Login";
+            #auth_basic_user_file /etc/nginx/auth.basic;
+            try_files @plug @plug/ @plug;
+}
+
+location /basic-auth-flush {
+            return 401;
+}
+
+
+
+#location / {
+ #try_files $uri $uri/ @bitrix;
+#
+#}
+
+location ~* /upload/.*\.(php|php3|php4|php5|php6|phtml|pl|asp|aspx|cgi|dll|exe|shtm|shtml|fcg|fcgi|fpl|asmx|pht|py|psp|rb|var)$ {
+  types {
+    text/plain text/plain php php3 php4 php5 php6 phtml pl asp aspx cgi dll exe ico shtm shtml fcg fcgi fpl asmx pht py psp rb var;
+  }
+}
+
+location ~ \.php$ {
+  try_files     $uri @bitrix;
+  fastcgi_pass  $php_sock;
+  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  include fastcgi_params;
+}
+
+
+location @bitrix {
+    rewrite ^([^.\?]*[^/])$ $1/ permanent;
+  #auth_basic $my_auth_basic;
+  #auth_basic_user_file /etc/nginx/auth.basic;
+  fastcgi_pass $php_sock;
+  include fastcgi_params;
+  fastcgi_param SCRIPT_FILENAME $document_root/bitrix/urlrewrite.php;
+}
+
+location @plug {
+  fastcgi_pass  $php_sock;
+  fastcgi_param SCRIPT_FILENAME $document_root/info/plug/index.php;
+  fastcgi_param PLUG_PAGE true;
+  include fastcgi_params;
+}
+
+location ~* /bitrix/admin.+\.php$ {
+  try_files $uri @bitrixadm;
+  fastcgi_pass  $php_sock;
+  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  include fastcgi_params;
+}
+
+location @bitrixadm{
+  fastcgi_pass    $php_sock;
+  include fastcgi_params;
+  fastcgi_param SCRIPT_FILENAME $document_root/bitrix/admin/404.php;
+}
+
+location /info/plug {
+  #auth_basic off;
+  fastcgi_pass  $php_sock;
+  include fastcgi_params;
+  fastcgi_param SCRIPT_FILENAME $document_root/info/plug/index.php;
+  fastcgi_param PLUG_PAGE true;
+}
+
+location ~* ^/bitrix/(modules|local_cache|stack_cache|managed_cache|php_interface) {
+  deny all;
+}
+location ~* /\.(ht|svn|hg|git)                { deny all; }
+location ~* ^/upload/1c_[^/]+/                { deny all; }
+location ~* /\.\./                            { deny all; }
+location ~* ^/bitrix/html_pages/\.config\.php { deny all; }
+location ~* ^/bitrix/html_pages/\.enabled     { deny all; }
+location ^~ /upload/support/not_image         { internal; }
+location ~* @.*\.html$ {
+  internal;
+  expires -1y;
+  add_header X-Bitrix-Composite "Nginx (file)";
+}
+
+location ~* ^/bitrix/cache/(css/.+\.css|js/.+\.js)$ {
+  expires 30d;
+  error_page 404 /404.html;
+}
+
+}

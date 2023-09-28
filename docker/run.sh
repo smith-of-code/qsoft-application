@@ -21,7 +21,7 @@ docker network create ${APP_NAME}_bridge --subnet=${DOCKER_NETWORK_SUBNET}
 docker-compose --env-file=$env_file --project-name=${APP_NAME} up -d --build
 
 docker exec ${APP_NAME}_fpm composer update
-docker exec ${APP_NAME}_fpm cp ${env_file} ../.env
+cp ${env_file} ../.env
 #docker exec ${APP_NAME}_fpm php artisan storage:link
 #docker exec ${APP_NAME}_fpm php artisan key:generate
 #docker exec ${APP_NAME}_fpm chmod -R 0777 storage

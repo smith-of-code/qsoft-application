@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+use QSoft\Migration\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * @var \Illuminate\Database\Schema\Builder
+     */
+    protected $builder;
+
+    public function __construct() {
+        parent::__construct();
+        $this->builder = (new \QSoft\Database\ConnectionResolver())->connection()->getSchemaBuilder();
+    }
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+
+        $this->builder->create('{{ table_name }}', function(Blueprint $table ) {
+            //
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $this->builder->drop('{{ table_name }}');
+    }
+
+}

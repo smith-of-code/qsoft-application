@@ -1,0 +1,43 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+use QSoft\Migration\Migration;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        global $DB;
+
+        $groupId = $this->getRealIdOrDefault('{{ consolidatedGroupId }}', {{ groupId }}, 'usergroup');
+
+        CMain::DelGroupRight('{{ lastFields.MODULE_ID }}', $groupId);
+        CGroup::SetTasks($groupId, {{ tasks | var_export }});
+    }
+
+    /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
+    public function down()
+    {
+        \Bitrix\Main\Loader::includeModule('iblock');
+
+        $groupId = $this->getRealIdOrDefault('{{ consolidatedGroupId }}', {{ groupId }}, 'usergroup');
+
+        CMain::SetGroupRight('{{ lastFields.MODULE_ID }}', $groupId, '{{ lastFields.G_ACCESS }}');
+        CGroup::SetTasks($groupId, {{ oldTasks | var_export }});
+    }
+
+}

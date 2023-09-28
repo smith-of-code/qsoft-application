@@ -1,0 +1,28 @@
+{
+    "name": "qsoft/database",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./qsoft-foundation"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "description": "QSOFT Database",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mikhail Eremin",
+            "email": "meremin@qsoft.ru"
+        }
+    ],
+    "require": {
+        "qsoft/foundation": "dev-master",
+        "illuminate/database": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "QSoft\\Database\\": ["src/Database"]
+        }
+    }
+}

@@ -1,0 +1,63 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+use QSoft\Migration\Migration;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        global $DB;
+
+        \Bitrix\Main\Loader::includeModule('iblock');
+
+        $fields = {{ fields|var_export }};
+
+        {{ additional }}
+
+        $ibp = new CIBlockProperty;
+
+        $res = $ibp->Update($this->getRealIdOrDefault('{{ consolidatedIblockPropertyId }}', {{ propertyId }}, 'iblockproperty'), $fields);
+
+        if(!$res)
+        {
+            throw new RuntimeException($ibp->LAST_ERROR);
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        global $DB;
+
+        \Bitrix\Main\Loader::includeModule('iblock');
+
+        $fields = {{ lastFields|var_export }};
+
+        {{ additional_last }}
+
+        $ibp = new CIBlockProperty;
+
+        $res = $ibp->Update($this->getRealIdOrDefault('{{ consolidatedIblockPropertyId }}', {{ propertyId }}, 'iblockproperty'), $fields);
+
+        if(!$res)
+        {
+            throw new RuntimeException($ibp->LAST_ERROR);
+        }
+    }
+
+}

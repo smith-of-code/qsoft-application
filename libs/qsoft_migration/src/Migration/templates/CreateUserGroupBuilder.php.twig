@@ -1,0 +1,47 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+use QSoft\Migration\Migration;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        global $DB;
+
+        $fields = {{ fields|var_export }};
+
+        $ug = new CGroup;
+
+        $res = $ug->Add($fields);
+
+        if(!$res)
+        {
+            throw new RuntimeException('Error creating user group');
+        }
+
+        $this->consolidateIdentity('{{ consolidatedUserGroupId }}', $res, 'usergroup');
+    }
+
+    /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
+    public function down()
+    {
+        $ut = new CGroup;
+        $ut->Delete($this->getRealId('{{ consolidatedUserGroupId }}', 'usergroup'));
+    }
+
+}

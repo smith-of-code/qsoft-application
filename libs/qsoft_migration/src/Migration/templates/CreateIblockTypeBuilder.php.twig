@@ -1,0 +1,68 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+
+use QSoft\Migration\Migration;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        global $DB;
+
+        \Bitrix\Main\Loader::includeModule('iblock');
+
+        $fields = [
+            'ID' => '{{ iblockTypeId }}', // Идентификатор
+            'SECTIONS' => '{{ sectionsEnabled }}', // Использовать древовидную структуру?
+            'IN_RSS' => '{{ rssEnabled }}', // Выгружать RSS
+            'SORT' => 100, // Индекс сортировки
+            'LANG' => [
+                'ru' => [
+                    'NAME' => 'Some name',
+                    'SECTION_NAME' => 'Разделы',
+                    'ELEMENT_NAME' => 'Элементы'
+                ],
+                'en' => [
+                    'NAME' => 'Some name',
+                    'SECTION_NAME' => 'Sections',
+                    'ELEMENT_NAME' => 'Elements'
+                ]
+            ]
+        ];
+
+        $obBlocktype = new CIBlockType;
+        $DB->StartTransaction();
+        $res = $obBlocktype->Add($fields);
+        if(!$res)
+        {
+            $DB->Rollback();
+            throw new RuntimeException($obBlocktype->LAST_ERROR);
+        }
+        else
+            $DB->Commit();
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        \Bitrix\Main\Loader::includeModule('iblock');
+
+        CIBlockType::Delete('{{ iblockTypeId }}');
+    }
+
+}

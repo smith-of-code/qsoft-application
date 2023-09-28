@@ -1,0 +1,28 @@
+{
+  "name": "qsoft/application",
+  "description": "Application",
+  "license": "proprietary",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Max Potapov",
+      "email": "mpotapov@qsoft.ru"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "illuminate/container": "^6.0",
+    "illuminate/events": "^6.0",
+    "illuminate/config": "^6.0",
+    "illuminate/bus": "^6.0"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers.php"
+    ],
+    "psr-4": {
+      "QSoft\\Application\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vyfvfv
+ * Date: 07.08.15
+ * Time: 19:41
+ */
+
+use QSoft\Migration\Migration;
+
+class {{ class_name }} extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        global $DB;
+
+        $_SESSION["SESS_AUTH"]["USER_ID"] = {{ user_id }};
+        {% if can_do_edit_other_settings %}
+        $_SESSION["SESS_OPERATIONS"]['edit_other_settings'] = true;
+        {% endif %}
+
+        $options = {{ optionsData }};
+        CUtil::decodeURIComponent($options);
+        CUserOptions::SetOptionsFromArray($options);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        {% if optionsToRemove %}
+
+            {% for option in optionsToRemove %}
+
+                {% if option.common %}
+                    CUserOptions::DeleteOption('{{ option.category }}', '{{ option.name }}', true);
+                {% endif %}
+
+                CUserOptions::DeleteOption('{{ option.category }}', '{{ option.name }}', false, {{ user_id }});
+
+            {% endfor %}
+
+        {% endif %}
+
+        {% if lastOptionsData %}
+
+            global $DB;
+
+            $_SESSION["SESS_AUTH"]["USER_ID"] = {{ user_id }};
+            {% if can_do_edit_other_settings %}
+            $_SESSION["SESS_OPERATIONS"]['edit_other_settings'] = true;
+            {% endif %}
+
+            $options = {{ lastOptionsData }};
+            CUtil::decodeURIComponent($options);
+            CUserOptions::SetOptionsFromArray($options);
+
+        {% endif %}
+    }
+
+}

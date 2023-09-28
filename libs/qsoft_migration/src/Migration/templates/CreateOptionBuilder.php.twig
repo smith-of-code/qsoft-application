@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use QSoft\Migration\Migration;
+use \Bitrix\Main\Config\Option;
+
+class {{ class_name }} extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Option::set('{{ moduleId }}', '{{ optionName }}', '{{ optionValue }}');
+    }
+
+    /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
+    public function down()
+    {
+        Option::set('{{ moduleId }}', '{{ optionName }}', '{{ optionPrevValue }}');
+    }
+}

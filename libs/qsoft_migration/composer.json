@@ -1,0 +1,29 @@
+{
+    "name": "qsoft/migration",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./qsoft-database-main"
+        }
+    ],
+    "description": "QSOFT Database",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mikhail Eremin",
+            "email": "meremin@qsoft.ru"
+        }
+    ],
+    "require": {
+        "qsoft/database": "dev-master",
+        "cedriclombardot/twig-generator": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "QSoft\\Migration\\": ["src/Migration"]
+        },
+        "files": [
+            "src/Migration/service_provider.php"
+        ]
+    }
+}

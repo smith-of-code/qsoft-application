@@ -1,0 +1,35 @@
+{
+    "name": "qsoft/foundation",
+    "description": "QSOFT Foundation",
+    "license": "proprietary",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Mikhail Eremin",
+            "email": "meremin@qsoft.ru"
+        }
+    ],
+    "require": {
+      "php": "^8.1",
+      "symfony/process": "^4.1",
+      "symfony/console": "^4.1",
+      "symfony/filesystem": "^4.1",
+      "symfony/finder": "^4.1",
+      "vlucas/phpdotenv": "^1.1",
+      "cedriclombardot/twig-generator": "^1.1",
+      "nikic/fast-route": "^0.5.0",
+      "illuminate/console": ">=5.7",
+      "illuminate/filesystem": ">=5.7",
+      "symfony/var-dumper": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "QSoft\\Foundation\\": ["src/Foundation"]
+        },
+        "files": [
+            "src/Foundation/service_provider.php",
+            "src/Foundation/helpers.php"
+        ]
+    }
+}

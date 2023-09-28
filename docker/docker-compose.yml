@@ -2,34 +2,54 @@ version: "3.7"
 services:
 
 
-  nginx:
-    image: nginx:alpine
-    container_name: ${APP_NAME}_nginx
-    restart: unless-stopped
-    environment:
-      - APP_NAME=${APP_NAME}_fpm
-    ports:
-      - "8383:80"
-#      - "80:80"
-#      - "7111:443"
+#  nginx:
+#    image: nginx:alpine
+#    container_name: ${APP_NAME}_nginx
+#    restart: unless-stopped
+#    environment:
+#      - APP_NAME=${APP_NAME}_fpm
+#    ports:
+#      - "8383:80"
+##      - "80:80"
+##      - "7111:443"
+#    volumes:
+#      - ../:/var/www
+#      - ./nginx/templates:/etc/nginx/templates
+#      - ../../${APP_NAME}-data/nginx_log:/var/log/nginx
+#    networks:
+#      - service_bridge
+
+
+  web_server:
+    build: ./nginx
+    container_name: web_server
     volumes:
+      - ./logs/nginx:/var/log/nginx
+      - ./logs/php:/var/log/php
+      - ./logs/db:/var/log/mysql
+      - ./logs/memcached:/var/log/memcached
+      - cache:/var/lib/memcached
       - ../:/var/www
-      - ./nginx/templates:/etc/nginx/templates
-      - ../../${APP_NAME}-data/nginx_log:/var/log/nginx
+      - /etc/localtime:/etc/localtime/:ro
+    ports:
+      - '7878:80'
+      - '4443:443'
     networks:
       - service_bridge
+    environment:
+      - TZ=Europe/Moscow
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
 
   fpm:
-    build:
-      context: ./
-      dockerfile: Fpm.Dockerfile
+    build: ./fpm
     environment:
       XDEBUG_CONFIG: "remote_host=${XDEBUG_CONFIG_REMOTE_HOST} remote_enable=1"
       PHP_IDE_CONFIG: "serverName=${APP_NAME}_docker"
     image: ${APP_NAME}_fpm
     container_name: ${APP_NAME}_fpm
     restart: unless-stopped
-    working_dir: /var/www/htdocs
     volumes:
       - ../:/var/www
     networks:
@@ -47,4 +67,9 @@ services:
 networks:
   service_bridge:
     name: ${DOCKER_NETWORK_NAME}_bridge
+    external: true
+volumes:
+  db:
+    external: true
+  cache:
     external: true
